@@ -1,0 +1,47 @@
+generated: '2026-07-17'
+method: searched
+source: openapi/appdirect-devsai-openapi-original.json + https://developer.appdirect.com/user-guides/api-usage/api-auth
+docs: https://developer.appdirect.com/user-guides/api-usage/api-auth
+summary:
+  types:
+  - oauth2
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - implicit
+  - password
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  api: Companies / Marketplace REST + GraphQL API
+  source: https://developer.appdirect.com/user-guides/api-usage/api-auth
+  note: >-
+    The AppDirect marketplace REST and GraphQL APIs use OAuth 2.0 (OAuth 1.0 was
+    deprecated 2020-12-01). Token endpoints are marketplace-scoped:
+    https://{marketplaceURL}/oauth2/token and /oauth2/authorize. Grant type
+    determines access level (user vs system); scopes correspond to AppDirect roles.
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{marketplaceURL}/oauth2/token
+    docs: https://developer.appdirect.com/user-guides/api-usage/api-auth/grant-type/credentials
+  - flow: password
+    tokenUrl: https://{marketplaceURL}/oauth2/token
+    docs: https://developer.appdirect.com/user-guides/api-usage/api-auth/grant-type/password
+  - flow: authorizationCode
+    authorizationUrl: https://{marketplaceURL}/oauth2/authorize
+    tokenUrl: https://{marketplaceURL}/oauth2/token
+  - flow: implicit
+    authorizationUrl: https://{marketplaceURL}/oauth2/authorize
+- name: ApiKeyAuth
+  type: apiKey
+  api: Devs.ai API
+  in: header
+  parameter: Authorization
+  description: >-
+    Devs.ai API uses a bearer token in the Authorization header (format: Bearer {token}).
+    Legacy header X-Authorization is also supported for backwards compatibility.
+  sources:
+  - openapi/appdirect-devsai-openapi-original.json
