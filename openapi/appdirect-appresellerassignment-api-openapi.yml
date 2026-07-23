@@ -1,0 +1,374 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerAssignment API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerAssignment
+  x-displayName: Subscription Assignments (Reseller)
+paths:
+  /appReseller/v1/subscriptionAssignments:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Assign a seat of a purchased product to a user who is a member of a linked marketplace company
+      tags:
+      - AppResellerAssignment
+      summary: Assign product
+      operationId: resource_AppResellerV1SubscriptionAssignmentApi_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppResellerSubscriptionAssignmentRequestWS'
+        description: Information about user and subscription to be assigned
+      responses:
+        '200':
+          description: Assignment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerSubscriptionAssignmentWS'
+              examples:
+                response:
+                  value:
+                    id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+                    status: ACTIVE
+                    createdOn: 1529083173000
+                    subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+                    user:
+                      id: 386626c0-53e2-4515-8450-4a720bb5d029
+                      firstName: Michael
+                      lastName: Jordan
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionAssociationConflictResponse'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments \\\n  --header 'content-type: application/json' \\\n  --data '{\"userId\":\"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\"subscriptionId\":\"386626c0-53e2-4515-8450-4a720bb5d029\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments',\n  headers: {'content-type': 'application/json'},\n  body: {\n    userId: '2c061df6-4313-45e0-8709-a0ca19b0aaa3',\n    subscriptionId: '386626c0-53e2-4515-8450-4a720bb5d029'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"userId\\\":\\\"2c061df6-4313-45e0-8709-a0ca19b0aaa3\\\",\\\"subscriptionId\\\":\\\"386626c0-53e2-4515-8450-4a720bb5d029\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a list of assignments for a given subscription. You can filter the list using optional query parameters.
+      tags:
+      - AppResellerAssignment
+      summary: List subscription assignments
+      operationId: resource_AppResellerV1SubscriptionAssignmentApi_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      parameters:
+      - name: number
+        in: query
+        description: Page number starting at 1. The default value is 1.
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        description: Number of results per page. The default value is 50.
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use '-[FieldName]' format. The default value is '-createdOn'.
+        required: false
+        schema:
+          type: string
+      - name: createdOn
+        in: query
+        description: 'Date filter, defined by upper or lower inclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - ''greater than or equal to''; lte([timestamp]) - ''less than or equal to''.'
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 'Subscription status (valid values are PENDING_REQUIRED_DATA, PENDING_SEAT_AVAILABILITY, PENDING_USER_ACTIVATION, PENDING_REMOTE_CREATION, SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED, SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT, SUBSCRIPTION_SUSPENDED_PAY_INVOICE, SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION, FAILED, ACTIVE, PENDING_REMOTE_CANCELLATION, CANCELLED). The filter format is: in([status], ...).'
+        required: false
+        schema:
+          type: string
+      - name: subscriptionId
+        in: query
+        description: Subscription ID purchased by the Reseller company
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: User ID. Use the in([id], ...) format to filter by multiple IDs, or the userId=[id] format to filter by a single ID.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerSubscriptionAssignmentList'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+                      status: ACTIVE
+                      createdOn: 1529083173000
+                      subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+                      user:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        firstName: Michael
+                        lastName: Jordan
+                    - id: 5cdf116b-0603-4d26-88d8-5e1afd625931
+                      status: CANCELLED
+                      createdOn: 1527863555000
+                      subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+                      user:
+                        id: bb14ace3-4490-47e8-84f1-ab6a85da69e5
+                        firstName: Mary
+                        lastName: Gonzalez
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 1
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&subscriptionId=SOME_STRING_VALUE&userId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments',\n  qs: {\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    createdOn: 'SOME_STRING_VALUE',\n    status: 'SOME_STRING_VALUE',\n    subscriptionId: 'SOME_STRING_VALUE',\n    userId: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&subscriptionId=SOME_STRING_VALUE&userId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/subscriptionAssignments/{subscriptionAssignmentId}:
+    delete:
+      x-appdirect-api-stage: Early Access
+      description: Unassign a product from a user.
+      tags:
+      - AppResellerAssignment
+      summary: Unassign product
+      operationId: resource_AppResellerBillingV1AssignmentApi_DELETE
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      parameters:
+      - name: subscriptionAssignmentId
+        in: path
+        description: Subscription Assignment ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Unassignment request accepted or assignment not found
+        '400':
+          description: Assignment application not enabled for usage
+        '401':
+          description: User not authenticated
+        '409':
+          description: Assignment status not compatible
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/%7BsubscriptionAssignmentId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/%7BsubscriptionAssignmentId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/%7BsubscriptionAssignmentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    UserEntitlementStatus:
+      type: string
+      title: UserEntitlementStatus
+      enum:
+      - PENDING_REQUIRED_DATA
+      - PENDING_SEAT_AVAILABILITY
+      - PENDING_USER_ACTIVATION
+      - PENDING_REMOTE_CREATION
+      - SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED
+      - SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT
+      - SUBSCRIPTION_SUSPENDED_PAY_INVOICE
+      - SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION
+      - FAILED
+      - ACTIVE
+      - PENDING_REMOTE_CANCELLATION
+      - CANCELLED
+    AppResellerSubscriptionAssignmentList:
+      type: object
+      title: AppResellerSubscriptionAssignmentList
+      description: Assignment of a product to a user
+      required:
+      - content
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          description: List of subscription assignments
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerSubscriptionAssignmentWS'
+      example:
+        content:
+        - id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+          status: ACTIVE
+          createdOn: 1529083173000
+          subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+          user:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            firstName: Michael
+            lastName: Jordan
+        - id: 5cdf116b-0603-4d26-88d8-5e1afd625931
+          status: CANCELLED
+          createdOn: 1527863555000
+          subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+          user:
+            id: bb14ace3-4490-47e8-84f1-ab6a85da69e5
+            firstName: Mary
+            lastName: Gonzalez
+        page:
+          size: 50
+          totalElements: 2
+          totalPages: 1
+          number: 1
+    SubscriptionAssociationConflictResponse:
+      type: object
+      title: SubscriptionAssociationConflictResponse
+      required:
+      - status
+      - code
+      properties:
+        status:
+          description: HTTP status
+          type: number
+        code:
+          $ref: '#/components/schemas/IllegalSubscriptionAssociationTypes'
+        message:
+          description: Code description
+          type: string
+      example:
+        status: 409
+        code: ASSIGNMENT_ALREADY_EXISTS
+        message: Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa
+    AppResellerSubscriptionAssignmentWS:
+      type: object
+      title: AppResellerSubscriptionAssignment
+      description: Assignment of a product to a user
+      required:
+      - id
+      - status
+      - createdOn
+      - user
+      - subscriptionId
+      properties:
+        id:
+          description: Assignment ID
+          type: string
+        status:
+          $ref: '#/components/schemas/UserEntitlementStatus'
+        createdOn:
+          description: Assignment creation date, in timestamp format
+          type: number
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        subscriptionId:
+          description: ID of the subscription assigned to the user
+          type: string
+      example:
+        id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+        status: ACTIVE
+        createdOn: 1529083173000
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+        user:
+          id: 386626c0-53e2-4515-8450-4a720bb5d029
+          firstName: Michael
+          lastName: Jordan
+    AppResellerSubscriptionAssignmentRequestWS:
+      type: object
+      title: AppResellerSubscriptionAssignmentRequestWS
+      description: Request to assign a product to a user
+      required:
+      - userId
+      - subscriptionId
+      properties:
+        userId:
+          description: ID of the user to whom the product will be assigned
+          type: string
+        subscriptionId:
+          description: ID of the product subscription to assign to the user
+          type: string
+      example:
+        userId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
+    IllegalSubscriptionAssociationTypes:
+      type: string
+      description: Invalid subscription association types
+      title: IllegalSubscriptionAssociationTypes
+      enum:
+      - STATUS_CONFLICT
+      - ASSIGNMENT_ALREADY_EXISTS
+      - ASSIGNMENT_PENDING
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

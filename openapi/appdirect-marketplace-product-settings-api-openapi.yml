@@ -1,0 +1,2228 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Marketplace Product Settings API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Marketplace Product Settings
+  x-displayName: Marketplace Product Settings
+paths:
+  /v3/marketplaceProduct/activeSettings/{productId}:
+    get:
+      description: Retrieve the settings, sections, tabs that should be visible to end user on the marketplace product settings UI for a given marketplace.
+      tags:
+      - Marketplace Product Settings
+      summary: Retrieve active settings for a given marketplace
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_PRODUCT_SUPPORT:
+        - Allows access as a Product Support agent for the marketplace.
+      operationId: resource_Product_Active_Setting_readSettings_GET
+      parameters:
+      - description: The product identifier
+        name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceProductSettingActiveComponentsWS'
+              examples:
+                response:
+                  value:
+                    productInformation:
+                      productName: AUTO_WEBAPP_NEW
+                      appFromNetwork: false
+                    showSettingsContainer: true
+                    showVisibleOnNetwork: true
+                    showVisibleOnMarketplace: true
+                    showSellDomainAsStandalone: false
+                    showAsComingSoon: true
+                    showCollectLeads: true
+                    showCompanyGroupSegmentsContainer: true
+                    showHideAllPricing: true
+                    showDisableSelfService: false
+                    showTermsOfServiceURL: false
+                    showSortingRank: true
+                    showAdditionalSettingsContainer: false
+                    showAPIHealthMaintenanceContainer: true
+                    showSKUsContainer: false
+                    showFID1Number: false
+                    showProductTab: true
+                    showCategoriesContainer: true
+                    showAttributesContainer: true
+                    showProductLinesContainer: true
+                    showCustomerGroupsContainer: true
+                    showMerchandisingOptionsContainer: true
+                    showBillingTab: true
+                    showBillingSettingsContainer: true
+                    showSkipFirstPayment: false
+                    showTaxCode: true
+                    showSetupFeeTaxCode: false
+                    showBillingCycleStartDay: false
+                    showFreeTrialBillingOptionsContainer: true
+                    showBillingPatternsContainer: false
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Product with id 10 not found.
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/marketplaceProduct/activeSettings/%7BproductId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/activeSettings/%7BproductId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/marketplaceProduct/activeSettings/%7BproductId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/marketplaceProduct/productSettings/{productId}:
+    get:
+      description: Retrieve product settings, including product information, general settings, product group, and billing settings for a product on a given marketplace.
+      tags:
+      - Marketplace Product Settings
+      summary: Retrieve product settings on a given marketplace
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_PRODUCT_SUPPORT:
+        - Allows access as a Product Support agent for the marketplace.
+      operationId: resource_Product_Setting_readSettings_GET
+      parameters:
+      - description: The product identifier
+        name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceProductSettingsWS'
+              examples:
+                response:
+                  value:
+                    productInformation:
+                      productName: AUTO_WEBAPP_NEW
+                      iconUrl: https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png
+                      appFromNetwork: false
+                    general:
+                      settings:
+                        validations:
+                        - field: termsOfServiceURL
+                          maxLength: 1024
+                        visibleOnNetwork: true
+                        visibleOnMarketplace: true
+                        sellDomainAsStandalone: true
+                        showAsComingSoon: true
+                        collectLeads:
+                          options:
+                          - inAdditionToPurchase
+                          - insteadOfPurchase
+                          enabled: true
+                          selectedOption: inAdditionToPurchase
+                          assignLeadsToDevelopers: false
+                          editionLeadGenEnabled: false
+                        hideAllPricing: true
+                        disableSelfServe: true
+                        termsOfServiceURL: http://www.google.com
+                        sortingRank:
+                          selectedOption: Very Low
+                          options:
+                          - Very High
+                          - High
+                          - Medium
+                          - Low
+                          - Very Low
+                      additionalSettings:
+                        validations:
+                        - field: externalIdentifier
+                          maxLength: 36
+                        - field: productStockNumber
+                          maxLength: 36
+                      apiHealthMaintenance:
+                        purchase:
+                          value: true
+                          disabled: false
+                        singleSignOn:
+                          value: false
+                          disabled: false
+                        updateSubscription:
+                          value: true
+                          disabled: true
+                          tooltip: The product is part of a bundle.
+                        assignAndUnassign:
+                          value: false
+                          disabled: true
+                          tooltip: This endpoint has been disabled by the developer.
+                    productGroups:
+                      categories:
+                        tooltip: Add categories to your application
+                        required: false
+                        options:
+                        - categoryId: 0
+                          name: Select a Category
+                          subCategories:
+                          - subCategoryId: 0
+                            name: Select a Sub Category
+                        - categoryId: 186
+                          name: Numbers
+                          subCategories:
+                          - subCategoryId: 0
+                            name: Select a Sub Category
+                          - subCategoryId: 113
+                            name: One
+                          - subCategoryId: 114
+                            name: Two
+                        selectedOptions:
+                        - categoryId: 0
+                          subCategoryId: 0
+                        - categoryId: 186
+                          subCategoryId: 0
+                        - categoryId: 186
+                          subCategoryId: 115
+                      attributes:
+                      - attributeId: 56
+                        name: English
+                        required: false
+                        options:
+                        - attributeOptionId: 128
+                          name: EngOpt1
+                          selected: true
+                        - attributeOptionId: 129
+                          name: EngOpt2
+                          selected: false
+                        - attributeOptionId: 130
+                          name: EngOpt3
+                          selected: false
+                        - attributeOptionId: 131
+                          name: EngOpt4
+                          selected: false
+                        - attributeOptionId: 132
+                          name: EngOpt5
+                          selected: false
+                        - attributeOptionId: 133
+                          name: EngOpt6
+                          selected: false
+                        - attributeOptionId: 134
+                          name: EngOpt7
+                          selected: false
+                      productLines:
+                      - productLineId: 1
+                        name: MSFT
+                        selected: false
+                      customerGroups:
+                      - userAttributeId: 31
+                        name: New Customer Group
+                        required: true
+                        options:
+                        - industryId: 55
+                          name: Industry1
+                          selected: true
+                        - industryId: 56
+                          name: Industry2
+                          selected: false
+                      merchandisingOptions:
+                        ribbons:
+                          options:
+                          - ribbonId: 0
+                            text: Choose One
+                          - ribbonId: 8
+                            color: '#0004FF'
+                            text: Discount
+                            textColor: '#FFFFF'
+                          - ribbonId: 7
+                            color: '#0004FF'
+                            text: Free
+                            textColor: '#FFFFF'
+                          - ribbonId: 9
+                            color: '#0004FF'
+                            text: Special
+                            textColor: '#FFFFF'
+                          selectedOption: 7
+                        badges:
+                          options:
+                          - badgeId: 7
+                            name: EngOpt1
+                            imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+                            position: 1
+                          - badgeId: 8
+                            name: EngOpt2
+                            imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+                            position: 2
+                          - badgeId: 9
+                            name: EngOpt3
+                            imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+                          - badgeId: 10
+                            name: EngOpt4
+                            imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+                          selectedOptions:
+                          - 7
+                          - 8
+                      segmentSelections:
+                        availableCompanyGroups:
+                        - id: 1b0cc1f0-4945-4c6a-989c-d5f350a1b9d1
+                          name: cda
+                          segments:
+                          - id: e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+                            name: fd
+                        selectedSegments:
+                        - e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+                    billing:
+                      billingSettings:
+                        validations:
+                        - field: startDay
+                          numeric: true
+                          minValue: 1
+                          maxValue: 31
+                        - field: taxCode
+                          maxLength: 255
+                        - field: setupFeeTaxCode
+                          maxLength: 25
+                        skipFirstPayment: true
+                        taxCode: ABC123
+                        setupFeeTaxCode: DEF456
+                        billingCycle:
+                          options:
+                          - MP_DEFAULT_CYCLE
+                          - FIRST_DAY_OF_THE_MONTH
+                          - LAST_DAY_OF_THE_MONTH
+                          - PURCHASE_DAY
+                          - CUSTOM_DAY_OF_THE_MONTH
+                          selectedOption: FIRST_DAY_OF_THE_MONTH
+                          startDay: 1
+                      freeTrialBillingOptions:
+                      - editionId: 9890
+                        editionName: Free Trial
+                        requireBillingInfo: true
+                        automaticUpgradeToPaidEnabled: true
+                      skuSettings:
+                        validations:
+                        - field: sku
+                          required: true
+                          alphanumeric: true
+                          minLength: 6
+                          maxLength: 6
+                        - field: fid1
+                          required: false
+                          minLength: 2
+                          maxLength: 25
+                        editionPricingItems:
+                        - editionName: Free Trial Edition
+                          paymentPlanId: 123
+                          skus:
+                          - pricingItemId: 20423
+                            price: $0.03
+                            sku: A1B2C3
+                            fid1: yyyy-yyyyyy-yyyy
+                          - pricingItemId: 20424
+                            price: $0.17
+                            sku: 321CBA
+                            fid1: yyyy-yyyyyy-yyyy
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Product with id 10 not found.
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: Update product settings for a product on a given marketplace. When addToCatalog is set to true, the product will be automatically added to the production catalog if it is not already present.
+      tags:
+      - Marketplace Product Settings
+      summary: Update product settings on a given marketplace
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_PRODUCT_SUPPORT:
+        - Allows access as a Product Support agent for the marketplace.
+      operationId: resource_Product_Setting_updateSettings_PUT
+      parameters:
+      - description: The product identifier
+        name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - description: When true, the product is automatically added to the production catalog if it is not already present. Defaults to false. Callers that intend to publish a product to the catalog (e.g. the Admin UI) should set this to true.
+        name: addToCatalog
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceProductSettingsWS'
+        description: Information about the product settings that will be updated.
+        required: true
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Product with id 10 not found.
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D?addToCatalog=SOME_BOOLEAN_VALUE' \\\n  --data '{\"productInformation\":{\"productName\":\"AUTO_WEBAPP_NEW\",\"iconUrl\":\"https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png\",\"appFromNetwork\":false},\"general\":{\"settings\":{\"validations\":[{\"field\":\"termsOfServiceURL\",\"maxLength\":1024}],\"visibleOnNetwork\":true,\"visibleOnMarketplace\":true,\"sellDomainAsStandalone\":true,\"showAsComingSoon\":true,\"collectLeads\":{\"options\":[\"inAdditionToPurchase\",\"insteadOfPurchase\"],\"enabled\":true,\"selectedOption\":\"inAdditionToPurchase\",\"assignLeadsToDevelopers\":false,\"editionLeadGenEnabled\":false},\"hideAllPricing\":true,\"disableSelfServe\":true,\"termsOfServiceURL\":\"http://www.google.com\",\"sortingRank\":{\"selectedOption\":\"Very Low\",\"options\":[\"Very High\",\"High\",\"Medium\",\"Low\",\"Very Low\"]}},\"additionalSettings\":{\"validations\":[{\"field\":\"externalIdentifier\",\"maxLength\":36},{\"field\":\"productStockNumber\",\"maxLength\":36}]},\"apiHealthMaintenance\":{\"purchase\":{\"value\":true,\"disabled\":false},\"singleSignOn\":{\"value\":false,\"disabled\":false},\"updateSubscription\":{\"value\":true,\"disabled\":true,\"tooltip\":\"The product is part of a bundle.\"},\"assignAndUnassign\":{\"value\":false,\"disabled\":true,\"tooltip\":\"This endpoint has been disabled by the developer.\"}}},\"productGroups\":{\"categories\":{\"tooltip\":\"Add categories to your application\",\"required\":false,\"options\":[{\"categoryId\":0,\"name\":\"Select a Category\",\"subCategories\":[{\"subCategoryId\":0,\"name\":\"Select a Sub Category\"}]},{\"categoryId\":186,\"name\":\"Numbers\",\"subCategories\":[{\"subCategoryId\":0,\"name\":\"Select a Sub Category\"},{\"subCategoryId\":113,\"name\":\"One\"},{\"subCategoryId\":114,\"name\":\"Two\"}]}],\"selectedOptions\":[{\"categoryId\":0,\"subCategoryId\":0},{\"categoryId\":186,\"subCategoryId\":0},{\"categoryId\":186,\"subCategoryId\":115}]},\"attributes\":[{\"attributeId\":56,\"name\":\"English\",\"required\":false,\"options\":[{\"attributeOptionId\":128,\"name\":\"EngOpt1\",\"selected\":true},{\"attributeOptionId\":129,\"name\":\"EngOpt2\",\"selected\":false},{\"attributeOptionId\":130,\"name\":\"EngOpt3\",\"selected\":false},{\"attributeOptionId\":131,\"name\":\"EngOpt4\",\"selected\":false},{\"attributeOptionId\":132,\"name\":\"EngOpt5\",\"selected\":false},{\"attributeOptionId\":133,\"name\":\"EngOpt6\",\"selected\":false},{\"attributeOptionId\":134,\"name\":\"EngOpt7\",\"selected\":false}]}],\"productLines\":[{\"productLineId\":1,\"name\":\"MSFT\",\"selected\":false}],\"customerGroups\":[{\"userAttributeId\":31,\"name\":\"New Customer Group\",\"required\":true,\"options\":[{\"industryId\":55,\"name\":\"Industry1\",\"selected\":true},{\"industryId\":56,\"name\":\"Industry2\",\"selected\":false}]}],\"merchandisingOptions\":{\"ribbons\":{\"options\":[{\"ribbonId\":0,\"text\":\"Choose One\"},{\"ribbonId\":8,\"color\":\"#0004FF\",\"text\":\"Discount\",\"textColor\":\"#FFFFF\"},{\"ribbonId\":7,\"color\":\"#0004FF\",\"text\":\"Free\",\"textColor\":\"#FFFFF\"},{\"ribbonId\":9,\"color\":\"#0004FF\",\"text\":\"Special\",\"textColor\":\"#FFFFF\"}],\"selectedOption\":7},\"badges\":{\"options\":[{\"badgeId\":7,\"name\":\"EngOpt1\",\"imageUrl\":\"common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960\",\"position\":1},{\"badgeId\":8,\"name\":\"EngOpt2\",\"imageUrl\":\"common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960\",\"position\":2},{\"badgeId\":9,\"name\":\"EngOpt3\",\"imageUrl\":\"common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880\"},{\"badgeId\":10,\"name\":\"EngOpt4\",\"imageUrl\":\"common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960\"}],\"selectedOptions\":[7,8]}}},\"billing\":{\"billingSettings\":{\"validations\":[{\"field\":\"startDay\",\"numeric\":true,\"minValue\":1,\"maxValue\":31},{\"field\":\"taxCode\",\"maxLength\":255},{\"field\":\"setupFeeTaxCode\",\"maxLength\":25}],\"skipFirstPayment\":true,\"taxCode\":\"ABC123\",\"setupFeeTaxCode\":\"DEF456\",\"billingCycle\":{\"options\":[\"MP_DEFAULT_CYCLE\",\"FIRST_DAY_OF_THE_MONTH\",\"LAST_DAY_OF_THE_MONTH\",\"PURCHASE_DAY\",\"CUSTOM_DAY_OF_THE_MONTH\"],\"selectedOption\":\"FIRST_DAY_OF_THE_MONTH\",\"startDay\":1}},\"freeTrialBillingOptions\":[{\"editionId\":9890,\"editionName\":\"Free Trial\",\"requireBillingInfo\":true,\"automaticUpgradeToPaidEnabled\":true}],\"skuSettings\":{\"validations\":[{\"field\":\"sku\",\"required\":true,\"alphanumeric\":true,\"minLength\":6,\"maxLength\":6},{\"field\":\"fid1\",\"required\":false,\"minLength\":2,\"maxLength\":25}],\"editionPricingItems\":[{\"editionName\":\"Free Trial Edition\",\"paymentPlanId\":123,\"skus\":[{\"pricingItemId\":20423,\"price\":\"$0.03\",\"sku\":\"A1B2C3\",\"fid1\":\"yyyy-yyyyyy-yyyy\"},{\"pricingItemId\":20424,\"price\":\"$0.17\",\"sku\":\"321CBA\",\"fid1\":\"yyyy-yyyyyy-yyyy\"}]}]}}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D',\n  qs: {addToCatalog: 'SOME_BOOLEAN_VALUE'},\n  body: {\n    productInformation: {\n      productName: 'AUTO_WEBAPP_NEW',\n      iconUrl: 'https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png',\n      appFromNetwork: false\n    },\n    general: {\n      settings: {\n        validations: [{field: 'termsOfServiceURL', maxLength: 1024}],\n        visibleOnNetwork: true,\n        visibleOnMarketplace: true,\n        sellDomainAsStandalone: true,\n        showAsComingSoon: true,\n        collectLeads: {\n          options: ['inAdditionToPurchase', 'insteadOfPurchase'],\n          enabled: true,\n          selectedOption: 'inAdditionToPurchase',\n          assignLeadsToDevelopers: false,\n          editionLeadGenEnabled: false\n        },\n        hideAllPricing: true,\n        disableSelfServe: true,\n        termsOfServiceURL: 'http://www.google.com',\n        sortingRank: {\n          selectedOption: 'Very Low',\n          options: ['Very High', 'High', 'Medium', 'Low', 'Very Low']\n        }\n      },\n      additionalSettings: {\n        validations: [\n          {field: 'externalIdentifier', maxLength: 36},\n          {field: 'productStockNumber', maxLength: 36}\n        ]\n      },\n      apiHealthMaintenance: {\n        purchase: {value: true, disabled: false},\n        singleSignOn: {value: false, disabled: false},\n        updateSubscription: {value: true, disabled: true, tooltip: 'The product is part of a bundle.'},\n        assignAndUnassign: {\n          value: false,\n          disabled: true,\n          tooltip: 'This endpoint has been disabled by the developer.'\n        }\n      }\n    },\n    productGroups: {\n      categories: {\n        tooltip: 'Add categories to your application',\n        required: false,\n        options: [\n          {\n            categoryId: 0,\n            name: 'Select a Category',\n            subCategories: [{subCategoryId: 0, name: 'Select a Sub Category'}]\n          },\n          {\n            categoryId: 186,\n            name: 'Numbers',\n            subCategories: [\n              {subCategoryId: 0, name: 'Select a Sub Category'},\n              {subCategoryId: 113, name: 'One'},\n              {subCategoryId: 114, name: 'Two'}\n            ]\n          }\n        ],\n        selectedOptions: [\n          {categoryId: 0, subCategoryId: 0},\n          {categoryId: 186, subCategoryId: 0},\n          {categoryId: 186, subCategoryId: 115}\n        ]\n      },\n      attributes: [\n        {\n          attributeId: 56,\n          name: 'English',\n          required: false,\n          options: [\n            {attributeOptionId: 128, name: 'EngOpt1', selected: true},\n            {attributeOptionId: 129, name: 'EngOpt2', selected: false},\n            {attributeOptionId: 130, name: 'EngOpt3', selected: false},\n            {attributeOptionId: 131, name: 'EngOpt4', selected: false},\n            {attributeOptionId: 132, name: 'EngOpt5', selected: false},\n            {attributeOptionId: 133, name: 'EngOpt6', selected: false},\n            {attributeOptionId: 134, name: 'EngOpt7', selected: false}\n          ]\n        }\n      ],\n      productLines: [{productLineId: 1, name: 'MSFT', selected: false}],\n      customerGroups: [\n        {\n          userAttributeId: 31,\n          name: 'New Customer Group',\n          required: true,\n          options: [\n            {industryId: 55, name: 'Industry1', selected: true},\n            {industryId: 56, name: 'Industry2', selected: false}\n          ]\n        }\n      ],\n      merchandisingOptions: {\n        ribbons: {\n          options: [\n            {ribbonId: 0, text: 'Choose One'},\n            {ribbonId: 8, color: '#0004FF', text: 'Discount', textColor: '#FFFFF'},\n            {ribbonId: 7, color: '#0004FF', text: 'Free', textColor: '#FFFFF'},\n            {ribbonId: 9, color: '#0004FF', text: 'Special', textColor: '#FFFFF'}\n          ],\n          selectedOption: 7\n        },\n        badges: {\n          options: [\n            {\n              badgeId: 7,\n              name: 'EngOpt1',\n              imageUrl: 'common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960',\n              position: 1\n            },\n            {\n              badgeId: 8,\n              name: 'EngOpt2',\n              imageUrl: 'common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960',\n              position: 2\n            },\n            {\n              badgeId: 9,\n              name: 'EngOpt3',\n              imageUrl: 'common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880'\n            },\n            {\n              badgeId: 10,\n              name: 'EngOpt4',\n              imageUrl: 'common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960'\n            }\n          ],\n          selectedOptions: [7, 8]\n        }\n      }\n    },\n    billing: {\n      billingSettings: {\n        validations: [\n          {field: 'startDay', numeric: true, minValue: 1, maxValue: 31},\n          {field: 'taxCode', maxLength: 255},\n          {field: 'setupFeeTaxCode', maxLength: 25}\n        ],\n        skipFirstPayment: true,\n        taxCode: 'ABC123',\n        setupFeeTaxCode: 'DEF456',\n        billingCycle: {\n          options: [\n            'MP_DEFAULT_CYCLE',\n            'FIRST_DAY_OF_THE_MONTH',\n            'LAST_DAY_OF_THE_MONTH',\n            'PURCHASE_DAY',\n            'CUSTOM_DAY_OF_THE_MONTH'\n          ],\n          selectedOption: 'FIRST_DAY_OF_THE_MONTH',\n          startDay: 1\n        }\n      },\n      freeTrialBillingOptions: [\n        {\n          editionId: 9890,\n          editionName: 'Free Trial',\n          requireBillingInfo: true,\n          automaticUpgradeToPaidEnabled: true\n        }\n      ],\n      skuSettings: {\n        validations: [\n          {field: 'sku', required: true, alphanumeric: true, minLength: 6, maxLength: 6},\n          {field: 'fid1', required: false, minLength: 2, maxLength: 25}\n        ],\n        editionPricingItems: [\n          {\n            editionName: 'Free Trial Edition',\n            paymentPlanId: 123,\n            skus: [\n              {pricingItemId: 20423, price: '$0.03', sku: 'A1B2C3', fid1: 'yyyy-yyyyyy-yyyy'},\n              {pricingItemId: 20424, price: '$0.17', sku: '321CBA', fid1: 'yyyy-yyyyyy-yyyy'}\n            ]\n          }\n        ]\n      }\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"productInformation\\\":{\\\"productName\\\":\\\"AUTO_WEBAPP_NEW\\\",\\\"iconUrl\\\":\\\"https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png\\\",\\\"appFromNetwork\\\":false},\\\"general\\\":{\\\"settings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"termsOfServiceURL\\\",\\\"maxLength\\\":1024}],\\\"visibleOnNetwork\\\":true,\\\"visibleOnMarketplace\\\":true,\\\"sellDomainAsStandalone\\\":true,\\\"showAsComingSoon\\\":true,\\\"collectLeads\\\":{\\\"options\\\":[\\\"inAdditionToPurchase\\\",\\\"insteadOfPurchase\\\"],\\\"enabled\\\":true,\\\"selectedOption\\\":\\\"inAdditionToPurchase\\\",\\\"assignLeadsToDevelopers\\\":false,\\\"editionLeadGenEnabled\\\":false},\\\"hideAllPricing\\\":true,\\\"disableSelfServe\\\":true,\\\"termsOfServiceURL\\\":\\\"http://www.google.com\\\",\\\"sortingRank\\\":{\\\"selectedOption\\\":\\\"Very Low\\\",\\\"options\\\":[\\\"Very High\\\",\\\"High\\\",\\\"Medium\\\",\\\"Low\\\",\\\"Very Low\\\"]}},\\\"additionalSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"externalIdentifier\\\",\\\"maxLength\\\":36},{\\\"field\\\":\\\"productStockNumber\\\",\\\"maxLength\\\":36}]},\\\"apiHealthMaintenance\\\":{\\\"purchase\\\":{\\\"value\\\":true,\\\"disabled\\\":false},\\\"singleSignOn\\\":{\\\"value\\\":false,\\\"disabled\\\":false},\\\"updateSubscription\\\":{\\\"value\\\":true,\\\"disabled\\\":true,\\\"tooltip\\\":\\\"The product is part of a bundle.\\\"},\\\"assignAndUnassign\\\":{\\\"value\\\":false,\\\"disabled\\\":true,\\\"tooltip\\\":\\\"This endpoint has been disabled by the developer.\\\"}}},\\\"productGroups\\\":{\\\"categories\\\":{\\\"tooltip\\\":\\\"Add categories to your application\\\",\\\"required\\\":false,\\\"options\\\":[{\\\"categoryId\\\":0,\\\"name\\\":\\\"Select a Category\\\",\\\"subCategories\\\":[{\\\"subCategoryId\\\":0,\\\"name\\\":\\\"Select a Sub Category\\\"}]},{\\\"categoryId\\\":186,\\\"name\\\":\\\"Numbers\\\",\\\"subCategories\\\":[{\\\"subCategoryId\\\":0,\\\"name\\\":\\\"Select a Sub Category\\\"},{\\\"subCategoryId\\\":113,\\\"name\\\":\\\"One\\\"},{\\\"subCategoryId\\\":114,\\\"name\\\":\\\"Two\\\"}]}],\\\"selectedOptions\\\":[{\\\"categoryId\\\":0,\\\"subCategoryId\\\":0},{\\\"categoryId\\\":186,\\\"subCategoryId\\\":0},{\\\"categoryId\\\":186,\\\"subCategoryId\\\":115}]},\\\"attributes\\\":[{\\\"attributeId\\\":56,\\\"name\\\":\\\"English\\\",\\\"required\\\":false,\\\"options\\\":[{\\\"attributeOptionId\\\":128,\\\"name\\\":\\\"EngOpt1\\\",\\\"selected\\\":true},{\\\"attributeOptionId\\\":129,\\\"name\\\":\\\"EngOpt2\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":130,\\\"name\\\":\\\"EngOpt3\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":131,\\\"name\\\":\\\"EngOpt4\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":132,\\\"name\\\":\\\"EngOpt5\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":133,\\\"name\\\":\\\"EngOpt6\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":134,\\\"name\\\":\\\"EngOpt7\\\",\\\"selected\\\":false}]}],\\\"productLines\\\":[{\\\"productLineId\\\":1,\\\"name\\\":\\\"MSFT\\\",\\\"selected\\\":false}],\\\"customerGroups\\\":[{\\\"userAttributeId\\\":31,\\\"name\\\":\\\"New Customer Group\\\",\\\"required\\\":true,\\\"options\\\":[{\\\"industryId\\\":55,\\\"name\\\":\\\"Industry1\\\",\\\"selected\\\":true},{\\\"industryId\\\":56,\\\"name\\\":\\\"Industry2\\\",\\\"selected\\\":false}]}],\\\"merchandisingOptions\\\":{\\\"ribbons\\\":{\\\"options\\\":[{\\\"ribbonId\\\":0,\\\"text\\\":\\\"Choose One\\\"},{\\\"ribbonId\\\":8,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Discount\\\",\\\"textColor\\\":\\\"#FFFFF\\\"},{\\\"ribbonId\\\":7,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Free\\\",\\\"textColor\\\":\\\"#FFFFF\\\"},{\\\"ribbonId\\\":9,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Special\\\",\\\"textColor\\\":\\\"#FFFFF\\\"}],\\\"selectedOption\\\":7},\\\"badges\\\":{\\\"options\\\":[{\\\"badgeId\\\":7,\\\"name\\\":\\\"EngOpt1\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960\\\",\\\"position\\\":1},{\\\"badgeId\\\":8,\\\"name\\\":\\\"EngOpt2\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960\\\",\\\"position\\\":2},{\\\"badgeId\\\":9,\\\"name\\\":\\\"EngOpt3\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880\\\"},{\\\"badgeId\\\":10,\\\"name\\\":\\\"EngOpt4\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960\\\"}],\\\"selectedOptions\\\":[7,8]}}},\\\"billing\\\":{\\\"billingSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"startDay\\\",\\\"numeric\\\":true,\\\"minValue\\\":1,\\\"maxValue\\\":31},{\\\"field\\\":\\\"taxCode\\\",\\\"maxLength\\\":255},{\\\"field\\\":\\\"setupFeeTaxCode\\\",\\\"maxLength\\\":25}],\\\"skipFirstPayment\\\":true,\\\"taxCode\\\":\\\"ABC123\\\",\\\"setupFeeTaxCode\\\":\\\"DEF456\\\",\\\"billingCycle\\\":{\\\"options\\\":[\\\"MP_DEFAULT_CYCLE\\\",\\\"FIRST_DAY_OF_THE_MONTH\\\",\\\"LAST_DAY_OF_THE_MONTH\\\",\\\"PURCHASE_DAY\\\",\\\"CUSTOM_DAY_OF_THE_MONTH\\\"],\\\"selectedOption\\\":\\\"FIRST_DAY_OF_THE_MONTH\\\",\\\"startDay\\\":1}},\\\"freeTrialBillingOptions\\\":[{\\\"editionId\\\":9890,\\\"editionName\\\":\\\"Free Trial\\\",\\\"requireBillingInfo\\\":true,\\\"automaticUpgradeToPaidEnabled\\\":true}],\\\"skuSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"sku\\\",\\\"required\\\":true,\\\"alphanumeric\\\":true,\\\"minLength\\\":6,\\\"maxLength\\\":6},{\\\"field\\\":\\\"fid1\\\",\\\"required\\\":false,\\\"minLength\\\":2,\\\"maxLength\\\":25}],\\\"editionPricingItems\\\":[{\\\"editionName\\\":\\\"Free Trial Edition\\\",\\\"paymentPlanId\\\":123,\\\"skus\\\":[{\\\"pricingItemId\\\":20423,\\\"price\\\":\\\"$0.03\\\",\\\"sku\\\":\\\"A1B2C3\\\",\\\"fid1\\\":\\\"yyyy-yyyyyy-yyyy\\\"},{\\\"pricingItemId\\\":20424,\\\"price\\\":\\\"$0.17\\\",\\\"sku\\\":\\\"321CBA\\\",\\\"fid1\\\":\\\"yyyy-yyyyyy-yyyy\\\"}]}]}}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/%7BproductId%7D?addToCatalog=SOME_BOOLEAN_VALUE\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/marketplaceProduct/productSettings/readByRefId/{productRefId}:
+    get:
+      description: Retrieve product settings, including product information, general settings, product group, and billing settings for a product on a given marketplace.
+      tags:
+      - Marketplace Product Settings
+      summary: Retrieve product settings on a given marketplace by product reference ID
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_PRODUCT_SUPPORT:
+        - Allows access as a Product Support agent for the marketplace.
+      operationId: resource_Product_Setting_readSettingsByRefId_GET
+      parameters:
+      - description: The product reference identifier
+        name: productRefId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceProductSettingsWS'
+              examples:
+                response:
+                  value:
+                    productInformation:
+                      productName: AUTO_WEBAPP_NEW
+                      iconUrl: https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png
+                      appFromNetwork: false
+                    general:
+                      settings:
+                        validations:
+                        - field: termsOfServiceURL
+                          maxLength: 1024
+                        visibleOnNetwork: true
+                        visibleOnMarketplace: true
+                        sellDomainAsStandalone: true
+                        showAsComingSoon: true
+                        collectLeads:
+                          options:
+                          - inAdditionToPurchase
+                          - insteadOfPurchase
+                          enabled: true
+                          selectedOption: inAdditionToPurchase
+                          assignLeadsToDevelopers: false
+                          editionLeadGenEnabled: false
+                        hideAllPricing: true
+                        disableSelfServe: true
+                        termsOfServiceURL: http://www.google.com
+                        sortingRank:
+                          selectedOption: Very Low
+                          options:
+                          - Very High
+                          - High
+                          - Medium
+                          - Low
+                          - Very Low
+                      additionalSettings:
+                        validations:
+                        - field: externalIdentifier
+                          maxLength: 36
+                        - field: productStockNumber
+                          maxLength: 36
+                      apiHealthMaintenance:
+                        purchase:
+                          value: true
+                          disabled: false
+                        singleSignOn:
+                          value: false
+                          disabled: false
+                        updateSubscription:
+                          value: true
+                          disabled: true
+                          tooltip: The product is part of a bundle.
+                        assignAndUnassign:
+                          value: false
+                          disabled: true
+                          tooltip: This endpoint has been disabled by the developer.
+                    productGroups:
+                      categories:
+                        tooltip: Add categories to your application
+                        required: false
+                        options:
+                        - categoryId: 0
+                          name: Select a Category
+                          subCategories:
+                          - subCategoryId: 0
+                            name: Select a Sub Category
+                        - categoryId: 186
+                          name: Numbers
+                          subCategories:
+                          - subCategoryId: 0
+                            name: Select a Sub Category
+                          - subCategoryId: 113
+                            name: One
+                          - subCategoryId: 114
+                            name: Two
+                        selectedOptions:
+                        - categoryId: 0
+                          subCategoryId: 0
+                        - categoryId: 186
+                          subCategoryId: 0
+                        - categoryId: 186
+                          subCategoryId: 115
+                      attributes:
+                      - attributeId: 56
+                        name: English
+                        required: false
+                        options:
+                        - attributeOptionId: 128
+                          name: EngOpt1
+                          selected: true
+                        - attributeOptionId: 129
+                          name: EngOpt2
+                          selected: false
+                        - attributeOptionId: 130
+                          name: EngOpt3
+                          selected: false
+                        - attributeOptionId: 131
+                          name: EngOpt4
+                          selected: false
+                        - attributeOptionId: 132
+                          name: EngOpt5
+                          selected: false
+                        - attributeOptionId: 133
+                          name: EngOpt6
+                          selected: false
+                        - attributeOptionId: 134
+                          name: EngOpt7
+                          selected: false
+                      productLines:
+                      - productLineId: 1
+                        name: MSFT
+                        selected: false
+                      customerGroups:
+                      - userAttributeId: 31
+                        name: New Customer Group
+                        required: true
+                        options:
+                        - industryId: 55
+                          name: Industry1
+                          selected: true
+                        - industryId: 56
+                          name: Industry2
+                          selected: false
+                      merchandisingOptions:
+                        ribbons:
+                          options:
+                          - ribbonId: 0
+                            text: Choose One
+                          - ribbonId: 8
+                            color: '#0004FF'
+                            text: Discount
+                            textColor: '#FFFFF'
+                          - ribbonId: 7
+                            color: '#0004FF'
+                            text: Free
+                            textColor: '#FFFFF'
+                          - ribbonId: 9
+                            color: '#0004FF'
+                            text: Special
+                            textColor: '#FFFFF'
+                          selectedOption: 7
+                        badges:
+                          options:
+                          - badgeId: 7
+                            name: EngOpt1
+                            imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+                            position: 1
+                          - badgeId: 8
+                            name: EngOpt2
+                            imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+                            position: 2
+                          - badgeId: 9
+                            name: EngOpt3
+                            imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+                          - badgeId: 10
+                            name: EngOpt4
+                            imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+                          selectedOptions:
+                          - 7
+                          - 8
+                      segmentSelections:
+                        availableCompanyGroups:
+                        - id: 1b0cc1f0-4945-4c6a-989c-d5f350a1b9d1
+                          name: cda
+                          segments:
+                          - id: e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+                            name: fd
+                        selectedSegments:
+                        - e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+                    billing:
+                      billingSettings:
+                        validations:
+                        - field: startDay
+                          numeric: true
+                          minValue: 1
+                          maxValue: 31
+                        - field: taxCode
+                          maxLength: 255
+                        - field: setupFeeTaxCode
+                          maxLength: 25
+                        skipFirstPayment: true
+                        taxCode: ABC123
+                        setupFeeTaxCode: DEF456
+                        billingCycle:
+                          options:
+                          - MP_DEFAULT_CYCLE
+                          - FIRST_DAY_OF_THE_MONTH
+                          - LAST_DAY_OF_THE_MONTH
+                          - PURCHASE_DAY
+                          - CUSTOM_DAY_OF_THE_MONTH
+                          selectedOption: FIRST_DAY_OF_THE_MONTH
+                          startDay: 1
+                      freeTrialBillingOptions:
+                      - editionId: 9890
+                        editionName: Free Trial
+                        requireBillingInfo: true
+                        automaticUpgradeToPaidEnabled: true
+                      skuSettings:
+                        validations:
+                        - field: sku
+                          required: true
+                          alphanumeric: true
+                          minLength: 6
+                          maxLength: 6
+                        - field: fid1
+                          required: false
+                          minLength: 2
+                          maxLength: 25
+                        editionPricingItems:
+                        - editionName: Free Trial Edition
+                          paymentPlanId: 123
+                          skus:
+                          - pricingItemId: 20423
+                            price: $0.03
+                            sku: A1B2C3
+                            fid1: yyyy-yyyyyy-yyyy
+                          - pricingItemId: 20424
+                            price: $0.17
+                            sku: 321CBA
+                            fid1: yyyy-yyyyyy-yyyy
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Product with ref id=PROD-REF-123 not found for partner=acme-marketplace
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/readByRefId/%7BproductRefId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/readByRefId/%7BproductRefId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/readByRefId/%7BproductRefId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/marketplaceProduct/productSettings/updateByRefId/{productRefId}:
+    put:
+      description: Update product settings for a product on a given marketplace. This endpoint does not support automatic addition to the production catalog; use the PUT /{productId} endpoint with the addToCatalog parameter for that behavior.
+      tags:
+      - Marketplace Product Settings
+      summary: Update product settings on a given marketplace by product reference ID
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_PRODUCT_SUPPORT:
+        - Allows access as a Product Support agent for the marketplace.
+      operationId: resource_Product_Setting_updateSettingsByRefId_PUT
+      parameters:
+      - description: The product reference identifier
+        name: productRefId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceProductSettingsWS'
+        description: Information about the product settings that will be updated.
+        required: true
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Product with ref id=PROD-REF-123 not found for partner=acme-marketplace
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/updateByRefId/%7BproductRefId%7D \\\n  --data '{\"productInformation\":{\"productName\":\"AUTO_WEBAPP_NEW\",\"iconUrl\":\"https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png\",\"appFromNetwork\":false},\"general\":{\"settings\":{\"validations\":[{\"field\":\"termsOfServiceURL\",\"maxLength\":1024}],\"visibleOnNetwork\":true,\"visibleOnMarketplace\":true,\"sellDomainAsStandalone\":true,\"showAsComingSoon\":true,\"collectLeads\":{\"options\":[\"inAdditionToPurchase\",\"insteadOfPurchase\"],\"enabled\":true,\"selectedOption\":\"inAdditionToPurchase\",\"assignLeadsToDevelopers\":false,\"editionLeadGenEnabled\":false},\"hideAllPricing\":true,\"disableSelfServe\":true,\"termsOfServiceURL\":\"http://www.google.com\",\"sortingRank\":{\"selectedOption\":\"Very Low\",\"options\":[\"Very High\",\"High\",\"Medium\",\"Low\",\"Very Low\"]}},\"additionalSettings\":{\"validations\":[{\"field\":\"externalIdentifier\",\"maxLength\":36},{\"field\":\"productStockNumber\",\"maxLength\":36}]},\"apiHealthMaintenance\":{\"purchase\":{\"value\":true,\"disabled\":false},\"singleSignOn\":{\"value\":false,\"disabled\":false},\"updateSubscription\":{\"value\":true,\"disabled\":true,\"tooltip\":\"The product is part of a bundle.\"},\"assignAndUnassign\":{\"value\":false,\"disabled\":true,\"tooltip\":\"This endpoint has been disabled by the developer.\"}}},\"productGroups\":{\"categories\":{\"tooltip\":\"Add categories to your application\",\"required\":false,\"options\":[{\"categoryId\":0,\"name\":\"Select a Category\",\"subCategories\":[{\"subCategoryId\":0,\"name\":\"Select a Sub Category\"}]},{\"categoryId\":186,\"name\":\"Numbers\",\"subCategories\":[{\"subCategoryId\":0,\"name\":\"Select a Sub Category\"},{\"subCategoryId\":113,\"name\":\"One\"},{\"subCategoryId\":114,\"name\":\"Two\"}]}],\"selectedOptions\":[{\"categoryId\":0,\"subCategoryId\":0},{\"categoryId\":186,\"subCategoryId\":0},{\"categoryId\":186,\"subCategoryId\":115}]},\"attributes\":[{\"attributeId\":56,\"name\":\"English\",\"required\":false,\"options\":[{\"attributeOptionId\":128,\"name\":\"EngOpt1\",\"selected\":true},{\"attributeOptionId\":129,\"name\":\"EngOpt2\",\"selected\":false},{\"attributeOptionId\":130,\"name\":\"EngOpt3\",\"selected\":false},{\"attributeOptionId\":131,\"name\":\"EngOpt4\",\"selected\":false},{\"attributeOptionId\":132,\"name\":\"EngOpt5\",\"selected\":false},{\"attributeOptionId\":133,\"name\":\"EngOpt6\",\"selected\":false},{\"attributeOptionId\":134,\"name\":\"EngOpt7\",\"selected\":false}]}],\"productLines\":[{\"productLineId\":1,\"name\":\"MSFT\",\"selected\":false}],\"customerGroups\":[{\"userAttributeId\":31,\"name\":\"New Customer Group\",\"required\":true,\"options\":[{\"industryId\":55,\"name\":\"Industry1\",\"selected\":true},{\"industryId\":56,\"name\":\"Industry2\",\"selected\":false}]}],\"merchandisingOptions\":{\"ribbons\":{\"options\":[{\"ribbonId\":0,\"text\":\"Choose One\"},{\"ribbonId\":8,\"color\":\"#0004FF\",\"text\":\"Discount\",\"textColor\":\"#FFFFF\"},{\"ribbonId\":7,\"color\":\"#0004FF\",\"text\":\"Free\",\"textColor\":\"#FFFFF\"},{\"ribbonId\":9,\"color\":\"#0004FF\",\"text\":\"Special\",\"textColor\":\"#FFFFF\"}],\"selectedOption\":7},\"badges\":{\"options\":[{\"badgeId\":7,\"name\":\"EngOpt1\",\"imageUrl\":\"common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960\",\"position\":1},{\"badgeId\":8,\"name\":\"EngOpt2\",\"imageUrl\":\"common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960\",\"position\":2},{\"badgeId\":9,\"name\":\"EngOpt3\",\"imageUrl\":\"common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880\"},{\"badgeId\":10,\"name\":\"EngOpt4\",\"imageUrl\":\"common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960\"}],\"selectedOptions\":[7,8]}}},\"billing\":{\"billingSettings\":{\"validations\":[{\"field\":\"startDay\",\"numeric\":true,\"minValue\":1,\"maxValue\":31},{\"field\":\"taxCode\",\"maxLength\":255},{\"field\":\"setupFeeTaxCode\",\"maxLength\":25}],\"skipFirstPayment\":true,\"taxCode\":\"ABC123\",\"setupFeeTaxCode\":\"DEF456\",\"billingCycle\":{\"options\":[\"MP_DEFAULT_CYCLE\",\"FIRST_DAY_OF_THE_MONTH\",\"LAST_DAY_OF_THE_MONTH\",\"PURCHASE_DAY\",\"CUSTOM_DAY_OF_THE_MONTH\"],\"selectedOption\":\"FIRST_DAY_OF_THE_MONTH\",\"startDay\":1}},\"freeTrialBillingOptions\":[{\"editionId\":9890,\"editionName\":\"Free Trial\",\"requireBillingInfo\":true,\"automaticUpgradeToPaidEnabled\":true}],\"skuSettings\":{\"validations\":[{\"field\":\"sku\",\"required\":true,\"alphanumeric\":true,\"minLength\":6,\"maxLength\":6},{\"field\":\"fid1\",\"required\":false,\"minLength\":2,\"maxLength\":25}],\"editionPricingItems\":[{\"editionName\":\"Free Trial Edition\",\"paymentPlanId\":123,\"skus\":[{\"pricingItemId\":20423,\"price\":\"$0.03\",\"sku\":\"A1B2C3\",\"fid1\":\"yyyy-yyyyyy-yyyy\"},{\"pricingItemId\":20424,\"price\":\"$0.17\",\"sku\":\"321CBA\",\"fid1\":\"yyyy-yyyyyy-yyyy\"}]}]}}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/updateByRefId/%7BproductRefId%7D',\n  body: {\n    productInformation: {\n      productName: 'AUTO_WEBAPP_NEW',\n      iconUrl: 'https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png',\n      appFromNetwork: false\n    },\n    general: {\n      settings: {\n        validations: [{field: 'termsOfServiceURL', maxLength: 1024}],\n        visibleOnNetwork: true,\n        visibleOnMarketplace: true,\n        sellDomainAsStandalone: true,\n        showAsComingSoon: true,\n        collectLeads: {\n          options: ['inAdditionToPurchase', 'insteadOfPurchase'],\n          enabled: true,\n          selectedOption: 'inAdditionToPurchase',\n          assignLeadsToDevelopers: false,\n          editionLeadGenEnabled: false\n        },\n        hideAllPricing: true,\n        disableSelfServe: true,\n        termsOfServiceURL: 'http://www.google.com',\n        sortingRank: {\n          selectedOption: 'Very Low',\n          options: ['Very High', 'High', 'Medium', 'Low', 'Very Low']\n        }\n      },\n      additionalSettings: {\n        validations: [\n          {field: 'externalIdentifier', maxLength: 36},\n          {field: 'productStockNumber', maxLength: 36}\n        ]\n      },\n      apiHealthMaintenance: {\n        purchase: {value: true, disabled: false},\n        singleSignOn: {value: false, disabled: false},\n        updateSubscription: {value: true, disabled: true, tooltip: 'The product is part of a bundle.'},\n        assignAndUnassign: {\n          value: false,\n          disabled: true,\n          tooltip: 'This endpoint has been disabled by the developer.'\n        }\n      }\n    },\n    productGroups: {\n      categories: {\n        tooltip: 'Add categories to your application',\n        required: false,\n        options: [\n          {\n            categoryId: 0,\n            name: 'Select a Category',\n            subCategories: [{subCategoryId: 0, name: 'Select a Sub Category'}]\n          },\n          {\n            categoryId: 186,\n            name: 'Numbers',\n            subCategories: [\n              {subCategoryId: 0, name: 'Select a Sub Category'},\n              {subCategoryId: 113, name: 'One'},\n              {subCategoryId: 114, name: 'Two'}\n            ]\n          }\n        ],\n        selectedOptions: [\n          {categoryId: 0, subCategoryId: 0},\n          {categoryId: 186, subCategoryId: 0},\n          {categoryId: 186, subCategoryId: 115}\n        ]\n      },\n      attributes: [\n        {\n          attributeId: 56,\n          name: 'English',\n          required: false,\n          options: [\n            {attributeOptionId: 128, name: 'EngOpt1', selected: true},\n            {attributeOptionId: 129, name: 'EngOpt2', selected: false},\n            {attributeOptionId: 130, name: 'EngOpt3', selected: false},\n            {attributeOptionId: 131, name: 'EngOpt4', selected: false},\n            {attributeOptionId: 132, name: 'EngOpt5', selected: false},\n            {attributeOptionId: 133, name: 'EngOpt6', selected: false},\n            {attributeOptionId: 134, name: 'EngOpt7', selected: false}\n          ]\n        }\n      ],\n      productLines: [{productLineId: 1, name: 'MSFT', selected: false}],\n      customerGroups: [\n        {\n          userAttributeId: 31,\n          name: 'New Customer Group',\n          required: true,\n          options: [\n            {industryId: 55, name: 'Industry1', selected: true},\n            {industryId: 56, name: 'Industry2', selected: false}\n          ]\n        }\n      ],\n      merchandisingOptions: {\n        ribbons: {\n          options: [\n            {ribbonId: 0, text: 'Choose One'},\n            {ribbonId: 8, color: '#0004FF', text: 'Discount', textColor: '#FFFFF'},\n            {ribbonId: 7, color: '#0004FF', text: 'Free', textColor: '#FFFFF'},\n            {ribbonId: 9, color: '#0004FF', text: 'Special', textColor: '#FFFFF'}\n          ],\n          selectedOption: 7\n        },\n        badges: {\n          options: [\n            {\n              badgeId: 7,\n              name: 'EngOpt1',\n              imageUrl: 'common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960',\n              position: 1\n            },\n            {\n              badgeId: 8,\n              name: 'EngOpt2',\n              imageUrl: 'common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960',\n              position: 2\n            },\n            {\n              badgeId: 9,\n              name: 'EngOpt3',\n              imageUrl: 'common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880'\n            },\n            {\n              badgeId: 10,\n              name: 'EngOpt4',\n              imageUrl: 'common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960'\n            }\n          ],\n          selectedOptions: [7, 8]\n        }\n      }\n    },\n    billing: {\n      billingSettings: {\n        validations: [\n          {field: 'startDay', numeric: true, minValue: 1, maxValue: 31},\n          {field: 'taxCode', maxLength: 255},\n          {field: 'setupFeeTaxCode', maxLength: 25}\n        ],\n        skipFirstPayment: true,\n        taxCode: 'ABC123',\n        setupFeeTaxCode: 'DEF456',\n        billingCycle: {\n          options: [\n            'MP_DEFAULT_CYCLE',\n            'FIRST_DAY_OF_THE_MONTH',\n            'LAST_DAY_OF_THE_MONTH',\n            'PURCHASE_DAY',\n            'CUSTOM_DAY_OF_THE_MONTH'\n          ],\n          selectedOption: 'FIRST_DAY_OF_THE_MONTH',\n          startDay: 1\n        }\n      },\n      freeTrialBillingOptions: [\n        {\n          editionId: 9890,\n          editionName: 'Free Trial',\n          requireBillingInfo: true,\n          automaticUpgradeToPaidEnabled: true\n        }\n      ],\n      skuSettings: {\n        validations: [\n          {field: 'sku', required: true, alphanumeric: true, minLength: 6, maxLength: 6},\n          {field: 'fid1', required: false, minLength: 2, maxLength: 25}\n        ],\n        editionPricingItems: [\n          {\n            editionName: 'Free Trial Edition',\n            paymentPlanId: 123,\n            skus: [\n              {pricingItemId: 20423, price: '$0.03', sku: 'A1B2C3', fid1: 'yyyy-yyyyyy-yyyy'},\n              {pricingItemId: 20424, price: '$0.17', sku: '321CBA', fid1: 'yyyy-yyyyyy-yyyy'}\n            ]\n          }\n        ]\n      }\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"productInformation\\\":{\\\"productName\\\":\\\"AUTO_WEBAPP_NEW\\\",\\\"iconUrl\\\":\\\"https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png\\\",\\\"appFromNetwork\\\":false},\\\"general\\\":{\\\"settings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"termsOfServiceURL\\\",\\\"maxLength\\\":1024}],\\\"visibleOnNetwork\\\":true,\\\"visibleOnMarketplace\\\":true,\\\"sellDomainAsStandalone\\\":true,\\\"showAsComingSoon\\\":true,\\\"collectLeads\\\":{\\\"options\\\":[\\\"inAdditionToPurchase\\\",\\\"insteadOfPurchase\\\"],\\\"enabled\\\":true,\\\"selectedOption\\\":\\\"inAdditionToPurchase\\\",\\\"assignLeadsToDevelopers\\\":false,\\\"editionLeadGenEnabled\\\":false},\\\"hideAllPricing\\\":true,\\\"disableSelfServe\\\":true,\\\"termsOfServiceURL\\\":\\\"http://www.google.com\\\",\\\"sortingRank\\\":{\\\"selectedOption\\\":\\\"Very Low\\\",\\\"options\\\":[\\\"Very High\\\",\\\"High\\\",\\\"Medium\\\",\\\"Low\\\",\\\"Very Low\\\"]}},\\\"additionalSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"externalIdentifier\\\",\\\"maxLength\\\":36},{\\\"field\\\":\\\"productStockNumber\\\",\\\"maxLength\\\":36}]},\\\"apiHealthMaintenance\\\":{\\\"purchase\\\":{\\\"value\\\":true,\\\"disabled\\\":false},\\\"singleSignOn\\\":{\\\"value\\\":false,\\\"disabled\\\":false},\\\"updateSubscription\\\":{\\\"value\\\":true,\\\"disabled\\\":true,\\\"tooltip\\\":\\\"The product is part of a bundle.\\\"},\\\"assignAndUnassign\\\":{\\\"value\\\":false,\\\"disabled\\\":true,\\\"tooltip\\\":\\\"This endpoint has been disabled by the developer.\\\"}}},\\\"productGroups\\\":{\\\"categories\\\":{\\\"tooltip\\\":\\\"Add categories to your application\\\",\\\"required\\\":false,\\\"options\\\":[{\\\"categoryId\\\":0,\\\"name\\\":\\\"Select a Category\\\",\\\"subCategories\\\":[{\\\"subCategoryId\\\":0,\\\"name\\\":\\\"Select a Sub Category\\\"}]},{\\\"categoryId\\\":186,\\\"name\\\":\\\"Numbers\\\",\\\"subCategories\\\":[{\\\"subCategoryId\\\":0,\\\"name\\\":\\\"Select a Sub Category\\\"},{\\\"subCategoryId\\\":113,\\\"name\\\":\\\"One\\\"},{\\\"subCategoryId\\\":114,\\\"name\\\":\\\"Two\\\"}]}],\\\"selectedOptions\\\":[{\\\"categoryId\\\":0,\\\"subCategoryId\\\":0},{\\\"categoryId\\\":186,\\\"subCategoryId\\\":0},{\\\"categoryId\\\":186,\\\"subCategoryId\\\":115}]},\\\"attributes\\\":[{\\\"attributeId\\\":56,\\\"name\\\":\\\"English\\\",\\\"required\\\":false,\\\"options\\\":[{\\\"attributeOptionId\\\":128,\\\"name\\\":\\\"EngOpt1\\\",\\\"selected\\\":true},{\\\"attributeOptionId\\\":129,\\\"name\\\":\\\"EngOpt2\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":130,\\\"name\\\":\\\"EngOpt3\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":131,\\\"name\\\":\\\"EngOpt4\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":132,\\\"name\\\":\\\"EngOpt5\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":133,\\\"name\\\":\\\"EngOpt6\\\",\\\"selected\\\":false},{\\\"attributeOptionId\\\":134,\\\"name\\\":\\\"EngOpt7\\\",\\\"selected\\\":false}]}],\\\"productLines\\\":[{\\\"productLineId\\\":1,\\\"name\\\":\\\"MSFT\\\",\\\"selected\\\":false}],\\\"customerGroups\\\":[{\\\"userAttributeId\\\":31,\\\"name\\\":\\\"New Customer Group\\\",\\\"required\\\":true,\\\"options\\\":[{\\\"industryId\\\":55,\\\"name\\\":\\\"Industry1\\\",\\\"selected\\\":true},{\\\"industryId\\\":56,\\\"name\\\":\\\"Industry2\\\",\\\"selected\\\":false}]}],\\\"merchandisingOptions\\\":{\\\"ribbons\\\":{\\\"options\\\":[{\\\"ribbonId\\\":0,\\\"text\\\":\\\"Choose One\\\"},{\\\"ribbonId\\\":8,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Discount\\\",\\\"textColor\\\":\\\"#FFFFF\\\"},{\\\"ribbonId\\\":7,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Free\\\",\\\"textColor\\\":\\\"#FFFFF\\\"},{\\\"ribbonId\\\":9,\\\"color\\\":\\\"#0004FF\\\",\\\"text\\\":\\\"Special\\\",\\\"textColor\\\":\\\"#FFFFF\\\"}],\\\"selectedOption\\\":7},\\\"badges\\\":{\\\"options\\\":[{\\\"badgeId\\\":7,\\\"name\\\":\\\"EngOpt1\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960\\\",\\\"position\\\":1},{\\\"badgeId\\\":8,\\\"name\\\":\\\"EngOpt2\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960\\\",\\\"position\\\":2},{\\\"badgeId\\\":9,\\\"name\\\":\\\"EngOpt3\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880\\\"},{\\\"badgeId\\\":10,\\\"name\\\":\\\"EngOpt4\\\",\\\"imageUrl\\\":\\\"common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960\\\"}],\\\"selectedOptions\\\":[7,8]}}},\\\"billing\\\":{\\\"billingSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"startDay\\\",\\\"numeric\\\":true,\\\"minValue\\\":1,\\\"maxValue\\\":31},{\\\"field\\\":\\\"taxCode\\\",\\\"maxLength\\\":255},{\\\"field\\\":\\\"setupFeeTaxCode\\\",\\\"maxLength\\\":25}],\\\"skipFirstPayment\\\":true,\\\"taxCode\\\":\\\"ABC123\\\",\\\"setupFeeTaxCode\\\":\\\"DEF456\\\",\\\"billingCycle\\\":{\\\"options\\\":[\\\"MP_DEFAULT_CYCLE\\\",\\\"FIRST_DAY_OF_THE_MONTH\\\",\\\"LAST_DAY_OF_THE_MONTH\\\",\\\"PURCHASE_DAY\\\",\\\"CUSTOM_DAY_OF_THE_MONTH\\\"],\\\"selectedOption\\\":\\\"FIRST_DAY_OF_THE_MONTH\\\",\\\"startDay\\\":1}},\\\"freeTrialBillingOptions\\\":[{\\\"editionId\\\":9890,\\\"editionName\\\":\\\"Free Trial\\\",\\\"requireBillingInfo\\\":true,\\\"automaticUpgradeToPaidEnabled\\\":true}],\\\"skuSettings\\\":{\\\"validations\\\":[{\\\"field\\\":\\\"sku\\\",\\\"required\\\":true,\\\"alphanumeric\\\":true,\\\"minLength\\\":6,\\\"maxLength\\\":6},{\\\"field\\\":\\\"fid1\\\",\\\"required\\\":false,\\\"minLength\\\":2,\\\"maxLength\\\":25}],\\\"editionPricingItems\\\":[{\\\"editionName\\\":\\\"Free Trial Edition\\\",\\\"paymentPlanId\\\":123,\\\"skus\\\":[{\\\"pricingItemId\\\":20423,\\\"price\\\":\\\"$0.03\\\",\\\"sku\\\":\\\"A1B2C3\\\",\\\"fid1\\\":\\\"yyyy-yyyyyy-yyyy\\\"},{\\\"pricingItemId\\\":20424,\\\"price\\\":\\\"$0.17\\\",\\\"sku\\\":\\\"321CBA\\\",\\\"fid1\\\":\\\"yyyy-yyyyyy-yyyy\\\"}]}]}}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/marketplaceProduct/productSettings/updateByRefId/%7BproductRefId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    FreeTrialEditionWS:
+      type: object
+      description: These settings impact the billing information and conversion requirements for free trials.
+      title: FreeTrialEdition
+      properties:
+        editionId:
+          description: Unique ID of the edition.
+          type: integer
+        editionName:
+          description: Name of the edition.
+          type: string
+        requireBillingInfo:
+          description: Indicates whether billing address and payment method is required for purchasing this edition.
+          type: boolean
+        automaticUpgradeToPaidEnabled:
+          description: Indicates whether free trial was automatically upgraded to a paid edition.
+          type: boolean
+      example:
+        editionId: 9890
+        editionName: Free Trial
+        requireBillingInfo: true
+        automaticUpgradeToPaidEnabled: true
+    MerchandisingRibbonSelectionWS:
+      type: object
+      description: Information about promotional text ribbons available for the product.
+      title: MerchandisingRibbonSelection
+      properties:
+        options:
+          type: array
+          description: List of ribbon options for the product.
+          items:
+            $ref: '#/components/schemas/MerchandisingRibbonOptionWS'
+        selectedOption:
+          description: Selected unique ID of ribbon for the product.
+          type: integer
+      example:
+        options:
+        - ribbonId: 0
+          text: Choose One
+        - ribbonId: 8
+          color: '#0004FF'
+          text: Discount
+          textColor: '#FFFFF'
+        - ribbonId: 7
+          color: '#0004FF'
+          text: Free
+          textColor: '#FFFFF'
+        - ribbonId: 9
+          color: '#0004FF'
+          text: Special
+          textColor: '#FFFFF'
+        selectedOption: 7
+    CategoryOptionWS:
+      type: object
+      description: Customers can filter products by category.
+      title: CategoryOption
+      properties:
+        subCategories:
+          type: array
+          description: List of subcategories.
+          items:
+            $ref: '#/components/schemas/SubCategoryOptionWS'
+        categoryId:
+          description: Unique ID of the category.
+          type: integer
+        name:
+          description: Name of the category.
+          type: string
+      example:
+        categoryId: 0
+        name: Select a Category
+        subCategories:
+        - subCategoryId: 0
+          name: Select a Sub Category
+    CategorySelectionsWS:
+      type: object
+      description: Information about the tooltip, attribute, and list of categories associated to the product.
+      title: CategorySelections
+      properties:
+        options:
+          type: array
+          description: List of categories available for the product.
+          items:
+            $ref: '#/components/schemas/CategoryOptionWS'
+        required:
+          description: Indicates whether attribute is a required field in the product editor.
+          type: boolean
+        tooltip:
+          description: Description of the product category.
+          type: string
+        selectedOptions:
+          type: array
+          description: List of associated categories for the product.
+          items:
+            $ref: '#/components/schemas/CategoryChoiceWS'
+      example:
+        tooltip: Add categories to your application
+        required: false
+        options:
+        - categoryId: 0
+          name: Select a Category
+          subCategories:
+          - subCategoryId: 0
+            name: Select a Sub Category
+        - categoryId: 186
+          name: Numbers
+          subCategories:
+          - subCategoryId: 0
+            name: Select a Sub Category
+          - subCategoryId: 113
+            name: One
+          - subCategoryId: 114
+            name: Two
+        selectedOptions:
+        - categoryId: 0
+          subCategoryId: 0
+        - categoryId: 186
+          subCategoryId: 0
+        - categoryId: 186
+          subCategoryId: 115
+    WorkingEndpointWS:
+      type: object
+      description: Information about the API endpoints availability.
+      title: WorkingEndpoint
+      properties:
+        tooltip:
+          description: Tool tip describing the API endpoint.
+          type: string
+        value:
+          description: Indicates whether working endpoint is enabled for application.
+          type: boolean
+        disabled:
+          description: Indicates whether working endpoint flag is available for the application.
+          type: boolean
+      example:
+        value: false
+        disabled: true
+        tooltip: This endpoint was disabled by the developer.
+    MarketplaceProductSettingActiveComponentsWS:
+      type: object
+      description: Information about the active component for product setting UI on marketplace.
+      title: MarketplaceProductSettingActiveComponentsWS
+      properties:
+        productInformation:
+          $ref: '#/components/schemas/ProductInformationWS'
+        showSettingsContainer:
+          description: Indicates whether settings are visible in UI.
+          type: boolean
+        showVisibleOnNetwork:
+          description: Indicates whether Visible On Network setting is visible in UI.
+          type: boolean
+        showVisibleOnMarketplace:
+          description: Indicates whether Visible On Marketplace setting is visible in UI.
+          type: boolean
+        showSellDomainAsStandalone:
+          description: Indicates whether Sell Domain As Standalone setting is visible in UI.
+          type: boolean
+        showAsComingSoon:
+          description: Indicates whether Coming Soon setting is visible in UI.
+          type: boolean
+        showCollectLeads:
+          description: Indicates whether Collect Leads setting is visible in UI.
+          type: boolean
+        showCompanyGroupSegmentsContainer:
+          description: Indicates whether the segment group container is visible in the user interface
+          type: boolean
+        showHideAllPricing:
+          description: Indicates whether Hide All Pricing setting is visible in UI.
+          type: boolean
+        showDisableSelfService:
+          description: Indicates whether Disable Self Service setting is visible in UI.
+          type: boolean
+        showTermsOfServiceURL:
+          description: Indicates whether Terms Of Service URL setting is visible in UI.
+          type: boolean
+        showSortingRank:
+          description: Indicates whether Sorting Rank setting is visible in UI.
+          type: boolean
+        showAdditionalSettingsContainer:
+          description: Indicates whether Additional Settings are visible in UI.
+          type: boolean
+        showAPIHealthMaintenanceContainer:
+          description: Indicates whether API health maintenance settings are visible in UI.
+          type: boolean
+        showSKUsContainer:
+          description: Indicates whether SKUs settings are visible in UI.
+          type: boolean
+        showFID1Number:
+          description: Indicates whether FID1Number setting is visible in UI.
+          type: boolean
+        showProductTab:
+          description: Indicates whether Product Tab is visible in UI.
+          type: boolean
+        showCategoriesContainer:
+          description: Indicates whether Categories settings are visible in UI.
+          type: boolean
+        showAttributesContainer:
+          description: Indicates whether Attributes settings are visible in UI.
+          type: boolean
+        showProductLinesContainer:
+          description: Indicates whether Product Lines settings are visible in UI.
+          type: boolean
+        showCustomerGroupsContainer:
+          description: Indicates whether Customer Groups settings are visible in UI.
+          type: boolean
+        showMerchandisingOptionsContainer:
+          description: Indicates whether Merchandising Options settings are visible in UI.
+          type: boolean
+        showBillingTab:
+          description: Indicates whether Billing Tab is visible in UI.
+          type: boolean
+        showBillingSettingsContainer:
+          description: Indicates whether Billing settings are visible in UI.
+          type: boolean
+        showSkipFirstPayment:
+          description: Indicates whether Skip First Payment setting is visible in UI.
+          type: boolean
+        showTaxCode:
+          description: Indicates whether Tax Code setting is visible in UI.
+          type: boolean
+        showSetupFeeTaxCode:
+          description: Indicates whether Setup Fee Tax Code setting is visible in UI.
+          type: boolean
+        showBillingCycleStartDay:
+          description: Indicates whether Billing Cycle Start Day setting is visible in UI.
+          type: boolean
+        showFreeTrialBillingOptionsContainer:
+          description: Indicates whether Free Trial Billing Options settings are visible in UI.
+          type: boolean
+        showBillingPatternsContainer:
+          description: Indicates whether Billing Patterns settings are visible in UI.
+          type: boolean
+      example:
+        productInformation:
+          productName: AUTO_WEBAPP_NEW
+          appFromNetwork: false
+        showSettingsContainer: true
+        showVisibleOnNetwork: true
+        showVisibleOnMarketplace: true
+        showSellDomainAsStandalone: false
+        showAsComingSoon: true
+        showCollectLeads: true
+        showCompanyGroupSegmentsContainer: true
+        showHideAllPricing: true
+        showDisableSelfService: false
+        showTermsOfServiceURL: false
+        showSortingRank: true
+        showAdditionalSettingsContainer: false
+        showAPIHealthMaintenanceContainer: true
+        showSKUsContainer: false
+        showFID1Number: false
+        showProductTab: true
+        showCategoriesContainer: true
+        showAttributesContainer: true
+        showProductLinesContainer: true
+        showCustomerGroupsContainer: true
+        showMerchandisingOptionsContainer: true
+        showBillingTab: true
+        showBillingSettingsContainer: true
+        showSkipFirstPayment: false
+        showTaxCode: true
+        showSetupFeeTaxCode: false
+        showBillingCycleStartDay: false
+        showFreeTrialBillingOptionsContainer: true
+        showBillingPatternsContainer: false
+    ProductGroupsWS:
+      type: object
+      title: ProductGroups
+      description: Information about the tooltip, attribute, and list of categories associated to the product.
+      properties:
+        categories:
+          $ref: '#/components/schemas/CategorySelectionsWS'
+        attributes:
+          type: array
+          description: Attribute options available for the product.
+          items:
+            $ref: '#/components/schemas/AttributeChoiceWS'
+        productLines:
+          type: array
+          description: Product line options available for the product.
+          items:
+            $ref: '#/components/schemas/ProductLineChoiceWS'
+        customerGroups:
+          type: array
+          description: Customer group options available for the product.
+          items:
+            $ref: '#/components/schemas/UserAttributeChoiceWS'
+        merchandisingOptions:
+          $ref: '#/components/schemas/MerchandisingOptionsWS'
+        segmentSelections:
+          $ref: '#/components/schemas/SegmentSelection'
+      example:
+        categories:
+          tooltip: Add categories to your application
+          required: false
+          options:
+          - categoryId: 0
+            name: Select a Category
+            subCategories:
+            - subCategoryId: 0
+              name: Select a Sub Category
+          - categoryId: 186
+            name: Numbers
+            subCategories:
+            - subCategoryId: 0
+              name: Select a Sub Category
+            - subCategoryId: 113
+              name: One
+            - subCategoryId: 114
+              name: Two
+          selectedOptions:
+          - categoryId: 0
+            subCategoryId: 0
+          - categoryId: 186
+            subCategoryId: 0
+          - categoryId: 186
+            subCategoryId: 115
+        attributes:
+        - attributeId: 56
+          name: English
+          required: false
+          options:
+          - attributeOptionId: 128
+            name: EngOpt1
+            selected: true
+          - attributeOptionId: 129
+            name: EngOpt2
+            selected: false
+          - attributeOptionId: 130
+            name: EngOpt3
+            selected: false
+          - attributeOptionId: 131
+            name: EngOpt4
+            selected: false
+          - attributeOptionId: 132
+            name: EngOpt5
+            selected: false
+          - attributeOptionId: 133
+            name: EngOpt6
+            selected: false
+          - attributeOptionId: 134
+            name: EngOpt7
+            selected: false
+        productLines:
+        - productLineId: 1
+          name: MSFT
+          selected: false
+        customerGroups:
+        - userAttributeId: 31
+          name: New Customer Group
+          required: true
+          options:
+          - industryId: 55
+            name: Industry1
+            selected: true
+          - industryId: 56
+            name: Industry2
+            selected: false
+        merchandisingOptions:
+          ribbons:
+            options:
+            - ribbonId: 0
+              text: Choose One
+            - ribbonId: 8
+              color: '#0004FF'
+              text: Discount
+              textColor: '#FFFFF'
+            - ribbonId: 7
+              color: '#0004FF'
+              text: Free
+              textColor: '#FFFFF'
+            - ribbonId: 9
+              color: '#0004FF'
+              text: Special
+              textColor: '#FFFFF'
+            selectedOption: 7
+          badges:
+            options:
+            - badgeId: 7
+              name: EngOpt1
+              imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+              position: 1
+            - badgeId: 8
+              name: EngOpt2
+              imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+              position: 2
+            - badgeId: 9
+              name: EngOpt3
+              imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+            - badgeId: 10
+              name: EngOpt4
+              imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+            selectedOptions:
+            - 7
+            - 8
+        segmentSelections:
+          availableCompanyGroups:
+          - id: 1b0cc1f0-4945-4c6a-989c-d5f350a1b9d1
+            name: cda
+            segments:
+            - id: e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+              name: fd
+          selectedSegments:
+          - e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+    MerchandisingBadgeOptionWS:
+      type: object
+      description: Information about the badge option for this product.
+      title: MerchandisingBadgeOption
+      properties:
+        badgeId:
+          description: Unique ID of the badge option.
+          type: integer
+        name:
+          description: Name of the badge option.
+          type: string
+        imageUrl:
+          description: Badge image URL.
+          type: string
+        position:
+          description: Position of the badge.
+          type: integer
+      example:
+        badgeId: 7
+        name: EngOpt1
+        imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+        position: 1
+    IndustryChoiceWS:
+      type: object
+      title: IndustryChoice
+      description: Details of industry choice options.
+      properties:
+        industryId:
+          description: Unique ID of the industry choice option.
+          type: integer
+        name:
+          description: Name of the industry choice option.
+          type: string
+        selected:
+          description: Indicates whether industry choice option is selected.
+          type: boolean
+      example:
+        industryId: 56
+        name: Industry2
+        selected: false
+    MerchandisingBadgeSelectionsWS:
+      type: object
+      description: Information about promotional image badges available for the product.
+      title: MerchandisingBadgeSelections
+      properties:
+        options:
+          type: array
+          description: List of badge options for the product.
+          items:
+            $ref: '#/components/schemas/MerchandisingBadgeOptionWS'
+        selectedOptions:
+          type: array
+          description: List of unique IDs of badges selected for the product.
+          items:
+            type: integer
+      example:
+        options:
+        - badgeId: 7
+          name: EngOpt1
+          imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+          position: 1
+        - badgeId: 8
+          name: EngOpt2
+          imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+          position: 2
+        - badgeId: 9
+          name: EngOpt3
+          imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+        - badgeId: 10
+          name: EngOpt4
+          imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+        selectedOptions:
+        - 7
+        - 8
+    CompanyGroups:
+      description: Segment group and segments
+      title: CompanyGroups
+      type: object
+      properties:
+        id:
+          description: Segment group ID
+          type: string
+        name:
+          description: Segment group name
+          type: string
+          maxLength: 255
+        segments:
+          type: array
+          description: Segment details
+          items:
+            $ref: '#/components/schemas/Segments'
+      example:
+        id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+        name: Fortune 500 Companies
+        segments:
+        - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+          name: iOS users
+    UserAttributeChoiceWS:
+      type: object
+      description: Customer group options available for the product.
+      title: UserAttributeChoice
+      properties:
+        options:
+          type: array
+          description: List of industry choice options.
+          items:
+            $ref: '#/components/schemas/IndustryChoiceWS'
+        userAttributeId:
+          description: Unique ID of the customer group.
+          type: integer
+        name:
+          description: Name of the customer group.
+          type: string
+        required:
+          description: Indicates whether customer group is a required field in the product editor.
+          type: boolean
+        tooltip:
+          description: Description about the customer group.
+          type: string
+      example:
+        userAttributeId: 31
+        name: New Customer Group
+        required: true
+        options:
+        - industryId: 55
+          name: Industry1
+          selected: true
+        - industryId: 56
+          name: Industry2
+          selected: false
+    SegmentSelection:
+      type: object
+      title: SegmentSelection
+      description: Information about segment groups and segments
+      properties:
+        availableCompanyGroups:
+          type: array
+          description: List of all available company groups and associated segments
+          items:
+            $ref: '#/components/schemas/CompanyGroups'
+        selectedSegments:
+          type: array
+          description: List of segments associated with the product
+          items:
+            type: string
+      example:
+        availableCompanyGroups:
+        - id: 1b0cc1f0-4945-4c6a-989c-d5f350a1b9d1
+          name: cda
+          segments:
+          - id: e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+            name: fd
+        selectedSegments:
+        - e96f1bd2-c6c7-4546-ad9c-518f5ff650a9
+    BillingCycleOptionsWS:
+      type: object
+      description: Information regarding the billing cycle of the product.
+      title: BillingCycleOptions
+      properties:
+        options:
+          type: array
+          description: List of options for billing cycle.
+          items:
+            type: string
+        startDay:
+          description: Start day of the month of billing cycle.
+          type: integer
+        selectedOption:
+          $ref: '#/components/schemas/BillingCycleStartDayOption'
+      example:
+        options:
+        - MP_DEFAULT_CYCLE
+        - FIRST_DAY_OF_THE_MONTH
+        - LAST_DAY_OF_THE_MONTH
+        - PURCHASE_DAY
+        - CUSTOM_DAY_OF_THE_MONTH
+        selectedOption: FIRST_DAY_OF_THE_MONTH
+        startDay: 1
+    SubCategoryOptionWS:
+      type: object
+      description: Subcategories further refine the categories to make it easier for users to find or filter the products.
+      title: SubCategoryOption
+      properties:
+        subCategoryId:
+          description: Unique ID of the subcategory.
+          type: integer
+        name:
+          description: Name of the subcategory.
+          type: string
+      example:
+        subCategoryId: 0
+        name: Select a Sub Category
+    SettingValidationWS:
+      type: object
+      description: Information about the validation applied to a setting.
+      title: SettingValidation
+      properties:
+        field:
+          description: Name of the setting.
+          type: string
+        required:
+          description: Indicates whether setting is required.
+          type: boolean
+        alphanumeric:
+          description: Indicates whether setting is alphanumeric.
+          type: boolean
+        numeric:
+          description: Indicates whether setting is numeric.
+          type: boolean
+        minValue:
+          description: Minimum value of the setting.
+          type: integer
+        maxValue:
+          description: Maximum value of the setting.
+          type: integer
+        minLength:
+          description: Minimum number of characters and digits for the setting.
+          type: integer
+        maxLength:
+          description: Maximum number of characters and digits for the setting.
+          type: integer
+      example:
+        field: termsOfServiceURL
+        numeric: true
+        minValue: 1
+        maxValue: 31
+    ProductLineChoiceWS:
+      type: object
+      description: Product lines are used to promote a specific developer or a specific product type. It organizes products on their own listing page which can be included as a link in the marketplace navigation.
+      title: ProductLineChoice
+      properties:
+        productLineId:
+          description: Unique ID of the product line option.
+          type: integer
+        name:
+          description: Name of the product line option.
+          type: string
+        selected:
+          description: Indicates whether product line option is selected for the product.
+          type: boolean
+      example:
+        productLineId: 1
+        name: MSFT
+        selected: false
+    MerchandisingRibbonOptionWS:
+      type: object
+      description: Details of the ribbon option for the product.
+      title: MerchandisingRibbonOption
+      properties:
+        ribbonId:
+          description: Unique ID of the ribbon option.
+          type: integer
+        color:
+          description: Color of the ribbon option.
+          type: string
+        text:
+          description: Text of the ribbon option.
+          type: string
+        textColor:
+          description: Text color of the ribbon option.
+          type: string
+      example:
+        ribbonId: 8
+        color: '#0004FF'
+        text: Discount
+        textColor: '#FFFFF'
+    ProductInformationWS:
+      type: object
+      title: ProductInformation
+      description: Information about the product, such as the name, icon URL, and if it is a network product.
+      properties:
+        productName:
+          description: Product name
+          type: string
+        iconUrl:
+          description: Product icon URL
+          type: string
+        appFromNetwork:
+          description: Indicates whether this product is a network application.
+          type: boolean
+      example:
+        productName: AUTO_WEBAPP_NEW
+        iconUrl: https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png
+        appFromNetwork: false
+    CollectLeadsWS:
+      type: object
+      description: Information about the lead is collected, such as first name, last name, email, and so on.
+      title: CollectLeads
+      properties:
+        options:
+          type: array
+          description: Lead options include whether customers can only submit contact information for a product or purchase the product in addition to submiting contact information.
+          items:
+            type: string
+        enabled:
+          description: Indicates whether leads should be collected for this product.
+          type: boolean
+        assignLeadsToDevelopers:
+          description: Indicates whether Marketplace Manager decides that the lead can be assigned to the Developer and the Developer is owner of the product.
+          type: boolean
+        selectedOption:
+          $ref: '#/components/schemas/CollectLeadsOptions'
+      example:
+        options:
+        - inAdditionToPurchase
+        - insteadOfPurchase
+        enabled: true
+        selectedOption: inAdditionToPurchase
+        assignLeadsToDevelopers: false
+        editionLeadGenEnabled: false
+    CollectLeadsOptions:
+      description: Lead options include In Addition to Purchase or Instead of Purchase.
+      type: string
+      title: CollectLeadsOptions
+      enum:
+      - inAdditionToPurchase
+      - insteadOfPurchase
+    MerchandisingOptionsWS:
+      type: object
+      description: Information about the badges and ribbons added to the product.
+      title: MerchandisingOptions
+      properties:
+        ribbons:
+          $ref: '#/components/schemas/MerchandisingRibbonSelectionWS'
+        badges:
+          $ref: '#/components/schemas/MerchandisingBadgeSelectionsWS'
+      example:
+        ribbons:
+          options:
+          - ribbonId: 0
+            text: Choose One
+          - ribbonId: 8
+            color: '#0004FF'
+            text: Discount
+            textColor: '#FFFFF'
+          - ribbonId: 7
+            color: '#0004FF'
+            text: Free
+            textColor: '#FFFFF'
+          - ribbonId: 9
+            color: '#0004FF'
+            text: Special
+            textColor: '#FFFFF'
+          selectedOption: 7
+        badges:
+          options:
+          - badgeId: 7
+            name: EngOpt1
+            imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+            position: 1
+          - badgeId: 8
+            name: EngOpt2
+            imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+            position: 2
+          - badgeId: 9
+            name: EngOpt3
+            imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+          - badgeId: 10
+            name: EngOpt4
+            imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+          selectedOptions:
+          - 7
+          - 8
+    AttributeOptionChoiceWS:
+      type: object
+      description: Details about the attribute option.
+      title: AttributeOptionChoice
+      properties:
+        attributeOptionId:
+          description: Unique ID of the attribute option.
+          type: integer
+        name:
+          description: Name of the attribute option.
+          type: string
+        selected:
+          description: Indicates whether attribute option is selected for the product.
+          type: boolean
+      example:
+        attributeOptionId: 134
+        name: EngOpt7
+        selected: false
+    CategoryChoiceWS:
+      type: object
+      description: Information about categories for the product.
+      title: CategoryChoice
+      properties:
+        subCategoryId:
+          description: Unique ID of the selected subcategory for the product.
+          type: integer
+        categoryId:
+          description: Unique ID of the selected category for the product.
+          type: integer
+      example:
+        categoryId: 0
+        subCategoryId: 0
+    MarketplaceProductSettingsWS:
+      type: object
+      title: MarketplaceProductSettings
+      description: Product setting information
+      properties:
+        productInformation:
+          $ref: '#/components/schemas/ProductInformationWS'
+        general:
+          $ref: '#/components/schemas/GeneralSettingsWS'
+        productGroups:
+          $ref: '#/components/schemas/ProductGroupsWS'
+        billing:
+          $ref: '#/components/schemas/BillingWS'
+      example:
+        productInformation:
+          productName: AUTO_WEBAPP_NEW
+          iconUrl: https://ad-dev-dump1.s3.amazonaws.com/app_resources/157/thumbs_64/img7932941780668708927.png
+          appFromNetwork: false
+        general:
+          settings:
+            validations:
+            - field: termsOfServiceURL
+              maxLength: 1024
+            visibleOnNetwork: true
+            visibleOnMarketplace: true
+            sellDomainAsStandalone: true
+            showAsComingSoon: true
+            collectLeads:
+              options:
+              - inAdditionToPurchase
+              - insteadOfPurchase
+              enabled: true
+              selectedOption: inAdditionToPurchase
+              assignLeadsToDevelopers: false
+              editionLeadGenEnabled: false
+            hideAllPricing: true
+            disableSelfServe: true
+            termsOfServiceURL: http://www.google.com
+            sortingRank:
+              selectedOption: Very Low
+              options:
+              - Very High
+              - High
+              - Medium
+              - Low
+              - Very Low
+          additionalSettings:
+            validations:
+            - field: externalIdentifier
+              maxLength: 36
+            - field: productStockNumber
+              maxLength: 36
+          apiHealthMaintenance:
+            purchase:
+              value: true
+              disabled: false
+            singleSignOn:
+              value: false
+              disabled: false
+            updateSubscription:
+              value: true
+              disabled: true
+              tooltip: The product is part of a bundle.
+            assignAndUnassign:
+              value: false
+              disabled: true
+              tooltip: This endpoint has been disabled by the developer.
+        productGroups:
+          categories:
+            tooltip: Add categories to your application
+            required: false
+            options:
+            - categoryId: 0
+              name: Select a Category
+              subCategories:
+              - subCategoryId: 0
+                name: Select a Sub Category
+            - categoryId: 186
+              name: Numbers
+              subCategories:
+              - subCategoryId: 0
+                name: Select a Sub Category
+              - subCategoryId: 113
+                name: One
+              - subCategoryId: 114
+                name: Two
+            selectedOptions:
+            - categoryId: 0
+              subCategoryId: 0
+            - categoryId: 186
+              subCategoryId: 0
+            - categoryId: 186
+              subCategoryId: 115
+          attributes:
+          - attributeId: 56
+            name: English
+            required: false
+            options:
+            - attributeOptionId: 128
+              name: EngOpt1
+              selected: true
+            - attributeOptionId: 129
+              name: EngOpt2
+              selected: false
+            - attributeOptionId: 130
+              name: EngOpt3
+              selected: false
+            - attributeOptionId: 131
+              name: EngOpt4
+              selected: false
+            - attributeOptionId: 132
+              name: EngOpt5
+              selected: false
+            - attributeOptionId: 133
+              name: EngOpt6
+              selected: false
+            - attributeOptionId: 134
+              name: EngOpt7
+              selected: false
+          productLines:
+          - productLineId: 1
+            name: MSFT
+            selected: false
+          customerGroups:
+          - userAttributeId: 31
+            name: New Customer Group
+            required: true
+            options:
+            - industryId: 55
+              name: Industry1
+              selected: true
+            - industryId: 56
+              name: Industry2
+              selected: false
+          merchandisingOptions:
+            ribbons:
+              options:
+              - ribbonId: 0
+                text: Choose One
+              - ribbonId: 8
+                color: '#0004FF'
+                text: Discount
+                textColor: '#FFFFF'
+              - ribbonId: 7
+                color: '#0004FF'
+                text: Free
+                textColor: '#FFFFF'
+              - ribbonId: 9
+                color: '#0004FF'
+                text: Special
+                textColor: '#FFFFF'
+              selectedOption: 7
+            badges:
+              options:
+              - badgeId: 7
+                name: EngOpt1
+                imageUrl: common_resources/attributeOptions/128/badge.png?e5dc31b07b947203ce979bd55032f960
+                position: 1
+              - badgeId: 8
+                name: EngOpt2
+                imageUrl: common_resources/attributeOptions/129/badge.png?e5dc31b07b947203ce979bd55032f960
+                position: 2
+              - badgeId: 9
+                name: EngOpt3
+                imageUrl: common_resources/attributeOptions/130/badge.png?fd55e224f0cc01dd33f6ae864002e880
+              - badgeId: 10
+                name: EngOpt4
+                imageUrl: common_resources/attributeOptions/null/badge.png?e5dc31b07b947203ce979bd55032f960
+              selectedOptions:
+              - 7
+              - 8
+        billing:
+          billingSettings:
+            validations:
+            - field: startDay
+              numeric: true
+              minValue: 1
+              maxValue: 31
+            - field: taxCode
+              maxLength: 255
+            - field: setupFeeTaxCode
+              maxLength: 25
+            skipFirstPayment: true
+            taxCode: ABC123
+            setupFeeTaxCode: DEF456
+            billingCycle:
+              options:
+              - MP_DEFAULT_CYCLE
+              - FIRST_DAY_OF_THE_MONTH
+              - LAST_DAY_OF_THE_MONTH
+              - PURCHASE_DAY
+              - CUSTOM_DAY_OF_THE_MONTH
+              selectedOption: FIRST_DAY_OF_THE_MONTH
+              startDay: 1
+          freeTrialBillingOptions:
+          - editionId: 9890
+            editionName: Free Trial
+            requireBillingInfo: true
+            automaticUpgradeToPaidEnabled: true
+          skuSettings:
+            validations:
+            - field: sku
+              required: true
+              alphanumeric: true
+              minLength: 6
+              maxLength: 6
+            - field: fid1
+              required: false
+              minLength: 2
+              maxLength: 25
+            editionPricingItems:
+            - editionName: Free Trial Edition
+              paymentPlanId: 123
+              skus:
+              - pricingItemId: 20423
+                price: $0.03
+                sku: A1B2C3
+                fid1: yyyy-yyyyyy-yyyy
+              - pricingItemId: 20424
+                price: $0.17
+                sku: 321CBA
+                fid1: yyyy-yyyyyy-yyyy
+    ApiHealthMaintenanceSettingsWS:
+      type: object
+      description: Information about API maintenance that includes assign/unassign users, update subscription, single sign-on product and purchase product.
+      title: ApiHealthMaintenanceSettings
+      properties:
+        purchase:
+          $ref: '#/components/schemas/WorkingEndpointWS'
+        singleSignOn:
+          $ref: '#/components/schemas/WorkingEndpointWS'
+        updateSubscription:
+          $ref: '#/components/schemas/WorkingEndpointWS'
+        assignAndUnassign:
+          $ref: '#/components/schemas/WorkingEndpointWS'
+      example:
+        purchase:
+          value: true
+          disabled: false
+        singleSignOn:
+          value: false
+          disabled: false
+        updateSubscription:
+          value: true
+          disabled: true
+          tooltip: The product is part of a bundle.
+        assignAndUnassign:
+          value: false
+          disabled: true
+          tooltip: This endpoint has been disabled by the developer.
+    SortingRankWS:
+      type: object
+      description: The ranking of the product in numerical order. Products with a higher rank appear above those with a lower rank on the marketplace homepage and in search results.
+      title: SortingRank
+      properties:
+        options:
+          type: array
+          description: Options for the rank, which include Very High, High, Medium, Low, or Very Low.
+          items:
+            type: string
+        selectedOption:
+          description: Selected rank from the list of rank options.
+          type: string
+      example:
+        selectedOption: Very Low
+        options:
+        - Very High
+        - High
+        - Medium
+        - Low
+        - Very Low
+    EditionPricingItemSkuWS:
+      type: object
+      description: Payment plans for an edition and related SKUs.
+      title: EditionPricingItemSku
+      properties:
+        skus:
+          type: array
+          description: List of information about SKUs associated with a payment plan for the edition.
+          items:
+            $ref: '#/components/schemas/SkuWS'
+        editionName:
+          description: Name of the edition.
+          type: string
+        paymentPlanId:
+          description: Unique ID of the payment plan.
+          type: integer
+      example:
+        editionName: Free Trial Edition
+        paymentPlanId: 123
+        skus:
+        - pricingItemId: 20423
+          price: $0.03
+          sku: A1B2C3
+          fid1: yyyy-yyyyyy-yyyy
+        - pricingItemId: 20424
+          price: $0.17
+          sku: 321CBA
+          fid1: yyyy-yyyyyy-yyyy
+    BillingWS:
+      type: object
+      title: Billing
+      description: Information about the billing settings, free trials, billing patterns, or SKU settings of the product.
+      properties:
+        freeTrialBillingOptions:
+          type: array
+          description: List of billing information related to free editions.
+          items:
+            $ref: '#/components/schemas/FreeTrialEditionWS'
+        billingSettings:
+          $ref: '#/components/schemas/BillingSettingsWS'
+        skuSettings:
+          $ref: '#/components/schemas/SkuSettingsWS'
+      example:
+        billingSettings:
+          validations:
+          - field: startDay
+            numeric: true
+            minValue: 1
+            maxValue: 31
+          - field: taxCode
+            maxLength: 255
+          - field: setupFeeTaxCode
+            maxLength: 25
+          skipFirstPayment: true
+          taxCode: ABC123
+          setupFeeTaxCode: DEF456
+          billingCycle:
+            options:
+            - MP_DEFAULT_CYCLE
+            - FIRST_DAY_OF_THE_MONTH
+            - LAST_DAY_OF_THE_MONTH
+            - PURCHASE_DAY
+            - CUSTOM_DAY_OF_THE_MONTH
+            selectedOption: FIRST_DAY_OF_THE_MONTH
+            startDay: 1
+        freeTrialBillingOptions:
+        - editionId: 9890
+          editionName: Free Trial
+          requireBillingInfo: true
+          automaticUpgradeToPaidEnabled: true
+        skuSettings:
+          validations:
+          - field: sku
+            required: true
+            alphanumeric: true
+            minLength: 6
+            maxLength: 6
+          - field: fid1
+            required: false
+            minLength: 2
+            maxLength: 25
+          editionPricingItems:
+          - editionName: Free Trial Edition
+            paymentPlanId: 123
+            skus:
+            - pricingItemId: 20423
+              price: $0.03
+              sku: A1B2C3
+              fid1: yyyy-yyyyyy-yyyy
+            - pricingItemId: 20424
+              price: $0.17
+              sku: 321CBA
+              fid1: yyyy-yyyyyy-yyyy
+    BillingSettingsWS:
+      type: object
+      description: Information related to billing settings for the product.
+      title: BillingSettings
+      properties:
+        validations:
+          type: array
+          description: List of information about the validation applied to a setting.
+          items:
+            $ref: '#/components/schemas/SettingValidationWS'
+        skipFirstPayment:
+          description: Indicates whether first payment will be skipped.
+          type: boolean
+        taxCode:
+          description: 'Tax code applied to the product. '
+          type: string
+        setupFeeTaxCode:
+          description: Setup fee tax code applied to the product.
+          type: string
+        billingCycle:
+          $ref: '#/components/schemas/BillingCycleOptionsWS'
+      example:
+        validations:
+        - field: startDay
+          numeric: true
+          minValue: 1
+          maxValue: 31
+        - field: taxCode
+          maxLength: 255
+        - field: setupFeeTaxCode
+          maxLength: 25
+        skipFirstPayment: true
+        taxCode: ABC123
+        setupFeeTaxCode: DEF456
+        billingCycle:
+          options:
+          - MP_DEFAULT_CYCLE
+          - FIRST_DAY_OF_THE_MONTH
+          - LAST_DAY_OF_THE_MONTH
+          - PURCHASE_DAY
+          - CUSTOM_DAY_OF_THE_MONTH
+          selectedOption: FIRST_DAY_OF_THE_MONTH
+          startDay: 1
+    AttributeChoiceWS:
+      type: object
+      description: Attributes are inherent characteristics of a product. To find the products that best meet their needs, customers can filter products by the attributes that you assign to them.
+      title: AttributeChoice
+      properties:
+        options:
+          type: array
+          description: List of attribute options for the product.
+          items:
+            $ref: '#/components/schemas/AttributeOptionChoiceWS'
+        attributeId:
+          description: Unique ID of the selected attribute.
+          type: integer
+        name:
+          description: Name of the selected attribute.
+          type: string
+        required:
+          description: Indicates whether selected attribute is a required field in the product editor.
+          type: boolean
+      example:
+        attributeId: 56
+        name: English
+        required: false
+        options:
+        - attributeOptionId: 128
+          name: EngOpt1
+          selected: true
+        - attributeOptionId: 129
+          name: EngOpt2
+          selected: false
+        - attributeOptionId: 130
+          name: EngOpt3
+          selected: false
+        - attributeOptionId: 131
+          name: EngOpt4
+          selected: false
+        - attributeOptionId: 132
+          name: EngOpt5
+          selected: false
+        - attributeOptionId: 133
+          name: EngOpt6
+          selected: false
+        - attributeOptionId: 134
+          name: EngOpt7
+          selected: false
+    SkuSettingsWS:
+      type: object
+      description: Information regarding the SKUs for the product.
+      title: SkuSettings
+      properties:
+        validations:
+          type: array
+          description: Information about the validation applied to a setting.
+          items:
+            $ref: '#/components/schemas/SettingValidationWS'
+        editionPricingItems:
+          type: array
+          description: List of payment plans for an edition and related SKUs.
+          items:
+            $ref: '#/components/schemas/EditionPricingItemSkuWS'
+      example:
+        validations:
+        - field: sku
+          required: true
+          alphanumeric: true
+          minLength: 6
+          maxLength: 6
+        - field: fid1
+          required: false
+          minLength: 2
+          maxLength: 25
+        editionPricingItems:
+        - editionName: Free Trial Edition
+          paymentPlanId: 123
+          skus:
+          - pricingItemId: 20423
+            price: $0.03
+            sku: A1B2C3
+            fid1: yyyy-yyyyyy-yyyy
+          - pricingItemId: 20424
+            price: $0.17
+            sku: 321CBA
+            fid1: yyyy-yyyyyy-yyyy
+    AvailabilitySettingsWS:
+      type: object
+      title: AvailabilitySettings
+      description: Allow specific information to appear on the product profile page and whether customers can purchase the product or submit lead information.
+      properties:
+        validations:
+          type: array
+          description: Information about the validation applied to a setting.
+          items:
+            $ref: '#/components/schemas/SettingValidationWS'
+        visibleOnNetwork:
+          description: Indicates whether this product is visible on a network marketplace.
+          type: boolean
+        visibleOnMarketplace:
+          description: Indicates whether this product is visible on the marketplace.
+          type: boolean
+        sellDomainAsStandalone:
+          description: Indicates whether domain products can be sold as standalone products, outside of a bundled purchase.
+          type: boolean
+        showAsComingSoon:
+          description: Indicates whether this product is supposed to be shown as coming soon on product profile page.
+          type: boolean
+        hideAllPricing:
+          description: Indicates whether all pricing information on the marketplace, including the pricing tab on the product profile page, is hidden.
+          type: boolean
+        disableSelfServe:
+          description: Indicates whether a customer can perform purchases, upgrades, and cancellations of the product without sales representative or reseller assistance.
+          type: boolean
+        termsOfServiceURL:
+          description: Terms of service URL
+          type: string
+        collectLeads:
+          $ref: '#/components/schemas/CollectLeadsWS'
+        sortingRank:
+          $ref: '#/components/schemas/SortingRankWS'
+      example:
+        validations:
+        - field: termsOfServiceURL
+          maxLength: 1024
+        visibleOnNetwork: true
+        visibleOnMarketplace: true
+        sellDomainAsStandalone: true
+        showAsComingSoon: true
+        collectLeads:
+          options:
+          - inAdditionToPurchase
+          - insteadOfPurchase
+          enabled: true
+          selectedOption: inAdditionToPurchase
+          assignLeadsToDevelopers: false
+          editionLeadGenEnabled: false
+        hideAllPricing: true
+        disableSelfServe: true
+        termsOfServiceURL: http://www.google.com
+        sortingRank:
+          selectedOption: Very Low
+          options:
+          - Very High
+          - High
+          - Medium
+          - Low
+          - Very Low
+    BillingCycleStartDayOption:
+      description: Billing cycle start day options.
+      type: string
+      title: BillingCycleStartDayOption
+      enum:
+      - MP_DEFAULT_CYCLE
+      - FIRST_DAY_OF_THE_MONTH
+      - LAST_DAY_OF_THE_MONTH
+      - PURCHASE_DAY
+      - CUSTOM_DAY_OF_THE_MONTH
+    SkuWS:
+      type: object
+      description: Information about SKUs associated with a payment plan for the edition.
+      title: Sku
+      properties:
+        pricingItemId:
+          description: Unique ID of the SKU pricing item.
+          type: integer
+        price:
+          description: Price of the SKU item.
+          type: string
+        sku:
+          description: Description of the SKU pricing item.
+          type: string
+        fid1:
+          description: Fid1 of the SKU pricing item.
+          type: string
+      example:
+        pricingItemId: 20423
+        price: $0.03
+        sku: A1B2C3
+        fid1: yyyy-yyyyyy-yyyy
+    AdditionalSettingsWS:
+      type: object
+      description: Information about additional settings for a product.
+      title: AdditionalSettings
+      properties:
+        validations:
+          type: array
+          description: Information about the validation applied to a setting.
+          items:
+            $ref: '#/components/schemas/SettingValidationWS'
+        customSettings:
+          type: array
+          description: Details of the custom settings for the product.
+          items:
+            $ref: '#/components/schemas/CustomSettingWS'
+      example:
+        validations:
+        - field: externalIdentifier
+          maxLength: 36
+        - field: productStockNumber
+          maxLength: 36
+    GeneralSettingsWS:
+      type: object
+      description: Information about the availability of the product, API health maintenance, and additional settings.
+      title: GeneralSettings
+      properties:
+        settings:
+          $ref: '#/components/schemas/AvailabilitySettingsWS'
+        apiHealthMaintenance:
+          $ref: '#/components/schemas/ApiHealthMaintenanceSettingsWS'
+        additionalSettings:
+          $ref: '#/components/schemas/AdditionalSettingsWS'
+      example:
+        settings:
+          validations:
+          - field: termsOfServiceURL
+            maxLength: 1024
+          visibleOnNetwork: true
+          visibleOnMarketplace: true
+          sellDomainAsStandalone: true
+          showAsComingSoon: true
+          collectLeads:
+            options:
+            - inAdditionToPurchase
+            - insteadOfPurchase
+            enabled: true
+            selectedOption: inAdditionToPurchase
+            assignLeadsToDevelopers: false
+            editionLeadGenEnabled: false
+          hideAllPricing: true
+          disableSelfServe: true
+          termsOfServiceURL: http://www.google.com
+          sortingRank:
+            selectedOption: Very Low
+            options:
+            - Very High
+            - High
+            - Medium
+            - Low
+            - Very Low
+        additionalSettings:
+          validations:
+          - field: externalIdentifier
+            maxLength: 36
+          - field: productStockNumber
+            maxLength: 36
+        apiHealthMaintenance:
+          purchase:
+            value: true
+            disabled: false
+          singleSignOn:
+            value: false
+            disabled: false
+          updateSubscription:
+            value: true
+            disabled: true
+            tooltip: The product is part of a bundle.
+          assignAndUnassign:
+            value: false
+            disabled: true
+            tooltip: This endpoint has been disabled by the developer.
+    CustomSettingWS:
+      type: object
+      description: Details of the custom settings for the product. The custom setting value can be string or boolean.
+      title: CustomSetting
+      properties:
+        key:
+          description: The custom settings ID.
+          type: string
+        value:
+          description: The custom settings value.
+          type: object
+        label:
+          description: The custom settings label.
+          type: string
+    Segments:
+      description: A characteristic shared by segment group members
+      title: Segments
+      type: object
+      properties:
+        id:
+          description: Segment ID
+          type: string
+        name:
+          description: Segment name
+          type: string
+          minLength: 1
+          maxLength: 255
+      example:
+        id: 04f8d043-10f1-4b89-8c0e-0780e5a62298
+        name: iOS users

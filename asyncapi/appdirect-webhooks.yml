@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.appdirect.com/webhooks/webhookintro
+spec_type: Webhooks
+note: >-
+  AppDirect documents an outbound webhook system but publishes no AsyncAPI document.
+  The platform sends HTTP POST requests with JSON bodies to configured endpoints when
+  marketplace events occur. Marketplace Managers configure subscriptions via the UI or API.
+  For REMOVED/DELETED events the deleted resource is excluded from the payload.
+transport: http-post
+format: json
+delivery: unidirectional (AppDirect -> subscriber)
+configuration:
+  methods: [ui, api]
+  docs: https://developer.appdirect.com/webhooks/webhookintro
+event_examples:
+- name: user created
+  fires_on: A new user is created in the marketplace.
+- name: product modified
+  fires_on: A product in the catalog is changed.
+- name: subscription canceled
+  fires_on: A subscription is canceled.
+- name: subscription removed
+  fires_on: A subscription is removed (deleted resource excluded from payload).
+caveat: >-
+  The docs overview lists these as examples; the complete event-type catalog is
+  configured per marketplace and not exhaustively enumerated on the public intro page.

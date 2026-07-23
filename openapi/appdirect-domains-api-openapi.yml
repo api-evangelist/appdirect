@@ -1,0 +1,332 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Domains API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Domains
+  x-displayName: Domains
+paths:
+  /account/v2/companies/{companyUuid}/domains:
+    get:
+      description: Retrieve a marketplace company's domains.
+      tags:
+      - Domains
+      summary: List company domains
+      operationId: resource_Company_readDomains_GET
+      x-appdirect-required-scopes:
+        ROLE_BILLING_ADMIN:
+        - Allows access as a Billing Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Search term used to search domain names
+        name: searchText
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - name: mydomain1.com
+                      uuid: ec4783be-0325-49c7-b53d-8e4d9631104a
+                      status: ACTIVE
+                      companyEntitlementStatus: ACTIVE
+                      source: PURCHASED
+                      endOfContractDate: 1480699590955
+                      renews: true
+                      price: 10.63
+                      currency: USD
+                      launchUrl: http://appdirect/saml/domain/idp/init/51
+                      domainProvider:
+                        id: 131
+                        uuid: fc876968-396a-40bc-824f-01b588d22ad2
+                        name: MockApp6544683144966352395
+                        imageLogoLarge: app_resources/2506/thumbs_64/img4627488903781521711.png
+                        providerCompany: Appdirect
+                      domainEntitlementId: 51
+                      owner:
+                        uuid: 3308489f-3448-45c4-bab1-5dd4461ccadd
+                        userId: 109
+                        email: lisa.lopez@company8722006945.com
+                        userName: lisa.lopez@company8722006945.com
+                        firstName: Lisa
+                        lastName: Lopez
+                        picture: http://appdirect/profilePics/img2147417701652580695.png?184b58e358f087154d94329f9000b28a
+                        activated: true
+                        allowLogin: true
+                        ldapId: '1'
+                        boostUser:
+                          apsUid: murnu8w
+                        roles: []
+                        metadata:
+                          apsUid: murnu8w
+                        links: []
+                      company:
+                        uuid: 0fc286dc-40ae-4cd0-9f04-59687fdf39bf
+                        name: Company 6702951797
+                        picture: http://appdirect/profilePics/http://cdn/company.png
+                        vendor: false
+                        reseller: false
+                        phoneNumber: +1 123 123 1234
+                        customAttributes:
+                        - name: Geographic Region
+                          attributeType: TEXT
+                          label: Geographic Region
+                          hint: US West, US Central, or US East
+                          value: US
+                        - name: Company Details
+                          attributeType: MULTISELECT
+                          label: Label Names
+                          hint: ''
+                          valueKeys:
+                          - great option
+                        defaultRole: USER
+                        enabled: true
+                        links: []
+                      domainAssociatedApplications: []
+                      subscriptionId: b3f9761d-21df-4240-9006-2dbb4b19eec0
+                      links: []
+                    - name: mydomain2.com
+                      uuid: 9e986b20-0c6f-4a65-9321-d31956aa3f40
+                      status: ACTIVE
+                      companyEntitlementStatus: ACTIVE
+                      source: PURCHASED
+                      endOfContractDate: 1480699590955
+                      currency: USD
+                      renews: true
+                      price: 10.63
+                      launchUrl: http://appdirect/saml/domain/idp/init/51
+                      domainProvider:
+                        id: 131
+                        uuid: fc876968-396a-40bc-824f-01b588d22ad2
+                        name: MockApp6544683144966352395
+                        imageLogoLarge: app_resources/2506/thumbs_64/img4627488903781521711.png
+                        providerCompany: Appdirect
+                      domainEntitlementId: 51
+                      owner:
+                        uuid: 3308489f-3448-45c4-bab1-5dd4461ccadd
+                        userId: 109
+                        email: lisa.lopez@company8722006945.com
+                        userName: lisa.lopez@company8722006945.com
+                        firstName: Lisa
+                        lastName: Lopez
+                        picture: null
+                        activated: true
+                        allowLogin: true
+                        ldapId: null
+                        boostUser: null
+                        roles: []
+                        metadata: {}
+                        links: []
+                      company:
+                        uuid: 0fc286dc-40ae-4cd0-9f04-59687fdf39bf
+                        name: Company 6702951797
+                        picture: http://appdirect/profilePics/http://cdn/company.png
+                        vendor: false
+                        reseller: false
+                        phoneNumber: +1 123 123 1234
+                        customAttributes:
+                        - name: Geographic Region
+                          attributeType: TEXT
+                          label: Geographic Region
+                          hint: US West, US Central, or US East
+                          value: US
+                        - name: Company Details
+                          attributeType: MULTISELECT
+                          label: Label Names
+                          hint: ''
+                          valueKeys:
+                          - great option
+                        defaultRole: USER
+                        enabled: true
+                        links: []
+                      domainAssociatedApplications: []
+                      subscriptionId: 4b19761c-a7a2-4d95-b3bf-66e1c66b0a1a
+                      links: []
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains?searchText=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains',\n  qs: {searchText: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains?searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/domains/{domainName}:
+    get:
+      description: Get a specific company domain
+      tags:
+      - Domains
+      summary: Read company domain
+      operationId: resource_Company_readDomain_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as owner of the company domain.
+        ROLE_BILLING_ADMIN:
+        - Allows access as a Billing Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Company domain name
+        name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    name: demoempires.com
+                    uuid: 2efe36aa-ec95-4505-9544-4a995c51135e
+                    status: ACTIVE
+                    companyEntitlementStatus: ACTIVE
+                    source: PURCHASED
+                    endOfContractDate: 1517288400000
+                    renews: true
+                    price: 10.63
+                    currency: USD
+                    launchUrl: http://localhost:8080/sso/domain/idp/init/1426
+                    domainProvider:
+                      id: 2506
+                      uuid: 576e870a-8742-4fb4-ada7-af87c82861d7
+                      name: AUTO_DOMAIN_PROIVDER_APP
+                      imageLogoLarge: app_resources/529/thumbs_64/img1764112210464997003.png
+                      providerCompany: Appdirect
+                    domainEntitlementId: 1426
+                    owner:
+                      uuid: 52f71266-ca3e-4f52-a506-83e70407edc2
+                      userId: 4338
+                      email: c4736378@appdirect.com
+                      customAttributes: []
+                      userName: null
+                      firstName: Auto
+                      lastName: Tester
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser: null
+                      roles: []
+                      currency: USD
+                      metadata: {}
+                      links: []
+                    company:
+                      uuid: da7c47c0-c1c7-43f4-bf45-f60d6cc5dd6e
+                      name: Appdirect
+                      picture: null
+                      vendor: false
+                      reseller: false
+                      phoneNumber: '4155555555'
+                      defaultRole: USER
+                      enabled: true
+                      customAttributes: []
+                      links: []
+                    domainAssociatedApplications: []
+                    subscriptionId: b3f9761d-21df-4240-9006-2dbb4b19eec0
+                    links: []
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/Domain name not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains/%7BdomainName%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains/%7BdomainName%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/domains/%7BdomainName%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/verifiedDomains:
+    get:
+      description: Retrieve a marketplace company's verified domains.
+      tags:
+      - Domains
+      summary: List verified company domains
+      operationId: resource_Company_getVerifiedDomains_GET
+      x-appdirect-required-scopes:
+        ROLE_BILLING_ADMIN:
+        - Allows access as a Billing Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - content: mydomain1.com
+                      links: []
+                    - content: mydomain2.com
+                      links: []
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/verifiedDomains"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/verifiedDomains'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/verifiedDomains\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"

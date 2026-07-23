@@ -1,0 +1,1826 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed CompanyMemberships API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: CompanyMemberships
+  x-displayName: Company Memberships
+paths:
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}:
+    get:
+      description: Retrieve a marketplace user's company membership information.
+      tags:
+      - CompanyMemberships
+      summary: Read company membership
+      operationId: resource_Company_readCompanyMembership_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as an end user in the company
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace. Only memberships with the Reseller role or that are linked to Reseller companies can be retrieved.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included.
+        name: includeCompanies
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - description: Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included.
+        name: includeUserCustomAttributes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: 6de203c1-a583-455a-ba95-3797edc262d0
+                      email: jude.simpson@company5833088198.com
+                      userName: jude.simpson
+                      firstName: Jude
+                      lastName: Simpson
+                      picture: http://appdirect/profilePics/img2147417701652580695.png?184b58e358f087154d94329f9000b28a
+                      activated: true
+                      allowLogin: true
+                      ldapId: '1'
+                      boostUser:
+                        apsUid: murnu8w
+                      currency: null
+                      customAttributes:
+                      - attributeType: TEXT
+                        hint: commission_hint
+                        label: Commission_Payout_ID
+                        name: C5125859
+                        value: value
+                      roles:
+                      - ROLE_USER
+                      metadata:
+                        apsUid: murnu8w
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0/memberships
+                    company:
+                      uuid: 4be3ce24-a702-46b9-a789-f15ce822a9ef
+                      name: Company 5261852235
+                      picture: http://localhost:8080/profilePics/http://cdn/company.png
+                      vendor: true
+                      reseller: true
+                      phoneNumber: '9259221234'
+                      defaultRole: DEVELOPER
+                      enabled: true
+                      customAttributes:
+                      - name: Geographic Region
+                        attributeType: TEXT
+                        label: Geographic Region
+                        hint: US West, US Central, or US East
+                        value: US
+                      - name: Company Details
+                        attributeType: MULTISELECT
+                        label: Label Names
+                        hint: ''
+                        valueKeys:
+                        - great option
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_BILLING_ADMIN
+                    - ROLE_SYS_ADMIN
+                    position: Business Analyst
+                    mosiUser:
+                      username: adazuretest@sdasd21321.onmicrosoft.com
+                    metadata:
+                      mosi_username: adazuretest@sdasd21321.onmicrosoft.com
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/6de203c1-a583-455a-ba95-3797edc262d0
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D?includeCompanies=SOME_BOOLEAN_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D',\n  qs: {\n    includeCompanies: 'SOME_BOOLEAN_VALUE',\n    includeUserCustomAttributes: 'SOME_BOOLEAN_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D?includeCompanies=SOME_BOOLEAN_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: 'Update a marketplace user''s company membership.
+
+
+        Updates the following roles based on the provided user company membership data: Product Support, Sales Support, Reseller Manager, Customer Support, Reseller, Billing Admin, Company Admin, Developer.
+
+        This also enables/disables the membership based on provided user company membership data.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      tags:
+      - CompanyMemberships
+      summary: Update company membership
+      operationId: resource_Company_updateCompanyMembership_PUT
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserCompanyMembershipAccountV2'
+        description: Update User company membership data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: a38ef2d2-cdad-483c-ba86-fa6186d12263
+                      email: guy.smith24@yopmail.com
+                      userName: guy.smith24@yopmail.com
+                      firstName: Guy
+                      lastName: Smith
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser:
+                        apsUid: murnu8w
+                      roles:
+                      - ROLE_USER
+                      currency: null
+                      customAttributes: []
+                      metadata:
+                        apsUid: murnu8w
+                      links:
+                      - rel: self
+                        href: http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263
+                      - rel: memberships
+                        href: http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263/memberships
+                    company:
+                      uuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      name: Appdirect
+                      picture: null
+                      vendor: true
+                      reseller: true
+                      phoneNumber: '9259221234'
+                      defaultRole: DEVELOPER
+                      enabled: true
+                      customAttributes:
+                      - name: Geographic Region
+                        attributeType: TEXT
+                        label: email
+                        hint: US West, US Central, or US East
+                        value: US1
+                      links:
+                      - rel: self
+                        href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_BILLING_ADMIN
+                    - ROLE_DEVELOPER
+                    - ROLE_SYS_ADMIN
+                    - ROLE_CHANNEL_ADMIN
+                    - ROLE_CHANNEL_PRODUCT_SUPPORT
+                    - ROLE_CHANNEL_SUPPORT
+                    - ROLE_SALES_SUPPORT
+                    - ROLE_RESELLER
+                    - ROLE_RESELLER_MANAGER
+                    position: null
+                    mosiUser: null
+                    metadata:
+                      mosi_username: null
+                    links:
+                    - rel: self
+                      href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/a38ef2d2-cdad-483c-ba86-fa6186d12263
+                    - rel: user
+                      href: http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263
+                    - rel: company
+                      href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"enabled\":true,\"roles\":[\"ROLE_BILLING_ADMIN\",\"ROLE_DEVELOPER\",\"ROLE_SYS_ADMIN\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    enabled: true,\n    roles: ['ROLE_BILLING_ADMIN', 'ROLE_DEVELOPER', 'ROLE_SYS_ADMIN']\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"enabled\\\":true,\\\"roles\\\":[\\\"ROLE_BILLING_ADMIN\\\",\\\"ROLE_DEVELOPER\\\",\\\"ROLE_SYS_ADMIN\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: 'Delete a marketplace user''s company membership.
+
+
+        If this is the only company the user was member of, user is marked as deleted.
+
+        A user that has active entitlements, owns products or is externally managed can''t be deleted.'
+      tags:
+      - CompanyMemberships
+      summary: Delete company membership
+      operationId: resource_Company_deleteCompanyMembership_DELETE
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership not found
+        '409':
+          description: Active subscriptions found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: 'Enable or disable marketplace user''s company membership.
+
+
+        This only changes the user company membership''s enabled status; all other attributes are ignored.'
+      tags:
+      - CompanyMemberships
+      summary: Enable/Disable company membership
+      operationId: resource_Company_partialUpdateCompanyMembership_PATCH
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchUserCompanyMembershipAccountV2'
+        description: User company membership data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: 9cc60e5e-5a46-4efb-9d53-afc6ee0586cd
+                      email: susan.gonsalez@company4486527851.com
+                      userName: susan.gonsalez
+                      firstName: Susan
+                      lastName: Gonsalez
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser: null
+                      roles:
+                      - ROLE_USER
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd/memberships
+                    company:
+                      uuid: 88542fbc-f801-4588-9525-e615146889f7
+                      name: Company 1079194187
+                      picture: http://localhost:8080/profilePics/http://cdn/company.png
+                      vendor: false
+                      phoneNumber: '9259221234'
+                      defaultRole: USER
+                      enabled: true
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_BILLING_ADMIN
+                    - ROLE_SYS_ADMIN
+                    position: null
+                    mosiUser: null
+                    metadata:
+                      mosi_username: null
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7/memberships/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership not found
+        '409':
+          description: Active subscriptions found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"enabled\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {enabled: true},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"enabled\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/active:
+    post:
+      description: 'Create a marketplace user with membership in the given company.
+
+
+        The created user is active, and is associated with the specified company (membership).
+
+        User is set with a temporary password; the password is emailed to the recipients specified in the request body.
+
+
+        The domain part of the user''s email address must match one of the verified domains associated with the company the user will be created in.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      tags:
+      - CompanyMemberships
+      summary: Create company membership (Add User)
+      operationId: resource_Company_createActiveUser_POST
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActiveUserCreationAccountV2'
+        description: User creation data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: e16171eb-d89c-4842-9550-2f9cf3ef4cee
+                      email: guy.smith@company9411805586.com
+                      userName: guy.smith@company9411805586.com
+                      firstName: Guy
+                      lastName: Smith
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser: null
+                      roles:
+                      - ROLE_USER
+                      currency: null
+                      customAttributes: []
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee/memberships
+                    company:
+                      uuid: ece062bd-0c74-4d44-996c-743c3e71f8e1
+                      name: Company 4492834930
+                      picture: http://localhost:8080/profilePics/http://cdn/company.png
+                      vendor: false
+                      reseller: true
+                      phoneNumber: '9259221234'
+                      defaultRole: USER
+                      enabled: true
+                      customAttributes:
+                      - name: Geographic Region
+                        attributeType: TEXT
+                        label: Geographic Region
+                        hint: US West, US Central, or US East
+                        value: US
+                      - name: Company Details
+                        attributeType: MULTISELECT
+                        label: Label Names
+                        hint: ''
+                        valueKeys:
+                        - great option
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_USER
+                    position: null
+                    mosiUser: null
+                    metadata:
+                      mosi_username: null
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1/memberships/e16171eb-d89c-4842-9550-2f9cf3ef4cee
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/active \\\n  --header 'content-type: application/json' \\\n  --data '{\"user\":{\"email\":\"guy.smith@company9411805586.com\",\"firstName\":\"Guy\",\"lastName\":\"Smith\",\"roles\":[\"ROLE_DEVELOPER\"]},\"temporaryPassword\":\"Temporary Password\",\"recipientEmails\":[\"manager@company9411805586.com\",\"itteam@company9411805586.com\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/active',\n  headers: {'content-type': 'application/json'},\n  body: {\n    user: {\n      email: 'guy.smith@company9411805586.com',\n      firstName: 'Guy',\n      lastName: 'Smith',\n      roles: ['ROLE_DEVELOPER']\n    },\n    temporaryPassword: 'Temporary Password',\n    recipientEmails: ['manager@company9411805586.com', 'itteam@company9411805586.com']\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"user\\\":{\\\"email\\\":\\\"guy.smith@company9411805586.com\\\",\\\"firstName\\\":\\\"Guy\\\",\\\"lastName\\\":\\\"Smith\\\",\\\"roles\\\":[\\\"ROLE_DEVELOPER\\\"]},\\\"temporaryPassword\\\":\\\"Temporary Password\\\",\\\"recipientEmails\\\":[\\\"manager@company9411805586.com\\\",\\\"itteam@company9411805586.com\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/active\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships:
+    get:
+      description: List a marketplace company's user memberships.
+      tags:
+      - CompanyMemberships
+      summary: List company memberships
+      operationId: resource_Company_readCompanyMemberships_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as an end user in the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: If specified, returns only memberships associated with users having the specified active status
+        name: active
+        in: query
+        schema:
+          type: boolean
+      - description: If specified, returns only memberships with the specified enabled status
+        name: enabled
+        in: query
+        schema:
+          type: boolean
+      - description: If specified, returns only memberships with the specified role enabled
+        name: roleName
+        in: query
+        schema:
+          type: string
+      - description: If specified, returns only memberships that are a part of the specified group
+        name: groupUuid
+        in: query
+        schema:
+          type: string
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Search term used to search on different fields of a membership
+        name: searchText
+        in: query
+        schema:
+          type: string
+      - description: The size of the page to be returned
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: The property to sort by
+        name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - DATE
+          - FIRST_NAME
+          - LAST_NAME
+          default: DATE
+      - description: Ordering type
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+      - description: Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included.
+        name: includeCompanies
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - description: Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included.
+        name: includeUserCustomAttributes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - user:
+                        uuid: d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0
+                        email: john.simpson@company58330881982.com
+                        userName: john.simpson
+                        firstName: John
+                        lastName: Simpson
+                        picture: http://appdirect/profilePics/img2147417701652580695.png?184b58e358f087154d94329f9000b28a
+                        activated: true
+                        allowLogin: true
+                        ldapId: '1'
+                        currency: null
+                        customAttributes:
+                        - attributeType: TEXT
+                          hint: commission_hint
+                          label: Commission_Payout_ID
+                          name: C5125859
+                          value: value
+                        boostUser:
+                          apsUid: murnu8w
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: murnu8w
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0/memberships
+                      company:
+                        uuid: 4be3ce24-a702-46b9-a789-f15ce822a9ef
+                        name: Company 5261852235
+                        picture: http://localhost:8080/profilePics/http://cdn/company.png
+                        vendor: true
+                        reseller: true
+                        phoneNumber: '9259221234'
+                        defaultRole: DEVELOPER
+                        enabled: true
+                        customAttributes:
+                        - name: Geographic Region
+                          attributeType: TEXT
+                          label: Geographic Region
+                          hint: US West, US Central, or US East
+                          value: US
+                        - name: Company Details
+                          attributeType: MULTISELECT
+                          label: Label Names
+                          hint: ''
+                          valueKeys:
+                          - great option
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships
+                      enabled: true
+                      lastUsed: false
+                      roles:
+                      - ROLE_BILLING_ADMIN
+                      - ROLE_SYS_ADMIN
+                      position: Project Team Lead
+                      mosiUser:
+                        username: agcompanybill1@testl3816.onmicrosoft.com
+                      metadata:
+                        mosi_username: agcompanybill1@testl3816.onmicrosoft.com
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0
+                      - rel: user
+                        href: http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+                    - user:
+                        uuid: 6de203c1-a583-455a-ba95-3797edc262d0
+                        email: jude.simpson@company5833088198.com
+                        userName: jude.simpson
+                        firstName: Jude
+                        lastName: Simpson
+                        picture: null
+                        activated: true
+                        allowLogin: true
+                        ldapId: null
+                        boostUser: null
+                        currency: null
+                        customAttributes: []
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0/memberships
+                      company:
+                        uuid: 4be3ce24-a702-46b9-a789-f15ce822a9ef
+                        name: Company 5261852235
+                        picture: http://localhost:8080/profilePics/http://cdn/company.png
+                        vendor: true
+                        reseller: true
+                        phoneNumber: '9259221234'
+                        defaultRole: DEVELOPER
+                        enabled: true
+                        customAttributes:
+                        - name: Geographic Region
+                          attributeType: TEXT
+                          label: Geographic Region
+                          hint: US West, US Central, or US East
+                          value: US
+                        - name: Company Details
+                          attributeType: MULTISELECT
+                          label: Label Names
+                          hint: ''
+                          valueKeys:
+                          - great option
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships
+                      enabled: true
+                      lastUsed: false
+                      roles:
+                      - ROLE_BILLING_ADMIN
+                      - ROLE_SYS_ADMIN
+                      position: Business Analyst
+                      mosiUser:
+                        username: adazuretest@sdasd21321.onmicrosoft.com
+                      metadata:
+                        mosi_username: adazuretest@sdasd21321.onmicrosoft.com
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/6de203c1-a583-455a-ba95-3797edc262d0
+                      - rel: user
+                        href: http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships?active=SOME_BOOLEAN_VALUE&enabled=SOME_BOOLEAN_VALUE&roleName=SOME_STRING_VALUE&groupUuid=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&includeCompanies=SOME_BOOLEAN_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships',\n  qs: {\n    active: 'SOME_BOOLEAN_VALUE',\n    enabled: 'SOME_BOOLEAN_VALUE',\n    roleName: 'SOME_STRING_VALUE',\n    groupUuid: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    includeCompanies: 'SOME_BOOLEAN_VALUE',\n    includeUserCustomAttributes: 'SOME_BOOLEAN_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships?active=SOME_BOOLEAN_VALUE&enabled=SOME_BOOLEAN_VALUE&roleName=SOME_STRING_VALUE&groupUuid=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&includeCompanies=SOME_BOOLEAN_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: 'Add a new or existing user as a member of a marketplace company.
+
+
+        If no user exists with the given email address a new user account ([Users](#users)) will be created. Use the allowLogin body parameter to control if a new user account should be invited to the marketplace with login access or created as a managed user without login access. See [CreateUserAccountV2](#createuseraccountv2) for more information on the allowLogin parameter.
+
+
+        Depending on channel configuration, an invited membership is either created immediately, or when the invited user accepts the invitation.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      tags:
+      - CompanyMemberships
+      summary: Create company membership
+      operationId: resource_Company_createCompanyMembership_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request.
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserCompanyMembershipAccountV2'
+        description: User company membership data
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: 29c370c8-960a-43a0-8dc5-c09aadbaa101
+                      email: mary.gonsalez@company3157614232.com
+                      userName: mary.gonsalez@company3157614232.com
+                      firstName: Mary
+                      lastName: Gonsalez
+                      allowLogin: true
+                      picture: null
+                      activated: false
+                      ldapId: null
+                      boostUser: null
+                      roles:
+                      - ROLE_USER
+                      currency: null
+                      customAttributes: []
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101
+                      - rel: memberships
+                        href: http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101/memberships
+                    company:
+                      uuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      name: Appdirect
+                      picture: null
+                      vendor: true
+                      reseller: true
+                      phoneNumber: '9259221234'
+                      defaultRole: DEVELOPER
+                      enabled: true
+                      customAttributes:
+                      - name: Geographic Region
+                        attributeType: TEXT
+                        label: email
+                        hint: US West, US Central, or US East
+                        value: US
+                      links:
+                      - rel: self
+                        href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_DEVELOPER
+                    position: null
+                    mosiUser: null
+                    metadata:
+                      mosi_username: null
+                    links:
+                    - rel: self
+                      href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/29c370c8-960a-43a0-8dc5-c09aadbaa101
+                    - rel: user
+                      href: http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101
+                    - rel: company
+                      href: http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/Inviter not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships?inviterUuid=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"user\":{\"email\":\"jane.lee@company1151609035.com\",\"firstName\":\"Jane\",\"lastName\":\"Lee\",\"allowLogin\":true},\"roles\":[\"ROLE_USER\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships',\n  qs: {inviterUuid: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    user: {\n      email: 'jane.lee@company1151609035.com',\n      firstName: 'Jane',\n      lastName: 'Lee',\n      allowLogin: true\n    },\n    roles: ['ROLE_USER']\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"user\\\":{\\\"email\\\":\\\"jane.lee@company1151609035.com\\\",\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Lee\\\",\\\"allowLogin\\\":true},\\\"roles\\\":[\\\"ROLE_USER\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships?inviterUuid=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/roles:
+    patch:
+      description: 'Update role assignments for one or more company memberships (users).
+
+
+        API clients acting on behalf of an end user must first call [Read assignable roles for company membership](#read-assignable-roles-for-company-membership) to retrieve the list of roles they are allowed to update.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      x-appdirect-visible: true
+      tags:
+      - CompanyMemberships
+      summary: Update company membership roles (bulk)
+      operationId: resource_Company_createCompanyMembership_PATCH
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatchUserCompanyMembershipsAccountV2'
+              example:
+              - userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
+                rolesToAdd:
+                - ROLE_DEVELOPER
+                - ROLE_RESELLER
+                rolesToRemove:
+                - ROLE_CHANNEL_SUPPORT
+              - userUuid: 673d2cda-2d1a-11e8-a232-d879d2b204fc
+                rolesToAdd:
+                - ROLE_SYS_ADMIN
+        description: User company membership role data
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/roles \\\n  --header 'content-type: application/json' \\\n  --data '[{\"userUuid\":\"92a8d9f6-223d-11e8-a232-d879d2b204fc\",\"rolesToAdd\":[\"ROLE_DEVELOPER\",\"ROLE_RESELLER\"],\"rolesToRemove\":[\"ROLE_CHANNEL_SUPPORT\"]},{\"userUuid\":\"673d2cda-2d1a-11e8-a232-d879d2b204fc\",\"rolesToAdd\":[\"ROLE_SYS_ADMIN\"]}]'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/roles',\n  headers: {'content-type': 'application/json'},\n  body: [\n    {\n      userUuid: '92a8d9f6-223d-11e8-a232-d879d2b204fc',\n      rolesToAdd: ['ROLE_DEVELOPER', 'ROLE_RESELLER'],\n      rolesToRemove: ['ROLE_CHANNEL_SUPPORT']\n    },\n    {\n      userUuid: '673d2cda-2d1a-11e8-a232-d879d2b204fc',\n      rolesToAdd: ['ROLE_SYS_ADMIN']\n    }\n  ],\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"[{\\\"userUuid\\\":\\\"92a8d9f6-223d-11e8-a232-d879d2b204fc\\\",\\\"rolesToAdd\\\":[\\\"ROLE_DEVELOPER\\\",\\\"ROLE_RESELLER\\\"],\\\"rolesToRemove\\\":[\\\"ROLE_CHANNEL_SUPPORT\\\"]},{\\\"userUuid\\\":\\\"673d2cda-2d1a-11e8-a232-d879d2b204fc\\\",\\\"rolesToAdd\\\":[\\\"ROLE_SYS_ADMIN\\\"]}]\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/roles\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/checklist:
+    get:
+      description: Retrieve a marketplace user's checklist.
+      tags:
+      - CompanyMemberships
+      summary: Read user checklist
+      operationId: resource_Company_readUserChecklist_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as current user matches the user in path.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    havePurchasedProduct: false
+                    haveAssignedUsers: false
+                    haveInvitedUsers: false
+                    haveCompletedProfile: false
+                    haveCompletedCompanyProfile: false
+                    links: []
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/checklist"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/checklist'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/checklist\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/invite:
+    post:
+      description: Invite a managed user as a member of a marketplace company. If the user is a member of a managed company, the managed company identifier must be used in this request. The operation will then also convert the managed company to a regular company.
+      tags:
+      - CompanyMemberships
+      summary: Invite a managed user
+      operationId: resource_Company_inviteManagedUser_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request.
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/ManagedUser/Inviter not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/invite?inviterUuid=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/invite',\n  qs: {inviterUuid: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/invite?inviterUuid=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/applications/{applicationId}/purchaseRequests:
+    post:
+      description: 'Request to purchase an application for the given marketplace company and user.
+
+
+        This causes an email notification to be sent to company administrators (system and billing admins).'
+      tags:
+      - CompanyMemberships
+      summary: Request to purchase an application
+      operationId: resource_Company_requestPurchase_POST
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as current user matches the user in path.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of application to purchase
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership/Application not found
+        '409':
+          description: Application already purchased
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/applications/%7BapplicationId%7D/purchaseRequests"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/applications/%7BapplicationId%7D/purchaseRequests'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/applications/%7BapplicationId%7D/purchaseRequests\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/assignments:
+    get:
+      description: 'Retrieve a marketplace user''s application assignments.
+
+
+        Returns assignments that are not FAILED or CANCELLED.'
+      tags:
+      - CompanyMemberships
+      summary: List application assignments for company membership
+      operationId: resource_Company_readUserAssignments_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: 4d8ab391-33b9-472f-abce-6a6bd5e4c39b
+                      createdOn: 1480699562586
+                      status: ACTIVE
+                      companyEntitlementId: 23
+                      companyEntitlementStatus: ACTIVE
+                      companyEntitlementLabel: Mock App
+                      ownerId: 40
+                      ownerUuid: 4aad1f87-a653-4031-9b64-de42c7c5fa3f
+                      ownerFirstName: Susan
+                      ownerLastName: Simpson
+                      assignmentCount: 1
+                      productName: MockApp208301774438095187
+                      gridImageUrl: http://appdirect/app_resources/9/myAppIcon/img1445094381431796823.png?466c707fefd0aba59d170d532e013f3d
+                      listImageUrl: http://appdirect/app_resources/9/thumbs_64/img1445094381431796823.png?466c707fefd0aba59d170d532e013f3d
+                      links:
+                      - rel: application
+                        href: http://appdirect/api/marketplace/v1/products/47
+                    - uuid: 88ab5014-56fa-4e4e-9090-8ac6e4e2d189
+                      createdOn: 1481650330000
+                      status: ACTIVE
+                      companyEntitlementId: 1323
+                      companyEntitlementStatus: ACTIVE
+                      companyEntitlementLabel: Sample App
+                      ownerId: 1
+                      ownerUuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      ownerFirstName: super
+                      ownerLastName: user
+                      assignmentCount: 2
+                      productName: Sample Application2
+                      gridImageUrl: http://appdirect/app_resources/2723/myAppIcon/img4627488903781521711.png?0e3706dc6af5012131ca53ed107d0675
+                      listImageUrl: 'http://appdirect/app_resources/2723/thumbs_64/img4627488903781521711.png?5eee537065a26ca7f488610144784c88
+
+                        '
+                      links:
+                      - rel: application
+                        href: http://appdirect/api/marketplace/v1/products/2723?country=&currency=
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignments"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignments'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignments\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/assignableRoles:
+    get:
+      description: Retrieve marketplace roles that can be assigned by this company membership.
+      tags:
+      - CompanyMemberships
+      summary: Read assignable roles for company membership
+      operationId: resource_Company_readAssignableRoles_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as current user matches the user in path.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - name: USER
+                  - name: CHANNEL_PRODUCT_SUPPORT
+                  - name: SALES_SUPPORT
+                  - name: CHANNEL_SUPPORT
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User/Membership not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignableRoles"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignableRoles'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/assignableRoles\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/assignableRoles:
+    get:
+      description: Retrieves a list of marketplace roles that the current, logged-in user can assign to any user in any marketplace company.
+      tags:
+      - CompanyMemberships
+      summary: Read company assignable roles
+      operationId: resource_readCompanyAssignableRoles_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+      parameters:
+      - description: Unique identifier of the company
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - name: ROLE_SYS_ADMIN
+                  - name: ROLE_RESELLER
+                  - name: ROLE_BILLING_ADMIN
+                  - name: ROLE_USER
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/assignableRoles"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/assignableRoles'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/assignableRoles\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/groups:
+    get:
+      description: Retrieve the list of groups the company membership is in.
+      tags:
+      - CompanyMemberships
+      summary: List groups for company membership
+      operationId: resource_Group_readCompanyGroupsForUser_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as an end user in the company
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Set to true when company is externally managed
+        name: ldap
+        in: query
+        schema:
+          type: boolean
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Search term used to search on group name and description
+        name: searchText
+        in: query
+        schema:
+          type: string
+      - description: The size of the page to be returned
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - name: sortField
+        in: query
+        schema:
+          type: string
+          default: createdOn
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/groups?page=0&size=50&sortField=createdOn&sortOrder=DESC
+                    content:
+                    - uuid: 56ac8abc-2b63-4b66-a648-dde419aa6c4a
+                      name: superuser-group
+                      description: superuser group
+                      memberCount: 2
+                      companyDefault: false
+                      systemManaged: false
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a/memberships?member=true&page=0&size=50
+                    - uuid: 5acdd82e-5cb7-4a23-b842-38d514aafcdf
+                      name: Everyone
+                      description: All company users
+                      memberCount: 88
+                      companyDefault: true
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf/memberships?member=true&page=0&size=50
+                    - uuid: 74f7132f-8dd9-4b3a-8014-5aac81dc2c05
+                      name: Company Admins
+                      description: All Company Admin users
+                      memberCount: 14
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05/memberships?member=true&page=0&size=50
+                    - uuid: 9a79c98d-8e36-49ed-837c-cc9473dee851
+                      name: Marketplace Managers
+                      description: All Marketplace Managers
+                      memberCount: 9
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851/memberships?member=true&page=0&size=50
+                    - uuid: 6d970a9e-a702-406f-808b-9483163efdd1
+                      name: Reseller Managers
+                      description: All Reseller Manager users
+                      memberCount: 2
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1/memberships?member=true&page=0&size=50
+                    - uuid: 70c65cb0-cbe5-447c-bdce-1d00e4d08f84
+                      name: Customer Support
+                      description: All Customer Support users
+                      memberCount: 12
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84/memberships?member=true&page=0&size=50
+                    - uuid: 73f252d5-0dbe-4414-8384-edb7544b83b6
+                      name: Sales Support
+                      description: All Sales Support users
+                      memberCount: 13
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6/memberships?member=true&page=0&size=50
+                    - uuid: b0cf07b9-9953-406f-ba64-b4ca239f30bf
+                      name: Product Support
+                      description: All Product Support users
+                      memberCount: 12
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf/memberships?member=true&page=0&size=50
+                    - uuid: a7d34c49-a376-433b-af53-f51be1cf2038
+                      name: Developers
+                      description: All Developer users
+                      memberCount: 78
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038/memberships?member=true&page=0&size=50
+                    - uuid: 84d6c781-9290-461c-a18f-010791cb87ca
+                      name: Billing Admins
+                      description: All Billing Admin users
+                      memberCount: 20
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca/memberships?member=true&page=0&size=50
+                    page:
+                      size: 50
+                      totalElements: 10
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company/User not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/groups?ldap=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/groups',\n  qs: {\n    ldap: 'SOME_BOOLEAN_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/groups?ldap=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ActiveUserAccountV2:
+      description: User information (company)
+      type: object
+      title: ActiveUserAccountV2
+      properties:
+        email:
+          description: Email address
+          type: string
+        firstName:
+          description: First name
+          type: string
+        lastName:
+          description: Last name
+          type: string
+        roles:
+          description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+          type: array
+          items:
+            type: string
+      example:
+        email: jude.doe@company8578572384.com
+        firstName: Jude
+        lastName: Doe
+        roles:
+        - ROLE_USER
+    PatchUserCompanyMembershipsAccountV2:
+      description: User company membership role data.
+      type: object
+      title: PatchUserCompanyMembershipsAccountV2
+      properties:
+        userUuid:
+          description: UUID of the user whose membership roles need to be modified
+          type: string
+        rolesToAdd:
+          description: 'Roles to add to this membership. One or more of the following: ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+        rolesToRemove:
+          description: 'Roles to remove from this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+      example:
+        userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
+        rolesToAdd:
+        - ROLE_DEVELOPER
+        - ROLE_RESELLER
+        rolesToRemove:
+        - ROLE_CHANNEL_SUPPORT
+    PatchUserCompanyMembershipAccountV2:
+      description: Represents partially updating a user membership to company
+      type: object
+      title: PatchUserCompanyMembershipAccountV2
+      properties:
+        enabled:
+          description: Indicates whether membership is enabled
+          type: boolean
+      example:
+        enabled: true
+    UpdateUserCompanyMembershipAccountV2:
+      description: Represents updating a user membership to company
+      type: object
+      title: UpdateUserCompanyMembershipAccountV2
+      properties:
+        enabled:
+          description: Indicates whether the membership is enabled
+          type: boolean
+        roles:
+          description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+      example:
+        enabled: true
+        roles:
+        - ROLE_BILLING_ADMIN
+        - ROLE_DEVELOPER
+        - ROLE_SYS_ADMIN
+    CreateUserCompanyMembershipAccountV2:
+      description: Represents a user membership to a company since a user can be a member of multiple companies ([Companies](#companies))
+      type: object
+      title: CreateUserCompanyMembershipAccountV2
+      properties:
+        user:
+          $ref: '#/components/schemas/CreateUserAccountV2'
+        roles:
+          description: 'Optional.  When not included the company default role will be used.
+
+
+            Roles for this membership. One or more of the following: ROLE_USER (User), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+          type: array
+          items:
+            type: string
+      example:
+        user:
+          email: jane.lee@company1151609035.com
+          firstName: Jane
+          lastName: Lee
+          allowLogin: true
+        roles:
+        - ROLE_USER
+    CreateUserAccountV2:
+      description: User information data
+      type: object
+      title: CreateUserAccountV2
+      properties:
+        email:
+          description: Email address of the user being added to this company.  Used to determine if user already exists in the marketplace and invite the user to the company when allowLogin=true.
+          type: string
+        firstName:
+          description: First name of the user being added to this company.
+          type: string
+        lastName:
+          description: Last name of the user being added to this company.
+          type: string
+          nullable: true
+        allowLogin:
+          description: 'Optional. Default is "true".
+
+
+            When set to "true", the user is invited to this marketplace company with login access. The user can purchase and assign products within the company. Products can also be purchased on their behalf, and assigned to them.
+
+
+            When set to "false", the user is added to this marketplace company without login access. Products are purchased and assigned on their behalf, and they access those products directly through the product interface.
+
+
+            Note: If a user already exists in the marketplace and is being added to an additional company, they must be added with the same login access as their other companies.  For example, if a user is currently a member of company A with login access then it''s not allowed to add them to company B without login access.'
+          type: boolean
+        idpUuid:
+          description: UUID of the identity provider that the user will always use to log in. Contact your AppDirect technical consultant or business consultant to obtain the UUID.
+          type: string
+        userName:
+          description: 'User name.
+
+            If not provided, use the user''s email address'
+          type: string
+          nullable: true
+        externalId:
+          description: External identifier of the user
+          type: string
+      example:
+        email: jude.doe@company8578572384.com
+        firstName: Jude
+        lastName: Doe
+        allowLogin: true
+        idpUuid: 135e3a9f-7f86-46a6-a0af-47a7b3a8936d
+        username: john.simpson
+        externalId: john.simpson
+    ActiveUserCreationAccountV2:
+      description: Minimal data required to create a active user membership
+      type: object
+      title: ActiveUserCreationAccountV2
+      properties:
+        recipientEmails:
+          description: List of emails where the temporary password is sent
+          type: array
+          items:
+            type: string
+        temporaryPassword:
+          description: Temporary password
+          type: string
+        user:
+          $ref: '#/components/schemas/ActiveUserAccountV2'
+      example:
+        user:
+          email: guy.smith@company9411805586.com
+          firstName: Guy
+          lastName: Smith
+          roles:
+          - ROLE_DEVELOPER
+        temporaryPassword: Temporary Password
+        recipientEmails:
+        - manager@company9411805586.com
+        - itteam@company9411805586.com

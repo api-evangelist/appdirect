@@ -1,0 +1,670 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed PaymentInstrument API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: PaymentInstrument
+  x-displayName: Payment Instruments
+paths:
+  /billing/v1/companies/{companyId}/users/{userId}/paymentInstruments:
+    get:
+      description: List all of the payment instruments for the given user
+      tags:
+      - PaymentInstrument
+      summary: List all payment instruments for a user
+      operationId: resource_Other_readUserPaymentInstruments_GET
+      parameters:
+      - description: User's company UUID
+        name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: OK
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentInstrumentWS'
+              examples:
+                response:
+                  value:
+                  - id: e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d
+                    company:
+                      id: 7ee20d50-8147-482e-839c-775c02e73c45
+                      href: http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45
+                    user:
+                      id: 952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                      href: http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                    accountDisplay: '1111'
+                    paymentMethod: CREDIT_CARD
+                    billingAddress:
+                      street1: 50 Grove St.
+                      street2: 500 Grove St.
+                      city: Somerville
+                      state: Massachusetts
+                      zip: '02114'
+                      country: US
+                      firstName: John
+                      lastName: Doe
+                      companyName: AppDirect
+                      phone: '9999999999'
+                    creditCard:
+                      name: John Doe
+                      expirationMonth: 12
+                      expirationYear: 2016
+                      type: VISA
+                      number: '12655615611'
+                      securityCode: '111'
+                    createdOn: 1481002402567
+                    default: false
+            application/xml:
+              schema:
+                description: OK
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentInstrumentWS'
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: Create a payment instrument for the given user and company using the provided data
+      tags:
+      - PaymentInstrument
+      summary: Create a payment instrument
+      operationId: resource_Other_createPaymentInstrument_POST
+      parameters:
+      - description: User's company UUID
+        name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInstrumentWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentInstrumentWS'
+        description: Payment instrument data object
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+              examples:
+                response:
+                  value:
+                    id: e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d
+                    company:
+                      id: 7ee20d50-8147-482e-839c-775c02e73c45
+                      href: http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45
+                    user:
+                      id: 952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                      href: http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                    accountDisplay: '1111'
+                    paymentMethod: CREDIT_CARD
+                    billingAddress:
+                      street1: 50 Grove St.
+                      street2: 500 Grove St.
+                      city: Somerville
+                      state: Massachusetts
+                      zip: '02114'
+                      country: US
+                      firstName: John
+                      lastName: Doe
+                      companyName: AppDirect
+                      phone: '9999999999'
+                    creditCard:
+                      name: John Doe
+                      expirationMonth: 12
+                      expirationYear: 2016
+                      type: VISA
+                      number: '12655615611'
+                      securityCode: '111'
+                    createdOn: 1481002402567
+                    default: false
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments \\\n  --data '{\"accountDisplay\":\"...\",\"billingAddress\":{\"city\":\"...\",\"companyName\":\"...\",\"country\":\"...\",\"fax\":\"...\",\"faxExtension\":\"...\",\"firstName\":\"...\",\"lastName\":\"...\",\"phone\":\"...\",\"phoneExtension\":\"...\",\"poBox\":\"...\",\"salutation\":\"...\",\"state\":\"...\",\"street1\":\"...\",\"street2\":\"...\",\"zip\":\"...\"},\"company\":{\"href\":\"...\",\"id\":\"...\"},\"createdOn\":12345,\"creditCard\":{\"expirationMonth\":12345,\"expirationYear\":12345,\"name\":\"...\",\"number\":\"...\",\"securityCode\":\"...\",\"type\":\"AMEX\"},\"id\":\"...\",\"isDefault\":true,\"paymentMethod\":\"MANO_TEO_BILL\",\"user\":{\"href\":\"...\",\"id\":\"...\"},\"vatId\":\"...\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments',\n  body: {\n    accountDisplay: '...',\n    billingAddress: {\n      city: '...',\n      companyName: '...',\n      country: '...',\n      fax: '...',\n      faxExtension: '...',\n      firstName: '...',\n      lastName: '...',\n      phone: '...',\n      phoneExtension: '...',\n      poBox: '...',\n      salutation: '...',\n      state: '...',\n      street1: '...',\n      street2: '...',\n      zip: '...'\n    },\n    company: {href: '...', id: '...'},\n    createdOn: 12345,\n    creditCard: {\n      expirationMonth: 12345,\n      expirationYear: 12345,\n      name: '...',\n      number: '...',\n      securityCode: '...',\n      type: 'AMEX'\n    },\n    id: '...',\n    isDefault: true,\n    paymentMethod: 'MANO_TEO_BILL',\n    user: {href: '...', id: '...'},\n    vatId: '...'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"accountDisplay\\\":\\\"...\\\",\\\"billingAddress\\\":{\\\"city\\\":\\\"...\\\",\\\"companyName\\\":\\\"...\\\",\\\"country\\\":\\\"...\\\",\\\"fax\\\":\\\"...\\\",\\\"faxExtension\\\":\\\"...\\\",\\\"firstName\\\":\\\"...\\\",\\\"lastName\\\":\\\"...\\\",\\\"phone\\\":\\\"...\\\",\\\"phoneExtension\\\":\\\"...\\\",\\\"poBox\\\":\\\"...\\\",\\\"salutation\\\":\\\"...\\\",\\\"state\\\":\\\"...\\\",\\\"street1\\\":\\\"...\\\",\\\"street2\\\":\\\"...\\\",\\\"zip\\\":\\\"...\\\"},\\\"company\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"createdOn\\\":12345,\\\"creditCard\\\":{\\\"expirationMonth\\\":12345,\\\"expirationYear\\\":12345,\\\"name\\\":\\\"...\\\",\\\"number\\\":\\\"...\\\",\\\"securityCode\\\":\\\"...\\\",\\\"type\\\":\\\"AMEX\\\"},\\\"id\\\":\\\"...\\\",\\\"isDefault\\\":true,\\\"paymentMethod\\\":\\\"MANO_TEO_BILL\\\",\\\"user\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"vatId\\\":\\\"...\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /billing/v1/companies/{companyId}/users/{userId}/paymentInstruments/{paymentInstrumentId}:
+    put:
+      description: Update the payment instrument for the given user and company using the provided data
+      tags:
+      - PaymentInstrument
+      summary: Update a payment instrument
+      operationId: resource_Other_updatePaymentInstrument_PUT
+      parameters:
+      - description: User's company UUID
+        name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Existing payment instrument UUID
+        name: paymentInstrumentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInstrumentWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentInstrumentWS'
+        description: Payment instrument data object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+              examples:
+                response:
+                  value:
+                    id: e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d
+                    company:
+                      id: 7ee20d50-8147-482e-839c-775c02e73c45
+                      href: http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45
+                    user:
+                      id: 952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                      href: http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48
+                    accountDisplay: '1111'
+                    paymentMethod: CREDIT_CARD
+                    billingAddress:
+                      street1: 50 Grove St.
+                      street2: 500 Grove St.
+                      city: Somerville
+                      state: Massachusetts
+                      zip: '02114'
+                      country: US
+                      firstName: John
+                      lastName: Doe
+                      companyName: AppDirect
+                      phone: '9999999999'
+                    creditCard:
+                      name: Updated Credit Card name
+                      expirationMonth: 12
+                      expirationYear: 2016
+                      type: VISA
+                      number: '13688112366'
+                      securityCode: '111'
+                    default: false
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments/%7BpaymentInstrumentId%7D \\\n  --data '{\"accountDisplay\":\"...\",\"billingAddress\":{\"city\":\"...\",\"companyName\":\"...\",\"country\":\"...\",\"fax\":\"...\",\"faxExtension\":\"...\",\"firstName\":\"...\",\"lastName\":\"...\",\"phone\":\"...\",\"phoneExtension\":\"...\",\"poBox\":\"...\",\"salutation\":\"...\",\"state\":\"...\",\"street1\":\"...\",\"street2\":\"...\",\"zip\":\"...\"},\"company\":{\"href\":\"...\",\"id\":\"...\"},\"createdOn\":12345,\"creditCard\":{\"expirationMonth\":12345,\"expirationYear\":12345,\"name\":\"...\",\"number\":\"...\",\"securityCode\":\"...\",\"type\":\"AMEX\"},\"id\":\"...\",\"isDefault\":true,\"paymentMethod\":\"MANO_TEO_BILL\",\"user\":{\"href\":\"...\",\"id\":\"...\"},\"vatId\":\"...\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments/%7BpaymentInstrumentId%7D',\n  body: {\n    accountDisplay: '...',\n    billingAddress: {\n      city: '...',\n      companyName: '...',\n      country: '...',\n      fax: '...',\n      faxExtension: '...',\n      firstName: '...',\n      lastName: '...',\n      phone: '...',\n      phoneExtension: '...',\n      poBox: '...',\n      salutation: '...',\n      state: '...',\n      street1: '...',\n      street2: '...',\n      zip: '...'\n    },\n    company: {href: '...', id: '...'},\n    createdOn: 12345,\n    creditCard: {\n      expirationMonth: 12345,\n      expirationYear: 12345,\n      name: '...',\n      number: '...',\n      securityCode: '...',\n      type: 'AMEX'\n    },\n    id: '...',\n    isDefault: true,\n    paymentMethod: 'MANO_TEO_BILL',\n    user: {href: '...', id: '...'},\n    vatId: '...'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"accountDisplay\\\":\\\"...\\\",\\\"billingAddress\\\":{\\\"city\\\":\\\"...\\\",\\\"companyName\\\":\\\"...\\\",\\\"country\\\":\\\"...\\\",\\\"fax\\\":\\\"...\\\",\\\"faxExtension\\\":\\\"...\\\",\\\"firstName\\\":\\\"...\\\",\\\"lastName\\\":\\\"...\\\",\\\"phone\\\":\\\"...\\\",\\\"phoneExtension\\\":\\\"...\\\",\\\"poBox\\\":\\\"...\\\",\\\"salutation\\\":\\\"...\\\",\\\"state\\\":\\\"...\\\",\\\"street1\\\":\\\"...\\\",\\\"street2\\\":\\\"...\\\",\\\"zip\\\":\\\"...\\\"},\\\"company\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"createdOn\\\":12345,\\\"creditCard\\\":{\\\"expirationMonth\\\":12345,\\\"expirationYear\\\":12345,\\\"name\\\":\\\"...\\\",\\\"number\\\":\\\"...\\\",\\\"securityCode\\\":\\\"...\\\",\\\"type\\\":\\\"AMEX\\\"},\\\"id\\\":\\\"...\\\",\\\"isDefault\\\":true,\\\"paymentMethod\\\":\\\"MANO_TEO_BILL\\\",\\\"user\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"vatId\\\":\\\"...\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/companies/%7BcompanyId%7D/users/%7BuserId%7D/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /billing/v1/paymentInstruments/default:
+    get:
+      description: Retrieve the default payment instrument for a given user and company
+      tags:
+      - PaymentInstrument
+      summary: Retrieve the default payment instrument
+      operationId: resource_Other_readDefaultPaymentInstrument_GET
+      parameters:
+      - description: User's company UUID
+        name: companyUuid
+        in: query
+        schema:
+          type: string
+      - description: User's UUID
+        name: userUuid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+              examples:
+                response:
+                  value:
+                    id: ce6266c9-7939-42ee-8cdb-a7a2bc240be4
+                    company:
+                      id: 81ae9b52-f6d6-446e-a1b7-7107998cb4e0
+                      href: http://appdirect/api/account/v1/companies/81ae9b52-f6d6-446e-a1b7-7107998cb4e0
+                    user:
+                      id: b665be4f-42a8-47d8-bebc-8e2387fb86d8
+                      href: http://appdirect/api/account/v1/users/b665be4f-42a8-47d8-bebc-8e2387fb86d8
+                    accountDisplay: '1111'
+                    paymentMethod: CREDIT_CARD
+                    billingAddress:
+                      street1: 50 Grove St.
+                      street2: 500 Grove St.
+                      city: Somerville
+                      state: Massachusetts
+                      zip: '02114'
+                      country: US
+                      firstName: John
+                      lastName: Doe
+                      companyName: AppDirect
+                      phone: '9999999999'
+                    creditCard:
+                      number: '333'
+                      securityCode: '333'
+                      name: John Doe
+                      expirationMonth: 12
+                      expirationYear: 2016
+                      type: VISA
+                    createdOn: 1481065767448
+                    default: false
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/default?companyUuid=SOME_STRING_VALUE&userUuid=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/default',\n  qs: {companyUuid: 'SOME_STRING_VALUE', userUuid: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/default?companyUuid=SOME_STRING_VALUE&userUuid=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /billing/v1/paymentInstruments/{paymentInstrumentId}:
+    get:
+      description: ''
+      tags:
+      - PaymentInstrument
+      summary: Retrieve a payment instrument
+      operationId: resource_Other_readPaymentInstrument_GET
+      parameters:
+      - description: Payment Instrument Id
+        name: paymentInstrumentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+              examples:
+                response:
+                  value:
+                    id: 3aa51449-474d-4a2e-974c-b9b390e9cd54
+                    company:
+                      id: 709997cb-f3b9-42ea-8e8f-2ea0ada4f9e2
+                      href: http://appdirect/api/account/v1/companies/709997cb-f3b9-42ea-8e8f-2ea0ada4f9e2
+                    user:
+                      id: 81a3aa25-4da1-4322-8fb2-1a7c79a9f5ff
+                      href: http://appdirect/api/account/v1/users/81a3aa25-4da1-4322-8fb2-1a7c79a9f5ff
+                    accountDisplay: '1111'
+                    paymentMethod: CREDIT_CARD
+                    billingAddress:
+                      street1: 50 Grove St.
+                      street2: 500 Grove St.
+                      city: Somerville
+                      state: Massachusetts
+                      zip: '02114'
+                      country: US
+                      firstName: John
+                      lastName: Doe
+                      companyName: AppDirect
+                      phone: '9999999999'
+                    creditCard:
+                      number: '333'
+                      securityCode: '333'
+                      name: John Doe
+                      expirationMonth: 12
+                      expirationYear: 2016
+                      type: VISA
+                    createdOn: 1481065768024
+                    default: false
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentWS'
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: Delete a payment instrument
+      tags:
+      - PaymentInstrument
+      summary: Delete a payment instrument
+      operationId: resource_Other_deletePaymentInstrument_DELETE
+      parameters:
+      - description: Payment Instrument Id
+        name: paymentInstrumentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    CreditCardWS:
+      type: object
+      title: CreditCard
+      required:
+      - name
+      - number
+      - securityCode
+      - expirationMonth
+      - expirationYear
+      properties:
+        expirationMonth:
+          description: Expiration month. Required field.
+          type: number
+          maxLength: 12
+          minLength: 1
+        expirationYear:
+          description: Expiration year. Required field.
+          type: number
+        name:
+          description: Name as it appears on credit card. Required field.
+          type: string
+          maxLength: 255
+          minLength: 0
+        number:
+          description: Credit card number. Required field.
+          type: string
+          maxLength: 19
+          minLength: 0
+          nullable: true
+        securityCode:
+          description: Credit card security code. Required field.
+          type: string
+          maxLength: 4
+          minLength: 3
+          nullable: true
+        type:
+          $ref: '#/components/schemas/CreditCardType'
+      example:
+        expirationMonth: 12345
+        expirationYear: 12345
+        name: '...'
+        number: '...'
+        securityCode: '...'
+        type: JCB
+    PaymentMethod:
+      type: string
+      description: The supported payment methods
+      title: PaymentMethod
+      enum:
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    CreditCardType:
+      type: string
+      title: CreditCardType
+      enum:
+      - VISA
+      - MASTERCARD
+      - AMEX
+      - DISCOVER
+      - JCB
+      - GATEWAY
+    AddressWS:
+      type: object
+      title: Address
+      required:
+      - country
+      - city
+      - zip
+      - firstName
+      - phone
+      - lastName
+      - street1
+      properties:
+        city:
+          description: The name of the city or town
+          type: string
+          maxLength: 255
+          minLength: 0
+        country:
+          description: The country code, in ISO-3166 format
+          type: string
+          maxLength: 2
+          minLength: 0
+        state:
+          description: The state, province, or region
+          type: string
+          maxLength: 255
+          minLength: 0
+        firstName:
+          description: The first name
+          type: string
+          maxLength: 255
+          minLength: 0
+        lastName:
+          description: The last name
+          type: string
+          maxLength: 255
+          minLength: 0
+        phone:
+          description: The phone number
+          type: string
+          maxLength: 255
+          minLength: 0
+        street1:
+          description: The first line of a street address
+          type: string
+          maxLength: 255
+          minLength: 0
+        street2:
+          description: The second line of a street address, for example, an apartment or office number
+          type: string
+          maxLength: 255
+          minLength: 0
+        zip:
+          description: The ZIP or postal code of the address
+          type: string
+          maxLength: 255
+          minLength: 0
+      example:
+        city: '...'
+        country: '...'
+        state: '...'
+        street1: '...'
+        street2: '...'
+        zip: '...'
+    LinkWS:
+      type: object
+      title: LinkWS
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+      example:
+        href: '...'
+        id: '...'
+      nullable: true
+    PaymentInstrumentWS:
+      type: object
+      title: PaymentInstrument
+      properties:
+        accountDisplay:
+          description: Account display text.
+          type: string
+          maxLength: 255
+          minLength: 0
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddressWS'
+        company:
+          $ref: '#/components/schemas/LinkWS'
+        createdOn:
+          description: Payment instrument creation date.
+          type: number
+        creditCard:
+          $ref: '#/components/schemas/CreditCardWS'
+        id:
+          description: ID
+          type: string
+        isDefault:
+          description: True if this payment instrument is the default.
+          type: boolean
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+        user:
+          $ref: '#/components/schemas/LinkWS'
+        vatId:
+          description: VAT ID.
+          type: string
+      example:
+        accountDisplay: '...'
+        billingAddress:
+          city: '...'
+          companyName: '...'
+          country: '...'
+          fax: '...'
+          faxExtension: '...'
+          firstName: '...'
+          lastName: '...'
+          phone: '...'
+          phoneExtension: '...'
+          poBox: '...'
+          salutation: '...'
+          state: '...'
+          street1: '...'
+          street2: '...'
+          zip: '...'
+        company:
+          href: '...'
+          id: '...'
+        createdOn: 12345
+        creditCard:
+          expirationMonth: 12345
+          expirationYear: 12345
+          name: '...'
+          number: '...'
+          securityCode: '...'
+          type: AMEX
+        id: '...'
+        isDefault: true
+        paymentMethod: MANO_TEO_BILL
+        user:
+          href: '...'
+          id: '...'
+        vatId: '...'
+    BillingAddressWS:
+      allOf:
+      - $ref: '#/components/schemas/AddressWS'
+      - type: object
+        title: BillingAddress
+        required: []
+        properties:
+          companyName:
+            description: The name of the company
+            type: string
+          fax:
+            description: The fax number
+            type: string
+          faxExtension:
+            description: The fax extension number
+            type: string
+          phoneExtension:
+            description: The phone extension number
+            type: string
+          poBox:
+            description: The post office box number
+            type: string
+          salutation:
+            description: The title in a person's name, for example, Mr or Ms
+            type: string
+        example:
+          city: '...'
+          companyName: '...'
+          country: '...'
+          fax: '...'
+          faxExtension: '...'
+          firstName: '...'
+          lastName: '...'
+          phone: '...'
+          phoneExtension: '...'
+          poBox: '...'
+          salutation: '...'
+          state: '...'
+          street1: '...'
+          street2: '...'
+          zip: '...'

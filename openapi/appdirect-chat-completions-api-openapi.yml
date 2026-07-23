@@ -1,0 +1,630 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Chat Completions API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Chat Completions
+  description: OpenAI-compatible chat completion API
+paths:
+  /api/v1/chat/completions:
+    post:
+      tags:
+      - Chat Completions
+      summary: Create a chat completion (OpenAI-compatible)
+      description: Creates a completion for the chat message. This endpoint is OpenAI-compatible and supports both regular prompts and tool output submissions. When the last message is a tool message, it will be treated as a tool output submission.
+      operationId: createChatCompletionV2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+            text/event-stream:
+              schema:
+                type: object
+                description: Server-sent events stream
+                properties:
+                  message.created:
+                    $ref: '#/components/schemas/MessageCreatedChatEvent'
+                  message.delta:
+                    $ref: '#/components/schemas/MessageDeltaChatEvent'
+                  tool.call:
+                    $ref: '#/components/schemas/ToolCallChatEvent'
+                  message.complete:
+                    $ref: '#/components/schemas/MessageCompleteChatEvent'
+                  message.error:
+                    $ref: '#/components/schemas/MessageErrorChatEvent'
+                  tool.message:
+                    $ref: '#/components/schemas/ToolMessageChatEvent'
+                  error:
+                    $ref: '#/components/schemas/ErrorChatEvent'
+        '400':
+          description: Bad request - Invalid input (e.g. missing messages, invalid model, last message must be user or tool, duplicate custom function names, or custom function names conflicting with reserved internal tool names)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized - Missing or invalid authentication
+        '403':
+          description: Forbidden - User does not have permission to access this resource
+        '500':
+          description: Internal server error
+      security:
+      - ApiKeyAuth: []
+  /api/v1/chats/completions:
+    post:
+      tags:
+      - Chat Completions
+      summary: Create a chat completion (Deprecated)
+      description: '**Deprecated:** This endpoint is deprecated. Please use `/api/v1/chat/completions` instead, which follows the OpenAI API convention and provides the same functionality.'
+      operationId: createChatCompletion
+      deprecated: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+            text/event-stream:
+              schema:
+                type: object
+                description: Server-sent events stream
+                properties:
+                  message.created:
+                    $ref: '#/components/schemas/MessageCreatedChatEvent'
+                  message.delta:
+                    $ref: '#/components/schemas/MessageDeltaChatEvent'
+                  tool.call:
+                    $ref: '#/components/schemas/ToolCallChatEvent'
+                  message.complete:
+                    $ref: '#/components/schemas/MessageCompleteChatEvent'
+                  message.error:
+                    $ref: '#/components/schemas/MessageErrorChatEvent'
+                  tool.message:
+                    $ref: '#/components/schemas/ToolMessageChatEvent'
+                  error:
+                    $ref: '#/components/schemas/ErrorChatEvent'
+        '400':
+          description: Bad request - Invalid input (e.g. missing messages, invalid model, duplicate custom function names, or custom function names conflicting with reserved internal tool names)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized - Missing or invalid authentication
+        '403':
+          description: Forbidden - User does not have permission to access this resource
+        '500':
+          description: Internal server error
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    MessageCompleteChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        required:
+        - estimatedInputTokens
+        properties:
+          type:
+            type: string
+            enum:
+            - message.complete
+          estimatedInputTokens:
+            type: number
+            description: Estimated number of input tokens used.
+          inputTokens:
+            type: number
+            description: Actual number of input tokens used (if available from the model).
+          estimatedOutputTokens:
+            type: number
+            description: Estimated number of output tokens generated.
+          outputTokens:
+            type: number
+            description: Actual number of output tokens generated (if available from the model).
+          modelId:
+            type: string
+            description: The model ID that generated the response.
+    OpenAIFunctionTool:
+      type: object
+      required:
+      - type
+      - function
+      description: OpenAI-compatible function tool definition
+      properties:
+        type:
+          type: string
+          enum:
+          - function
+        function:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: The name of the function. Must be unique and must not conflict with internal tools enabled for this specific request.
+            description:
+              type: string
+              description: A description of what the function does
+            parameters:
+              type: object
+              description: The parameters the function accepts, described as a JSON Schema object
+    ChatCompletionMessage:
+      type: object
+      required:
+      - role
+      properties:
+        role:
+          type: string
+          enum:
+          - system
+          - user
+          - assistant
+          - developer
+          - tool
+          description: The role of the message author
+        content:
+          oneOf:
+          - type: string
+            description: The text content of the message
+          - type: array
+            description: Array of content parts for multimodal messages
+            items:
+              oneOf:
+              - $ref: '#/components/schemas/TextContentPart'
+              - $ref: '#/components/schemas/ImageUrlContentPart'
+          nullable: true
+          description: The content of the message. Can be a string or an array of content parts for multimodal input.
+        tool_calls:
+          type: array
+          description: Tool calls made by the assistant (only present in assistant messages)
+          items:
+            $ref: '#/components/schemas/OpenAIToolCall'
+        tool_call_id:
+          type: string
+          description: The ID of the tool call this message is responding to (only present in tool messages)
+    BuiltInTool:
+      type: object
+      required:
+      - type
+      description: Devs.ai built-in tool
+      properties:
+        type:
+          type: string
+          enum:
+          - web_search
+          - python
+          - spreadsheet
+          - memory
+          - sandbox
+          description: The type of built-in tool to enable
+    ToolOutput:
+      type: object
+      required:
+      - toolCallId
+      - output
+      additionalProperties: false
+      properties:
+        toolCallId:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          default: success
+        output:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+    ErrorChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - type: object
+        required:
+        - error
+        properties:
+          type:
+            type: string
+            enum:
+            - error
+          error:
+            type: string
+    OpenAIToolCall:
+      type: object
+      required:
+      - id
+      - type
+      - function
+      properties:
+        id:
+          type: string
+          description: The ID of the tool call
+        type:
+          type: string
+          enum:
+          - function
+          description: The type of tool call
+        function:
+          type: object
+          required:
+          - name
+          - arguments
+          properties:
+            name:
+              type: string
+              description: The name of the function to call
+            arguments:
+              type: string
+              description: The arguments to pass to the function as a JSON string
+    TextMessageContent:
+      type: object
+      required:
+      - type
+      - text
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+        text:
+          type: string
+          description: The text content.
+        invisible:
+          type: boolean
+          description: Whether this content is invisible to the user.
+        metadata:
+          type: object
+          description: Additional metadata.
+    ToolCallChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - type: object
+        required:
+        - messageId
+        - calls
+        properties:
+          type:
+            type: string
+            enum:
+            - tool.call
+          messageId:
+            type: string
+          calls:
+            type: array
+            items:
+              $ref: '#/components/schemas/ToolCall'
+    ChatEvent:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ChatEventType'
+    ImageUrlContentPart:
+      type: object
+      required:
+      - type
+      - image_url
+      properties:
+        type:
+          type: string
+          enum:
+          - image_url
+        image_url:
+          type: object
+          required:
+          - url
+          properties:
+            url:
+              type: string
+              description: The URL of the image or a base64-encoded image
+            detail:
+              type: string
+              enum:
+              - auto
+              - low
+              - high
+              description: The detail level of the image
+    MessageErrorChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        required:
+        - error
+        - code
+        properties:
+          type:
+            type: string
+            enum:
+            - message.error
+          error:
+            type: string
+            description: Human-readable error message.
+          code:
+            type: string
+            enum:
+            - MODEL_REQUEST_RATE_LIMIT_EXCEEDED
+            - MODEL_MAXIMUM_CONTEXT_EXCEEDED
+            - MODEL_REQUEST_ERROR
+            - MODEL_UNKNOWN
+            - CONTENT_MODERATION_TRIGGERED
+            - TOKEN_RATE_LIMIT_EXCEEDED
+            - RECURSION_LIMIT_REACHED
+            - UNKNOWN
+            description: Machine-readable error code identifying the type of error.
+    ImageGenerationTool:
+      type: object
+      required:
+      - type
+      - modelId
+      description: Image generation tool configuration
+      properties:
+        type:
+          type: string
+          enum:
+          - image_generation
+        modelId:
+          type: string
+          description: The ID of the image generation model to use
+        samples:
+          type: integer
+          description: Number of images to generate
+        size:
+          type: string
+          description: Size of the generated image (e.g., '1024x1024')
+        aspectRatio:
+          type: string
+          description: Aspect ratio of the generated image
+        quality:
+          type: string
+          description: Quality of the generated image
+        style:
+          type: string
+          description: Style of the generated image
+    ChatOptions:
+      type: object
+      properties:
+        flow:
+          type: object
+          properties:
+            override:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                id:
+                  type: string
+                version:
+                  type: number
+            tracing:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+    MessageChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - type: object
+        required:
+        - messageId
+        properties:
+          messageId:
+            type: string
+          role:
+            type: string
+    MessageDeltaChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        required:
+        - content
+        properties:
+          type:
+            type: string
+            enum:
+            - message.delta
+          content:
+            $ref: '#/components/schemas/TextMessageContent'
+    ChatEventType:
+      type: string
+      enum:
+      - message.created
+      - message.delta
+      - message.complete
+      - message.error
+      - tool.call
+      - tool.message
+      - error
+      - flow.trace.event
+      - history.compressed
+      description: The type of chat event in the SSE stream.
+    ToolMessageChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - $ref: '#/components/schemas/ToolOutput'
+      - type: object
+        required:
+        - messageId
+        - tokenCount
+        - modelId
+        properties:
+          type:
+            type: string
+            enum:
+            - tool.message
+          messageId:
+            type: string
+          tokenCount:
+            type: number
+          modelId:
+            type: string
+            description: The model ID that processed this tool message.
+          metadata:
+            type: object
+          internal:
+            type: boolean
+    ToolCall:
+      type: object
+      required:
+      - id
+      - toolId
+      - type
+      - arguments
+      properties:
+        id:
+          type: string
+        toolId:
+          type: string
+        type:
+          type: string
+        arguments:
+          oneOf:
+          - type: string
+          - type: object
+    MessageCreatedChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - message.created
+          internal:
+            type: boolean
+    TextContentPart:
+      type: object
+      required:
+      - type
+      - text
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+        text:
+          type: string
+    McpServerTool:
+      type: object
+      required:
+      - type
+      - toolId
+      description: MCP (Model Context Protocol) server tool
+      properties:
+        type:
+          type: string
+          enum:
+          - mcp_server
+        toolId:
+          type: string
+          description: The ID of the MCP tool to use
+    ChatCompletionRequest:
+      type: object
+      required:
+      - messages
+      - model
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionMessage'
+          minItems: 1
+          description: A list of messages comprising the conversation so far
+        model:
+          type: string
+          description: ID of the Devs.ai AI or the LLM model to use for completion
+        stream:
+          type: boolean
+          description: Whether to stream the response or not
+          default: false
+        options:
+          $ref: '#/components/schemas/ChatOptions'
+          description: Optional chat options for flow overrides and tracing
+        tools:
+          type: array
+          description: Optional list of tools to use. Supports OpenAI function tools and Devs.ai built-in tools. Custom function tool names must be unique. Names that conflict with internal tools enabled for this specific request are rejected with HTTP 400.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/OpenAIFunctionTool'
+            - $ref: '#/components/schemas/BuiltInTool'
+            - $ref: '#/components/schemas/ImageGenerationTool'
+            - $ref: '#/components/schemas/McpServerTool'
+        generateCitations:
+          type: boolean
+          description: Whether to generate citations in the response
+        parallel_tool_calls:
+          type: boolean
+          description: Whether to allow parallel tool calls
+        stream_options:
+          type: object
+          properties:
+            include_usage:
+              type: boolean
+              description: Whether to include usage information in the stream
+        max_tokens:
+          type: integer
+          description: Maximum number of tokens to generate
+    ChatCompletionResponse:
+      type: object
+      properties:
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+                description: The index of the choice in the array.
+              message:
+                type: object
+                properties:
+                  role:
+                    type: string
+                    description: The role of the message author.
+                    enum:
+                    - assistant
+                  content:
+                    type: string
+                    description: The content of the message.
+              finish_reason:
+                type: string
+                description: The reason why the chat completion finished.
+                enum:
+                - stop
+        chatId:
+          type: string
+          description: The ID of the chat session.

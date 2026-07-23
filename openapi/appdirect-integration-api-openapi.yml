@@ -1,0 +1,1209 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Integration API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Integration
+  x-displayName: Metered Usage
+paths:
+  /integration/v1/billing/usage:
+    post:
+      description: Submit usage data to be billed for the given account identifier
+      tags:
+      - Integration
+      summary: Billing Usage V1
+      operationId: resource_Other_billUsage_POST
+      parameters:
+      - description: True if asynchronous. Default value is false.
+        name: async
+        in: query
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsageBean'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UsageBean'
+        description: Usage data information.
+      responses:
+        '200':
+          description: Success (only returned when async=false)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAPIResult'
+              examples:
+                response:
+                  value:
+                    success: true
+                    message: Bill usage API call succeeded.
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BillingAPIResult'
+        '202':
+          description: Accepted (only returned when async=true)
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/integration/v1/billing/usage?async=SOME_BOOLEAN_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"account\":{\"accountIdentifier\":\"...\",\"parentAccountIdentifier\":\"...\",\"status\":\"CANCELLED\"},\"addonInstance\":{\"id\":\"...\"},\"item\":[{\"customUnit\":\"...\",\"description\":\"...\",\"price\":12345,\"quantity\":12345,\"unit\":\"TIER3_STANDARD_LINE\"},{\"customUnit\":\"...\",\"description\":\"...\",\"price\":12345,\"quantity\":12345,\"unit\":\"CONTACTS_1000\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/integration/v1/billing/usage',\n  qs: {async: 'SOME_BOOLEAN_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    account: {accountIdentifier: '...', parentAccountIdentifier: '...', status: 'CANCELLED'},\n    addonInstance: {id: '...'},\n    item: [\n      {\n        customUnit: '...',\n        description: '...',\n        price: 12345,\n        quantity: 12345,\n        unit: 'TIER3_STANDARD_LINE'\n      },\n      {\n        customUnit: '...',\n        description: '...',\n        price: 12345,\n        quantity: 12345,\n        unit: 'CONTACTS_1000'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"account\\\":{\\\"accountIdentifier\\\":\\\"...\\\",\\\"parentAccountIdentifier\\\":\\\"...\\\",\\\"status\\\":\\\"CANCELLED\\\"},\\\"addonInstance\\\":{\\\"id\\\":\\\"...\\\"},\\\"item\\\":[{\\\"customUnit\\\":\\\"...\\\",\\\"description\\\":\\\"...\\\",\\\"price\\\":12345,\\\"quantity\\\":12345,\\\"unit\\\":\\\"TIER3_STANDARD_LINE\\\"},{\\\"customUnit\\\":\\\"...\\\",\\\"description\\\":\\\"...\\\",\\\"price\\\":12345,\\\"quantity\\\":12345,\\\"unit\\\":\\\"CONTACTS_1000\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/integration/v1/billing/usage?async=SOME_BOOLEAN_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /integration/v1/customers/{customerIdentifier}/domains/{domain}/verificationStatus:
+    post:
+      description: Status verification
+      x-appdirect-visible: false
+      tags:
+      - Integration
+      summary: Status verification
+      operationId: resource_Other_domainVerificationStatus_POST
+      parameters:
+      - name: customerIdentifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainVerificationStatusWS'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/integration/v1/customers/%7BcustomerIdentifier%7D/domains/%7Bdomain%7D/verificationStatus \\\n  --header 'content-type: application/json' \\\n  --data '{\"verified\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/integration/v1/customers/%7BcustomerIdentifier%7D/domains/%7Bdomain%7D/verificationStatus',\n  headers: {'content-type': 'application/json'},\n  body: {verified: true},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"verified\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/integration/v1/customers/%7BcustomerIdentifier%7D/domains/%7Bdomain%7D/verificationStatus\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /integration/v2/billing/usage:
+    post:
+      description: Submit preconfigured, custom, or volume-priced metered usage data to be billed for a customer account. <br/> <br/> Volume pricing usage is always preconfigured, not custom. It is processed at 6:00 PM UTC, either on the last day of the billing period or, if delayed billing is configured (always recommended for volume pricing), on the last day of a defined number of days after the billing period ends. It must be submitted in requests that do not include other pricing models.
+      tags:
+      - Integration
+      x-appdirect-api-stage: Early Access
+      summary: Billing Usage V2
+      operationId: resource_Other_billUsageV2_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeteredUsageRequest'
+        description: Metered usage request body. The request body example includes a preconfigured metered usage item followed by a custom metered usage item. For volume price usage, the request is the same.
+      responses:
+        '202':
+          description: Metered usage report successfully received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeteredUsageRequestAccepted'
+              examples:
+                response:
+                  value:
+                    requestId: 067464f3-be67-4dd3-b1a3-b2ac75180222
+                    idempotencyKey: 20210429-b436h7j2
+                    queryUsageStatus: /api/integration/v2/billing/usage/requests/fade1f71-3f40-4f4e-81c1-e835cb459c30
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/integration/v2/billing/usage \\\n  --header 'content-type: application/json' \\\n  --data '{\"idempotencyKey\":\"string\",\"requestGroupId\":\"string\",\"billable\":true,\"usages\":[{\"accountId\":\"string\",\"usageList\":[{\"eventId\":\"string\",\"eventDate\":\"2019-08-24T14:15:22Z\",\"pricingUnit\":\"string\",\"customUnit\":\"string\",\"quantity\":\"string\",\"unitPrice\":\"string\",\"description\":\"string\",\"currency\":\"string\",\"attributes\":{\"property1\":\"string\",\"property2\":\"string\"}}]}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/integration/v2/billing/usage',\n  headers: {'content-type': 'application/json'},\n  body: {\n    idempotencyKey: 'string',\n    requestGroupId: 'string',\n    billable: true,\n    usages: [\n      {\n        accountId: 'string',\n        usageList: [\n          {\n            eventId: 'string',\n            eventDate: '2019-08-24T14:15:22Z',\n            pricingUnit: 'string',\n            customUnit: 'string',\n            quantity: 'string',\n            unitPrice: 'string',\n            description: 'string',\n            currency: 'string',\n            attributes: {property1: 'string', property2: 'string'}\n          }\n        ]\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"idempotencyKey\\\":\\\"string\\\",\\\"requestGroupId\\\":\\\"string\\\",\\\"billable\\\":true,\\\"usages\\\":[{\\\"accountId\\\":\\\"string\\\",\\\"usageList\\\":[{\\\"eventId\\\":\\\"string\\\",\\\"eventDate\\\":\\\"2019-08-24T14:15:22Z\\\",\\\"pricingUnit\\\":\\\"string\\\",\\\"customUnit\\\":\\\"string\\\",\\\"quantity\\\":\\\"string\\\",\\\"unitPrice\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"currency\\\":\\\"string\\\",\\\"attributes\\\":{\\\"property1\\\":\\\"string\\\",\\\"property2\\\":\\\"string\\\"}}]}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/integration/v2/billing/usage\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /integration/v2/billing/usage/requests/{requestId}:
+    get:
+      description: Retrieve whether the metered usage events submitted with a Billing Usage V2 request were successfully processed. In the Billing Usage V2 response, locate the path that is unique to the request (queryUsageStatus). Use it to retrieve the processing status for the submitted usage events, and error details if applicable.
+      tags:
+      - Integration
+      x-appdirect-api-stage: Early Access
+      summary: Fetch usage processing status
+      operationId: resource_Other_billUsageV2_GET
+      parameters:
+      - description: Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response.
+        name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully returned usage event processing status
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    requestId: 067464f3-be67-4dd3-b1a3-b2ac75180222
+                    idempotencyKey: 20210429-b436h7j2
+                    status: FAILED
+                    totalUsagesCount: 11
+                    processedUsagesCount: 10
+                    failedUsagesCount: 1
+                    failedUsages:
+                    - accountId: 58e8092c-f83c-44d7-bd9a-f7a20adaec63
+                      eventId: 19eaa1cdab86766021e94b70a262d12543544ebdf4956bf14fce63d4da6e2b50
+                      errorCode: BAD_DATA
+                      errorDescription: Usage submitted after deadline (6 PM UTC on last day of billing period)
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/integration/v2/billing/usage/requests/%7BrequestId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/integration/v2/billing/usage/requests/%7BrequestId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/integration/v2/billing/usage/requests/%7BrequestId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    MeteredUsageItem:
+      title: MeteredUsageItem
+      type: object
+      description: List of metered usage events associated with a customer's subscription.
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier that associates a vendor (ISV), customer company, and subscription. Represents company entitlement. Provided by vendor (ISV) when subscription purchased. Marketplace Managers can locate it in the user interface Integration Event event logs.
+        usageList:
+          type: array
+          description: List of metered usage event details.
+          items:
+            $ref: '#/components/schemas/UsageItem'
+    UsageItem:
+      title: UsageItem
+      type: object
+      description: Details for a preconfigured or custom metered usage event.
+      properties:
+        eventId:
+          type: string
+          description: 'ID for each metered usage event. When not assigned: null. Required.'
+        eventDate:
+          type: string
+          format: date-time
+          description: 'Date and time the usage event was recorded by the metering system. Format: YYYY-MM-DDTHH:mm:ss.SSSZ. Required.'
+        pricingUnit:
+          type: string
+          description: Unit of measure for reported usage. Associated with a price that will be charged for the usage. Required for preconfigured metered usage.
+        customUnit:
+          type: string
+          description: Unit of measure for reported custom metered usage. The unit is associated with a price (unitPrice). Required for custom metered usage.
+        quantity:
+          type: string
+          description: Total usage in the stated unit of measure (pricingUnit or customUnit). Maximum 10 decimal digits. Required.
+        unitPrice:
+          type: string
+          x-minimum: 0
+          description: Price for each unit (customUnit) of reported custom usage. x-mimum is the minimum price allowed. Required for custom metered usage.
+        description:
+          type: string
+          description: Additional description about usage items.
+        currency:
+          type: string
+          description: 'Currency in which the custom metered usage price (unitPrice) is reported. Required only for custom metered usage. Empty string is valid for preconfigured metered usage. Format: ISO 4217. For example: USD, EUR'
+        attributes:
+          type: object
+          description: Additional attributes for usage.
+          additionalProperties:
+            type: string
+    CompanyEntitlementStatus:
+      type: string
+      title: CompanyEntitlementStatus
+      enum:
+      - INITIALIZED
+      - FAILED
+      - FREE_TRIAL
+      - FREE_TRIAL_EXPIRED
+      - ACTIVE
+      - SUSPENDED
+      - CANCELLED
+      nullable: true
+    DomainVerificationStatusWS:
+      type: object
+      title: DomainVerificationStatusWS
+      properties:
+        verified:
+          type: boolean
+      example:
+        verified: true
+    AddonInstanceInfo:
+      type: object
+      title: AddonInstanceInfo
+      properties:
+        id:
+          description: ID
+          type: string
+          nullable: true
+      example:
+        id: '...'
+    PricingUnit:
+      type: string
+      title: PricingUnit
+      enum:
+      - USER
+      - GIGABYTE
+      - GMV
+      - MEGABYTE
+      - PROSPECT_SCORE
+      - HOUR
+      - MINUTE
+      - INVOICE
+      - UNIT
+      - PROJECT
+      - PROPERTY
+      - ITEM
+      - WORD
+      - EMAIL
+      - CONTACT
+      - CALL
+      - CREDIT
+      - ROOM
+      - HOST
+      - AGENT
+      - OPERATOR
+      - PROVIDER
+      - MANAGER
+      - TESTER
+      - JVM
+      - SERVER
+      - WEB_USE_MINUTE
+      - AUDIO_USE_MINUTE
+      - PIECE
+      - EMPLOYEE_PAY_PERIOD
+      - EMPLOYEE_PER_PAY_PERIOD
+      - COMPUTER
+      - NOT_APPLICABLE
+      - ONE_TIME_SETUP
+      - DATA_POINTS
+      - TIER1_API_CALLS
+      - TIER2_API_CALLS
+      - ADVISORY_HOURS
+      - OVERAGE_AUDIO_MINUTE
+      - EMPLOYEE
+      - CONNECTION
+      - PUSH_USER
+      - THOUSAND_EMAILS_PER_DAY
+      - PUSH_NOTIFICATION_DEVICES
+      - API_CALLS
+      - SMS_TEXT_MESSAGE
+      - CONTACTS_1000
+      - CONTRACT_FEE
+      - TRANSFER_FEE
+      - REACTIVATION_FEE
+      - RECIPIENT
+      - ADDITIONAL_1000_CONTACTS_BLOCK
+      - SCHEDULE_PLAN
+      - EMAILS_1000
+      - EMAILS_2500
+      - EMAILS_100000
+      - MOBILE_DEVICE
+      - PAYSLIP
+      - PAYSLIP_CORRECTION
+      - STORE
+      - WEBSITE
+      - EPAPER
+      - PAGE
+      - POSTAGE_AND_PRINT
+      - INTERNATIONAL_POSTAGE_AND_PRINT
+      - TIER1_TOP_LEVEL_DOMAIN
+      - TIER2_TOP_LEVEL_DOMAIN
+      - DEDICATED_IP
+      - ENABLELCM
+      - MAXCOMPONENTS
+      - DATA_MANAGEMENT_USER
+      - SPECIALIST_USER
+      - PROFESSIONAL_USER
+      - MATERIALITY_MATRIX
+      - STAKEHOLDER_MANAGEMENT
+      - SCORECARD
+      - STANDARD_MAPPING
+      - DONATION_MANAGEMENT
+      - DOCUMENT
+      - PACKAGE_SMALL
+      - PACKAGE_LARGE
+      - MEMBER
+      - ATTENDEE
+      - MAILING
+      - RESPONSE
+      - EXTERNAL_INVOICE_FEE
+      - CLIENT_TEST
+      - IMAGE_TRANSFORMATION
+      - TOTAL_IMAGE
+      - LICENSE
+      - MAILBOX
+      - FREE_40_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC_MOUNTING
+      - EMPLOYEE_PER_WEEK
+      - REGISTER
+      - END_USER
+      - CORE
+      - DEVICE
+      - PORT
+      - MEASURER
+      - PUBLISHED_MEASUREMENT
+      - NODE
+      - SERVER_RULE
+      - VPN_LP
+      - PROXY_LP
+      - DESKTOP_CONNECT_LP
+      - CAMERA
+      - MAIN_SOUND_ZONE
+      - SUB_SOUND_ZONE
+      - POST
+      - REPORT
+      - BOX
+      - SESSION
+      - DISPLAY
+      - TRUCKROLL
+      - TRANSACTION_FEE
+      - SENDING_API_CALL
+      - LOOKUP_API_CALL
+      - ANALYTICS_API_CALL
+      - MIGRATION_INSTANCE
+      - NFON_SETUP_PER_PHONE_EXTENSION
+      - NFON_SETUP_PER_PHONE_EXTENSION_PLUS
+      - NFON_SETUP_PER_EFAX_EXTENSION
+      - NFON_PHONE_EXTENSION
+      - NFON_PHONE_EXTENSION_PLUS
+      - NFON_EFAX_EXTENSION
+      - NFON_CALL_CENTER_MONITORING
+      - NFON_NMEETING
+      - NFON_MOBILE_NFON_DEVICE
+      - NFON_ISOFTPHONE_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS
+      - NFON_NSOFTPHONE_PREMIUM_WINDOWS
+      - NFON_NCTI_STANDARD_WINDOWS
+      - NFON_NCTI_STANDARD_CRM_WINDOWS
+      - NFON_NCTI_STANDARD_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS_OR_MOBILE
+      - WESUSTAIN_PERFORMANCE
+      - WESUSTAIN_STAKEHOLDER_REPUTATION
+      - WESUSTAIN_WEAPP
+      - FAX
+      - FAX_LINE
+      - ROOM_LINE
+      - DEPARTMENT_LINE
+      - INTERNATIONAL_LICENSE
+      - INTERNATIONAL_DEPARTMENT_LINE
+      - INTERNATIONAL_ROOM_LINE
+      - INTERNATIONAL_LINE
+      - CALLING_CREDIT
+      - LINE
+      - TOLLFREE_ROOM_LINE
+      - TOLLFREE_DEPARTMENT_LINE
+      - TAXES_AND_FEES
+      - LEAD
+      - OPPORTUNITY
+      - CAMPAIGN
+      - CASE
+      - CUSTOMER
+      - TIER1_STANDARD_LINE
+      - TIER1_ROOM_LINE
+      - TIER1_TOLLFREE_ROOM_LINE
+      - TIER1_TOLLFREE_DEPARTMENT_LINE
+      - TIER1_FAX_LINE
+      - TIER1_DEPARTMENT_LINE
+      - TIER2_STANDARD_LINE
+      - TIER2_ROOM_LINE
+      - TIER2_DEPARTMENT_LINE
+      - TIER3_STANDARD_LINE
+      - TIER3_ROOM_LINE
+      - TIER3_DEPARTMENT_LINE
+      - TIER4_STANDARD_LINE
+      - TIER4_ROOM_LINE
+      - TIER4_DEPARTMENT_LINE
+      - CLUSTER
+      - NODE_4VCPU
+      - FIVE_HUNDRED_GB_SSD
+      - TWELVE_TB_NETWORK_IO
+      - JBOSS_EAP
+      - JBOSS_FUSE
+      - JBOSS_A_MQ
+      - JBOSS_BRMS
+      - JBOSS_BPM_SUITE
+      - JBOSS_DATA_GRID
+      - JBOSS_DATA_VIRT
+      - USER_LICENSE
+      - ADDITIONAL_NUMBER_LICENSE
+      - ROOM_PHONE_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE_UNBUNDLED
+      - INSTANCE
+      - INDOOR_CAMERA
+      - OUTDOOR_CAMERA
+      - VINGATE_LP_LICENCE
+      - ADMINISTRATOR
+      - MOBILE_USER
+      - G_SUITE
+      - T1
+      - PHONE
+      - AUTO_ATTENDANT
+      - HUNT_GROUP
+      - VOICEMAIL_BOX
+      - TOLL_FREE_NUMBER
+      - INBOUND_LONG_DISTANCE_MINUTE
+      - OUTBOUND_LONG_DISTANCE_MINUTE
+      - INBOUND_OUTBOUND_LONG_DISTANCE_MINUTE
+      - SET_TOP_BOX
+      - MODEM
+      - ACCESS_POINT
+      - CALLING_FEATURE
+      - IAD_DEVICE
+      - ANALOG_LINE
+      - PRI
+      - SBC_DEVICE
+      - ROUTER
+      - INTERNATIONAL_MINUTE
+      - PHONE_LINE
+      - DYNAMIC_IP_ADDRESS
+      - STATIC_IP_ADDRESS
+      - GATEWAY
+      - REMOTE_CONTROL
+      - TIER1_STANDARD_SEAT
+      - TIER2_STANDARD_SEAT
+      - TIER3_STANDARD_SEAT
+      - TIER4_STANDARD_SEAT
+      - TIER1_TOLL_FREE_SEAT
+      - MILLION_MESSAGES
+      - MESSAGE
+      - WEEKLY
+      - PHONE_NUMBER
+      - GUEST
+      - REVISION_SAFE_DATAROOM
+      - GROUP_SESSION
+      - MAILBOX_AD_SYNC
+      - PHONE_SUPPORT
+      - EXTRA_10TB
+      - EXTRA_50TB
+      - EXTRA_200TB
+      - MAP_VIEW
+      - SVM
+      - CHANNEL
+      - NUMBER_PRINTER_TABLET
+      - NUMBER_ONSITE_SERVER
+      - NUMBER_VISITS
+      - ONSITE_TECHNICIAN_PC
+      - ONSITE_TECHNICIAN_SERVER
+      - SHORTER_REACTION_TIMES
+      - E_COMMERCE_INTEGRATION
+      - LOCATION
+      - TRAINING_SESSION
+      - GIGABYTES_PER_HOUR
+      - FINANCIAL_PLANNING
+      - ONSITE_WORKPLACE
+      - INTERNAL_TOOLS_ACCESS
+      - DUTY_SERVICE
+      - TERABYTE
+      - HOST_UNIT_HOURS
+      - WEB_CHECKS
+      - ACTIVE_USERS
+      - ACTIVE_EMPLOYEE
+      - PC_OF_NET_RECURRING_FEE
+      - ACTIVE_VENDOR
+      - ADVERTISEMENT
+      - ADVERTISER_SPENDS
+      - ANNUAL_FUNDRAISING_INCOME
+      - ANNUAL_SUBSCRIPTION
+      - APPLIANCE
+      - ASSET
+      - ASSETS_UNDER_MANAGEMENT
+      - BUSINESS_PARTNERS
+      - CASH_FLOWS
+      - COMPONENT
+      - CONNECTED_SYSTEMS
+      - CONTRACTS
+      - COSTS
+      - DATA_STREAMS
+      - DATABASE_SIZE
+      - EXTERNAL_SERVICE_CALLS
+      - FILE
+      - FIXED
+      - FLAT
+      - FLAT_FEE_BASED_ON_ASSETS
+      - FLEET_PLANNING_ORDERS
+      - FORMS
+      - GIGABYTE_DATABASE_SIZES
+      - INSTALLATION
+      - INSTALLED_CAPACITY
+      - JOB_POSTING
+      - LEARNER
+      - LOGON
+      - MANAGED_SYSTEM
+      - MASTER_DATA_OBJECT
+      - MASTER_RECORDS
+      - MBPS
+      - MONITORED_USER
+      - MPLS
+      - ORDER
+      - OUTPATIENT_DAYS
+      - PAGE_VIEW
+      - PATIENT_CARE_DAY
+      - PATIENT_TREATED
+      - PLANT
+      - POINTS_OF_DELIVERY
+      - PREMIUM
+      - PROCESS
+      - PRODUCTS
+      - RECORDS
+      - RENTAL_UNIT
+      - RESOURCES
+      - REVENUE
+      - SALES_ORDER
+      - SALES_PORTFOLIOS
+      - SERVICE_ORDERS
+      - SITE_VISITS
+      - SPENDS
+      - SPEND_VOLUMES
+      - STREAM
+      - STUDENT
+      - SUBSCRIBER
+      - SUPPLIERS
+      - TICKETS
+      - TOTAL_ANNUAL_BUDGET
+      - TUNNEL
+      - VIRTUAL_USERS
+      - SAP_SYSTEM
+      - POSITION_TYPES
+      - OVERAGE_FEES
+      - OVERAGE_FEE_TRANSACTION
+      - OVERAGE_FEES_DOCUMENT
+      - OVERAGE_FEES_ITEM
+      - EVENT
+      - BUSINESS_EVENT
+      - LEGAL_TENDER
+      - ANNUAL_REVENUE
+      - AD_SYNC
+      - FULL_DATA_RESTORE
+      - USED_STORAGE_100GB
+      - COMPANY
+      - ADDITIONAL_USER
+      - VISIT
+      - VIDEO
+      - ELECTRONIC_PAYMENT
+      - CHECK_PAYMENT
+      - EXPRESS_PAY_ELECTRONIC_PAYMENT
+      - EXPRESS_PAY_CHECK_PAYMENT
+      - DATA_ENTRY_SERVICE
+      - MONTHLY_VISIT
+      - SCRUB_TRANSACTION
+      - DEVICE_LICENSE
+      - SERVER_LICENSE
+      - BASE_LICENSE
+      - SERVICE_CALL
+      - SUPPORT_INCIDENT_TICKET
+      - CUSTOM_REPORT_BUILDING_TRAINING
+      - QUOTA
+      - DOMESTIC_TRANSACTION
+      - BEE
+      - BEE_FLEET
+      - BEE_BEACON_AMBIENT_LIGHT
+      - BEE_BEACON_TEMPERATURE_HUMIDITY
+      - CONTACTS_100
+      - TEMPLATE
+      - TEMPLATE_PACKS_10
+      - PACK
+      - SMS_TEXT_MESSAGE_10
+      - VIRTUAL_SERVER
+      - PHYSICAL_SERVER
+      - WORKSTATION
+      - CHATS
+      - MATCH_LIST
+      - CERTIFICATE_12_MONTHS
+      - CERTIFICATE_24_MONTHS
+      - PRIVACY
+      - PAGE_VIEWS_100000
+      - VOICE_OUT
+      - EXAM
+      - PARTICIPANT
+      - ENCRYPTION_ADDON
+      - ESS
+      - ETI
+      - ATP_ADDON
+      - PBE_ADDO
+      - NETI_ADDON
+      - HUNDRED_SMS_REMINDER
+      - CALENDAR_SYNC
+      - PAYMENT_INTERFACE
+      - MULTILINGUAL_ONLINE_EVENT_BOOKING
+      - SOCKET
+      - OFFER
+      - FREELANCER
+      - SOAP
+      - DATEV_LEXWARE_INTERFACE
+      - TOKEN
+      - SERVICE_MONTH
+      - VIDEO_PACKAGE_50_HOURS
+      - INTERFACE
+      - TEST_CASE
+      - MINUTES_15
+      - MINUTES_30
+      - CONNECTED_ACCESS_POINT
+      - DAY
+      - SATURDAY_SURCHARGE
+      - NIGHT_SURCHARGE
+      - SUNDAY_SURCHARGE
+      - PUBLIC_HOLIDAY_SURCHARGE
+      - BASIC_PACKAGE
+      - STANDARD_PACKAGE
+      - PREMIUM_PACKAGE
+      - REPORTS_MODULE
+      - WORKFLOW_MODULE
+      - NBV_250K
+      - NBV
+      - INVENTORY
+      - ADDITIONAL_COMPANY
+      - TRANSACTION
+      - PREMIUM_CREDIT_REPORTS
+      - ADDITIONAL_CONNECTION
+      - STOCK_UNIT
+      - MONTHLY_USAGE_FEE
+      - USAGE_FEE
+      - MONTHLY_CHARGES
+      - STANDARD_USER
+      - ADDITIONAL_UNIT
+      - COMMISSION
+      - KITTING
+      - WOP
+      - SFDC
+      - NAMED_USER_LICENSE
+      - BARCODING_AND_WAREHOUSING
+      - MODULE
+      - MANUFACTURING_MODULE
+      - MRP
+      - CONSOLE_MODULE
+      - CONSOLIDATIONS
+      - MULTI_CURRENCY
+      - ADDON_LICENSE
+      - INBOUND_PAGE
+      - OUTBOUND_PAGE
+      - OPPORTUNITY_RETENTION
+      - SOCIAL_SENTIMENT
+      - DEMAND_PRICE
+      - SETUP_FEE
+      - SHAREPOINT
+      - INTEGRATION_MAINTENANCE
+      - VIEWER
+      - MANAGEMENT_USER
+      - SQ_FT
+      - LOCATION_UPTO_10_EMPLOYEES
+      - LOCATION_UPTO_20_EMPLOYEES
+      - LOCATION_UPTO_30_EMPLOYEES
+      - LOCATION_UPTO_60_EMPLOYEES
+      - LOCATION_UPTO_99_EMPLOYEES
+      - M365_ONLINE
+      - WEB_HOSTING_SERVER
+      - STANDARD_EDITION_GIGABYTE
+      - STORAGE_GIGABYTE
+      - EGRESS_GIGABYTE
+      - FEE_HW_DEFECT_NO_WARRANTY_CASE
+      - SIM_CARD
+      - SIM_CARDS_10
+      - APPLICATION_CONNECTOR
+      - ADDITIONAL_API_CALLS
+      - USED_STORAGE_PER_GB
+      - CERTIFICATION
+      - MACHINE
+      - CALCULATION_USER
+      - MAILBOX_S
+      - MAILBOX_M
+      - MAILBOX_L
+      - STORAGE
+      - GROUP
+      - VEHICLE
+      - ENDPOINT
+      - MANAGED_SERVICE
+      - SOC
+      - ONLINE_PLAN
+      - ENTERPRISE_PLAN
+      - FLOATING_LICENSE
+      - USER_PER_LICENSE
+      - CONCURRENT_USER_PER_LICENSE
+      - DASHBOARD
+      - IT_INTERFACE
+      - CONNECTABLE_IOT_DEVICE_VIA_USB
+      - CONNECTABLE_IOT_DEVICE_VIA_TULIP_GATEWAY
+      - CONNECTABLE_MACHINE_PER_LICENSE
+      - OBJECT_TO_BE_CHECKED
+      - MACHINE_WITH_BI_SUPPORT
+      - CONNECTED_DEVICE
+      - LISTING
+      - TLS_ENCRYPTION
+      - DOMAIN_LEVEL_SEND
+      - EFAX_ROUTER
+      - PRORATED_CREDIT
+      - NEW_HIRE
+      - NAS
+      - SALESFORCE_USER
+      - INTERVIEW
+      - ASSESSMENT
+      - NU_WEBEX_CALLING_ENHANCED
+      - NU_WEBEX_CALLING_PROFESSIONAL
+      - WEBEX_ASSISTANT_FOR_WEBEX_MEETINGS_NU
+      - NU_MEETINGS_BRIDGE_COUNTRY_CALL_BACK_AUDIO
+      - FLEX_TEAMS_MESSAGING
+      - ADDON_ANALYSES
+      - ADDITIONAL_LISTING
+      - MIGRATION_TENANT
+      - MIGRATION_GROUP
+      - MIGRATION_DOCUMENT
+      - MIGRATION_GSUITE
+      - MIGRATION_FOLDER
+      - ENHANCED_USER
+      - SINGLE_NAME_CERTIFICATE
+      - SETUP
+      - HA_DEVICE_DAY
+      - WILDCARD_CERTIFICATE
+      - SECURITY_PACKAGE
+      - ADDITIONAL_LANGUAGE
+      - VANITY_URL
+      - BRANDING
+      - DATA_SOURCE
+      - CREATOR_USER
+      - ESIGN_USER
+      - READ_ONLY_USER
+      - MEASURING_POINT
+      - ANDON_TV
+      - TABLET
+      - USER_10000
+      - USER_100
+      - PUBLIC_IP
+      - WORKLOAD
+      - PUBLIC_IP_ADDRESS
+      - COMPUTE_POINT
+      - RESOURCE_UNIT
+      - VALUE_POINT
+      - ACCOUNT
+      - REQUEST
+      - TRANSCRIPT
+      - NOTIFICATION
+      - CLAIM
+      - MID
+      - ENGAGEMENT
+      - TEAM_LICENSE_DIGITAL_TEAMBOARD
+      - TEAM_LICENSE_MODULE_CONNECTIVITY
+      - TEAM_LICENSE_MODULE_PROBLEM_SOLUTION
+      - TEAM_LICENSE_MODULE_AUDITS
+      - TEAM_LICENSE_MODULE_PROCESS_CONFIRMATION
+      - TEAM_LICENSE_MODULE_QUALIFICATION_MATRIX
+      - TEAM_LICENSE_MODULE_STANDARD_WORK_INSTRUCTION
+      - TEAM_LICENSE_MODULE_PARETO_ANALYSIS
+      - KPI
+      - YEAR_KPI_ARCHIVAL
+      - CORPORATE_CLOUD_HOSTING
+      - ON_PREMISES_HOSTING
+      - SUPPORT_SERVICE_HOUR
+      - CLASS
+      - EXPERT
+      - SPINDLE_HOUR
+      - ADDON_ADMINISTRATION
+      - ADDON_CONFIGURATION
+      - ADDON_PLANNING
+      - ADDON_PLANNING_OBJECTS
+      - ADDON_MASTER_DATA
+      - ADDON_CAPACITY_PLANS_CALENDAR
+      - ADDON_CONFLICT_RADAR
+      - ADDON_GAP_LIST
+      - ADDON_DASHBOARD
+      - ADDON_PLANNING_READ_ONLY
+      - ADDON_UTILIZATION_POOLS
+      - ADDON_FIXED_SCHEDULES
+      - ADDON_ASSEMBLY_GROUPS
+      - ADDON_ORDER_ON_HOLD
+      - ADDON_PARALLEL_RESSOURCES
+      - ADDON_MULTI_FUNCTIONAL_RESSOURCES
+      - ADDON_PLANEUS_TV_PER_TERMINAL
+      - ADDON_MASTER_DATA_WORK_PROCEDURES
+      - ADDON_MANUAL_IMPORT
+      - ADDON_AUTOMATIC_IMPORT
+      - ADDON_REPORTING_BASIC
+      - ADDON_REPORTING_ADVANCED
+      - ADDON_REPORT_RESOURCES_AVAILABILITY_PER_DAY
+      - ADDON_REPORT_OEE
+      - ADDON_REPORT_ON_TIME_DELIVERY_HISTORY
+      - ADDON_REPORT_PROCESS_PERFORMANCE_HISTORY
+      - ADDON_REPORT_UTILIZATION_PER_RESOURCE
+      - ADDON_REPORT_REPORTING_PLUG_IN
+      - ADDON_EXTERNAL_PARTNERS_BASIC_LICENSE
+      - ADDON_WORKBENCH_PACK_OF_5
+      - ADDON_WORKBENCH_PACK_OF_10
+      - ADDON_WORKBENCH_PACK_OF_15
+      - CLIENT
+      - VIRTUAL_MACHINE
+      - MODEL_TRANSFORMATION
+      - CASE_REFRESH
+      - CASE_VIEW
+      - CASE_DOCUMENT_DOWNLOAD
+      - VERIFICATION
+      - ADDON_CORPORATE_BRANDING
+      - CLIENT_TAX_FILINGS
+      - CLIENT_COMPLIANCE_SERVICES
+      - PROPOSAL
+      - UK_ID_CHECK
+      - INTERNATIONAL_ID_CHECK
+      - CREDIT_SCREEN
+      - UK_COMPANY_REPORT
+      - NON_UK_COMPANY_REPORT
+      - HR_SCREEN
+      - COMPANY_FORMATION
+      - CLIENT_ACCOUNTS
+      - SMARTKIT
+      - WORKFLOW
+      - EDITOR
+      - WORKER
+      - ADDON_POTENTIAL_ANALYSIS
+      - TRAINING_PACKAGE_SMALL
+      - TRAINING_PACKAGE_LARGE
+      - TOOL_PATH_OPTIMIZATION
+      - CLIENT_VAT_FILINGS
+      - BUNDLE
+      - PACKAGE
+      - VM
+      - INCIDENT
+      - SEND
+      - INTEGRATION
+      - BILLABLE_HOUR
+      - TB
+      - SOURCE
+      - TRAINING
+      - SITE
+      - CONSULTING_UNIT
+      - CAPACITY
+      - MIGRATION
+      - WORKSHOP
+      - ONBOARDING
+      - BENEFIT_ELIGIBLE_EMPLOYEE
+      - SEAT
+      - MS365_SEAT
+      - MS_EXCHANGE_MAILBOX
+      - GWORKSPACE_SEAT
+      - INTERNET_LINE
+      - BACKUP_LINE
+      - USER_PACK_50
+      - USER_PACK_100
+      - CIRCUIT
+      - NAC
+      - INFRASTRUCTURE
+      - TEN_THOUSAND_TEST_RUNS
+      - ONE_THOUSAND_TEST_RUNS
+      - INGESTED_OR_SCANNED_GB
+      - MILLION_LOG_EVENTS
+      - GB_OUTBOUND_PER_DESTINATION
+      - DESTINATION
+      - COMMITTER
+      - INGESTED_GB
+      - CPU
+      - ONE_THOUSAND_SESSIONS
+      - MILLION_RECORDS
+      - GB_OF_ANALYZED_LOGS
+      - ACTIVE_FUNCTION
+      - MILLION_TRACED_INVOCATIONS
+      - ACTIVE_APPLICATION_INSTANCES
+      - HUNDRED_TEST_RUNS
+      - ADDITIONAL_PARALLELIZATION
+      - TASK
+      - ONE_HUNDRED_WORKFLOW_EXECUTIONS
+      - SCANNED_GB
+      - USE_CASE
+      - ONE_THOUSAND_ERROR_EVENTS
+      - PERFORMANCE_GOAL
+      - SCHOOL
+      - MICROSOFT_365_TENANT
+      - MARKETPLACE
+      - LIEN_PROCESSED
+      - DISBURSEMENT
+      - A_LA_CARTE
+      - SECURE
+      - SECURE_PLUS
+      - SECURE_EXTRA
+      - PHASR
+      - ENCRYPTION
+      - EMAIL_SECURITY
+      - MOBILE_SECURITY
+      - EXCHANGE
+      - ATS
+      - EDR
+      - EDR_RETENTION_90D
+      - EDR_RETENTION_180D
+      - EDR_RETENTION_1Y
+      - INTEGRITY_MON
+      - INTEGRITY_MON_RETENTION_90D
+      - INTEGRITY_MON_RETENTION_180D
+      - INTEGRITY_MON_RETENTION_1Y
+      - MDR_FOUNDATIONS
+      - PATCH_MANAGEMENT
+      - VIRTUAL_ENV_VS
+      - VIRTUAL_ENV_VDI
+      - CONTAINER_PROTECTION
+      - XDR_IDENTITY_SENSOR
+      - XDR_PRODUCTIVITY_SENSOR
+      - XDR_NETWORK_SENSOR
+      - XDR_CLOUD_SENSOR
+      - COMPLIANCE_MANAGER
+      - EASM
+      - SUPERVISOR
+      - GB_OF_PROVISIONED_VM_RAM_PER_HOUR
+      - GB_OF_USED_VM_STORAGE_PER_HOUR
+      - GB_OF_USED_S3_STORAGE_PER_HOUR
+      - VIRTUAL_ENVIRONMENT_VE_PER_MONTH
+      - STORAGE_100_GB_PER_MONTH
+      - GB_RAM_UNDER_MANAGEMENT_PER_MONTH
+      - GB_OF_VM_RAM_PER_HOUR
+      - BUSINESS_CLIENT
+      - SELF_EMPLOYED_CLIENT
+      - LANDLORD_CLIENT
+      - DATA_HEALTH_AND_INSIGHT_ADDON
+      - SWITCH_DAY
+      - ACCESS_POINT_DAY
+      - DATABASE
+      - FUNCTION
+      - APP_SERVICE
+      - FIREWALL
+      - EDR_SA_MDR_FOUNDATIONS
+      - EDR_SA
+      - FED_USF_CHARGE
+      - SERVICE_FEE
+      - SERVICE_FEE_AP
+      - SERVICE_FEE_SWITCH
+      - SERVICE_FEE_ROUTER
+      - USER_LICENCE_DAY
+      - DEVICE_DAY
+      - VM_DAY
+      - ROUTER_DAY
+      - FSE
+      - ON_SITE_SERVICE
+      - BASIC
+      - BASIC_PLUS
+      - STANDARD
+      - STANDARD_PLUS
+      - ADVANCED
+      - ADVANCED_PLUS
+      - PREMIUM_PLUS
+      - XXS
+      - XS
+      - SMALL
+      - MEDIUM
+      - LARGE
+      - XL
+      - XXL
+      - XXXL
+      - CUSTOM
+      - ENHANCED
+      - INCIDENT_RESPONSE_SERVICE
+      - JIRA_CONNECTOR
+      - SHAREPOINT_CONNECTOR
+      - CONFLUENCE_CONNECTOR
+      - PRIVATE_ACCESS
+      - INTERNET_ACCESS
+      - OBJECTIVE_FEEDBACK_QUESTION
+      - STAFFBASE_CONNECTOR
+      - CONSULTING_UNIT_AP
+      - CONSULTING_UNIT_ROUTER
+      - CONSULTING_UNIT_SWITCH
+      - OBJECT
+      - VALIDATION
+      - ADVANCED_ELECTRONIC_SIGNATURE
+      - QUALIFIED_ELECTRONIC_SIGNATURE
+      - PERSONAL_IDENTIFICATION
+      - API_BASED_SIGNATURE
+      - ON_CALL_DUTY
+      - VSBU
+      - PAID_USER
+      - REMOTE_SEAL_SIGNATURE
+    MeteredUsageRequestAccepted:
+      title: MeteredUsageRequestAccepted
+      type: object
+      description: Reported metered usage received and accepted
+      properties:
+        requestId:
+          type: string
+          description: Unique system-assigned identifier for the metered usage request. Returned with the response.
+        idempotencyKey:
+          type: string
+          description: Unique caller-generated identifier sent with the metered usage submission.
+        queryUsageStatus:
+          type: string
+          description: API endpoint to fetch the processing status of all metered usage events submitted with the request.
+    AccountInfo:
+      type: object
+      title: AccountInfo
+      properties:
+        accountIdentifier:
+          description: Account identifier
+          type: string
+          nullable: true
+        parentAccountIdentifier:
+          description: Parent account identifier. Applies to add-on products.
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/CompanyEntitlementStatus'
+      example:
+        accountIdentifier: '...'
+        parentAccountIdentifier: '...'
+        status: INITIALIZED
+      nullable: true
+    Error:
+      type: object
+      title: Error
+      description: Returned error after failed API call.
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Error message
+      example:
+        code: EXTERNAL_ERROR
+        message: 'Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.'
+    UsageBean:
+      type: object
+      title: UsageBean
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountInfo'
+        addonInstance:
+          $ref: '#/components/schemas/AddonInstanceInfo'
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageItemBean'
+      example:
+        account:
+          accountIdentifier: '...'
+          parentAccountIdentifier: '...'
+          status: CANCELLED
+        addonInstance:
+          id: '...'
+        item:
+        - customUnit: '...'
+          description: '...'
+          price: 12345
+          quantity: 12345
+          unit: TIER3_STANDARD_LINE
+        - customUnit: '...'
+          description: '...'
+          price: 12345
+          quantity: 12345
+          unit: CONTACTS_1000
+    UsageItemBean:
+      type: object
+      title: UsageItemBean
+      properties:
+        customUnit:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          nullable: true
+        quantity:
+          type: number
+          nullable: true
+        unit:
+          $ref: '#/components/schemas/PricingUnit'
+      example:
+        customUnit: '...'
+        description: '...'
+        price: 12345
+        quantity: 12345
+        unit: OPERATOR
+    BillingAPIResult:
+      type: object
+      title: BillingAPIResult
+      properties:
+        success:
+          description: If the Billing API call was successful.
+          type: boolean
+        message:
+          description: Billing API response.
+          type: string
+          nullable: true
+      example:
+        success: false
+        message: Metered usage report is not allowed on this entitlement.
+    MeteredUsageRequest:
+      type: object
+      title: MeteredUsageRequest
+      description: Metered usage event submission
+      properties:
+        idempotencyKey:
+          type: string
+          description: Unique caller-generated identifier for the metered usage that is sent. Ensures duplicate submissions can be identified and an error returned. Required.
+        requestGroupId:
+          type: string
+          description: A caller-generated identifier to group related metered usage requests. For example, 'January 2022' to group all requests that include January billing period events.
+          nullable: true
+        billable:
+          type: boolean
+          description: Indicates usage is billable (true) or estimated (false). Required.
+        usages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeteredUsageItem'
+          description: List of metered usage events.

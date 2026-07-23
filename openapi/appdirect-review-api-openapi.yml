@@ -1,0 +1,352 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Review API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Review
+  x-displayName: Product Reviews
+paths:
+  /marketplace/v1/products/{applicationId}/reviews:
+    post:
+      description: This call creates a new product review on your marketplace.
+      tags:
+      - Review
+      summary: Create a review
+      operationId: resource_Review_createProductReview_POST
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReviewWS'
+        description: Review data
+      responses:
+        '201':
+          description: Review created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+              examples:
+                response:
+                  value:
+                    id: 17
+                    rating: null
+                    title: Sample Review Title
+                    comment: Sample Review
+                    author:
+                      uuid: null
+                      name: ''
+                      profilePicUrl: null
+                    lastModified: null
+                    commentCount: null
+                    source: null
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+        '400':
+          description: Error creating the review.
+        '404':
+          description: Application not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews \\\n  --data '{\"author\":{\"name\":\"...\",\"profilePicUrl\":\"...\",\"uuid\":\"...\"},\"comment\":\"...\",\"commentCount\":12345,\"id\":12345,\"lastModified\":12345,\"rating\":12345,\"source\":\"...\",\"title\":\"...\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews',\n  body: {\n    author: {name: '...', profilePicUrl: '...', uuid: '...'},\n    comment: '...',\n    commentCount: 12345,\n    id: 12345,\n    lastModified: 12345,\n    rating: 12345,\n    source: '...',\n    title: '...'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"author\\\":{\\\"name\\\":\\\"...\\\",\\\"profilePicUrl\\\":\\\"...\\\",\\\"uuid\\\":\\\"...\\\"},\\\"comment\\\":\\\"...\\\",\\\"commentCount\\\":12345,\\\"id\\\":12345,\\\"lastModified\\\":12345,\\\"rating\\\":12345,\\\"source\\\":\\\"...\\\",\\\"title\\\":\\\"...\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      description: This call lists all reviews and associated information listed on your marketplace.
+      tags:
+      - Review
+      summary: List all reviews
+      operationId: resource_Review_readProductReviews_GET
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Reviews read.
+          content:
+            application/json:
+              schema:
+                description: Reviews read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewWS'
+              examples:
+                response:
+                  value:
+                  - id: 13
+                    rating: null
+                    title: Sample Review Title
+                    comment: Sample Review
+                    author:
+                      uuid: d13a652c-f88b-43a2-a907-63fd9fc36b83
+                      name: user.test
+                      profilePicUrl: null
+                    lastModified: 1461792774445
+                    commentCount: 0
+                    source: null
+            application/xml:
+              schema:
+                description: Reviews read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewWS'
+        '404':
+          description: Application not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /marketplace/v1/products/{applicationId}/reviews/{reviewId}:
+    get:
+      description: This call returns all details for a specific review.
+      tags:
+      - Review
+      summary: Retrieve a review
+      operationId: resource_Review_readProductReview_GET
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Review id
+        name: reviewId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Review read.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+              examples:
+                response:
+                  value:
+                    id: 15
+                    rating: null
+                    title: Sample Review Title
+                    comment: Sample Review
+                    author:
+                      uuid: null
+                      name: ''
+                      profilePicUrl: null
+                    lastModified: 1461792775539
+                    commentCount: 0
+                    source: null
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+        '404':
+          description: Application or review not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: 'Update a review
+
+        This call updates an existing product review on your marketplace.'
+      tags:
+      - Review
+      summary: 'Update a review
+
+        This call updates an existing product review on your marketplace.'
+      operationId: resource_Review_updateProductReview_PUT
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Review id
+        name: reviewId
+        in: path
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReviewWS'
+        description: Review data
+      responses:
+        '200':
+          description: Review updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+              examples:
+                response:
+                  value:
+                    id: 16
+                    rating: null
+                    title: Sample Review Title
+                    comment: Sample Review
+                    author:
+                      uuid: null
+                      name: ''
+                      profilePicUrl: null
+                    lastModified: null
+                    commentCount: null
+                    source: null
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReviewWS'
+        '404':
+          description: Application or review not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D \\\n  --data '{\"author\":{\"name\":\"...\",\"profilePicUrl\":\"...\",\"uuid\":\"...\"},\"comment\":\"...\",\"commentCount\":12345,\"id\":12345,\"lastModified\":12345,\"rating\":12345,\"source\":\"...\",\"title\":\"...\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D',\n  body: {\n    author: {name: '...', profilePicUrl: '...', uuid: '...'},\n    comment: '...',\n    commentCount: 12345,\n    id: 12345,\n    lastModified: 12345,\n    rating: 12345,\n    source: '...',\n    title: '...'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"author\\\":{\\\"name\\\":\\\"...\\\",\\\"profilePicUrl\\\":\\\"...\\\",\\\"uuid\\\":\\\"...\\\"},\\\"comment\\\":\\\"...\\\",\\\"commentCount\\\":12345,\\\"id\\\":12345,\\\"lastModified\\\":12345,\\\"rating\\\":12345,\\\"source\\\":\\\"...\\\",\\\"title\\\":\\\"...\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: 'Delete a review
+
+        This call deletes a product review from your marketplace.'
+      tags:
+      - Review
+      summary: 'Delete a review
+
+        This call deletes a product review from your marketplace.'
+      operationId: resource_Review_deleteProductReview_DELETE
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Review id
+        name: reviewId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '204':
+          description: Review deleted.
+          content:
+            application/json:
+              schema:
+                description: Review deleted.
+            application/xml:
+              schema:
+                description: Review deleted.
+        '404':
+          description: Application or review not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/reviews/%7BreviewId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AuthorWS:
+      description: Author of a question, an answer, a review or a review comment
+      type: object
+      title: Author
+      properties:
+        name:
+          description: Name
+          type: string
+        profilePicUrl:
+          description: Profile pic URL
+          type: string
+          nullable: true
+        uuid:
+          description: Unique identifier
+          type: string
+          nullable: true
+      example:
+        name: '...'
+        profilePicUrl: '...'
+        uuid: '...'
+    ReviewWS:
+      description: Review on a product
+      type: object
+      title: Review
+      properties:
+        author:
+          $ref: '#/components/schemas/AuthorWS'
+        comment:
+          description: Comment
+          type: string
+        commentCount:
+          description: Number of comment
+          type: number
+          nullable: true
+        id:
+          description: ID
+          type: number
+          nullable: true
+        lastModified:
+          description: Last modified date
+          type: number
+          nullable: true
+        rating:
+          description: Rating
+          type: number
+          nullable: true
+        source:
+          description: Source
+          type: string
+          nullable: true
+        title:
+          description: Title
+          type: string
+      example:
+        author:
+          name: '...'
+          profilePicUrl: '...'
+          uuid: '...'
+        comment: '...'
+        commentCount: 12345
+        id: 12345
+        lastModified: 12345
+        rating: 12345
+        source: '...'
+        title: '...'

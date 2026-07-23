@@ -1,0 +1,213 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Files API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Files
+  description: Upload and manage files for chat sessions
+paths:
+  /api/v1/chats/{chatId}/files:
+    post:
+      tags:
+      - Files
+      summary: Upload a file to a chat session
+      description: 'Uploads a file that can be referenced in messages sent to this chat. Max file size: 5MB. After uploading, use the returned file ID to reference it in the prompt field using ComplexMessageContent.'
+      operationId: uploadChatFile
+      parameters:
+      - name: chatId
+        in: path
+        required: true
+        description: The unique identifier of the chat session.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+                source:
+                  type: string
+                  enum:
+                  - USER
+                  - SYSTEM
+                  description: The source of the file. Defaults to USER if not specified.
+      responses:
+        '201':
+          description: File successfully uploaded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDto'
+        '400':
+          description: Bad request - No file found or invalid file data.
+        '403':
+          description: Forbidden, the user is not authorized to upload files to this chat.
+        '404':
+          description: Chat not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    get:
+      tags:
+      - Files
+      summary: List files in a chat session
+      description: Retrieves a list of all files associated with the specified chat session.
+      operationId: listChatFiles
+      parameters:
+      - name: chatId
+        in: path
+        required: true
+        description: The unique identifier of the chat session.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of files in the chat session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilesResponseDto'
+        '400':
+          description: Bad request - Chat ID required.
+        '403':
+          description: Forbidden, the user is not authorized to access this chat.
+        '404':
+          description: Chat not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/files:
+    post:
+      tags:
+      - Files
+      summary: Create a file record or upload a file
+      description: 'This endpoint supports two modes: 1) Create a file record with metadata (application/json), or 2) Upload a file directly (multipart/form-data). When creating a record, you''ll need to upload the actual file separately. When uploading directly, the file is uploaded immediately.'
+      operationId: createOrUploadFile
+      requestBody:
+        required: true
+        description: 'This endpoint supports two modes: Create a file record with metadata (application/json), or upload a file directly (multipart/form-data).'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFileRequestDto'
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload directly.
+      responses:
+        '201':
+          description: File successfully created or uploaded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDto'
+        '400':
+          description: Bad request - Missing required fields or invalid file data.
+        '403':
+          description: Forbidden, the user is not authorized to upload files.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    FilesResponseDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileDto'
+    FileDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the file.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the file was created.
+        source:
+          $ref: '#/components/schemas/FileSource'
+        filename:
+          type: string
+          description: The name of the file.
+        size:
+          type: integer
+          description: The size of the file in bytes.
+        mimeType:
+          type: string
+          description: The MIME type of the file.
+        url:
+          type: string
+          nullable: true
+          description: The URL where the file can be accessed.
+        metadata:
+          type: object
+          nullable: true
+          description: Additional metadata associated with the file.
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time when the file was deleted, if applicable.
+        status:
+          $ref: '#/components/schemas/FileStatus'
+    FileSource:
+      type: string
+      description: The source of the file.
+      enum:
+      - USER
+      - SYSTEM
+    CreateFileRequestDto:
+      type: object
+      required:
+      - filename
+      - size
+      - mimeType
+      properties:
+        filename:
+          type: string
+          description: The name of the file.
+        size:
+          type: integer
+          description: The size of the file in bytes.
+        mimeType:
+          type: string
+          description: The MIME type of the file.
+        metadata:
+          type: object
+          nullable: true
+          description: Additional metadata associated with the file.
+    FileStatus:
+      type: string
+      description: The status of the file.
+      enum:
+      - UPLOADED
+      - UPLOADING
+      - DELETING
+      - DELETED

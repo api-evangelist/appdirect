@@ -1,0 +1,1136 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Data Sources API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Data Sources
+  description: Manage knowledge bases and data sources for AI assistants
+paths:
+  /api/v1/ai/{aiId}/data-sources:
+    get:
+      tags:
+      - Data Sources
+      summary: List data sources for the AI
+      description: Retrieves a list of data sources associated with the given AI identifier.
+      operationId: listAIDataSources
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI whose data sources are to be retrieved.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of data sources associated with the AI.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDataSourcesResponse'
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Data Sources
+      summary: Add an existing data source to the specified AI
+      description: Associates an existing data source with the specified AI.
+      operationId: addDataSourceToAI
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The unique identifier for the AI to which the data source is to be added.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dataSourceId:
+                  type: string
+                  description: The unique identifier of the existing data source to be added.
+              required:
+              - dataSourceId
+      responses:
+        '201':
+          description: Data source successfully added to the AI.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAIDataSourceResponse'
+        '400':
+          description: Bad request, malformed request syntax or invalid request message framing.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not Found, either of the specified AI or data source are not found.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Data Sources
+      summary: Delete all data sources from the AI
+      description: Requests deletion of all data sources associated with the specified AI.
+      operationId: deleteAllAIDataSources
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI whose data sources are to be deleted.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Delete request accepted.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/api:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a new API data source for the specified AI
+      description: Adds a new API data source with a specified name and JSON payload for the given AI.
+      operationId: createApiDataSource
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The unique identifier for the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the data source.
+                data:
+                  type: object
+                  description: The JSON payload to be used as the data source's knowledge.
+              required:
+              - name
+              - data
+      responses:
+        '201':
+          description: Data source successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: AI not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/file:
+    post:
+      tags:
+      - Data Sources
+      summary: 'Adds a file upload data source for the specified AI. Max file size: 4.5Mb.'
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: AI not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/file-blob:
+    post:
+      tags:
+      - Data Sources
+      summary: Initialize a file-blob upload for the AI
+      description: Generates a signed upload token for Vercel Blob and creates the data source after upload.
+      operationId: createFileBlobDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Upload token created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VercelBlobUploadResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/web-urls:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a web URL data source for the AI
+      description: Creates a web URL knowledge source and associates it with the AI.
+      operationId: createWebUrlDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebUrlDataSourceInput'
+      responses:
+        '201':
+          description: Data source created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '403':
+          description: Forbidden - web URL data source requires a paid plan.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/google-drive:
+    post:
+      tags:
+      - Data Sources
+      summary: Create Google Drive data sources for the AI
+      description: Creates Google Drive knowledge sources and associates them with the AI.
+      operationId: createGoogleDriveDataSources
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGoogleDriveKnowledgeRequest'
+      responses:
+        '201':
+          description: Data sources created.
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/onedrive:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a OneDrive data source for the AI
+      description: Creates a OneDrive knowledge source and associates it with the AI.
+      operationId: createOneDriveDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOneDriveKnowledgeRequest'
+      responses:
+        '201':
+          description: Data source created.
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/confluence:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a Confluence data source for the AI
+      description: Creates a Confluence knowledge source and associates it with the AI.
+      operationId: createConfluenceDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConfluenceKnowledgeRequest'
+      responses:
+        '201':
+          description: Data source created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '403':
+          description: Forbidden - Confluence data source requires a paid plan.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/jira:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a Jira data source for the AI
+      description: Creates a Jira knowledge source and associates it with the AI.
+      operationId: createJiraDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJiraKnowledgeRequest'
+      responses:
+        '201':
+          description: Data source created.
+        '403':
+          description: Forbidden - Jira data source requires a paid plan.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/github:
+    post:
+      tags:
+      - Data Sources
+      summary: Create a GitHub data source for the AI
+      description: Creates a GitHub knowledge source and associates it with the AI.
+      operationId: createGithubDataSource
+      parameters:
+      - in: path
+        name: aiId
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGithubKnowledgeRequest'
+      responses:
+        '201':
+          description: Data source created.
+        '403':
+          description: Forbidden - GitHub data source requires a paid plan.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/{dataSourceId}:
+    delete:
+      tags:
+      - Data Sources
+      summary: Remove a data source from the AI
+      description: Removes the specified data source from the AI.
+      operationId: removeAIDataSource
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The identifier of the data source to remove.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Data source removed.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI or data source not found.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/data-sources/delete:
+    post:
+      tags:
+      - Data Sources
+      summary: Delete multiple data sources from the AI
+      description: Bulk delete data sources by ID for the specified AI.
+      operationId: deleteAIDataSources
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteAIDataSourcesRequest'
+      responses:
+        '204':
+          description: Delete request accepted.
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources:
+    get:
+      tags:
+      - Data Sources
+      summary: List all data sources
+      description: Retrieves a list of data sources associated which the user has access to.
+      operationId: listDataSources
+      parameters:
+      - name: search
+        in: query
+        required: false
+        description: Search term for data sources.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: Filter by data source type.
+        schema:
+          $ref: '#/components/schemas/DataSourceType'
+      - name: orderBy
+        in: query
+        required: false
+        description: 'Order by field and direction. Prefix field name with ''+'' for ascending or ''-'' for descending order. Allowed fields: createdAt, lastIndexedAt, usageCount.'
+        schema:
+          type: string
+          pattern: ^[+-](createdAt|lastIndexedAt|usageCount)$
+      - name: page
+        in: query
+        required: false
+        description: Page number for paginated results.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of all data sources which the user has access to.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDataSourceWithAiDetailsResponse'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources/{dataSourceId}:
+    patch:
+      tags:
+      - Data Sources
+      summary: Update a Data Source
+      description: Updates properties for the specified data source.
+      operationId: updateDataSource
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source to update.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataSourceRequest'
+      responses:
+        '200':
+          description: Data source updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not Found, the specified data source ID does not exist.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Data Sources
+      summary: Delete a Data Source
+      description: Deletes a specific data source associated with the given AI identifier.
+      operationId: deleteDataSource
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source to be deleted.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Data source successfully deleted, no content to return.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not Found, the specified data source ID does not exist.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources/{dataSourceId}/refresh:
+    put:
+      tags:
+      - Data Sources
+      summary: Refresh a Data Source
+      description: This endpoint refreshes the specified data source.
+      operationId: refreshDataSource
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source to be refreshed.
+        schema:
+          type: string
+      - in: query
+        name: forceRefresh
+        description: Indicates if the data source should be refreshed even if the content has not been updated
+        schema:
+          type: boolean
+      responses:
+        '202':
+          description: Request has been accepted for processing.
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Data source not found with the specified ID.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources/{dataSourceId}/stats:
+    get:
+      tags:
+      - Data Sources
+      summary: Get data source stats
+      description: Retrieves indexing statistics for the specified data source.
+      operationId: getDataSourceStats
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data source stats.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSourceKnowledgeStats'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Data source not found.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources/{dataSourceId}/knowledge:
+    get:
+      tags:
+      - Data Sources
+      summary: List knowledge items for a data source
+      description: Retrieves paginated knowledge items for the specified data source.
+      operationId: listDataSourceKnowledge
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source.
+        schema:
+          type: string
+      - name: first
+        in: query
+        required: false
+        description: Number of items to return.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        required: false
+        description: Cursor for pagination.
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Paginated knowledge results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetKnowledgeResponse'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Data source not found.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/data-sources/{dataSourceId}/knowledge/{knowledgeId}:
+    patch:
+      tags:
+      - Data Sources
+      summary: Update a knowledge item
+      description: Updates a knowledge item for the specified data source.
+      operationId: updateKnowledgeItem
+      parameters:
+      - name: dataSourceId
+        in: path
+        required: true
+        description: The unique identifier of the data source.
+        schema:
+          type: string
+      - name: knowledgeId
+        in: path
+        required: true
+        description: The identifier of the knowledge item.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateKnowledgeRequest'
+      responses:
+        '200':
+          description: Knowledge item updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Knowledge'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Data source or knowledge item not found.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    CreateAIDataSourceResponse:
+      type: object
+      properties:
+        aiId:
+          type: string
+        dataSourceId:
+          type: string
+      required:
+      - aiId
+      - dataSourceId
+    AIReference:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        src:
+          type: string
+    KnowledgeOriginalContent:
+      type: object
+      properties:
+        contentBlobUrl:
+          type: string
+        filename:
+          type: string
+        mimeType:
+          type: string
+        isContentStoredExternally:
+          type: boolean
+        contentUrl:
+          type: string
+    CreateConfluenceKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        pageId:
+          type: string
+        pageName:
+          type: string
+        contentType:
+          type: string
+        spaceId:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        indexChildPages:
+          type: boolean
+        indexDriveFiles:
+          type: boolean
+        indexAttachments:
+          type: boolean
+        selectedDriveAccount:
+          type: string
+        archive:
+          type: boolean
+        allSpaces:
+          type: boolean
+      required:
+      - oauthTokenId
+      - pageName
+    Knowledge:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        uniqueId:
+          type: string
+          nullable: true
+        parentUniqueId:
+          type: string
+          nullable: true
+        indexStatus:
+          $ref: '#/components/schemas/KnowledgeIndexStatus'
+        documentCount:
+          type: integer
+          nullable: true
+        tokenCount:
+          type: integer
+          nullable: true
+        originalContent:
+          $ref: '#/components/schemas/KnowledgeOriginalContent'
+          nullable: true
+        documentsBlobUrl:
+          type: string
+          nullable: true
+        indexPercentage:
+          type: string
+        metadata:
+          type: object
+          nullable: true
+        isBlobStorageDeleted:
+          type: boolean
+        cite:
+          type: boolean
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+          nullable: true
+    CreateGithubKnowledgeRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+          - repos
+          - all
+        gitHubAppInstallationId:
+          type: integer
+        repos:
+          type: array
+          items:
+            type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - mode
+      - gitHubAppInstallationId
+    UpdateKnowledgeRequest:
+      type: object
+      properties:
+        cite:
+          type: boolean
+      required:
+      - cite
+    GetKnowledgeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Knowledge'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    DataSourceIndexStatus:
+      type: string
+      description: The indexing status of the data source.
+      enum:
+      - INITIALIZED
+      - INDEXING
+      - REFRESHING
+      - PARTIALLY_COMPLETED
+      - COMPLETED
+      - FAILED
+      - DELETION_REQUESTED
+      - DELETED
+      - MISSING
+    GoogleDriveFile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    UpdateDataSourceRequest:
+      type: object
+      properties:
+        refreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        cite:
+          type: boolean
+          nullable: true
+        ais:
+          type: array
+          items:
+            type: string
+        orgVisible:
+          type: boolean
+          nullable: true
+    DeleteAIDataSourcesRequest:
+      type: object
+      properties:
+        dataSourceIds:
+          type: array
+          items:
+            type: string
+      required:
+      - dataSourceIds
+    ListDataSourcesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+    PaginatedDataSourceWithAiDetailsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSourceWithAiDetails'
+        total:
+          type: integer
+    CreateGoogleDriveKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleDriveFile'
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - files
+    DataSource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the data source.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the data source was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the data source was last updated.
+        lastIndexedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time when the data source was last indexed, if applicable.
+        orgId:
+          type: string
+          description: Organization ID that owns the data source.
+        ownerUserId:
+          type: string
+          description: User ID that created the data source.
+        name:
+          type: string
+          description: Name of the data source.
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        refreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        indexStatus:
+          $ref: '#/components/schemas/DataSourceIndexStatus'
+        indexPercentage:
+          type: string
+          description: Percentage of the indexing process completed, if applicable.
+        data:
+          type: object
+          nullable: true
+          description: Provider-specific data source configuration.
+        cite:
+          type: boolean
+          description: Whether this data source should be cited in responses.
+        orgVisible:
+          type: boolean
+          description: Whether this data source is visible to the organization.
+    WebUrlFileType:
+      type: string
+      enum:
+      - TEXT
+      - CSV
+      - PDF
+      - MARKDOWN
+      - DOC
+      - XLS
+    DataSourceKnowledgeStats:
+      type: object
+      properties:
+        doneCount:
+          type: integer
+        failedCount:
+          type: integer
+        pendingCount:
+          type: integer
+        indexingCount:
+          type: integer
+        totalCount:
+          type: integer
+    VercelBlobUploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        pathname:
+          type: string
+        contentType:
+          type: string
+        size:
+          type: integer
+      additionalProperties: true
+    DataSourceType:
+      type: string
+      description: The type of the data source.
+      enum:
+      - API
+      - FILE_UPLOAD
+      - GOOGLE_DRIVE
+      - ONEDRIVE
+      - WEB_URL
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
+    DataSourceRefreshPeriod:
+      type: string
+      description: How frequently the data source should be refreshed.
+      enum:
+      - NEVER
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+    CreateJiraKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        projectName:
+          type: string
+        projectKey:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - oauthTokenId
+      - projectName
+      - projectKey
+    CreateOneDriveKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        fileId:
+          type: string
+        filename:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - oauthTokenId
+      - fileId
+      - filename
+    WebUrlDataSourceInput:
+      type: object
+      properties:
+        url:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        includeFiles:
+          type: boolean
+        includedFileTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebUrlFileType'
+        includeUrlGlobs:
+          type: array
+          items:
+            type: string
+        excludeUrlGlobs:
+          type: array
+          items:
+            type: string
+        maxPages:
+          type: integer
+        maxMemory:
+          type: integer
+        timeout:
+          type: integer
+      required:
+      - url
+      - dataRefreshPeriod
+      - includeFiles
+      - includedFileTypes
+    KnowledgeIndexStatus:
+      type: string
+      enum:
+      - INITIALIZED
+      - RETRIEVING_CONTENT
+      - CONTENT_RETRIEVED
+      - DOCUMENTS_CREATED
+      - INDEXING
+      - PARTIALLY_COMPLETED
+      - COMPLETED
+      - FAILED
+      - DELETED
+    DataSourceWithAiDetails:
+      allOf:
+      - $ref: '#/components/schemas/DataSource'
+      - type: object
+        properties:
+          ais:
+            type: array
+            items:
+              $ref: '#/components/schemas/AIReference'
+          ownerUser:
+            $ref: '#/components/schemas/UserSummary'
+            nullable: true

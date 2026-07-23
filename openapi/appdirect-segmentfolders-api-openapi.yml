@@ -1,0 +1,1443 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed SegmentFolders API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: SegmentFolders
+  x-displayName: Segment Folders
+paths:
+  /channel/v1/companyGroups:
+    post:
+      tags:
+      - SegmentFolders
+      summary: Create segment folders
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: createCompanyGroup
+      description: Creates a segment folder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentFolderRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentFolder'
+              examples:
+                response:
+                  value:
+                    id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+                    name: Fortune 500 Companies
+                    enable: true
+                    partner: APPDIRECT
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment folder name already exists for the partner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/channel/v1/companyGroups \\\n  --data '{\"name\":\"Fortune 500 Companies\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/companyGroups',\n  body: {name: 'Fortune 500 Companies'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Fortune 500 Companies\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/companyGroups\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      tags:
+      - SegmentFolders
+      summary: Read segment folders
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: getCompanyGroups
+      description: Returns a paginated list of segment folders for the marketplace
+      parameters:
+      - name: number
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          maximum: 250
+          default: 50
+      - name: sort
+        in: query
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+          default: +name
+      - name: name
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSegmentFolderAndSegments'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+                      name: Fortune 500 Companies
+                      partner: APPDIRECT
+                      segments:
+                      - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+                        name: iOS users
+                        partner: APPDIRECT
+                        code: IOS
+                        type: MANUAL
+                    - id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+                      name: Fortune 100 Companies
+                      partner: APPDIRECT
+                      segments:
+                      - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+                        name: Android users
+                        partner: APPDIRECT
+                        code: DROID
+                        type: MANUAL
+                    page:
+                      number: 1
+                      size: 2
+                      totalElements: 10
+                      totalPages: 2
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/companyGroups?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&name=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/companyGroups',\n  qs: {\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    name: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/companyGroups?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&name=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/companyGroups/{companyGroupId}:
+    put:
+      tags:
+      - SegmentFolders
+      summary: Update segment folders
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: updateCompanyGroup
+      description: Updates a segment folder
+      parameters:
+      - description: Segment folder ID
+        name: companyGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentFolderRequest'
+        required: true
+      responses:
+        '204':
+          description: The segment folder was successfully updated
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment folder name already exists for the partner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D \\\n  --data '{\"name\":\"Fortune 500 Companies\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D',\n  body: {name: 'Fortune 500 Companies'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Fortune 500 Companies\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - SegmentFolders
+      summary: Delete segment folder
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: deleteCompanyGroup
+      description: Deletes a segment folder, all associated segments, and all product associations
+      parameters:
+      - description: Segment folder ID
+        name: companyGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The segment folder was successfully deleted
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/companyGroups/{companyGroupId}/segments/{companySegmentId}:
+    delete:
+      tags:
+      - SegmentFolders
+      summary: Delete segments from segment folders
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: removeSegment
+      description: Deletes a segment from a segment folder
+      parameters:
+      - description: Segment folder ID
+        name: companyGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Segment ID
+        name: companySegmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The segment was successfully deleted.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D/segments/%7BcompanySegmentId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D/segments/%7BcompanySegmentId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/companyGroups/%7BcompanyGroupId%7D/segments/%7BcompanySegmentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments:
+    get:
+      tags:
+      - SegmentFolders
+      summary: Read segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: getCompanyGroupSegments
+      description: Returns a paginated list of segments
+      parameters:
+      - in: query
+        name: companyGroupId
+        description: Segment folder ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: number
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: size
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+          maximum: 250
+          default: 50
+      - in: query
+        name: sort
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+          pattern: ^[+-]name$
+          default: +name
+      - in: query
+        name: searchText
+        description: Search text
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSegment'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 9f4e5c52-5258-4193-a132-303f06e9eef1
+                      name: Canada
+                      partner: APPDIRECT
+                      code: CAN
+                      type: MANUAL
+                    - id: b1f5af35-ca68-431f-83b7-ef56189924ed
+                      name: France
+                      partner: APPDIRECT
+                      code: FRA
+                      type: MANUAL
+                    - id: 5ca15227-da6b-413e-a09c-f8d06ab3dcd7
+                      name: United States
+                      partner: APPDIRECT
+                      code: USA
+                      type: MANUAL
+                    page:
+                      size: 50
+                      totalElements: 3
+                      totalPages: 1
+                      number: 0
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments?companyGroupId=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments',\n  qs: {\n    companyGroupId: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments?companyGroupId=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - SegmentFolders
+      summary: Create manual segment
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: createSegment
+      description: Creates a manual segment. Manual segments allow Marketplace Managers to select companies manually, as opposed to dynamic segments, which contain user selected automatically based on filter values.
+      parameters:
+      - in: query
+        name: companyGroupId
+        description: Segment folder ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+              examples:
+                response:
+                  value:
+                    id: 9f4e5c52-5258-4193-a132-303f06e9eef1
+                    name: Canada
+                    partner: APPDIRECT
+                    code: CAN
+                    type: MANUAL
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments?companyGroupId=SOME_STRING_VALUE' \\\n  --data '{\"name\":\"Canada\",\"code\":\"XXYU\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments',\n  qs: {companyGroupId: 'SOME_STRING_VALUE'},\n  body: {name: 'Canada', code: 'XXYU'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Canada\\\",\\\"code\\\":\\\"XXYU\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments?companyGroupId=SOME_STRING_VALUE\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/{companySegmentId}:
+    put:
+      tags:
+      - SegmentFolders
+      summary: Update manual segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: updateSegment
+      description: Updates a manual segment
+      parameters:
+      - in: path
+        name: companySegmentId
+        description: Segment ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentRequest'
+        required: true
+      responses:
+        '204':
+          description: The segment was successfully updated.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D \\\n  --data '{\"name\":\"Canada\",\"code\":\"XXYU\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D',\n  body: {name: 'Canada', code: 'XXYU'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Canada\\\",\\\"code\\\":\\\"XXYU\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/{companySegmentId}/associationsBatchUpdate:
+    post:
+      tags:
+      - SegmentFolders
+      summary: Create or remove segment-company associations
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: deleteAndAddCompanies
+      description: Creates or removes associations between segments and companies
+      parameters:
+      - in: path
+        name: companySegmentId
+        description: Segment ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanySegmentAssociationsBatchUpdateRequest'
+        required: true
+      responses:
+        '204':
+          description: The segment to company associations were successfully updated.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The association already exists between the segment and company.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/associationsBatchUpdate \\\n  --header 'content-type: application/json' \\\n  --data '{\"deleteAll\":\"false\",\"companyIdsToAdd\":[\"7e3b3bb8-1b75-408b-8cbf-561ccd910479\"],\"companyIdsToRemove\":[\"7e3b3bb8-1b75-408b-8cbf-561ccd910478\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/associationsBatchUpdate',\n  headers: {'content-type': 'application/json'},\n  body: {\n    deleteAll: 'false',\n    companyIdsToAdd: ['7e3b3bb8-1b75-408b-8cbf-561ccd910479'],\n    companyIdsToRemove: ['7e3b3bb8-1b75-408b-8cbf-561ccd910478']\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"deleteAll\\\":\\\"false\\\",\\\"companyIdsToAdd\\\":[\\\"7e3b3bb8-1b75-408b-8cbf-561ccd910479\\\"],\\\"companyIdsToRemove\\\":[\\\"7e3b3bb8-1b75-408b-8cbf-561ccd910478\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/associationsBatchUpdate\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/{companySegmentId}/availableAndAssociatedCompanies:
+    get:
+      tags:
+      - SegmentFolders
+      summary: Read segment companies
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: getAvailableAndAssociatedCompanies
+      description: Returns a paginated list of all marketplace companies and indicates whether they are associated with the segment
+      parameters:
+      - in: path
+        name: companySegmentId
+        description: Segment ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: number
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: size
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+          maximum: 250
+          default: 50
+      - in: query
+        name: sort
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+          pattern: ^[+-]name$
+          default: +name
+      - in: query
+        name: searchText
+        description: Search text
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: selected
+        description: If true, returns only associated companies
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedAvailableCompanySegmentAssociation'
+              examples:
+                response:
+                  value:
+                    content:
+                    - name: Canada Company
+                      id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+                      selected: false
+                    - name: US Company
+                      id: 04f8d043-10f1-4b89-8c0e-0780e5a62298
+                      selected: true
+                    page:
+                      number: 1
+                      size: 2
+                      totalElements: 10
+                      totalPages: 2
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/availableAndAssociatedCompanies?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&selected=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/availableAndAssociatedCompanies',\n  qs: {\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    selected: 'SOME_BOOLEAN_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/%7BcompanySegmentId%7D/availableAndAssociatedCompanies?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&selected=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/dynamicSegments/{dynamicSegmentId}:
+    put:
+      tags:
+      - SegmentFolders
+      summary: Update dynamic segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      operationId: updateDynamicSegment
+      description: Updates a dynamic segment
+      parameters:
+      - in: path
+        name: dynamicSegmentId
+        description: Segment ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicSegmentRequest'
+        required: true
+      responses:
+        '204':
+          description: The segment was successfully updated.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/%7BdynamicSegmentId%7D \\\n  --data '{\"name\":\"Canada\",\"code\":\"XXYU\",\"filters\":[[{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]},{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]}]]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/%7BdynamicSegmentId%7D',\n  body: {\n    name: 'Canada',\n    code: 'XXYU',\n    filters: [\n      [\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        },\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        }\n      ]\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Canada\\\",\\\"code\\\":\\\"XXYU\\\",\\\"filters\\\":[[{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]},{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]}]]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/%7BdynamicSegmentId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/dynamicSegments/filterParameters:
+    get:
+      tags:
+      - SegmentFolders
+      summary: Read filter parameters
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      description: Returns a list of parameters for the dynamic filter
+      operationId: readFilterParameter
+      parameters:
+      - name: AD-Tenant
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: (\s*\S+\s*)+
+      - name: locale
+        in: query
+        required: false
+        description: Locale
+        schema:
+          type: string
+          default: en_US
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentFilterParamList'
+              examples:
+                response:
+                  value:
+                  - key: company
+                    label: company
+                    fields:
+                    - key: company.state
+                      label: state
+                      dataType: text
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/filterParameters?locale=SOME_STRING_VALUE' \\\n  --header 'AD-Tenant: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/filterParameters',\n  qs: {locale: 'SOME_STRING_VALUE'},\n  headers: {'AD-Tenant': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/filterParameters?locale=SOME_STRING_VALUE\")\n  .get()\n  .addHeader(\"AD-Tenant\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/dynamicSegments/matchUser/{userEmail}:
+    post:
+      tags:
+      - SegmentFolders
+      summary: Test dynamic segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      description: Determines whether the specified user matches the specified dynamic segment
+      operationId: testDynamicSegment
+      parameters:
+      - in: path
+        name: userEmail
+        description: User email address
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicSegmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserMatchResult'
+              examples:
+                response:
+                  value:
+                    matches: 'true'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/matchUser/%7BuserEmail%7D \\\n  --data '{\"name\":\"Canada\",\"code\":\"XXYU\",\"filters\":[[{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]},{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]}]]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/matchUser/%7BuserEmail%7D',\n  body: {\n    name: 'Canada',\n    code: 'XXYU',\n    filters: [\n      [\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        },\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        }\n      ]\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Canada\\\",\\\"code\\\":\\\"XXYU\\\",\\\"filters\\\":[[{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]},{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]}]]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/matchUser/%7BuserEmail%7D\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/segments/dynamicSegments:
+    get:
+      tags:
+      - SegmentFolders
+      summary: Read dynamic segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      description: Reads a dynamic segment
+      operationId: readDynamicSegment
+      parameters:
+      - in: query
+        name: dynamicSegmentId
+        description: Dynamic segment ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicSegment'
+              examples:
+                response:
+                  value:
+                    id: 9f4e5c52-5258-4193-a132-303f06e9eef1
+                    name: Canada
+                    partner: APPDIRECT
+                    code: CAN
+                    type: DYNAMIC
+                    filters:
+                    - - conditions:
+                        - parameter: company.state
+                          operator: matches
+                          values:
+                          - Quebec
+                        - parameter: company.city
+                          operator: matches
+                          values:
+                          - Montreal
+                      - conditions:
+                        - parameter: company.state
+                          operator: matches
+                          values:
+                          - Quebec
+                        - parameter: company.city
+                          operator: matches
+                          values:
+                          - Montreal
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments?dynamicSegmentId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments',\n  qs: {dynamicSegmentId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments?dynamicSegmentId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - SegmentFolders
+      summary: Create dynamic segments
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+      description: Creates a dynamic segment. Dynamic segments contain user selected automatically based on filter values, as opposed to manual segments, in which Marketplace Managers select companies manually.
+      operationId: createDynamicSegment
+      parameters:
+      - in: query
+        name: companyGroupId
+        description: Segment folder ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicSegmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicSegment'
+              examples:
+                response:
+                  value:
+                    id: 9f4e5c52-5258-4193-a132-303f06e9eef1
+                    name: Canada
+                    partner: APPDIRECT
+                    code: CAN
+                    type: DYNAMIC
+                    filters:
+                    - - conditions:
+                        - parameter: company.state
+                          operator: matches
+                          values:
+                          - Quebec
+                        - parameter: company.city
+                          operator: matches
+                          values:
+                          - Montreal
+                      - conditions:
+                        - parameter: company.state
+                          operator: matches
+                          values:
+                          - Quebec
+                        - parameter: company.city
+                          operator: matches
+                          values:
+                          - Montreal
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The segment already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments?companyGroupId=SOME_STRING_VALUE' \\\n  --data '{\"name\":\"Canada\",\"code\":\"XXYU\",\"filters\":[[{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]},{\"conditions\":[{\"parameter\":\"company.state\",\"operator\":\"matches\",\"values\":[\"Quebec\"]},{\"parameter\":\"company.city\",\"operator\":\"matches\",\"values\":[\"Montreal\"]}]}]]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments',\n  qs: {companyGroupId: 'SOME_STRING_VALUE'},\n  body: {\n    name: 'Canada',\n    code: 'XXYU',\n    filters: [\n      [\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        },\n        {\n          conditions: [\n            {parameter: 'company.state', operator: 'matches', values: ['Quebec']},\n            {parameter: 'company.city', operator: 'matches', values: ['Montreal']}\n          ]\n        }\n      ]\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Canada\\\",\\\"code\\\":\\\"XXYU\\\",\\\"filters\\\":[[{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]},{\\\"conditions\\\":[{\\\"parameter\\\":\\\"company.state\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Quebec\\\"]},{\\\"parameter\\\":\\\"company.city\\\",\\\"operator\\\":\\\"matches\\\",\\\"values\\\":[\\\"Montreal\\\"]}]}]]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments?companyGroupId=SOME_STRING_VALUE\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    DynamicSegment:
+      description: Dynamic segments contain users selected automatically based on filter values, as opposed to manual segments, in which Marketplace Managers select companies manually.
+      title: DynamicSegment
+      type: object
+      properties:
+        id:
+          description: Segment ID
+          type: string
+        name:
+          description: Segment name
+          type: string
+          minLength: 1
+          maxLength: 255
+        code:
+          description: Segment codes are unique codes that you can use for B2B integration by using the API to automatically associate companies with segments. Leave this field blank if a segment code is not required. Note that if you modify the code after you create it, your B2B integration might be affected.
+          type: string
+          minLength: 1
+          maxLength: 255
+        partner:
+          description: Partner name
+          type: string
+          minLength: 1
+          maxLength: 50
+        type:
+          description: Segment type
+          type: string
+        filters:
+          description: Dynamic filter
+          type: array
+          items:
+            $ref: '#/components/schemas/Filters'
+      example:
+        id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+        name: iOS users
+        partner: APPDIRECT
+        type: DYNAMIC
+        filters:
+        - - conditions:
+            - parameter: company.state
+              operator: matches
+              values:
+              - Quebec
+            - parameter: company.city
+              operator: matches
+              values:
+              - Montreal
+          - conditions:
+            - parameter: company.state
+              operator: matches
+              values:
+              - Quebec
+            - parameter: company.city
+              operator: matches
+              values:
+              - Montreal
+    SegmentFolderRequest:
+      description: Segment folder creation request
+      title: SegmentFolderRequest
+      type: object
+      properties:
+        name:
+          description: Segment folder name
+          type: string
+          maxLength: 255
+      required:
+      - name
+      example:
+        name: Fortune 500 Companies
+    Filter:
+      description: Filter
+      title: Filter
+      type: object
+      properties:
+        operator:
+          description: Filter operator
+          type: string
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterExpression'
+      required:
+      - operator
+      - conditions
+      example:
+        operator: ALL_OF
+        conditions:
+        - parameter: company.state
+          operator: matches
+          values:
+          - Quebec
+        - parameter: company.city
+          operator: matches
+          values:
+          - Montreal
+    AvailableCompanySegmentAssociation:
+      description: Information about all marketplace companies and associated companies for a segment
+      title: AvailableCompanySegmentAssociation
+      type: object
+      properties:
+        name:
+          description: The company name
+          type: string
+          minLength: 1
+          maxLength: 255
+        id:
+          description: The company ID
+          type: string
+        selected:
+          description: Indicates whether this company is associated with the segment
+          type: boolean
+      required:
+      - name
+      - id
+      - selected
+      example:
+        name: Canada Company
+        id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+        selected: false
+    SegmentFolderAndSegments:
+      description: Segment folder and segments
+      title: SegmentFolderAndSegments
+      type: object
+      properties:
+        id:
+          description: Segment folder ID
+          type: string
+        name:
+          description: Segment folder name
+          type: string
+          maxLength: 255
+        partner:
+          description: The partner
+          type: string
+          maxLength: 50
+        segments:
+          type: array
+          description: Segment details
+          items:
+            $ref: '#/components/schemas/Segment'
+      required:
+      - name
+      example:
+        id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+        name: Fortune 500 Companies
+        partner: APPDIRECT
+        segments:
+        - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+          name: iOS users
+          partner: APPDIRECT
+          type: MANUAL
+    PagedSegmentFolderAndSegments:
+      description: Paged information about the segment folder and associated segments for a partner
+      title: PagedSegmentFolderAndSegments
+      type: object
+      properties:
+        content:
+          type: array
+          description: Information about the segment folder and segments
+          items:
+            $ref: '#/components/schemas/SegmentFolderAndSegments'
+        page:
+          $ref: '#/components/schemas/PageMeta'
+      example:
+        content:
+        - id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+          name: Fortune 500 Companies
+          partner: APPDIRECT
+          segments:
+          - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+            name: iOS users
+            partner: APPDIRECT
+            code: IOS
+            type: MANUAL
+        - id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+          name: Fortune 100 Companies
+          partner: APPDIRECT
+          segments:
+          - id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+            name: Android users
+            partner: APPDIRECT
+            code: DROID
+            type: MANUAL
+        page:
+          number: 1
+          size: 2
+          totalElements: 10
+          totalPages: 2
+    SegmentFilterParamList:
+      description: List of parameters for the dynamic segment filter
+      title: SegmentFilterParamList
+      type: array
+      items:
+        $ref: '#/components/schemas/FilterParameter'
+      example:
+      - key: company
+        label: company
+        fields:
+        - key: company.state
+          label: state
+          dataType: text
+    Segment:
+      description: A characteristic shared by segment folder members
+      title: Segment
+      type: object
+      properties:
+        id:
+          description: Segment ID
+          type: string
+        name:
+          description: Segment name
+          type: string
+          minLength: 1
+          maxLength: 255
+        code:
+          description: Segment codes are unique codes that you can use for B2B integration by using the API to automatically associate companies with segments. Leave this field blank if a segment code is not required. Note that if you modify the code after you create it, your B2B integration might be affected.
+          type: string
+          minLength: 1
+          maxLength: 255
+        partner:
+          description: Partner name
+          type: string
+          minLength: 1
+          maxLength: 50
+        type:
+          description: Segment type
+          type: string
+          enum:
+          - MANUAL
+          - DYNAMIC
+      example:
+        id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+        name: iOS users
+        partner: APPDIRECT
+        type: MANUAL
+    Error:
+      type: object
+      title: Error
+      description: Returned error after failed API call.
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Error message
+      example:
+        code: EXTERNAL_ERROR
+        message: 'Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.'
+    PagedSegment:
+      type: object
+      description: Data returned from paged read of segment.
+      title: PagedSegment
+      properties:
+        content:
+          type: array
+          description: Segment details
+          items:
+            $ref: '#/components/schemas/Segment'
+        page:
+          $ref: '#/components/schemas/PageMeta'
+      example:
+        content:
+        - id: 9f4e5c52-5258-4193-a132-303f06e9eef1
+          name: Canada
+          partner: APPDIRECT
+          code: CAN
+          type: MANUAL
+        - id: b1f5af35-ca68-431f-83b7-ef56189924ed
+          name: France
+          partner: APPDIRECT
+          code: FRA
+          type: MANUAL
+        - id: 5ca15227-da6b-413e-a09c-f8d06ab3dcd7
+          name: United States
+          partner: APPDIRECT
+          code: USA
+          type: MANUAL
+        page:
+          number: 0
+          size: 50
+          totalElements: 3
+          totalPages: 1
+    PagedAvailableCompanySegmentAssociation:
+      description: Paged information about all marketplace companies, including whether they are associated with the segment
+      title: PagedAvailableCompanySegmentAssociation
+      type: object
+      properties:
+        content:
+          type: array
+          description: Information about all marketplace companies, including whether they are associated with the segment
+          items:
+            $ref: '#/components/schemas/AvailableCompanySegmentAssociation'
+        page:
+          $ref: '#/components/schemas/PageMeta'
+      example:
+        content:
+        - name: Canada Company
+          id: 04f8d043-10f1-4b89-8c0e-0780e5a62299
+          selected: false
+        - name: US Company
+          id: 04f8d043-10f1-4b89-8c0e-0780e5a62298
+          selected: true
+        page:
+          number: 1
+          size: 2
+          totalElements: 10
+          totalPages: 2
+    FilterParameter:
+      description: Filter parameter
+      title: FilterParameter
+      type: object
+      properties:
+        key:
+          description: Unique identifier for the filter parameter
+          type: string
+        label:
+          description: Label for the filter parameter
+          type: string
+        fields:
+          description: List of fields for the filter parameter
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterParameterField'
+      required:
+      - key
+      - label
+      - fields
+      example:
+        key: company
+        label: company
+        fields:
+        - key: company.state
+          label: state
+          dataType: text
+    SegmentFolder:
+      description: Segment folder
+      title: SegmentFolder
+      type: object
+      properties:
+        id:
+          description: Segment folder ID
+          type: string
+        name:
+          description: Segment folder name
+          type: string
+          maxLength: 255
+        partner:
+          description: Partner name
+          type: string
+          maxLength: 50
+      required:
+      - name
+      example:
+        id: 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+        name: Fortune 500 Companies
+        partner: APPDIRECT
+    FilterParameterField:
+      description: Filter parameter fields
+      title: FilterParameterField
+      type: object
+      properties:
+        key:
+          description: Unique identifier for the filter field
+          type: string
+        label:
+          description: Label for the filter field
+          type: string
+        dataType:
+          description: Data type of the field
+          type: string
+          enum:
+          - enum
+          - date
+          - number
+          - text
+          - boolean
+        values:
+          description: List of values for the filter field
+          type: array
+          items:
+            type: string
+        valueLabels:
+          description: Labels for the values
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - key
+      - label
+      - dataType
+      example:
+        key: company.state
+        label: state
+        dataType: text
+    Filters:
+      type: array
+      title: Filters
+      description: Filters
+      items:
+        $ref: '#/components/schemas/Filter'
+      example:
+      - conditions:
+        - parameter: company.state
+          operator: matches
+          values:
+          - Quebec
+        - parameter: company.city
+          operator: matches
+          values:
+          - Montreal
+      - conditions:
+        - parameter: company.state
+          operator: matches
+          values:
+          - Quebec
+        - parameter: company.city
+          operator: matches
+          values:
+          - Montreal
+    SegmentRequest:
+      description: Data required to create a segment
+      title: SegmentRequest
+      type: object
+      properties:
+        name:
+          description: Segment name
+          type: string
+          minLength: 1
+          maxLength: 255
+        code:
+          description: Segment code
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+      - name
+      example:
+        name: Canada
+        code: XXYU
+    DynamicSegmentRequest:
+      description: Data required to create a dynamic segment
+      title: DynamicSegmentRequest
+      type: object
+      properties:
+        name:
+          description: Segment name
+          type: string
+          minLength: 1
+          maxLength: 255
+        code:
+          description: Segment code
+          type: string
+          minLength: 1
+          maxLength: 255
+        filters:
+          description: Dynamic filter
+          type: array
+          items:
+            $ref: '#/components/schemas/Filters'
+      required:
+      - name
+      - filters
+      example:
+        name: Canada
+        code: XXYU
+        filters:
+        - - conditions:
+            - parameter: company.state
+              operator: matches
+              values:
+              - Quebec
+            - parameter: company.city
+              operator: matches
+              values:
+              - Montreal
+          - conditions:
+            - parameter: company.state
+              operator: matches
+              values:
+              - Quebec
+            - parameter: company.city
+              operator: matches
+              values:
+              - Montreal
+    CompanySegmentAssociationsBatchUpdateRequest:
+      description: Data required to create or delete an association between segment and companies
+      title: CompanySegmentAssociationsBatchUpdateRequest
+      type: object
+      properties:
+        deleteAll:
+          description: Set to true to delete all associations
+          type: boolean
+        companyIdsToAdd:
+          description: The list of company IDs to associate with the segment, up to a maximum of 1000 IDs
+          type: array
+          items:
+            type: string
+        companyIdsToRemove:
+          description: The list of company IDs to disassociate from the segment, up to a maximum of 1000 IDs
+          type: array
+          items:
+            type: string
+      required:
+      - deleteAll
+      - companyIdsToAdd
+      - companyIdsToRemove
+      example:
+        deleteAll: 'false'
+        companyIdsToAdd:
+        - 7e3b3bb8-1b75-408b-8cbf-561ccd910479
+        companyIdsToRemove:
+        - 7e3b3bb8-1b75-408b-8cbf-561ccd910478
+    UserMatchResult:
+      description: Indicates whether the user matches a dynamic segment query
+      title: UserMatchResult
+      type: object
+      properties:
+        matches:
+          description: True if the user matches the dynamic segment query
+          type: boolean
+      example:
+        matches: 'true'
+    PageMeta:
+      type: object
+      title: PageMeta
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Number of results to return
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 1
+        size: 2
+        totalElements: 10
+        totalPages: 2
+    FilterExpression:
+      description: Filter expression
+      title: FilterExpression
+      type: object
+      properties:
+        parameter:
+          description: Filter parameter field
+          type: string
+        operator:
+          description: Filter operator
+          type: string
+        values:
+          type: array
+          description: Values for the parameter field
+          items:
+            type: string
+      required:
+      - parameter
+      - operator
+      - values
+      example:
+        parameter: company.state
+        operator: matches
+        values:
+        - Quebec

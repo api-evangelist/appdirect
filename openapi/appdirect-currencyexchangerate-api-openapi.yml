@@ -1,0 +1,506 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed CurrencyExchangeRate API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: CurrencyExchangeRate
+  x-displayName: Currency Exchange Rate
+paths:
+  /channel/v1/exchangeRates:
+    get:
+      description: Retrieve all of the current and historical exchange rates set on the marketplace.
+      tags:
+      - CurrencyExchangeRate
+      summary: Read all Currency Exchange Rates
+      operationId: resource_Other_currencyExchangeRates_GET
+      parameters:
+      - description: The base currency filter. Optional.
+        name: baseCurrency
+        in: query
+        schema:
+          type: string
+          enum:
+          - USD
+          - CAD
+          - EUR
+          - JPY
+          - GBP
+          - KRW
+          - CHF
+          - SEK
+          - SGD
+          - MYR
+          - AUD
+          - MXN
+          - INR
+          - BRL
+          - DKK
+          - NZD
+          - NOK
+          - ZAR
+          - PHP
+          - CNY
+          - SAR
+          - GTQ
+      - description: The counter currency filter. Optional.
+        name: counterCurrency
+        in: query
+        schema:
+          type: string
+          enum:
+          - USD
+          - CAD
+          - EUR
+          - JPY
+          - GBP
+          - KRW
+          - CHF
+          - SEK
+          - SGD
+          - MYR
+          - AUD
+          - MXN
+          - INR
+          - BRL
+          - DKK
+          - NZD
+          - NOK
+          - ZAR
+          - PHP
+          - CNY
+          - SAR
+          - GTQ
+      - description: The page number. Optional.
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: The number of application returned by page. Optional.
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - description: The order field. Optional.
+        name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - BASE_CURRENCY
+          - COUNTER_CURRENCY
+          - VALID_FROM
+          default: VALID_FROM
+      - description: The sort direction. Optional.
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyExchangeRateResponseList'
+              examples:
+                response:
+                  value:
+                    content:
+                    - baseCurrency: USD
+                      counterCurrency: CAD
+                      rate: 1.25
+                      validFrom: 1507077229000
+                      active: true
+                      authenticationType: CHANNEL_CONSUMER_LOGIN
+                      oauthKey: dNcCBthw82
+                      userId: 1111
+                      currencyExchangeRateUuid: 9ec1a010-2814-42c9-a9e0-44ed1f5895f0
+                    page:
+                      size: 20
+                      totalElements: 50
+                      totalPages: 3
+                      number: 0
+                    links:
+                    - rel: next
+                      href: http://appdirect/api/channel/v1/exchangeRates?page=1
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/exchangeRates?baseCurrency=SOME_STRING_VALUE&counterCurrency=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/exchangeRates',\n  qs: {\n    baseCurrency: 'SOME_STRING_VALUE',\n    counterCurrency: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates?baseCurrency=SOME_STRING_VALUE&counterCurrency=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: Define a new exchange rate to be used when custom metered usage is reported to your marketplace by a Developer in a currency that isn't supported by your marketplace. This enables you to invoice your customers in your marketplace currency, even though a Developer's external price list for metered usage charges (like Amazon Web Services) might be in a different currency.
+      tags:
+      - CurrencyExchangeRate
+      summary: Create new Currency Exchange Rate
+      operationId: resource_Other_currencyExchangeRates_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrencyExchangeRateRequest'
+        description: The new Currency Exchange Rate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+              examples:
+                response:
+                  value:
+                    baseCurrency: GTQ
+                    counterCurrency: INR
+                    rate: 0.3
+                    validFrom: 1507077229000
+                    active: true
+                    authenticationType: USER_LOGIN
+                    oauthKey: ''
+                    userId: 3434556
+                    currencyExchangeRateUuid: 76b11329-e3a5-4944-93b0-0411c9f63369
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/channel/v1/exchangeRates \\\n  --header 'content-type: application/json' \\\n  --data '{\"baseCurrency\":\"USD\",\"counterCurrency\":\"CAD\",\"rate\":0.5}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/exchangeRates',\n  headers: {'content-type': 'application/json'},\n  body: {baseCurrency: 'USD', counterCurrency: 'CAD', rate: 0.5},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"baseCurrency\\\":\\\"USD\\\",\\\"counterCurrency\\\":\\\"CAD\\\",\\\"rate\\\":0.5}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/exchangeRates/{currencyExchangeRateUuid}:
+    get:
+      description: Retrieve the details of a specific Currency Exchange Rate.
+      tags:
+      - CurrencyExchangeRate
+      summary: Read a Currency Exchange Rate
+      operationId: resource_Other_readCurrencyExchangeRate_GET
+      parameters:
+      - description: The unique identifier of the currency exchange rate.
+        name: currencyExchangeRateUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+              examples:
+                response:
+                  value:
+                    baseCurrency: GTQ
+                    counterCurrency: INR
+                    rate: 0.3
+                    validFrom: 1507077229000
+                    active: true
+                    authenticationType: USER_LOGIN
+                    oauthKey: ''
+                    userId: 3434556
+                    currencyExchangeRateUuid: 76b11329-e3a5-4944-93b0-0411c9f63369
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: Deactivate a Currency Exchange Rate. To stop supporting currency exchange on your marketplace, deactivate a rate. This will prevent the exchange rate from being used to convert usage.
+      tags:
+      - CurrencyExchangeRate
+      summary: Deactivate a Currency Exchange Rate
+      operationId: resource_Other_currencyExchangeRate_PATCH
+      parameters:
+      - description: The unique identifier of the currency exchange rate.
+        name: currencyExchangeRateUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrencyExchangeRateActive'
+        description: Currency Exchange Rate active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+              examples:
+                response:
+                  value:
+                    baseCurrency: GTQ
+                    counterCurrency: INR
+                    rate: 0.3
+                    validFrom: 1507077229000
+                    active: true
+                    authenticationType: USER_LOGIN
+                    oauthKey: ''
+                    userId: 3434556
+                    currencyExchangeRateUuid: 76b11329-e3a5-4944-93b0-0411c9f63369
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"active\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {active: true},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"active\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    CurrencyExchangeRateResponseList:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - $ref: '#/components/schemas/CurrencyExchangeRateListContent'
+      - type: object
+        title: CurrencyExchangeRateList
+        properties:
+          page:
+            $ref: '#/components/schemas/PagedResource'
+        example:
+          page:
+            totalPages: '50'
+            number: '0'
+            size: '20'
+            totalElements: '1000'
+          content:
+          - baseCurrency:
+              href: '...'
+              id: '...'
+            counterCurrency:
+              href: '...'
+              id: '...'
+            rate: 0.5
+            validFrom: 1507077229000
+            active: true
+            authenticationType: USER_LOGIN
+            oauthKey: '...'
+            userId: 12345
+            currencyExchangeRateUuid: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+    CurrencyExchangeRateListContent:
+      type: object
+      title: Content
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+      example:
+        content:
+        - baseCurrency:
+            href: '...'
+            id: '...'
+          counterCurrency:
+            href: '...'
+            id: '...'
+          rate: 0.5
+          validFrom: 1507077229000
+          active: true
+          authenticationType: USER_LOGIN
+          oauthKey: '...'
+          userId: 12345
+          currencyExchangeRateUuid: '...'
+    PagedResource:
+      type: object
+      title: Page
+      properties:
+        totalPages:
+          type: number
+        number:
+          type: number
+        size:
+          type: number
+        totalElements:
+          type: number
+      example:
+        totalPages: '50'
+        number: '0'
+        size: '20'
+        totalElements: '220'
+    CurrencyExchangeRateRequest:
+      type: object
+      title: CurrencyExchangeRateRequest
+      required:
+      - baseCurrency
+      - counterCurrency
+      - rate
+      properties:
+        baseCurrency:
+          $ref: '#/components/schemas/Currency'
+        counterCurrency:
+          $ref: '#/components/schemas/Currency'
+        rate:
+          description: 'A currency pair is the quotation and pricing structure of the currencies traded in a forex market. A Currency Pair is represented as XXX/YYY where XXX is the Base currency and YYY is the Counter currency.
+
+
+            In AppDirect the Base currency is an external currency and the Counter currency is a supported currency in your marketplace.
+
+
+            When an exchange rate is provided with a Currency Pair, it represents how much of the Counter currency is required to purchase 1 unit of the Base currency.
+
+            EUR/USD=1.18; EUR is the Base currency and USD is the counter currency.
+
+            1 EUR is equal to 1.18 USD.
+
+            In order to buy 1 EUR, the buyer must pay 1.18 USD.'
+          type: number
+      example:
+        baseCurrency: USD
+        counterCurrency: CAD
+        rate: 0.5
+    CurrencyExchangeRateResponse:
+      type: object
+      title: CurrencyExchangeRate
+      properties:
+        baseCurrency:
+          $ref: '#/components/schemas/Currency'
+        counterCurrency:
+          $ref: '#/components/schemas/Currency'
+        rate:
+          description: 'A currency pair is the quotation and pricing structure of the currencies traded in a forex market. A Currency Pair is represented as XXX/YYY where XXX is the Base currency and YYY is the Counter currency.
+
+
+            In AppDirect the Base currency is an external currency and the Counter currency is a supported currency in your marketplace.
+
+
+            When an exchange rate is provided with a Currency Pair, it represents how much of the Counter currency is required to purchase 1 unit of the Base currency.
+
+            EUR/USD=1.18; EUR is the Base currency and USD is the counter currency.
+
+            1 EUR is equal to 1.18 USD.
+
+            In order to buy 1 EUR, the buyer must pay 1.18 USD.'
+          type: number
+        validFrom:
+          description: Date from which the rate is valid
+          type: number
+        active:
+          description: Whether or not the exchange rate is active and can be used in a conversion event
+          type: boolean
+        authenticationType:
+          description: The type of authentication used to create or change an exchange rate instance
+          type: string
+        oauthKey:
+          description: The oauth key used to create or change an exchange rate instance
+          type: string
+        userId:
+          description: The user id of the user who created or changed an exchange rate instance
+          type: number
+        currencyExchangeRateUuid:
+          description: Unique identifier for the object
+          type: string
+      example:
+        baseCurrency:
+          href: '...'
+          id: '...'
+        counterCurrency:
+          href: '...'
+          id: '...'
+        rate: 0.5
+        validFrom: 1507077229000
+        active: true
+        authenticationType: USER_LOGIN
+        oauthKey: '...'
+        userId: 12345
+        currencyExchangeRateUuid: '...'
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
+    CurrencyExchangeRateActive:
+      properties:
+        active:
+          description: 'Currency Exchange Rates can be only deactivated. Allowed value: false.'
+          type: boolean
+      example:
+        active: true

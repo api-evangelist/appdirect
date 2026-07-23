@@ -1,0 +1,319 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed UserAccounts API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: UserAccounts
+  x-displayName: User Accounts
+paths:
+  /appwise/v2/accounts:
+    post:
+      x-appdirect-api-stage: Early Access
+      tags:
+      - UserAccounts
+      summary: Create user connections
+      description: 'Creates a new user connection for Search. A connection (accountName) associates the app (application UUID) and user information (userId, companyId, and handle). The connection is used to, for example, identify events related to the user''s app account. accountName Format: {user_handle}@{user_uuid}@{company_uuid}
+
+        Note: Application UUID = Product UUID'
+      operationId: provisioning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserConnection'
+        required: true
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionResponse'
+              examples:
+                response:
+                  value:
+                    connection:
+                      accountName: bob@a1130ec9-3044-4cc6-b9a8-5a71fd2581a5@ce91a616-77f6-48b5-b6f3-d22bdeb362d9
+        '400':
+          description: Input is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '401':
+          description: Request cannot be authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '403':
+          description: Request is authenticated but does not have permission to access the resource(s)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '404':
+          description: The application and/or user were not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '409':
+          description: Inputs are valid, but this user and handle are already connected to the service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '502':
+          description: Internal services are unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appwise/v2/accounts \\\n  --header 'content-type: application/json' \\\n  --data '{\"app\":{\"id\":\"b2fc6737-3d3f-4da2-afda-f80f25b89af9\"},\"user\":{\"userId\":\"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\"companyId\":\"2cc88871-e942-4910-96e3-0521d7ae52f4\",\"handle\":\"bob\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appwise/v2/accounts',\n  headers: {'content-type': 'application/json'},\n  body: {\n    app: {id: 'b2fc6737-3d3f-4da2-afda-f80f25b89af9'},\n    user: {\n      userId: 'a13a9998-e025-4751-8fee-72afdc0fe6d5',\n      companyId: '2cc88871-e942-4910-96e3-0521d7ae52f4',\n      handle: 'bob'\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"app\\\":{\\\"id\\\":\\\"b2fc6737-3d3f-4da2-afda-f80f25b89af9\\\"},\\\"user\\\":{\\\"userId\\\":\\\"a13a9998-e025-4751-8fee-72afdc0fe6d5\\\",\\\"companyId\\\":\\\"2cc88871-e942-4910-96e3-0521d7ae52f4\\\",\\\"handle\\\":\\\"bob\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/accounts\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      x-appdirect-api-stage: Early Access
+      tags:
+      - UserAccounts
+      summary: Disconnect user accounts
+      description: Disconnects an existing user account from Search. To access this API, you must configure product-scoped OAuth2 authentication for the application.
+      operationId: disconnecting
+      parameters:
+      - name: appId
+        in: query
+        description: 'Note: Application UUID = Product UUID'
+        required: true
+        schema:
+          type: string
+      - name: accountName
+        in: query
+        description: The user application account connection (accountName) to disconnect
+        required: true
+        schema:
+          type: string
+      - name: callbackUrl
+        in: query
+        description: Callback URL to which to publish status updates about the disconnection
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccountDisonnectionResponse'
+              examples:
+                response:
+                  value:
+                    app:
+                      id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+                    connection:
+                      accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+                      status: PENDING
+                    user:
+                      companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+                      userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+        '400':
+          description: Input is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '401':
+          description: Request cannot be authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '403':
+          description: Request is authenticated but does not have permission to access the resource(s)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+        '502':
+          description: Internal services are unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConnectionError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url 'https://marketplace.appdirect.com/api/appwise/v2/accounts?appId=SOME_STRING_VALUE&accountName=SOME_STRING_VALUE&callbackUrl=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appwise/v2/accounts',\n  qs: {\n    appId: 'SOME_STRING_VALUE',\n    accountName: 'SOME_STRING_VALUE',\n    callbackUrl: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/accounts?appId=SOME_STRING_VALUE&accountName=SOME_STRING_VALUE&callbackUrl=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ApplicationToConnect:
+      type: object
+      title: ApplicationToConnect
+      description: Identify an application that can be connected to users for Search
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID.'
+      example:
+        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+    UserToConnect:
+      type: object
+      title: UserToConnect
+      description: Identify a user so they can be connected, with an app user account, to Search
+      required:
+      - companyId
+      - handle
+      - userId
+      properties:
+        userId:
+          type: string
+          description: The user's UUID
+        companyId:
+          type: string
+          description: The user's company's UUID
+        handle:
+          type: string
+          description: The user's handle in the application
+      example:
+        userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+        companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+        handle: bob
+    UserToDisconnect:
+      type: object
+      title: UserToDisconnect
+      description: The user to be disconnected from Search
+      properties:
+        userId:
+          type: string
+          description: The user's UUID
+        companyId:
+          type: string
+          description: The user's company's UUID
+      example:
+        userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+        companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+    UserAccountDisonnectionResponse:
+      type: object
+      title: UserAccountDisonnectionResponse
+      description: Response after request is made to disconnect a user account from Search
+      properties:
+        app:
+          $ref: '#/components/schemas/ApplicationToDisconnect'
+        user:
+          $ref: '#/components/schemas/UserToDisconnect'
+        connection:
+          $ref: '#/components/schemas/DisconnectionDetails'
+      example:
+        app:
+          id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+        user:
+          userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+          companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+        connection:
+          accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+    UserConnection:
+      type: object
+      title: UserConnection
+      description: 'Defines a user account connection for Search. A connection (accountName) associates the app (application UUID) and user information (userId, companyId, and handle). The connection is used to, for example, identify events related to the user''s app account. Format: {user_handle}@{user_uuid}@{company_uuid}
+
+        Note: Application UUID = Product UUID'
+      required:
+      - app
+      - user
+      properties:
+        app:
+          $ref: '#/components/schemas/ApplicationToConnect'
+        user:
+          $ref: '#/components/schemas/UserToConnect'
+      example:
+        app:
+          id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+        user:
+          userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+          companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+          handle: bob
+    UserConnectionError:
+      type: object
+      title: UserConnectionError
+      description: Error responses when user connection changes fail
+      required:
+      - code
+      - message
+      - status
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+        code:
+          type: string
+          description: Canonical error code
+        message:
+          type: string
+          description: Error message
+        moreInfo:
+          type: string
+          description: URL with more information about the error
+        details:
+          type: array
+          description: Details of the error
+          items:
+            type: string
+      example:
+        status: 404
+        code: NOT_FOUND
+        message: User not found.
+        moreInfo: https://help.appdirect.com/api/appwise.html
+        details:
+        - Details of error
+    UserConnectionResponse:
+      type: object
+      title: UserConnectionResponse
+      description: 'Sucessful user account connection response. It provides the details about the connection (accountName): the associated app (application UUID) and user information (userId, companyId, and handle). Format: {user_handle}@{user_uuid}@{company_uuid}
+
+        Note: Application UUID = Product UUID'
+      example:
+        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+    ApplicationToDisconnect:
+      type: object
+      title: ApplicationToDisconnect
+      description: Identifies the application to be disconnected from Search
+      properties:
+        id:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID.'
+      example:
+        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+    DisconnectionDetails:
+      type: object
+      title: DisconnectionDetails
+      description: The user account (accountName) to be disconnected from Search, and the account status
+      required:
+      - status
+      properties:
+        accountName:
+          type: string
+          description: The user account name (accountName) to disconnect from Search
+        status:
+          type: string
+          description: Disconnection status
+      example:
+        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        status: PENDING_REMOVAL

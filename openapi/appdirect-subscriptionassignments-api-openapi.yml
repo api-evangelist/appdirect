@@ -1,0 +1,477 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed SubscriptionAssignments API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: SubscriptionAssignments
+  x-displayName: Subscription Assignments
+paths:
+  /account/v2/subscriptions/{subscriptionUuid}/assignments/{userUuid}:
+    get:
+      description: Retrieve a marketplace user's application assignment for a given subscription.
+      tags:
+      - SubscriptionAssignments
+      summary: Read application assignment for user and subscription
+      operationId: resource_Subscription_readSubscriptionAssignment_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as a user and owner of the user entitlement.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access as a member of the company that owns the subscription.
+      parameters:
+      - description: Unique identifier of the company subscription in the API request
+        name: subscriptionUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 86b95a62-15d6-4a52-a4a6-1be619073428
+                    membership:
+                      user:
+                        uuid: be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                        email: susan.wilson@company1702251969.com
+                        userName: susan.wilson
+                        firstName: Susan
+                        lastName: Wilson
+                        picture: null
+                        activated: true
+                        allowLogin: true
+                        ldapId: null
+                        boostUser: null
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2/memberships
+                      company:
+                        uuid: a9671d54-6c10-4517-9f8a-0c19025566df
+                        name: Company 4214173420
+                        picture: http://localhost:8080/profilePics/http://cdn/company.png
+                        vendor: false
+                        phoneNumber: null
+                        defaultRole: USER
+                        enabled: true
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/a9671d54-6c10-4517-9f8a-0c19025566df
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/companies/a9671d54-6c10-4517-9f8a-0c19025566df/memberships
+                      enabled: true
+                      lastUsed: false
+                      roles:
+                      - ROLE_BILLING_ADMIN
+                      - ROLE_SYS_ADMIN
+                      position: null
+                      mosiUser: null
+                      metadata:
+                        mosi_username: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/a9671d54-6c10-4517-9f8a-0c19025566df/memberships/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                      - rel: user
+                        href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/a9671d54-6c10-4517-9f8a-0c19025566df
+                    createdOn: 1480699572448
+                    status: ACTIVE
+                    lyncToPhoneVoiceConnection: null
+                    user:
+                      uuid: be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                      email: susan.wilson@company1702251969.com
+                      userName: susan.wilson
+                      firstName: Susan
+                      lastName: Wilson
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser: null
+                      roles:
+                      - ROLE_USER
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2/memberships
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/subscriptions/147731c4-5f8b-4d94-937f-d433cd074040/assignments/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+        '401':
+          description: Unauthorized
+        '404':
+          description: Subscription, user or assignment not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: Create an application assignment for a marketplace user.
+      tags:
+      - SubscriptionAssignments
+      summary: Create application assignment
+      operationId: resource_Subscription_createSubscriptionAssignment_POST
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the user that owns the subscription.
+        ROLE_BILLING_ADMIN:
+        - Allows access as a Billing Admin of the company that owns the subscription.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access as a member of the company that owns the subscription.
+      parameters:
+      - description: Unique identifier of the company subscription in the API request
+        name: subscriptionUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the user to assign the application to
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Optional parameter and will be ignored if the APIs are accessed using any role except ROLE_PARTNER
+        name: creatorUuid
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCustomAttributeWS'
+        description: Optional custom user attributes to associate with the created application assignment
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    rel: self
+                    href: http://appdirect/api/account/v2/subscriptions/a9671d54-6c10-4517-9f8a-0c19025566df/assignments/be1abd0d-fe8d-4b3c-994b-39e86d7f68c2
+        '201':
+          description: Success, subscription created (async)
+        '401':
+          description: Unauthorized or subscription/user not found
+        '502':
+          description: Error occurred
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: EXTERNAL_ERROR
+                    message: 'Execution of one of external dependencies failed with message: User with email random@appdirect.com was not found in the linked account.'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D?creatorUuid=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"name\":\"test1\",\"values\":[\"value1\",\"value2\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D',\n  qs: {creatorUuid: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {name: 'test1', values: ['value1', 'value2']},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"test1\\\",\\\"values\\\":[\\\"value1\\\",\\\"value2\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D?creatorUuid=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: Delete a marketplace user's application assignment.
+      tags:
+      - SubscriptionAssignments
+      summary: Delete application assignment
+      operationId: resource_Subscription_deleteSubscriptionAssignment_DELETE
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the user that owns the subscription.
+        ROLE_BILLING_ADMIN:
+        - Allows access as a Billing Admin of the company that owns the subscription.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to manage all marketplace data.
+      parameters:
+      - description: Unique identifier of the company subscription in the API request
+        name: subscriptionUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the user to remove the application assignment for
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Disconnect voice connection of Boost application
+        name: disconnectVoiceConnection
+        in: query
+        schema:
+          type: boolean
+      - description: 'Source of event. Possible values are: APP_SYNC, MICROSOFT_PROVISIONING_MIGRATION'
+        name: source
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '204':
+          description: Account not found
+        '401':
+          description: Unauthorized or subscription/user not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D?disconnectVoiceConnection=SOME_BOOLEAN_VALUE&source=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D',\n  qs: {disconnectVoiceConnection: 'SOME_BOOLEAN_VALUE', source: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments/%7BuserUuid%7D?disconnectVoiceConnection=SOME_BOOLEAN_VALUE&source=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/subscriptions/{subscriptionUuid}/assignments:
+    get:
+      description: Retrieve the list of marketplace application assignments for the given subscription.
+      tags:
+      - SubscriptionAssignments
+      summary: List application assignments for subscription
+      operationId: resource_Subscription_readSubscriptionAssignments_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as a member of the company that owns the subscription.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of the company subscription in the API request
+        name: subscriptionUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Search term used to search on different assignment fields
+        name: searchText
+        in: query
+        schema:
+          type: string
+      - description: The number of search results to return per page
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: def48c3c-f043-42cc-9b2b-718986ed7c49
+                      membership:
+                        user:
+                          uuid: 6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                          email: barbara.johnson@company8381074022.com
+                          userName: barbara.johnson
+                          firstName: Barbara
+                          lastName: Johnson
+                          picture: null
+                          activated: true
+                          allowLogin: true
+                          ldapId: null
+                          boostUser: null
+                          roles:
+                          - ROLE_USER
+                          metadata:
+                            apsUid: null
+                          links:
+                          - rel: self
+                            href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                          - rel: memberships
+                            href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471/memberships
+                        company:
+                          uuid: 4af63313-a90d-48ff-88fe-02a550f4c90e
+                          name: Company 5730658238
+                          picture: http://localhost:8080/profilePics/http://cdn/company.png
+                          vendor: false
+                          phoneNumber: null
+                          defaultRole: USER
+                          enabled: true
+                          links:
+                          - rel: self
+                            href: http://appdirect/api/account/v2/companies/4af63313-a90d-48ff-88fe-02a550f4c90e
+                          - rel: memberships
+                            href: http://appdirect/api/account/v2/companies/4af63313-a90d-48ff-88fe-02a550f4c90e/memberships
+                        enabled: true
+                        lastUsed: false
+                        roles:
+                        - ROLE_BILLING_ADMIN
+                        - ROLE_SYS_ADMIN
+                        position: null
+                        mosiUser: null
+                        metadata:
+                          mosi_username: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/4af63313-a90d-48ff-88fe-02a550f4c90e/memberships/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                        - rel: user
+                          href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                        - rel: company
+                          href: http://appdirect/api/account/v2/companies/4af63313-a90d-48ff-88fe-02a550f4c90e
+                      createdOn: 1480699568720
+                      status: ACTIVE
+                      lyncToPhoneVoiceConnection: null
+                      user:
+                        uuid: 6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                        email: barbara.johnson@company8381074022.com
+                        userName: barbara.johnson
+                        firstName: Barbara
+                        lastName: Johnson
+                        picture: null
+                        activated: true
+                        allowLogin: true
+                        ldapId: null
+                        boostUser: null
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471/memberships
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/subscriptions/bf0e6097-af4f-489a-9cbc-8f6d20362726/assignments/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                      - rel: user
+                        href: http://appdirect/api/account/v2/users/6558e384-5d62-4412-bb5d-0e2ad7ae3471
+                    page:
+                      size: 50
+                      totalElements: 1
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Subscription or assignments not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments?page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments',\n  qs: {\n    page: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments?page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    head:
+      description: Retrieve the number of users assigned to a subscription.
+      tags:
+      - SubscriptionAssignments
+      summary: Read application assignment count
+      operationId: resource_Subscription_readSubscriptionAssignmentCount_HEAD
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as a member of the company that owns the subscription.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of the company subscription in the API request
+        name: subscriptionUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+          content:
+            headers:
+              examples:
+                response:
+                  value:
+                    X-Total-Count: 1
+        '401':
+          description: Unauthorized or subscription not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request HEAD \\\n  --url https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'HEAD',\n  url: 'https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/subscriptions/%7BsubscriptionUuid%7D/assignments\")\n  .head()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    SubscriptionCustomAttributeWS:
+      type: object
+      title: SubscriptionCustomAttribute
+      description: A subscription custom attribute, as defined in the marketplace at Manage > Marketplace > Settings > Custom Attributes > Subscription Custom Attributes
+      properties:
+        name:
+          type: string
+          description: The key name of an existing subscription custom attribute
+        values:
+          description: Values of the custom attributes. If the attribute definition is MULTISELECT, all values must be a subset of the value options defined in the marketplace. If the attribute definition is TEXT, only one value is allowed.
+          type: array
+          items:
+            type: string
+      example:
+        name: test1
+        values:
+        - value1
+        - value2

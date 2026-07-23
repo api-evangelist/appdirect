@@ -1,0 +1,619 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed MyApps API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: MyApps
+  x-displayName: MyApps
+paths:
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/myapps:
+    get:
+      description: List all applications assigned to a marketplace company user.
+      tags:
+      - MyApps
+      summary: List applications
+      operationId: resource_MyApps_readApps
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the owner of the user entitlements.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Company UUID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - baseUrl: http://localhost:8080
+                      imageBaseUrl: http://localhost:8080
+                      partner: APPDIRECT
+                      userUuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      assigned: true
+                      pending: false
+                      bypassTermsWhenDefault: false
+                      pendingAppId: null
+                      pendingAppType: REQUESTED
+                      simpleEntitlementId: null
+                      simpleEntitlementUuid: null
+                      userEntitlementId: 1891
+                      userEntitlementUuid: 42bdd7be-9807-45f5-ab97-4b345a59e89f
+                      userEntitlementCreatedOn: 1504147976000
+                      userEntitlementExternalVendorIdentifier: null
+                      userEntitlementStatus: ACTIVE
+                      newUpload: false
+                      userEntitlementMetadata: {}
+                      companyEntitlementId: 1603
+                      companyEntitlementUuid: 79c142b0-12bd-441c-ad2d-f5b3d21034be
+                      companyEntitlementExternalPartnerIdentifier: null
+                      companyEntitlementExternalVendorIdentifier: null
+                      companyEntitlementStatus: ACTIVE
+                      companyEntitlementLabel: Acme Utilities
+                      companyEntitlementMetadata: {}
+                      pendingEventType: SUBSCRIPTION_CANCEL
+                      companyWide: true
+                      free: false
+                      legacyBundleCompanyEntitlementId: null
+                      ownerId: 1
+                      ownerUuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      ownerFirstName: super
+                      ownerLastName: user
+                      companyEntitlementSuspensionReason: PAYMENT_OVERDUE
+                      addonParentEntitlementId: null
+                      upgradeToPaid: false
+                      autoUpgradeToPaid: false
+                      editionId: 7283
+                      editionName: Recurring Edition
+                      editionCode: RECURRING
+                      startDate: 1504072800000
+                      orderDuration: MONTHLY
+                      paymentDueDate: 1425798000000
+                      invoiceStatus: PAID
+                      invoiceExternallyProcessed: false
+                      endOfContractDate: null
+                      contractExpired: false
+                      contractExpiring: false
+                      purchaseOrderId: 3756
+                      importableApplicationUuid: null
+                      authenticationMethod: OPENID
+                      keychainApplicationId: null
+                      keychainCredentialsId: null
+                      samlProviderUuid: null
+                      applicationId: 3281
+                      productType: WEB_APP
+                      usageType: MULTI_USER
+                      customIntegration: NEW_RELIC
+                      name: C24769040_B
+                      shortcut: null
+                      slogan: null
+                      supportPhone: null
+                      supportEmail: null
+                      supportKb: null
+                      gridImagePath: null
+                      gridImageSrcset: {}
+                      privacyUrl: null
+                      termsUrl: null
+                      useMessage: null
+                      useMessageTitle: null
+                      newSubscriptionEnabled: true
+                      assignmentEnabled: true
+                      ssoEnabled: true
+                      changeSubscriptionEnabled: true
+                      publishedOn: 1490375822000
+                      developerName: Appdirect
+                      description: null
+                      overview: C24769040
+                      blurb: C24769040
+                      appLinkLocation: null
+                      appLinkUuid: null
+                      appLinkVersions: null
+                      sampleApp: false
+                      addonParentApplicationId: null
+                      openIdLoginUrl: null
+                      openIdLoginMethod: GET
+                      openIdConnectInitiateLoginMethod: GET
+                      hideAppTile: false
+                      systemTileType: PASSWORD_MANAGER
+                      state: ACTIVE
+                      imported: false
+                      simple: false
+                      assignUrl: http://appdirect.com/account/assign?companyEntitlementId=1603
+                      linkUrl: null
+                      addon: false
+                      purchased: true
+                      imageUrl: null
+                      bundled: false
+                      requested: false
+                      billableEntitlementId: 1603
+                      launchUrl: http://appdirect.com/launch?userEntitlementId=1891
+                      manageUrl: http://appdirect.com/account/apps/1603
+                      manageOnVendorUrl: null
+                      applicationProfileUrl: http://appdirect.com/apps/3281
+                      purchaseUrl: null
+                      payUrl: null
+                      remainingFreeTrialDays: -92
+                      daysUntilPayment: -998
+                      overdue: false
+                      preDisabled: false
+                      requestable: false
+                      pendingAsync: true
+                      pendingCreation: false
+                      subscriptionEventPending: true
+                      importedPasswordManager: false
+                      links:
+                      - rel: self
+                        href: http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: Update the order in which applications will should show up on the MyApps page.
+      tags:
+      - MyApps
+      summary: Update MyApps order
+      operationId: resource_MyApps_updateAppsOrder
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the owner of the user entitlements.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Company UUID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MyAppsUrl'
+              example:
+              - http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891
+              - http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1892
+        description: Ordered list of app hrefs
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps \\\n  --header 'content-type: application/json' \\\n  --data '[\"http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891\",\"http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1892\"]'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps',\n  headers: {'content-type': 'application/json'},\n  body: [\n    'http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891',\n    'http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1892'\n  ],\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"[\\\"http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891\\\",\\\"http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1892\\\"]\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/myapps/assigned/{userEntitlementId}:
+    get:
+      description: Retrieve a marketplace user's application when assignment is complete.
+      tags:
+      - MyApps
+      summary: Read application with completed assignment
+      operationId: resource_MyApps_readAppByUserEntitlement
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the owner of the user entitlement.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Company UUID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User entitlement ID
+        name: userEntitlementId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    baseUrl: http://appdirect.com
+                    imageBaseUrl: http://appdirect.com
+                    partner: APPDIRECT
+                    userUuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    assigned: false
+                    pending: false
+                    bypassTermsWhenDefault: false
+                    pendingAppId: 1
+                    pendingAppType: REQUESTED
+                    simpleEntitlementId: 1
+                    simpleEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementId: 1
+                    userEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementCreatedOn: 1504147976000
+                    userEntitlementExternalVendorIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementStatus: ACTIVE
+                    newUpload: false
+                    userEntitlementMetadata: {}
+                    companyEntitlementId: 1
+                    companyEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementExternalPartnerIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementExternalVendorIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementStatus: INITIALIZED
+                    companyEntitlementMetadata: {}
+                    pendingEventType: USER_UPDATED
+                    companyWide: false
+                    free: false
+                    legacyBundleCompanyEntitlementId: 1
+                    ownerId: 1
+                    ownerUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    ownerFirstName: First
+                    ownerLastName: Last
+                    companyEntitlementSuspensionReason: PAYMENT_OVERDUE
+                    addonParentEntitlementId: 1
+                    upgradeToPaid: false
+                    autoUpgradeToPaid: false
+                    editionId: 1
+                    editionName: Recurring Edition
+                    editionCode: RECURRING
+                    startDate: 1504072800000
+                    orderDuration: ONE_TIME
+                    paymentDueDate: 1504072800000
+                    invoiceStatus: PAID
+                    invoiceExternallyProcessed: false
+                    endOfContractDate: 1504072800000
+                    contractExpired: false
+                    contractExpiring: false
+                    purchaseOrderId: 1
+                    importableApplicationUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    authenticationMethod: SAML
+                    keychainApplicationId: 1
+                    keychainCredentialsId: 1
+                    samlProviderUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    applicationId: 1
+                    productType: WEB_APP
+                    usageType: MULTI_USER
+                    customIntegration: NEW_RELIC
+                    name: Password.Manager
+                    shortcut: http://shortcut.url.com
+                    slogan: null
+                    supportPhone: 1-800-9000
+                    supportEmail: help@support.com
+                    supportKb: '1024'
+                    gridImagePath: null
+                    gridImageSrcset: {}
+                    privacyUrl: http://privacy.url.com
+                    termsUrl: http://terms.url.com
+                    useMessage: null
+                    useMessageTitle: null
+                    newSubscriptionEnabled: true
+                    assignmentEnabled: true
+                    ssoEnabled: true
+                    changeSubscriptionEnabled: true
+                    publishedOn: 1504072800000
+                    developerName: Developer
+                    description: Description
+                    overview: C24769040
+                    blurb: C24769040
+                    appLinkLocation: null
+                    appLinkUuid: null
+                    appLinkVersions: null
+                    sampleApp: false
+                    addonParentApplicationId: null
+                    openIdLoginUrl: http://openid.login
+                    openIdLoginMethod: GET
+                    openIdConnectInitiateLoginMethod: GET
+                    hideAppTile: false
+                    systemTileType: PASSWORD_MANAGER
+                    state: ACTIVE
+                    billableEntitlementId: 1
+                    launchUrl: http://appdirect.com/launch?userEntitlementId=1891
+                    requested: false
+                    manageUrl: null
+                    manageOnVendorUrl: null
+                    applicationProfileUrl: http://appdirect.com/apps/3281
+                    purchaseUrl: null
+                    payUrl: null
+                    remainingFreeTrialDays: 0
+                    daysUntilPayment: 0
+                    overdue: true
+                    preDisabled: false
+                    requestable: false
+                    pendingAsync: false
+                    pendingCreation: false
+                    subscriptionEventPending: false
+                    importedPasswordManager: false
+                    simple: false
+                    assignUrl: null
+                    addon: false
+                    imported: false
+                    linkUrl: null
+                    bundled: false
+                    purchased: false
+                    imageUrl: null
+                    links:
+                    - rel: self
+                      href: http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/password-manager
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/assigned/%7BuserEntitlementId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/assigned/%7BuserEntitlementId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/assigned/%7BuserEntitlementId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/memberships/{userUuid}/myapps/pending/{pendingAppId}:
+    get:
+      description: Retrieve a marketplace user's application when assignment is pending.
+      tags:
+      - MyApps
+      summary: Read application with pending assignment
+      operationId: resource_MyApps_readAppByPendingId
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as the owner of the user entitlement.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_SUPERUSER:
+        - Allows access as a Super User for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Company UUID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: User UUID
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Pending App ID
+        name: pendingAppId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    baseUrl: http://appdirect.com
+                    imageBaseUrl: http://appdirect.com
+                    partner: APPDIRECT
+                    userUuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    assigned: false
+                    pending: false
+                    bypassTermsWhenDefault: false
+                    pendingAppId: 1
+                    pendingAppType: REQUESTED
+                    simpleEntitlementId: 1
+                    simpleEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementId: 1
+                    userEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementCreatedOn: 1504147976000
+                    userEntitlementExternalVendorIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    userEntitlementStatus: ACTIVE
+                    newUpload: false
+                    userEntitlementMetadata: {}
+                    companyEntitlementId: 1
+                    companyEntitlementUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementExternalPartnerIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementExternalVendorIdentifier: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    companyEntitlementStatus: INITIALIZED
+                    companyEntitlementMetadata: {}
+                    pendingEventType: USER_UPDATED
+                    companyWide: false
+                    free: false
+                    legacyBundleCompanyEntitlementId: 1
+                    ownerId: 1
+                    ownerUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    ownerFirstName: First
+                    ownerLastName: Last
+                    companyEntitlementSuspensionReason: PAYMENT_OVERDUE
+                    addonParentEntitlementId: 1
+                    upgradeToPaid: false
+                    autoUpgradeToPaid: false
+                    editionId: 1
+                    editionName: Recurring Edition
+                    editionCode: RECURRING
+                    startDate: 1504072800000
+                    orderDuration: ONE_TIME
+                    paymentDueDate: 1504072800000
+                    invoiceStatus: PAID
+                    invoiceExternallyProcessed: false
+                    endOfContractDate: 1504072800000
+                    contractExpired: false
+                    contractExpiring: false
+                    purchaseOrderId: 1
+                    importableApplicationUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    authenticationMethod: SAML
+                    keychainApplicationId: 1
+                    keychainCredentialsId: 1
+                    samlProviderUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    applicationId: 1
+                    productType: WEB_APP
+                    usageType: MULTI_USER
+                    customIntegration: NEW_RELIC
+                    name: Password.Manager
+                    shortcut: http://shortcut.url.com
+                    slogan: null
+                    supportPhone: 1-800-9000
+                    supportEmail: help@support.com
+                    supportKb: '1024'
+                    gridImagePath: null
+                    gridImageSrcset: {}
+                    privacyUrl: http://privacy.url.com
+                    termsUrl: http://terms.url.com
+                    useMessage: null
+                    useMessageTitle: null
+                    newSubscriptionEnabled: true
+                    assignmentEnabled: true
+                    ssoEnabled: true
+                    changeSubscriptionEnabled: true
+                    publishedOn: 1504072800000
+                    developerName: Developer
+                    description: Description
+                    overview: C24769040
+                    blurb: C24769040
+                    appLinkLocation: null
+                    appLinkUuid: null
+                    appLinkVersions: null
+                    sampleApp: false
+                    addonParentApplicationId: null
+                    openIdLoginUrl: http://openid.login
+                    openIdLoginMethod: GET
+                    openIdConnectInitiateLoginMethod: GET
+                    hideAppTile: false
+                    systemTileType: PASSWORD_MANAGER
+                    state: ACTIVE
+                    billableEntitlementId: 1
+                    launchUrl: http://appdirect.com/launch?userEntitlementId=1891
+                    requested: false
+                    manageUrl: null
+                    manageOnVendorUrl: null
+                    applicationProfileUrl: http://appdirect.com/apps/3281
+                    purchaseUrl: null
+                    payUrl: null
+                    remainingFreeTrialDays: 0
+                    daysUntilPayment: 0
+                    overdue: true
+                    preDisabled: false
+                    requestable: false
+                    pendingAsync: false
+                    pendingCreation: false
+                    subscriptionEventPending: false
+                    importedPasswordManager: false
+                    simple: false
+                    assignUrl: null
+                    addon: false
+                    imported: false
+                    linkUrl: null
+                    bundled: false
+                    purchased: false
+                    imageUrl: null
+                    links:
+                    - rel: self
+                      href: http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/password-manager
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/pending/%7BpendingAppId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/pending/%7BpendingAppId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/myapps/pending/%7BpendingAppId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    MyAppsUrl:
+      description: MyApps URL
+      type: string
+      title: MyAppsUrl
+      properties:
+        MyAppsUrl:
+          type: string
+          description: MyApps URL link
+      example: http://appdirect.com/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/myapps/assigned/1891

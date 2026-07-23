@@ -1,0 +1,580 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Settings API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Settings
+  x-displayName: Settings
+paths:
+  /channel/v1/settings/{partner}:
+    get:
+      description: Use the GET method to list channel settings for a specific channel.
+      x-appdirect-visible: false
+      tags:
+      - Settings
+      summary: List channel settings
+      operationId: resource_ChannelSettingsApi_get_GET
+      parameters:
+      - description: channel name
+        name: partner
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelSettingListWS'
+              examples:
+                response:
+                  value:
+                    privacyPolicyUrlMap: {}
+                    minimumReviewsForRating: 1
+                    resellerTermsUrlMap: {}
+                    importAppsConfigurable: false
+                    companyName: ''
+                    encryptBankAccount: false
+                    metaDescription: null
+                    allCompaniesVendors: false
+                    identityProvider: false
+                    smtpBcc: ''
+                    marketplaceUsername: ''
+                    supportUrlMap: {}
+                    analyticsId: ''
+                    supportEmailMap: {}
+                    hideCustomerInfoFromDevelopers: false
+                    canImpersonate: true
+                    emailCopySalesRepOnBillingEvents: false
+                    showSocialMediaLinks: false
+                    forceReauthentication: false
+                    allAdmins: false
+                    changeOwnershipRequestEmail: ''
+                    developerTermsUrlMap: {}
+                    phoneNumberRequired: false
+                    approvesUserContent: false
+                    developerCanViewLeads: false
+                    marketplacePassword: ''
+                    termsUrlMap: {}
+                    marketplaceNameMap:
+                      en_CA: MarketplaceNameCA
+                    reviewRequirePurchase: false
+                    domainReactivationEmail: ''
+                    hideQuestions: false
+                    passwordProtected: false
+                    metaNoIndex: false
+                    developerDocsUrl: ''
+                    faviconFileKey: ''
+                    supportPhone: ''
+                    keychainApiRealmId: null
+                    smtpFromMap:
+                      en: support@appdirect.com
+                    companySyncAutoCreateCompaniesEnabled: false
+                    logoFileKey: null
+                    versionManagementApiClientId: ''
+                    hideChannelUserInfoFromCustomers: false
+                    trustedURLs: []
+                    reportsEmail: ''
+                    encryptReports: false
+                    selfManagedCompanyStructure: false
+                    betaProductCustomAttribute: false
+                    securityPolicy: DEFAULT
+                    companySyncEnabled: false
+                    authenticationGracePeriodInSeconds: 60
+                    resellerLeadsTermsUrlMap: {}
+                    hideSupportSection: false
+                    metaKeyWords: null
+                    keychainApiUrl: null
+                    companySyncInviteAdminOnCompanyCreationEnabled: false
+                    developerTermsUpdatedOn: null
+                    showProfiles: true
+                    supportContactUrlMap: {}
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: Use the PATCH method to update one or more channel settings.
+      x-appdirect-visible: false
+      tags:
+      - Settings
+      summary: Update channel settings
+      operationId: resource_ChannelSettingsApi_update_PATCH
+      parameters:
+      - description: channel name
+        name: partner
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChannelSettingWS'
+        description: a list of settings to update
+      responses:
+        '204':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChannelSettingWS'
+              examples:
+                response:
+                  value:
+                  - setting: reportsEmail
+                    value: a@b.com
+                  - setting: companySyncEnabled
+                    value: 'true'
+                  - setting: marketplaceNameMap
+                    value: someSettings
+                  - setting: versionManagementApiClientId
+                    value: sample id
+                  - setting: hideSupportSection
+                    value: 'false'
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D \\\n  --header 'content-type: application/json' \\\n  --data '[{\"setting\":\"companySyncEnabled\",\"value\":\"tru e\"}]'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D',\n  headers: {'content-type': 'application/json'},\n  body: [{setting: 'companySyncEnabled', value: 'tru e'}],\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"[{\\\"setting\\\":\\\"companySyncEnabled\\\",\\\"value\\\":\\\"tru e\\\"}]\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ChannelSettingWS:
+      type: object
+      title: ChannelSetting
+      required:
+      - setting
+      properties:
+        setting:
+          description: Channel setting name
+          type: string
+        value:
+          description: Channel setting value
+          type: string
+      example:
+        setting: companySyncEnabled
+        value: tru e
+    ChannelSettingListWS:
+      type: object
+      title: ChannelSettingList
+      properties:
+        partner:
+          description: ''
+          type: boolean
+        linkedPartnerUrl:
+          description: ''
+          type: boolean
+        companyName:
+          description: ''
+          type: string
+        assignmentToInactiveUsersEnabled:
+          description: ''
+          type: boolean
+        allowDiscountCredit:
+          description: ''
+          type: boolean
+        approvesUserContent:
+          description: ''
+          type: boolean
+        hideAllUI:
+          description: ''
+          type: boolean
+        hideQuestions:
+          description: ''
+          type: boolean
+        hideSupportSection:
+          description: ''
+          type: boolean
+        identityProvider:
+          description: ''
+          type: boolean
+        includeCaptchaInRegistration:
+          description: ''
+          type: boolean
+        defaultLocale:
+          description: ''
+          type: boolean
+        defaultLocaleCountry:
+          description: ''
+          type: boolean
+        defaultLocaleCountryIso3:
+          description: ''
+          type: boolean
+        oneClickTrialEnabled:
+          description: ''
+          type: boolean
+        channelDecidesIfOnlyAdminsCanBuy:
+          description: ''
+          type: boolean
+        collectPurchaseRequestDetails:
+          description: ''
+          type: boolean
+        partnerName:
+          description: ''
+          type: boolean
+        recaptchaPublicKey:
+          description: ''
+          type: boolean
+        reviewRequirePurchase:
+          description: ''
+          type: boolean
+        supportContactUrl:
+          description: ''
+          type: boolean
+        supportUrl:
+          description: ''
+          type: boolean
+        supportPhone:
+          description: ''
+          type: string
+        supportEmail:
+          description: ''
+          type: boolean
+        privacyPolicyUrl:
+          description: ''
+          type: boolean
+        legalDetailsUrl:
+          description: ''
+          type: boolean
+        termsUrl:
+          description: ''
+          type: boolean
+        agreeToTermsForOneClickBuy:
+          description: ''
+          type: boolean
+        importAppsEnabled:
+          description: ''
+          type: boolean
+        isCmsEnabled:
+          description: ''
+          type: boolean
+        isTest:
+          description: ''
+          type: boolean
+        isBaas:
+          description: ''
+          type: boolean
+        hideSignupLinks:
+          description: ''
+          type: boolean
+        isListingOnly:
+          description: ''
+          type: boolean
+        appUserSyncBaseUrl:
+          description: ''
+          type: boolean
+        boostEnabled:
+          description: ''
+          type: boolean
+        hideCustomerInfoFromDevelopers:
+          description: ''
+          type: boolean
+        developerDocsUrl:
+          description: ''
+          type: string
+        manualPaymentsOnly:
+          description: ''
+          type: boolean
+        showInvoicePage:
+          description: ''
+          type: boolean
+        showPaymentPage:
+          description: ''
+          type: boolean
+        manualPaymentsEnabled:
+          description: ''
+          type: boolean
+        selfManagedCompanyStructure:
+          description: ''
+          type: boolean
+        externallyManagedRoles:
+          description: ''
+          type: boolean
+        integrationProvider:
+          description: ''
+          type: boolean
+        manualEventRecoveryEnabled:
+          description: ''
+          type: boolean
+        salesOpportunitiesEnabled:
+          description: ''
+          type: boolean
+        salesLeadsEnabled:
+          description: ''
+          type: boolean
+        developerCanViewLeads:
+          description: ''
+          type: boolean
+        developerCanSelectApplicationCountries:
+          description: ''
+          type: boolean
+        betaLeadsV2Enabled:
+          description: ''
+          type: boolean
+        showProfiles:
+          description: ''
+          type: boolean
+        hideChannelUserInfoFromCustomers:
+          description: ''
+          type: boolean
+        resellerTermsUrl:
+          description: ''
+          type: boolean
+        resellerLeadsTermsUrl:
+          description: ''
+          type: boolean
+        showSocialMediaLinks:
+          description: ''
+          type: boolean
+        showV2HomePageTheme:
+          description: ''
+          type: boolean
+        showV2ListingPageTheme:
+          description: ''
+          type: boolean
+        showV2ProfilePageTheme:
+          description: ''
+          type: boolean
+        showV2CheckoutPageTheme:
+          description: ''
+          type: boolean
+        marketplaceEdition:
+          description: ''
+          type: boolean
+        marketplaceName:
+          description: ''
+          type: boolean
+        customLogo:
+          description: ''
+          type: boolean
+        taxIncludedInPrices:
+          description: ''
+          type: boolean
+        useExternalIdForApi:
+          description: ''
+          type: boolean
+        isSalesAgentPurchaseApproved:
+          description: ''
+          type: boolean
+        baseSupportUrl:
+          description: ''
+          type: boolean
+        accountEdition:
+          description: ''
+          type: boolean
+        autoUpgradeToPaid:
+          description: ''
+          type: boolean
+        editionLevelOverride:
+          description: ''
+          type: boolean
+        termsForAllProductPurchasesRequired:
+          description: ''
+          type: boolean
+        termsForAllProductPurchasesUrl:
+          description: ''
+          type: boolean
+        usersCanCompleteOwnQuotes:
+          description: ''
+          type: boolean
+        oneClickMigrationEnabled:
+          description: ''
+          type: boolean
+        twoFactorEnabled:
+          description: ''
+          type: boolean
+        changeOwnershipRequestEmail:
+          description: ''
+          type: string
+        domainReactivationEmail:
+          description: ''
+          type: string
+        reportsEmail:
+          description: ''
+          type: string
+        marketplaceCreditEnabled:
+          description: ''
+          type: boolean
+        smsNotificationsEnabled:
+          description: ''
+          type: boolean
+        walkMeEnabled:
+          description: ''
+          type: boolean
+        hasSampleContent:
+          description: ''
+          type: boolean
+        betaWholesaleQuotesEnabled:
+          description: ''
+          type: boolean
+        alwaysUseManualPaymentForCustomerOrders:
+          description: ''
+          type: boolean
+        allowChannelAdminToVoidInvoice:
+          description: ''
+          type: boolean
+        versionManagementApiClientId:
+          description: ''
+          type: string
+        passwordPolicy:
+          description: ''
+          type: boolean
+        passwordPolicyRegex:
+          description: ''
+          type: boolean
+        betaSelfServiceRestrictionEnabled:
+          description: ''
+          type: boolean
+        devicePlatformsEnabled:
+          description: ''
+          type: boolean
+        productVersionsEnabled:
+          description: ''
+          type: boolean
+        deviceSelfServeEnabled:
+          description: ''
+          type: boolean
+        pushDistributionsEnabled:
+          description: ''
+          type: boolean
+        productVersionsBaseUrl:
+          description: ''
+          type: string
+        odsaBaseUrl:
+          description: ''
+          type: string
+        betaAppleDepEnabled:
+          description: ''
+          type: string
+        docCenterBaseLandingUrl:
+          description: ''
+          type: string
+        channelCanonicalBaseUrl:
+          description: ''
+          type: string
+        showV2AppAssignments:
+          description: ''
+          type: boolean
+        showV2GroupAppAssignments:
+          description: ''
+          type: boolean
+        betaResellerProfileV2Enabled:
+          description: ''
+          type: boolean
+        reportingEnabled:
+          description: ''
+          type: boolean
+        demoFeatures:
+          description: ''
+          type: boolean
+        companyWideBilling:
+          description: ''
+          type: boolean
+        docCenterProvisioned:
+          description: ''
+          type: boolean
+        resellerProfilesEnabled:
+          description: ''
+          type: boolean
+        genericUserSyncEnabled:
+          description: ''
+          type: boolean
+        fullAzureSyncEnabled:
+          description: ''
+          type: boolean
+        migrationVendorValidationEnabled:
+          description: ''
+          type: boolean
+        isExportReconciliationLinesEnabled:
+          description: ''
+          type: boolean
+        universalHeaderEnabled:
+          description: ''
+          type: boolean
+        universalHeaderForBusinessUnitsEnabled:
+          description: ''
+          type: boolean
+      example:
+        privacyPolicyUrlMap: {}
+        minimumReviewsForRating: 1
+        resellerTermsUrlMap: {}
+        importAppsConfigurable: false
+        companyName: ''
+        encryptBankAccount: false
+        metaDescription: null
+        allCompaniesVendors: false
+        identityProvider: false
+        smtpBcc: ''
+        marketplaceUsername: ''
+        supportUrlMap: {}
+        analyticsId: ''
+        supportEmailMap: {}
+        hideCustomerInfoFromDevelopers: false
+        canImpersonate: true
+        emailCopySalesRepOnBillingEvents: false
+        showSocialMediaLinks: false
+        forceReauthentication: false
+        allAdmins: false
+        changeOwnershipRequestEmail: ''
+        developerTermsUrlMap: {}
+        phoneNumberRequired: false
+        approvesUserContent: false
+        developerCanViewLeads: false
+        marketplacePassword: ''
+        termsUrlMap: {}
+        marketplaceNameMap:
+          en_CA: MarketplaceNameCA
+        reviewRequirePurchase: false
+        domainReactivationEmail: ''
+        hideQuestions: false
+        passwordProtected: false
+        metaNoIndex: false
+        developerDocsUrl: ''
+        faviconFileKey: ''
+        supportPhone: ''
+        keychainApiRealmId: null
+        smtpFromMap:
+          en: support@appdirect.com
+        companySyncAutoCreateCompaniesEnabled: false
+        logoFileKey: null
+        versionManagementApiClientId: ''
+        hideChannelUserInfoFromCustomers: false
+        trustedURLs: []
+        reportsEmail: ''
+        encryptReports: false
+        selfManagedCompanyStructure: false
+        betaProductCustomAttribute: false
+        securityPolicy: DEFAULT
+        companySyncEnabled: false
+        authenticationGracePeriodInSeconds: 60
+        resellerLeadsTermsUrlMap: {}
+        hideSupportSection: false
+        metaKeyWords: null
+        keychainApiUrl: null
+        companySyncInviteAdminOnCompanyCreationEnabled: false
+        developerTermsUpdatedOn: null
+        showProfiles: true
+        supportContactUrlMap: {}

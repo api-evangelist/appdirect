@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Usage & Analytics API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Usage & Analytics
+  description: Monitor organization and AI usage metrics
+paths:
+  /api/v1/usage/ai:
+    get:
+      tags:
+      - Usage & Analytics
+      summary: Get organization usage metrics by AI
+      description: Returns the usage metrics of the organization broken down by AI.
+      operationId: getOrgUsageByAI
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgUsageByAI'
+        '404':
+          description: Organization not found
+        '500':
+          description: Internal Server Error
+  /api/v1/usage/org:
+    get:
+      tags:
+      - Usage & Analytics
+      summary: Get organization usage metrics
+      description: Returns usage metrics for the organization.
+      operationId: getOrgUsage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgUsage'
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    OrgUsage:
+      type: object
+      properties:
+        orgId:
+          type: string
+          description: Unique identifier for the organization.
+        dataTokensUsed:
+          type: number
+          description: Number of data tokens used by the organization.
+        dataUsageTokenLimit:
+          type: number
+          nullable: true
+          description: The data token usage limit for the organization, if any.
+        apiTokensUsed:
+          type: number
+          description: Number of API tokens used by the organization.
+        apiUsageTokenLimit:
+          type: number
+          nullable: true
+          description: The API token usage limit for the organization, if any.
+    AIUsage:
+      type: object
+      properties:
+        aiId:
+          type: string
+          description: Unique identifier for the AI instance.
+        aiDataTokensUsed:
+          type: number
+          nullable: true
+          description: Number of data tokens used by this AI instance.
+        aiApiTokensUsed:
+          type: number
+          nullable: true
+          description: Number of API tokens used by this AI instance.
+    OrgUsageByAI:
+      type: object
+      properties:
+        orgUsage:
+          $ref: '#/components/schemas/OrgUsage'
+        aiUsages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUsage'

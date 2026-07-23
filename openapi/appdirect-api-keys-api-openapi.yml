@@ -1,0 +1,122 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed API Keys API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: API Keys
+  description: Create and manage API keys
+paths:
+  /api/v1/api-keys:
+    post:
+      tags:
+      - API Keys
+      summary: Create an API key
+      description: Creates a new API key for the caller or a specified user and organization (based on access level).
+      operationId: createApiKey
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKeyRequestDto'
+      responses:
+        '201':
+          description: API key successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyWithTokenDto'
+        '400':
+          description: Bad request - invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - user lacks permission to create API keys or scopes.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    CreateApiKeyRequestDto:
+      type: object
+      required:
+      - name
+      - scopes
+      properties:
+        name:
+          type: string
+          description: Name of the API key.
+        scopes:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Scopes to grant to the API key.
+        orgId:
+          type: string
+          description: Optional organization ID to create the API key in. Defaults to the caller's organization. Tenant-scoped callers may use this to create keys for users in another organization within the same tenant.
+        userId:
+          type: string
+          description: Optional user ID to create the API key for. Defaults to the caller.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    ApiKeyWithTokenDto:
+      allOf:
+      - $ref: '#/components/schemas/ApiKeyDto'
+      - type: object
+        properties:
+          key:
+            type: string
+            description: The plain API key token. Only returned at creation time.
+    ApiKeyDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the API key.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the API key was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the API key was last updated.
+        lastUsedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time when the API key was last used.
+        orgId:
+          type: string
+          description: Organization ID associated with the API key.
+        userId:
+          type: string
+          description: User ID associated with the API key.
+        userEmail:
+          type: string
+          nullable: true
+          description: Email of the user associated with the API key.
+        name:
+          type: string
+          description: Name of the API key.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Scopes granted to the API key.

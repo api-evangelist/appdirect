@@ -1,0 +1,320 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerCompanyAssociation API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerCompanyAssociation
+  x-displayName: Company Association
+paths:
+  /appReseller/v1/companyAssociations:
+    post:
+      description: Creates an association (link) between a customer company and a reseller company.
+      tags:
+      - AppResellerCompanyAssociation
+      summary: Create company association
+      operationId: resource_AppResellerAccountV1CustomerCompanyAssociationApi_post_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCompanyAssociationCreationRequest'
+        description: Information about the association to create
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCompanyAssociation'
+              examples:
+                response:
+                  value:
+                    id: c39b8bcd-db7a-46d0-939f-facdeb1d6967
+                    resellerCompany:
+                      id: 0a69093c-0000-4f8d-0000-5e0000630000
+                      name: Reseller
+                    customerCompany:
+                      id: 0dc2860e-0000-40f7-0000-ef0000a30000
+                      name: Customer
+                    createdOn: 1531839782000
+        '404':
+          description: Resource does not exist
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCompanyAssociationConflictResponse'
+              examples:
+                response:
+                  value:
+                    status: 409
+                    code: COMPANY_INACTIVE
+                    message: Acme is not an active company
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations \\\n  --header 'content-type: application/json' \\\n  --data '{\"customerCompanyId\":\"string\",\"resellerCompanyId\":\"string\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations',\n  headers: {'content-type': 'application/json'},\n  body: {customerCompanyId: 'string', resellerCompanyId: 'string'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerCompanyId\\\":\\\"string\\\",\\\"resellerCompanyId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      description: Retrieves all customer company associations. This request requires either the Reseller company ID or the Customer company ID, which you can retrieve with the [List companies](#list-companies) request.
+      tags:
+      - AppResellerCompanyAssociation
+      summary: List company associations
+      operationId: resource_AppResellerAccountV1CustomerCompanyAssociationApi_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for reading the users whose company are Reseller or Referral.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - name: resellerCompanyId
+        in: query
+        description: Reseller company ID. This field is required if you do not include the Customer company ID
+        required: true
+        schema:
+          type: string
+      - name: customerCompanyId
+        in: query
+        description: Customer company ID. This field is required if you do not include the Reseller company ID
+        required: true
+        schema:
+          type: string
+      - name: searchText
+        in: query
+        description: Search term used to search on different fields of the customer company association.
+        required: false
+        schema:
+          type: string
+      - name: createdOn
+        in: query
+        description: 'Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - ''greater than or equal to''; or lte([timestamp]) - ''less than or equal to'''
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+      - name: number
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCompanyAssociationPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: c39b8bcd-db7a-46d0-939f-facdeb1d6967
+                      resellerCompany:
+                        id: 0a69093c-0000-4f8d-0000-5e0000630000
+                        name: Reseller1
+                      customerCompany:
+                        id: 0dc2860e-0000-40f7-0000-ef0000a30000
+                        name: Customer1
+                      createdOn: 1531839782000
+                    - id: c39b8bcd-db7a-46d0-939f-facdeb1d6967
+                      resellerCompany:
+                        id: 0a69093c-0000-4f8d-0000-5000020000ef
+                        name: Reseller2
+                      customerCompany:
+                        id: 0dc2860e-0000-40f7-0000-e0000600000a
+                        name: Customer2
+                      createdOn: 1531839782000
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations?resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&sort=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations',\n  qs: {\n    resellerCompanyId: 'SOME_STRING_VALUE',\n    customerCompanyId: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    createdOn: 'SOME_STRING_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations?resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&sort=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/companyAssociations/{companyAssociationId}:
+    delete:
+      description: Deletes a company association.
+      tags:
+      - AppResellerCompanyAssociation
+      summary: Remove company association
+      operationId: resource_AppResellerAccountV1CustomerCompanyAssociationApi_delete_DELETE
+      x-appdirect-required-scopes:
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for reading the users whose company are Reseller or Referral.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Company Association ID
+        name: companyAssociationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/%7BcompanyAssociationId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/%7BcompanyAssociationId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/%7BcompanyAssociationId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    CustomerCompanyAssociationConflictResponse:
+      type: object
+      title: CustomerCompanyAssociationConflictResponse
+      required:
+      - status
+      - code
+      properties:
+        status:
+          description: HTTP status
+          type: number
+        code:
+          $ref: '#/components/schemas/IllegalCompanyAssociationTypes'
+        message:
+          description: Code description
+          type: string
+      example:
+        status: 409
+        code: RESELLER_REQUIRED
+        message: Acme is not a reseller company
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
+    CustomerCompanyAssociationPagedReadResponse:
+      type: object
+      title: CustomerCompanyAssociationPagedReadResponse
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerCompanyAssociation'
+    IllegalCompanyAssociationTypes:
+      description: Invalid company association types
+      type: string
+      title: IllegalCompanyAssociationTypes
+      enum:
+      - RESELLER_REQUIRED
+      - COMPANY_INACTIVE
+      - COMPANY_DISABLED
+      - CANT_LINK_RESELLER_TO_ITSELF
+      - ASSOCIATION_ALREADY_EXISTS
+    CustomerCompanyAssociationCreationRequest:
+      type: object
+      title: CustomerCompanyAssociationCreationRequest
+      required:
+      - customerCompanyId
+      - resellerCompanyId
+      properties:
+        customerCompanyId:
+          description: Customer company ID
+          type: string
+        resellerCompanyId:
+          description: Reseller company ID
+          type: string
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    CustomerCompanyAssociation:
+      type: object
+      title: CustomerCompanyAssociation
+      required:
+      - id
+      - resellerCompany
+      - customerCompany
+      - createdOn
+      properties:
+        id:
+          description: Customer company ID
+          type: string
+        resellerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        customerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        createdOn:
+          description: Date on which new customer company association was created, in UNIX Epoch milliseconds
+          type: number

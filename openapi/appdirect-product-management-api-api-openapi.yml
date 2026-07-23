@@ -1,0 +1,264 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Product Management API API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Product Management API
+  x-displayName: Product Management API
+paths:
+  /products/v1/resources/image/delete:
+    post:
+      tags:
+      - Product Management API
+      summary: Delete image from product
+      description: Deletes a specific image resource from a product. The image is identified by the product reference ID, upload type, locale, and path to delete. This operation permanently removes the image from the product and cannot be undone.
+      operationId: deleteImage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageDeleteWS'
+        description: Image deletion request containing product reference ID, upload type, locale, and path
+        required: true
+      responses:
+        '200':
+          description: Image deleted successfully
+        '400':
+          description: Bad Request - Invalid parameters
+        '401':
+          description: Unauthorized - Authentication required
+        '403':
+          description: Forbidden - Insufficient permissions
+        '500':
+          description: Internal Server Error - Unexpected error when deleting image
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/products/v1/resources/image/delete \\\n  --header 'content-type: application/json' \\\n  --data '{\"productRefId\":\"c0e98d88-bc85-4578-b953-fdede4235b5c\",\"uploadType\":\"LISTING_LOGO\",\"locale\":\"en_US\",\"pathToDelete\":\"/images/logo.png\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/products/v1/resources/image/delete',\n  headers: {'content-type': 'application/json'},\n  body: {\n    productRefId: 'c0e98d88-bc85-4578-b953-fdede4235b5c',\n    uploadType: 'LISTING_LOGO',\n    locale: 'en_US',\n    pathToDelete: '/images/logo.png'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"productRefId\\\":\\\"c0e98d88-bc85-4578-b953-fdede4235b5c\\\",\\\"uploadType\\\":\\\"LISTING_LOGO\\\",\\\"locale\\\":\\\"en_US\\\",\\\"pathToDelete\\\":\\\"/images/logo.png\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/products/v1/resources/image/delete\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /products/v1/resources/image/uploadAndLink:
+    post:
+      tags:
+      - Product Management API
+      summary: Upload and link image to product
+      description: Uploads an image file and links it to a specific product resource. Supports various image types for different use cases like logos, screenshots, and overview images. The uploaded image is automatically processed and stored in the appropriate format for the specified upload type.
+      operationId: uploadAndLinkImage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productRefId:
+                  description: Product reference ID to link the image to
+                  type: string
+                  x-examples:
+                    productRefId: c0e98d88-bc85-4578-b953-fdede4235b5c
+                uploadType:
+                  description: Type of upload specifying where the image will be used
+                  type: string
+                  enum:
+                  - PROFILE_LOGO
+                  - MYAPPS_LOGO
+                  - LISTING_LOGO
+                  - LISTING_AND_MYAPPS_LOGO
+                  - OVERVIEW
+                  - SCREENSHOT
+                  - FEATURE
+                  x-examples:
+                    uploadType: LISTING_LOGO
+                locale:
+                  description: Locale for the image (ISO 639-1 language code with optional country code)
+                  type: string
+                  x-examples:
+                    locale: en_US
+                file:
+                  description: 'Image file to upload (supported formats: JPG, PNG, GIF)'
+                  type: string
+                  format: binary
+                identifier:
+                  description: Optional identifier for the uploaded image resource
+                  type: string
+                  x-examples:
+                    identifier: custom-logo-id
+              required:
+              - productRefId
+              - uploadType
+              - locale
+              - file
+        required: true
+      responses:
+        '201':
+          description: Image uploaded and linked successfully
+        '400':
+          description: Bad Request - Invalid parameters
+        '401':
+          description: Unauthorized - Authentication required
+        '403':
+          description: Forbidden - Insufficient permissions
+        '500':
+          description: Internal Server Error - Unexpected error uploading and linking image
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/products/v1/resources/image/uploadAndLink \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/products/v1/resources/image/uploadAndLink',\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/products/v1/resources/image/uploadAndLink\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /products/v1/resources/file/uploadAndLink:
+    post:
+      tags:
+      - Product Management API
+      summary: Upload and link PDF file to product
+      description: Uploads a PDF file and links it to a specific product as documentation or resource material. PDF files can be configured for visibility (public or reseller-only) and can have custom names and identifiers. Commonly used for user manuals, installation guides, terms of service, and other product documentation.
+      operationId: uploadAndLinkPdfFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productRefId:
+                  description: Product reference ID to link the PDF file to
+                  type: string
+                  x-examples:
+                    productRefId: c0e98d88-bc85-4578-b953-fdede4235b5c
+                locale:
+                  description: Locale for the PDF file (ISO 639-1 language code with optional country code)
+                  type: string
+                  x-examples:
+                    locale: en_US
+                file:
+                  description: PDF file to upload
+                  type: string
+                  format: binary
+                name:
+                  description: Display name for the uploaded PDF file
+                  type: string
+                  x-examples:
+                    name: User Manual
+                onlyVisibleToResellers:
+                  description: Whether the PDF should only be visible to resellers (true/false)
+                  type: string
+                  x-examples:
+                    onlyVisibleToResellers: 'false'
+                externalResourceRefId:
+                  description: External reference ID for the uploaded PDF resource
+                  type: string
+                  x-examples:
+                    externalResourceRefId: external-pdf-file
+              required:
+              - productRefId
+              - locale
+              - file
+              - name
+        required: true
+      responses:
+        '201':
+          description: PDF file uploaded and linked successfully
+        '400':
+          description: Bad Request - Invalid parameters
+        '401':
+          description: Unauthorized - Authentication required
+        '403':
+          description: Forbidden - Insufficient permissions
+        '500':
+          description: Internal Server Error - Unexpected error uploading and linking external resource pdf file
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/products/v1/resources/file/uploadAndLink \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/products/v1/resources/file/uploadAndLink',\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/products/v1/resources/file/uploadAndLink\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /products/v1/resources/file/delete:
+    delete:
+      tags:
+      - Product Management API
+      summary: Delete file from product
+      description: Deletes a specific file resource from a product. Currently supports deletion of PDF files only. The file is identified by the product reference ID and file identifier. This operation permanently removes the file from the product and cannot be undone.
+      operationId: deleteFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileDeleteWS'
+        description: File deletion request containing product reference ID and file identifier
+        required: true
+      responses:
+        '204':
+          description: File deleted successfully (No Content)
+        '400':
+          description: Bad Request - Invalid parameters
+        '401':
+          description: Unauthorized - Authentication required
+        '403':
+          description: Forbidden - Insufficient permissions
+        '500':
+          description: Internal Server Error - Unexpected error deleting file
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/products/v1/resources/file/delete \\\n  --header 'content-type: application/json' \\\n  --data '{\"productRefId\":\"c0e98d88-bc85-4578-b953-fdede4235b5c\",\"identifier\":\"94832c55-bbec-4539-b082-f0a2b1cd8060\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/products/v1/resources/file/delete',\n  headers: {'content-type': 'application/json'},\n  body: {\n    productRefId: 'c0e98d88-bc85-4578-b953-fdede4235b5c',\n    identifier: '94832c55-bbec-4539-b082-f0a2b1cd8060'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"productRefId\\\":\\\"c0e98d88-bc85-4578-b953-fdede4235b5c\\\",\\\"identifier\\\":\\\"94832c55-bbec-4539-b082-f0a2b1cd8060\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/products/v1/resources/file/delete\")\n  .delete(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ImageDeleteWS:
+      type: object
+      required:
+      - locale
+      - pathToDelete
+      - productRefId
+      - uploadType
+      properties:
+        productRefId:
+          type: string
+          example: c0e98d88-bc85-4578-b953-fdede4235b5c
+          description: Product reference ID from which the image should be deleted
+        uploadType:
+          type: string
+          example: LISTING_LOGO
+          description: Type of upload that specifies where the image is used
+          enum:
+          - PROFILE_LOGO
+          - MYAPPS_LOGO
+          - LISTING_LOGO
+          - LISTING_AND_MYAPPS_LOGO
+          - OVERVIEW
+          - SCREENSHOT
+          - FEATURE
+        locale:
+          type: string
+          example: en_US
+          description: Locale for the image (ISO 639-1 language code with optional country code)
+        pathToDelete:
+          type: string
+          example: /images/logo.png
+          description: Path to the specific image file that should be deleted
+      description: Request object for deleting an image resource from a product. Contains all the necessary information to identify and remove a specific image.
+    FileDeleteWS:
+      type: object
+      required:
+      - identifier
+      - productRefId
+      properties:
+        productRefId:
+          type: string
+          example: c0e98d88-bc85-4578-b953-fdede4235b5c
+          description: Product reference ID from which the file should be deleted
+        identifier:
+          type: string
+          example: 94832c55-bbec-4539-b082-f0a2b1cd8060
+          description: Unique identifier of the file to be deleted
+      description: Request object for deleting a file resource from a product. Currently supports deletion of PDF files only. Contains the product reference ID and file identifier.

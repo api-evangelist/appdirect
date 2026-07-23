@@ -1,0 +1,5689 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Bundle API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Bundle
+  x-displayName: Bundles
+paths:
+  /marketplace/v1/bundles:
+    get:
+      summary: List all bundles
+      tags:
+      - Bundle
+      description: This call lists all bundles on the marketplace.
+      operationId: resource_Bundle_readBundles_GET
+      responses:
+        '200':
+          description: List of product bundle.
+          content:
+            application/json:
+              schema:
+                description: List of product bundle.
+                type: array
+                items:
+                  $ref: '#/components/schemas/BundleListingWS'
+              examples:
+                response:
+                  value:
+                  - href: http://localhost/api/marketplace/v1/bundles/257
+                    id: 257
+                    uuid: df44129f-3c03-40eb-a112-b04e455b8c3f
+                    url: http://localhost/apps/257
+                    name: MockApp3891706169852983393
+                    productType: BUNDLE
+                    iconUrl: null
+                    profileLogoUrl: null
+                    description: Bundle Description
+                    overview: null
+                    startingPrice: $0.00/User/Mo
+                    billingFrequency: MONTHLY
+                    publishedOn: 1461792752534
+                    developerName: Appdirect
+                    vendorName: Appdirect
+                    rating: null
+                    numRatings: null
+                    overviewImageUrl: null
+                    blurb: Bundle Blurb
+                    buyable: false
+                    free: false
+                    freeTrialOrEditionPresent: true
+                    referable: false
+                    hasLyncToPhone: false
+                    downloadFileSize: null
+                    hidePricings: false
+                    collectLeads: false
+                    addon: false
+                    featured: false
+                    featuredSliderPosition: null
+                    popular: false
+                    popularity: null
+                    staffPick: false
+                    staffPickSliderPosition: null
+                    discountDetails: null
+                    lastModified: 1461792752644
+                    sortRank: 5
+                    tags: []
+                    bundleUrls: []
+                    supportedLanguages:
+                    - en
+                    bundledProducts: []
+            application/xml:
+              schema:
+                description: List of product bundle.
+                type: array
+                items:
+                  $ref: '#/components/schemas/BundleListingWS'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/bundles"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/bundles'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/bundles\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /marketplace/v1/bundles/{bundleId}:
+    get:
+      summary: Retrieve a bundle
+      tags:
+      - Bundle
+      description: This call returns all details about a specific bundle.
+      operationId: resource_Bundle_readBundle_GET
+      parameters:
+      - description: Bundle product id
+        name: bundleId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Bundle application read.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleWS'
+              examples:
+                response:
+                  value:
+                    href: http://localhost/api/marketplace/v1/bundles/245
+                    id: 245
+                    url: http://localhost/apps/245
+                    name: MockApp-4393604041692298141
+                    productType: BUNDLE
+                    iconUrl: null
+                    profileLogoUrl: null
+                    description: Bundle Description
+                    overview: null
+                    startingPrice: null
+                    billingFrequency: null
+                    publishedOn: 1461792750665
+                    provider:
+                      uuid: b863d403-f8a7-4d38-9f89-c5fa021c2b7e
+                      name: Appdirect
+                      url: appdirect.com
+                    rating: null
+                    numRatings: null
+                    overviewImageUrl: null
+                    blurb: Bundle Blurb
+                    buyable: false
+                    free: false
+                    freeTrialOrEditionPresent: false
+                    referable: false
+                    collectLeads: false
+                    collectLeadsWithPurchaseEnabled: false
+                    newSubscriptionEnabled: true
+                    changeSubscriptionAllowed: true
+                    downloadFileSize: null
+                    featured: false
+                    featuredSliderPosition: null
+                    popular: false
+                    popularity: null
+                    staffPick: false
+                    staffPickSliderPosition: null
+                    discountDetails: null
+                    lastModified: 1461792750786
+                    tags: []
+                    supportedLanguages:
+                    - en
+                    bundledProducts: []
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BundleWS'
+        '404':
+          description: Bundle application not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /marketplace/v1/bundles/{bundleId}/status:
+    get:
+      summary: Retrieve a bundle status
+      tags:
+      - Bundle
+      description: This call returns the current state of the bundle.
+      operationId: resource_Bundle_readBundleStatus_GET
+      parameters:
+      - description: Bundle product id
+        name: bundleId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Bundle application status read.
+          content:
+            application/json:
+              schema:
+                description: Bundle application status read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserAppInfo'
+              examples:
+                response:
+                  value:
+                  - assigned: false
+                    pending: false
+                    requested: false
+                    pendingAppType: REQUESTED
+                    companyEntitlementPending: false
+                    companyEntitlementId: null
+                    editionId: null
+                    editionPricingId: null
+                    ownerId: null
+                    ownerFullName: null
+                    ownerAdmin: false
+                    partOfExistingBundle: false
+                    freeTrialAllowed: true
+                    ownerUuid: null
+                    freeTrialDaysLeft: 0
+                    companyWide: false
+            application/xml:
+              schema:
+                description: Bundle application status read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserAppInfo'
+        '404':
+          description: Bundle application not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D/status"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D/status'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/bundles/%7BbundleId%7D/status\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ChannelPrice:
+      type: object
+      title: ChannelPrice
+      properties:
+        duration:
+          $ref: '#/components/schemas/PricingDuration'
+        price:
+          type: number
+      example:
+        duration: DAILY
+        price: 12345
+    FeatureCharacteristicWS:
+      description: Product feature characteristic
+      type: object
+      title: FeatureCharacteristic
+      properties:
+        abovePicture:
+          description: Is characteristic above feature
+          type: boolean
+        highlight:
+          description: List of feature highlights
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicHighlightWS'
+        id:
+          type: number
+        position:
+          description: Order how the characteristic appear versus the others
+          type: number
+        title:
+          description: Describe a characteristic of a feature
+          type: string
+          maxLength: 256
+          minLength: 0
+      example:
+        abovePicture: true
+        highlight:
+        - displayCheck: true
+          highlight: '...'
+          id: 12345
+        - displayCheck: true
+          highlight: '...'
+          id: 12345
+        id: 12345
+        position: 12345
+        title: '...'
+    Tag:
+      description: Represents a category, subcategory, industry, customer tag, attribute or attribute group
+      type: object
+      title: Tag
+      properties:
+        badge:
+          description: Badge image URL
+          type: string
+        description:
+          description: Description
+          type: string
+          nullable: true
+        id:
+          description: ID
+          type: number
+        name:
+          description: Name
+          type: string
+        showBadge:
+          description: Show badge
+          type: boolean
+        showOnNavigation:
+          description: Show tag on naviagtion for filtering
+          type: boolean
+        tag:
+          description: Children tags
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        type:
+          description: Type
+          type: string
+      example:
+        badge: '...'
+        description: '...'
+        id: 12345
+        name: '...'
+        showBadge: true
+        showOnNavigation: true
+        tag:
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        type: '...'
+    BundleWS:
+      type: object
+      title: Bundle
+      properties:
+        billingFrequency:
+          type: string
+          nullable: true
+        blurb:
+          type: string
+          nullable: true
+        bundleSettings:
+          $ref: '#/components/schemas/BundleSettingsWS'
+        buyable:
+          type: boolean
+        changeSubscriptionAllowed:
+          type: boolean
+        collectLeads:
+          type: boolean
+        collectLeadsWithPurchaseEnabled:
+          type: boolean
+        description:
+          type: string
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetailsWS'
+        downloadFileSize:
+          type: number
+          nullable: true
+        featured:
+          type: boolean
+        featuredSliderPosition:
+          type: number
+          nullable: true
+        free:
+          type: boolean
+        freeTrialOrEditionPresent:
+          type: boolean
+        href:
+          type: string
+        iconUrl:
+          type: string
+          nullable: true
+        id:
+          type: number
+        language:
+          type: array
+          items:
+            type: string
+        lastModified:
+          type: number
+        name:
+          type: string
+        newSubscriptionEnabled:
+          type: boolean
+        numRatings:
+          type: number
+          nullable: true
+        overview:
+          type: string
+          nullable: true
+        overviewImageUrl:
+          type: string
+          nullable: true
+        popular:
+          type: boolean
+        popularity:
+          type: number
+          nullable: true
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductWS'
+        productType:
+          type: string
+        profileLogoUrl:
+          type: string
+          nullable: true
+        provider:
+          $ref: '#/components/schemas/ProviderWS'
+        publishedOn:
+          type: number
+        rating:
+          type: number
+          nullable: true
+        referable:
+          type: boolean
+        staffPick:
+          type: boolean
+        staffPickSliderPosition:
+          type: number
+          nullable: true
+        startingPrice:
+          $ref: '#/components/schemas/StartingPriceWS'
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        url:
+          type: string
+      example:
+        billingFrequency: '...'
+        blurb: '...'
+        bundleSettings:
+          allowPartialCancel: true
+          allowPartialPurchase: true
+          bundleApplicationId: 12345
+          removeDiscountsOnPartialCancel: true
+          removeMarkupsOnPartialCancel: true
+        buyable: true
+        changeSubscriptionAllowed: true
+        collectLeads: true
+        collectLeadsWithPurchaseEnabled: true
+        description: '...'
+        discountDetails:
+          discountedStartingPrice: '...'
+          highestFixedDiscount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          highestPercentageDiscount: 12345
+          startingPricePercentageDiscount: 12345
+        downloadFileSize: 12345
+        featured: true
+        featuredSliderPosition: 12345
+        free: true
+        freeTrialOrEditionPresent: true
+        href: '...'
+        iconUrl: '...'
+        id: 12345
+        language:
+        - '...'
+        - '...'
+        lastModified: 12345
+        name: '...'
+        newSubscriptionEnabled: true
+        numRatings: 12345
+        overview: '...'
+        overviewImageUrl: '...'
+        popular: true
+        popularity: 12345
+        product:
+        - _embedded:
+            property1: {}
+            property2: {}
+          addon: true
+          addonOffering:
+          - bullet:
+            - {}
+            - {}
+            code: '...'
+            description: '...'
+            descriptionHtml: '...'
+            exclusive: true
+            id: 12345
+            name: '...'
+            paymentPlan:
+            - {}
+            - {}
+            stacked: true
+            status: '...'
+            uuid: '...'
+          - bullet:
+            - {}
+            - {}
+            code: '...'
+            description: '...'
+            descriptionHtml: '...'
+            exclusive: true
+            id: 12345
+            name: '...'
+            paymentPlan:
+            - {}
+            - {}
+            stacked: true
+            status: '...'
+            uuid: '...'
+          autoUpgradeToPaid: true
+          bundledPlanIds:
+          - 12345
+          - 12345
+          buyable: true
+          changeSubscriptionAllowed: true
+          collectLeads: true
+          collectLeadsWithPurchaseEnabled: true
+          customAttributes:
+          - attributeKey: '...'
+            attributeType: MULTISELECT
+            label: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+            valueOptions:
+            - {}
+            - {}
+          - attributeKey: '...'
+            attributeType: TEXT
+            label: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+            valueOptions:
+            - {}
+            - {}
+          customIntegration: '...'
+          displayQuestions: true
+          displayReviews: true
+          downloadFileSize: 12345
+          feature:
+          - bullet:
+            - {}
+            - {}
+            description: '...'
+            header: '...'
+            hideOnOverview: true
+            id: 12345
+            imageUrl: '...'
+            position: 12345
+            slogan: '...'
+          - bullet:
+            - {}
+            - {}
+            description: '...'
+            header: '...'
+            hideOnOverview: true
+            id: 12345
+            imageUrl: '...'
+            position: 12345
+            slogan: '...'
+          featuredCustomer:
+          - id: 12345
+            logoUrl: '...'
+            name: '...'
+          - id: 12345
+            logoUrl: '...'
+            name: '...'
+          featuredMedium:
+          - id: 12345
+            link: '...'
+            linkDescription: '...'
+            source: {}
+          - id: 12345
+            link: '...'
+            linkDescription: '...'
+            source: {}
+          free: true
+          freeTrialOrEditionPresent: true
+          hidePricings: true
+          highestFixedDiscount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          highestPercentageDiscount: 12345
+          hostedLocation: '...'
+          href: '...'
+          id: 12345
+          integrationConfiguration:
+            productSettings: {}
+          language:
+          - '...'
+          - '...'
+          lastModified: 12345
+          linkedImportableApplicationUuid: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          listing:
+            blurb: '...'
+            imageSrcset:
+              property1: '...'
+              property2: '...'
+            imageUrl: '...'
+            mobileAppStoreId: '...'
+            mobileBundleId: '...'
+            myAppLogoIconSrcset:
+              property1: '...'
+              property2: '...'
+            myAppLogoIconUrl: '...'
+            overview: '...'
+            profileImageSrcset:
+              property1: '...'
+              property2: '...'
+            profileImageUrl: '...'
+            rating: 12345
+            reviewCount: 12345
+          liveChatAvailable: true
+          liveChatEnabled: true
+          mosiConnectorType: CREST
+          name: '...'
+          newSubscriptionEnabled: true
+          numRatings: 12345
+          oneClickPurchasable: true
+          overview:
+            benefit:
+            - {}
+            - {}
+            demoUrl: '...'
+            documentationUrl: '...'
+            downloadDocumentationUrl: '...'
+            downloadFileSize: 12345
+            imageSrcset:
+              property1: '...'
+              property2: '...'
+            imageUrl: '...'
+            splashDescription: '...'
+            splashTitle: '...'
+            systemRequirements: '...'
+            versions: {}
+          platform:
+          - attribute:
+            - {}
+            - {}
+            platformDefinition: {}
+            uuid: '...'
+          - attribute:
+            - {}
+            - {}
+            platformDefinition: {}
+            uuid: '...'
+          pricing:
+            bullet:
+            - {}
+            - {}
+            edition:
+            - {}
+            - {}
+            footnote:
+            - '...'
+            - '...'
+            pricingSummary: '...'
+          privacyUrl: '...'
+          productRibbon:
+            ribbonColor: '...'
+            text: '...'
+            textColor: '...'
+          provider:
+            name: '...'
+            url: '...'
+            uuid: '...'
+          publishedApp:
+            href: '...'
+            id: '...'
+          publishedOn: 12345
+          rating: 12345
+          referUrl: '...'
+          referable: true
+          resource:
+          - description: '...'
+            id: 12345
+            link: '...'
+            name: '...'
+            resellerAccess: true
+            resourceType: '...'
+            scribdId: '...'
+            scribdKey: '...'
+          - description: '...'
+            id: 12345
+            link: '...'
+            name: '...'
+            resellerAccess: true
+            resourceType: '...'
+            scribdId: '...'
+            scribdKey: '...'
+          screenshot:
+          - id: 12345
+            imageUrl: '...'
+            imageUrlSrcset:
+              property1: '...'
+              property2: '...'
+            name: '...'
+          - id: 12345
+            imageUrl: '...'
+            imageUrlSrcset:
+              property1: '...'
+              property2: '...'
+            name: '...'
+          showSelfServiceRestriction: true
+          showThirdPartyLegalDisclosure: true
+          startingPrice:
+            amount: {}
+            billingFrequency: '...'
+            discount: {}
+            unit: '...'
+          support:
+            description: '...'
+            email: '...'
+            knowledgebaseUrl: '...'
+            phone: '...'
+          tag:
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          termsUrl: '...'
+          type: '...'
+          usageType: '...'
+          uuid: '...'
+          workingApp:
+            href: '...'
+            id: '...'
+        - _embedded:
+            property1: {}
+            property2: {}
+          addon: true
+          addonOffering:
+          - bullet:
+            - {}
+            - {}
+            code: '...'
+            description: '...'
+            descriptionHtml: '...'
+            exclusive: true
+            id: 12345
+            name: '...'
+            paymentPlan:
+            - {}
+            - {}
+            stacked: true
+            status: '...'
+            uuid: '...'
+          - bullet:
+            - {}
+            - {}
+            code: '...'
+            description: '...'
+            descriptionHtml: '...'
+            exclusive: true
+            id: 12345
+            name: '...'
+            paymentPlan:
+            - {}
+            - {}
+            stacked: true
+            status: '...'
+            uuid: '...'
+          autoUpgradeToPaid: true
+          bundledPlanIds:
+          - 12345
+          - 12345
+          buyable: true
+          changeSubscriptionAllowed: true
+          collectLeads: true
+          collectLeadsWithPurchaseEnabled: true
+          customAttributes:
+          - attributeKey: '...'
+            attributeType: TEXT
+            label: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+            valueOptions:
+            - {}
+            - {}
+          - attributeKey: '...'
+            attributeType: MULTISELECT
+            label: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+            valueOptions:
+            - {}
+            - {}
+          customIntegration: '...'
+          displayQuestions: true
+          displayReviews: true
+          downloadFileSize: 12345
+          feature:
+          - bullet:
+            - {}
+            - {}
+            description: '...'
+            header: '...'
+            hideOnOverview: true
+            id: 12345
+            imageUrl: '...'
+            position: 12345
+            slogan: '...'
+          - bullet:
+            - {}
+            - {}
+            description: '...'
+            header: '...'
+            hideOnOverview: true
+            id: 12345
+            imageUrl: '...'
+            position: 12345
+            slogan: '...'
+          featuredCustomer:
+          - id: 12345
+            logoUrl: '...'
+            name: '...'
+          - id: 12345
+            logoUrl: '...'
+            name: '...'
+          featuredMedium:
+          - id: 12345
+            link: '...'
+            linkDescription: '...'
+            source: {}
+          - id: 12345
+            link: '...'
+            linkDescription: '...'
+            source: {}
+          free: true
+          freeTrialOrEditionPresent: true
+          hidePricings: true
+          highestFixedDiscount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          highestPercentageDiscount: 12345
+          hostedLocation: '...'
+          href: '...'
+          id: 12345
+          integrationConfiguration:
+            productSettings: {}
+          language:
+          - '...'
+          - '...'
+          lastModified: 12345
+          linkedImportableApplicationUuid: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          listing:
+            blurb: '...'
+            imageSrcset:
+              property1: '...'
+              property2: '...'
+            imageUrl: '...'
+            mobileAppStoreId: '...'
+            mobileBundleId: '...'
+            myAppLogoIconSrcset:
+              property1: '...'
+              property2: '...'
+            myAppLogoIconUrl: '...'
+            overview: '...'
+            profileImageSrcset:
+              property1: '...'
+              property2: '...'
+            profileImageUrl: '...'
+            rating: 12345
+            reviewCount: 12345
+          liveChatAvailable: true
+          liveChatEnabled: true
+          mosiConnectorType: MOSI
+          name: '...'
+          newSubscriptionEnabled: true
+          numRatings: 12345
+          oneClickPurchasable: true
+          overview:
+            benefit:
+            - {}
+            - {}
+            demoUrl: '...'
+            documentationUrl: '...'
+            downloadDocumentationUrl: '...'
+            downloadFileSize: 12345
+            imageSrcset:
+              property1: '...'
+              property2: '...'
+            imageUrl: '...'
+            splashDescription: '...'
+            splashTitle: '...'
+            systemRequirements: '...'
+            versions: {}
+          platform:
+          - attribute:
+            - {}
+            - {}
+            platformDefinition: {}
+            uuid: '...'
+          - attribute:
+            - {}
+            - {}
+            platformDefinition: {}
+            uuid: '...'
+          pricing:
+            bullet:
+            - {}
+            - {}
+            edition:
+            - {}
+            - {}
+            footnote:
+            - '...'
+            - '...'
+            pricingSummary: '...'
+          privacyUrl: '...'
+          productRibbon:
+            ribbonColor: '...'
+            text: '...'
+            textColor: '...'
+          provider:
+            name: '...'
+            url: '...'
+            uuid: '...'
+          publishedApp:
+            href: '...'
+            id: '...'
+          publishedOn: 12345
+          rating: 12345
+          referUrl: '...'
+          referable: true
+          resource:
+          - description: '...'
+            id: 12345
+            link: '...'
+            name: '...'
+            resellerAccess: true
+            resourceType: '...'
+            scribdId: '...'
+            scribdKey: '...'
+          - description: '...'
+            id: 12345
+            link: '...'
+            name: '...'
+            resellerAccess: true
+            resourceType: '...'
+            scribdId: '...'
+            scribdKey: '...'
+          screenshot:
+          - id: 12345
+            imageUrl: '...'
+            imageUrlSrcset:
+              property1: '...'
+              property2: '...'
+            name: '...'
+          - id: 12345
+            imageUrl: '...'
+            imageUrlSrcset:
+              property1: '...'
+              property2: '...'
+            name: '...'
+          showSelfServiceRestriction: true
+          showThirdPartyLegalDisclosure: true
+          startingPrice:
+            amount: {}
+            billingFrequency: '...'
+            discount: {}
+            unit: '...'
+          support:
+            description: '...'
+            email: '...'
+            knowledgebaseUrl: '...'
+            phone: '...'
+          tag:
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          termsUrl: '...'
+          type: '...'
+          usageType: '...'
+          uuid: '...'
+          workingApp:
+            href: '...'
+            id: '...'
+        productType: '...'
+        profileLogoUrl: '...'
+        provider:
+          name: '...'
+          url: '...'
+          uuid: '...'
+        publishedOn: 12345
+        rating: 12345
+        referable: true
+        staffPick: true
+        staffPickSliderPosition: 12345
+        startingPrice:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          billingFrequency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: SCORECARD
+            startDate: 12345
+          unit: '...'
+        tag:
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        url: '...'
+    ProductDiscountDetailsWS:
+      description: Discount detail on a product pricing
+      type: object
+      title: ProductDiscountDetails
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        availableRedemptions:
+          description: Number of time the discount can be used
+          type: number
+        description:
+          description: Description
+          type: string
+          nullable: true
+        expirationDate:
+          description: Expiration date of the discount
+          type: number
+        numOfBillingCycles:
+          description: Number of billing cycle the discount is applicable
+          type: number
+        percentage:
+          description: Discount in percentage
+          type: number
+        pricingUnit:
+          $ref: '#/components/schemas/PricingUnit'
+        startDate:
+          description: Start date of the discount
+          type: number
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        availableRedemptions: 12345
+        description: '...'
+        expirationDate: 12345
+        numOfBillingCycles: 12345
+        percentage: 12345
+        pricingUnit: TIER3_STANDARD_LINE
+        startDate: 12345
+      nullable: true
+    SourceWS:
+      description: Media source that a vendor can cite in their product marketing profile
+      type: object
+      title: Source
+      properties:
+        id:
+          description: ID
+          type: number
+        logoUrl:
+          description: Logo URL
+          type: string
+        name:
+          description: Name
+          type: string
+      example:
+        id: 12345
+        logoUrl: '...'
+        name: '...'
+    ProductListingWS:
+      description: Product information used for the listing on the marketplace
+      type: object
+      title: ProductListing
+      properties:
+        addon:
+          description: Is an add-on product
+          type: boolean
+        billingFrequency:
+          description: Billing frequency
+          type: string
+        blurb:
+          description: Short description
+          type: string
+          nullable: true
+        bundleUrl:
+          description: List of bundle URLs
+          type: array
+          items:
+            type: string
+        buyable:
+          description: Is buyable
+          type: boolean
+        channelStartingPrice:
+          $ref: '#/components/schemas/ChannelStartingPrice'
+        collectLeads:
+          description: Collect lead
+          type: boolean
+        description:
+          description: Description
+          type: string
+          nullable: true
+        developerName:
+          description: Developer name
+          type: string
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetailsWS'
+        downloadFileSize:
+          description: Download file size for downloadable product
+          type: number
+          nullable: true
+        featured:
+          description: Is featured
+          type: boolean
+        featuredSliderPosition:
+          description: Featured slider position
+          type: number
+          nullable: true
+        free:
+          description: Is free
+          type: boolean
+        freeTrialOrEditionPresent:
+          description: Is free trial or edition present
+          type: boolean
+        hasLyncToPhone:
+          description: Has lync to phone add-on
+          type: boolean
+        hidePricings:
+          description: Hide pricings
+          type: boolean
+        href:
+          description: URL to get product detail
+          type: string
+        iconSrcset:
+          description: Icon Srcset
+          type: object
+          additionalProperties:
+            type: string
+        iconUrl:
+          description: Icon URL
+          type: string
+          nullable: true
+        id:
+          description: ID
+          type: number
+        language:
+          description: List of supported languages
+          type: array
+          items:
+            type: string
+        lastModified:
+          description: Last modified date
+          type: number
+        name:
+          description: Name
+          type: string
+        numRatings:
+          description: Number of ratings
+          type: number
+          nullable: true
+        overview:
+          description: Overview
+          type: string
+          nullable: true
+        overviewImageSrcset:
+          description: Overview image Srcset
+          type: object
+          additionalProperties:
+            type: string
+        overviewImageUrl:
+          description: Overview image URL
+          type: string
+          nullable: true
+        popular:
+          description: Is populare
+          type: boolean
+        popularity:
+          description: Poplarity rank
+          type: number
+          nullable: true
+        productRibbon:
+          $ref: '#/components/schemas/ProductRibbonWS'
+        productType:
+          description: Product type
+          type: string
+        profileLogoSrcset:
+          description: Profile logo Srcset
+          type: object
+          additionalProperties:
+            type: string
+        profileLogoUrl:
+          description: Profile logo URL
+          type: string
+          nullable: true
+        publishedOn:
+          description: Publication date
+          type: number
+        rating:
+          description: User-submitted total rating
+          type: number
+          nullable: true
+        referable:
+          description: Is a referable product
+          type: boolean
+        showRating:
+          description: Must show the rating
+          type: boolean
+        sortRank:
+          description: Sort rank
+          type: number
+        staffPick:
+          description: Is staff pick
+          type: boolean
+        staffPickSliderPosition:
+          description: Staff pick slider position
+          type: number
+          nullable: true
+        startingPrice:
+          description: Starting price
+          type: string
+        tag:
+          description: List of tags
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        url:
+          description: URL to product profile
+          type: string
+          nullable: true
+        uuid:
+          description: Unique identifier
+          type: string
+        vendorName:
+          description: Vendor company name
+          type: string
+      example:
+        addon: true
+        billingFrequency: '...'
+        blurb: '...'
+        bundleUrl:
+        - '...'
+        - '...'
+        buyable: true
+        channelStartingPrice:
+          free: true
+          freeTrial: true
+          prices:
+            property1:
+              duration: THREE_YEARS
+              price: 12345
+            property2:
+              duration: THREE_YEARS
+              price: 12345
+        collectLeads: true
+        description: '...'
+        developerName: '...'
+        discountDetails:
+          discountedStartingPrice: '...'
+          highestFixedDiscount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          highestPercentageDiscount: 12345
+          startingPricePercentageDiscount: 12345
+        downloadFileSize: 12345
+        featured: true
+        featuredSliderPosition: 12345
+        free: true
+        freeTrialOrEditionPresent: true
+        hasLyncToPhone: true
+        hidePricings: true
+        href: '...'
+        iconSrcset:
+          property1: '...'
+          property2: '...'
+        iconUrl: '...'
+        id: 12345
+        language:
+        - '...'
+        - '...'
+        lastModified: 12345
+        name: '...'
+        numRatings: 12345
+        overview: '...'
+        overviewImageSrcset:
+          property1: '...'
+          property2: '...'
+        overviewImageUrl: '...'
+        popular: true
+        popularity: 12345
+        productRibbon: {}
+        productType: '...'
+        profileLogoSrcset:
+          property1: '...'
+          property2: '...'
+        profileLogoUrl: '...'
+        publishedOn: 12345
+        rating: 12345
+        referable: true
+        showRating: true
+        sortRank: 12345
+        staffPick: true
+        staffPickSliderPosition: 12345
+        startingPrice: '...'
+        tag:
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        url: '...'
+        uuid: '...'
+        vendorName: '...'
+    BundleListingWS:
+      allOf:
+      - $ref: '#/components/schemas/ProductListingWS'
+      - description: List of bundled products
+        type: object
+        title: BundleListing
+        properties:
+          product:
+            description: Bundle products
+            type: array
+            items:
+              $ref: '#/components/schemas/BundledProductWS'
+        example:
+          addon: true
+          billingFrequency: '...'
+          blurb: '...'
+          bundleUrl:
+          - '...'
+          - '...'
+          buyable: true
+          channelStartingPrice:
+            free: true
+            freeTrial: true
+            prices:
+              property1:
+                duration: MONTHLY
+                price: 12345
+              property2:
+                duration: THREE_YEARS
+                price: 12345
+          collectLeads: true
+          description: '...'
+          developerName: '...'
+          discountDetails:
+            discountedStartingPrice: '...'
+            highestFixedDiscount:
+              AUD: 12345
+              BRL: 12345
+              CAD: 12345
+              CHF: 12345
+              CNY: 12345
+              DKK: 12345
+              EUR: 12345
+              GBP: 12345
+              GTQ: 12345
+              INR: 12345
+              JPY: 12345
+              KRW: 12345
+              MXN: 12345
+              MYR: 12345
+              NOK: 12345
+              NZD: 12345
+              PHP: 12345
+              SAR: 12345
+              SEK: 12345
+              SGD: 12345
+              USD: 12345
+              ZAR: 12345
+            highestPercentageDiscount: 12345
+            startingPricePercentageDiscount: 12345
+          downloadFileSize: 12345
+          featured: true
+          featuredSliderPosition: 12345
+          free: true
+          freeTrialOrEditionPresent: true
+          hasLyncToPhone: true
+          hidePricings: true
+          href: '...'
+          iconSrcset:
+            property1: '...'
+            property2: '...'
+          iconUrl: '...'
+          id: 12345
+          language:
+          - '...'
+          - '...'
+          lastModified: 12345
+          name: '...'
+          numRatings: 12345
+          overview: '...'
+          overviewImageSrcset:
+            property1: '...'
+            property2: '...'
+          overviewImageUrl: '...'
+          popular: true
+          popularity: 12345
+          product:
+          - blurb: '...'
+            editionName: '...'
+            featured: true
+            iconUrl: '...'
+            id: 12345
+            name: '...'
+            overview: '...'
+            rating: 12345
+          - blurb: '...'
+            editionName: '...'
+            featured: true
+            iconUrl: '...'
+            id: 12345
+            name: '...'
+            overview: '...'
+            rating: 12345
+          productRibbon:
+            ribbonColor: '...'
+            text: '...'
+            textColor: '...'
+          productType: '...'
+          profileLogoSrcset:
+            property1: '...'
+            property2: '...'
+          profileLogoUrl: '...'
+          publishedOn: 12345
+          rating: 12345
+          referable: true
+          showRating: true
+          sortRank: 12345
+          staffPick: true
+          staffPickSliderPosition: 12345
+          startingPrice: '...'
+          tag:
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          - badge: '...'
+            description: '...'
+            id: 12345
+            name: '...'
+            showBadge: true
+            showOnNavigation: true
+            tag:
+            - {}
+            - {}
+            type: '...'
+          url: '...'
+          uuid: '...'
+          vendorName: '...'
+    EditionBulletWS:
+      description: Bullet point to display for an edition
+      type: object
+      title: EditionBullet
+      properties:
+        content:
+          description: Content
+          type: string
+        tooltip:
+          description: Tooltip
+          type: string
+      example:
+        content: '...'
+        tooltip: '...'
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    PricingUnit:
+      type: string
+      title: PricingUnit
+      enum:
+      - USER
+      - GIGABYTE
+      - GMV
+      - MEGABYTE
+      - PROSPECT_SCORE
+      - HOUR
+      - MINUTE
+      - INVOICE
+      - UNIT
+      - PROJECT
+      - PROPERTY
+      - ITEM
+      - WORD
+      - EMAIL
+      - CONTACT
+      - CALL
+      - CREDIT
+      - ROOM
+      - HOST
+      - AGENT
+      - OPERATOR
+      - PROVIDER
+      - MANAGER
+      - TESTER
+      - JVM
+      - SERVER
+      - WEB_USE_MINUTE
+      - AUDIO_USE_MINUTE
+      - PIECE
+      - EMPLOYEE_PAY_PERIOD
+      - EMPLOYEE_PER_PAY_PERIOD
+      - COMPUTER
+      - NOT_APPLICABLE
+      - ONE_TIME_SETUP
+      - DATA_POINTS
+      - TIER1_API_CALLS
+      - TIER2_API_CALLS
+      - ADVISORY_HOURS
+      - OVERAGE_AUDIO_MINUTE
+      - EMPLOYEE
+      - CONNECTION
+      - PUSH_USER
+      - THOUSAND_EMAILS_PER_DAY
+      - PUSH_NOTIFICATION_DEVICES
+      - API_CALLS
+      - SMS_TEXT_MESSAGE
+      - CONTACTS_1000
+      - CONTRACT_FEE
+      - TRANSFER_FEE
+      - REACTIVATION_FEE
+      - RECIPIENT
+      - ADDITIONAL_1000_CONTACTS_BLOCK
+      - SCHEDULE_PLAN
+      - EMAILS_1000
+      - EMAILS_2500
+      - EMAILS_100000
+      - MOBILE_DEVICE
+      - PAYSLIP
+      - PAYSLIP_CORRECTION
+      - STORE
+      - WEBSITE
+      - EPAPER
+      - PAGE
+      - POSTAGE_AND_PRINT
+      - INTERNATIONAL_POSTAGE_AND_PRINT
+      - TIER1_TOP_LEVEL_DOMAIN
+      - TIER2_TOP_LEVEL_DOMAIN
+      - DEDICATED_IP
+      - ENABLELCM
+      - MAXCOMPONENTS
+      - DATA_MANAGEMENT_USER
+      - SPECIALIST_USER
+      - PROFESSIONAL_USER
+      - MATERIALITY_MATRIX
+      - STAKEHOLDER_MANAGEMENT
+      - SCORECARD
+      - STANDARD_MAPPING
+      - DONATION_MANAGEMENT
+      - DOCUMENT
+      - PACKAGE_SMALL
+      - PACKAGE_LARGE
+      - MEMBER
+      - ATTENDEE
+      - MAILING
+      - RESPONSE
+      - EXTERNAL_INVOICE_FEE
+      - CLIENT_TEST
+      - IMAGE_TRANSFORMATION
+      - TOTAL_IMAGE
+      - LICENSE
+      - MAILBOX
+      - FREE_40_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC_MOUNTING
+      - EMPLOYEE_PER_WEEK
+      - REGISTER
+      - END_USER
+      - CORE
+      - DEVICE
+      - PORT
+      - MEASURER
+      - PUBLISHED_MEASUREMENT
+      - NODE
+      - SERVER_RULE
+      - VPN_LP
+      - PROXY_LP
+      - DESKTOP_CONNECT_LP
+      - CAMERA
+      - MAIN_SOUND_ZONE
+      - SUB_SOUND_ZONE
+      - POST
+      - REPORT
+      - BOX
+      - SESSION
+      - DISPLAY
+      - TRUCKROLL
+      - TRANSACTION_FEE
+      - SENDING_API_CALL
+      - LOOKUP_API_CALL
+      - ANALYTICS_API_CALL
+      - MIGRATION_INSTANCE
+      - NFON_SETUP_PER_PHONE_EXTENSION
+      - NFON_SETUP_PER_PHONE_EXTENSION_PLUS
+      - NFON_SETUP_PER_EFAX_EXTENSION
+      - NFON_PHONE_EXTENSION
+      - NFON_PHONE_EXTENSION_PLUS
+      - NFON_EFAX_EXTENSION
+      - NFON_CALL_CENTER_MONITORING
+      - NFON_NMEETING
+      - NFON_MOBILE_NFON_DEVICE
+      - NFON_ISOFTPHONE_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS
+      - NFON_NSOFTPHONE_PREMIUM_WINDOWS
+      - NFON_NCTI_STANDARD_WINDOWS
+      - NFON_NCTI_STANDARD_CRM_WINDOWS
+      - NFON_NCTI_STANDARD_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS_OR_MOBILE
+      - WESUSTAIN_PERFORMANCE
+      - WESUSTAIN_STAKEHOLDER_REPUTATION
+      - WESUSTAIN_WEAPP
+      - FAX
+      - FAX_LINE
+      - ROOM_LINE
+      - DEPARTMENT_LINE
+      - INTERNATIONAL_LICENSE
+      - INTERNATIONAL_DEPARTMENT_LINE
+      - INTERNATIONAL_ROOM_LINE
+      - INTERNATIONAL_LINE
+      - CALLING_CREDIT
+      - LINE
+      - TOLLFREE_ROOM_LINE
+      - TOLLFREE_DEPARTMENT_LINE
+      - TAXES_AND_FEES
+      - LEAD
+      - OPPORTUNITY
+      - CAMPAIGN
+      - CASE
+      - CUSTOMER
+      - TIER1_STANDARD_LINE
+      - TIER1_ROOM_LINE
+      - TIER1_TOLLFREE_ROOM_LINE
+      - TIER1_TOLLFREE_DEPARTMENT_LINE
+      - TIER1_FAX_LINE
+      - TIER1_DEPARTMENT_LINE
+      - TIER2_STANDARD_LINE
+      - TIER2_ROOM_LINE
+      - TIER2_DEPARTMENT_LINE
+      - TIER3_STANDARD_LINE
+      - TIER3_ROOM_LINE
+      - TIER3_DEPARTMENT_LINE
+      - TIER4_STANDARD_LINE
+      - TIER4_ROOM_LINE
+      - TIER4_DEPARTMENT_LINE
+      - CLUSTER
+      - NODE_4VCPU
+      - FIVE_HUNDRED_GB_SSD
+      - TWELVE_TB_NETWORK_IO
+      - JBOSS_EAP
+      - JBOSS_FUSE
+      - JBOSS_A_MQ
+      - JBOSS_BRMS
+      - JBOSS_BPM_SUITE
+      - JBOSS_DATA_GRID
+      - JBOSS_DATA_VIRT
+      - USER_LICENSE
+      - ADDITIONAL_NUMBER_LICENSE
+      - ROOM_PHONE_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE_UNBUNDLED
+      - INSTANCE
+      - INDOOR_CAMERA
+      - OUTDOOR_CAMERA
+      - VINGATE_LP_LICENCE
+      - ADMINISTRATOR
+      - MOBILE_USER
+      - G_SUITE
+      - T1
+      - PHONE
+      - AUTO_ATTENDANT
+      - HUNT_GROUP
+      - VOICEMAIL_BOX
+      - TOLL_FREE_NUMBER
+      - INBOUND_LONG_DISTANCE_MINUTE
+      - OUTBOUND_LONG_DISTANCE_MINUTE
+      - INBOUND_OUTBOUND_LONG_DISTANCE_MINUTE
+      - SET_TOP_BOX
+      - MODEM
+      - ACCESS_POINT
+      - CALLING_FEATURE
+      - IAD_DEVICE
+      - ANALOG_LINE
+      - PRI
+      - SBC_DEVICE
+      - ROUTER
+      - INTERNATIONAL_MINUTE
+      - PHONE_LINE
+      - DYNAMIC_IP_ADDRESS
+      - STATIC_IP_ADDRESS
+      - GATEWAY
+      - REMOTE_CONTROL
+      - TIER1_STANDARD_SEAT
+      - TIER2_STANDARD_SEAT
+      - TIER3_STANDARD_SEAT
+      - TIER4_STANDARD_SEAT
+      - TIER1_TOLL_FREE_SEAT
+      - MILLION_MESSAGES
+      - MESSAGE
+      - WEEKLY
+      - PHONE_NUMBER
+      - GUEST
+      - REVISION_SAFE_DATAROOM
+      - GROUP_SESSION
+      - MAILBOX_AD_SYNC
+      - PHONE_SUPPORT
+      - EXTRA_10TB
+      - EXTRA_50TB
+      - EXTRA_200TB
+      - MAP_VIEW
+      - SVM
+      - CHANNEL
+      - NUMBER_PRINTER_TABLET
+      - NUMBER_ONSITE_SERVER
+      - NUMBER_VISITS
+      - ONSITE_TECHNICIAN_PC
+      - ONSITE_TECHNICIAN_SERVER
+      - SHORTER_REACTION_TIMES
+      - E_COMMERCE_INTEGRATION
+      - LOCATION
+      - TRAINING_SESSION
+      - GIGABYTES_PER_HOUR
+      - FINANCIAL_PLANNING
+      - ONSITE_WORKPLACE
+      - INTERNAL_TOOLS_ACCESS
+      - DUTY_SERVICE
+      - TERABYTE
+      - HOST_UNIT_HOURS
+      - WEB_CHECKS
+      - ACTIVE_USERS
+      - ACTIVE_EMPLOYEE
+      - PC_OF_NET_RECURRING_FEE
+      - ACTIVE_VENDOR
+      - ADVERTISEMENT
+      - ADVERTISER_SPENDS
+      - ANNUAL_FUNDRAISING_INCOME
+      - ANNUAL_SUBSCRIPTION
+      - APPLIANCE
+      - ASSET
+      - ASSETS_UNDER_MANAGEMENT
+      - BUSINESS_PARTNERS
+      - CASH_FLOWS
+      - COMPONENT
+      - CONNECTED_SYSTEMS
+      - CONTRACTS
+      - COSTS
+      - DATA_STREAMS
+      - DATABASE_SIZE
+      - EXTERNAL_SERVICE_CALLS
+      - FILE
+      - FIXED
+      - FLAT
+      - FLAT_FEE_BASED_ON_ASSETS
+      - FLEET_PLANNING_ORDERS
+      - FORMS
+      - GIGABYTE_DATABASE_SIZES
+      - INSTALLATION
+      - INSTALLED_CAPACITY
+      - JOB_POSTING
+      - LEARNER
+      - LOGON
+      - MANAGED_SYSTEM
+      - MASTER_DATA_OBJECT
+      - MASTER_RECORDS
+      - MBPS
+      - MONITORED_USER
+      - MPLS
+      - ORDER
+      - OUTPATIENT_DAYS
+      - PAGE_VIEW
+      - PATIENT_CARE_DAY
+      - PATIENT_TREATED
+      - PLANT
+      - POINTS_OF_DELIVERY
+      - PREMIUM
+      - PROCESS
+      - PRODUCTS
+      - RECORDS
+      - RENTAL_UNIT
+      - RESOURCES
+      - REVENUE
+      - SALES_ORDER
+      - SALES_PORTFOLIOS
+      - SERVICE_ORDERS
+      - SITE_VISITS
+      - SPENDS
+      - SPEND_VOLUMES
+      - STREAM
+      - STUDENT
+      - SUBSCRIBER
+      - SUPPLIERS
+      - TICKETS
+      - TOTAL_ANNUAL_BUDGET
+      - TUNNEL
+      - VIRTUAL_USERS
+      - SAP_SYSTEM
+      - POSITION_TYPES
+      - OVERAGE_FEES
+      - OVERAGE_FEE_TRANSACTION
+      - OVERAGE_FEES_DOCUMENT
+      - OVERAGE_FEES_ITEM
+      - EVENT
+      - BUSINESS_EVENT
+      - LEGAL_TENDER
+      - ANNUAL_REVENUE
+      - AD_SYNC
+      - FULL_DATA_RESTORE
+      - USED_STORAGE_100GB
+      - COMPANY
+      - ADDITIONAL_USER
+      - VISIT
+      - VIDEO
+      - ELECTRONIC_PAYMENT
+      - CHECK_PAYMENT
+      - EXPRESS_PAY_ELECTRONIC_PAYMENT
+      - EXPRESS_PAY_CHECK_PAYMENT
+      - DATA_ENTRY_SERVICE
+      - MONTHLY_VISIT
+      - SCRUB_TRANSACTION
+      - DEVICE_LICENSE
+      - SERVER_LICENSE
+      - BASE_LICENSE
+      - SERVICE_CALL
+      - SUPPORT_INCIDENT_TICKET
+      - CUSTOM_REPORT_BUILDING_TRAINING
+      - QUOTA
+      - DOMESTIC_TRANSACTION
+      - BEE
+      - BEE_FLEET
+      - BEE_BEACON_AMBIENT_LIGHT
+      - BEE_BEACON_TEMPERATURE_HUMIDITY
+      - CONTACTS_100
+      - TEMPLATE
+      - TEMPLATE_PACKS_10
+      - PACK
+      - SMS_TEXT_MESSAGE_10
+      - VIRTUAL_SERVER
+      - PHYSICAL_SERVER
+      - WORKSTATION
+      - CHATS
+      - MATCH_LIST
+      - CERTIFICATE_12_MONTHS
+      - CERTIFICATE_24_MONTHS
+      - PRIVACY
+      - PAGE_VIEWS_100000
+      - VOICE_OUT
+      - EXAM
+      - PARTICIPANT
+      - ENCRYPTION_ADDON
+      - ESS
+      - ETI
+      - ATP_ADDON
+      - PBE_ADDO
+      - NETI_ADDON
+      - HUNDRED_SMS_REMINDER
+      - CALENDAR_SYNC
+      - PAYMENT_INTERFACE
+      - MULTILINGUAL_ONLINE_EVENT_BOOKING
+      - SOCKET
+      - OFFER
+      - FREELANCER
+      - SOAP
+      - DATEV_LEXWARE_INTERFACE
+      - TOKEN
+      - SERVICE_MONTH
+      - VIDEO_PACKAGE_50_HOURS
+      - INTERFACE
+      - TEST_CASE
+      - MINUTES_15
+      - MINUTES_30
+      - CONNECTED_ACCESS_POINT
+      - DAY
+      - SATURDAY_SURCHARGE
+      - NIGHT_SURCHARGE
+      - SUNDAY_SURCHARGE
+      - PUBLIC_HOLIDAY_SURCHARGE
+      - BASIC_PACKAGE
+      - STANDARD_PACKAGE
+      - PREMIUM_PACKAGE
+      - REPORTS_MODULE
+      - WORKFLOW_MODULE
+      - NBV_250K
+      - NBV
+      - INVENTORY
+      - ADDITIONAL_COMPANY
+      - TRANSACTION
+      - PREMIUM_CREDIT_REPORTS
+      - ADDITIONAL_CONNECTION
+      - STOCK_UNIT
+      - MONTHLY_USAGE_FEE
+      - USAGE_FEE
+      - MONTHLY_CHARGES
+      - STANDARD_USER
+      - ADDITIONAL_UNIT
+      - COMMISSION
+      - KITTING
+      - WOP
+      - SFDC
+      - NAMED_USER_LICENSE
+      - BARCODING_AND_WAREHOUSING
+      - MODULE
+      - MANUFACTURING_MODULE
+      - MRP
+      - CONSOLE_MODULE
+      - CONSOLIDATIONS
+      - MULTI_CURRENCY
+      - ADDON_LICENSE
+      - INBOUND_PAGE
+      - OUTBOUND_PAGE
+      - OPPORTUNITY_RETENTION
+      - SOCIAL_SENTIMENT
+      - DEMAND_PRICE
+      - SETUP_FEE
+      - SHAREPOINT
+      - INTEGRATION_MAINTENANCE
+      - VIEWER
+      - MANAGEMENT_USER
+      - SQ_FT
+      - LOCATION_UPTO_10_EMPLOYEES
+      - LOCATION_UPTO_20_EMPLOYEES
+      - LOCATION_UPTO_30_EMPLOYEES
+      - LOCATION_UPTO_60_EMPLOYEES
+      - LOCATION_UPTO_99_EMPLOYEES
+      - M365_ONLINE
+      - WEB_HOSTING_SERVER
+      - STANDARD_EDITION_GIGABYTE
+      - STORAGE_GIGABYTE
+      - EGRESS_GIGABYTE
+      - FEE_HW_DEFECT_NO_WARRANTY_CASE
+      - SIM_CARD
+      - SIM_CARDS_10
+      - APPLICATION_CONNECTOR
+      - ADDITIONAL_API_CALLS
+      - USED_STORAGE_PER_GB
+      - CERTIFICATION
+      - MACHINE
+      - CALCULATION_USER
+      - MAILBOX_S
+      - MAILBOX_M
+      - MAILBOX_L
+      - STORAGE
+      - GROUP
+      - VEHICLE
+      - ENDPOINT
+      - MANAGED_SERVICE
+      - SOC
+      - ONLINE_PLAN
+      - ENTERPRISE_PLAN
+      - FLOATING_LICENSE
+      - USER_PER_LICENSE
+      - CONCURRENT_USER_PER_LICENSE
+      - DASHBOARD
+      - IT_INTERFACE
+      - CONNECTABLE_IOT_DEVICE_VIA_USB
+      - CONNECTABLE_IOT_DEVICE_VIA_TULIP_GATEWAY
+      - CONNECTABLE_MACHINE_PER_LICENSE
+      - OBJECT_TO_BE_CHECKED
+      - MACHINE_WITH_BI_SUPPORT
+      - CONNECTED_DEVICE
+      - LISTING
+      - TLS_ENCRYPTION
+      - DOMAIN_LEVEL_SEND
+      - EFAX_ROUTER
+      - PRORATED_CREDIT
+      - NEW_HIRE
+      - NAS
+      - SALESFORCE_USER
+      - INTERVIEW
+      - ASSESSMENT
+      - NU_WEBEX_CALLING_ENHANCED
+      - NU_WEBEX_CALLING_PROFESSIONAL
+      - WEBEX_ASSISTANT_FOR_WEBEX_MEETINGS_NU
+      - NU_MEETINGS_BRIDGE_COUNTRY_CALL_BACK_AUDIO
+      - FLEX_TEAMS_MESSAGING
+      - ADDON_ANALYSES
+      - ADDITIONAL_LISTING
+      - MIGRATION_TENANT
+      - MIGRATION_GROUP
+      - MIGRATION_DOCUMENT
+      - MIGRATION_GSUITE
+      - MIGRATION_FOLDER
+      - ENHANCED_USER
+      - SINGLE_NAME_CERTIFICATE
+      - SETUP
+      - HA_DEVICE_DAY
+      - WILDCARD_CERTIFICATE
+      - SECURITY_PACKAGE
+      - ADDITIONAL_LANGUAGE
+      - VANITY_URL
+      - BRANDING
+      - DATA_SOURCE
+      - CREATOR_USER
+      - ESIGN_USER
+      - READ_ONLY_USER
+      - MEASURING_POINT
+      - ANDON_TV
+      - TABLET
+      - USER_10000
+      - USER_100
+      - PUBLIC_IP
+      - WORKLOAD
+      - PUBLIC_IP_ADDRESS
+      - COMPUTE_POINT
+      - RESOURCE_UNIT
+      - VALUE_POINT
+      - ACCOUNT
+      - REQUEST
+      - TRANSCRIPT
+      - NOTIFICATION
+      - CLAIM
+      - MID
+      - ENGAGEMENT
+      - TEAM_LICENSE_DIGITAL_TEAMBOARD
+      - TEAM_LICENSE_MODULE_CONNECTIVITY
+      - TEAM_LICENSE_MODULE_PROBLEM_SOLUTION
+      - TEAM_LICENSE_MODULE_AUDITS
+      - TEAM_LICENSE_MODULE_PROCESS_CONFIRMATION
+      - TEAM_LICENSE_MODULE_QUALIFICATION_MATRIX
+      - TEAM_LICENSE_MODULE_STANDARD_WORK_INSTRUCTION
+      - TEAM_LICENSE_MODULE_PARETO_ANALYSIS
+      - KPI
+      - YEAR_KPI_ARCHIVAL
+      - CORPORATE_CLOUD_HOSTING
+      - ON_PREMISES_HOSTING
+      - SUPPORT_SERVICE_HOUR
+      - CLASS
+      - EXPERT
+      - SPINDLE_HOUR
+      - ADDON_ADMINISTRATION
+      - ADDON_CONFIGURATION
+      - ADDON_PLANNING
+      - ADDON_PLANNING_OBJECTS
+      - ADDON_MASTER_DATA
+      - ADDON_CAPACITY_PLANS_CALENDAR
+      - ADDON_CONFLICT_RADAR
+      - ADDON_GAP_LIST
+      - ADDON_DASHBOARD
+      - ADDON_PLANNING_READ_ONLY
+      - ADDON_UTILIZATION_POOLS
+      - ADDON_FIXED_SCHEDULES
+      - ADDON_ASSEMBLY_GROUPS
+      - ADDON_ORDER_ON_HOLD
+      - ADDON_PARALLEL_RESSOURCES
+      - ADDON_MULTI_FUNCTIONAL_RESSOURCES
+      - ADDON_PLANEUS_TV_PER_TERMINAL
+      - ADDON_MASTER_DATA_WORK_PROCEDURES
+      - ADDON_MANUAL_IMPORT
+      - ADDON_AUTOMATIC_IMPORT
+      - ADDON_REPORTING_BASIC
+      - ADDON_REPORTING_ADVANCED
+      - ADDON_REPORT_RESOURCES_AVAILABILITY_PER_DAY
+      - ADDON_REPORT_OEE
+      - ADDON_REPORT_ON_TIME_DELIVERY_HISTORY
+      - ADDON_REPORT_PROCESS_PERFORMANCE_HISTORY
+      - ADDON_REPORT_UTILIZATION_PER_RESOURCE
+      - ADDON_REPORT_REPORTING_PLUG_IN
+      - ADDON_EXTERNAL_PARTNERS_BASIC_LICENSE
+      - ADDON_WORKBENCH_PACK_OF_5
+      - ADDON_WORKBENCH_PACK_OF_10
+      - ADDON_WORKBENCH_PACK_OF_15
+      - CLIENT
+      - VIRTUAL_MACHINE
+      - MODEL_TRANSFORMATION
+      - CASE_REFRESH
+      - CASE_VIEW
+      - CASE_DOCUMENT_DOWNLOAD
+      - VERIFICATION
+      - ADDON_CORPORATE_BRANDING
+      - CLIENT_TAX_FILINGS
+      - CLIENT_COMPLIANCE_SERVICES
+      - PROPOSAL
+      - UK_ID_CHECK
+      - INTERNATIONAL_ID_CHECK
+      - CREDIT_SCREEN
+      - UK_COMPANY_REPORT
+      - NON_UK_COMPANY_REPORT
+      - HR_SCREEN
+      - COMPANY_FORMATION
+      - CLIENT_ACCOUNTS
+      - SMARTKIT
+      - WORKFLOW
+      - EDITOR
+      - WORKER
+      - ADDON_POTENTIAL_ANALYSIS
+      - TRAINING_PACKAGE_SMALL
+      - TRAINING_PACKAGE_LARGE
+      - TOOL_PATH_OPTIMIZATION
+      - CLIENT_VAT_FILINGS
+      - BUNDLE
+      - PACKAGE
+      - VM
+      - INCIDENT
+      - SEND
+      - INTEGRATION
+      - BILLABLE_HOUR
+      - TB
+      - SOURCE
+      - TRAINING
+      - SITE
+      - CONSULTING_UNIT
+      - CAPACITY
+      - MIGRATION
+      - WORKSHOP
+      - ONBOARDING
+      - BENEFIT_ELIGIBLE_EMPLOYEE
+      - SEAT
+      - MS365_SEAT
+      - MS_EXCHANGE_MAILBOX
+      - GWORKSPACE_SEAT
+      - INTERNET_LINE
+      - BACKUP_LINE
+      - USER_PACK_50
+      - USER_PACK_100
+      - CIRCUIT
+      - NAC
+      - INFRASTRUCTURE
+      - TEN_THOUSAND_TEST_RUNS
+      - ONE_THOUSAND_TEST_RUNS
+      - INGESTED_OR_SCANNED_GB
+      - MILLION_LOG_EVENTS
+      - GB_OUTBOUND_PER_DESTINATION
+      - DESTINATION
+      - COMMITTER
+      - INGESTED_GB
+      - CPU
+      - ONE_THOUSAND_SESSIONS
+      - MILLION_RECORDS
+      - GB_OF_ANALYZED_LOGS
+      - ACTIVE_FUNCTION
+      - MILLION_TRACED_INVOCATIONS
+      - ACTIVE_APPLICATION_INSTANCES
+      - HUNDRED_TEST_RUNS
+      - ADDITIONAL_PARALLELIZATION
+      - TASK
+      - ONE_HUNDRED_WORKFLOW_EXECUTIONS
+      - SCANNED_GB
+      - USE_CASE
+      - ONE_THOUSAND_ERROR_EVENTS
+      - PERFORMANCE_GOAL
+      - SCHOOL
+      - MICROSOFT_365_TENANT
+      - MARKETPLACE
+      - LIEN_PROCESSED
+      - DISBURSEMENT
+      - A_LA_CARTE
+      - SECURE
+      - SECURE_PLUS
+      - SECURE_EXTRA
+      - PHASR
+      - ENCRYPTION
+      - EMAIL_SECURITY
+      - MOBILE_SECURITY
+      - EXCHANGE
+      - ATS
+      - EDR
+      - EDR_RETENTION_90D
+      - EDR_RETENTION_180D
+      - EDR_RETENTION_1Y
+      - INTEGRITY_MON
+      - INTEGRITY_MON_RETENTION_90D
+      - INTEGRITY_MON_RETENTION_180D
+      - INTEGRITY_MON_RETENTION_1Y
+      - MDR_FOUNDATIONS
+      - PATCH_MANAGEMENT
+      - VIRTUAL_ENV_VS
+      - VIRTUAL_ENV_VDI
+      - CONTAINER_PROTECTION
+      - XDR_IDENTITY_SENSOR
+      - XDR_PRODUCTIVITY_SENSOR
+      - XDR_NETWORK_SENSOR
+      - XDR_CLOUD_SENSOR
+      - COMPLIANCE_MANAGER
+      - EASM
+      - SUPERVISOR
+      - GB_OF_PROVISIONED_VM_RAM_PER_HOUR
+      - GB_OF_USED_VM_STORAGE_PER_HOUR
+      - GB_OF_USED_S3_STORAGE_PER_HOUR
+      - VIRTUAL_ENVIRONMENT_VE_PER_MONTH
+      - STORAGE_100_GB_PER_MONTH
+      - GB_RAM_UNDER_MANAGEMENT_PER_MONTH
+      - GB_OF_VM_RAM_PER_HOUR
+      - BUSINESS_CLIENT
+      - SELF_EMPLOYED_CLIENT
+      - LANDLORD_CLIENT
+      - DATA_HEALTH_AND_INSIGHT_ADDON
+      - SWITCH_DAY
+      - ACCESS_POINT_DAY
+      - DATABASE
+      - FUNCTION
+      - APP_SERVICE
+      - FIREWALL
+      - EDR_SA_MDR_FOUNDATIONS
+      - EDR_SA
+      - FED_USF_CHARGE
+      - SERVICE_FEE
+      - SERVICE_FEE_AP
+      - SERVICE_FEE_SWITCH
+      - SERVICE_FEE_ROUTER
+      - USER_LICENCE_DAY
+      - DEVICE_DAY
+      - VM_DAY
+      - ROUTER_DAY
+      - FSE
+      - ON_SITE_SERVICE
+      - BASIC
+      - BASIC_PLUS
+      - STANDARD
+      - STANDARD_PLUS
+      - ADVANCED
+      - ADVANCED_PLUS
+      - PREMIUM_PLUS
+      - XXS
+      - XS
+      - SMALL
+      - MEDIUM
+      - LARGE
+      - XL
+      - XXL
+      - XXXL
+      - CUSTOM
+      - ENHANCED
+      - INCIDENT_RESPONSE_SERVICE
+      - JIRA_CONNECTOR
+      - SHAREPOINT_CONNECTOR
+      - CONFLUENCE_CONNECTOR
+      - PRIVATE_ACCESS
+      - INTERNET_ACCESS
+      - OBJECTIVE_FEEDBACK_QUESTION
+      - STAFFBASE_CONNECTOR
+      - CONSULTING_UNIT_AP
+      - CONSULTING_UNIT_ROUTER
+      - CONSULTING_UNIT_SWITCH
+      - OBJECT
+      - VALIDATION
+      - ADVANCED_ELECTRONIC_SIGNATURE
+      - QUALIFIED_ELECTRONIC_SIGNATURE
+      - PERSONAL_IDENTIFICATION
+      - API_BASED_SIGNATURE
+      - ON_CALL_DUTY
+      - VSBU
+      - PAID_USER
+      - REMOTE_SEAL_SIGNATURE
+    IntegrationAdditionalSettingsWS:
+      description: 'Integration product settings information.
+
+        Defines whether and what additional order information is gathered during checkout.'
+      type: object
+      title: IntegrationProductSettings
+      properties:
+        enabledForSubscriptionChange:
+          description: Whether subscription change (not just subscription order) requires prompting again for product settings
+          type: boolean
+        form:
+          description: Integration additional settings forms
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationAdditionalSettingsFormWS'
+        preSubmitValidationRequired:
+          description: Whether the user must explicitly click a button to perform settings validation prior to submitting the settings and continuing the order
+          type: boolean
+        validationUrl:
+          description: 'Product settings validation URL.
+
+            This endpoint will receive requests to validate the user-entered values.'
+          type: string
+      example:
+        enabledForSubscriptionChange: true
+        form:
+        - description: '...'
+          formField:
+          - integrationAdditionalSettingsFormFieldOptions:
+            - {}
+            - {}
+            key: '...'
+            label: '...'
+            repeatedForEachUnit: true
+            suffix: '...'
+            type: '...'
+          - integrationAdditionalSettingsFormFieldOptions:
+            - {}
+            - {}
+            key: '...'
+            label: '...'
+            repeatedForEachUnit: true
+            suffix: '...'
+            type: '...'
+          hiddenByDefault: true
+          showFormControlLabel: '...'
+          specificToTopLevelDomain: '...'
+          title: '...'
+        - description: '...'
+          formField:
+          - integrationAdditionalSettingsFormFieldOptions:
+            - {}
+            - {}
+            key: '...'
+            label: '...'
+            repeatedForEachUnit: true
+            suffix: '...'
+            type: '...'
+          - integrationAdditionalSettingsFormFieldOptions:
+            - {}
+            - {}
+            key: '...'
+            label: '...'
+            repeatedForEachUnit: true
+            suffix: '...'
+            type: '...'
+          hiddenByDefault: true
+          showFormControlLabel: '...'
+          specificToTopLevelDomain: '...'
+          title: '...'
+        preSubmitValidationRequired: true
+        validationUrl: '...'
+      nullable: true
+    ChannelStartingPrice:
+      type: object
+      title: ChannelStartingPrice
+      properties:
+        free:
+          type: boolean
+        freeTrial:
+          type: boolean
+        prices:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChannelPrice'
+      example:
+        free: true
+        freeTrial: true
+        prices:
+          property1:
+            duration: TWO_YEARS
+            price: 12345
+          property2:
+            duration: YEARLY
+            price: 12345
+    PricingWS:
+      description: Details for plan inclusions and foot notes
+      type: object
+      title: Pricing
+      properties:
+        bullet:
+          description: List of plan inclusion for all editions
+          type: array
+          items:
+            $ref: '#/components/schemas/BulletWS'
+        footnote:
+          description: List of footnotes
+          type: array
+          items:
+            type: string
+        pricingSummary:
+          description: Pricing summary
+          type: string
+          nullable: true
+      example:
+        bullet:
+        - content: '...'
+          tooltip: '...'
+        - content: '...'
+          tooltip: '...'
+        footnote:
+        - '...'
+        - '...'
+        pricingSummary: '...'
+    BulletWS:
+      description: Describe the defining features and benefits of an product edition or add-on
+      type: object
+      title: Bullet
+      properties:
+        content:
+          description: Bullet point content
+          type: string
+        tooltip:
+          description: Information to show on bullet point tooltip
+          type: string
+      example:
+        content: '...'
+        tooltip: '...'
+    BundleSettingsWS:
+      type: object
+      title: BundleSettings
+      properties:
+        allowPartialCancel:
+          type: boolean
+        allowPartialPurchase:
+          type: boolean
+        bundleApplicationId:
+          type: number
+        removeDiscountsOnPartialCancel:
+          type: boolean
+        removeMarkupsOnPartialCancel:
+          type: boolean
+      example:
+        allowPartialCancel: true
+        allowPartialPurchase: true
+        bundleApplicationId: 12345
+        removeDiscountsOnPartialCancel: true
+        removeMarkupsOnPartialCancel: true
+    PlanCostWS:
+      description: Plan cost
+      type: object
+      title: PlanCost
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        blockContractDecrease:
+          description: Block contract decrease
+          type: boolean
+        blockContractIncrease:
+          description: Block contract increase
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Block original contract decrease
+          type: boolean
+        editionPricingItemId:
+          type: number
+        id:
+          description: ID
+          type: number
+        increment:
+          description: Increment amount
+          type: number
+        maxUnits:
+          description: Max unit to buy
+          type: number
+        meteredUsage:
+          description: Is metered usage
+          type: boolean
+        minUnits:
+          description: Minimum unit to buy
+          type: number
+        pricePerIncrement:
+          description: Price per increment
+          type: boolean
+        pricingStrategy:
+          description: Pricing strategy
+          type: string
+        unit:
+          description: Unit
+          type: string
+          nullable: true
+        unitDependency:
+          description: Unit dependency
+          type: string
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        blockContractDecrease: true
+        blockContractIncrease: true
+        blockOriginalContractDecrease: true
+        editionPricingItemId: 12345
+        id: 12345
+        increment: 12345
+        maxUnits: 12345
+        meteredUsage: true
+        minUnits: 12345
+        pricePerIncrement: true
+        pricingStrategy: '...'
+        unit: '...'
+        unitDependency: '...'
+    ProductRibbonWS:
+      type: object
+      title: ProductRibbonWS
+      properties:
+        ribbonColor:
+          type: string
+        text:
+          type: string
+        textColor:
+          type: string
+      example:
+        ribbonColor: '...'
+        text: '...'
+        textColor: '...'
+    ApplicationPlatformWS:
+      type: object
+      title: ApplicationPlatform
+      properties:
+        attribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeWS'
+        platformDefinition:
+          $ref: '#/components/schemas/PlatformWS'
+        uuid:
+          type: string
+      example:
+        attribute:
+        - applicationPlatformUuid: '...'
+          createdOn: 12345
+          lastModified: 12345
+          platformAttributeDefinitionUuid: '...'
+          platformAttributeOptionUuid: '...'
+          uuid: '...'
+          value: '...'
+        - applicationPlatformUuid: '...'
+          createdOn: 12345
+          lastModified: 12345
+          platformAttributeDefinitionUuid: '...'
+          platformAttributeOptionUuid: '...'
+          uuid: '...'
+          value: '...'
+        platformDefinition:
+          attributeDefinition:
+          - createdOn: 12345
+            hint: '...'
+            isRequired: true
+            key: '...'
+            label: '...'
+            lastModified: 12345
+            option:
+            - {}
+            - {}
+            order: 12345
+            type: '...'
+            uuid: '...'
+          - createdOn: 12345
+            hint: '...'
+            isRequired: true
+            key: '...'
+            label: '...'
+            lastModified: 12345
+            option:
+            - {}
+            - {}
+            order: 12345
+            type: '...'
+            uuid: '...'
+          createdOn: 12345
+          description: '...'
+          iconUrl: '...'
+          isVersionSupported: true
+          lastModified: 12345
+          name: '...'
+          numTaggedProducts: 12345
+          uuid: '...'
+        uuid: '...'
+    FeaturedMediumWS:
+      description: Media source information in which a product have been featured
+      type: object
+      title: FeaturedMedium
+      properties:
+        link:
+          description: Link
+          type: string
+          maxLength: 1024
+          minLength: 0
+        linkDescription:
+          description: Description of the media source
+          type: string
+          maxLength: 1024
+          minLength: 0
+        source:
+          $ref: '#/components/schemas/SourceWS'
+      example:
+        link: '...'
+        linkDescription: '...'
+        source:
+          id: 12345
+          logoUrl: '...'
+          name: '...'
+    FeatureWS:
+      description: Product Feature
+      type: object
+      title: Feature
+      properties:
+        bullet:
+          description: Characteristics
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureCharacteristicWS'
+        description:
+          description: Appears under the feature slogan in the feature page and provides a deeper description
+          type: string
+          maxLength: 2048
+          minLength: 0
+          nullable: true
+        header:
+          description: 'Serves as the title for your feature and as a navigation and search item.
+
+            The title should describe the feature completely without any supporting text, ie "Invoice Creation".'
+          type: string
+          maxLength: 256
+          minLength: 0
+        hideOnOverview:
+          description: Allows to either include or exclude features in the "Features & Benefits" section of the overview page.
+          type: boolean
+        id:
+          description: ID
+          type: number
+        imageUrl:
+          description: Image URL
+          type: string
+          nullable: true
+        position:
+          description: Allows you to order your features in the left navigation bar
+          type: number
+        slogan:
+          type: string
+          maxLength: 256
+          minLength: 0
+      example:
+        bullet:
+        - abovePicture: true
+          highlight:
+          - displayCheck: true
+            highlight: '...'
+            id: 12345
+          - displayCheck: true
+            highlight: '...'
+            id: 12345
+          position: 12345
+          title: '...'
+          id: 12345
+        - abovePicture: true
+          highlight:
+          - displayCheck: true
+            highlight: '...'
+            id: 12345
+          - displayCheck: true
+            highlight: '...'
+            id: 12345
+          position: 12345
+          title: '...'
+          id: 12345
+        description: '...'
+        header: '...'
+        hideOnOverview: true
+        id: 12345
+        imageUrl: '...'
+        position: 12345
+        slogan: '...'
+    IncludedItemWS:
+      description: Included item in an edition
+      type: object
+      title: IncludedItem
+      properties:
+        amount:
+          description: Amount
+          type: number
+        unit:
+          description: Item unit
+          type: string
+          nullable: true
+        unlimited:
+          description: Is unlimited
+          type: boolean
+      example:
+        amount: 12345
+        unit: '...'
+        unlimited: true
+    IntegrationConfigurationWS:
+      description: 'Integration configuration.
+
+        Defines information about the product''s integration to the vendor.'
+      type: object
+      title: IntegrationConfiguration
+      properties:
+        productSettings:
+          $ref: '#/components/schemas/IntegrationAdditionalSettingsWS'
+        domainManagementEnabled:
+          description: When set to true, the buyer must either purchase a domain or provide an existing domain during checkout.
+          type: boolean
+      example:
+        domainManagementEnabled: true
+        productSettings:
+          enabledForSubscriptionChange: true
+          form:
+          - description: '...'
+            formField:
+            - {}
+            - {}
+            hiddenByDefault: true
+            showFormControlLabel: '...'
+            specificToTopLevelDomain: '...'
+            title: '...'
+          - description: '...'
+            formField:
+            - {}
+            - {}
+            hiddenByDefault: true
+            showFormControlLabel: '...'
+            specificToTopLevelDomain: '...'
+            title: '...'
+          preSubmitValidationRequired: true
+          validationUrl: '...'
+    PlatformAttributeDefinitionWS:
+      type: object
+      title: PlatformAttributeDefinition
+      required:
+      - type
+      - label
+      - isRequired
+      - key
+      - order
+      - hint
+      properties:
+        createdOn:
+          type: number
+        hint:
+          type: string
+        isRequired:
+          type: boolean
+        key:
+          type: string
+        label:
+          type: string
+        lastModified:
+          type: number
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeOptionWS'
+        order:
+          type: number
+        type:
+          type: string
+        uuid:
+          type: string
+      example:
+        createdOn: 12345
+        hint: '...'
+        isRequired: true
+        key: '...'
+        label: '...'
+        lastModified: 12345
+        option:
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
+        order: 12345
+        type: '...'
+        uuid: '...'
+    PaymentPlanWS:
+      description: Payment plan for a product edition
+      type: object
+      title: PaymentPlan
+      properties:
+        allowCustomUsage:
+          description: Custom usage allowed
+          type: boolean
+        contract:
+          $ref: '#/components/schemas/ContractWS'
+        cost:
+          description: List of plan costs
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanCostWS'
+        discount:
+          $ref: '#/components/schemas/ProductDiscountDetailsWS'
+        frequency:
+          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
+          type: string
+        href:
+          description: URL to payment plan details
+          type: string
+        id:
+          description: ID
+          type: number
+        isPrimaryPrice:
+          description: Is primary price
+          type: boolean
+        keepBillDateOnUsageChange:
+          description: Keep bill date on usage change
+          type: boolean
+        separatePrepaid:
+          description: Separate prepaid
+          type: boolean
+        tld:
+          description: If plan is part of a domain reseller product, this is the tld this plan offers
+          type: string
+        uuid:
+          description: Unique identifier
+          type: string
+          nullable: true
+      example:
+        allowCustomUsage: true
+        contract:
+          alignWithParentCycleStartDate: true
+          autoExtensionPricingId: 12345
+          blockContractDowngrades: true
+          blockContractUpgrades: true
+          blockSwitchToShorterContract: true
+          cancellationPeriodLimit: 12345
+          endOfContractGracePeriod: 12345
+          gracePeriod:
+            length: 12345
+            unit: '...'
+          minimumServiceLength: 12345
+          terminationFee:
+            description: '...'
+            flatFee: {}
+            percentageFee: 12345
+            type: '...'
+        cost:
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        discount:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          availableRedemptions: 12345
+          description: '...'
+          expirationDate: 12345
+          numOfBillingCycles: 12345
+          percentage: 12345
+          pricingUnit: INTERNATIONAL_MINUTE
+          startDate: 12345
+        frequency: '...'
+        href: '...'
+        id: 12345
+        isPrimaryPrice: true
+        keepBillDateOnUsageChange: true
+        separatePrepaid: true
+        tld: '...'
+        uuid: '...'
+    AssociatedAddonWS:
+      description: Associated add-on details
+      type: object
+      title: AssociatedAddon
+      properties:
+        addonId:
+          description: Add-on ID
+          type: number
+        editionId:
+          description: ID of the edition of the product that the add-on is associated with
+          type: number
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        addonId: 1090
+        editionId: 1416
+        links:
+        - rel: '...'
+          href: '...'
+        - rel: '...'
+          href: '...'
+    BenefitWS:
+      description: Product benefit
+      type: object
+      title: Benefit
+      properties:
+        description:
+          description: Description
+          type: string
+          maxLength: 2048
+          minLength: 0
+          nullable: true
+        title:
+          description: Title
+          type: string
+          maxLength: 256
+          minLength: 0
+      example:
+        description: '...'
+        title: '...'
+    XmlMappableMultiValueMap:
+      type: object
+      title: XmlMappableMultiValueMap
+      properties:
+        entry:
+          type: array
+          items:
+            type: object
+      example:
+        entry:
+        - {}
+        - {}
+    MarketplacePricingWS:
+      allOf:
+      - $ref: '#/components/schemas/PricingWS'
+      - description: List of editions for a product
+        type: object
+        title: MarketplacePricing
+        properties:
+          edition:
+            description: List of editions
+            type: array
+            items:
+              $ref: '#/components/schemas/EditionWS'
+        example:
+          bullet:
+          - content: '...'
+            tooltip: '...'
+          - content: '...'
+            tooltip: '...'
+          edition:
+          - bullet:
+            - content: '...'
+              tooltip: '...'
+            - content: '...'
+              tooltip: '...'
+            bundleOnly: true
+            code: '...'
+            customerContractRestricted: true
+            customization:
+            - type: '...'
+              value: '...'
+            - type: '...'
+              value: '...'
+            defaultFreeTrial: true
+            expiredTrialGracePeriod: 12345
+            freeTrialDuration: 12345
+            freeTrialType: '...'
+            invisible: true
+            item:
+            - amount: 12345
+              unit: '...'
+              unlimited: true
+            - amount: 12345
+              unit: '...'
+              unlimited: true
+            lastModified: 12345
+            leadGen: true
+            name: '...'
+            plan:
+            - allowCustomUsage: true
+              contract: {}
+              cost:
+              - {}
+              - {}
+              discount: {}
+              frequency: '...'
+              href: '...'
+              id: 12345
+              isPrimaryPrice: true
+              keepBillDateOnUsageChange: true
+              separatePrepaid: true
+              tld: '...'
+              uuid: '...'
+            - allowCustomUsage: true
+              contract: {}
+              cost:
+              - {}
+              - {}
+              discount: {}
+              frequency: '...'
+              href: '...'
+              id: 12345
+              isPrimaryPrice: true
+              keepBillDateOnUsageChange: true
+              separatePrepaid: true
+              tld: '...'
+              uuid: '...'
+            primary: true
+            rank: 12345
+            restricted: true
+            revenueType: '...'
+            targetAudience: '...'
+            trial:
+              length: 12345
+              unit: '...'
+            uuid: '...'
+          - bullet:
+            - content: '...'
+              tooltip: '...'
+            - content: '...'
+              tooltip: '...'
+            bundleOnly: true
+            code: '...'
+            customerContractRestricted: true
+            customization:
+            - type: '...'
+              value: '...'
+            - type: '...'
+              value: '...'
+            defaultFreeTrial: true
+            expiredTrialGracePeriod: 12345
+            freeTrialDuration: 12345
+            freeTrialType: '...'
+            invisible: true
+            item:
+            - amount: 12345
+              unit: '...'
+              unlimited: true
+            - amount: 12345
+              unit: '...'
+              unlimited: true
+            lastModified: 12345
+            leadGen: true
+            name: '...'
+            plan:
+            - allowCustomUsage: true
+              contract: {}
+              cost:
+              - {}
+              - {}
+              discount: {}
+              frequency: '...'
+              href: '...'
+              id: 12345
+              isPrimaryPrice: true
+              keepBillDateOnUsageChange: true
+              separatePrepaid: true
+              tld: '...'
+              uuid: '...'
+            - allowCustomUsage: true
+              contract: {}
+              cost:
+              - {}
+              - {}
+              discount: {}
+              frequency: '...'
+              href: '...'
+              id: 12345
+              isPrimaryPrice: true
+              keepBillDateOnUsageChange: true
+              separatePrepaid: true
+              tld: '...'
+              uuid: '...'
+            primary: true
+            rank: 12345
+            restricted: true
+            revenueType: '...'
+            targetAudience: '...'
+            trial:
+              length: 12345
+              unit: '...'
+            uuid: '...'
+          footnote:
+          - '...'
+          - '...'
+          pricingSummary: '...'
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    ScreenshotWS:
+      description: Screenshot to be displayed in a product profile
+      type: object
+      title: Screenshot
+      properties:
+        imageUrl:
+          description: Image URL
+          type: string
+          nullable: true
+        imageUrlSrcset:
+          description: Image URL Srcset
+          type: object
+          additionalProperties:
+            type: string
+        name:
+          description: Name
+          type: string
+          maxLength: 256
+          minLength: 0
+      example:
+        imageUrl: '...'
+        imageUrlSrcset:
+          property1: '...'
+          property2: '...'
+        name: '...'
+    DurationWS:
+      description: Contract duration
+      type: object
+      title: Duration
+      properties:
+        length:
+          description: Length
+          type: number
+        unit:
+          description: Duration unit
+          type: string
+          nullable: true
+      example:
+        length: 12345
+        unit: '...'
+      nullable: true
+    CustomAttributeLightV2WS:
+      type: object
+      title: CustomAttributeLightV2
+      properties:
+        attributeKey:
+          type: string
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        label:
+          type: string
+        value:
+          type: string
+        valueKeys:
+          type: array
+          items:
+            type: string
+        valueOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeLocalizedValueOptionWS'
+      example:
+        attributeKey: '...'
+        attributeType: MULTISELECT
+        label: '...'
+        value: '...'
+        valueKeys:
+        - '...'
+        - '...'
+        valueOptions:
+        - optionKey: '...'
+          optionLabel: '...'
+        - optionKey: '...'
+          optionLabel: '...'
+    IntegrationAdditionalSettingsFormFieldWS:
+      description: Integration product settings form field
+      type: object
+      title: IntegrationProductSettingsFormField
+      properties:
+        integrationAdditionalSettingsFormFieldOptions:
+          description: The list of select options if the field type is a select field
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationAdditionalSettingsFormFieldOptionWS'
+        key:
+          description: The key identifying the value(s) when submitted to the developer in the order configuration
+          type: string
+        label:
+          description: The prefix label of the form field (shown before of the input)
+          type: string
+        repeatedForEachUnit:
+          description: 'Whether this form field will be repeated for each purchased unit of an add-on.
+
+            This allows collecting values specific to each purchased unit.
+
+            If true, the short description of the add-on will replace the label of the form field.'
+          type: boolean
+        suffix:
+          description: The suffix label of the form field (shown after of the input)
+          type: string
+        type:
+          description: The type of input field associated with the form field. Possible values are SELECT, and TEXT
+          type: string
+      example:
+        integrationAdditionalSettingsFormFieldOptions:
+        - content: '...'
+          value: '...'
+        - content: '...'
+          value: '...'
+        key: '...'
+        label: '...'
+        repeatedForEachUnit: true
+        suffix: '...'
+        type: '...'
+    PlatformWS:
+      type: object
+      title: Platform
+      required:
+      - iconUrl
+      - description
+      - name
+      - isVersionSupported
+      properties:
+        attributeDefinition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeDefinitionWS'
+        createdOn:
+          type: number
+        description:
+          type: string
+          nullable: true
+        iconUrl:
+          type: string
+          nullable: true
+        isVersionSupported:
+          type: boolean
+        lastModified:
+          type: number
+        name:
+          type: string
+        numTaggedProducts:
+          type: number
+        uuid:
+          type: string
+      example:
+        attributeDefinition:
+        - createdOn: 12345
+          hint: '...'
+          isRequired: true
+          key: '...'
+          label: '...'
+          lastModified: 12345
+          option:
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          order: 12345
+          type: '...'
+          uuid: '...'
+        - createdOn: 12345
+          hint: '...'
+          isRequired: true
+          key: '...'
+          label: '...'
+          lastModified: 12345
+          option:
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          order: 12345
+          type: '...'
+          uuid: '...'
+        createdOn: 12345
+        description: '...'
+        iconUrl: '...'
+        isVersionSupported: true
+        lastModified: 12345
+        name: '...'
+        numTaggedProducts: 12345
+        uuid: '...'
+    ListingInfoWS:
+      description: Product information used for listing on the marketplace
+      type: object
+      title: ListingInfo
+      properties:
+        blurb:
+          description: Short description
+          type: string
+          nullable: true
+        imageSrcset:
+          description: Image Srcset URLs
+          type: object
+          additionalProperties:
+            type: string
+        imageUrl:
+          description: Image URL
+          type: string
+          nullable: true
+        mobileAppStoreId:
+          description: iTunes AppStore ID
+          type: string
+          nullable: true
+        mobileBundleId:
+          description: Mobile app bundle identifier
+          type: string
+          nullable: true
+        myAppLogoIconSrcset:
+          description: MyApp logo icon Srcset URLs
+          type: object
+          additionalProperties:
+            type: string
+        myAppLogoIconUrl:
+          description: MyApp logo icon URL
+          type: string
+          nullable: true
+        overview:
+          description: Overview
+          type: string
+          nullable: true
+        profileImageSrcset:
+          description: Profile image Srcset URLs
+          type: object
+          additionalProperties:
+            type: string
+        profileImageUrl:
+          description: Profile image URL
+          type: string
+          nullable: true
+        rating:
+          description: User-submitted rating
+          type: number
+          nullable: true
+        reviewCount:
+          description: Number of reviews
+          type: number
+      example:
+        blurb: '...'
+        imageSrcset:
+          property1: '...'
+          property2: '...'
+        imageUrl: '...'
+        mobileAppStoreId: '...'
+        mobileBundleId: '...'
+        myAppLogoIconSrcset:
+          property1: '...'
+          property2: '...'
+        myAppLogoIconUrl: '...'
+        overview: '...'
+        profileImageSrcset:
+          property1: '...'
+          property2: '...'
+        profileImageUrl: '...'
+        rating: 12345
+        reviewCount: 12345
+      nullable: true
+    ProductWS:
+      description: Product detail
+      type: object
+      title: Product
+      properties:
+        _embedded:
+          description: "This property can contain different values depending on the type of product. If the product has associated add-ons, it contains a list of the add-on products in an `associatedAddons` array. Add-on products are different than add-on offerings: add-on offerings appear as an array of `AddonOffering` in the `addonOffering` object. Depending on your marketplace settings, your products can support either add-on offerings or add-on products.\n If the product is itself an add-on product, this property lists the editions of the associated regular product in an `associatedEditions` array."
+          type: object
+          properties:
+            associatedAddons:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssociatedAddonWS'
+            associatedEditions:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssociatedEditionWS'
+        addon:
+          description: Returns true if the application is an add-on product, or false if it is a base product.
+          type: boolean
+        addonOffering:
+          description: List of the product's add-on offerings, which are different than add-on products. Add-on products appear as an array of `associatedAddons` in the `_embedded` object. Depending on your marketplace settings, your base products can support either add-on offerings or add-on products.
+          type: array
+          items:
+            $ref: '#/components/schemas/AddonOfferingWS'
+        assignLeadsToDevelopers:
+          description: Indicates whether the lead can be assigned to users with the Developer role
+          type: boolean
+        autoUpgradeToPaid:
+          description: Is auto upgrade to paid
+          type: boolean
+        bundledPlanIds:
+          description: Bundle plan IDs
+          type: object
+          items:
+            type: number
+            nullable: true
+          nullable: true
+        buyable:
+          description: 'Is buyable
+
+            If false, the buy button is not available'
+          type: boolean
+        changeSubscriptionAllowed:
+          description: Change subscription allowed
+          type: boolean
+        collectLeads:
+          description: Is collect lead enabled
+          type: boolean
+        collectLeadsWithPurchaseEnabled:
+          description: 'Collect lead with the purchase
+
+            If set to true and collectLeads = true, then a lead will be collected when an user buys the product
+
+            If set to false, the user cannot buy the product'
+          type: boolean
+        customAttributes:
+          description: List of attached product custom attributes
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeLightV2WS'
+        customIntegration:
+          description: Custom integration type, eg. MOSI, GOOGLE APPS, SENDGRID
+          type: string
+          nullable: true
+        displayQuestions:
+          description: Display question and answers
+          type: boolean
+        displayReviews:
+          description: Display reviews
+          type: boolean
+        downloadFileSize:
+          description: Download file size for downloadable apps
+          type: number
+          nullable: true
+        features:
+          description: List of features
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureWS'
+        featuredCustomers:
+          description: List of featured customers
+          type: array
+          items:
+            $ref: '#/components/schemas/FeaturedCustomerWS'
+        featuredMedia:
+          description: List of media sources
+          type: array
+          items:
+            $ref: '#/components/schemas/FeaturedMediumWS'
+        free:
+          description: Is free
+          type: boolean
+        freeTrialOrEditionPresent:
+          description: Is free trial or edition present
+          type: boolean
+        hidePricings:
+          description: Hide the pricings
+          type: boolean
+        highestFixedDiscount:
+          $ref: '#/components/schemas/PriceWS'
+        highestPercentageDiscount:
+          description: Highest percentage discount
+          type: number
+          nullable: true
+        hostedLocation:
+          description: Hosted location
+          type: string
+          nullable: true
+        href:
+          description: URL to retrieve product detail
+          type: string
+        id:
+          description: ID
+          type: number
+        importable:
+          description: Indicates whether a product can be imported
+          type: boolean
+        integrationConfiguration:
+          $ref: '#/components/schemas/IntegrationConfigurationWS'
+        language:
+          description: List of supported languages
+          type: array
+          items:
+            type: string
+        lastModified:
+          description: Last modified date
+          type: number
+        linkedImportableApplicationUuid:
+          description: Linked importable application unique identifier
+          type: string
+          nullable: true
+        listing:
+          $ref: '#/components/schemas/ListingInfoWS'
+        liveChatAvailable:
+          description: Live chat available
+          type: boolean
+        liveChatEnabled:
+          description: Live chat enabled
+          type: boolean
+        merchandisingBadges:
+          description: Array of badges for the product, including UUID, name, and URL for the associated image for each badge
+          type: array
+          items: {}
+        mosiConnectorType:
+          $ref: '#/components/schemas/OriginApi'
+        name:
+          description: Name
+          type: string
+        newSubscriptionEnabled:
+          description: New subscription enabled
+          type: boolean
+        numRatings:
+          description: Number of ratings
+          type: number
+          nullable: true
+        oneClickPurchasable:
+          description: Is one-click purchase enabled
+          type: boolean
+        overview:
+          $ref: '#/components/schemas/OverviewInfoWS'
+        platforms:
+          description: List of attached Platforms
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationPlatformWS'
+        pricing:
+          $ref: '#/components/schemas/MarketplacePricingWS'
+        privacyUrl:
+          description: Privacy policy URL
+          type: string
+          nullable: true
+        productRibbon:
+          $ref: '#/components/schemas/ProductRibbonWS'
+        provider:
+          $ref: '#/components/schemas/ProviderWS'
+        publishedApp:
+          $ref: '#/components/schemas/LinkWS'
+        publishedOn:
+          description: Publication date in UNIX Epoch milliseconds
+          type: number
+        rating:
+          description: User-submitted rating
+          type: number
+          nullable: true
+        referUrl:
+          description: 'Redirection link to product website when user clicks the buy button
+
+            For referral apps'
+          type: string
+          nullable: true
+        referable:
+          description: Is a referrable product
+          type: boolean
+        resources:
+          description: List of resources
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceWS'
+        screenshots:
+          description: List of screenshots
+          type: array
+          items:
+            $ref: '#/components/schemas/ScreenshotWS'
+        sellerName:
+          description: The name of the company that owns the catalog and the product profile being sold
+          type: string
+        showSelfServiceRestriction:
+          description: Show self-service restriction
+          type: boolean
+        showThirdPartyLegalDisclosure:
+          description: Show third-party legal Disclosure
+          type: boolean
+        startingPrice:
+          $ref: '#/components/schemas/StartingPriceWS'
+        support:
+          $ref: '#/components/schemas/SupportWS'
+        supportedCountries:
+          description: The list of supported countries in ISO 3166 format
+          type: array
+          items: {}
+        supportedCurrencies:
+          description: The list of supported currencies in ISO 4217 format
+          type: array
+          items: {}
+        supportedLanguages:
+          description: The list of supported languages in ISO 639
+          type: array
+          items: {}
+        supportsMultipleEditions:
+          description: Indicates whether the product type can have multiple editions
+          type: boolean
+        tag:
+          description: List of tags
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        termsUrl:
+          description: Terms and condition URL
+          type: string
+          nullable: true
+        type:
+          description: Product type
+          type: string
+        usageType:
+          description: Usage type
+          type: string
+        uuid:
+          description: Unique identifier
+          type: string
+        workingApp:
+          $ref: '#/components/schemas/LinkWS'
+      example:
+        _embedded:
+          associatedAddons:
+          - addonId: 1090
+            editionId: 1416
+            links:
+            - rel: '...'
+              href: '...'
+            - rel: '...'
+              href: '...'
+          - addonId: 1090
+            editionId: 1404
+            links:
+            - rel: '...'
+              href: '...'
+            - rel: '...'
+              href: '...'
+        addon: true
+        addonOfferings:
+        - bullets:
+          - content: '...'
+            tooltip: '...'
+          - content: '...'
+            tooltip: '...'
+          code: '...'
+          description: '...'
+          descriptionHtml: '...'
+          exclusive: true
+          id: 12345
+          name: '...'
+          paymentPlan:
+          - allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          - allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          stacked: true
+          status: '...'
+          uuid: '...'
+        - bullets:
+          - content: '...'
+            tooltip: '...'
+          - content: '...'
+            tooltip: '...'
+          code: '...'
+          description: '...'
+          descriptionHtml: '...'
+          exclusive: true
+          id: 12345
+          name: '...'
+          paymentPlan:
+          - allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          - allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          stacked: true
+          status: '...'
+          uuid: '...'
+        autoUpgradeToPaid: true
+        bundledPlanIds:
+        - 12345
+        - 12345
+        buyable: true
+        changeSubscriptionAllowed: true
+        collectLeads: true
+        collectLeadsWithPurchaseEnabled: true
+        customAttributes:
+        - attributeKey: '...'
+          attributeType: TEXT
+          label: '...'
+          value: '...'
+          valueKeys:
+          - '...'
+          - '...'
+          valueOptions:
+          - optionKey: '...'
+            optionLabel: '...'
+          - optionKey: '...'
+            optionLabel: '...'
+        - attributeKey: '...'
+          attributeType: MULTISELECT
+          label: '...'
+          value: '...'
+          valueKeys:
+          - '...'
+          - '...'
+          valueOptions:
+          - optionKey: '...'
+            optionLabel: '...'
+          - optionKey: '...'
+            optionLabel: '...'
+        customIntegration: '...'
+        displayQuestions: true
+        displayReviews: true
+        downloadFileSize: 12345
+        features:
+        - bullets:
+          - abovePicture: true
+            highlight:
+            - {}
+            - {}
+            position: 12345
+            title: '...'
+          - abovePicture: true
+            highlight:
+            - {}
+            - {}
+            position: 12345
+            title: '...'
+          description: '...'
+          header: '...'
+          hideOnOverview: true
+          id: 12345
+          imageUrl: '...'
+          position: 12345
+          slogan: '...'
+        - bullets:
+          - abovePicture: true
+            highlight:
+            - {}
+            - {}
+            position: 12345
+            title: '...'
+          - abovePicture: true
+            highlight:
+            - {}
+            - {}
+            position: 12345
+            title: '...'
+          description: '...'
+          header: '...'
+          hideOnOverview: true
+          id: 12345
+          imageUrl: '...'
+          position: 12345
+          slogan: '...'
+        featuredCustomer:
+        - id: 12345
+          logoUrl: '...'
+          name: '...'
+        - id: 12345
+          logoUrl: '...'
+          name: '...'
+        featuredMedium:
+        - link: '...'
+          linkDescription: '...'
+          source:
+            id: 12345
+            logoUrl: '...'
+            name: '...'
+        - link: '...'
+          linkDescription: '...'
+          source:
+            id: 12345
+            logoUrl: '...'
+            name: '...'
+        free: true
+        freeTrialOrEditionPresent: true
+        hidePricings: true
+        highestFixedDiscount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        highestPercentageDiscount: 12345
+        hostedLocation: '...'
+        href: '...'
+        id: 12345
+        integrationConfiguration:
+          productSettings:
+            enabledForSubscriptionChange: true
+            form:
+            - {}
+            - {}
+            preSubmitValidationRequired: true
+            validationUrl: '...'
+        language:
+        - '...'
+        - '...'
+        lastModified: 12345
+        linkedImportableApplicationUuid: '...'
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+        listing:
+          blurb: '...'
+          imageSrcset:
+            property1: '...'
+            property2: '...'
+          imageUrl: '...'
+          mobileAppStoreId: '...'
+          mobileBundleId: '...'
+          myAppLogoIconSrcset:
+            property1: '...'
+            property2: '...'
+          myAppLogoIconUrl: '...'
+          overview: '...'
+          profileImageSrcset:
+            property1: '...'
+            property2: '...'
+          profileImageUrl: '...'
+          rating: 12345
+          reviewCount: 12345
+        liveChatAvailable: true
+        liveChatEnabled: true
+        mosiConnectorType: MOSI
+        name: '...'
+        newSubscriptionEnabled: true
+        numRatings: 12345
+        oneClickPurchasable: true
+        overview:
+          benefit:
+          - description: '...'
+            title: '...'
+          - description: '...'
+            title: '...'
+          demoUrl: '...'
+          documentationUrl: '...'
+          downloadDocumentationUrl: '...'
+          downloadFileSize: 12345
+          imageSrcset:
+            property1: '...'
+            property2: '...'
+          imageUrl: '...'
+          splashDescription: '...'
+          splashTitle: '...'
+          systemRequirements: '...'
+          versions:
+            entry:
+            - {}
+            - {}
+        platform:
+        - attribute:
+          - applicationPlatformUuid: '...'
+            createdOn: 12345
+            lastModified: 12345
+            platformAttributeDefinitionUuid: '...'
+            platformAttributeOptionUuid: '...'
+            uuid: '...'
+            value: '...'
+          - applicationPlatformUuid: '...'
+            createdOn: 12345
+            lastModified: 12345
+            platformAttributeDefinitionUuid: '...'
+            platformAttributeOptionUuid: '...'
+            uuid: '...'
+            value: '...'
+          platformDefinition:
+            attributeDefinition:
+            - {}
+            - {}
+            createdOn: 12345
+            description: '...'
+            iconUrl: '...'
+            isVersionSupported: true
+            lastModified: 12345
+            name: '...'
+            numTaggedProducts: 12345
+            uuid: '...'
+          uuid: '...'
+        - attribute:
+          - applicationPlatformUuid: '...'
+            createdOn: 12345
+            lastModified: 12345
+            platformAttributeDefinitionUuid: '...'
+            platformAttributeOptionUuid: '...'
+            uuid: '...'
+            value: '...'
+          - applicationPlatformUuid: '...'
+            createdOn: 12345
+            lastModified: 12345
+            platformAttributeDefinitionUuid: '...'
+            platformAttributeOptionUuid: '...'
+            uuid: '...'
+            value: '...'
+          platformDefinition:
+            attributeDefinition:
+            - {}
+            - {}
+            createdOn: 12345
+            description: '...'
+            iconUrl: '...'
+            isVersionSupported: true
+            lastModified: 12345
+            name: '...'
+            numTaggedProducts: 12345
+            uuid: '...'
+          uuid: '...'
+        pricing:
+          bullets:
+          - content: '...'
+            tooltip: '...'
+          - content: '...'
+            tooltip: '...'
+          edition:
+          - bullets:
+            - {}
+            - {}
+            bundleOnly: true
+            code: '...'
+            customerContractRestricted: true
+            customization:
+            - {}
+            - {}
+            defaultFreeTrial: true
+            expiredTrialGracePeriod: 12345
+            freeTrialDuration: 12345
+            freeTrialType: '...'
+            invisible: true
+            item:
+            - {}
+            - {}
+            lastModified: 12345
+            leadGen: true
+            name: '...'
+            plan:
+            - {}
+            - {}
+            primary: true
+            rank: 12345
+            restricted: true
+            revenueType: '...'
+            targetAudience: '...'
+            trial: {}
+            uuid: '...'
+          - bullet:
+            - {}
+            - {}
+            bundleOnly: true
+            code: '...'
+            customerContractRestricted: true
+            customization:
+            - {}
+            - {}
+            defaultFreeTrial: true
+            expiredTrialGracePeriod: 12345
+            freeTrialDuration: 12345
+            freeTrialType: '...'
+            invisible: true
+            item:
+            - {}
+            - {}
+            lastModified: 12345
+            leadGen: true
+            name: '...'
+            plan:
+            - {}
+            - {}
+            primary: true
+            rank: 12345
+            restricted: true
+            revenueType: '...'
+            targetAudience: '...'
+            trial: {}
+            uuid: '...'
+          footnote:
+          - '...'
+          - '...'
+          pricingSummary: '...'
+        privacyUrl: '...'
+        productRibbon: {}
+        provider:
+          name: '...'
+          url: '...'
+          uuid: '...'
+        publishedApp:
+          href: '...'
+          id: '...'
+        publishedOn: 12345
+        rating: 12345
+        referUrl: '...'
+        referable: true
+        resource:
+        - description: '...'
+          id: 12345
+          link: '...'
+          name: '...'
+          resellerAccess: true
+          resourceType: '...'
+          scribdId: '...'
+          scribdKey: '...'
+        - description: '...'
+          id: 12345
+          link: '...'
+          name: '...'
+          resellerAccess: true
+          resourceType: '...'
+          scribdId: '...'
+          scribdKey: '...'
+        screenshot:
+        - imageUrl: '...'
+          imageUrlSrcset:
+            property1: '...'
+            property2: '...'
+          name: '...'
+        - imageUrl: '...'
+          imageUrlSrcset:
+            property1: '...'
+            property2: '...'
+          name: '...'
+        showSelfServiceRestriction: true
+        showThirdPartyLegalDisclosure: true
+        startingPrice:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          billingFrequency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: NFON_NSOFTPHONE_STANDARD_WINDOWS_OR_MOBILE
+            startDate: 12345
+          unit: '...'
+        support:
+          description: '...'
+          email: '...'
+          knowledgebaseUrl: '...'
+          phone: '...'
+        tags:
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        - badge: '...'
+          description: '...'
+          id: 12345
+          name: '...'
+          showBadge: true
+          showOnNavigation: true
+          tag:
+          - {}
+          - {}
+          type: '...'
+        termsUrl: '...'
+        type: '...'
+        usageType: '...'
+        uuid: '...'
+        workingApp:
+          href: '...'
+          id: '...'
+    ProviderWS:
+      description: 'Provider company: entity that operates an AppDirect-powered marketplace'
+      type: object
+      title: Provider
+      properties:
+        name:
+          description: Name
+          type: string
+        url:
+          description: Provider website
+          type: string
+          nullable: true
+        uuid:
+          description: Unique identifier
+          type: string
+      example:
+        name: '...'
+        url: '...'
+        uuid: '...'
+    IntegrationAdditionalSettingsFormWS:
+      description: Integration product settings form
+      type: object
+      title: IntegrationProductSettingsForm
+      properties:
+        description:
+          description: 'A description or instructions around the values requested in the form.
+
+            It should give the customer context for the information they need to input.'
+          type: string
+          nullable: true
+        formField:
+          description: Integration product settings form fields
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationAdditionalSettingsFormFieldWS'
+        hiddenByDefault:
+          description: 'Whether the form is hidden by default.
+
+            If true, the user must check a checkbox to show it.'
+          type: boolean
+        showFormControlLabel:
+          description: Label for the checkbox or other control (only shown if hiddenByDefault is true) that allows the user to show the form
+          type: string
+        specificToTopLevelDomain:
+          description: If the product is of type DOMAIN_RESELLER and this is set, the form should only be used when this top-level domain is selected
+          type: string
+        title:
+          description: 'The title of the form.
+
+            Should be descriptive of the values expected below.'
+          type: string
+      example:
+        description: '...'
+        formField:
+        - integrationAdditionalSettingsFormFieldOptions:
+          - content: '...'
+            value: '...'
+          - content: '...'
+            value: '...'
+          key: '...'
+          label: '...'
+          repeatedForEachUnit: true
+          suffix: '...'
+          type: '...'
+        - integrationAdditionalSettingsFormFieldOptions:
+          - content: '...'
+            value: '...'
+          - content: '...'
+            value: '...'
+          key: '...'
+          label: '...'
+          repeatedForEachUnit: true
+          suffix: '...'
+          type: '...'
+        hiddenByDefault: true
+        showFormControlLabel: '...'
+        specificToTopLevelDomain: '...'
+        title: '...'
+    ResourceWS:
+      description: Additional resources to be included in a product profile
+      type: object
+      title: Resource
+      properties:
+        description:
+          description: Description
+          type: string
+          maxLength: 2048
+          minLength: 0
+          nullable: true
+        id:
+          description: The resource id
+          type: number
+        link:
+          description: Link
+          type: string
+          maxLength: 2048
+          minLength: 0
+        name:
+          description: Name
+          type: string
+          maxLength: 256
+          minLength: 0
+        resellerAccess:
+          description: Visible only to reseller users
+          type: boolean
+        resourceType:
+          description: Resource type, eg. PDF, video, Scribd
+          type: string
+        scribdId:
+          description: Scribd ID
+          type: string
+          maxLength: 256
+          minLength: 0
+        scribdKey:
+          description: Scribd key
+          type: string
+          maxLength: 256
+          minLength: 0
+      example:
+        description: '...'
+        id: 12345
+        link: '...'
+        name: '...'
+        resellerAccess: true
+        resourceType: '...'
+        scribdId: '...'
+        scribdKey: '...'
+    OriginApi:
+      type: string
+      title: OriginApi
+      enum:
+      - MOSI
+      - CREST
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
+      type: object
+      title: TerminationFee
+      properties:
+        description:
+          description: Description
+          type: string
+          nullable: true
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
+          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
+      example:
+        description: '...'
+        flatFee:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        percentageFee: 12345
+        type: '...'
+      nullable: true
+    AddonOfferingWS:
+      description: 'An optional supplement to a given product
+
+        Addons are ordered separately and billed separately from the products that they enhance.'
+      type: object
+      title: AddonOffering
+      properties:
+        bullet:
+          description: Add-on inclusions
+          type: array
+          items:
+            $ref: '#/components/schemas/BulletWS'
+        code:
+          description: Code
+          type: string
+        description:
+          description: Description
+          type: string
+          nullable: true
+        descriptionHtml:
+          description: HTML description
+          type: string
+        exclusive:
+          description: Is an exclusive addon
+          type: boolean
+        id:
+          description: Id
+          type: number
+        name:
+          description: Name
+          type: string
+        paymentPlan:
+          description: List of possible payment plans
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPlanWS'
+        stacked:
+          description: 'Is a stacked addon
+
+            A stacked edition supports simultaneous ownership of multiple, separate but identical instances by one consumer, where each instance is also priced identically.'
+          type: boolean
+        status:
+          description: 'Status: NEW, ACTIVE, ACTIVE_DEVELOPMENT, UPDATED, DELETED'
+          type: string
+        uuid:
+          description: Unique identifier
+          type: string
+      example:
+        bullet:
+        - content: '...'
+          tooltip: '...'
+        - content: '...'
+          tooltip: '...'
+        code: '...'
+        description: '...'
+        descriptionHtml: '...'
+        exclusive: true
+        id: 12345
+        name: '...'
+        paymentPlan:
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: OVERAGE_AUDIO_MINUTE
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: REACTIVATION_FEE
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        stacked: true
+        status: '...'
+        uuid: '...'
+    DiscountDetailsWS:
+      description: Discount detail
+      type: object
+      title: DiscountDetail
+      properties:
+        discountedStartingPrice:
+          description: Starting price
+          type: string
+        highestFixedDiscount:
+          $ref: '#/components/schemas/PriceWS'
+        highestPercentageDiscount:
+          description: Highest percentage discount
+          type: number
+          nullable: true
+        startingPricePercentageDiscount:
+          description: Starting price percentage discount
+          type: number
+      example:
+        discountedStartingPrice: '...'
+        highestFixedDiscount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        highestPercentageDiscount: 12345
+        startingPricePercentageDiscount: 12345
+      nullable: true
+    PendingAppType:
+      type: string
+      title: PendingAppType
+      enum:
+      - DEFAULT
+      - REQUESTED
+      - SUGGESTED
+      nullable: true
+    StartingPriceWS:
+      description: Starting price of a product
+      type: object
+      title: StartingPrice
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        billingFrequency:
+          description: Billing frequency, see BillingCycleFrequency
+          type: string
+          nullable: true
+        discount:
+          $ref: '#/components/schemas/ProductDiscountDetailsWS'
+        unit:
+          description: Price unit, see PricingUnit
+          type: string
+          nullable: true
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        billingFrequency: '...'
+        discount:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          availableRedemptions: 12345
+          description: '...'
+          expirationDate: 12345
+          numOfBillingCycles: 12345
+          percentage: 12345
+          pricingUnit: NFON_NMEETING
+          startDate: 12345
+        unit: '...'
+      nullable: true
+    OverviewInfoWS:
+      description: Overview details shown in a product profile
+      type: object
+      title: OverviewInfo
+      properties:
+        benefit:
+          description: List of product benefits
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitWS'
+        demoUrl:
+          description: Demo URL
+          type: string
+          nullable: true
+        documentationUrl:
+          description: Documentation URL
+          type: string
+          nullable: true
+        downloadDocumentationUrl:
+          description: Documentation URL for downloadable apps
+          type: string
+          nullable: true
+        downloadFileSize:
+          description: Download file size for downloadable apps
+          type: number
+          nullable: true
+        imageSrcset:
+          description: Image Srcset
+          type: object
+          additionalProperties:
+            type: string
+        imageUrl:
+          description: Image URL
+          type: string
+          nullable: true
+        splashDescription:
+          description: Splash description
+          type: string
+          nullable: true
+        splashTitle:
+          description: Splash title
+          type: string
+          nullable: true
+        systemRequirements:
+          description: System requirements
+          type: string
+          nullable: true
+        versions:
+          $ref: '#/components/schemas/XmlMappableMultiValueMap'
+      example:
+        benefit:
+        - description: '...'
+          title: '...'
+        - description: '...'
+          title: '...'
+        demoUrl: '...'
+        documentationUrl: '...'
+        downloadDocumentationUrl: '...'
+        downloadFileSize: 12345
+        imageSrcset:
+          property1: '...'
+          property2: '...'
+        imageUrl: '...'
+        splashDescription: '...'
+        splashTitle: '...'
+        systemRequirements: '...'
+        versions:
+          entry:
+          - {}
+          - {}
+    SupportWS:
+      description: Support information for a product
+      type: object
+      title: Support
+      properties:
+        description:
+          description: Support details
+          type: string
+          maxLength: 2048
+          minLength: 0
+          nullable: true
+        email:
+          description: Email
+          type: string
+          maxLength: 256
+          minLength: 0
+          nullable: true
+        knowledgebaseUrl:
+          description: Knowledge base URL
+          type: string
+          maxLength: 2048
+          minLength: 0
+          nullable: true
+        phone:
+          description: Phone number
+          type: string
+          maxLength: 256
+          minLength: 0
+          nullable: true
+      example:
+        description: '...'
+        email: '...'
+        knowledgebaseUrl: '...'
+        phone: '...'
+    LinkWS:
+      type: object
+      title: LinkWS
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+      example:
+        href: '...'
+        id: '...'
+      nullable: true
+    CustomAttributeLocalizedValueOptionWS:
+      type: object
+      title: CustomAttributeLocalizedValueOption
+      properties:
+        optionKey:
+          type: string
+        optionLabel:
+          type: string
+      example:
+        optionKey: '...'
+        optionLabel: '...'
+    UserAppInfo:
+      description: User application information
+      type: object
+      title: UserAppInfo
+      properties:
+        assigned:
+          description: Is assigned
+          type: boolean
+        companyEntitlementId:
+          description: Company entitlement ID
+          type: number
+          nullable: true
+        companyEntitlementPending:
+          description: Is subscription pending
+          type: boolean
+        companyWide:
+          description: Is company wide
+          type: boolean
+        editionId:
+          description: Edition ID
+          type: number
+          nullable: true
+        editionName:
+          description: Edition Name
+          type: string
+        editionPricingId:
+          description: Edition pricing ID
+          type: number
+          nullable: true
+        freeTrialAllowed:
+          description: Free trial allowed
+          type: boolean
+        freeTrialDaysLeft:
+          description: Free trial days left
+          type: number
+        ownerAdmin:
+          description: Is owner admin
+          type: boolean
+        ownerFullName:
+          description: Owner full name
+          type: string
+          nullable: true
+        ownerId:
+          description: Owner ID
+          type: number
+          nullable: true
+        ownerUuid:
+          description: Owner unique identifier
+          type: string
+          nullable: true
+        partOfExistingBundle:
+          description: Is part of existing bundle
+          type: boolean
+        pending:
+          description: Is pending
+          type: boolean
+        pendingAppType:
+          $ref: '#/components/schemas/PendingAppType'
+        requested:
+          description: Is requested
+          type: boolean
+      example:
+        assigned: true
+        companyEntitlementId: 12345
+        companyEntitlementPending: true
+        companyWide: true
+        editionId: 12345
+        editionName: '...'
+        editionPricingId: 12345
+        freeTrialAllowed: true
+        freeTrialDaysLeft: 12345
+        ownerAdmin: true
+        ownerFullName: '...'
+        ownerId: 12345
+        ownerUuid: '...'
+        partOfExistingBundle: true
+        pending: true
+        pendingAppType: REQUESTED
+        requested: true
+    FeaturedCustomerWS:
+      description: Featured customer of a product
+      type: object
+      title: FeaturedCustomer
+      properties:
+        id:
+          description: ID
+          type: number
+        logoUrl:
+          description: Logo URL
+          type: string
+        name:
+          description: Name
+          type: string
+      example:
+        id: 12345
+        logoUrl: '...'
+        name: '...'
+    PriceWS:
+      description: Price information in different currencies
+      type: object
+      title: Price
+      properties:
+        AUD:
+          type: number
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
+      example:
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
+      nullable: true
+    IntegrationAdditionalSettingsFormFieldOptionWS:
+      type: object
+      title: IntegrationProductSettingsFormFieldOptions
+      properties:
+        content:
+          description: The content of the HTML option
+          type: string
+        value:
+          description: The value of the option
+          type: string
+      example:
+        content: '...'
+        value: '...'
+    EditionWS:
+      description: Product edition
+      type: object
+      title: Edition
+      properties:
+        bullet:
+          description: List of bullet points
+          type: array
+          items:
+            $ref: '#/components/schemas/EditionBulletWS'
+        bundleOnly:
+          description: Is a bundle edition only
+          type: boolean
+        code:
+          description: Code
+          type: string
+        customerContractRestricted:
+          description: Is customer contract restricted
+          type: boolean
+        customization:
+          description: List of customization
+          type: array
+          items:
+            $ref: '#/components/schemas/EditionCustomizationWS'
+        defaultFreeTrial:
+          description: Is default free trial
+          type: boolean
+        expiredTrialGracePeriod:
+          description: Expired trial grace period
+          type: number
+          nullable: true
+        freeTrialDuration:
+          description: Free trial duration
+          type: number
+        freeTrialType:
+          description: Free trial type
+          type: string
+        id:
+          description: ID
+          type: number
+        invisible:
+          description: Is invisible
+          type: boolean
+        item:
+          description: List of included items
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedItemWS'
+        lastModified:
+          description: Last modified date
+          type: number
+        leadGen:
+          description: Is collecting a lead instead of purchase
+          type: boolean
+        name:
+          description: Name
+          type: string
+        plan:
+          description: List of payment plans
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPlanWS'
+        primary:
+          description: Is the primary edition
+          type: boolean
+        rank:
+          description: Rank used in the UI for ordering versus the other edition
+          type: number
+        restricted:
+          description: Is restricted
+          type: boolean
+        revenueType:
+          description: 'Revenue model type: FREE, ONE_TIME, RECURRING, TIERED'
+          type: string
+        targetAudience:
+          description: Target audience
+          type: string
+          nullable: true
+        trial:
+          $ref: '#/components/schemas/DurationWS'
+        uuid:
+          description: Unique identifier
+          type: string
+      example:
+        bullet:
+        - content: '...'
+          tooltip: '...'
+        - content: '...'
+          tooltip: '...'
+        bundleOnly: true
+        code: '...'
+        customerContractRestricted: true
+        customization:
+        - type: '...'
+          value: '...'
+        - type: '...'
+          value: '...'
+        defaultFreeTrial: true
+        expiredTrialGracePeriod: 12345
+        freeTrialDuration: 12345
+        freeTrialType: '...'
+        invisible: true
+        item:
+        - amount: 12345
+          unit: '...'
+          unlimited: true
+        - amount: 12345
+          unit: '...'
+          unlimited: true
+        lastModified: 12345
+        leadGen: true
+        name: '...'
+        plan:
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: INTERNATIONAL_ROOM_LINE
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: CUSTOMER
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        primary: true
+        rank: 12345
+        restricted: true
+        revenueType: '...'
+        targetAudience: '...'
+        trial:
+          length: 12345
+          unit: '...'
+        uuid: '...'
+    CharacteristicHighlightWS:
+      description: Characteristic highlight of a feature
+      type: object
+      title: CharacteristicHighlight
+      properties:
+        displayCheck:
+          description: Display a check on the UI
+          type: boolean
+        highlight:
+          description: Higlight description
+          type: string
+          maxLength: 1024
+          minLength: 0
+        id:
+          type: number
+      example:
+        displayCheck: true
+        highlight: '...'
+        id: 12345
+    ContractWS:
+      description: Contract associated to a payment plan
+      type: object
+      title: Contract
+      properties:
+        alignWithParentCycleStartDate:
+          description: Is addon cycle start date contract aligned with parent cycle start date
+          type: boolean
+        autoExtensionPricingId:
+          description: Auto extension pricing ID
+          type: number
+          nullable: true
+        blockContractDowngrades:
+          description: Is contract downgrade allowed
+          type: boolean
+        blockContractUpgrades:
+          description: Is contract upgrade allowed
+          type: boolean
+        blockSwitchToShorterContract:
+          description: Is switch to shorter contract allowed
+          type: boolean
+        cancellationPeriodLimit:
+          description: Cancellation period limit
+          type: number
+          nullable: true
+        endOfContractGracePeriod:
+          description: End of contract grace period
+          type: number
+          nullable: true
+        gracePeriod:
+          $ref: '#/components/schemas/DurationWS'
+        minimumServiceLength:
+          description: Minimum service length
+          type: number
+          nullable: true
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFeeWS'
+      example:
+        alignWithParentCycleStartDate: true
+        autoExtensionPricingId: 12345
+        blockContractDowngrades: true
+        blockContractUpgrades: true
+        blockSwitchToShorterContract: true
+        cancellationPeriodLimit: 12345
+        endOfContractGracePeriod: 12345
+        gracePeriod:
+          length: 12345
+          unit: '...'
+        minimumServiceLength: 12345
+        terminationFee:
+          description: '...'
+          flatFee:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          percentageFee: 12345
+          type: '...'
+    EditionCustomizationWS:
+      description: Edition customization
+      type: object
+      title: EditionCustomization
+      properties:
+        type:
+          description: Type
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        type: '...'
+        value: '...'
+    PlatformAttributeWS:
+      type: object
+      title: PlatformAttribute
+      properties:
+        applicationPlatformUuid:
+          type: string
+        createdOn:
+          type: number
+        lastModified:
+          type: number
+        platformAttributeDefinitionUuid:
+          type: string
+        platformAttributeOptionUuid:
+          type: string
+        uuid:
+          type: string
+        value:
+          type: string
+      example:
+        applicationPlatformUuid: '...'
+        createdOn: 12345
+        lastModified: 12345
+        platformAttributeDefinitionUuid: '...'
+        platformAttributeOptionUuid: '...'
+        uuid: '...'
+        value: '...'
+    BundledProductWS:
+      type: object
+      title: BundleProduct
+      properties:
+        blurb:
+          type: string
+        editionName:
+          type: string
+        featured:
+          type: boolean
+        iconUrl:
+          type: string
+          nullable: true
+        id:
+          type: number
+        name:
+          type: string
+        overview:
+          type: string
+          nullable: true
+        rating:
+          type: number
+          nullable: true
+      example:
+        blurb: '...'
+        editionName: '...'
+        featured: true
+        iconUrl: '...'
+        id: 12345
+        name: '...'
+        overview: '...'
+        rating: 12345
+    PlatformAttributeOptionWS:
+      type: object
+      title: PlatformAttributeOption
+      properties:
+        createdOn:
+          type: number
+        label:
+          type: string
+        lastModified:
+          type: number
+        order:
+          type: number
+        uuid:
+          type: string
+        value:
+          type: string
+      example:
+        createdOn: 12345
+        label: '...'
+        lastModified: 12345
+        order: 12345
+        uuid: '...'
+        value: '...'
+    AssociatedEditionWS:
+      description: Associated Edition details
+      type: object
+      title: AssociatedEdition
+      properties:
+        editionId:
+          description: Edition ID
+          type: number
+        productId:
+          description: ID of the product that this edition belongs to
+          type: number
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        editionId: 7254
+        productId: 1118
+        links:
+        - rel: '...'
+          href: '...'
+        - rel: '...'
+          href: '...'
+    PricingDuration:
+      description: Pricing duration types
+      type: string
+      title: PricingDuration
+      enum:
+      - ONE_TIME
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      - DAILY

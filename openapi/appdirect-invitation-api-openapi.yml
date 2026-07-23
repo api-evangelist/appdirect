@@ -1,0 +1,481 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Invitation API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Invitation
+  x-displayName: Invitations
+paths:
+  /account/v2/companies/{companyUuid}/invitations/{email}:
+    delete:
+      description: Revoke a user's invitiation to a marketplace company.
+      tags:
+      - Invitation
+      summary: Revoke user invitation
+      operationId: resource_Company_revokeInvitation_DELETE
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Email address of invitee in the API request
+        name: email
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of marketplace user who sent invitation
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden to delete invitation of an active user
+        '404':
+          description: Company, inviter or invitation not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/%7Bemail%7D?inviterUuid=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/%7Bemail%7D',\n  qs: {inviterUuid: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/%7Bemail%7D?inviterUuid=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/invitations:
+    get:
+      description: Retrieve a marketplace company's user invitations.
+      tags:
+      - Invitation
+      summary: List company invitations
+      operationId: resource_Company_getInvitedUsers_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Filter query used to reduce the returned result set
+        name: filter
+        in: query
+        schema:
+          type: string
+      - description: Unique identifier of marketplace user who sent invitation
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - email: mary.gonsalez3@yopmail.com
+                      externalIdentifier: mary.gonsalez3@yopmail.com
+                      role: DEVELOPER
+                      createdOn: 1517942905000
+                      lastModified: 1517942905000
+                      inviter: user@appdirect.com
+                      accepted: false
+                      company: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    - email: C14209781@appdirect.com
+                      externalIdentifier: C14209781@appdirect.com
+                      role: USER
+                      createdOn: 1473362089000
+                      lastModified: 1473362089000
+                      inviter: superuser+1@appdirect.com
+                      accepted: false
+                      company: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company, inviter or invitation not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations?filter=SOME_STRING_VALUE&inviterUuid=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations',\n  qs: {filter: 'SOME_STRING_VALUE', inviterUuid: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations?filter=SOME_STRING_VALUE&inviterUuid=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: 'Invite multiple users to a marketplace company using list of Invitation resources.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      tags:
+      - Invitation
+      summary: Invite users to company
+      operationId: resource_Company_inviteUsers_POST
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: If "true", specified companyUuid is used as company external Id.
+        name: api.usesExternalIds
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Unique identifier of inviter (marketplace user) in the API request
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/InvitationRequestAccountV2'
+              example:
+              - email: test1@email.com
+                role: DEVELOPER
+              - email: test2@email.com
+                role: ROLE_USER
+              - email: test3@email.com
+                role: ROLE_SYS_ADMIN
+        description: List of invitation resources.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    invitationsSent: 2
+                    errors:
+                    - index: 2
+                      type: PARSE_ERROR
+                      email: test1@email
+                      externalIdentifier: ''
+                      role: DEVELOPER
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company or inviter not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations?api.usesExternalIds=SOME_BOOLEAN_VALUE&inviterUuid=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '[{\"email\":\"test1@email.com\",\"role\":\"DEVELOPER\"},{\"email\":\"test2@email.com\",\"role\":\"ROLE_USER\"},{\"email\":\"test3@email.com\",\"role\":\"ROLE_SYS_ADMIN\"}]'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations',\n  qs: {'api.usesExternalIds': 'SOME_BOOLEAN_VALUE', inviterUuid: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: [\n    {email: 'test1@email.com', role: 'DEVELOPER'},\n    {email: 'test2@email.com', role: 'ROLE_USER'},\n    {email: 'test3@email.com', role: 'ROLE_SYS_ADMIN'}\n  ],\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"[{\\\"email\\\":\\\"test1@email.com\\\",\\\"role\\\":\\\"DEVELOPER\\\"},{\\\"email\\\":\\\"test2@email.com\\\",\\\"role\\\":\\\"ROLE_USER\\\"},{\\\"email\\\":\\\"test3@email.com\\\",\\\"role\\\":\\\"ROLE_SYS_ADMIN\\\"}]\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations?api.usesExternalIds=SOME_BOOLEAN_VALUE&inviterUuid=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/invitations/csv:
+    post:
+      description: 'Invite multiple users to a marketplace company using a CSV file.
+
+        This method expects a Content-Type request header with a value of “multipart/form-data”, “text/plain” or “text/csv”.
+
+
+        **Note: You cannot set the Marketplace Manager role through the API.**'
+      tags:
+      - Invitation
+      summary: Invite users to company (CSV)
+      operationId: resource_Company_inviteCSVUsers_POST
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of inviter (marketplace user) in the API request
+        name: inviterUuid
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                invitations:
+                  description: CSV file to uploaded.
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    invitationsSent: 2
+                    errors:
+                    - index: 2
+                      type: PARSE_ERROR
+                      email: test1@email
+                      externalIdentifier: ''
+                      role: DEVELOPER
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company or inviter not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/csv?inviterUuid=SOME_STRING_VALUE' \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/csv',\n  qs: {inviterUuid: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/invitations/csv?inviterUuid=SOME_STRING_VALUE\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/invitations/{invitationToken}/registration:
+    post:
+      description: Accept a user's invitation to a marketplace company
+      tags:
+      - Invitation
+      summary: Accept user invitation
+      operationId: resource_Invitation_updateInvitationWithRegistration_POST
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique invitation token in the API request
+        name: invitationToken
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: When "true", inviter external Id will be used instead of UUID
+        name: api.usesExternalIds
+        in: query
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+        description: User registration resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    email: newbie@email.com
+                    role: USER
+                    createdOn: 1480699597762
+                    lastModified: 1480699597764
+                    inviter: aec08af5-154f-4929-bcf2-afe2e805d6fd
+                    company: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                    accepted: true
+        '400':
+          description: Invitee is already an active user, first/last names are missing or a user already exists with the same external id
+        '401':
+          description: Unauthorized
+        '403':
+          description: Role hierarchy violation. The user making the request cannot change the password of a user with a higher role than their own.
+        '404':
+          description: Invitation not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/invitations/%7BinvitationToken%7D/registration?api.usesExternalIds=SOME_BOOLEAN_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"links\":[{\"href\":\"...\",\"rel\":\"...\"},{\"href\":\"...\",\"rel\":\"...\"}],\"externalIdentifier\":\"123456456\",\"firstName\":\"John\",\"lastName\":\"Doe\",\"locale\":\"en_US\",\"password\":\"Admin123\",\"title\":\"MS\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/invitations/%7BinvitationToken%7D/registration',\n  qs: {'api.usesExternalIds': 'SOME_BOOLEAN_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    links: [{href: '...', rel: '...'}, {href: '...', rel: '...'}],\n    externalIdentifier: '123456456',\n    firstName: 'John',\n    lastName: 'Doe',\n    locale: 'en_US',\n    password: 'Admin123',\n    title: 'MS'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"links\\\":[{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"},{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"}],\\\"externalIdentifier\\\":\\\"123456456\\\",\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"locale\\\":\\\"en_US\\\",\\\"password\\\":\\\"Admin123\\\",\\\"title\\\":\\\"MS\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/invitations/%7BinvitationToken%7D/registration?api.usesExternalIds=SOME_BOOLEAN_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    Role:
+      type: string
+      title: Role
+      enum:
+      - USER
+      - APPLICATION
+      - PARTNER
+      - PARTNER_READ
+      - COMPANY
+      - CLIENT
+      - CHECKOUT_USER
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - CHANNEL_ADMIN
+      - CORPORATE_ADMIN
+      - SUPERUSER
+      - SUPER_SUPPORT
+      - ANALYTICS_ADMIN
+      - LAYOUT_DESIGNER
+      - SALES_SUPPORT
+      - RESTRICTED_SALES_SUPPORT
+      - RESELLER
+      - RESELLER_MANAGER
+      - TESTER
+      - MONITORING
+      - SYSTEM
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    UserRegistration:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: UserRegistration
+        properties:
+          externalIdentifier:
+            description: External identifier of user
+            type: string
+          firstName:
+            description: First name of user
+            type: string
+          lastName:
+            description: Last name of user
+            type: string
+            nullable: true
+          locale:
+            description: 'Locale of user in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'', ''fr_CA'' etc'
+            type: string
+          password:
+            description: Password
+            type: string
+          title:
+            description: Title of user
+            type: string
+        example:
+          externalIdentifier: '123456456'
+          firstName: John
+          lastName: Doe
+          links: []
+          locale: en_US
+          password: Admin123
+          title: MS
+    InvitationRequestAccountV2:
+      description: Structure representing an invitation
+      type: object
+      title: InvitationRequestAccountV2
+      properties:
+        email:
+          description: Email the invitation was sent to.
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+      example:
+        email: invite-1@appdirect.local
+        role: SYS_ADMIN

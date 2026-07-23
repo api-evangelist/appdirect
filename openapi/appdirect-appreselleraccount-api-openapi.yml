@@ -1,0 +1,1205 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerAccount API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerAccount
+  x-displayName: Companies (Reseller)
+paths:
+  /appReseller/v1/companies:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Create a new company linked to the current reseller.
+      tags:
+      - AppResellerAccount
+      summary: Create company
+      operationId: resource_AppResellerAccountV1CompanyApi_post_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppResellerAccountCompanyCreationRequestWS'
+        description: Information about the new company that will be created
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountCompanyWS'
+              examples:
+                response:
+                  value:
+                    id: 386626c0-53e2-4515-8450-4a720bb5d029
+                    externalId: externalRandom
+                    name: Test Name
+                    createdOn: 1519158286000
+                    phone: '50505055'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/companies \\\n  --header 'content-type: application/json' \\\n  --data '{\"createdByCompanyId\":\"386626c0-53e2-4515-8450-4a720bb5d029\",\"name\":\"Test Name\",\"externalId\":\"externalRandom\",\"phone\":\"50505055\",\"companySize\":\"SMALL\",\"website\":\"www.new_company.com\",\"companyAccess\":\"RESELLER\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companies',\n  headers: {'content-type': 'application/json'},\n  body: {\n    createdByCompanyId: '386626c0-53e2-4515-8450-4a720bb5d029',\n    name: 'Test Name',\n    externalId: 'externalRandom',\n    phone: '50505055',\n    companySize: 'SMALL',\n    website: 'www.new_company.com',\n    companyAccess: 'RESELLER'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"createdByCompanyId\\\":\\\"386626c0-53e2-4515-8450-4a720bb5d029\\\",\\\"name\\\":\\\"Test Name\\\",\\\"externalId\\\":\\\"externalRandom\\\",\\\"phone\\\":\\\"50505055\\\",\\\"companySize\\\":\\\"SMALL\\\",\\\"website\\\":\\\"www.new_company.com\\\",\\\"companyAccess\\\":\\\"RESELLER\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companies\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Early Access
+      description: 'Retrieves companies depending on context: in the Reseller context, this endpoint lists all companies linked to the current reseller company; in the Reseller Manager context, it lists all referral and reseller companies in the current marketplace'
+      tags:
+      - AppResellerAccount
+      summary: List companies
+      operationId: resource_AppResellerAccountV1CompanyApi_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the companies
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the companies
+      parameters:
+      - name: context
+        in: query
+        description: Supported AppReseller contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER, RESELLER_MANAGER
+      - name: active
+        in: query
+        description: User activation status
+        required: false
+        schema:
+          type: string
+      - name: enabled
+        in: query
+        description: User enablement status
+        required: false
+        schema:
+          type: string
+      - name: searchText
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        required: false
+        description: From date, in timestamp format
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        required: false
+        description: To date, in timestamp format
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        required: false
+        description: Field to sort by
+        schema:
+          type: string
+          enum:
+          - COMPANY_ID
+          - CREATED_ON
+      - name: sortOrder
+        in: query
+        required: false
+        description: Sort order
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+      - name: vendor
+        in: query
+        description: This enum filters companies that can sell (or not) or resell products in the marketplace.
+        required: false
+        schema:
+          type: string
+          enum:
+          - ONLY_VENDORS, ONLY_NON_VENDORS, ONLY_RESELLERS
+      - name: channelAdmin
+        in: query
+        description: This enum filters companies that have (or not) permission to manage the marketplace.
+        required: false
+        schema:
+          type: string
+          enum:
+          - ONLY_CHANNEL_ADMINS, ONLY_NON_CHANNEL_ADMINS
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppResellerCompanyWS'
+              examples:
+                response:
+                  value:
+                  - id: 386626c0-53e2-4515-8450-4a720bb5d029
+                    externalId: externalRandom
+                    name: Test Name
+                    createdOn: 1519158286000
+                    phone: '50505055'
+                    activated: true
+                    numOfUsers: 1
+                    grantedAccesses: []
+                  - id: 296626c0-53e2-4515-8450-4a720bb5d040
+                    externalId: externalRandom2
+                    name: Test Name 2
+                    createdOn: 1519158286000
+                    phone: '50505056'
+                    activated: true
+                    numOfUsers: 1
+                    grantedAccesses: []
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/companies?context=SOME_STRING_VALUE&active=SOME_STRING_VALUE&enabled=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_STRING_VALUE&toDate=SOME_STRING_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&vendor=SOME_STRING_VALUE&channelAdmin=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companies',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    active: 'SOME_STRING_VALUE',\n    enabled: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    fromDate: 'SOME_STRING_VALUE',\n    toDate: 'SOME_STRING_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    vendor: 'SOME_STRING_VALUE',\n    channelAdmin: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companies?context=SOME_STRING_VALUE&active=SOME_STRING_VALUE&enabled=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_STRING_VALUE&toDate=SOME_STRING_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&vendor=SOME_STRING_VALUE&channelAdmin=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/companies/{companyId}:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves the current reseller company details.
+      tags:
+      - AppResellerAccount
+      summary: Company details
+      operationId: resource_AppResellerAccountV1CompanyApi_detail_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the company.
+      parameters:
+      - name: context
+        in: query
+        description: Supported AppReseller contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER, RESELLER_MANAGER
+      - name: companyId
+        in: path
+        description: Company ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDetailsWS'
+              examples:
+                response:
+                  value:
+                    id: 9e00b38b-7918-4a27-b2f6-123b77cfac0b
+                    name: C37719018
+                    createdOn: 1523007202000
+                    enabled: true
+                    active: true
+                    grantedAccesses: []
+                    defaultRole: USER
+                    availableAccesses: []
+                    availableTaxExemptions:
+                    - FEDERAL_GOVERNMENT_US
+                    - STATE_GOVERNMENT_US
+                    - TRIBE_INDIAN
+                    - FOREIGN_DIPLOMAT
+                    - CHARITABLE_ORG
+                    - RELIGIOUS_ORG
+                    - RESALE
+                    - COMMERCIAL_AGRICULTURAL
+                    - INDUSTRIAL_PRODUCTION
+                    - DIRECT_MAIL_US
+                    - DIRECT_PAY_PERMIT_US
+                    - OTHER
+                    - LOCAL_GOVERNMENT_US
+                    - COMMERCIAL_AQUACULTURE
+                    - COMMERCIAL_FISHERY
+                    - NON_RESIDENT_CAN
+                    - MEDICAL_DEVICE_WITH_EXEMPT_SALES_TAX_US
+                    - MEDICAL_DEVICE_WITH_TAXABLE_SALES_TAX_US
+                    stats:
+                    - unit: Free Trials
+                      children: '0'
+                    - unit: Expired Free Trials
+                      children: '0'
+                    - unit: Purchased Products
+                      children: '0'
+                    - unit: Suspended Products
+                      children: '0'
+                    - unit: Unpaid Invoices
+                      children: '0'
+                    - unit: Total Spent
+                      children: $0.00
+                    settings: []
+                    actions:
+                    - JOIN_COMPANY
+                    - DISABLE_COMPANY
+                    - MANAGE_CUSTOM_ATTRIBUTES
+                    - INVITE_USERS
+                    availableRoles:
+                    - USER
+                    idpConfigurations: []
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/companies/%7BcompanyId%7D?context=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/companies/%7BcompanyId%7D',\n  qs: {context: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companies/%7BcompanyId%7D?context=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/users:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Create a new user in a company linked to the Reseller company.
+      tags:
+      - AppResellerAccount
+      summary: Create user
+      operationId: resource_AppResellerAccountV1UserApi_post_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      parameters:
+      - name: context
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - RESELLER_MANAGER
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreationRequest'
+        description: Information about the user to create
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreationResponse'
+              examples:
+                response:
+                  value:
+                    id: 6d375008-3b19-4cb8-bbb9-dcd9fce99432
+                    companyId: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+                    email: test4@yopmail.com
+                    firstName: user4
+                    lastName: user4
+                    memberships:
+                    - company:
+                        id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+                        externalId: external11
+                        name: Company3
+                        createdOn: 1525682872000
+                        phone: null
+        '401':
+          description: Unauthorized
+        '500':
+          description: User not created
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/users?context=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"createdByCompanyId\":\"386626c0-53e2-0000-0000-4a720bb5d000\",\"companyId\":\"4c00cad1-f741-0zf6-bb00-0000e73cec00\",\"externalId\":\"01\",\"email\":\"user@appdirect.com\",\"firstName\":\"James\",\"lastName\":\"Smith\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/users',\n  qs: {context: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    createdByCompanyId: '386626c0-53e2-0000-0000-4a720bb5d000',\n    companyId: '4c00cad1-f741-0zf6-bb00-0000e73cec00',\n    externalId: '01',\n    email: 'user@appdirect.com',\n    firstName: 'James',\n    lastName: 'Smith'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"createdByCompanyId\\\":\\\"386626c0-53e2-0000-0000-4a720bb5d000\\\",\\\"companyId\\\":\\\"4c00cad1-f741-0zf6-bb00-0000e73cec00\\\",\\\"externalId\\\":\\\"01\\\",\\\"email\\\":\\\"user@appdirect.com\\\",\\\"firstName\\\":\\\"James\\\",\\\"lastName\\\":\\\"Smith\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/users?context=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Early Access
+      description: In the Reseller Manager context, this request retrieves all Resellers and Referral users. In the Reseller context, it retrieves all users that belong to companies linked to the reseller.
+      tags:
+      - AppResellerAccount
+      summary: List users
+      operationId: resource_AppResellerAccountV1UserApi_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for reading the users from companies that are linked to mine.
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for reading the users whose company are Reseller or Referral.
+      parameters:
+      - name: context
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - RESELLER_MANAGER
+      - name: partner
+        in: query
+        description: User partner
+        required: false
+        schema:
+          type: string
+      - name: companyId
+        in: query
+        description: User company ID
+        required: false
+        schema:
+          type: string
+      - name: active
+        in: query
+        description: List of user activation status
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          enum:
+          - ONLY_ACTIVE
+          - ONLY_INACTIVE
+          - ONLY_PENDING_INVITE
+      - name: searchText
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        required: false
+        description: From date, in timestamp format
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        required: false
+        description: To date, in timestamp format
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        required: false
+        description: Field to sort by
+        schema:
+          type: string
+          enum:
+          - CUSTOMER_ID
+          - EMAIL
+          - FIRST_NAME
+      - name: sortOrder
+        in: query
+        required: false
+        description: Sort order
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 0af398ee-0000-000a-0000-a83d70caeff8
+                      companyId: 0a357e6b-0000-000a-0000-680eabb9e322
+                      email: john@appdirect.com
+                      firstName: John
+                      lastName: Grande
+                      createdOn: 1525682872000
+                      activated: false
+                      invitationRequired: false
+                      memberships:
+                      - company:
+                          id: 0a357e6b-0000-000a-0000-680eabb9e322
+                          name: TestCompany
+                          createdOn: 1525682872000
+                        enabled: true
+                    - id: 47e70302-0000-000a-0000-a01cb6129c6c
+                      companyId: a5811d92-0000-000a-0000-3c69e47fe126
+                      email: george@appdirect.com
+                      firstName: George
+                      lastName: Common
+                      createdOn: 1461321550000
+                      activated: false
+                      invitationRequired: false
+                      memberships:
+                      - company:
+                          id: a5811d92-0000-000a-0000-3c69e47fe126
+                          name: C4027287
+                          createdOn: 1461321550000
+                        enabled: true
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/users?context=SOME_STRING_VALUE&partner=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&active=SOME_ARRAY_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_STRING_VALUE&toDate=SOME_STRING_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/users',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    partner: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    active: 'SOME_ARRAY_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    fromDate: 'SOME_STRING_VALUE',\n    toDate: 'SOME_STRING_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/users?context=SOME_STRING_VALUE&partner=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&active=SOME_ARRAY_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_STRING_VALUE&toDate=SOME_STRING_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/users/{userId}:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Get a single user details
+      tags:
+      - AppResellerAccount
+      summary: User details
+      operationId: resource_AppResellerAccountV1UserDetailApi_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the company.
+      parameters:
+      - name: context
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - RESELLER_MANAGER
+      - name: userId
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: string
+      - name: companyId
+        in: query
+        description: User's company ID (some user details depend on the specified company)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReadResponse'
+              examples:
+                response:
+                  value:
+                    id: 64535371-9e83-0000-0000-61cb17bc0c9e
+                    companyId: c5fe2ca9-3db1-0000-0000-0cf0a01bd437
+                    email: c4201720@appdirect.com
+                    firstName: John
+                    lastName: Grande
+                    createdOn: 1465984400000
+                    activated: true
+                    invitationRequired: false
+                    memberships:
+                    - company:
+                        id: c5fe2ca9-0000-408c-0000-0cf0a01bd437
+                        name: C4200000
+                      roles:
+                      - BILLING_ADMIN
+                      - SYS_ADMIN
+                      - RESELLER
+                      enabled: true
+                    partner: APPDIRECT
+                    enabled: true
+                    customAttributes: []
+                    settings:
+                    - setting: SYS_ADMIN
+                      permission: READ
+                      value: 'true'
+                    - setting: BILLING_ADMIN
+                      permission: READ
+                      value: 'true'
+                    actions:
+                    - SEND_RESET_PASSWORD_EMAIL
+                    availableRoles:
+                    - name: BILLING_ADMIN
+                      permission: READ
+                    - name: SYS_ADMIN
+                      permission: READ
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/users/%7BuserId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/users/%7BuserId%7D',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/users/%7BuserId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AccountCompanyWS:
+      type: object
+      title: AccountCompany
+      properties:
+        id:
+          description: Company's identifier
+          type: string
+        externalId:
+          description: External ID used to identify the company (must be unique)
+          type: string
+        name:
+          description: Company's name
+          type: string
+        createdOn:
+          description: Company's creation date, in UNIX Epoch milliseconds
+          type: number
+    UserReadResponse:
+      allOf:
+      - $ref: '#/components/schemas/UserCreationResponse'
+      - type: object
+        title: UserReadResponse
+        properties:
+          partner:
+            description: User partner
+            type: string
+          numActiveApps:
+            description: Number of active applications
+            type: integer
+          customAttributes:
+            description: List of users
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomAttributeLightV2WS'
+          profilePic:
+            description: User profile picture URL
+            type: string
+          settings:
+            description: List of user roles, indicating whether the current user can edit them
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerUserSettingWS'
+          actions:
+            description: Actions that the current user can perform
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerUserActionsWS'
+          availableRoles:
+            description: User roles that can be assigned to the user
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerUserRoleWS'
+          stats:
+            description: User stats
+            type: array
+            items:
+              $ref: '#/components/schemas/ApplicationSummaryStat'
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    AppResellerAccountUserCompanyMembershipWS:
+      type: object
+      title: AppResellerAccountUserCompanyMembership
+      properties:
+        company:
+          $ref: '#/components/schemas/AppResellerAccountCompanyWS'
+        enabled:
+          description: Indicates whether user's company membership is enabled
+          type: boolean
+        mosiUser:
+          $ref: '#/components/schemas/MosiUser'
+        roles:
+          description: User roles in the Company
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    AppResellerAccountCompanyCreationRequestWS:
+      type: object
+      title: AppResellerAccountCompanyCreationRequest
+      properties:
+        createdByCompanyId:
+          description: Reseller's company UUID
+          type: string
+        name:
+          description: New company's name
+          type: string
+        externalId:
+          description: External ID used to identify the new company (must be unique)
+          type: string
+        phone:
+          description: New company's phone number
+          type: string
+        companySize:
+          $ref: '#/components/schemas/AppResellerAccountCompanySize'
+        website:
+          description: New company's website
+          type: string
+        companyAccess:
+          $ref: '#/components/schemas/AppResellerAccountCompanyAccess'
+      example:
+        createdByCompanyId: 386626c0-53e2-4515-8450-4a720bb5d029
+        name: Test Name
+        externalId: externalRandom
+        phone: '50505055'
+        companySize: SMALL
+        website: www.new_company.com
+        companyAccess: RESELLER
+    AppResellerAccountCompanySize:
+      description: Size of the new company
+      type: string
+      title: AppResellerAccountCompanySize
+      enum:
+      - SMALL
+      - MEDIUM
+      - ENTERPRISE
+    ApplicationSummaryStat:
+      description: Company application summary statistic
+      type: object
+      title: ApplicationSummaryStat
+      properties:
+        unit:
+          description: Summary statistic name
+          type: string
+        children:
+          description: Summary statistic value
+          type: string
+    AppResellerAccountUserSettingCode:
+      description: User role setting code
+      type: string
+      title: AppResellerAccountUserSettingCode
+      enum:
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - TESTER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - SALES_SUPPORT
+      - CHANNEL_ADMIN
+      - RESELLER_MANAGER
+      - RESELLER
+      - REFERRAL
+      - ODSA_SUPPORT
+    AppResellerAccountTaxExemptionCode:
+      description: Company tax exemption codes
+      type: string
+      title: AppResellerAccountTaxExemptionCode
+      enum:
+      - FEDERAL_GOVERNMENT_US
+      - STATE_GOVERNMENT_US
+      - TRIBE_INDIAN
+      - FOREIGN_DIPLOMAT
+      - CHARITABLE_ORG
+      - RELIGIOUS_ORG
+      - RESALE
+      - COMMERCIAL_AGRICULTURAL
+      - INDUSTRIAL_PRODUCTION
+      - DIRECT_MAIL_US
+      - DIRECT_PAY_PERMIT_US
+      - OTHER
+      - LOCAL_GOVERNMENT_US
+      - COMMERCIAL_AQUACULTURE
+      - COMMERCIAL_FISHERY
+      - NON_RESIDENT_CAN
+      - MEDICAL_DEVICE_WITH_EXEMPT_SALES_TAX_US
+      - MEDICAL_DEVICE_WITH_TAXABLE_SALES_TAX_US
+    UserCreationRequest:
+      type: object
+      title: UserCreationRequest
+      properties:
+        createdByCompanyId:
+          description: Reseller's company ID
+          type: string
+        companyId:
+          description: New user's company ID
+          type: string
+        externalId:
+          description: New user's external ID (must be unique)
+          type: string
+        email:
+          description: New user's email (must be unique)
+          type: string
+        firstName:
+          description: New user's First Name
+          type: string
+        lastName:
+          description: New user's Last Name
+          type: string
+      example:
+        createdByCompanyId: 386626c0-53e2-0000-0000-4a720bb5d000
+        companyId: 4c00cad1-f741-0zf6-bb00-0000e73cec00
+        externalId: '01'
+        email: user@appdirect.com
+        firstName: James
+        lastName: Smith
+    AppResellerAccountCompanySettingCode:
+      description: Company Setting Code
+      type: string
+      title: AppResellerAccountCompanySettingCode
+      enum:
+      - ON_DEVICES_SALES_AUTOMATION
+      - TAX_RATE
+      - TAX_EXEMPTION_CODE
+      - CREATE_LEADS
+      - CREATE_COMPANIES
+      - CREATE_OPPORTUNITIES
+      - CLOUD_MANAGEMENT
+      - TWO_FACTOR_AUTHENTICATION
+      - IDENTITY_DATA_PROVIDER
+      - EXTERNAL_ID
+      - THIRTY_DAYS_PURCHASE_LIMIT_EXEMPT
+      - DEFAULT_USER_ROLE
+    CustomAttributeLightV2WS:
+      type: object
+      title: CustomAttributeLightV2
+      properties:
+        attributeKey:
+          type: string
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        label:
+          type: string
+        value:
+          type: string
+        valueKeys:
+          type: array
+          items:
+            type: string
+        valueOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeLocalizedValueOptionWS'
+      example:
+        attributeKey: '...'
+        attributeType: MULTISELECT
+        label: '...'
+        value: '...'
+        valueKeys:
+        - '...'
+        - '...'
+        valueOptions:
+        - optionKey: '...'
+          optionLabel: '...'
+        - optionKey: '...'
+          optionLabel: '...'
+    Role:
+      type: string
+      title: Role
+      enum:
+      - USER
+      - APPLICATION
+      - PARTNER
+      - PARTNER_READ
+      - COMPANY
+      - CLIENT
+      - CHECKOUT_USER
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - CHANNEL_ADMIN
+      - CORPORATE_ADMIN
+      - SUPERUSER
+      - SUPER_SUPPORT
+      - ANALYTICS_ADMIN
+      - LAYOUT_DESIGNER
+      - SALES_SUPPORT
+      - RESTRICTED_SALES_SUPPORT
+      - RESELLER
+      - RESELLER_MANAGER
+      - TESTER
+      - MONITORING
+      - SYSTEM
+    AppResellerAccountIdentityProvider:
+      description: Configured Identity provider
+      type: object
+      title: AppResellerAccountIdentityProvider
+      properties:
+        id:
+          description: Identity provider identifier
+          type: string
+        name:
+          description: Identity provider name
+          type: string
+        partner:
+          description: Identity provider partner
+          type: string
+    MosiUser:
+      type: object
+      title: MosiUser
+      properties:
+        username:
+          type: string
+          nullable: true
+      example:
+        username: adazuretest@sdasd21321.onmicrosoft.com
+      nullable: true
+    UserPagedReadResponse:
+      type: object
+      title: UserPagedReadResponse
+      properties:
+        content:
+          description: List of users
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCreationResponse'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    AppResellerUserRoleWS:
+      type: object
+      title: AppResellerUserRoleWS
+      properties:
+        name:
+          description: Role name
+          type: string
+        permission:
+          $ref: '#/components/schemas/ReadWritePermission'
+    CustomAttributeLocalizedValueOptionWS:
+      type: object
+      title: CustomAttributeLocalizedValueOption
+      properties:
+        optionKey:
+          type: string
+        optionLabel:
+          type: string
+      example:
+        optionKey: '...'
+        optionLabel: '...'
+    AppResellerAccountCompanyAccessCode:
+      description: Type of company access
+      type: string
+      title: AppResellerAccountCompanyAccessCode
+      enum:
+      - RESELLER
+      - REFERRAL
+      - CUSTOMER
+      - DEVELOPER
+      - MARKETPLACE
+      - SALES_SUPPORT_REPRESENTATIVE
+      - ENTERPRISE_CUSTOMER
+    AppResellerCompanyWS:
+      type: object
+      title: Company
+      properties:
+        id:
+          description: Company's ID
+          type: string
+        externalId:
+          description: External ID used to identify the company (must be unique)
+          type: string
+        name:
+          description: New company's name
+          type: string
+        createdOn:
+          description: Date when new company was created, in UNIX Epoch milliseconds
+          type: number
+        phone:
+          description: Company's phone number
+          type: string
+        activated:
+          description: Indicates whether company is activated
+          type: boolean
+        numOfUsers:
+          description: Number of users in the company
+          type: number
+        grantedAccesses:
+          description: Company granted accesses
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerAccountCompanyAccess'
+    CompanyDetailsWS:
+      allOf:
+      - $ref: '#/components/schemas/AccountCompanyWS'
+      - type: object
+        title: CompanyDetails
+        properties:
+          domain:
+            description: Company's email domain
+            type: string
+          subdomain:
+            description: Company's sub domain
+            type: string
+          domainVerified:
+            description: The verified domain address
+            type: string
+          phone:
+            description: Company's phone number
+            type: string
+          channel:
+            description: Company's partner
+            type: string
+          enabled:
+            description: Indicates whether company can log in to the marketplace
+            type: boolean
+          active:
+            description: Indicates whether company has completed registration
+            type: boolean
+          profilePicture:
+            description: Company's profile picture URL
+            type: string
+          stats:
+            description: Company applications summary stats
+            type: array
+            items:
+              $ref: '#/components/schemas/ApplicationSummaryStat'
+          settings:
+            description: Company settings available to Company Reseller Managers
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountCompanySetting'
+          actions:
+            description: Actions available for the current user on this company
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountCompanyAction'
+          grantedAccesses:
+            description: Assigned accesses that the company has
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountCompanyAccessCode'
+          availableAccesses:
+            description: Available accesses that the company can have
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountCompanyAccessCode'
+          defaultRole:
+            $ref: '#/components/schemas/Role'
+          availableTaxExemptions:
+            description: Tax exemptions that the company can have
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountTaxExemptionCode'
+          availableRoles:
+            description: Available roles that can be assigned to the company users
+            type: array
+            items:
+              $ref: '#/components/schemas/Role'
+          idpConfigurations:
+            description: Company's configured identity providers
+            type: array
+            items:
+              $ref: '#/components/schemas/AppResellerAccountIdentityProvider'
+    AppResellerUserSettingWS:
+      description: User setting
+      type: object
+      title: AppResellerUserSetting
+      properties:
+        setting:
+          $ref: '#/components/schemas/AppResellerAccountUserSettingCode'
+        permission:
+          $ref: '#/components/schemas/ReadWritePermission'
+        value:
+          description: User setting value
+          type: string
+    UserCreationResponse:
+      type: object
+      title: UserCreationResponse
+      properties:
+        id:
+          description: User ID
+          type: string
+        companyId:
+          description: Current company ID
+          type: string
+        email:
+          description: Email address
+          type: string
+        firstName:
+          description: First name
+          type: string
+        lastName:
+          description: Last name
+          type: string
+        createdOn:
+          description: User creation date, in timestamp format
+          type: number
+        activated:
+          description: Indicates whether user is activated
+          type: boolean
+        invitationRequired:
+          description: Indicates whether the user requires an invitation
+          type: boolean
+        enabled:
+          description: Indicates whether the user is enabled
+          type: boolean
+        memberships:
+          description: User company memberships
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerAccountUserCompanyMembershipWS'
+      example:
+        id: 6d375008-3b19-4cb8-bbb9-dcd9fce99432
+        companyId: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+        email: test4@yopmail.com
+        firstName: user4
+        lastName: user4
+        createdOn: 1461321550000
+        activated: false
+        invitationRequired: false
+        memberships:
+        - company:
+            id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+            externalId: external11
+            name: Company3
+            createdOn: 10242018
+            phone: '50505054'
+          enabled: true
+    AppResellerAccountCompanyAction:
+      description: Type of company action
+      type: string
+      title: AppResellerAccountCompanyAction
+      enum:
+      - ENABLE_ON_DEVICES_SALES_AUTOMATION
+      - DISABLE_ON_DEVICES_SALES_AUTOMATION
+      - VERIFY_EMAIL_DOMAIN
+      - UNVERIFY_EMAIL_DOMAIN
+      - ENABLE_COMPANY
+      - DISABLE_COMPANY
+      - LINK_RESELLER_TO_CUSTOMER
+      - LINK_CUSTOMER_TO_RESELLER
+      - INVITE_USERS
+      - MANAGE_PRODUCT_CATALOG
+      - LEAVE_COMPANY
+      - JOIN_COMPANY
+      - MANAGE_CUSTOM_ATTRIBUTES
+      - MOSI_DOMAINS_MANAGEMENT
+    ReadWritePermission:
+      description: Type of company write permissions
+      type: string
+      title: ReadWritePermission
+      enum:
+      - READ
+      - WRITE
+    AppResellerAccountCompanyWS:
+      type: object
+      title: AppResellerAccountCompany
+      properties:
+        id:
+          description: Company ID
+          type: string
+        externalId:
+          description: Company's external ID
+          type: string
+          nullable: true
+        name:
+          description: Company name
+          type: string
+        createdOn:
+          description: Company creation date, in timestamp format
+          type: number
+      example:
+        id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+        externalId: external11
+        name: Company3
+        createdOn: 1522950634000
+    AppResellerUserActionsWS:
+      description: User actions
+      type: string
+      title: AppResellerUserActions
+      enum:
+      - RESET_PASSWORD
+      - SEND_RESET_PASSWORD_EMAIL
+      - SEND_ACTIVATION_EMAIL
+      - ACCEPT_SIGNUP_REQUEST
+      - REMOVE_USER_FROM_COMPANY
+      - REMOVE_LAST_USER_FROM_COMPANY
+      - LEAVE_COMPANY
+      - JOIN_COMPANY
+      - IMPERSONATE
+      - REQUEST_ACCOUNT_ACCESS
+      - CANCEL_REQUEST_ACCOUNT_ACCESS
+      - ENABLE_USER
+      - RESET_TWO_FACTOR_AUTHENTICATION
+      - CHANGE_ACCOUNT_EMAIL
+      - DISABLE_USER
+      - MAKE_PURCHASE
+    AppResellerAccountCompanyAccess:
+      description: Supported AppReseller contexts
+      type: string
+      title: AppResellerAccountCompanyApiContext
+      enum:
+      - RESELLER
+      - REFERRAL
+      - CUSTOMER
+    AppResellerAccountCompanySetting:
+      description: Company setting
+      type: object
+      title: AppResellerAccountCompanySetting
+      properties:
+        setting:
+          $ref: '#/components/schemas/AppResellerAccountCompanySettingCode'
+        permission:
+          $ref: '#/components/schemas/ReadWritePermission'
+        value:
+          description: Company setting value
+          type: string
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

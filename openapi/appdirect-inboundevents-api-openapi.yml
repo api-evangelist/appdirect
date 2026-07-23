@@ -1,0 +1,401 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed InboundEvents API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: InboundEvents
+  x-displayName: Content Events
+paths:
+  /appwise/v2/data:
+    post:
+      x-appdirect-api-stage: Early Access
+      tags:
+      - InboundEvents
+      summary: Publish content events
+      description: Publishes content events that contain new or changed data in referenced resources. To access this API, you must configure product-scoped OAuth2 authentication for your application.
+      operationId: events
+      x-appdirect-required-scopes:
+        ROLE_APPLICATION:
+        - Allows access as the Developer that owns the Product.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentEvent'
+        description: All information about a change to data in a referenced resource, including the resource key, change description, changes to fields, user access, and content.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value: {}
+        '400':
+          description: Input is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentEventError'
+        '401':
+          description: Unauthorized to publish this event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentEventError'
+        '500':
+          description: An internal error occurred during event processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentEventError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appwise/v2/data \\\n  --header 'content-type: application/json' \\\n  --data '{\"eventMetadata\":{\"id\":\"6ed0279c-35ed-4c7e-928e-25e46c080431\",\"type\":\"ResourceUpdated\",\"timestamp\":\"2020-06-11T15:23:45Z\"},\"key\":{\"source\":\"b2fc6737-3d3f-4da2-afda-f80f25b89af9\",\"instance\":\"myclient.myapp.com\",\"resourceId\":\"order-12345\",\"timestamp\":1500558736123},\"actor\":{\"identifier\":\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\"name\":\"Bob Roberts\"},\"action\":{\"verb\":\"assigned\",\"text\":\"a task\"},\"changes\":{\"fields\":[{\"name\":\"projectStatus\",\"value\":\"In progress\",\"label\":\"Project Status\",\"op\":\"replace\",\"display\":\"expanded\"}],\"users\":[{\"identifier\":\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\"name\":\"Bob Roberts\"}],\"groups\":[{\"identifier\":\"c390a4bf-4f54-418a-87ca-5970c332ba17\"}]},\"contents\":[{\"url\":\"https://myapp.com/orders/1234\",\"previewUrl\":\"https://myapp.com/orders/1234?preview\",\"title\":\"Order request\",\"searchText\":\"string\",\"mimeType\":\"application/pdf\",\"linkedToResource\":true}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appwise/v2/data',\n  headers: {'content-type': 'application/json'},\n  body: {\n    eventMetadata: {\n      id: '6ed0279c-35ed-4c7e-928e-25e46c080431',\n      type: 'ResourceUpdated',\n      timestamp: '2020-06-11T15:23:45Z'\n    },\n    key: {\n      source: 'b2fc6737-3d3f-4da2-afda-f80f25b89af9',\n      instance: 'myclient.myapp.com',\n      resourceId: 'order-12345',\n      timestamp: 1500558736123\n    },\n    actor: {\n      identifier: 'bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4',\n      name: 'Bob Roberts'\n    },\n    action: {verb: 'assigned', text: 'a task'},\n    changes: {\n      fields: [\n        {\n          name: 'projectStatus',\n          value: 'In progress',\n          label: 'Project Status',\n          op: 'replace',\n          display: 'expanded'\n        }\n      ],\n      users: [\n        {\n          identifier: 'bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4',\n          name: 'Bob Roberts'\n        }\n      ],\n      groups: [{identifier: 'c390a4bf-4f54-418a-87ca-5970c332ba17'}]\n    },\n    contents: [\n      {\n        url: 'https://myapp.com/orders/1234',\n        previewUrl: 'https://myapp.com/orders/1234?preview',\n        title: 'Order request',\n        searchText: 'string',\n        mimeType: 'application/pdf',\n        linkedToResource: true\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"eventMetadata\\\":{\\\"id\\\":\\\"6ed0279c-35ed-4c7e-928e-25e46c080431\\\",\\\"type\\\":\\\"ResourceUpdated\\\",\\\"timestamp\\\":\\\"2020-06-11T15:23:45Z\\\"},\\\"key\\\":{\\\"source\\\":\\\"b2fc6737-3d3f-4da2-afda-f80f25b89af9\\\",\\\"instance\\\":\\\"myclient.myapp.com\\\",\\\"resourceId\\\":\\\"order-12345\\\",\\\"timestamp\\\":1500558736123},\\\"actor\\\":{\\\"identifier\\\":\\\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\\\",\\\"name\\\":\\\"Bob Roberts\\\"},\\\"action\\\":{\\\"verb\\\":\\\"assigned\\\",\\\"text\\\":\\\"a task\\\"},\\\"changes\\\":{\\\"fields\\\":[{\\\"name\\\":\\\"projectStatus\\\",\\\"value\\\":\\\"In progress\\\",\\\"label\\\":\\\"Project Status\\\",\\\"op\\\":\\\"replace\\\",\\\"display\\\":\\\"expanded\\\"}],\\\"users\\\":[{\\\"identifier\\\":\\\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\\\",\\\"name\\\":\\\"Bob Roberts\\\"}],\\\"groups\\\":[{\\\"identifier\\\":\\\"c390a4bf-4f54-418a-87ca-5970c332ba17\\\"}]},\\\"contents\\\":[{\\\"url\\\":\\\"https://myapp.com/orders/1234\\\",\\\"previewUrl\\\":\\\"https://myapp.com/orders/1234?preview\\\",\\\"title\\\":\\\"Order request\\\",\\\"searchText\\\":\\\"string\\\",\\\"mimeType\\\":\\\"application/pdf\\\",\\\"linkedToResource\\\":true}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/data\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    EventMetadata:
+      type: object
+      title: EventMetadata
+      description: Metadata for Search content
+      required:
+      - id
+      - timestamp
+      - type
+      properties:
+        id:
+          type: string
+          description: Event ID. Required.
+        type:
+          $ref: '#/components/schemas/ContentEventType'
+        timestamp:
+          type: string
+          description: Event timestamp. Required.
+      example:
+        id: 6ed0279c-35ed-4c7e-928e-25e46c080431
+        type: ResourceUpdated
+        timestamp: '2020-06-11T15:23:45Z'
+    Action:
+      type: object
+      title: Action
+      description: 'An action statement that can be used to describe changes that appear in feeds. The statement is constructed of a verb suffixed by text. For example: Verb (assigned) + text (a task) = action description (assigned a task). If delete boolean is true, the resource is deleted from Customer Search.
+
+
+        Required parameters: Only Text and Verb are required in requests to create action statements. Only delete is required to delete a resource.'
+      required:
+      - text
+      - verb
+      properties:
+        verb:
+          type: string
+          description: The verb that appears in the (verb+text) action statement
+        text:
+          type: string
+          description: The text that appears after the verb in the (verb+text) action statement
+        delete:
+          type: boolean
+          description: If true, the resource is deleted from Search
+      example:
+        verb: assigned
+        text: a task
+    ContentEvent:
+      type: object
+      title: ContentEvent
+      description: Descriptions of content change events, and the associated content
+      required:
+      - key
+      properties:
+        eventMetadata:
+          $ref: '#/components/schemas/EventMetadata'
+        key:
+          $ref: '#/components/schemas/Key'
+        actor:
+          $ref: '#/components/schemas/ContentEventActor'
+        action:
+          $ref: '#/components/schemas/Action'
+        changes:
+          $ref: '#/components/schemas/Changes'
+        contents:
+          type: array
+          description: Content items associated with the resource
+          items:
+            $ref: '#/components/schemas/Content'
+      example:
+        eventMetadata:
+          id: 6ed0279c-35ed-4c7e-928e-25e46c080431
+          type: ResourceUpdated
+          timestamp: '2020-06-11T15:23:45Z'
+        key:
+          source: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+          instance: myclient.myapp.com
+          resourceId: order-12345
+          timestamp: 1500558736123
+        actor:
+          identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          name: Bob Roberts
+        action:
+          verb: assigned
+          text: a task
+        changes:
+          fields:
+          - name: projectStatus
+            value: In progress
+            label: Project Status
+            op: replace
+            display: expanded
+          users:
+          - identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+            name: Bob Roberts
+          groups:
+          - identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
+        contents:
+        - url: https://myapp.com/orders/1234
+          previewUrl: https://myapp.com/orders/1234?preview
+          title: Order request
+          searchText: string
+          mimeType: application/pdf
+          linkedToResource: true
+    Group:
+      type: object
+      title: Group
+      description: UUID of a user group configured in the marketplace. Gives resource visibility to a group of users.
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          example: c390a4bf-4f54-418a-87ca-5970c332ba17
+          description: UUID of a user group configured in the marketplace. Required.
+        delete:
+          type: boolean
+          description: Delete resource visibility for the group
+      example:
+        identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
+    Changes:
+      type: object
+      title: Changes
+      description: Changes to a resource connected to Search
+      properties:
+        fields:
+          type: array
+          description: Field changes
+          items:
+            $ref: '#/components/schemas/ContentEventField'
+        users:
+          type: array
+          description: User access changes
+          items:
+            $ref: '#/components/schemas/ContentEventUser'
+        groups:
+          type: array
+          description: Group access changes
+          items:
+            $ref: '#/components/schemas/Group'
+      example:
+        fields:
+        - name: projectStatus
+          value: In progress
+          label: Project Status
+          op: replace
+          display: expanded
+        users:
+        - identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          name: Bob Roberts
+        groups:
+        - identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
+    Content:
+      type: object
+      title: Content
+      description: Structured Search content. When delete parameter is true, the content is removed from the resource.
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          example: https://myapp.com/orders/1234
+          description: URL of the content. Required.
+        previewUrl:
+          type: string
+          example: https://myapp.com/orders/1234?preview
+          description: URL of the content preview
+        title:
+          type: string
+          example: Order request
+          description: Title of the content
+        searchText:
+          type: string
+          description: Full text of the content
+        mimeType:
+          type: string
+          example: application/pdf
+          description: MIME type of the content
+        linkedToResource:
+          type: boolean
+          description: 'Manage duplicate search results for content associated with other resources. If true, link content to associated resources and return it as a single object. If false, content and associated resources are returned as separate objects. Example: Search terms appear in a spreadsheet that is attached to an email. If true, search returns the spreadsheet. If false, search returns the email and the spreadsheet.'
+        delete:
+          type: boolean
+          description: If true, the content is removed from the resource
+      example:
+        url: https://myapp.com/orders/1234
+        previewUrl: https://myapp.com/orders/1234?preview
+        title: Order request
+        searchText: string
+        mimeType: application/pdf
+        linkedToResource: true
+    ContentEventError:
+      type: object
+      title: ContentEventError
+      required:
+      - code
+      - message
+      - status
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+        code:
+          type: string
+          description: Canonical error code
+        message:
+          type: string
+          description: Error message
+        moreInfo:
+          type: string
+          description: URL with more information about the error
+      example:
+        status: 404
+        code: NOT_FOUND
+        message: User not found.
+        moreInfo: https://help.appdirect.com/api/appwise.html
+    ContentEventType:
+      type: string
+      title: ContentEventType
+      description: ResourceCreated, ResourceUpdated, ResourceDeleted are used when the Search resource is created, updated, and deleted respectively. ResourceContentUpdated is used when a content item is updated or deleted.
+      enum:
+      - ResourceCreated
+      - ResourceUpdated
+      - ResourceDeleted
+      - ResourceContentUpdated
+    Key:
+      type: object
+      title: Key
+      description: Identify a resource
+      required:
+      - instance
+      - resourceId
+      - source
+      properties:
+        source:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID. Required.'
+        instance:
+          type: string
+          description: Vendor account identifier within the application. Required.
+        resourceId:
+          type: string
+          description: Unique ID of the resource in the instance. Required.
+        timestamp:
+          type: integer
+          format: int64
+          description: UTC timestamp of when the event occurred in epoch format, with millisecond precision
+      example:
+        source: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+        instance: myclient.myapp.com
+        resourceId: order-12345
+        timestamp: 1500558736123
+    ContentEventUser:
+      type: object
+      title: ContentEventUser
+      description: 'The application user by identifier (accountName) and name. If delete boolean is true, the user''s application account (accountName) for the Search resource is deleted from the ContentEventUser users array.
+
+
+        Required parameters: Only identifier is required to identify a user. Identifier and delete are required for deletion.'
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          example: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          description: 'Identifier (accountName) for the application user. Format: {user_handle}@{user_uuid}@{company_uuid}. Required.'
+        name:
+          type: string
+          example: Bob Roberts
+          description: Full name of the user in the application
+        delete:
+          type: boolean
+          description: If true, delete the user's application account (accountName) for the Search and Search resource (only affects Change node/ContentEventUser users array)
+      example:
+        identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        name: Bob Roberts
+    ContentEventField:
+      type: object
+      title: ContentEventField
+      description: Defines a field, valid content, appearance, and behavior
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: Unique field name. Required.
+        value:
+          type: string
+          description: Field value. Required.
+        label:
+          type: string
+          description: Field label
+        op:
+          type: string
+          description: Defines how the field will be merged with an existing field of the same name. Optional. Default is replace.
+          enum:
+          - replace
+          - remove
+        display:
+          $ref: '#/components/schemas/Display'
+      example:
+        name: projectStatus
+        value: In progress
+        label: Project Status
+        op: replace
+        display: expanded
+    ContentEventActor:
+      type: object
+      title: ContentEventActor
+      description: 'Identify the application user by identifier (accountName) and name.
+
+
+        Required parameters: Only identifier is required to identify a user.'
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          example: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          description: 'Identifier (accountName) for the application user. Format: {user_handle}@{user_uuid}@{company_uuid}. Required.'
+        name:
+          type: string
+          example: Bob Roberts
+          description: Full name of the user in the application
+      example:
+        identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        name: Bob Roberts
+    Display:
+      type: string
+      title: Display
+      description: 'Display enumeration. Hidden: Hides the field from the UI. Expanded: Displays the field in the UI.'
+      enum:
+      - expanded
+      - hidden

@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AI Models API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AI Models
+paths:
+  /api/v1/ai-models:
+    get:
+      tags:
+      - AI Models
+      summary: List AI models
+      description: Retrieves available AI models.
+      operationId: listAIModels
+      responses:
+        '200':
+          description: List of AI models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIModelListResponse'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    AIModelListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIModel'
+    AIModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        modelFamily:
+          type: string
+        releaseDate:
+          type: string
+        externalModelId:
+          type: string
+        contextSize:
+          type: integer
+        options:
+          type: object
+        isVisible:
+          type: boolean
+        creator:
+          type: string
+        provider:
+          type: string
+        isPrivate:
+          type: boolean
+        usageTier:
+          type: string
+        isDisabled:
+          type: boolean
+        capabilities:
+          type: object
+        benchmarks:
+          type: object

@@ -1,0 +1,1408 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Tools API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Tools
+paths:
+  /api/v1/ai/{aiId}/tools:
+    get:
+      tags:
+      - Tools
+      summary: List tools for the AI
+      description: Retrieves all tools associated with the specified AI.
+      operationId: listAITools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of tools for the AI.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create a tool for the AI
+      description: Creates a new tool and associates it with the specified AI.
+      operationId: createAITool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/CreateApiToolRequest'
+              - $ref: '#/components/schemas/CreateSQLToolRequest'
+              - $ref: '#/components/schemas/CreateUserInputToolRequest'
+              - $ref: '#/components/schemas/CreateKnowledgeRetrievalToolRequest'
+              - $ref: '#/components/schemas/CreateWebSearchToolRequest'
+              - $ref: '#/components/schemas/CreateImageGenerationToolRequest'
+              - $ref: '#/components/schemas/CreateSpreadsheetToolRequest'
+              - $ref: '#/components/schemas/CreateMcpServerToolRequest'
+              - type: object
+                properties:
+                  type:
+                    $ref: '#/components/schemas/ToolType'
+                required:
+                - type
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/{toolId}:
+    get:
+      tags:
+      - Tools
+      summary: Get a tool for the AI
+      description: Retrieves details for a specific tool associated with the AI.
+      operationId: getAITool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tool details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI or tool not found.
+      security:
+      - ApiKeyAuth: []
+    put:
+      tags:
+      - Tools
+      summary: Update a tool for the AI
+      description: Updates supported tool types (e.g., spreadsheet, web search).
+      operationId: updateAITool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/UpdateSpreadsheetToolRequest'
+              - $ref: '#/components/schemas/UpdateWebSearchToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Tools
+      summary: Delete a tool
+      description: Deletes the specified tool from the AI.
+      operationId: deleteAITool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Tool deleted.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/api-function:
+    get:
+      tags:
+      - Tools
+      summary: List API function tools for the AI
+      description: Retrieves API function tools associated with the AI.
+      operationId: listApiFunctionTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of API function tools.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolListResponse'
+        '404':
+          description: AI not found.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create an API function tool
+      description: Creates an API function tool and associates it with the AI.
+      operationId: createApiFunctionTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/{toolId}/api-function:
+    put:
+      tags:
+      - Tools
+      summary: Update an API function tool
+      description: Updates an API function tool associated with the AI.
+      operationId: updateApiFunctionTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApiToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/sql:
+    post:
+      tags:
+      - Tools
+      summary: Create a SQL tool
+      description: Creates a SQL tool and associates it with the AI.
+      operationId: createSqlTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSQLToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/python:
+    get:
+      tags:
+      - Tools
+      summary: List Python tools for the AI
+      description: Retrieves Python tools associated with the AI.
+      operationId: listPythonTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of Python tools.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create a Python tool
+      description: Creates a Python tool and associates it with the AI.
+      operationId: createPythonTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/user-input:
+    get:
+      tags:
+      - Tools
+      summary: List user input tools for the AI
+      description: Retrieves user input tools associated with the AI.
+      operationId: listUserInputTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of user input tools.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create a user input tool
+      description: Creates a user input tool and associates it with the AI.
+      operationId: createUserInputTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInputToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/knowledge-retrieval:
+    get:
+      tags:
+      - Tools
+      summary: List knowledge retrieval tools for the AI
+      description: Retrieves knowledge retrieval tools associated with the AI.
+      operationId: listKnowledgeRetrievalTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of knowledge retrieval tools.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create a knowledge retrieval tool
+      description: Creates a knowledge retrieval tool and associates it with the AI.
+      operationId: createKnowledgeRetrievalTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateKnowledgeRetrievalToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/image-generation:
+    get:
+      tags:
+      - Tools
+      summary: List image generation tools for the AI
+      description: Retrieves image generation tools associated with the AI.
+      operationId: listImageGenerationTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of image generation tools.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create an image generation tool
+      description: Creates an image generation tool and associates it with the AI.
+      operationId: createImageGenerationTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateImageGenerationToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/mcp:
+    get:
+      tags:
+      - Tools
+      summary: List MCP server tools for the AI
+      description: Retrieves MCP server tools associated with the AI.
+      operationId: listMcpServerTools
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of MCP server tools.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tools
+      summary: Create an MCP server tool
+      description: Creates an MCP server tool and associates it with the AI.
+      operationId: createMcpServerTool
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMcpServerToolRequest'
+      responses:
+        '201':
+          description: Tool created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/auth:
+    get:
+      tags:
+      - Tools
+      summary: List tool OAuth status for the AI
+      description: Lists OAuth token status information for tools associated with the AI.
+      operationId: listAIToolAuthStatus
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tool OAuth status list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolAuthInfo'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/tools/auth/reset:
+    put:
+      tags:
+      - Tools
+      summary: Reset tool OAuth tokens for the AI
+      description: Deletes tool OAuth tokens for the AI.
+      operationId: resetAIToolAuth
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAuth tokens deleted.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}:
+    get:
+      tags:
+      - Tools
+      summary: Get a tool
+      description: Retrieves a tool by ID.
+      operationId: getTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tool details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Tool not found.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Tools
+      summary: Delete a tool
+      description: Deletes the specified tool.
+      operationId: deleteTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Tool deleted.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/sql:
+    put:
+      tags:
+      - Tools
+      summary: Update a SQL tool
+      description: Updates the SQL tool configuration.
+      operationId: updateSqlTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSQLToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/user-input:
+    put:
+      tags:
+      - Tools
+      summary: Update a user input tool
+      description: Updates the user input tool configuration.
+      operationId: updateUserInputTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserInputToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/knowledge-retrieval:
+    put:
+      tags:
+      - Tools
+      summary: Update a knowledge retrieval tool
+      description: Updates the knowledge retrieval tool configuration.
+      operationId: updateKnowledgeRetrievalTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateKnowledgeRetrievalToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/image-generation:
+    put:
+      tags:
+      - Tools
+      summary: Update an image generation tool
+      description: Updates the image generation tool configuration.
+      operationId: updateImageGenerationTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateImageGenerationToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/mcp:
+    put:
+      tags:
+      - Tools
+      summary: Update an MCP server tool
+      description: Updates the MCP server tool configuration.
+      operationId: updateMcpServerTool
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMcpServerToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/api-function:
+    put:
+      tags:
+      - Tools
+      summary: Update an API function tool
+      description: Updates the API function tool configuration.
+      operationId: updateApiFunctionToolGlobal
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApiToolRequest'
+      responses:
+        '200':
+          description: Tool updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/api-function/callback:
+    get:
+      tags:
+      - Tools
+      summary: API function tool OAuth callback
+      description: Handles OAuth callbacks for API function tools.
+      operationId: apiFunctionToolCallback
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      - name: code
+        in: query
+        required: true
+        description: Authorization code.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Callback handled.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/oauth-status:
+    get:
+      tags:
+      - Tools
+      summary: Get tool OAuth status
+      description: Checks whether a tool has an active OAuth token.
+      operationId: getToolOAuthStatus
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAuth status for the tool.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolOAuthStatus'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/oauth-token:
+    delete:
+      tags:
+      - Tools
+      summary: Delete a tool OAuth token
+      description: Revokes the OAuth token for the specified tool.
+      operationId: deleteToolOAuthToken
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Token deleted.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/{toolId}/oauth-initiate:
+    post:
+      tags:
+      - Tools
+      summary: Initiate tool OAuth flow
+      description: Generates an authorization URL for tool OAuth.
+      operationId: initiateToolOAuth
+      parameters:
+      - name: toolId
+        in: path
+        required: true
+        description: The identifier of the tool.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Authorization URL generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthInitiateResponse'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tools/mcp/preview:
+    post:
+      tags:
+      - Tools
+      summary: Preview MCP server tools
+      description: Previews available tools from an MCP server or template.
+      operationId: previewMcpServerTools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewMcpServerToolRequest'
+      responses:
+        '200':
+          description: Preview results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewMcpServerToolResponse'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    UpdateKnowledgeRetrievalToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateKnowledgeRetrievalToolRequest'
+    PreviewMcpServerToolRequest:
+      type: object
+      properties:
+        url:
+          type: string
+        orgToolTemplateId:
+          type: string
+        toolTemplateId:
+          type: string
+        toolId:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+    ToolListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+    CreateMcpServerToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - MCP_SERVER
+        name:
+          type: string
+        url:
+          type: string
+        orgToolTemplateId:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+        allTools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPTool'
+        selectedTools:
+          type: array
+          items:
+            type: string
+      required:
+      - type
+      - name
+    PreviewMcpServerToolResponse:
+      type: object
+      properties:
+        availableTools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPTool'
+        authenticationRequired:
+          type: boolean
+        oauthDiscovery:
+          type: object
+        requiresToolSave:
+          type: boolean
+    ApiCompressionConfiguration:
+      type: object
+      properties:
+        compressionModel:
+          type: string
+        compressionThreshold:
+          type: integer
+        compressionChunkSize:
+          type: integer
+    UpdateApiToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateApiToolRequest'
+    CreateKnowledgeRetrievalToolRequest:
+      type: object
+      properties:
+        model:
+          type: string
+        maxRetrievalTokens:
+          type: integer
+        maxRetrievalDocuments:
+          type: integer
+        queryExpansion:
+          type: boolean
+        alternateQueryCount:
+          type: integer
+        hyde:
+          type: boolean
+        rerank:
+          type: boolean
+        grade:
+          type: boolean
+        compress:
+          type: boolean
+        minRelevanceScore:
+          type: number
+      required:
+      - model
+      - maxRetrievalTokens
+      - maxRetrievalDocuments
+      - queryExpansion
+      - alternateQueryCount
+      - hyde
+      - rerank
+      - grade
+      - compress
+      - minRelevanceScore
+    CustomHeader:
+      type: object
+      properties:
+        header:
+          type: string
+        value:
+          type: string
+      required:
+      - header
+      - value
+    CreateSQLToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - SQL
+        databaseType:
+          $ref: '#/components/schemas/SQLToolDatabaseType'
+        username:
+          type: string
+        password:
+          type: string
+        host:
+          type: string
+        database:
+          type: string
+        port:
+          type: integer
+      required:
+      - type
+      - databaseType
+      - username
+      - password
+      - host
+      - database
+      - port
+    CreateUserInputToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - USER_INPUT
+        textInput:
+          type: boolean
+        selectInput:
+          type: boolean
+        multiSelectInput:
+          type: boolean
+        confirmInput:
+          type: boolean
+        addressInput:
+          type: boolean
+      required:
+      - type
+      - textInput
+      - selectInput
+      - multiSelectInput
+      - confirmInput
+      - addressInput
+    ApiKeyAuthType:
+      type: string
+      enum:
+      - BASIC
+      - BEARER
+      - CUSTOM
+    Tool:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        orgId:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/ToolType'
+        data:
+          type: object
+        orgTemplateUuid:
+          type: string
+        orgTemplateConfig:
+          type: object
+        templateConfig:
+          type: object
+    ApiKeyAuthenticationData:
+      type: object
+      properties:
+        apiKey:
+          type: string
+        apiKeyAuthType:
+          $ref: '#/components/schemas/ApiKeyAuthType'
+        customHeader:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomHeader'
+    AuthenticationType:
+      type: string
+      enum:
+      - NONE
+      - API_KEY
+      - OAUTH
+    ToolType:
+      type: string
+      enum:
+      - API_FUNCTION
+      - SQL
+      - PYTHON
+      - USER_INPUT
+      - KNOWLEDGE_RETRIEVAL
+      - WEB_SEARCH
+      - MCP_SERVER
+      - IMAGE_GENERATION
+      - USER_CONTEXT
+      - SPREADSHEET
+      - BROWSER
+      - SANDBOX
+      - OPENAI_FUNCTION
+    CreateImageGenerationToolRequest:
+      type: object
+      properties:
+        modelId:
+          type: string
+        samples:
+          type: integer
+        size:
+          type: string
+        aspectRatio:
+          type: string
+        quality:
+          type: string
+        style:
+          type: string
+      required:
+      - modelId
+    CreateApiToolRequest:
+      type: object
+      properties:
+        apiUrl:
+          type: string
+        schema:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+        compressionEnabled:
+          type: boolean
+        compressionConfiguration:
+          $ref: '#/components/schemas/ApiCompressionConfiguration'
+      required:
+      - apiUrl
+      - schema
+      - authenticationType
+      - compressionEnabled
+    MCPTool:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
+    CreateWebSearchToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - WEB_SEARCH
+        modelId:
+          type: string
+      required:
+      - type
+    UpdateUserInputToolRequest:
+      type: object
+      properties:
+        textInput:
+          type: boolean
+        selectInput:
+          type: boolean
+        multiSelectInput:
+          type: boolean
+        confirmInput:
+          type: boolean
+        addressInput:
+          type: boolean
+      required:
+      - textInput
+      - selectInput
+      - multiSelectInput
+      - confirmInput
+      - addressInput
+    UpdateSQLToolRequest:
+      type: object
+      properties:
+        databaseType:
+          $ref: '#/components/schemas/SQLToolDatabaseType'
+        username:
+          type: string
+        password:
+          type: string
+        host:
+          type: string
+        database:
+          type: string
+        port:
+          type: integer
+      required:
+      - databaseType
+      - username
+      - password
+      - host
+      - database
+      - port
+    SQLToolDatabaseType:
+      type: string
+      enum:
+      - MYSQL
+    OAuthInitiateResponse:
+      type: object
+      properties:
+        authUrl:
+          type: string
+      required:
+      - authUrl
+    UpdateSpreadsheetToolRequest:
+      type: object
+      properties:
+        model:
+          type: string
+      required:
+      - model
+    OAuthAuthenticationData:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        authorizationUrl:
+          type: string
+        tokenUrl:
+          type: string
+        scopes:
+          type: string
+        tokenExchangeMethod:
+          $ref: '#/components/schemas/OAuthTokenExchangeMethod'
+      required:
+      - clientId
+      - clientSecret
+      - tokenUrl
+      - scopes
+      - tokenExchangeMethod
+    CreateSpreadsheetToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - SPREADSHEET
+        model:
+          type: string
+      required:
+      - type
+      - model
+    UpdateImageGenerationToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateImageGenerationToolRequest'
+    UpdateMcpServerToolRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        orgToolTemplateId:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+        allTools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPTool'
+        selectedTools:
+          type: array
+          items:
+            type: string
+      required:
+      - name
+    ToolAuthInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        scope:
+          type: string
+        expiresIn:
+          type: integer
+        issuedAt:
+          type: string
+          format: date-time
+    ToolOAuthStatus:
+      type: object
+      properties:
+        hasToken:
+          type: boolean
+        scopes:
+          type: string
+    OAuthTokenExchangeMethod:
+      type: string
+      enum:
+      - POST
+      - AUTHORIZATION_HEADER
+    UpdateWebSearchToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - WEB_SEARCH
+        modelId:
+          type: string
+      required:
+      - type

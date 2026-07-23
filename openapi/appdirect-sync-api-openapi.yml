@@ -1,0 +1,392 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Sync API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Sync
+  x-displayName: Sync
+paths:
+  /sync/v1/tasks#create:
+    post:
+      tags:
+      - Sync
+      x-appdirect-required-scopes:
+        ROLE_APPLICATION:
+        - User must provide consumer key and secret from the applications profile.
+      summary: Create developer account
+      description: This call creates a developer account. Maximum of global requests of 20 per 2 seconds.
+      operationId: resource_developerAccount_createDeveloperAccount_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeveloperAccountWS'
+        description: Used when type='DEVELOPER_ACCOUNT' and operation='CREATE'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Sync is disabled or Forbidden
+        '429':
+          description: Too many requests
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/sync/v1/tasks#create' \\\n  --header 'content-type: application/json' \\\n  --data '{\"type\":\"DEVELOPER_ACCOUNT\",\"operation\":\"CREATE\",\"developerAccounts\":[{\"developerIdentifier\":\"f0b5c422-0400-459f-879c-ac369d924bb9\",\"developerDeveloperIdentifier\":\"bcde7116-5d20-4628-83a6-59b032a7cd2e\",\"name\":\"ABC Company\",\"contactFirstName\":\"Alex\",\"contactLastName\":\"Ferguson\",\"addressLine\":\"50 Grove St.\",\"addressLine2\":\"address line 2\",\"addressLine3\":\"address line 3\",\"postalCode\":\"12340\",\"city\":\"Somerville\",\"state\":\"MA\",\"country\":\"postalCode\",\"phoneNumber\":\"415-555-5555\",\"email\":\"abcinc@abc.com\",\"primaryDomain\":\"abc.com\",\"additionalDomains\":[\"abc1.com\",\"abc2.com\"],\"customAttributes\":{\"customAtrribute1\":\"1234567890\"}}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/sync/v1/tasks#create',\n  headers: {'content-type': 'application/json'},\n  body: {\n    type: 'DEVELOPER_ACCOUNT',\n    operation: 'CREATE',\n    developerAccounts: [\n      {\n        developerIdentifier: 'f0b5c422-0400-459f-879c-ac369d924bb9',\n        developerDeveloperIdentifier: 'bcde7116-5d20-4628-83a6-59b032a7cd2e',\n        name: 'ABC Company',\n        contactFirstName: 'Alex',\n        contactLastName: 'Ferguson',\n        addressLine: '50 Grove St.',\n        addressLine2: 'address line 2',\n        addressLine3: 'address line 3',\n        postalCode: '12340',\n        city: 'Somerville',\n        state: 'MA',\n        country: 'postalCode',\n        phoneNumber: '415-555-5555',\n        email: 'abcinc@abc.com',\n        primaryDomain: 'abc.com',\n        additionalDomains: ['abc1.com', 'abc2.com'],\n        customAttributes: {customAtrribute1: '1234567890'}\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"type\\\":\\\"DEVELOPER_ACCOUNT\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"developerAccounts\\\":[{\\\"developerIdentifier\\\":\\\"f0b5c422-0400-459f-879c-ac369d924bb9\\\",\\\"developerDeveloperIdentifier\\\":\\\"bcde7116-5d20-4628-83a6-59b032a7cd2e\\\",\\\"name\\\":\\\"ABC Company\\\",\\\"contactFirstName\\\":\\\"Alex\\\",\\\"contactLastName\\\":\\\"Ferguson\\\",\\\"addressLine\\\":\\\"50 Grove St.\\\",\\\"addressLine2\\\":\\\"address line 2\\\",\\\"addressLine3\\\":\\\"address line 3\\\",\\\"postalCode\\\":\\\"12340\\\",\\\"city\\\":\\\"Somerville\\\",\\\"state\\\":\\\"MA\\\",\\\"country\\\":\\\"postalCode\\\",\\\"phoneNumber\\\":\\\"415-555-5555\\\",\\\"email\\\":\\\"abcinc@abc.com\\\",\\\"primaryDomain\\\":\\\"abc.com\\\",\\\"additionalDomains\\\":[\\\"abc1.com\\\",\\\"abc2.com\\\"],\\\"customAttributes\\\":{\\\"customAtrribute1\\\":\\\"1234567890\\\"}}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/tasks#create\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /sync/v1/tasks#expire:
+    post:
+      tags:
+      - Sync
+      x-appdirect-required-scopes:
+        ROLE_APPLICATION:
+        - User must provide consumer key and secret from the applications profile.
+      summary: Expire developer account
+      description: This call expires a developer account. Maximum of global requests of 20 per 2 seconds.
+      operationId: resource_developerAccount_expireDeveloperAccount_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeveloperAccountWS'
+        description: Used when type='DEVELOPER_ACCOUNT' and operation='EXPIRE'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Sync is disabled or Forbidden
+        '429':
+          description: Too many requests
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/sync/v1/tasks#expire' \\\n  --header 'content-type: application/json' \\\n  --data '{\"type\":\"DEVELOPER_ACCOUNT\",\"operation\":\"CREATE\",\"developerAccounts\":[{\"developerIdentifier\":\"f0b5c422-0400-459f-879c-ac369d924bb9\",\"developerDeveloperIdentifier\":\"bcde7116-5d20-4628-83a6-59b032a7cd2e\",\"name\":\"ABC Company\",\"contactFirstName\":\"Alex\",\"contactLastName\":\"Ferguson\",\"addressLine\":\"50 Grove St.\",\"addressLine2\":\"address line 2\",\"addressLine3\":\"address line 3\",\"postalCode\":\"12340\",\"city\":\"Somerville\",\"state\":\"MA\",\"country\":\"postalCode\",\"phoneNumber\":\"415-555-5555\",\"email\":\"abcinc@abc.com\",\"primaryDomain\":\"abc.com\",\"additionalDomains\":[\"abc1.com\",\"abc2.com\"],\"customAttributes\":{\"customAtrribute1\":\"1234567890\"}}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/sync/v1/tasks#expire',\n  headers: {'content-type': 'application/json'},\n  body: {\n    type: 'DEVELOPER_ACCOUNT',\n    operation: 'CREATE',\n    developerAccounts: [\n      {\n        developerIdentifier: 'f0b5c422-0400-459f-879c-ac369d924bb9',\n        developerDeveloperIdentifier: 'bcde7116-5d20-4628-83a6-59b032a7cd2e',\n        name: 'ABC Company',\n        contactFirstName: 'Alex',\n        contactLastName: 'Ferguson',\n        addressLine: '50 Grove St.',\n        addressLine2: 'address line 2',\n        addressLine3: 'address line 3',\n        postalCode: '12340',\n        city: 'Somerville',\n        state: 'MA',\n        country: 'postalCode',\n        phoneNumber: '415-555-5555',\n        email: 'abcinc@abc.com',\n        primaryDomain: 'abc.com',\n        additionalDomains: ['abc1.com', 'abc2.com'],\n        customAttributes: {customAtrribute1: '1234567890'}\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"type\\\":\\\"DEVELOPER_ACCOUNT\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"developerAccounts\\\":[{\\\"developerIdentifier\\\":\\\"f0b5c422-0400-459f-879c-ac369d924bb9\\\",\\\"developerDeveloperIdentifier\\\":\\\"bcde7116-5d20-4628-83a6-59b032a7cd2e\\\",\\\"name\\\":\\\"ABC Company\\\",\\\"contactFirstName\\\":\\\"Alex\\\",\\\"contactLastName\\\":\\\"Ferguson\\\",\\\"addressLine\\\":\\\"50 Grove St.\\\",\\\"addressLine2\\\":\\\"address line 2\\\",\\\"addressLine3\\\":\\\"address line 3\\\",\\\"postalCode\\\":\\\"12340\\\",\\\"city\\\":\\\"Somerville\\\",\\\"state\\\":\\\"MA\\\",\\\"country\\\":\\\"postalCode\\\",\\\"phoneNumber\\\":\\\"415-555-5555\\\",\\\"email\\\":\\\"abcinc@abc.com\\\",\\\"primaryDomain\\\":\\\"abc.com\\\",\\\"additionalDomains\\\":[\\\"abc1.com\\\",\\\"abc2.com\\\"],\\\"customAttributes\\\":{\\\"customAtrribute1\\\":\\\"1234567890\\\"}}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/tasks#expire\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /sync/v1/tasks#assign:
+    post:
+      tags:
+      - Sync
+      x-appdirect-required-scopes:
+        ROLE_APPLICATION:
+        - User must provide consumer key and secret from the applications profile.
+      summary: Assign user
+      description: This call assigns a user. Maximum of global requests of 20 per 2 seconds.
+      operationId: resource_user_assignUser_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSyncWS'
+        description: Used when type='ASSIGNMENT' and operation='ASSIGN'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Sync is disabled or Forbidden
+        '429':
+          description: Too many requests
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/sync/v1/tasks#assign' \\\n  --header 'content-type: application/json' \\\n  --data '{\"type\":\"ASSIGNMENT\",\"operation\":\"ASSIGN\",\"accountIdentifier\":\"200ae1d9-c5b9-4c0b-843c-45d8e74d741a\",\"developerIdentifier\":\"f0b5c422-0400-459f-879c-ac369d924bb9\",\"userIdentifier\":\"45bbf36e-5902-4eb3-9072-87d267d302d4\",\"userName\":\"Test_UserName\",\"firstName\":\"Test_FirstName\",\"lastName\":\"Test_LastName\",\"email\":\"test_email@yopmail.com\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/sync/v1/tasks#assign',\n  headers: {'content-type': 'application/json'},\n  body: {\n    type: 'ASSIGNMENT',\n    operation: 'ASSIGN',\n    accountIdentifier: '200ae1d9-c5b9-4c0b-843c-45d8e74d741a',\n    developerIdentifier: 'f0b5c422-0400-459f-879c-ac369d924bb9',\n    userIdentifier: '45bbf36e-5902-4eb3-9072-87d267d302d4',\n    userName: 'Test_UserName',\n    firstName: 'Test_FirstName',\n    lastName: 'Test_LastName',\n    email: 'test_email@yopmail.com'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"type\\\":\\\"ASSIGNMENT\\\",\\\"operation\\\":\\\"ASSIGN\\\",\\\"accountIdentifier\\\":\\\"200ae1d9-c5b9-4c0b-843c-45d8e74d741a\\\",\\\"developerIdentifier\\\":\\\"f0b5c422-0400-459f-879c-ac369d924bb9\\\",\\\"userIdentifier\\\":\\\"45bbf36e-5902-4eb3-9072-87d267d302d4\\\",\\\"userName\\\":\\\"Test_UserName\\\",\\\"firstName\\\":\\\"Test_FirstName\\\",\\\"lastName\\\":\\\"Test_LastName\\\",\\\"email\\\":\\\"test_email@yopmail.com\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/tasks#assign\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /sync/v1/tasks#unassign:
+    post:
+      tags:
+      - Sync
+      summary: Unassign user
+      description: This call unassigns a user. Maximum of global requests of 20 per 2 seconds.
+      operationId: resource_user_unassignUser_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSyncWS'
+        description: Used when type='ASSIGNMENT' and operation='UNASSIGN'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Sync is disabled or Forbidden
+        '429':
+          description: Too many requests
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/sync/v1/tasks#unassign' \\\n  --header 'content-type: application/json' \\\n  --data '{\"type\":\"ASSIGNMENT\",\"operation\":\"ASSIGN\",\"accountIdentifier\":\"200ae1d9-c5b9-4c0b-843c-45d8e74d741a\",\"developerIdentifier\":\"f0b5c422-0400-459f-879c-ac369d924bb9\",\"userIdentifier\":\"45bbf36e-5902-4eb3-9072-87d267d302d4\",\"userName\":\"Test_UserName\",\"firstName\":\"Test_FirstName\",\"lastName\":\"Test_LastName\",\"email\":\"test_email@yopmail.com\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/sync/v1/tasks#unassign',\n  headers: {'content-type': 'application/json'},\n  body: {\n    type: 'ASSIGNMENT',\n    operation: 'ASSIGN',\n    accountIdentifier: '200ae1d9-c5b9-4c0b-843c-45d8e74d741a',\n    developerIdentifier: 'f0b5c422-0400-459f-879c-ac369d924bb9',\n    userIdentifier: '45bbf36e-5902-4eb3-9072-87d267d302d4',\n    userName: 'Test_UserName',\n    firstName: 'Test_FirstName',\n    lastName: 'Test_LastName',\n    email: 'test_email@yopmail.com'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"type\\\":\\\"ASSIGNMENT\\\",\\\"operation\\\":\\\"ASSIGN\\\",\\\"accountIdentifier\\\":\\\"200ae1d9-c5b9-4c0b-843c-45d8e74d741a\\\",\\\"developerIdentifier\\\":\\\"f0b5c422-0400-459f-879c-ac369d924bb9\\\",\\\"userIdentifier\\\":\\\"45bbf36e-5902-4eb3-9072-87d267d302d4\\\",\\\"userName\\\":\\\"Test_UserName\\\",\\\"firstName\\\":\\\"Test_FirstName\\\",\\\"lastName\\\":\\\"Test_LastName\\\",\\\"email\\\":\\\"test_email@yopmail.com\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/tasks#unassign\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /sync/v1/assignments:
+    get:
+      tags:
+      - Sync
+      x-appdirect-required-scopes:
+        ROLE_APPLICATION:
+        - User must provide consumer key and secret from the applications profile.
+      summary: Get user assignment
+      description: This call retrieves a user assignment. Maximum of global requests of 20 per 2 seconds.
+      operationId: userAssignment_GET
+      parameters:
+      - name: developerIdentifier
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: accountIdentifier
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: userIdentifier
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAssignmentWS'
+              examples:
+                response:
+                  value:
+                    userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
+                    accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
+                    userName: Test_UserName
+                    firstName: Test_FirstName
+                    lastName: Test_LastName
+                    email: test_email@yopmail.com
+                    assigned: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Sync is disabled or Forbidden
+        '404':
+          description: User is not found or Subscription is not found for the Developer
+        '429':
+          description: Too many requests
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/sync/v1/assignments?developerIdentifier=SOME_STRING_VALUE&accountIdentifier=SOME_STRING_VALUE&userIdentifier=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/sync/v1/assignments',\n  qs: {\n    developerIdentifier: 'SOME_STRING_VALUE',\n    accountIdentifier: 'SOME_STRING_VALUE',\n    userIdentifier: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/assignments?developerIdentifier=SOME_STRING_VALUE&accountIdentifier=SOME_STRING_VALUE&userIdentifier=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    UserAssignmentWS:
+      type: object
+      title: UserAssignmentWS
+      properties:
+        userIdentifier:
+          type: string
+        accountIdentifier:
+          type: string
+        userName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        assigned:
+          type: boolean
+      example:
+        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
+        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
+        userName: Test_UserName
+        firstName: Test_FirstName
+        lastName: Test_LastName
+        email: test_email@yopmail.com
+        assigned: true
+    DeveloperAccount:
+      type: object
+      title: DeveloperAccount
+      required:
+      - developerIdentifier
+      - developerAccountIdentifier
+      properties:
+        developerIdentifier:
+          type: string
+          description: Required. The UUID identifier of the developer's company on the marketplace.
+          format: uuid
+        developerAccountIdentifier:
+          type: string
+          description: Required. The identifier of the developer's account from the developer's system.
+        name:
+          type: string
+        contactFirstName:
+          type: string
+        contactLastName:
+          type: string
+        addressLine:
+          type: string
+        addressLine2:
+          type: string
+        addressLine3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        partner:
+          type: string
+        origin:
+          type: string
+        primaryDomain:
+          type: string
+        additionalDomains:
+          type: array
+          items:
+            type: string
+        customAttributes:
+          type: object
+          additionalProperties:
+            type: string
+      example:
+        developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
+        developerDeveloperIdentifier: bcde7116-5d20-4628-83a6-59b032a7cd2e
+        name: ABC Company
+        contactFirstName: Alex
+        contactLastName: Ferguson
+        addressLine: 50 Grove St.
+        addressLine2: address line 2
+        addressLine3: address line 3
+        postalCode: '12340'
+        city: Somerville
+        state: MA
+        country: postalCode
+        phoneNumber: 415-555-5555
+        email: abcinc@abc.com
+        primaryDomain: abc.com
+        additionalDomains:
+        - abc1.com
+        - abc2.com
+        customAttributes:
+          customAtrribute1: '1234567890'
+    DeveloperAccountWS:
+      type: object
+      title: DeveloperAccountSyncWS
+      required:
+      - type
+      - operation
+      properties:
+        type:
+          type: string
+          description: Required. It must have the value 'DEVELOPER_ACCOUNT'
+        operation:
+          type: string
+          description: 'Required. The operation. Options: ''CREATE'' and ''EXPIRE'''
+        developerAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeveloperAccount'
+      example:
+        type: DEVELOPER_ACCOUNT
+        operation: CREATE
+        developerAccounts:
+        - developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
+          developerDeveloperIdentifier: bcde7116-5d20-4628-83a6-59b032a7cd2e
+          name: ABC Company
+          contactFirstName: Alex
+          contactLastName: Ferguson
+          addressLine: 50 Grove St.
+          addressLine2: address line 2
+          addressLine3: address line 3
+          postalCode: '12340'
+          city: Somerville
+          state: MA
+          country: postalCode
+          phoneNumber: 415-555-5555
+          email: abcinc@abc.com
+          primaryDomain: abc.com
+          additionalDomains:
+          - abc1.com
+          - abc2.com
+          customAttributes:
+            customAtrribute1: '1234567890'
+    UserSyncWS:
+      type: object
+      title: UserSyncWS
+      required:
+      - accountIdentifier
+      - developerIdentifier
+      - userIdentifier
+      - type
+      - operation
+      properties:
+        type:
+          type: string
+          description: Required. It must have the value 'ASSIGNMENT'
+        operation:
+          type: string
+          description: 'Required. The operation. Options: ''ASSIGN'' and ''UNASSIGN'''
+        accountIdentifier:
+          type: string
+          description: Required. The Account Identifier provided when the subscription was created
+        developerIdentifier:
+          type: string
+          description: Required. The company UUID of the Developer's company
+          format: uuid
+        userIdentifier:
+          type: string
+          description: Required. The user identifier in the Developer's system
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      example:
+        type: ASSIGNMENT
+        operation: ASSIGN
+        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
+        developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
+        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
+        userName: Test_UserName
+        firstName: Test_FirstName
+        lastName: Test_LastName
+        email: test_email@yopmail.com

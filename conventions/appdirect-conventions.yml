@@ -1,0 +1,58 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.appdirect.com/user-guides/api-usage + openapi/appdirect-companies-openapi-original.yml
+authentication:
+  style: OAuth 2.0 bearer (marketplace REST + GraphQL); Devs.ai uses apiKey bearer
+  docs: https://developer.appdirect.com/user-guides/api-usage/api-auth
+  see: authentication/appdirect-authentication.yml
+base_url:
+  pattern: https://{marketplaceURL}/api
+  example: https://marketplace.appdirect.com/api
+  note: API calls follow the form https://{marketplaceURL}/api/{endpoint}; marketplace URL is tenant-specific.
+idempotency:
+  supported: true
+  mechanism: request-body field
+  field: idempotencyKey
+  scope: >-
+    The billing/usage integration API (POST /integration/v1/billing/usage) accepts an
+    idempotencyKey in the request body so repeated usage submissions are de-duplicated.
+  example: '20210429-b436h7j2'
+  source: openapi/appdirect-companies-openapi-original.yml
+pagination:
+  style: page-number
+  params:
+  - page
+  - size
+  - sort
+  - sortField
+  - sortOrder
+  - sortProperty
+  source: openapi/appdirect-companies-openapi-original.yml
+custom_headers:
+- name: AD-Tenant
+  purpose: Target a specific marketplace tenant.
+- name: AD-Public-Developer-Key
+  purpose: Public developer key for shopping-cart / storefront integration calls.
+- name: AD-ShoppingCart-Partner
+  purpose: Identify the shopping-cart partner context.
+- name: AD-Timezone
+  purpose: Caller timezone for date handling.
+- name: Accept-Language
+  purpose: Localization / content language negotiation.
+rate_limiting:
+  signaled: true
+  status_code: 429
+  note: Operations document HTTP 429 (Too Many Requests) responses; per-marketplace throttling applies.
+versioning:
+  style: uri-path
+  note: >-
+    Resources are versioned in the path (e.g. /account/v2/..., /billing/v1/...,
+    /integration/v1/...). The Companies OpenAPI reports version v296.0-SNAPSHOT,
+    tracking the weekly platform release train.
+error_envelope:
+  content_type: application/json
+  format: standard HTTP status codes (not RFC 9457 problem+json)
+  see: errors/appdirect-problem-types.yml
+webhooks:
+  supported: true
+  see: asyncapi/appdirect-webhooks.yml

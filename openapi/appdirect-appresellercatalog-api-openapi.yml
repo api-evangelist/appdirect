@@ -1,0 +1,1131 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerCatalog API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerCatalog
+  x-displayName: Reseller Catalog
+paths:
+  /appReseller/v1/catalog/sellableProducts:
+    get:
+      description: Retrieve all products that a Reseller can sell.
+      tags:
+      - AppResellerCatalog
+      summary: List sellable products
+      x-appdirect-api-stage: Early Access
+      operationId: sellableProducts_AppResellerCatalogV1Api_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+      - name: searchText
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      - name: targetUserId
+        in: query
+        description: Current user ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerCatalogProductPageWS'
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - id: cf6ab187-000a-4571-8089-000019d68801
+                      name: Product name 1
+                      blurb: Product 1 short description
+                      provider: Appdirect
+                      imageUrl: https://appdirect.com/resource1
+                      visible: true
+                    - id: 9b997bfc-000a-4ee3-b9f2-66d634ee993f
+                      name: Product name 2
+                      blurb: Product 2 short description
+                      provider: Appdirect
+                      imageUrl: https://appdirect.com/resource2
+                      visible: true
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts?page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&targetUserId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts',\n  qs: {\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    targetUserId: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts?page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&targetUserId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/catalog/sellableProducts/{productId}/editions:
+    get:
+      description: Get product editions, costs and markups.
+      tags:
+      - AppResellerCatalog
+      summary: Edition details
+      x-appdirect-api-stage: Early Access
+      operationId: sellableProductEditions_AppResellerCatalogV1Api_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+      parameters:
+      - name: productId
+        in: path
+        description: Product ID
+        required: true
+        schema:
+          type: string
+      - name: targetUserId
+        in: query
+        description: User ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppResellerCatalogEditionWS'
+              examples:
+                response:
+                  value:
+                  - id: 12fe4576-0000-4d7b-bdf4-0000cd112b27
+                    name: IT HelpDesk Session
+                    revenueType: ONE_TIME
+                    paymentPlans:
+                    - id: 28e14ece-00a0-0055-8000-0000c4c8e329
+                      frequency: ONE_TIME
+                      minimumServiceLength: null
+                      cancellationPeriodLimit: null
+                      endOfContractGracePeriod: null
+                      costs:
+                      - id: 54479
+                        unit: SESSION
+                        unitDependency: null
+                        pricingStrategy: UNIT
+                        minUnits: 0
+                        maxUnits: 111
+                        itemPrices:
+                          CAD: 60
+                          GBP: 60
+                          USD: 60
+                          IDR: 0
+                        markupPrices:
+                        - markupType: CHANNEL_RESELLER_COMPANY
+                          markupPrices:
+                            USD: 898989
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts/%7BproductId%7D/editions?targetUserId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts/%7BproductId%7D/editions',\n  qs: {targetUserId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts/%7BproductId%7D/editions?targetUserId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AppResellerCatalogProductWS:
+      type: object
+      title: ProductCatalog
+      properties:
+        id:
+          description: Product ID
+          type: string
+        name:
+          description: Product name
+          type: string
+        blurb:
+          description: Product short description
+          type: string
+        provider:
+          description: Company provider
+          type: string
+        imageUrl:
+          description: Product image URL
+          type: string
+        visible:
+          description: Determines whether product is visible in catalog (true/false)
+          type: boolean
+    RevenueModelType:
+      description: Supported revenue model types
+      type: string
+      title: RevenueModelType
+      enum:
+      - FREE
+      - ONE_TIME
+      - RECURRING
+      - TIERED
+    AppResellerCatalogPlanCostWS:
+      type: object
+      title: CatalogPlanCosts
+      properties:
+        id:
+          description: Plan Cost ID
+          type: string
+        unit:
+          $ref: '#/components/schemas/PricingUnit'
+        unitDependency:
+          $ref: '#/components/schemas/PricingUnit'
+        pricingStrategy:
+          $ref: '#/components/schemas/PricingStrategy'
+        minUnits:
+          description: Minimum number of units
+          type: integer
+        maxUnits:
+          description: Maximum number of units
+          type: integer
+        itemPrices:
+          description: Payment Plan prices
+          additionalProperties:
+            type: string
+            properties:
+              currency:
+                type: string
+              value:
+                type: number
+        markupPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogMarkupPriceWS'
+    AppResellerCatalogProductPageWS:
+      type: object
+      title: ProductCatalogPage
+      properties:
+        links:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogProductWS'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    AppResellerCatalogPaymentPlanWS:
+      type: object
+      title: PaymentPlans
+      properties:
+        id:
+          description: Payment Plan ID
+          type: string
+        frecuency:
+          $ref: '#/components/schemas/PricingDuration'
+        minimumServiceLength:
+          description: Minimum pricing duration of the pricing plan
+          type: integer
+        cancellationPeriodLimit:
+          description: Number of days where you can cancel your contract
+          type: integer
+        endOfContractGracePeriod:
+          description: Grace period after the end of the contract
+          type: integer
+        costs:
+          description: Catalog plan costs
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogPlanCostWS'
+    PricingUnit:
+      type: string
+      title: PricingUnit
+      enum:
+      - USER
+      - GIGABYTE
+      - GMV
+      - MEGABYTE
+      - PROSPECT_SCORE
+      - HOUR
+      - MINUTE
+      - INVOICE
+      - UNIT
+      - PROJECT
+      - PROPERTY
+      - ITEM
+      - WORD
+      - EMAIL
+      - CONTACT
+      - CALL
+      - CREDIT
+      - ROOM
+      - HOST
+      - AGENT
+      - OPERATOR
+      - PROVIDER
+      - MANAGER
+      - TESTER
+      - JVM
+      - SERVER
+      - WEB_USE_MINUTE
+      - AUDIO_USE_MINUTE
+      - PIECE
+      - EMPLOYEE_PAY_PERIOD
+      - EMPLOYEE_PER_PAY_PERIOD
+      - COMPUTER
+      - NOT_APPLICABLE
+      - ONE_TIME_SETUP
+      - DATA_POINTS
+      - TIER1_API_CALLS
+      - TIER2_API_CALLS
+      - ADVISORY_HOURS
+      - OVERAGE_AUDIO_MINUTE
+      - EMPLOYEE
+      - CONNECTION
+      - PUSH_USER
+      - THOUSAND_EMAILS_PER_DAY
+      - PUSH_NOTIFICATION_DEVICES
+      - API_CALLS
+      - SMS_TEXT_MESSAGE
+      - CONTACTS_1000
+      - CONTRACT_FEE
+      - TRANSFER_FEE
+      - REACTIVATION_FEE
+      - RECIPIENT
+      - ADDITIONAL_1000_CONTACTS_BLOCK
+      - SCHEDULE_PLAN
+      - EMAILS_1000
+      - EMAILS_2500
+      - EMAILS_100000
+      - MOBILE_DEVICE
+      - PAYSLIP
+      - PAYSLIP_CORRECTION
+      - STORE
+      - WEBSITE
+      - EPAPER
+      - PAGE
+      - POSTAGE_AND_PRINT
+      - INTERNATIONAL_POSTAGE_AND_PRINT
+      - TIER1_TOP_LEVEL_DOMAIN
+      - TIER2_TOP_LEVEL_DOMAIN
+      - DEDICATED_IP
+      - ENABLELCM
+      - MAXCOMPONENTS
+      - DATA_MANAGEMENT_USER
+      - SPECIALIST_USER
+      - PROFESSIONAL_USER
+      - MATERIALITY_MATRIX
+      - STAKEHOLDER_MANAGEMENT
+      - SCORECARD
+      - STANDARD_MAPPING
+      - DONATION_MANAGEMENT
+      - DOCUMENT
+      - PACKAGE_SMALL
+      - PACKAGE_LARGE
+      - MEMBER
+      - ATTENDEE
+      - MAILING
+      - RESPONSE
+      - EXTERNAL_INVOICE_FEE
+      - CLIENT_TEST
+      - IMAGE_TRANSFORMATION
+      - TOTAL_IMAGE
+      - LICENSE
+      - MAILBOX
+      - FREE_40_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC_MOUNTING
+      - EMPLOYEE_PER_WEEK
+      - REGISTER
+      - END_USER
+      - CORE
+      - DEVICE
+      - PORT
+      - MEASURER
+      - PUBLISHED_MEASUREMENT
+      - NODE
+      - SERVER_RULE
+      - VPN_LP
+      - PROXY_LP
+      - DESKTOP_CONNECT_LP
+      - CAMERA
+      - MAIN_SOUND_ZONE
+      - SUB_SOUND_ZONE
+      - POST
+      - REPORT
+      - BOX
+      - SESSION
+      - DISPLAY
+      - TRUCKROLL
+      - TRANSACTION_FEE
+      - SENDING_API_CALL
+      - LOOKUP_API_CALL
+      - ANALYTICS_API_CALL
+      - MIGRATION_INSTANCE
+      - NFON_SETUP_PER_PHONE_EXTENSION
+      - NFON_SETUP_PER_PHONE_EXTENSION_PLUS
+      - NFON_SETUP_PER_EFAX_EXTENSION
+      - NFON_PHONE_EXTENSION
+      - NFON_PHONE_EXTENSION_PLUS
+      - NFON_EFAX_EXTENSION
+      - NFON_CALL_CENTER_MONITORING
+      - NFON_NMEETING
+      - NFON_MOBILE_NFON_DEVICE
+      - NFON_ISOFTPHONE_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS
+      - NFON_NSOFTPHONE_PREMIUM_WINDOWS
+      - NFON_NCTI_STANDARD_WINDOWS
+      - NFON_NCTI_STANDARD_CRM_WINDOWS
+      - NFON_NCTI_STANDARD_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS_OR_MOBILE
+      - WESUSTAIN_PERFORMANCE
+      - WESUSTAIN_STAKEHOLDER_REPUTATION
+      - WESUSTAIN_WEAPP
+      - FAX
+      - FAX_LINE
+      - ROOM_LINE
+      - DEPARTMENT_LINE
+      - INTERNATIONAL_LICENSE
+      - INTERNATIONAL_DEPARTMENT_LINE
+      - INTERNATIONAL_ROOM_LINE
+      - INTERNATIONAL_LINE
+      - CALLING_CREDIT
+      - LINE
+      - TOLLFREE_ROOM_LINE
+      - TOLLFREE_DEPARTMENT_LINE
+      - TAXES_AND_FEES
+      - LEAD
+      - OPPORTUNITY
+      - CAMPAIGN
+      - CASE
+      - CUSTOMER
+      - TIER1_STANDARD_LINE
+      - TIER1_ROOM_LINE
+      - TIER1_TOLLFREE_ROOM_LINE
+      - TIER1_TOLLFREE_DEPARTMENT_LINE
+      - TIER1_FAX_LINE
+      - TIER1_DEPARTMENT_LINE
+      - TIER2_STANDARD_LINE
+      - TIER2_ROOM_LINE
+      - TIER2_DEPARTMENT_LINE
+      - TIER3_STANDARD_LINE
+      - TIER3_ROOM_LINE
+      - TIER3_DEPARTMENT_LINE
+      - TIER4_STANDARD_LINE
+      - TIER4_ROOM_LINE
+      - TIER4_DEPARTMENT_LINE
+      - CLUSTER
+      - NODE_4VCPU
+      - FIVE_HUNDRED_GB_SSD
+      - TWELVE_TB_NETWORK_IO
+      - JBOSS_EAP
+      - JBOSS_FUSE
+      - JBOSS_A_MQ
+      - JBOSS_BRMS
+      - JBOSS_BPM_SUITE
+      - JBOSS_DATA_GRID
+      - JBOSS_DATA_VIRT
+      - USER_LICENSE
+      - ADDITIONAL_NUMBER_LICENSE
+      - ROOM_PHONE_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE_UNBUNDLED
+      - INSTANCE
+      - INDOOR_CAMERA
+      - OUTDOOR_CAMERA
+      - VINGATE_LP_LICENCE
+      - ADMINISTRATOR
+      - MOBILE_USER
+      - G_SUITE
+      - T1
+      - PHONE
+      - AUTO_ATTENDANT
+      - HUNT_GROUP
+      - VOICEMAIL_BOX
+      - TOLL_FREE_NUMBER
+      - INBOUND_LONG_DISTANCE_MINUTE
+      - OUTBOUND_LONG_DISTANCE_MINUTE
+      - INBOUND_OUTBOUND_LONG_DISTANCE_MINUTE
+      - SET_TOP_BOX
+      - MODEM
+      - ACCESS_POINT
+      - CALLING_FEATURE
+      - IAD_DEVICE
+      - ANALOG_LINE
+      - PRI
+      - SBC_DEVICE
+      - ROUTER
+      - INTERNATIONAL_MINUTE
+      - PHONE_LINE
+      - DYNAMIC_IP_ADDRESS
+      - STATIC_IP_ADDRESS
+      - GATEWAY
+      - REMOTE_CONTROL
+      - TIER1_STANDARD_SEAT
+      - TIER2_STANDARD_SEAT
+      - TIER3_STANDARD_SEAT
+      - TIER4_STANDARD_SEAT
+      - TIER1_TOLL_FREE_SEAT
+      - MILLION_MESSAGES
+      - MESSAGE
+      - WEEKLY
+      - PHONE_NUMBER
+      - GUEST
+      - REVISION_SAFE_DATAROOM
+      - GROUP_SESSION
+      - MAILBOX_AD_SYNC
+      - PHONE_SUPPORT
+      - EXTRA_10TB
+      - EXTRA_50TB
+      - EXTRA_200TB
+      - MAP_VIEW
+      - SVM
+      - CHANNEL
+      - NUMBER_PRINTER_TABLET
+      - NUMBER_ONSITE_SERVER
+      - NUMBER_VISITS
+      - ONSITE_TECHNICIAN_PC
+      - ONSITE_TECHNICIAN_SERVER
+      - SHORTER_REACTION_TIMES
+      - E_COMMERCE_INTEGRATION
+      - LOCATION
+      - TRAINING_SESSION
+      - GIGABYTES_PER_HOUR
+      - FINANCIAL_PLANNING
+      - ONSITE_WORKPLACE
+      - INTERNAL_TOOLS_ACCESS
+      - DUTY_SERVICE
+      - TERABYTE
+      - HOST_UNIT_HOURS
+      - WEB_CHECKS
+      - ACTIVE_USERS
+      - ACTIVE_EMPLOYEE
+      - PC_OF_NET_RECURRING_FEE
+      - ACTIVE_VENDOR
+      - ADVERTISEMENT
+      - ADVERTISER_SPENDS
+      - ANNUAL_FUNDRAISING_INCOME
+      - ANNUAL_SUBSCRIPTION
+      - APPLIANCE
+      - ASSET
+      - ASSETS_UNDER_MANAGEMENT
+      - BUSINESS_PARTNERS
+      - CASH_FLOWS
+      - COMPONENT
+      - CONNECTED_SYSTEMS
+      - CONTRACTS
+      - COSTS
+      - DATA_STREAMS
+      - DATABASE_SIZE
+      - EXTERNAL_SERVICE_CALLS
+      - FILE
+      - FIXED
+      - FLAT
+      - FLAT_FEE_BASED_ON_ASSETS
+      - FLEET_PLANNING_ORDERS
+      - FORMS
+      - GIGABYTE_DATABASE_SIZES
+      - INSTALLATION
+      - INSTALLED_CAPACITY
+      - JOB_POSTING
+      - LEARNER
+      - LOGON
+      - MANAGED_SYSTEM
+      - MASTER_DATA_OBJECT
+      - MASTER_RECORDS
+      - MBPS
+      - MONITORED_USER
+      - MPLS
+      - ORDER
+      - OUTPATIENT_DAYS
+      - PAGE_VIEW
+      - PATIENT_CARE_DAY
+      - PATIENT_TREATED
+      - PLANT
+      - POINTS_OF_DELIVERY
+      - PREMIUM
+      - PROCESS
+      - PRODUCTS
+      - RECORDS
+      - RENTAL_UNIT
+      - RESOURCES
+      - REVENUE
+      - SALES_ORDER
+      - SALES_PORTFOLIOS
+      - SERVICE_ORDERS
+      - SITE_VISITS
+      - SPENDS
+      - SPEND_VOLUMES
+      - STREAM
+      - STUDENT
+      - SUBSCRIBER
+      - SUPPLIERS
+      - TICKETS
+      - TOTAL_ANNUAL_BUDGET
+      - TUNNEL
+      - VIRTUAL_USERS
+      - SAP_SYSTEM
+      - POSITION_TYPES
+      - OVERAGE_FEES
+      - OVERAGE_FEE_TRANSACTION
+      - OVERAGE_FEES_DOCUMENT
+      - OVERAGE_FEES_ITEM
+      - EVENT
+      - BUSINESS_EVENT
+      - LEGAL_TENDER
+      - ANNUAL_REVENUE
+      - AD_SYNC
+      - FULL_DATA_RESTORE
+      - USED_STORAGE_100GB
+      - COMPANY
+      - ADDITIONAL_USER
+      - VISIT
+      - VIDEO
+      - ELECTRONIC_PAYMENT
+      - CHECK_PAYMENT
+      - EXPRESS_PAY_ELECTRONIC_PAYMENT
+      - EXPRESS_PAY_CHECK_PAYMENT
+      - DATA_ENTRY_SERVICE
+      - MONTHLY_VISIT
+      - SCRUB_TRANSACTION
+      - DEVICE_LICENSE
+      - SERVER_LICENSE
+      - BASE_LICENSE
+      - SERVICE_CALL
+      - SUPPORT_INCIDENT_TICKET
+      - CUSTOM_REPORT_BUILDING_TRAINING
+      - QUOTA
+      - DOMESTIC_TRANSACTION
+      - BEE
+      - BEE_FLEET
+      - BEE_BEACON_AMBIENT_LIGHT
+      - BEE_BEACON_TEMPERATURE_HUMIDITY
+      - CONTACTS_100
+      - TEMPLATE
+      - TEMPLATE_PACKS_10
+      - PACK
+      - SMS_TEXT_MESSAGE_10
+      - VIRTUAL_SERVER
+      - PHYSICAL_SERVER
+      - WORKSTATION
+      - CHATS
+      - MATCH_LIST
+      - CERTIFICATE_12_MONTHS
+      - CERTIFICATE_24_MONTHS
+      - PRIVACY
+      - PAGE_VIEWS_100000
+      - VOICE_OUT
+      - EXAM
+      - PARTICIPANT
+      - ENCRYPTION_ADDON
+      - ESS
+      - ETI
+      - ATP_ADDON
+      - PBE_ADDO
+      - NETI_ADDON
+      - HUNDRED_SMS_REMINDER
+      - CALENDAR_SYNC
+      - PAYMENT_INTERFACE
+      - MULTILINGUAL_ONLINE_EVENT_BOOKING
+      - SOCKET
+      - OFFER
+      - FREELANCER
+      - SOAP
+      - DATEV_LEXWARE_INTERFACE
+      - TOKEN
+      - SERVICE_MONTH
+      - VIDEO_PACKAGE_50_HOURS
+      - INTERFACE
+      - TEST_CASE
+      - MINUTES_15
+      - MINUTES_30
+      - CONNECTED_ACCESS_POINT
+      - DAY
+      - SATURDAY_SURCHARGE
+      - NIGHT_SURCHARGE
+      - SUNDAY_SURCHARGE
+      - PUBLIC_HOLIDAY_SURCHARGE
+      - BASIC_PACKAGE
+      - STANDARD_PACKAGE
+      - PREMIUM_PACKAGE
+      - REPORTS_MODULE
+      - WORKFLOW_MODULE
+      - NBV_250K
+      - NBV
+      - INVENTORY
+      - ADDITIONAL_COMPANY
+      - TRANSACTION
+      - PREMIUM_CREDIT_REPORTS
+      - ADDITIONAL_CONNECTION
+      - STOCK_UNIT
+      - MONTHLY_USAGE_FEE
+      - USAGE_FEE
+      - MONTHLY_CHARGES
+      - STANDARD_USER
+      - ADDITIONAL_UNIT
+      - COMMISSION
+      - KITTING
+      - WOP
+      - SFDC
+      - NAMED_USER_LICENSE
+      - BARCODING_AND_WAREHOUSING
+      - MODULE
+      - MANUFACTURING_MODULE
+      - MRP
+      - CONSOLE_MODULE
+      - CONSOLIDATIONS
+      - MULTI_CURRENCY
+      - ADDON_LICENSE
+      - INBOUND_PAGE
+      - OUTBOUND_PAGE
+      - OPPORTUNITY_RETENTION
+      - SOCIAL_SENTIMENT
+      - DEMAND_PRICE
+      - SETUP_FEE
+      - SHAREPOINT
+      - INTEGRATION_MAINTENANCE
+      - VIEWER
+      - MANAGEMENT_USER
+      - SQ_FT
+      - LOCATION_UPTO_10_EMPLOYEES
+      - LOCATION_UPTO_20_EMPLOYEES
+      - LOCATION_UPTO_30_EMPLOYEES
+      - LOCATION_UPTO_60_EMPLOYEES
+      - LOCATION_UPTO_99_EMPLOYEES
+      - M365_ONLINE
+      - WEB_HOSTING_SERVER
+      - STANDARD_EDITION_GIGABYTE
+      - STORAGE_GIGABYTE
+      - EGRESS_GIGABYTE
+      - FEE_HW_DEFECT_NO_WARRANTY_CASE
+      - SIM_CARD
+      - SIM_CARDS_10
+      - APPLICATION_CONNECTOR
+      - ADDITIONAL_API_CALLS
+      - USED_STORAGE_PER_GB
+      - CERTIFICATION
+      - MACHINE
+      - CALCULATION_USER
+      - MAILBOX_S
+      - MAILBOX_M
+      - MAILBOX_L
+      - STORAGE
+      - GROUP
+      - VEHICLE
+      - ENDPOINT
+      - MANAGED_SERVICE
+      - SOC
+      - ONLINE_PLAN
+      - ENTERPRISE_PLAN
+      - FLOATING_LICENSE
+      - USER_PER_LICENSE
+      - CONCURRENT_USER_PER_LICENSE
+      - DASHBOARD
+      - IT_INTERFACE
+      - CONNECTABLE_IOT_DEVICE_VIA_USB
+      - CONNECTABLE_IOT_DEVICE_VIA_TULIP_GATEWAY
+      - CONNECTABLE_MACHINE_PER_LICENSE
+      - OBJECT_TO_BE_CHECKED
+      - MACHINE_WITH_BI_SUPPORT
+      - CONNECTED_DEVICE
+      - LISTING
+      - TLS_ENCRYPTION
+      - DOMAIN_LEVEL_SEND
+      - EFAX_ROUTER
+      - PRORATED_CREDIT
+      - NEW_HIRE
+      - NAS
+      - SALESFORCE_USER
+      - INTERVIEW
+      - ASSESSMENT
+      - NU_WEBEX_CALLING_ENHANCED
+      - NU_WEBEX_CALLING_PROFESSIONAL
+      - WEBEX_ASSISTANT_FOR_WEBEX_MEETINGS_NU
+      - NU_MEETINGS_BRIDGE_COUNTRY_CALL_BACK_AUDIO
+      - FLEX_TEAMS_MESSAGING
+      - ADDON_ANALYSES
+      - ADDITIONAL_LISTING
+      - MIGRATION_TENANT
+      - MIGRATION_GROUP
+      - MIGRATION_DOCUMENT
+      - MIGRATION_GSUITE
+      - MIGRATION_FOLDER
+      - ENHANCED_USER
+      - SINGLE_NAME_CERTIFICATE
+      - SETUP
+      - HA_DEVICE_DAY
+      - WILDCARD_CERTIFICATE
+      - SECURITY_PACKAGE
+      - ADDITIONAL_LANGUAGE
+      - VANITY_URL
+      - BRANDING
+      - DATA_SOURCE
+      - CREATOR_USER
+      - ESIGN_USER
+      - READ_ONLY_USER
+      - MEASURING_POINT
+      - ANDON_TV
+      - TABLET
+      - USER_10000
+      - USER_100
+      - PUBLIC_IP
+      - WORKLOAD
+      - PUBLIC_IP_ADDRESS
+      - COMPUTE_POINT
+      - RESOURCE_UNIT
+      - VALUE_POINT
+      - ACCOUNT
+      - REQUEST
+      - TRANSCRIPT
+      - NOTIFICATION
+      - CLAIM
+      - MID
+      - ENGAGEMENT
+      - TEAM_LICENSE_DIGITAL_TEAMBOARD
+      - TEAM_LICENSE_MODULE_CONNECTIVITY
+      - TEAM_LICENSE_MODULE_PROBLEM_SOLUTION
+      - TEAM_LICENSE_MODULE_AUDITS
+      - TEAM_LICENSE_MODULE_PROCESS_CONFIRMATION
+      - TEAM_LICENSE_MODULE_QUALIFICATION_MATRIX
+      - TEAM_LICENSE_MODULE_STANDARD_WORK_INSTRUCTION
+      - TEAM_LICENSE_MODULE_PARETO_ANALYSIS
+      - KPI
+      - YEAR_KPI_ARCHIVAL
+      - CORPORATE_CLOUD_HOSTING
+      - ON_PREMISES_HOSTING
+      - SUPPORT_SERVICE_HOUR
+      - CLASS
+      - EXPERT
+      - SPINDLE_HOUR
+      - ADDON_ADMINISTRATION
+      - ADDON_CONFIGURATION
+      - ADDON_PLANNING
+      - ADDON_PLANNING_OBJECTS
+      - ADDON_MASTER_DATA
+      - ADDON_CAPACITY_PLANS_CALENDAR
+      - ADDON_CONFLICT_RADAR
+      - ADDON_GAP_LIST
+      - ADDON_DASHBOARD
+      - ADDON_PLANNING_READ_ONLY
+      - ADDON_UTILIZATION_POOLS
+      - ADDON_FIXED_SCHEDULES
+      - ADDON_ASSEMBLY_GROUPS
+      - ADDON_ORDER_ON_HOLD
+      - ADDON_PARALLEL_RESSOURCES
+      - ADDON_MULTI_FUNCTIONAL_RESSOURCES
+      - ADDON_PLANEUS_TV_PER_TERMINAL
+      - ADDON_MASTER_DATA_WORK_PROCEDURES
+      - ADDON_MANUAL_IMPORT
+      - ADDON_AUTOMATIC_IMPORT
+      - ADDON_REPORTING_BASIC
+      - ADDON_REPORTING_ADVANCED
+      - ADDON_REPORT_RESOURCES_AVAILABILITY_PER_DAY
+      - ADDON_REPORT_OEE
+      - ADDON_REPORT_ON_TIME_DELIVERY_HISTORY
+      - ADDON_REPORT_PROCESS_PERFORMANCE_HISTORY
+      - ADDON_REPORT_UTILIZATION_PER_RESOURCE
+      - ADDON_REPORT_REPORTING_PLUG_IN
+      - ADDON_EXTERNAL_PARTNERS_BASIC_LICENSE
+      - ADDON_WORKBENCH_PACK_OF_5
+      - ADDON_WORKBENCH_PACK_OF_10
+      - ADDON_WORKBENCH_PACK_OF_15
+      - CLIENT
+      - VIRTUAL_MACHINE
+      - MODEL_TRANSFORMATION
+      - CASE_REFRESH
+      - CASE_VIEW
+      - CASE_DOCUMENT_DOWNLOAD
+      - VERIFICATION
+      - ADDON_CORPORATE_BRANDING
+      - CLIENT_TAX_FILINGS
+      - CLIENT_COMPLIANCE_SERVICES
+      - PROPOSAL
+      - UK_ID_CHECK
+      - INTERNATIONAL_ID_CHECK
+      - CREDIT_SCREEN
+      - UK_COMPANY_REPORT
+      - NON_UK_COMPANY_REPORT
+      - HR_SCREEN
+      - COMPANY_FORMATION
+      - CLIENT_ACCOUNTS
+      - SMARTKIT
+      - WORKFLOW
+      - EDITOR
+      - WORKER
+      - ADDON_POTENTIAL_ANALYSIS
+      - TRAINING_PACKAGE_SMALL
+      - TRAINING_PACKAGE_LARGE
+      - TOOL_PATH_OPTIMIZATION
+      - CLIENT_VAT_FILINGS
+      - BUNDLE
+      - PACKAGE
+      - VM
+      - INCIDENT
+      - SEND
+      - INTEGRATION
+      - BILLABLE_HOUR
+      - TB
+      - SOURCE
+      - TRAINING
+      - SITE
+      - CONSULTING_UNIT
+      - CAPACITY
+      - MIGRATION
+      - WORKSHOP
+      - ONBOARDING
+      - BENEFIT_ELIGIBLE_EMPLOYEE
+      - SEAT
+      - MS365_SEAT
+      - MS_EXCHANGE_MAILBOX
+      - GWORKSPACE_SEAT
+      - INTERNET_LINE
+      - BACKUP_LINE
+      - USER_PACK_50
+      - USER_PACK_100
+      - CIRCUIT
+      - NAC
+      - INFRASTRUCTURE
+      - TEN_THOUSAND_TEST_RUNS
+      - ONE_THOUSAND_TEST_RUNS
+      - INGESTED_OR_SCANNED_GB
+      - MILLION_LOG_EVENTS
+      - GB_OUTBOUND_PER_DESTINATION
+      - DESTINATION
+      - COMMITTER
+      - INGESTED_GB
+      - CPU
+      - ONE_THOUSAND_SESSIONS
+      - MILLION_RECORDS
+      - GB_OF_ANALYZED_LOGS
+      - ACTIVE_FUNCTION
+      - MILLION_TRACED_INVOCATIONS
+      - ACTIVE_APPLICATION_INSTANCES
+      - HUNDRED_TEST_RUNS
+      - ADDITIONAL_PARALLELIZATION
+      - TASK
+      - ONE_HUNDRED_WORKFLOW_EXECUTIONS
+      - SCANNED_GB
+      - USE_CASE
+      - ONE_THOUSAND_ERROR_EVENTS
+      - PERFORMANCE_GOAL
+      - SCHOOL
+      - MICROSOFT_365_TENANT
+      - MARKETPLACE
+      - LIEN_PROCESSED
+      - DISBURSEMENT
+      - A_LA_CARTE
+      - SECURE
+      - SECURE_PLUS
+      - SECURE_EXTRA
+      - PHASR
+      - ENCRYPTION
+      - EMAIL_SECURITY
+      - MOBILE_SECURITY
+      - EXCHANGE
+      - ATS
+      - EDR
+      - EDR_RETENTION_90D
+      - EDR_RETENTION_180D
+      - EDR_RETENTION_1Y
+      - INTEGRITY_MON
+      - INTEGRITY_MON_RETENTION_90D
+      - INTEGRITY_MON_RETENTION_180D
+      - INTEGRITY_MON_RETENTION_1Y
+      - MDR_FOUNDATIONS
+      - PATCH_MANAGEMENT
+      - VIRTUAL_ENV_VS
+      - VIRTUAL_ENV_VDI
+      - CONTAINER_PROTECTION
+      - XDR_IDENTITY_SENSOR
+      - XDR_PRODUCTIVITY_SENSOR
+      - XDR_NETWORK_SENSOR
+      - XDR_CLOUD_SENSOR
+      - COMPLIANCE_MANAGER
+      - EASM
+      - SUPERVISOR
+      - GB_OF_PROVISIONED_VM_RAM_PER_HOUR
+      - GB_OF_USED_VM_STORAGE_PER_HOUR
+      - GB_OF_USED_S3_STORAGE_PER_HOUR
+      - VIRTUAL_ENVIRONMENT_VE_PER_MONTH
+      - STORAGE_100_GB_PER_MONTH
+      - GB_RAM_UNDER_MANAGEMENT_PER_MONTH
+      - GB_OF_VM_RAM_PER_HOUR
+      - BUSINESS_CLIENT
+      - SELF_EMPLOYED_CLIENT
+      - LANDLORD_CLIENT
+      - DATA_HEALTH_AND_INSIGHT_ADDON
+      - SWITCH_DAY
+      - ACCESS_POINT_DAY
+      - DATABASE
+      - FUNCTION
+      - APP_SERVICE
+      - FIREWALL
+      - EDR_SA_MDR_FOUNDATIONS
+      - EDR_SA
+      - FED_USF_CHARGE
+      - SERVICE_FEE
+      - SERVICE_FEE_AP
+      - SERVICE_FEE_SWITCH
+      - SERVICE_FEE_ROUTER
+      - USER_LICENCE_DAY
+      - DEVICE_DAY
+      - VM_DAY
+      - ROUTER_DAY
+      - FSE
+      - ON_SITE_SERVICE
+      - BASIC
+      - BASIC_PLUS
+      - STANDARD
+      - STANDARD_PLUS
+      - ADVANCED
+      - ADVANCED_PLUS
+      - PREMIUM_PLUS
+      - XXS
+      - XS
+      - SMALL
+      - MEDIUM
+      - LARGE
+      - XL
+      - XXL
+      - XXXL
+      - CUSTOM
+      - ENHANCED
+      - INCIDENT_RESPONSE_SERVICE
+      - JIRA_CONNECTOR
+      - SHAREPOINT_CONNECTOR
+      - CONFLUENCE_CONNECTOR
+      - PRIVATE_ACCESS
+      - INTERNET_ACCESS
+      - OBJECTIVE_FEEDBACK_QUESTION
+      - STAFFBASE_CONNECTOR
+      - CONSULTING_UNIT_AP
+      - CONSULTING_UNIT_ROUTER
+      - CONSULTING_UNIT_SWITCH
+      - OBJECT
+      - VALIDATION
+      - ADVANCED_ELECTRONIC_SIGNATURE
+      - QUALIFIED_ELECTRONIC_SIGNATURE
+      - PERSONAL_IDENTIFICATION
+      - API_BASED_SIGNATURE
+      - ON_CALL_DUTY
+      - VSBU
+      - PAID_USER
+      - REMOTE_SEAL_SIGNATURE
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    PricingDuration:
+      description: Pricing duration types
+      type: string
+      title: PricingDuration
+      enum:
+      - ONE_TIME
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      - DAILY
+    AppResellerCatalogEditionWS:
+      type: object
+      title: CatalogEdition
+      properties:
+        id:
+          description: Edition ID
+          type: string
+        name:
+          description: Edition name
+          type: string
+        RevenueModelType:
+          $ref: '#/components/schemas/RevenueModelType'
+        PaymentPlanWS:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogPaymentPlanWS'
+    MarkupPricingType:
+      description: Markup pricing types
+      type: string
+      title: MarkupPricingType
+      enum:
+      - RESELLER
+      - WHOLESALE
+      - CHANNEL_RESELLER_COMPANY
+      - CHANNEL_RESELLER
+      - CHANNEL
+      - CHANNEL_ONLY
+      - NONE
+      - ALL
+    PricingStrategy:
+      description: Pricing strategy
+      type: string
+      title: PricingStrategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - TIERED
+      - VOLUME
+      - VARIABLE_PRICE_STRATEGIES
+      - UNLIMITED
+      - CUSTOM
+    AppResellerCatalogMarkupPriceWS:
+      type: object
+      title: MarkupPrices
+      properties:
+        markupType:
+          $ref: '#/components/schemas/MarkupPricingType'
+        markupPrices:
+          description: Markup Prices
+          additionalProperties:
+            type: string
+            properties:
+              currency:
+                type: string
+              value:
+                type: number

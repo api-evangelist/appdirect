@@ -1,0 +1,388 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerPaymentMethod API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerPaymentMethod
+  x-displayName: Payment Methods (Reseller)
+paths:
+  /appReseller/v1/paymentMethods:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Creates a payment method on behalf of the specified user
+      tags:
+      - AppResellerPaymentMethod
+      summary: Create payment method
+      operationId: resource_AppResellerV1PaymentMethodApi_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support Representative.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppResellerPaymentMethodRequest'
+        description: Information about the user and the new payment method
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerPaymentMethod'
+              examples:
+                response:
+                  value:
+                    id: 5d399e4a-cae3-0000-0000-85be1db90000
+                    accountDisplay: '1111'
+                    paymentMethodType: CARD
+                    properties:
+                      expirationYear: '2100'
+                      cardHolderName: John Jordan
+                      expirationMonth: '10'
+                      brand: VISA
+                    billingAddress:
+                      street1: Alden
+                      city: Beverly Hills
+                      country: US
+                      zip: '94203'
+                      state: CA
+                    owner:
+                      id: 833d4c99-1939-0000-0000-6fb7ae30000
+                      firstName: John
+                      lastName: Jordan
+                    default: true
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods \\\n  --header 'content-type: application/json' \\\n  --data '{\"ownerId\":\"833d4c99-1939-0000-0000-6fb7ae30000\",\"companyId\":\"6b4bd452-895d-0000-0000-e6046b230000\",\"paymentMethodType\":\"CARD\",\"properties\":{\"cardHolderName\":\"John Jordan\",\"number\":\"0000-0000-0000-0000\",\"securityCode\":\"000\",\"expirationMonth\":\"10\",\"expirationYear\":\"2100\",\"brand\":\"VISA\"},\"billingAddress\":{\"street1\":\"Alden\",\"city\":\"Beverly Hills\",\"country\":\"US\",\"zip\":\"94203\",\"state\":\"CA\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods',\n  headers: {'content-type': 'application/json'},\n  body: {\n    ownerId: '833d4c99-1939-0000-0000-6fb7ae30000',\n    companyId: '6b4bd452-895d-0000-0000-e6046b230000',\n    paymentMethodType: 'CARD',\n    properties: {\n      cardHolderName: 'John Jordan',\n      number: '0000-0000-0000-0000',\n      securityCode: '000',\n      expirationMonth: '10',\n      expirationYear: '2100',\n      brand: 'VISA'\n    },\n    billingAddress: {\n      street1: 'Alden',\n      city: 'Beverly Hills',\n      country: 'US',\n      zip: '94203',\n      state: 'CA'\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"ownerId\\\":\\\"833d4c99-1939-0000-0000-6fb7ae30000\\\",\\\"companyId\\\":\\\"6b4bd452-895d-0000-0000-e6046b230000\\\",\\\"paymentMethodType\\\":\\\"CARD\\\",\\\"properties\\\":{\\\"cardHolderName\\\":\\\"John Jordan\\\",\\\"number\\\":\\\"0000-0000-0000-0000\\\",\\\"securityCode\\\":\\\"000\\\",\\\"expirationMonth\\\":\\\"10\\\",\\\"expirationYear\\\":\\\"2100\\\",\\\"brand\\\":\\\"VISA\\\"},\\\"billingAddress\\\":{\\\"street1\\\":\\\"Alden\\\",\\\"city\\\":\\\"Beverly Hills\\\",\\\"country\\\":\\\"US\\\",\\\"zip\\\":\\\"94203\\\",\\\"state\\\":\\\"CA\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a list of the specified user's payment methods
+      tags:
+      - AppResellerPaymentMethod
+      summary: List payment methods
+      operationId: resource_AppResellerV1PaymentMethodsApi_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support Representative.
+      parameters:
+      - name: ownerId
+        in: query
+        description: User ID
+        required: true
+        schema:
+          type: string
+      - name: companyId
+        in: query
+        description: Company ID
+        required: true
+        schema:
+          type: string
+      - name: number
+        in: query
+        description: Page number starting at 1. The default value is 1.
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        description: Number of results per page. The default value is 50.
+        required: false
+        schema:
+          type: integer
+      - name: paymentMethodType
+        in: query
+        description: Payment method type
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerPaymentMethodPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 5d399e4a-cae3-0000-0000-85be1db90000
+                      accountDisplay: '1111'
+                      paymentMethodType: CARD
+                      properties:
+                        expirationYear: '2100'
+                        cardHolderName: John Jordan
+                        expirationMonth: '10'
+                        brand: VISA
+                      billingAddress:
+                        street1: Alden
+                        city: Beverly Hills
+                        country: US
+                        zip: '94203'
+                        state: CA
+                      owner:
+                        id: 833d4c99-1939-0000-0000-6fb7ae30000
+                        firstName: John
+                        lastName: Jordan
+                      default: true
+                    page:
+                      size: 1
+                      totalElements: 1
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&paymentMethodType=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods',\n  qs: {\n    ownerId: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    paymentMethodType: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&paymentMethodType=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/paymentMethods/{paymentMethodId}:
+    delete:
+      x-appdirect-api-stage: Early Access
+      description: Deletes a user's payment methods
+      tags:
+      - AppResellerPaymentMethod
+      summary: Remove payment methods
+      operationId: resource_AppResellerV1PaymentMethodApi_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support Representative.
+      parameters:
+      - name: paymentMethodId
+        in: path
+        description: Payment method ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/%7BpaymentMethodId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/%7BpaymentMethodId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/%7BpaymentMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AppResellerPaymentMethodPagedReadResponse:
+      type: object
+      title: AppResellerPaymentMethodPagedReadResponse
+      description: List of payment methods
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerPaymentMethod'
+    AppResellerPaymentMethodRequest:
+      type: object
+      title: AppResellerPaymentMethodRequest
+      description: Creates a payment method for the specified user
+      required:
+      - ownerId
+      - companyId
+      - paymentMethodType
+      - billingAddress
+      properties:
+        ownerId:
+          description: ID of the user for whom to create the payment method
+          type: string
+        companyId:
+          description: ID of the user's company
+          type: string
+        paymentMethodType:
+          description: Payment method types supported by AppReseller
+          type: string
+        properties:
+          description: List of payment method properties. Varies by payment method type
+          type: object
+          additionalProperties:
+            type: string
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      example:
+        ownerId: 833d4c99-1939-0000-0000-6fb7ae30000
+        companyId: 6b4bd452-895d-0000-0000-e6046b230000
+        paymentMethodType: CARD
+        properties:
+          cardHolderName: John Jordan
+          number: 0000-0000-0000-0000
+          securityCode: '000'
+          expirationMonth: '10'
+          expirationYear: '2100'
+          brand: VISA
+        billingAddress:
+          street1: Alden
+          city: Beverly Hills
+          country: US
+          zip: '94203'
+          state: CA
+    BillingAddress:
+      title: BillingAddress
+      type: object
+      description: Billing address
+      required:
+      - street1
+      - city
+      - country
+      - state
+      - zip
+      properties:
+        street1:
+          description: First line of a street address
+          type: string
+        street2:
+          description: Second line of a street address, such as apartment or unit number
+          type: string
+          nullable: true
+        city:
+          description: City or town
+          type: string
+        country:
+          description: Country code in ISO-3166 format
+          type: string
+        state:
+          description: State, province, or region
+          type: string
+        zip:
+          description: ZIP or postal code
+          type: string
+        phone:
+          description: Phone number
+          type: string
+          nullable: true
+        salutation:
+          description: Personal salutation
+          type: string
+          nullable: true
+        companyName:
+          description: Company name
+          type: string
+          nullable: true
+        fax:
+          description: Fax number
+          type: string
+          nullable: true
+        faxExtension:
+          description: Fax number extension
+          type: string
+          nullable: true
+        poBox:
+          description: Post office box number
+          type: string
+          nullable: true
+      example:
+        street1: Alden
+        city: Beverly Hills
+        country: US
+        zip: '94203'
+        state: CA
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
+    AppResellerPaymentMethod:
+      type: object
+      title: AppResellerPaymentMethod
+      description: Payment method information
+      required:
+      - id
+      - default
+      - paymentMethodType
+      - billingAddress
+      - owner
+      properties:
+        id:
+          description: Payment method ID
+          type: string
+        accountDisplay:
+          description: Account display text, such as the last 4 digits of the credit card number
+          type: string
+        default:
+          description: Indicates whether this is the user's default payment method
+          type: boolean
+        paymentMethodType:
+          description: Payment method types supported by AppReseller
+          type: string
+        properties:
+          description: List of payment method properties. Varies by payment method type
+          type: object
+          additionalProperties:
+            type: string
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+        owner:
+          $ref: '#/components/schemas/UserAssociation'
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

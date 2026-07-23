@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AI Embed
+paths:
+  /api/v1/ai/{aiId}/embed:
+    get:
+      tags:
+      - AI Embed
+      summary: Get embedded client configuration
+      description: Retrieves the embedded client configuration for the AI.
+      operationId: getEmbeddedClient
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Embedded client configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedClient'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - AI Embed
+      summary: Update embedded client configuration
+      description: Updates the embedded client configuration for the AI.
+      operationId: updateEmbeddedClient
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedClientConfig'
+      responses:
+        '200':
+          description: Embedded client updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedClient'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/embed/generate:
+    put:
+      tags:
+      - AI Embed
+      summary: Generate an embedded client key
+      description: Generates a new embedded client key for the AI.
+      operationId: generateEmbeddedClientKey
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Embedded client created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedClient'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    EmbeddedClientConfig:
+      type: object
+      properties:
+        hostUrl:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        headerBackgroundColor:
+          type: string
+        borderColor:
+          type: string
+        shadowColor:
+          type: string
+        iconColor:
+          type: string
+        textColor:
+          type: string
+        linkColor:
+          type: string
+        aiMessageColor:
+          type: string
+        humanMessageColor:
+          type: string
+        buttonColor:
+          type: string
+        buttonTextColor:
+          type: string
+        borderRadius:
+          type: integer
+        buttonImageUrl:
+          type: string
+        buttonWidth:
+          type: integer
+        buttonHeight:
+          type: integer
+        buttonBackgroundColor:
+          type: string
+        buttonBorderColor:
+          type: string
+        buttonShadowColor:
+          type: string
+        buttonBorderRadius:
+          type: integer
+        buttonBorderWidth:
+          type: integer
+        buttonPosition:
+          type: string
+        buttonPositionX:
+          type: integer
+        buttonPositionY:
+          type: integer
+        backgroundColor:
+          type: string
+        disableAutoFocus:
+          type: boolean
+    EmbeddedClient:
+      type: object
+      properties:
+        id:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        orgId:
+          type: string
+        aiId:
+          type: string
+        key:
+          type: string
+        data:
+          $ref: '#/components/schemas/EmbeddedClientConfig'

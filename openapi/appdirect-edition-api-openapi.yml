@@ -1,0 +1,1735 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Edition API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Edition
+  x-displayName: Editions
+paths:
+  /marketplace/v1/products/{applicationId}/editions/{editionId}:
+    get:
+      description: This call returns all details related to a specific product edition
+      tags:
+      - Edition
+      summary: Retrieve an edition
+      operationId: resource_Edition_readEdition_GET
+      parameters:
+      - description: product id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Edition id
+        name: editionId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Edition information returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditionWS'
+              examples:
+                response:
+                  value:
+                    id: 316
+                    uuid: 77395548-5c87-45d0-9c87-4fc51ea8aa97
+                    rank: 1
+                    name: XLt6HgwZBq
+                    primary: false
+                    trial:
+                      length: 1
+                      unit: MONTH
+                    expiredTrialGracePeriod: null
+                    bundleOnly: false
+                    targetAudience: null
+                    code: WfvHz
+                    defaultFreeTrial: false
+                    invisible: false
+                    leadGen: false
+                    lastModified: 1461792763091
+                    revenueType: RECURRING
+                    restricted: false
+                    freeTrialDuration: 1
+                    freeTrialType: MONTH
+                    customerContractRestricted: false
+                    plans:
+                    - href: http://localhost/api/marketplace/v1/products/316/editions/316/paymentPlans/624
+                      id: 624
+                      uuid: 9d813cc8-4aa8-4b22-b6ff-bfb4d8a72426
+                      frequency: MONTHLY
+                      contract:
+                        minimumServiceLength: 3
+                        cancellationPeriodLimit: null
+                        endOfContractGracePeriod: null
+                        blockSwitchToShorterContract: false
+                        blockContractDowngrades: false
+                        blockContractUpgrades: false
+                        gracePeriod: null
+                        terminationFee: null
+                        autoExtensionPricingId: 624
+                      allowCustomUsage: false
+                      keepBillDateOnUsageChange: false
+                      separatePrepaid: false
+                      isPrimaryPrice: false
+                      costs:
+                      - unit: USER
+                        unitDependency: null
+                        minUnits: 0
+                        maxUnits: null
+                        meteredUsage: false
+                        increment: 1
+                        pricePerIncrement: false
+                        blockContractDecrease: false
+                        blockContractIncrease: false
+                        blockOriginalContractDecrease: false
+                        amount:
+                          USD: 10
+                      discount: null
+                      primaryPrice: false
+                    - href: http://localhost/api/marketplace/v1/products/316/editions/316/paymentPlans/625
+                      id: 625
+                      uuid: f55ad8a6-11d4-4bab-ac7f-d1bf887e685d
+                      frequency: MONTHLY
+                      contract:
+                        minimumServiceLength: 6
+                        cancellationPeriodLimit: null
+                        endOfContractGracePeriod: null
+                        blockSwitchToShorterContract: false
+                        blockContractDowngrades: false
+                        blockContractUpgrades: false
+                        gracePeriod: null
+                        terminationFee: null
+                        autoExtensionPricingId: 625
+                      allowCustomUsage: false
+                      keepBillDateOnUsageChange: false
+                      separatePrepaid: false
+                      isPrimaryPrice: false
+                      costs:
+                      - unit: USER
+                        unitDependency: null
+                        minUnits: 0
+                        maxUnits: null
+                        meteredUsage: false
+                        increment: 1
+                        pricePerIncrement: false
+                        blockContractDecrease: false
+                        blockContractIncrease: false
+                        blockOriginalContractDecrease: false
+                        amount:
+                          USD: 10
+                      discount: null
+                      primaryPrice: false
+                    bullets: []
+                    items: []
+                    customizations: []
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EditionWS'
+        '404':
+          description: Application or edition not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/editions/%7BeditionId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/editions/%7BeditionId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/editions/%7BeditionId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ContractWS:
+      description: Contract associated to a payment plan
+      type: object
+      title: Contract
+      properties:
+        alignWithParentCycleStartDate:
+          description: Is addon cycle start date contract aligned with parent cycle start date
+          type: boolean
+        autoExtensionPricingId:
+          description: Auto extension pricing ID
+          type: number
+          nullable: true
+        blockContractDowngrades:
+          description: Is contract downgrade allowed
+          type: boolean
+        blockContractUpgrades:
+          description: Is contract upgrade allowed
+          type: boolean
+        blockSwitchToShorterContract:
+          description: Is switch to shorter contract allowed
+          type: boolean
+        cancellationPeriodLimit:
+          description: Cancellation period limit
+          type: number
+          nullable: true
+        endOfContractGracePeriod:
+          description: End of contract grace period
+          type: number
+          nullable: true
+        gracePeriod:
+          $ref: '#/components/schemas/DurationWS'
+        minimumServiceLength:
+          description: Minimum service length
+          type: number
+          nullable: true
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFeeWS'
+      example:
+        alignWithParentCycleStartDate: true
+        autoExtensionPricingId: 12345
+        blockContractDowngrades: true
+        blockContractUpgrades: true
+        blockSwitchToShorterContract: true
+        cancellationPeriodLimit: 12345
+        endOfContractGracePeriod: 12345
+        gracePeriod:
+          length: 12345
+          unit: '...'
+        minimumServiceLength: 12345
+        terminationFee:
+          description: '...'
+          flatFee:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          percentageFee: 12345
+          type: '...'
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
+      type: object
+      title: TerminationFee
+      properties:
+        description:
+          description: Description
+          type: string
+          nullable: true
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
+          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
+      example:
+        description: '...'
+        flatFee:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        percentageFee: 12345
+        type: '...'
+      nullable: true
+    EditionCustomizationWS:
+      description: Edition customization
+      type: object
+      title: EditionCustomization
+      properties:
+        type:
+          description: Type
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        type: '...'
+        value: '...'
+    ProductDiscountDetailsWS:
+      description: Discount detail on a product pricing
+      type: object
+      title: ProductDiscountDetails
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        availableRedemptions:
+          description: Number of time the discount can be used
+          type: number
+        description:
+          description: Description
+          type: string
+          nullable: true
+        expirationDate:
+          description: Expiration date of the discount
+          type: number
+        numOfBillingCycles:
+          description: Number of billing cycle the discount is applicable
+          type: number
+        percentage:
+          description: Discount in percentage
+          type: number
+        pricingUnit:
+          $ref: '#/components/schemas/PricingUnit'
+        startDate:
+          description: Start date of the discount
+          type: number
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        availableRedemptions: 12345
+        description: '...'
+        expirationDate: 12345
+        numOfBillingCycles: 12345
+        percentage: 12345
+        pricingUnit: TIER3_STANDARD_LINE
+        startDate: 12345
+      nullable: true
+    IncludedItemWS:
+      description: Included item in an edition
+      type: object
+      title: IncludedItem
+      properties:
+        amount:
+          description: Amount
+          type: number
+        unit:
+          description: Item unit
+          type: string
+          nullable: true
+        unlimited:
+          description: Is unlimited
+          type: boolean
+      example:
+        amount: 12345
+        unit: '...'
+        unlimited: true
+    EditionBulletWS:
+      description: Bullet point to display for an edition
+      type: object
+      title: EditionBullet
+      properties:
+        content:
+          description: Content
+          type: string
+        tooltip:
+          description: Tooltip
+          type: string
+      example:
+        content: '...'
+        tooltip: '...'
+    PaymentPlanWS:
+      description: Payment plan for a product edition
+      type: object
+      title: PaymentPlan
+      properties:
+        allowCustomUsage:
+          description: Custom usage allowed
+          type: boolean
+        contract:
+          $ref: '#/components/schemas/ContractWS'
+        cost:
+          description: List of plan costs
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanCostWS'
+        discount:
+          $ref: '#/components/schemas/ProductDiscountDetailsWS'
+        frequency:
+          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
+          type: string
+        href:
+          description: URL to payment plan details
+          type: string
+        id:
+          description: ID
+          type: number
+        isPrimaryPrice:
+          description: Is primary price
+          type: boolean
+        keepBillDateOnUsageChange:
+          description: Keep bill date on usage change
+          type: boolean
+        separatePrepaid:
+          description: Separate prepaid
+          type: boolean
+        tld:
+          description: If plan is part of a domain reseller product, this is the tld this plan offers
+          type: string
+        uuid:
+          description: Unique identifier
+          type: string
+          nullable: true
+      example:
+        allowCustomUsage: true
+        contract:
+          alignWithParentCycleStartDate: true
+          autoExtensionPricingId: 12345
+          blockContractDowngrades: true
+          blockContractUpgrades: true
+          blockSwitchToShorterContract: true
+          cancellationPeriodLimit: 12345
+          endOfContractGracePeriod: 12345
+          gracePeriod:
+            length: 12345
+            unit: '...'
+          minimumServiceLength: 12345
+          terminationFee:
+            description: '...'
+            flatFee: {}
+            percentageFee: 12345
+            type: '...'
+        cost:
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        discount:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          availableRedemptions: 12345
+          description: '...'
+          expirationDate: 12345
+          numOfBillingCycles: 12345
+          percentage: 12345
+          pricingUnit: INTERNATIONAL_MINUTE
+          startDate: 12345
+        frequency: '...'
+        href: '...'
+        id: 12345
+        isPrimaryPrice: true
+        keepBillDateOnUsageChange: true
+        separatePrepaid: true
+        tld: '...'
+        uuid: '...'
+    PricingUnit:
+      type: string
+      title: PricingUnit
+      enum:
+      - USER
+      - GIGABYTE
+      - GMV
+      - MEGABYTE
+      - PROSPECT_SCORE
+      - HOUR
+      - MINUTE
+      - INVOICE
+      - UNIT
+      - PROJECT
+      - PROPERTY
+      - ITEM
+      - WORD
+      - EMAIL
+      - CONTACT
+      - CALL
+      - CREDIT
+      - ROOM
+      - HOST
+      - AGENT
+      - OPERATOR
+      - PROVIDER
+      - MANAGER
+      - TESTER
+      - JVM
+      - SERVER
+      - WEB_USE_MINUTE
+      - AUDIO_USE_MINUTE
+      - PIECE
+      - EMPLOYEE_PAY_PERIOD
+      - EMPLOYEE_PER_PAY_PERIOD
+      - COMPUTER
+      - NOT_APPLICABLE
+      - ONE_TIME_SETUP
+      - DATA_POINTS
+      - TIER1_API_CALLS
+      - TIER2_API_CALLS
+      - ADVISORY_HOURS
+      - OVERAGE_AUDIO_MINUTE
+      - EMPLOYEE
+      - CONNECTION
+      - PUSH_USER
+      - THOUSAND_EMAILS_PER_DAY
+      - PUSH_NOTIFICATION_DEVICES
+      - API_CALLS
+      - SMS_TEXT_MESSAGE
+      - CONTACTS_1000
+      - CONTRACT_FEE
+      - TRANSFER_FEE
+      - REACTIVATION_FEE
+      - RECIPIENT
+      - ADDITIONAL_1000_CONTACTS_BLOCK
+      - SCHEDULE_PLAN
+      - EMAILS_1000
+      - EMAILS_2500
+      - EMAILS_100000
+      - MOBILE_DEVICE
+      - PAYSLIP
+      - PAYSLIP_CORRECTION
+      - STORE
+      - WEBSITE
+      - EPAPER
+      - PAGE
+      - POSTAGE_AND_PRINT
+      - INTERNATIONAL_POSTAGE_AND_PRINT
+      - TIER1_TOP_LEVEL_DOMAIN
+      - TIER2_TOP_LEVEL_DOMAIN
+      - DEDICATED_IP
+      - ENABLELCM
+      - MAXCOMPONENTS
+      - DATA_MANAGEMENT_USER
+      - SPECIALIST_USER
+      - PROFESSIONAL_USER
+      - MATERIALITY_MATRIX
+      - STAKEHOLDER_MANAGEMENT
+      - SCORECARD
+      - STANDARD_MAPPING
+      - DONATION_MANAGEMENT
+      - DOCUMENT
+      - PACKAGE_SMALL
+      - PACKAGE_LARGE
+      - MEMBER
+      - ATTENDEE
+      - MAILING
+      - RESPONSE
+      - EXTERNAL_INVOICE_FEE
+      - CLIENT_TEST
+      - IMAGE_TRANSFORMATION
+      - TOTAL_IMAGE
+      - LICENSE
+      - MAILBOX
+      - FREE_40_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC
+      - FREE_46_INCH_HDTV_PC_MOUNTING
+      - EMPLOYEE_PER_WEEK
+      - REGISTER
+      - END_USER
+      - CORE
+      - DEVICE
+      - PORT
+      - MEASURER
+      - PUBLISHED_MEASUREMENT
+      - NODE
+      - SERVER_RULE
+      - VPN_LP
+      - PROXY_LP
+      - DESKTOP_CONNECT_LP
+      - CAMERA
+      - MAIN_SOUND_ZONE
+      - SUB_SOUND_ZONE
+      - POST
+      - REPORT
+      - BOX
+      - SESSION
+      - DISPLAY
+      - TRUCKROLL
+      - TRANSACTION_FEE
+      - SENDING_API_CALL
+      - LOOKUP_API_CALL
+      - ANALYTICS_API_CALL
+      - MIGRATION_INSTANCE
+      - NFON_SETUP_PER_PHONE_EXTENSION
+      - NFON_SETUP_PER_PHONE_EXTENSION_PLUS
+      - NFON_SETUP_PER_EFAX_EXTENSION
+      - NFON_PHONE_EXTENSION
+      - NFON_PHONE_EXTENSION_PLUS
+      - NFON_EFAX_EXTENSION
+      - NFON_CALL_CENTER_MONITORING
+      - NFON_NMEETING
+      - NFON_MOBILE_NFON_DEVICE
+      - NFON_ISOFTPHONE_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS
+      - NFON_NSOFTPHONE_PREMIUM_WINDOWS
+      - NFON_NCTI_STANDARD_WINDOWS
+      - NFON_NCTI_STANDARD_CRM_WINDOWS
+      - NFON_NCTI_STANDARD_MAC
+      - NFON_NSOFTPHONE_STANDARD_WINDOWS_OR_MOBILE
+      - WESUSTAIN_PERFORMANCE
+      - WESUSTAIN_STAKEHOLDER_REPUTATION
+      - WESUSTAIN_WEAPP
+      - FAX
+      - FAX_LINE
+      - ROOM_LINE
+      - DEPARTMENT_LINE
+      - INTERNATIONAL_LICENSE
+      - INTERNATIONAL_DEPARTMENT_LINE
+      - INTERNATIONAL_ROOM_LINE
+      - INTERNATIONAL_LINE
+      - CALLING_CREDIT
+      - LINE
+      - TOLLFREE_ROOM_LINE
+      - TOLLFREE_DEPARTMENT_LINE
+      - TAXES_AND_FEES
+      - LEAD
+      - OPPORTUNITY
+      - CAMPAIGN
+      - CASE
+      - CUSTOMER
+      - TIER1_STANDARD_LINE
+      - TIER1_ROOM_LINE
+      - TIER1_TOLLFREE_ROOM_LINE
+      - TIER1_TOLLFREE_DEPARTMENT_LINE
+      - TIER1_FAX_LINE
+      - TIER1_DEPARTMENT_LINE
+      - TIER2_STANDARD_LINE
+      - TIER2_ROOM_LINE
+      - TIER2_DEPARTMENT_LINE
+      - TIER3_STANDARD_LINE
+      - TIER3_ROOM_LINE
+      - TIER3_DEPARTMENT_LINE
+      - TIER4_STANDARD_LINE
+      - TIER4_ROOM_LINE
+      - TIER4_DEPARTMENT_LINE
+      - CLUSTER
+      - NODE_4VCPU
+      - FIVE_HUNDRED_GB_SSD
+      - TWELVE_TB_NETWORK_IO
+      - JBOSS_EAP
+      - JBOSS_FUSE
+      - JBOSS_A_MQ
+      - JBOSS_BRMS
+      - JBOSS_BPM_SUITE
+      - JBOSS_DATA_GRID
+      - JBOSS_DATA_VIRT
+      - USER_LICENSE
+      - ADDITIONAL_NUMBER_LICENSE
+      - ROOM_PHONE_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE
+      - UBERCONFERENCE_PRO_LICENSE_UNBUNDLED
+      - INSTANCE
+      - INDOOR_CAMERA
+      - OUTDOOR_CAMERA
+      - VINGATE_LP_LICENCE
+      - ADMINISTRATOR
+      - MOBILE_USER
+      - G_SUITE
+      - T1
+      - PHONE
+      - AUTO_ATTENDANT
+      - HUNT_GROUP
+      - VOICEMAIL_BOX
+      - TOLL_FREE_NUMBER
+      - INBOUND_LONG_DISTANCE_MINUTE
+      - OUTBOUND_LONG_DISTANCE_MINUTE
+      - INBOUND_OUTBOUND_LONG_DISTANCE_MINUTE
+      - SET_TOP_BOX
+      - MODEM
+      - ACCESS_POINT
+      - CALLING_FEATURE
+      - IAD_DEVICE
+      - ANALOG_LINE
+      - PRI
+      - SBC_DEVICE
+      - ROUTER
+      - INTERNATIONAL_MINUTE
+      - PHONE_LINE
+      - DYNAMIC_IP_ADDRESS
+      - STATIC_IP_ADDRESS
+      - GATEWAY
+      - REMOTE_CONTROL
+      - TIER1_STANDARD_SEAT
+      - TIER2_STANDARD_SEAT
+      - TIER3_STANDARD_SEAT
+      - TIER4_STANDARD_SEAT
+      - TIER1_TOLL_FREE_SEAT
+      - MILLION_MESSAGES
+      - MESSAGE
+      - WEEKLY
+      - PHONE_NUMBER
+      - GUEST
+      - REVISION_SAFE_DATAROOM
+      - GROUP_SESSION
+      - MAILBOX_AD_SYNC
+      - PHONE_SUPPORT
+      - EXTRA_10TB
+      - EXTRA_50TB
+      - EXTRA_200TB
+      - MAP_VIEW
+      - SVM
+      - CHANNEL
+      - NUMBER_PRINTER_TABLET
+      - NUMBER_ONSITE_SERVER
+      - NUMBER_VISITS
+      - ONSITE_TECHNICIAN_PC
+      - ONSITE_TECHNICIAN_SERVER
+      - SHORTER_REACTION_TIMES
+      - E_COMMERCE_INTEGRATION
+      - LOCATION
+      - TRAINING_SESSION
+      - GIGABYTES_PER_HOUR
+      - FINANCIAL_PLANNING
+      - ONSITE_WORKPLACE
+      - INTERNAL_TOOLS_ACCESS
+      - DUTY_SERVICE
+      - TERABYTE
+      - HOST_UNIT_HOURS
+      - WEB_CHECKS
+      - ACTIVE_USERS
+      - ACTIVE_EMPLOYEE
+      - PC_OF_NET_RECURRING_FEE
+      - ACTIVE_VENDOR
+      - ADVERTISEMENT
+      - ADVERTISER_SPENDS
+      - ANNUAL_FUNDRAISING_INCOME
+      - ANNUAL_SUBSCRIPTION
+      - APPLIANCE
+      - ASSET
+      - ASSETS_UNDER_MANAGEMENT
+      - BUSINESS_PARTNERS
+      - CASH_FLOWS
+      - COMPONENT
+      - CONNECTED_SYSTEMS
+      - CONTRACTS
+      - COSTS
+      - DATA_STREAMS
+      - DATABASE_SIZE
+      - EXTERNAL_SERVICE_CALLS
+      - FILE
+      - FIXED
+      - FLAT
+      - FLAT_FEE_BASED_ON_ASSETS
+      - FLEET_PLANNING_ORDERS
+      - FORMS
+      - GIGABYTE_DATABASE_SIZES
+      - INSTALLATION
+      - INSTALLED_CAPACITY
+      - JOB_POSTING
+      - LEARNER
+      - LOGON
+      - MANAGED_SYSTEM
+      - MASTER_DATA_OBJECT
+      - MASTER_RECORDS
+      - MBPS
+      - MONITORED_USER
+      - MPLS
+      - ORDER
+      - OUTPATIENT_DAYS
+      - PAGE_VIEW
+      - PATIENT_CARE_DAY
+      - PATIENT_TREATED
+      - PLANT
+      - POINTS_OF_DELIVERY
+      - PREMIUM
+      - PROCESS
+      - PRODUCTS
+      - RECORDS
+      - RENTAL_UNIT
+      - RESOURCES
+      - REVENUE
+      - SALES_ORDER
+      - SALES_PORTFOLIOS
+      - SERVICE_ORDERS
+      - SITE_VISITS
+      - SPENDS
+      - SPEND_VOLUMES
+      - STREAM
+      - STUDENT
+      - SUBSCRIBER
+      - SUPPLIERS
+      - TICKETS
+      - TOTAL_ANNUAL_BUDGET
+      - TUNNEL
+      - VIRTUAL_USERS
+      - SAP_SYSTEM
+      - POSITION_TYPES
+      - OVERAGE_FEES
+      - OVERAGE_FEE_TRANSACTION
+      - OVERAGE_FEES_DOCUMENT
+      - OVERAGE_FEES_ITEM
+      - EVENT
+      - BUSINESS_EVENT
+      - LEGAL_TENDER
+      - ANNUAL_REVENUE
+      - AD_SYNC
+      - FULL_DATA_RESTORE
+      - USED_STORAGE_100GB
+      - COMPANY
+      - ADDITIONAL_USER
+      - VISIT
+      - VIDEO
+      - ELECTRONIC_PAYMENT
+      - CHECK_PAYMENT
+      - EXPRESS_PAY_ELECTRONIC_PAYMENT
+      - EXPRESS_PAY_CHECK_PAYMENT
+      - DATA_ENTRY_SERVICE
+      - MONTHLY_VISIT
+      - SCRUB_TRANSACTION
+      - DEVICE_LICENSE
+      - SERVER_LICENSE
+      - BASE_LICENSE
+      - SERVICE_CALL
+      - SUPPORT_INCIDENT_TICKET
+      - CUSTOM_REPORT_BUILDING_TRAINING
+      - QUOTA
+      - DOMESTIC_TRANSACTION
+      - BEE
+      - BEE_FLEET
+      - BEE_BEACON_AMBIENT_LIGHT
+      - BEE_BEACON_TEMPERATURE_HUMIDITY
+      - CONTACTS_100
+      - TEMPLATE
+      - TEMPLATE_PACKS_10
+      - PACK
+      - SMS_TEXT_MESSAGE_10
+      - VIRTUAL_SERVER
+      - PHYSICAL_SERVER
+      - WORKSTATION
+      - CHATS
+      - MATCH_LIST
+      - CERTIFICATE_12_MONTHS
+      - CERTIFICATE_24_MONTHS
+      - PRIVACY
+      - PAGE_VIEWS_100000
+      - VOICE_OUT
+      - EXAM
+      - PARTICIPANT
+      - ENCRYPTION_ADDON
+      - ESS
+      - ETI
+      - ATP_ADDON
+      - PBE_ADDO
+      - NETI_ADDON
+      - HUNDRED_SMS_REMINDER
+      - CALENDAR_SYNC
+      - PAYMENT_INTERFACE
+      - MULTILINGUAL_ONLINE_EVENT_BOOKING
+      - SOCKET
+      - OFFER
+      - FREELANCER
+      - SOAP
+      - DATEV_LEXWARE_INTERFACE
+      - TOKEN
+      - SERVICE_MONTH
+      - VIDEO_PACKAGE_50_HOURS
+      - INTERFACE
+      - TEST_CASE
+      - MINUTES_15
+      - MINUTES_30
+      - CONNECTED_ACCESS_POINT
+      - DAY
+      - SATURDAY_SURCHARGE
+      - NIGHT_SURCHARGE
+      - SUNDAY_SURCHARGE
+      - PUBLIC_HOLIDAY_SURCHARGE
+      - BASIC_PACKAGE
+      - STANDARD_PACKAGE
+      - PREMIUM_PACKAGE
+      - REPORTS_MODULE
+      - WORKFLOW_MODULE
+      - NBV_250K
+      - NBV
+      - INVENTORY
+      - ADDITIONAL_COMPANY
+      - TRANSACTION
+      - PREMIUM_CREDIT_REPORTS
+      - ADDITIONAL_CONNECTION
+      - STOCK_UNIT
+      - MONTHLY_USAGE_FEE
+      - USAGE_FEE
+      - MONTHLY_CHARGES
+      - STANDARD_USER
+      - ADDITIONAL_UNIT
+      - COMMISSION
+      - KITTING
+      - WOP
+      - SFDC
+      - NAMED_USER_LICENSE
+      - BARCODING_AND_WAREHOUSING
+      - MODULE
+      - MANUFACTURING_MODULE
+      - MRP
+      - CONSOLE_MODULE
+      - CONSOLIDATIONS
+      - MULTI_CURRENCY
+      - ADDON_LICENSE
+      - INBOUND_PAGE
+      - OUTBOUND_PAGE
+      - OPPORTUNITY_RETENTION
+      - SOCIAL_SENTIMENT
+      - DEMAND_PRICE
+      - SETUP_FEE
+      - SHAREPOINT
+      - INTEGRATION_MAINTENANCE
+      - VIEWER
+      - MANAGEMENT_USER
+      - SQ_FT
+      - LOCATION_UPTO_10_EMPLOYEES
+      - LOCATION_UPTO_20_EMPLOYEES
+      - LOCATION_UPTO_30_EMPLOYEES
+      - LOCATION_UPTO_60_EMPLOYEES
+      - LOCATION_UPTO_99_EMPLOYEES
+      - M365_ONLINE
+      - WEB_HOSTING_SERVER
+      - STANDARD_EDITION_GIGABYTE
+      - STORAGE_GIGABYTE
+      - EGRESS_GIGABYTE
+      - FEE_HW_DEFECT_NO_WARRANTY_CASE
+      - SIM_CARD
+      - SIM_CARDS_10
+      - APPLICATION_CONNECTOR
+      - ADDITIONAL_API_CALLS
+      - USED_STORAGE_PER_GB
+      - CERTIFICATION
+      - MACHINE
+      - CALCULATION_USER
+      - MAILBOX_S
+      - MAILBOX_M
+      - MAILBOX_L
+      - STORAGE
+      - GROUP
+      - VEHICLE
+      - ENDPOINT
+      - MANAGED_SERVICE
+      - SOC
+      - ONLINE_PLAN
+      - ENTERPRISE_PLAN
+      - FLOATING_LICENSE
+      - USER_PER_LICENSE
+      - CONCURRENT_USER_PER_LICENSE
+      - DASHBOARD
+      - IT_INTERFACE
+      - CONNECTABLE_IOT_DEVICE_VIA_USB
+      - CONNECTABLE_IOT_DEVICE_VIA_TULIP_GATEWAY
+      - CONNECTABLE_MACHINE_PER_LICENSE
+      - OBJECT_TO_BE_CHECKED
+      - MACHINE_WITH_BI_SUPPORT
+      - CONNECTED_DEVICE
+      - LISTING
+      - TLS_ENCRYPTION
+      - DOMAIN_LEVEL_SEND
+      - EFAX_ROUTER
+      - PRORATED_CREDIT
+      - NEW_HIRE
+      - NAS
+      - SALESFORCE_USER
+      - INTERVIEW
+      - ASSESSMENT
+      - NU_WEBEX_CALLING_ENHANCED
+      - NU_WEBEX_CALLING_PROFESSIONAL
+      - WEBEX_ASSISTANT_FOR_WEBEX_MEETINGS_NU
+      - NU_MEETINGS_BRIDGE_COUNTRY_CALL_BACK_AUDIO
+      - FLEX_TEAMS_MESSAGING
+      - ADDON_ANALYSES
+      - ADDITIONAL_LISTING
+      - MIGRATION_TENANT
+      - MIGRATION_GROUP
+      - MIGRATION_DOCUMENT
+      - MIGRATION_GSUITE
+      - MIGRATION_FOLDER
+      - ENHANCED_USER
+      - SINGLE_NAME_CERTIFICATE
+      - SETUP
+      - HA_DEVICE_DAY
+      - WILDCARD_CERTIFICATE
+      - SECURITY_PACKAGE
+      - ADDITIONAL_LANGUAGE
+      - VANITY_URL
+      - BRANDING
+      - DATA_SOURCE
+      - CREATOR_USER
+      - ESIGN_USER
+      - READ_ONLY_USER
+      - MEASURING_POINT
+      - ANDON_TV
+      - TABLET
+      - USER_10000
+      - USER_100
+      - PUBLIC_IP
+      - WORKLOAD
+      - PUBLIC_IP_ADDRESS
+      - COMPUTE_POINT
+      - RESOURCE_UNIT
+      - VALUE_POINT
+      - ACCOUNT
+      - REQUEST
+      - TRANSCRIPT
+      - NOTIFICATION
+      - CLAIM
+      - MID
+      - ENGAGEMENT
+      - TEAM_LICENSE_DIGITAL_TEAMBOARD
+      - TEAM_LICENSE_MODULE_CONNECTIVITY
+      - TEAM_LICENSE_MODULE_PROBLEM_SOLUTION
+      - TEAM_LICENSE_MODULE_AUDITS
+      - TEAM_LICENSE_MODULE_PROCESS_CONFIRMATION
+      - TEAM_LICENSE_MODULE_QUALIFICATION_MATRIX
+      - TEAM_LICENSE_MODULE_STANDARD_WORK_INSTRUCTION
+      - TEAM_LICENSE_MODULE_PARETO_ANALYSIS
+      - KPI
+      - YEAR_KPI_ARCHIVAL
+      - CORPORATE_CLOUD_HOSTING
+      - ON_PREMISES_HOSTING
+      - SUPPORT_SERVICE_HOUR
+      - CLASS
+      - EXPERT
+      - SPINDLE_HOUR
+      - ADDON_ADMINISTRATION
+      - ADDON_CONFIGURATION
+      - ADDON_PLANNING
+      - ADDON_PLANNING_OBJECTS
+      - ADDON_MASTER_DATA
+      - ADDON_CAPACITY_PLANS_CALENDAR
+      - ADDON_CONFLICT_RADAR
+      - ADDON_GAP_LIST
+      - ADDON_DASHBOARD
+      - ADDON_PLANNING_READ_ONLY
+      - ADDON_UTILIZATION_POOLS
+      - ADDON_FIXED_SCHEDULES
+      - ADDON_ASSEMBLY_GROUPS
+      - ADDON_ORDER_ON_HOLD
+      - ADDON_PARALLEL_RESSOURCES
+      - ADDON_MULTI_FUNCTIONAL_RESSOURCES
+      - ADDON_PLANEUS_TV_PER_TERMINAL
+      - ADDON_MASTER_DATA_WORK_PROCEDURES
+      - ADDON_MANUAL_IMPORT
+      - ADDON_AUTOMATIC_IMPORT
+      - ADDON_REPORTING_BASIC
+      - ADDON_REPORTING_ADVANCED
+      - ADDON_REPORT_RESOURCES_AVAILABILITY_PER_DAY
+      - ADDON_REPORT_OEE
+      - ADDON_REPORT_ON_TIME_DELIVERY_HISTORY
+      - ADDON_REPORT_PROCESS_PERFORMANCE_HISTORY
+      - ADDON_REPORT_UTILIZATION_PER_RESOURCE
+      - ADDON_REPORT_REPORTING_PLUG_IN
+      - ADDON_EXTERNAL_PARTNERS_BASIC_LICENSE
+      - ADDON_WORKBENCH_PACK_OF_5
+      - ADDON_WORKBENCH_PACK_OF_10
+      - ADDON_WORKBENCH_PACK_OF_15
+      - CLIENT
+      - VIRTUAL_MACHINE
+      - MODEL_TRANSFORMATION
+      - CASE_REFRESH
+      - CASE_VIEW
+      - CASE_DOCUMENT_DOWNLOAD
+      - VERIFICATION
+      - ADDON_CORPORATE_BRANDING
+      - CLIENT_TAX_FILINGS
+      - CLIENT_COMPLIANCE_SERVICES
+      - PROPOSAL
+      - UK_ID_CHECK
+      - INTERNATIONAL_ID_CHECK
+      - CREDIT_SCREEN
+      - UK_COMPANY_REPORT
+      - NON_UK_COMPANY_REPORT
+      - HR_SCREEN
+      - COMPANY_FORMATION
+      - CLIENT_ACCOUNTS
+      - SMARTKIT
+      - WORKFLOW
+      - EDITOR
+      - WORKER
+      - ADDON_POTENTIAL_ANALYSIS
+      - TRAINING_PACKAGE_SMALL
+      - TRAINING_PACKAGE_LARGE
+      - TOOL_PATH_OPTIMIZATION
+      - CLIENT_VAT_FILINGS
+      - BUNDLE
+      - PACKAGE
+      - VM
+      - INCIDENT
+      - SEND
+      - INTEGRATION
+      - BILLABLE_HOUR
+      - TB
+      - SOURCE
+      - TRAINING
+      - SITE
+      - CONSULTING_UNIT
+      - CAPACITY
+      - MIGRATION
+      - WORKSHOP
+      - ONBOARDING
+      - BENEFIT_ELIGIBLE_EMPLOYEE
+      - SEAT
+      - MS365_SEAT
+      - MS_EXCHANGE_MAILBOX
+      - GWORKSPACE_SEAT
+      - INTERNET_LINE
+      - BACKUP_LINE
+      - USER_PACK_50
+      - USER_PACK_100
+      - CIRCUIT
+      - NAC
+      - INFRASTRUCTURE
+      - TEN_THOUSAND_TEST_RUNS
+      - ONE_THOUSAND_TEST_RUNS
+      - INGESTED_OR_SCANNED_GB
+      - MILLION_LOG_EVENTS
+      - GB_OUTBOUND_PER_DESTINATION
+      - DESTINATION
+      - COMMITTER
+      - INGESTED_GB
+      - CPU
+      - ONE_THOUSAND_SESSIONS
+      - MILLION_RECORDS
+      - GB_OF_ANALYZED_LOGS
+      - ACTIVE_FUNCTION
+      - MILLION_TRACED_INVOCATIONS
+      - ACTIVE_APPLICATION_INSTANCES
+      - HUNDRED_TEST_RUNS
+      - ADDITIONAL_PARALLELIZATION
+      - TASK
+      - ONE_HUNDRED_WORKFLOW_EXECUTIONS
+      - SCANNED_GB
+      - USE_CASE
+      - ONE_THOUSAND_ERROR_EVENTS
+      - PERFORMANCE_GOAL
+      - SCHOOL
+      - MICROSOFT_365_TENANT
+      - MARKETPLACE
+      - LIEN_PROCESSED
+      - DISBURSEMENT
+      - A_LA_CARTE
+      - SECURE
+      - SECURE_PLUS
+      - SECURE_EXTRA
+      - PHASR
+      - ENCRYPTION
+      - EMAIL_SECURITY
+      - MOBILE_SECURITY
+      - EXCHANGE
+      - ATS
+      - EDR
+      - EDR_RETENTION_90D
+      - EDR_RETENTION_180D
+      - EDR_RETENTION_1Y
+      - INTEGRITY_MON
+      - INTEGRITY_MON_RETENTION_90D
+      - INTEGRITY_MON_RETENTION_180D
+      - INTEGRITY_MON_RETENTION_1Y
+      - MDR_FOUNDATIONS
+      - PATCH_MANAGEMENT
+      - VIRTUAL_ENV_VS
+      - VIRTUAL_ENV_VDI
+      - CONTAINER_PROTECTION
+      - XDR_IDENTITY_SENSOR
+      - XDR_PRODUCTIVITY_SENSOR
+      - XDR_NETWORK_SENSOR
+      - XDR_CLOUD_SENSOR
+      - COMPLIANCE_MANAGER
+      - EASM
+      - SUPERVISOR
+      - GB_OF_PROVISIONED_VM_RAM_PER_HOUR
+      - GB_OF_USED_VM_STORAGE_PER_HOUR
+      - GB_OF_USED_S3_STORAGE_PER_HOUR
+      - VIRTUAL_ENVIRONMENT_VE_PER_MONTH
+      - STORAGE_100_GB_PER_MONTH
+      - GB_RAM_UNDER_MANAGEMENT_PER_MONTH
+      - GB_OF_VM_RAM_PER_HOUR
+      - BUSINESS_CLIENT
+      - SELF_EMPLOYED_CLIENT
+      - LANDLORD_CLIENT
+      - DATA_HEALTH_AND_INSIGHT_ADDON
+      - SWITCH_DAY
+      - ACCESS_POINT_DAY
+      - DATABASE
+      - FUNCTION
+      - APP_SERVICE
+      - FIREWALL
+      - EDR_SA_MDR_FOUNDATIONS
+      - EDR_SA
+      - FED_USF_CHARGE
+      - SERVICE_FEE
+      - SERVICE_FEE_AP
+      - SERVICE_FEE_SWITCH
+      - SERVICE_FEE_ROUTER
+      - USER_LICENCE_DAY
+      - DEVICE_DAY
+      - VM_DAY
+      - ROUTER_DAY
+      - FSE
+      - ON_SITE_SERVICE
+      - BASIC
+      - BASIC_PLUS
+      - STANDARD
+      - STANDARD_PLUS
+      - ADVANCED
+      - ADVANCED_PLUS
+      - PREMIUM_PLUS
+      - XXS
+      - XS
+      - SMALL
+      - MEDIUM
+      - LARGE
+      - XL
+      - XXL
+      - XXXL
+      - CUSTOM
+      - ENHANCED
+      - INCIDENT_RESPONSE_SERVICE
+      - JIRA_CONNECTOR
+      - SHAREPOINT_CONNECTOR
+      - CONFLUENCE_CONNECTOR
+      - PRIVATE_ACCESS
+      - INTERNET_ACCESS
+      - OBJECTIVE_FEEDBACK_QUESTION
+      - STAFFBASE_CONNECTOR
+      - CONSULTING_UNIT_AP
+      - CONSULTING_UNIT_ROUTER
+      - CONSULTING_UNIT_SWITCH
+      - OBJECT
+      - VALIDATION
+      - ADVANCED_ELECTRONIC_SIGNATURE
+      - QUALIFIED_ELECTRONIC_SIGNATURE
+      - PERSONAL_IDENTIFICATION
+      - API_BASED_SIGNATURE
+      - ON_CALL_DUTY
+      - VSBU
+      - PAID_USER
+      - REMOTE_SEAL_SIGNATURE
+    DurationWS:
+      description: Contract duration
+      type: object
+      title: Duration
+      properties:
+        length:
+          description: Length
+          type: number
+        unit:
+          description: Duration unit
+          type: string
+          nullable: true
+      example:
+        length: 12345
+        unit: '...'
+      nullable: true
+    EditionWS:
+      description: Product edition
+      type: object
+      title: Edition
+      properties:
+        bullet:
+          description: List of bullet points
+          type: array
+          items:
+            $ref: '#/components/schemas/EditionBulletWS'
+        bundleOnly:
+          description: Is a bundle edition only
+          type: boolean
+        code:
+          description: Code
+          type: string
+        customerContractRestricted:
+          description: Is customer contract restricted
+          type: boolean
+        customization:
+          description: List of customization
+          type: array
+          items:
+            $ref: '#/components/schemas/EditionCustomizationWS'
+        defaultFreeTrial:
+          description: Is default free trial
+          type: boolean
+        expiredTrialGracePeriod:
+          description: Expired trial grace period
+          type: number
+          nullable: true
+        freeTrialDuration:
+          description: Free trial duration
+          type: number
+        freeTrialType:
+          description: Free trial type
+          type: string
+        id:
+          description: ID
+          type: number
+        invisible:
+          description: Is invisible
+          type: boolean
+        item:
+          description: List of included items
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedItemWS'
+        lastModified:
+          description: Last modified date
+          type: number
+        leadGen:
+          description: Is collecting a lead instead of purchase
+          type: boolean
+        name:
+          description: Name
+          type: string
+        plan:
+          description: List of payment plans
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPlanWS'
+        primary:
+          description: Is the primary edition
+          type: boolean
+        rank:
+          description: Rank used in the UI for ordering versus the other edition
+          type: number
+        restricted:
+          description: Is restricted
+          type: boolean
+        revenueType:
+          description: 'Revenue model type: FREE, ONE_TIME, RECURRING, TIERED'
+          type: string
+        targetAudience:
+          description: Target audience
+          type: string
+          nullable: true
+        trial:
+          $ref: '#/components/schemas/DurationWS'
+        uuid:
+          description: Unique identifier
+          type: string
+      example:
+        bullet:
+        - content: '...'
+          tooltip: '...'
+        - content: '...'
+          tooltip: '...'
+        bundleOnly: true
+        code: '...'
+        customerContractRestricted: true
+        customization:
+        - type: '...'
+          value: '...'
+        - type: '...'
+          value: '...'
+        defaultFreeTrial: true
+        expiredTrialGracePeriod: 12345
+        freeTrialDuration: 12345
+        freeTrialType: '...'
+        invisible: true
+        item:
+        - amount: 12345
+          unit: '...'
+          unlimited: true
+        - amount: 12345
+          unit: '...'
+          unlimited: true
+        lastModified: 12345
+        leadGen: true
+        name: '...'
+        plan:
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: INTERNATIONAL_ROOM_LINE
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        - allowCustomUsage: true
+          contract:
+            alignWithParentCycleStartDate: true
+            autoExtensionPricingId: 12345
+            blockContractDowngrades: true
+            blockContractUpgrades: true
+            blockSwitchToShorterContract: true
+            cancellationPeriodLimit: 12345
+            endOfContractGracePeriod: 12345
+            gracePeriod: {}
+            minimumServiceLength: 12345
+            terminationFee: {}
+          cost:
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount: {}
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          discount:
+            amount: {}
+            availableRedemptions: 12345
+            description: '...'
+            expirationDate: 12345
+            numOfBillingCycles: 12345
+            percentage: 12345
+            pricingUnit: CUSTOMER
+            startDate: 12345
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          separatePrepaid: true
+          tld: '...'
+          uuid: '...'
+        primary: true
+        rank: 12345
+        restricted: true
+        revenueType: '...'
+        targetAudience: '...'
+        trial:
+          length: 12345
+          unit: '...'
+        uuid: '...'
+    PriceWS:
+      description: Price information in different currencies
+      type: object
+      title: Price
+      properties:
+        AUD:
+          type: number
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
+      example:
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
+      nullable: true
+    PlanCostWS:
+      description: Plan cost
+      type: object
+      title: PlanCost
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        blockContractDecrease:
+          description: Block contract decrease
+          type: boolean
+        blockContractIncrease:
+          description: Block contract increase
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Block original contract decrease
+          type: boolean
+        editionPricingItemId:
+          type: number
+        id:
+          description: ID
+          type: number
+        increment:
+          description: Increment amount
+          type: number
+        maxUnits:
+          description: Max unit to buy
+          type: number
+        meteredUsage:
+          description: Is metered usage
+          type: boolean
+        minUnits:
+          description: Minimum unit to buy
+          type: number
+        pricePerIncrement:
+          description: Price per increment
+          type: boolean
+        pricingStrategy:
+          description: Pricing strategy
+          type: string
+        unit:
+          description: Unit
+          type: string
+          nullable: true
+        unitDependency:
+          description: Unit dependency
+          type: string
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        blockContractDecrease: true
+        blockContractIncrease: true
+        blockOriginalContractDecrease: true
+        editionPricingItemId: 12345
+        id: 12345
+        increment: 12345
+        maxUnits: 12345
+        meteredUsage: true
+        minUnits: 12345
+        pricePerIncrement: true
+        pricingStrategy: '...'
+        unit: '...'
+        unitDependency: '...'

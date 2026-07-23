@@ -1,0 +1,1157 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Payment Methods API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Payment Methods
+  x-displayName: Payment Methods
+paths:
+  /appMarket/v2/paymentMethodTokens:
+    post:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: Tokenize payment methods
+      description: 'Calls the payment gateway to validate the payment method, which is not yet associated with a user. A front-end should call this endpoint directly, not a back-end. Requires a public developer key (use the AD-Public-Developer-Key header), which you must obtain from AppDirect.
+
+        '
+      operationId: createPaymentMethodToken
+      parameters:
+      - in: header
+        name: AD-Public-Developer-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodTokenRequest'
+        description: The payment method to tokenize
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodTokenResponse'
+              examples:
+                response:
+                  value:
+                    id: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
+                    expiration: 2018-04-112T19:15:00Z
+                    paymentMethod:
+                      accountDisplay: '1111'
+                      paymentMethodType: CARD
+                      properties:
+                        cardHolderName: John Smith
+                        expirationMonth: '5'
+                        expirationYear: '2019'
+                        brand: VISA
+                      billingAddress:
+                        street1: 279 Prince St
+                        city: Montreal
+                        state: Quebec
+                        country: CA
+                        zip: H3C 2N4
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 400
+                    code: VALIDATION_ERROR
+                    message: Missing required parameters
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTokens \\\n  --header 'AD-Public-Developer-Key: SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"paymentMethodType\":\"CARD\",\"properties\":{\"number\":\"4111111111111111\",\"cardHolderName\":\"John Smith\",\"expirationMonth\":\"5\",\"expirationYear\":\"2019\",\"brand\":\"VISA\",\"securityCode\":\"123\"},\"billingAddress\":{\"street1\":\"279 Prince St\",\"city\":\"Montreal\",\"state\":\"Quebec\",\"country\":\"CA\",\"zip\":\"H3C 2N4\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTokens',\n  headers: {\n    'content-type': 'application/json',\n    'AD-Public-Developer-Key': 'SOME_STRING_VALUE'\n  },\n  body: {\n    paymentMethodType: 'CARD',\n    properties: {\n      number: '4111111111111111',\n      cardHolderName: 'John Smith',\n      expirationMonth: '5',\n      expirationYear: '2019',\n      brand: 'VISA',\n      securityCode: '123'\n    },\n    billingAddress: {\n      street1: '279 Prince St',\n      city: 'Montreal',\n      state: 'Quebec',\n      country: 'CA',\n      zip: 'H3C 2N4'\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"paymentMethodType\\\":\\\"CARD\\\",\\\"properties\\\":{\\\"number\\\":\\\"4111111111111111\\\",\\\"cardHolderName\\\":\\\"John Smith\\\",\\\"expirationMonth\\\":\\\"5\\\",\\\"expirationYear\\\":\\\"2019\\\",\\\"brand\\\":\\\"VISA\\\",\\\"securityCode\\\":\\\"123\\\"},\\\"billingAddress\\\":{\\\"street1\\\":\\\"279 Prince St\\\",\\\"city\\\":\\\"Montreal\\\",\\\"state\\\":\\\"Quebec\\\",\\\"country\\\":\\\"CA\\\",\\\"zip\\\":\\\"H3C 2N4\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTokens\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"AD-Public-Developer-Key\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appMarket/v2/paymentMethods:
+    get:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: List payment methods for a user
+      description: 'Returns all available payment methods for the specified user in the specified company.
+
+        '
+      operationId: getPaymentMethods
+      parameters:
+      - in: query
+        name: ownerId
+        description: ID of the user whose payment method you want to retrieve
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: ID of the company of which the user is a member
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentMethodAppMarket'
+              examples:
+                response:
+                  value:
+                  - id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+                    default: false
+                    accountDisplay: '1111'
+                    paymentMethodType: CARD
+                    properties:
+                      cardHolderName: John Smith
+                      expirationMonth: '5'
+                      expirationYear: '2019'
+                      brand: VISA
+                    billingAddress:
+                      street1: 279 Prince St
+                      city: Montreal
+                      state: Quebec
+                      country: CA
+                      zip: H3C 2N4
+                  - id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+                    default: false
+                    accountDisplay: '11111111'
+                    paymentMethodType: BANKACCOUNT
+                    properties:
+                      accountNumber: '11111111'
+                      routingNumber: '123456789'
+                      accountType: CHECKING
+                      isCorporateAccount: 'false'
+                      firstName: John
+                      lastname: Smith
+                    billingAddress:
+                      street1: 279 Prince St
+                      city: Montreal
+                      state: Quebec
+                      country: CA
+                      zip: H3C 2N4
+                  - id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+                    default: false
+                    accountDisplay: '5555555555'
+                    paymentMethodType: MYRANDOMTYPE
+                    properties:
+                      msisdn: '5555555555'
+                    billingAddress:
+                      street1: 279 Prince St
+                      city: Montreal
+                      state: Quebec
+                      country: CA
+                      zip: H3C 2N4
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read all marketplace data.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods',\n  qs: {ownerId: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: Create payment methods using a token OR by providing all of the payment method data
+      description: 'When using a token, the validated payment method is assigned to the current user on the current marketplace. When providing all of the payment method data, the payment gateway is called, and the payment method is validated and assigned to the user.
+
+        '
+      operationId: createPaymentMethod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodAppMarket'
+              examples:
+                response:
+                  value:
+                    id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+                    accountDisplay: '1111'
+                    default: true
+                    paymentMethodType: CARD
+                    properties:
+                      cardHolderName: John Smith
+                      expirationMonth: '5'
+                      expirationYear: '2019'
+                      brand: VISA
+                    billingAddress:
+                      street1: 279 Prince St
+                      city: Montreal
+                      state: Quebec
+                      country: CA
+                      zip: H3C 2N4
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 400
+                    code: TOKEN_EXPIRED
+                    message: Token expired.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to create a payment method with a token.
+        ROLE_USER:
+        - Allows access to create a payment method with a full payload.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods \\\n  --header 'content-type: application/json' \\\n  --data '{\"ownerId\":\"40e8af95-4caf-415a-96d9-7b023207b535\",\"companyId\":\"9c130291-cf29-4272-8005-a280b1e81388\",\"token\":\"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods',\n  headers: {'content-type': 'application/json'},\n  body: {\n    ownerId: '40e8af95-4caf-415a-96d9-7b023207b535',\n    companyId: '9c130291-cf29-4272-8005-a280b1e81388',\n    token: 'pm_0838a859-dfa6-4863-aa38-042d50a9e69a'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"ownerId\\\":\\\"40e8af95-4caf-415a-96d9-7b023207b535\\\",\\\"companyId\\\":\\\"9c130291-cf29-4272-8005-a280b1e81388\\\",\\\"token\\\":\\\"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appMarket/v2/paymentMethods/{paymentMethodId}:
+    parameters:
+    - in: path
+      name: paymentMethodId
+      description: The Payment Method ID
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Delete payment methods
+      description: 'The payment method is deleted from the system and cannot be used anymore.
+
+        '
+      operationId: deletePaymentMethod
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/%7BpaymentMethodId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/%7BpaymentMethodId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/%7BpaymentMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appMarket/v2/paymentMethods/defaults:
+    get:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: List default payment methods
+      description: 'Returns the default payment methods for the specified user in the specified company
+
+        '
+      operationId: getDefaultPaymentMethods
+      parameters:
+      - in: query
+        name: ownerId
+        description: ID of the user whose default payment method you want to retrieve
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: ID of the company of which the user is a member
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DefaultPaymentMethod'
+              examples:
+                response:
+                  value:
+                  - paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access to get default payment method(s).
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults',\n  qs: {ownerId: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults?ownerId=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: Set default payment methods
+      description: 'Sets a default payment method for the specified user
+
+        '
+      operationId: setDefaultPaymentMethod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefaultPaymentMethodRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultPaymentMethod'
+              examples:
+                response:
+                  value:
+                  - paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 400
+                    code: VALIDATION_ERROR
+                    message: Missing required parameters
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access to set default payment method(s).
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults \\\n  --header 'content-type: application/json' \\\n  --data '{\"ownerId\":\"40e8af95-4caf-415a-96d9-7b023207b535\",\"companyId\":\"9c130291-cf29-4272-8005-a280b1e81388\",\"paymentMethodId\":\"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults',\n  headers: {'content-type': 'application/json'},\n  body: {\n    ownerId: '40e8af95-4caf-415a-96d9-7b023207b535',\n    companyId: '9c130291-cf29-4272-8005-a280b1e81388',\n    paymentMethodId: 'e35c2f85-ef92-4a8f-89f0-45b62fb95fa7'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"ownerId\\\":\\\"40e8af95-4caf-415a-96d9-7b023207b535\\\",\\\"companyId\\\":\\\"9c130291-cf29-4272-8005-a280b1e81388\\\",\\\"paymentMethodId\\\":\\\"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appMarket/v2/paymentMethodTypes:
+    get:
+      tags:
+      - Payment Methods
+      x-appdirect-api-stage: Early Access
+      summary: Returns all supported Payment Method Types
+      description: 'Returns all supported Payment Method Types. These are the only types of payment method that can be created.
+
+        '
+      operationId: getPaymentMethodTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentMethodType'
+              examples:
+                response:
+                  value:
+                  - paymentMethodType: CARD
+                    addressNeeded: true
+                    propertyDefinitions:
+                    - name: cardHolderName
+                      type: string
+                      minLength: 0
+                      maxLength: 255
+                    - name: number
+                      type: string
+                      minLength: 0
+                      maxLength: 255
+                    - name: securityCode
+                      type: string
+                      minLength: 0
+                      maxLength: 4
+                      secret: true
+                    - name: expirationMonth
+                      type: number
+                      minLength: 1
+                      maxLength: 2
+                    - name: expirationYear
+                      type: number
+                      minLength: 2
+                      maxLength: 4
+                    - name: brand
+                      type: string
+                      readOnly: true
+                      minLength: 0
+                      maxLength: 255
+                      possibleValues:
+                      - VISA
+                      - MASTERCARD
+                      - AMEX
+                      - DINERS_CLUB
+                      - DISCOVER
+                      - JCB
+                      - UNKNOWN
+                      - GATEWAY
+                  - paymentMethodType: BANKACCOUNT
+                    addressNeeded: true
+                    propertyDefinitions:
+                    - name: routingNumber
+                      type: string
+                      minLength: 9
+                      maxLength: 9
+                      required: true
+                    - name: accountNumber
+                      type: string
+                      minLength: 4
+                      maxLength: 17
+                      required: true
+                    - name: accountType
+                      type: string
+                      required: true
+                      possibleValues:
+                      - CHECKING
+                      - SAVINGS
+                      - CORPORATE_CHECKING
+                      - CORPORATE_SAVINGS
+                    - name: isCorporateAccount
+                      type: boolean
+                      required: true
+                    - name: companyName
+                      type: string
+                      minLength: 0
+                      maxLength: 255
+                      required: false
+                    - name: firstName
+                      type: string
+                      maxLength: 255
+                      required: true
+                    - name: lastName
+                      type: string
+                      maxLength: 255
+                      required: true
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 500
+                    code: INTERNAL_SERVER_ERROR
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 502
+                    code: BAD_GATEWAY
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    status: 504
+                    code: GATEWAY_TIMEOUT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTypes"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTypes'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTypes\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    BasePaymentMethod:
+      title: BasePaymentMethod
+      description: Payment method base fields.
+      properties:
+        paymentMethodType:
+          type: string
+          description: The type of payment method, such as CARD, BANKACCOUNT, and so on.
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      required:
+      - paymentMethodType
+      - properties
+      - billingAddress
+      example:
+        paymentMethodType: CARD
+        properties:
+          number: '4111111111111111'
+          cardHolderName: John Smith
+          expirationMonth: '5'
+          expirationYear: '2019'
+          brand: VISA
+        billingAddress:
+          street1: 279 Prince St
+          city: Montreal
+          state: Quebec
+          country: CA
+          zip: H3C 2N4
+    PaymentMethodTokenResponse:
+      type: object
+      title: PaymentMethodTokenResponse
+      description: The tokenized Payment Method.
+      properties:
+        id:
+          type: string
+          maxLength: 255
+          description: The token for the payment method.
+        expiration:
+          type: string
+          format: date-time
+          description: The date and time when the token expires
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethodForTokenization'
+      required:
+      - id
+      - expiration
+      - paymentMethod
+      example:
+        id: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
+        expiration: 2018-04-112T19:15:00Z
+        paymentMethod:
+          accountDisplay: '1111'
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    PropertyDefinition:
+      type: object
+      title: PropertyDefinition
+      description: A field metadata definition
+      properties:
+        name:
+          type: string
+          description: The property's name.
+        type:
+          type: string
+          description: The property's type, for example string, number, boolean, address, and so on.
+        minLength:
+          type: number
+          description: Minimum length of the field's value. The default is 0.
+        maxLength:
+          type: number
+          description: Maximum length of the property's value.
+        possibleValues:
+          type: array
+          description: If the property represents an enum, this contains the supported enum values.
+          items:
+            type: string
+        readOnly:
+          type: boolean
+          description: Indicates whether this property is writable.
+        regex:
+          type: string
+          description: Describes the regular expression used for validation of the value of this property.
+        required:
+          type: boolean
+          description: Indicates whether this property is required. The default is false.
+        secret:
+          type: boolean
+          description: Indicates whether this property must be masked. The default is false.
+      required:
+      - name
+      - type
+      example:
+        name: cardHolderName
+        type: string
+        minLength: 0
+        maxLength: 255
+    PaymentMethodType:
+      type: object
+      title: PaymentMethodType
+      description: The Payment Method Type definition.
+      properties:
+        paymentMethodType:
+          type: string
+          description: The type of payment method (CARD, BANKACCOUNT, and so on).
+        addressNeeded:
+          type: boolean
+          description: Indicates whether an address is required for this payment method type.
+        propertyDefinitions:
+          type: array
+          description: Definition of the properties applicable to this payment method type.
+          items:
+            $ref: '#/components/schemas/PropertyDefinition'
+      required:
+      - paymentMethodType
+      - addressNeeded
+      - propertyDefinitions
+      example:
+        paymentMethodType: CARD
+        addressNeeded: true
+        propertyDefinitions:
+        - name: cardHolderName
+          type: string
+          minLength: 0
+          maxLength: 255
+        - name: number
+          type: string
+          minLength: 0
+          maxLength: 255
+        - name: securityCode
+          type: string
+          minLength: 0
+          maxLength: 4
+          secret: true
+        - name: expirationMonth
+          type: number
+          minLength: 1
+          maxLength: 2
+        - name: expirationYear
+          type: number
+          minLength: 2
+          maxLength: 4
+        - name: brand
+          type: string
+          readOnly: true
+          minLength: 0
+          maxLength: 255
+          possibleValues:
+          - VISA
+          - MASTERCARD
+          - AMEX
+          - DINERS_CLUB
+          - DISCOVER
+          - JCB
+          - UNKNOWN
+          - GATEWAY
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      description: Error details
+      properties:
+        status:
+          type: integer
+          description: Original HTTP error code, which should be consistent with the response HTTP code
+          minimum: 100
+          maximum: 599
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorPaymentDetail'
+      required:
+      - status
+      - code
+      example:
+        status: 400
+        code: VALIDATION_ERROR
+        message: Missing required parameters
+    PaymentMethodForTokenization:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - title: PaymentMethodForTokenization
+        description: The payment method definition, as returned by tokenization.
+        type: object
+        properties:
+          accountDisplay:
+            type: string
+            description: Account display text, such as the last 4 digits of the credit card number.
+            maxLength: 255
+            minLength: 0
+          default:
+            type: boolean
+            description: Indicates whether this is the default payment method..
+        required:
+        - accountDisplay
+        example:
+          accountDisplay: '1111'
+          default: false
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    PaymentMethodAppMarket:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - title: PaymentMethodAppMarket
+        description: The payment method definition, as returned by creation.
+        discriminator:
+          propertyName: id
+        type: object
+        properties:
+          id:
+            type: string
+            description: Id of the payment method.
+          accountDisplay:
+            type: string
+            description: Account display text, such as the last 4 digits of the credit card number.
+            maxLength: 255
+            minLength: 0
+          default:
+            type: boolean
+            description: Indicates whether this is the default payment method.
+        required:
+        - id
+        - accountDisplay
+        example:
+          id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+          accountDisplay: '1111'
+          default: false
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    BillingAddress:
+      title: BillingAddress
+      type: object
+      description: Billing address
+      required:
+      - street1
+      - city
+      - country
+      - state
+      - zip
+      properties:
+        street1:
+          description: First line of a street address
+          type: string
+        street2:
+          description: Second line of a street address, such as apartment or unit number
+          type: string
+          nullable: true
+        city:
+          description: City or town
+          type: string
+        country:
+          description: Country code in ISO-3166 format
+          type: string
+        state:
+          description: State, province, or region
+          type: string
+        zip:
+          description: ZIP or postal code
+          type: string
+        phone:
+          description: Phone number
+          type: string
+          nullable: true
+        salutation:
+          description: Personal salutation
+          type: string
+          nullable: true
+        companyName:
+          description: Company name
+          type: string
+          nullable: true
+        fax:
+          description: Fax number
+          type: string
+          nullable: true
+        faxExtension:
+          description: Fax number extension
+          type: string
+          nullable: true
+        poBox:
+          description: Post office box number
+          type: string
+          nullable: true
+      example:
+        street1: Alden
+        city: Beverly Hills
+        country: US
+        zip: '94203'
+        state: CA
+    DefaultPaymentMethod:
+      type: object
+      title: DefaultPaymentMethod
+      description: Default payment method definition
+      properties:
+        paymentMethodId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the default payment method
+      required:
+      - paymentMethodId
+      example:
+        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+    PaymentMethodTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - type: object
+        title: PaymentMethodTokenRequest
+        description: The Payload used to tokenize a Payment Method.
+        example:
+          paymentMethodType: CARD
+          properties:
+            number: '4111111111111111'
+            securityCode: '123'
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    ErrorPaymentDetail:
+      type: object
+      title: ErrorPaymentDetail
+      description: A detail element of an ErrorResponse
+      properties:
+        field:
+          type: string
+          description: The element in the request payload that caused the error
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+      required:
+      - code
+      example:
+        code: INVALID_REQUEST
+        message: Missing parameter
+    PaymentMethodRequest:
+      type: object
+      title: PaymentMethodRequest
+      description: 'The Payload to create a payment method. There are two ways to create a payment method: with a token or with full payment method data. In the latter case, the request is similar to the one for createPaymentMethodToken, but with the addition of the ownerId and companyId parameters.
+
+        '
+      properties:
+        ownerId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the user who owns the payment method.
+        companyId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the company in which to create the payment method.
+        token:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: 'Token of the payment method, as returned by createPaymentMethodToken.
+
+            Required when creating a payment method from a token, not applicable when creating it from payment method data.
+
+            '
+        paymentMethodType:
+          type: string
+          description: 'The type of payment method, such as CARD, BANKACCOUNT, and so on.
+
+            Required when creating a payment method from payment method data, not applicable when creating it from token.
+
+            '
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
+
+            Required when creating a payment method from payment method data, not applicable when creating it from token.
+
+            '
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      required:
+      - ownerId
+      - companyId
+      example:
+        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
+        companyId: 9c130291-cf29-4272-8005-a280b1e81388
+        token: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
+    DefaultPaymentMethodRequest:
+      type: object
+      title: DefaultPaymentMethodRequest
+      description: Information required to set a default payment method
+      properties:
+        ownerId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the user who owns the default payment method
+        companyId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the company of which the user is a member
+        paymentMethodId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the default payment method
+      required:
+      - ownerId
+      - companyId
+      - paymentMethodId
+      example:
+        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
+        companyId: 9c130291-cf29-4272-8005-a280b1e81388
+        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7

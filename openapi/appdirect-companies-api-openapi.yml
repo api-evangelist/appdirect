@@ -1,0 +1,1337 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: AI Embed Companies API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Companies
+  x-displayName: Companies
+paths:
+  /account/v2/companies/{companyUuid}/activities:
+    get:
+      description: 'Retrieve company or user activities.
+
+
+        The displayType parameter dictates whether activities for the given user or activities for the whole company are returned.'
+      tags:
+      - Companies
+      summary: Read activities
+      operationId: resource_Company_readCompanyActivities_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as an end user in the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Scope
+        name: displayType
+        in: query
+        schema:
+          type: string
+          enum:
+          - EVERYONE
+          - ONLY_ME
+          default: ONLY_ME
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 12
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - verb: COMPANY_ACTIVATED
+                      timestamp:
+                      - 2016
+                      - 12
+                      - 2
+                      - 17
+                      - 25
+                      - 56
+                      - 414
+                      object:
+                        id: 26
+                        uuid: 222cf5ff-7795-4ece-b612-83ef6b72bb30
+                        name: Company 6032459369
+                        externalId: null
+                        companyLinkMasked: false
+                        type: COMPANY
+                      subject:
+                        id: 30
+                        uuid: 8487f55b-05be-4c0e-97d8-021e5ca4008b
+                        name: Susan Doe
+                        email: susan.doe@company5087848592.com
+                        externalId: null
+                        activated: true
+                        deleted: false
+                        userRemovedFromCompanyObject: false
+                        userRemovedFromCompanyTarget: false
+                        personalInfoMasked: false
+                        profileLinkMasked: false
+                        type: USER
+                      target:
+                        id: 194379
+                        uuid: a0504b87-f21f-40fe-9de1-e8479776a26f
+                        name: Matts Company
+                        externalId: null
+                        companyLinkMasked: false
+                        type: COMPANY
+                      actor:
+                        id: 1344
+                        uuid: 966216bb-bb4e-4766-8849-fd72eead20ce
+                        name: C2801919_first last
+                        email: c2801919@appdirect.com
+                        externalId: null
+                        activated: false
+                        deleted: false
+                        userRemovedFromCompanyObject: false
+                        userRemovedFromCompanyTarget: false
+                        personalInfoMasked: false
+                        profileLinkMasked: false
+                        roleChanges: null
+                        type: USER
+                      context:
+                        description: Documentation Center 283
+                        header: Documentation Center 283
+                        imageUrl: https://d33na3ni6eqf5j.cloudfront.net/importable_app_resources/81858cea-627f-45ee-8906-67d5a23dd3bf/list.png?b5960593b97c0fdd95bc9b81c08e70bb
+                      origin: MARKETPLACE
+                      links: []
+                    - verb: USER_JOINED
+                      timestamp:
+                      - 2016
+                      - 12
+                      - 2
+                      - 17
+                      - 25
+                      - 56
+                      - 401
+                      object:
+                        id: 26
+                        uuid: 222cf5ff-7795-4ece-b612-83ef6b72bb30
+                        name: Company 6032459369
+                        externalId: null
+                        companyLinkMasked: false
+                        type: COMPANY
+                      subject:
+                        id: 30
+                        uuid: 8487f55b-05be-4c0e-97d8-021e5ca4008b
+                        name: Susan Doe
+                        email: susan.doe@company5087848592.com
+                        externalId: null
+                        activated: true
+                        deleted: false
+                        userRemovedFromCompanyObject: false
+                        userRemovedFromCompanyTarget: false
+                        personalInfoMasked: false
+                        profileLinkMasked: false
+                        type: USER
+                      target:
+                        id: 149379
+                        uuid: 70904b87-a2bf-40fe-9de1-e8479776a26f
+                        name: Global Company
+                        externalId: null
+                        companyLinkMasked: false
+                        type: COMPANY
+                      actor:
+                        id: 1434
+                        uuid: ac6216bb-bb4e-4766-8849-fd72eead20ce
+                        name: Adam Smith
+                        email: c3945627346@appdirect.com
+                        externalId: null
+                        activated: false
+                        deleted: false
+                        userRemovedFromCompanyObject: false
+                        userRemovedFromCompanyTarget: false
+                        personalInfoMasked: false
+                        profileLinkMasked: false
+                        roleChanges: null
+                        type: USER
+                      context:
+                        description: Documentation Center 283
+                        header: Documentation Center 283
+                        imageUrl: https://d33na3ni6eqf5j.cloudfront.net/importable_app_resources/81858cea-627f-45ee-8906-67d5a23dd3bf/list.png?b5960593b97c0fdd95bc9b81c08e70bb
+                      origin: null
+                      links: []
+                    page:
+                      size: 2
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/activities?displayType=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/activities',\n  qs: {\n    displayType: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/activities?displayType=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies:
+    get:
+      description: 'Retrieve all marketplace companies.</br></br>Rate limit: Bucket size is 20 requests, with a leak rate of 5 requests per second.<br></br>Rate limit uses [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Usage of a leaky bucket algorithm allows client applications to make an unlimited number of requests over a large time horizon but prevents excessively large bursts over a short one.'
+      tags:
+      - Companies
+      summary: List all companies
+      operationId: resource_Company_readAllCompanies_GET
+      x-appdirect-required-scopes:
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Company name
+        name: name
+        in: query
+        schema:
+          type: string
+      - description: Optional. Default is true. When set to true, company custom attributes are included in the API response. When set to false, company custom attributes are not included.
+        name: includeCustomAttributes
+        in: query
+        schema:
+          type: boolean
+      - description: Optional. Default is true. When set to true, the purchase limit attributes are fetched, calculated and populated in the response. When set to false, the purchase limit attributes are not fetched.
+        name: includePurchaseLimitData
+        in: query
+        schema:
+          type: boolean
+      - description: Optional. When set to true, only vendor companies are returned. When set to false, only non-vendor companies are returned. When omitted, all companies are returned (existing behaviour).
+        name: vendor
+        in: query
+        schema:
+          type: boolean
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: The number of search results to return per page
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: The property to sort by
+        name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - NAME
+          default: NAME
+      - description: Ordering type
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      - description: Accepts a notIn filter in the form of ?custom.customAttributeName=notIn(customAttributeValue1, customAttributeValue2, customAttributeValueN...) that excludes companies with matching values. Before you can use the filter, you must first create "Text" type company custom attributes in the user interface. You can then specify the custom attribute name and values as customAttributeName and customAttributeValueN. See https://help.appdirect.com/platform/Default.htm#MarketplaceManager/MM-Setgscustui-create-attribs.html.
+        name: custom.customAttributeName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      name: John & Co
+                      enabled: true
+                      address:
+                        street1: Harris Place NW
+                        street2: '907'
+                        city: Calgary
+                        state: AB
+                        zip: T3B2V4
+                        country: Canada
+                      companySize: SMALL
+                      customAttributes: []
+                      creationDate: 1457416568000
+                      industry: Finance
+                      salesAgent:
+                        rel: salesRepLink
+                        href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      emailAddress: john.smith@example.com
+                      website: example.com
+                      picture: null
+                      vendor: true
+                      reseller: false
+                      channelAdmin: true
+                      salesSupport: false
+                      externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                      phoneNumber: 888-888-8888
+                      defaultRole: USER
+                      countryCode: US
+                      links:
+                      - rel: self
+                        href: http://marketplace.local:8080/api/account/v2/companies/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      - rel: memberships
+                        href: http://marketplace.local:8080/api/account/v2/companies/a3f385be-e10b-444e-99d1-95cd7d4c1f5a/memberships
+                    - uuid: 42f4e0cd-0614-4695-87ba-fcaee49fb995
+                      name: John & Co
+                      enabled: false
+                      address:
+                        street1: Harris Place NW
+                        street2: '907'
+                        city: Calgary
+                        state: AB
+                        zip: T3B2V4
+                        country: Canada
+                      companySize: SMALL
+                      customAttributes:
+                      - name: C1593404
+                        attributeType: TEXT
+                        label: C1593404
+                        hint: ''
+                        value: t1
+                      creationDate: 1521573411000
+                      industry: Finance
+                      salesAgent:
+                        rel: salesRepLink
+                        href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      emailAddress: john.smith@example.com
+                      website: example.com
+                      picture: null
+                      vendor: true
+                      reseller: false
+                      channelAdmin: true
+                      salesSupport: false
+                      externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+                      phoneNumber: 888-888-8888
+                      defaultRole: USER
+                      countryCode: US
+                      links:
+                      - rel: self
+                        href: http://marketplace.local:8080/api/account/v2/companies/42f4e0cd-0614-4695-87ba-fcaee49fb995
+                      - rel: memberships
+                        href: http://marketplace.local:8080/api/account/v2/companies/42f4e0cd-0614-4695-87ba-fcaee49fb995/memberships
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies?name=SOME_STRING_VALUE&includeCustomAttributes=SOME_BOOLEAN_VALUE&includePurchaseLimitData=SOME_BOOLEAN_VALUE&vendor=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&custom.customAttributeName=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies',\n  qs: {\n    name: 'SOME_STRING_VALUE',\n    includeCustomAttributes: 'SOME_BOOLEAN_VALUE',\n    includePurchaseLimitData: 'SOME_BOOLEAN_VALUE',\n    vendor: 'SOME_BOOLEAN_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    'custom.customAttributeName': 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies?name=SOME_STRING_VALUE&includeCustomAttributes=SOME_BOOLEAN_VALUE&includePurchaseLimitData=SOME_BOOLEAN_VALUE&vendor=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&custom.customAttributeName=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: Create a new marketplace company
+      tags:
+      - Companies
+      summary: Create new company
+      operationId: resource_Company_createCompany_POST
+      x-appdirect-required-scopes:
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyV2Request'
+        description: New marketplace company
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    allowLogin: true
+                    uuid: d689b970-f3f9-42a6-a974-90e2bdadf860
+                    name: Company 7078259907
+                    picture: http://localhost:8080/profilePics/http://cdn/company.png
+                    vendor: false
+                    reseller: false
+                    phoneNumber: '9259221234'
+                    defaultRole: USER
+                    enabled: true
+                    customAttributes:
+                    - name: Geographic Region
+                      attributeType: TEXT
+                      label: Geographic Region
+                      hint: US West, US Central, or US East
+                      value: US
+                    - name: Company Details
+                      attributeType: MULTISELECT
+                      label: Label Names
+                      hint: ''
+                      valueKeys:
+                      - great option
+                    firstUser:
+                      email: john.simpson@company58330881985.com
+                      firstName: John
+                      lastName: Simpson
+                      roles:
+                      - ROLE_USER
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860/memberships
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies \\\n  --header 'content-type: application/json' \\\n  --data '{\"externalId\":\"P02TSQ3YPZoykqx1a10\",\"name\":\"Company Example\",\"companySize\":\"SMALL\",\"defaultRole\":\"USER\",\"countryCode\":\"US\",\"emailAddress\":\"info@company12345.com\",\"phoneNumber\":\"11234567890\",\"website\":\"https://www.company12345.com\",\"industry\":\"Sales\",\"address\":{\"city\":\"New York\",\"country\":\"US\",\"state\":\"NY\",\"street1\":\"980 West 881st Street\",\"street2\":\"55AB\",\"zip\":\"12345\"},\"channelAdmin\":false,\"reseller\":false,\"vendor\":false,\"customAttributes\":[{\"name\":\"text_example\",\"value\":\"foo\"},{\"name\":\"multiselect_checkboxes_example\",\"valueKeys\":[\"ipsum\",\"fake\"]}],\"firstUser\":{\"firstName\":\"John\",\"lastName\":\"Smith\",\"email\":\"john.smith@company12345.com\",\"roles\":[\"ROLE_SYS_ADMIN\"]}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies',\n  headers: {'content-type': 'application/json'},\n  body: {\n    externalId: 'P02TSQ3YPZoykqx1a10',\n    name: 'Company Example',\n    companySize: 'SMALL',\n    defaultRole: 'USER',\n    countryCode: 'US',\n    emailAddress: 'info@company12345.com',\n    phoneNumber: '11234567890',\n    website: 'https://www.company12345.com',\n    industry: 'Sales',\n    address: {\n      city: 'New York',\n      country: 'US',\n      state: 'NY',\n      street1: '980 West 881st Street',\n      street2: '55AB',\n      zip: '12345'\n    },\n    channelAdmin: false,\n    reseller: false,\n    vendor: false,\n    customAttributes: [\n      {name: 'text_example', value: 'foo'},\n      {name: 'multiselect_checkboxes_example', valueKeys: ['ipsum', 'fake']}\n    ],\n    firstUser: {\n      firstName: 'John',\n      lastName: 'Smith',\n      email: 'john.smith@company12345.com',\n      roles: ['ROLE_SYS_ADMIN']\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"externalId\\\":\\\"P02TSQ3YPZoykqx1a10\\\",\\\"name\\\":\\\"Company Example\\\",\\\"companySize\\\":\\\"SMALL\\\",\\\"defaultRole\\\":\\\"USER\\\",\\\"countryCode\\\":\\\"US\\\",\\\"emailAddress\\\":\\\"info@company12345.com\\\",\\\"phoneNumber\\\":\\\"11234567890\\\",\\\"website\\\":\\\"https://www.company12345.com\\\",\\\"industry\\\":\\\"Sales\\\",\\\"address\\\":{\\\"city\\\":\\\"New York\\\",\\\"country\\\":\\\"US\\\",\\\"state\\\":\\\"NY\\\",\\\"street1\\\":\\\"980 West 881st Street\\\",\\\"street2\\\":\\\"55AB\\\",\\\"zip\\\":\\\"12345\\\"},\\\"channelAdmin\\\":false,\\\"reseller\\\":false,\\\"vendor\\\":false,\\\"customAttributes\\\":[{\\\"name\\\":\\\"text_example\\\",\\\"value\\\":\\\"foo\\\"},{\\\"name\\\":\\\"multiselect_checkboxes_example\\\",\\\"valueKeys\\\":[\\\"ipsum\\\",\\\"fake\\\"]}],\\\"firstUser\\\":{\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Smith\\\",\\\"email\\\":\\\"john.smith@company12345.com\\\",\\\"roles\\\":[\\\"ROLE_SYS_ADMIN\\\"]}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}:
+    get:
+      description: Retrieve a marketplace company by ID or external ID. If you use the ID, you can omit a prefix or use 'id:' as the prefix. If you use the external ID, you must always specify the 'externalId:' prefix.
+      tags:
+      - Companies
+      summary: Read a company
+      operationId: resource_Company_readCompany_GET
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access as an end user in the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier (ID or external ID) of the company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: d689b970-f3f9-42a6-a974-90e2bdadf860
+                    name: Company 7078259907
+                    enabled: true
+                    allowLogin: true
+                    address:
+                      street1: Stephen Ave
+                      street2: '12'
+                      city: Calgary
+                      state: AB
+                      zip: T22V34
+                      country: Canada
+                    companySize: SMALL
+                    customAttributes:
+                    - name: Geographic Region
+                      attributeType: TEXT
+                      label: Geographic Region
+                      hint: US West, US Central, or US East
+                      value: US
+                    - name: Company Details
+                      attributeType: MULTISELECT
+                      label: Label Names
+                      hint: ''
+                      valueKeys:
+                      - great option
+                    creationDate: 1457416568000
+                    industry: Finance
+                    salesAgent:
+                      rel: salesRepLink
+                      href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                    emailAddress: john.smith@example.com
+                    website: example.com
+                    picture: http://localhost:8080/profilePics/http://cdn/company.png
+                    vendor: true
+                    reseller: false
+                    channelAdmin: true
+                    salesSupport: false
+                    externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                    phoneNumber: 888-888-8888
+                    defaultRole: USER
+                    countryCode: US
+                    thirtyDaysPurchaseLimitExempt: false
+                    thirtyDaysPurchaseLimitOverrideAmt: null
+                    dailyPurchaseLimitExempt: false
+                    dailyPurchaseLimitOverrideAmt: 10
+                    mosiCustomerId: dda1de23-f062-4391-b213-4deab524552a
+                    partner: APPDIRECT
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: Update a marketplace company.
+      tags:
+      - Companies
+      summary: Update company
+      operationId: resource_Company_updateCompany_PUT
+      x-appdirect-required-scopes:
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Company ID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCompanyAccountV2Request'
+        description: Marketplace company details to be updated
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: d689b970-f3f9-42a6-a974-90e2bdadf860
+                    name: Company 7078259907
+                    enabled: true
+                    allowLogin: true
+                    address:
+                      street1: Stephen Ave
+                      street2: '12'
+                      city: Calgary
+                      state: AB
+                      zip: T22V34
+                      country: Canada
+                    companySize: SMALL
+                    customAttributes:
+                    - name: Geographic Region
+                      attributeType: TEXT
+                      label: Geographic Region
+                      hint: US West, US Central, or US East
+                      value: US
+                    - name: Company Details
+                      attributeType: MULTISELECT
+                      label: Label Names
+                      hint: ''
+                      valueKeys:
+                      - great option
+                    creationDate: 1457416568000
+                    industry: Finance
+                    salesAgent:
+                      rel: salesRepLink
+                      href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                    emailAddress: john.smith@example.com
+                    website: example.com
+                    picture: http://localhost:8080/profilePics/http://cdn/company.png
+                    vendor: true
+                    reseller: false
+                    channelAdmin: true
+                    salesSupport: false
+                    externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                    phoneNumber: 888-888-8888
+                    defaultRole: USER
+                    countryCode: US
+                    thirtyDaysPurchaseLimitExempt: false
+                    thirtyDaysPurchaseLimitOverrideAmt: null
+                    dailyPurchaseLimitExempt: false
+                    dailyPurchaseLimitOverrideAmt: 10
+                    mosiCustomerId: dda1de23-f062-4391-b213-4deab524552a
+                    partner: APPDIRECT
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"name\":\"Company 7078259907\",\"enabled\":true,\"address\":{\"city\":\"San Francisco\",\"country\":\"United Stated of America\",\"state\":\"California\",\"street1\":\"5th Ave\",\"street2\":\"#400\",\"zip\":\"32455\"},\"companySize\":\"SMALL\",\"customAttributes\":[{\"name\":\"Geographic Region\",\"attributeType\":\"TEXT\",\"label\":\"Geographic Region\",\"hint\":\"US West, US Central, or US East\",\"value\":\"US\"},{\"name\":\"Company Details\",\"attributeType\":\"MULTISELECT\",\"label\":\"Label Names\",\"hint\":\"\",\"valueKeys\":[\"Option 1\"]}],\"industry\":\"IT\",\"emailAddress\":\"info@company.com\",\"website\":\"http://www.company.com\",\"vendor\":false,\"reseller\":false,\"channelAdmin\":false,\"externalId\":\"d689b970-f3f9-42a6-a974-90e2bdadf860\",\"phoneNumber\":\"9259221234\",\"defaultRole\":\"USER\",\"countryCode\":\"US\",\"thirtyDaysPurchaseLimit\":0,\"thirtyDaysPurchaseLimitExempt\":false,\"thirtyDaysPurchaseLimitOverrideAmt\":null,\"thirtyDaysPurchaseRemainingAmt\":null}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    name: 'Company 7078259907',\n    enabled: true,\n    address: {\n      city: 'San Francisco',\n      country: 'United Stated of America',\n      state: 'California',\n      street1: '5th Ave',\n      street2: '#400',\n      zip: '32455'\n    },\n    companySize: 'SMALL',\n    customAttributes: [\n      {\n        name: 'Geographic Region',\n        attributeType: 'TEXT',\n        label: 'Geographic Region',\n        hint: 'US West, US Central, or US East',\n        value: 'US'\n      },\n      {\n        name: 'Company Details',\n        attributeType: 'MULTISELECT',\n        label: 'Label Names',\n        hint: '',\n        valueKeys: ['Option 1']\n      }\n    ],\n    industry: 'IT',\n    emailAddress: 'info@company.com',\n    website: 'http://www.company.com',\n    vendor: false,\n    reseller: false,\n    channelAdmin: false,\n    externalId: 'd689b970-f3f9-42a6-a974-90e2bdadf860',\n    phoneNumber: '9259221234',\n    defaultRole: 'USER',\n    countryCode: 'US',\n    thirtyDaysPurchaseLimit: 0,\n    thirtyDaysPurchaseLimitExempt: false,\n    thirtyDaysPurchaseLimitOverrideAmt: null,\n    thirtyDaysPurchaseRemainingAmt: null\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Company 7078259907\\\",\\\"enabled\\\":true,\\\"address\\\":{\\\"city\\\":\\\"San Francisco\\\",\\\"country\\\":\\\"United Stated of America\\\",\\\"state\\\":\\\"California\\\",\\\"street1\\\":\\\"5th Ave\\\",\\\"street2\\\":\\\"#400\\\",\\\"zip\\\":\\\"32455\\\"},\\\"companySize\\\":\\\"SMALL\\\",\\\"customAttributes\\\":[{\\\"name\\\":\\\"Geographic Region\\\",\\\"attributeType\\\":\\\"TEXT\\\",\\\"label\\\":\\\"Geographic Region\\\",\\\"hint\\\":\\\"US West, US Central, or US East\\\",\\\"value\\\":\\\"US\\\"},{\\\"name\\\":\\\"Company Details\\\",\\\"attributeType\\\":\\\"MULTISELECT\\\",\\\"label\\\":\\\"Label Names\\\",\\\"hint\\\":\\\"\\\",\\\"valueKeys\\\":[\\\"Option 1\\\"]}],\\\"industry\\\":\\\"IT\\\",\\\"emailAddress\\\":\\\"info@company.com\\\",\\\"website\\\":\\\"http://www.company.com\\\",\\\"vendor\\\":false,\\\"reseller\\\":false,\\\"channelAdmin\\\":false,\\\"externalId\\\":\\\"d689b970-f3f9-42a6-a974-90e2bdadf860\\\",\\\"phoneNumber\\\":\\\"9259221234\\\",\\\"defaultRole\\\":\\\"USER\\\",\\\"countryCode\\\":\\\"US\\\",\\\"thirtyDaysPurchaseLimit\\\":0,\\\"thirtyDaysPurchaseLimitExempt\\\":false,\\\"thirtyDaysPurchaseLimitOverrideAmt\\\":null,\\\"thirtyDaysPurchaseRemainingAmt\\\":null}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: Partially update marketplace company account information. This only adds or updates the values for the properties that you include in the call; all other properties are ignored.
+      tags:
+      - Companies
+      summary: Patch company
+      operationId: resource_Company_patchCompany_PATCH
+      x-appdirect-required-scopes:
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_RESELLER:
+        - 'Allows access as a Reseller for the companies. For ROLE_RESELLER to get permission to perform an update company operation. The user must:'
+        - '- Have verified reseller authority to perform the update company operation.'
+        - '- Be authorized to manage companies in the role of a reseller.'
+        - '- Act on a company that is associated with the reseller.'
+      parameters:
+      - description: Company ID
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyAccountV2Request'
+        description: Marketplace company account information and settings
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: d689b970-f3f9-42a6-a974-90e2bdadf860
+                    name: Company 7078259907
+                    enabled: true
+                    allowLogin: true
+                    address:
+                      street1: Stephen Ave
+                      street2: '12'
+                      city: Calgary
+                      state: AB
+                      zip: T22V34
+                      country: Canada
+                    companySize: SMALL
+                    customAttributes:
+                    - name: Geographic Region
+                      attributeType: TEXT
+                      label: Geographic Region
+                      hint: US West, US Central, or US East
+                      value: US
+                    - name: Company Details
+                      attributeType: MULTISELECT
+                      label: Label Names
+                      hint: ''
+                      valueKeys:
+                      - great option
+                    creationDate: 1457416568000
+                    industry: Finance
+                    salesAgent:
+                      rel: salesRepLink
+                      href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                    emailAddress: john.smith@example.com
+                    website: example.com
+                    picture: http://localhost:8080/profilePics/http://cdn/company.png
+                    vendor: true
+                    reseller: false
+                    channelAdmin: true
+                    salesSupport: false
+                    externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                    phoneNumber: 888-888-8888
+                    defaultRole: USER
+                    countryCode: US
+                    thirtyDaysPurchaseLimitExempt: false
+                    thirtyDaysPurchaseLimitOverrideAmt: null
+                    dailyPurchaseLimitExempt: false
+                    dailyPurchaseLimitOverrideAmt: 10
+                    mosiCustomerId: dda1de23-f062-4391-b213-4deab524552a
+                    partner: APPDIRECT
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"name\":\"Company 7078259907\",\"enabled\":true,\"address\":{\"city\":\"San Francisco\",\"country\":\"United Stated of America\",\"state\":\"California\",\"street1\":\"5th Ave\",\"street2\":\"#400\",\"zip\":\"32455\"},\"companySize\":\"SMALL\",\"customAttributes\":[{\"name\":\"Geographic Region\",\"attributeType\":\"TEXT\",\"label\":\"Geographic Region\",\"hint\":\"US West, US Central, or US East\",\"value\":\"US\"},{\"name\":\"Company Details\",\"attributeType\":\"MULTISELECT\",\"label\":\"Label Names\",\"hint\":\"\",\"valueKeys\":[\"great option\"]}],\"industry\":\"IT\",\"emailAddress\":\"info@company.com\",\"website\":\"http://www.company.com\",\"vendor\":false,\"reseller\":false,\"channelAdmin\":false,\"externalId\":\"d689b970-f3f9-42a6-a974-90e2bdadf860\",\"phoneNumber\":\"9259221234\",\"defaultRole\":\"USER\",\"countryCode\":\"US\",\"thirtyDaysPurchaseLimitExempt\":false,\"thirtyDaysPurchaseLimitOverrideAmt\":null,\"dailyPurchaseLimitExempt\":false,\"dailyPurchaseLimitOverrideAmt\":10}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    name: 'Company 7078259907',\n    enabled: true,\n    address: {\n      city: 'San Francisco',\n      country: 'United Stated of America',\n      state: 'California',\n      street1: '5th Ave',\n      street2: '#400',\n      zip: '32455'\n    },\n    companySize: 'SMALL',\n    customAttributes: [\n      {\n        name: 'Geographic Region',\n        attributeType: 'TEXT',\n        label: 'Geographic Region',\n        hint: 'US West, US Central, or US East',\n        value: 'US'\n      },\n      {\n        name: 'Company Details',\n        attributeType: 'MULTISELECT',\n        label: 'Label Names',\n        hint: '',\n        valueKeys: ['great option']\n      }\n    ],\n    industry: 'IT',\n    emailAddress: 'info@company.com',\n    website: 'http://www.company.com',\n    vendor: false,\n    reseller: false,\n    channelAdmin: false,\n    externalId: 'd689b970-f3f9-42a6-a974-90e2bdadf860',\n    phoneNumber: '9259221234',\n    defaultRole: 'USER',\n    countryCode: 'US',\n    thirtyDaysPurchaseLimitExempt: false,\n    thirtyDaysPurchaseLimitOverrideAmt: null,\n    dailyPurchaseLimitExempt: false,\n    dailyPurchaseLimitOverrideAmt: 10\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Company 7078259907\\\",\\\"enabled\\\":true,\\\"address\\\":{\\\"city\\\":\\\"San Francisco\\\",\\\"country\\\":\\\"United Stated of America\\\",\\\"state\\\":\\\"California\\\",\\\"street1\\\":\\\"5th Ave\\\",\\\"street2\\\":\\\"#400\\\",\\\"zip\\\":\\\"32455\\\"},\\\"companySize\\\":\\\"SMALL\\\",\\\"customAttributes\\\":[{\\\"name\\\":\\\"Geographic Region\\\",\\\"attributeType\\\":\\\"TEXT\\\",\\\"label\\\":\\\"Geographic Region\\\",\\\"hint\\\":\\\"US West, US Central, or US East\\\",\\\"value\\\":\\\"US\\\"},{\\\"name\\\":\\\"Company Details\\\",\\\"attributeType\\\":\\\"MULTISELECT\\\",\\\"label\\\":\\\"Label Names\\\",\\\"hint\\\":\\\"\\\",\\\"valueKeys\\\":[\\\"great option\\\"]}],\\\"industry\\\":\\\"IT\\\",\\\"emailAddress\\\":\\\"info@company.com\\\",\\\"website\\\":\\\"http://www.company.com\\\",\\\"vendor\\\":false,\\\"reseller\\\":false,\\\"channelAdmin\\\":false,\\\"externalId\\\":\\\"d689b970-f3f9-42a6-a974-90e2bdadf860\\\",\\\"phoneNumber\\\":\\\"9259221234\\\",\\\"defaultRole\\\":\\\"USER\\\",\\\"countryCode\\\":\\\"US\\\",\\\"thirtyDaysPurchaseLimitExempt\\\":false,\\\"thirtyDaysPurchaseLimitOverrideAmt\\\":null,\\\"dailyPurchaseLimitExempt\\\":false,\\\"dailyPurchaseLimitOverrideAmt\\\":10}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/picture:
+    put:
+      description: 'Update a marketplace company’s profile picture, for example, with an image of a logo.
+
+        This method requires a Content-Type request header with a value of “multipart/form-data”. The updated company resource is returned.'
+      tags:
+      - Companies
+      summary: Update company picture
+      operationId: resource_Company_updateCompanyPicture_PUT
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: Image file that will be used as the profile picture.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: d689b970-f3f9-42a6-a974-90e2bdadf860
+                    name: Company 7078259907
+                    enabled: true
+                    allowLogin: true
+                    address:
+                      street1: Stephen Ave
+                      street2: '12'
+                      city: Calgary
+                      state: AB
+                      zip: T22V34
+                      country: Canada
+                    companySize: SMALL
+                    customAttributes:
+                    - name: Geographic Region
+                      attributeType: TEXT
+                      label: Geographic Region
+                      hint: US West, US Central, or US East
+                      value: US
+                    - name: Company Details
+                      attributeType: MULTISELECT
+                      label: Label Names
+                      hint: ''
+                      valueKeys:
+                      - great option
+                    creationDate: 1457416568000
+                    industry: Finance
+                    salesAgent:
+                      rel: salesRepLink
+                      href: http://marketplace.local:8080/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                    emailAddress: john.smith@example.com
+                    website: example.com
+                    picture: http://localhost:8080/profilePics/http://cdn/company.png
+                    vendor: true
+                    reseller: false
+                    channelAdmin: true
+                    salesSupport: false
+                    externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                    phoneNumber: 888-888-8888
+                    defaultRole: USER
+                    countryCode: US
+                    thirtyDaysPurchaseLimitExempt: false
+                    thirtyDaysPurchaseLimitOverrideAmt: null
+                    dailyPurchaseLimitExempt: false
+                    dailyPurchaseLimitOverrideAmt: 10
+                    mosiCustomerId: dda1de23-f062-4391-b213-4deab524552a
+                    partner: APPDIRECT
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/d689b970-f3f9-42a6-a974-90e2bdadf860/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/picture \\\n  --header 'content-type: application/json' \\\n  --data '{}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/picture',\n  headers: {'content-type': 'application/json'},\n  body: {},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/picture\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    CustomAttributeAccountV2:
+      description: Custom attributes
+      type: object
+      title: CustomAttributeAccountV2
+      properties:
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        hint:
+          description: Localized hint
+          type: string
+        label:
+          description: Localized label
+          type: string
+        name:
+          description: Name
+          type: string
+        value:
+          description: Value
+          type: string
+        valueKeys:
+          description: Value keys
+          type: array
+          items:
+            type: string
+      example:
+        name: Company Details
+        attributeType: MULTISELECT
+        label: Label Names
+        hint: ''
+        valueKeys:
+        - great option
+    CreateCompanyV2RequestFirstUser:
+      allOf:
+      - description: Represents the membership of the first user in a company, who also receives the Company Administrator role by default
+        type: object
+        title: CreateCompanyV2RequestFirstUser
+        properties:
+          email:
+            description: Primary email addressed of the user being created
+            type: string
+          firstName:
+            description: First name of the user being created
+            type: string
+            nullable: true
+          lastName:
+            description: Last name of the user being created
+            type: string
+            nullable: true
+          position:
+            description: User's job title, also referred to as "Title" on the "My Settings" page in the user interface
+            type: string
+            nullable: true
+          roles:
+            description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+            type: array
+            items:
+              type: string
+        example:
+          email: jude.doe@company8578572384.com
+          firstName: Jude
+          lastName: Doe
+          position: Business Analyst
+          roles:
+          - ROLE_BILLING_ADMIN
+          - ROLE_SYS_ADMIN
+    CustomAttributeAccountV2Request:
+      description: Custom attributes
+      type: object
+      title: CustomAttributeAccountV2Request
+      properties:
+        name:
+          description: Name
+          type: string
+        value:
+          description: Value
+          type: string
+        valueKeys:
+          description: Value keys
+          type: array
+          items:
+            type: string
+      example:
+        name: Company Details
+        valueKeys:
+        - great option
+    UpdateCompanyAccountV2Request:
+      description: Payload for "update company" request
+      type: object
+      title: UpdateCompanyAccountV2Request
+      properties:
+        name:
+          description: Company name
+          type: string
+          nullable: true
+        enabled:
+          description: Indicates whether company is enabled
+          type: boolean
+        allowLogin:
+          description: Indicates whether a company's users are managed users (false) or not (true). Do not change the value with this request
+          type: boolean
+        address:
+          $ref: '#/components/schemas/CompanyAddress'
+        companySize:
+          $ref: '#/components/schemas/CompanySizeType'
+        customAttributes:
+          description: Custom attributes
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeAccountV2'
+        industry:
+          description: Company industry sector
+          type: string
+        emailAddress:
+          description: Company email address
+          type: string
+        website:
+          description: Company website URL
+          type: string
+        vendor:
+          description: Indicates whether the company has Vendor access
+          type: boolean
+        reseller:
+          description: Indicates whether the company has Reseller access
+          type: boolean
+        channelAdmin:
+          description: Indicates whether the company has Channel Admin access
+          type: boolean
+        referral:
+          description: Indicates whether the company has Referral access
+          type: boolean
+        externalId:
+          description: Company external ID
+          type: string
+        phoneNumber:
+          description: Company phone number
+          type: string
+          nullable: true
+        defaultRole:
+          description: The default role newly created users receive
+          type: string
+        countryCode:
+          description: Company country code defined by ISO ALPHA-2 standard
+          type: string
+        billingDayOfMonth:
+          description: (Optional) Use this property in company creation requests to set the billing cycle start date. The date applies to all purchases made through the specified company, and overrides the marketplace-level billing cycle date.
+          type: integer
+        thirtyDaysPurchaseLimit:
+          description: Monthly spend limit used as the default limit for all companies in the marketplace
+          type: number
+        thirtyDaysPurchaseRemainingAmt:
+          description: Remaining monthly spending amount
+          type: number
+        thirtyDaysPurchaseLimitExempt:
+          description: Whether company is exempt from the marketplace default thirty-day spend limit
+          type: boolean
+        thirtyDaysPurchaseLimitOverrideAmt:
+          description: Thirty-day spend limit for this company (overrides marketplace default for thirty-day company spend limit)
+          type: number
+      example:
+        name: Company 7078259907
+        enabled: true
+        address:
+          city: San Francisco
+          country: United Stated of America
+          state: California
+          street1: 5th Ave
+          street2: '#400'
+          zip: '32455'
+        companySize: SMALL
+        customAttributes:
+        - name: Geographic Region
+          attributeType: TEXT
+          label: Geographic Region
+          hint: US West, US Central, or US East
+          value: US
+        - name: Company Details
+          attributeType: MULTISELECT
+          label: Label Names
+          hint: ''
+          valueKeys:
+          - Option 1
+        industry: IT
+        emailAddress: info@company.com
+        website: http://www.company.com
+        vendor: false
+        reseller: false
+        channelAdmin: false
+        externalId: d689b970-f3f9-42a6-a974-90e2bdadf860
+        phoneNumber: '9259221234'
+        defaultRole: USER
+        countryCode: US
+        thirtyDaysPurchaseLimit: 0
+        thirtyDaysPurchaseLimitExempt: false
+        thirtyDaysPurchaseLimitOverrideAmt: null
+        thirtyDaysPurchaseRemainingAmt: null
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    CompanySizeType:
+      description: Company size types
+      type: string
+      title: CompanySizeType
+      enum:
+      - SMALL
+      - MEDIUM
+      - ENTERPRISE
+    CompanyAccountV2Request:
+      description: Payload for "patch company" request
+      type: object
+      title: CompanyAccountV2Request
+      properties:
+        name:
+          description: Company name
+          type: string
+          nullable: true
+        enabled:
+          description: Indicates whether company is enabled
+          type: boolean
+        allowLogin:
+          description: Indicates whether a company's users are managed users (false) or not (true). Do not change the value with this request.
+          type: boolean
+        address:
+          $ref: '#/components/schemas/CompanyAddress'
+        companySize:
+          $ref: '#/components/schemas/CompanySizeType'
+        customAttributes:
+          description: Custom attributes
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeAccountV2'
+        industry:
+          description: Company industry sector
+          type: string
+        emailAddress:
+          description: Company email address
+          type: string
+        website:
+          description: Company website URL
+          type: string
+        vendor:
+          description: Indicates whether the company has Vendor access
+          type: boolean
+        reseller:
+          description: Indicates whether the company has Reseller access
+          type: boolean
+        channelAdmin:
+          description: Indicates whether the company has Channel Admin access
+          type: boolean
+        referral:
+          description: Indicates whether the company has Referral access
+          type: boolean
+        externalId:
+          description: Company external ID
+          type: string
+        phoneNumber:
+          description: Company phone number
+          type: string
+          nullable: true
+        defaultRole:
+          description: The default role newly created users receive
+          type: string
+        countryCode:
+          description: Company country code defined by ISO ALPHA-2 standard
+          type: string
+        billingDayOfMonth:
+          description: (Optional) Use this property in company creation requests to set the billing cycle start date. The date applies to all purchases made through the specified company, and overrides the marketplace-level billing cycle date.
+          type: integer
+        thirtyDaysPurchaseLimitExempt:
+          description: Whether company is exempt from the marketplace default thirty-day spend limit
+          type: boolean
+        thirtyDaysPurchaseLimitOverrideAmt:
+          description: Thirty-day spend limit for this company (overrides marketplace default for thirty-day company spend limit)
+          type: number
+        dailyPurchaseLimitExempt:
+          description: Whether company is exempt from the marketplace default daily spend limit
+          type: boolean
+        dailyPurchaseLimitOverrideAmt:
+          description: Daily spend limit for this company (overrides marketplace default for daily company spend limit)
+          type: number
+      example:
+        name: Company 7078259907
+        enabled: true
+        address:
+          city: San Francisco
+          country: United Stated of America
+          state: California
+          street1: 5th Ave
+          street2: '#400'
+          zip: '32455'
+        companySize: SMALL
+        customAttributes:
+        - name: Geographic Region
+          attributeType: TEXT
+          label: Geographic Region
+          hint: US West, US Central, or US East
+          value: US
+        - name: Company Details
+          attributeType: MULTISELECT
+          label: Label Names
+          hint: ''
+          valueKeys:
+          - great option
+        industry: IT
+        emailAddress: info@company.com
+        website: http://www.company.com
+        vendor: false
+        reseller: false
+        channelAdmin: false
+        externalId: d689b970-f3f9-42a6-a974-90e2bdadf860
+        phoneNumber: '9259221234'
+        defaultRole: USER
+        countryCode: US
+        thirtyDaysPurchaseLimitExempt: false
+        thirtyDaysPurchaseLimitOverrideAmt: null
+        dailyPurchaseLimitExempt: false
+        dailyPurchaseLimitOverrideAmt: 10
+    CompanyAddress:
+      type: object
+      title: CompanyAddress
+      required:
+      - country
+      - city
+      - zip
+      - street1
+      properties:
+        city:
+          type: string
+          maxLength: 255
+          minLength: 0
+        country:
+          type: string
+          maxLength: 255
+          minLength: 0
+        state:
+          type: string
+          maxLength: 255
+          minLength: 0
+        street1:
+          type: string
+          maxLength: 255
+          minLength: 0
+        street2:
+          type: string
+          maxLength: 255
+          minLength: 0
+        zip:
+          type: string
+          maxLength: 255
+          minLength: 0
+      example:
+        city: '...'
+        country: '...'
+        state: '...'
+        street1: '...'
+        street2: '...'
+        zip: '...'
+    CreateCompanyV2Request:
+      allOf:
+      - description: Payload for "create company" requests
+        type: object
+        title: CreateCompanyV2Request
+        properties:
+          name:
+            description: Company name
+            type: string
+            nullable: true
+          allowLogin:
+            description: 'Optional. Default is "true".
+
+
+              When set to "true", the marketplace company allows users, including the first user, to login to the marketplace and receive emails from the marketplace. Users can purchase and assign products within the company. Products can also be purchased on their behalf, and assigned to them.
+
+
+              When set to "false", the marketplace company does not allow company members, including the first user, to login to the marketplace or receive email notifications from the marketplace. Products are purchased and assigned on users behalf, and they access those products directly through the product interface.'
+            type: boolean
+          idpUuid:
+            description: UUID of the identity provider that the user will always use to log in. Contact your AppDirect technical consultant or business consultant to obtain the UUID.
+            type: string
+          address:
+            $ref: '#/components/schemas/CompanyAddress'
+          companySize:
+            $ref: '#/components/schemas/CompanySizeType'
+          customAttributes:
+            description: Custom attributes
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomAttributeAccountV2Request'
+          industry:
+            description: Company industry sector
+            type: string
+          emailAddress:
+            description: Company email address
+            type: string
+          website:
+            description: Company website URL
+            type: string
+          vendor:
+            description: Indicates whether the company has Vendor access
+            type: boolean
+          reseller:
+            description: Indicates whether the company has Reseller access
+            type: boolean
+          channelAdmin:
+            description: Indicates whether the company has Channel Admin access
+            type: boolean
+          referral:
+            description: Indicates whether the company has Referral access
+            type: boolean
+          externalId:
+            description: Company external ID
+            type: string
+          phoneNumber:
+            description: Company phone number
+            type: string
+            nullable: true
+          defaultRole:
+            description: The default role newly created users receive
+            type: string
+          countryCode:
+            description: Company country code defined by ISO ALPHA-2 standard
+            type: string
+          thirtyDaysPurchaseLimitExempt:
+            description: Indicates if company is exempt from the marketplace default thirty day spend limit
+            type: boolean
+          thirtyDaysPurchaseLimitOverrideAmt:
+            description: Company-level override amount of marketplace default thirty day spend limit
+            type: number
+          dailyPurchaseLimitExempt:
+            description: Indicates if company is exempt from the marketplace default daily spend limit
+            type: boolean
+          dailyPurchaseLimitOverrideAmt:
+            description: Company-level override amount of marketplace default daily spend limit
+            type: number
+          onlyAdminsCanBuy:
+            description: Indicates if only selected roles in company that can make purchases or all roles in company can make purchases
+            type: boolean
+          importAppsEnabled:
+            description: The import apps feature is enabled for this company
+            type: boolean
+          billingDayOfMonth:
+            description: (Optional) Use this property in company creation requests to set the billing cycle start date. The date applies to all purchases made through the specified company, and overrides the marketplace-level billing cycle date.
+            type: integer
+          firstUser:
+            $ref: '#/components/schemas/CreateCompanyV2RequestFirstUser'
+        example:
+          externalId: P02TSQ3YPZoykqx1a10
+          name: Company Example
+          companySize: SMALL
+          defaultRole: USER
+          countryCode: US
+          emailAddress: info@company12345.com
+          phoneNumber: '11234567890'
+          website: https://www.company12345.com
+          industry: Sales
+          address:
+            city: New York
+            country: US
+            state: NY
+            street1: 980 West 881st Street
+            street2: 55AB
+            zip: '12345'
+          channelAdmin: false
+          reseller: false
+          vendor: false
+          customAttributes:
+          - name: text_example
+            value: foo
+          - name: multiselect_checkboxes_example
+            valueKeys:
+            - ipsum
+            - fake
+          firstUser:
+            firstName: John
+            lastName: Smith
+            email: john.smith@company12345.com
+            roles:
+            - ROLE_SYS_ADMIN

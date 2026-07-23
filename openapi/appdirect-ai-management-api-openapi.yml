@@ -1,0 +1,1062 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AI Management API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AI Management
+  description: Create, retrieve, and manage AI assistants
+paths:
+  /api/v1/api-keys:
+    patch:
+      tags:
+      - AI Management
+      summary: Update AI
+      description: Updates fields on the specified AI.
+      operationId: updateAI
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI to update.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIUpdateRequest'
+      responses:
+        '200':
+          description: Updated AI details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIDetail'
+        '400':
+          description: Bad request - invalid input.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - AI Management
+      summary: Delete AI
+      description: Deletes the specified AI.
+      operationId: deleteAI
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: AI deleted successfully.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai:
+    post:
+      tags:
+      - AI Management
+      summary: Create New AI
+      description: Creates a new AI specified by the given identifier.
+      operationId: createAI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AICreateRequest'
+      responses:
+        '200':
+          description: Details of the specified AI.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIDetail'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/import:
+    post:
+      tags:
+      - AI Management
+      summary: Import Agent
+      description: Creates a new agent from a portable AgentBundle. Tool secrets can be supplied via the secrets map. Skills are imported only when the caller has SKILLS WRITE permission; otherwise they are skipped with a warning. If the bundle model is unavailable, the first available model is substituted and a warning is returned.
+      operationId: importAgent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportAgentRequest'
+      responses:
+        '201':
+          description: Agent successfully imported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportAgentResponse'
+        '400':
+          description: Invalid request body or model ID.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}:
+    get:
+      tags:
+      - AI Management
+      summary: Get AI Details
+      description: Retrieves details of the AI specified by the given identifier.
+      operationId: getAIDetails
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI whose details are to be retrieved.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Details of the specified AI.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIDetail'
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/export:
+    get:
+      tags:
+      - AI Management
+      summary: Export Agent
+      description: Exports an agent and its configuration as a portable AgentBundle JSON document. Secrets are stripped from tool configurations and listed in requiredSecrets. Skills are included only when the caller has SKILLS READ permission. Organization-scoped callers can export agents in their org; instance-level callers can export across orgs.
+      operationId: exportAgent
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the agent to export.
+        schema:
+          type: string
+      - name: includeDataSources
+        in: query
+        required: false
+        description: Whether to include data sources in the export. Defaults to true.
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'true'
+      - name: dataSourceIds
+        in: query
+        required: false
+        description: Comma-separated list of specific data source IDs to include. When provided, only the listed data sources are exported.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agent bundle exported successfully.
+          headers:
+            Content-Disposition:
+              description: Attachment filename derived from the agent name.
+              schema:
+                type: string
+                example: attachment; filename="my-agent.json"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentBundle'
+        '400':
+          description: AI ID is required.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Agent not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/approve:
+    put:
+      tags:
+      - AI Management
+      summary: Approve an AI
+      description: Marks an AI as approved by the organization.
+      operationId: approveAI
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI to be approved.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AI successfully approved.
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/revoke:
+    put:
+      tags:
+      - AI Management
+      summary: Revoke AI approval
+      description: Revokes the organization approval for an AI.
+      operationId: revokeAIApproval
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI whose approval is to be revoked.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AI approval successfully revoked.
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: AI not found with the given identifier.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/generate-profile:
+    put:
+      tags:
+      - AI Management
+      summary: Generate AI profile
+      description: Generates an AI profile based on existing AI data.
+      operationId: generateAIProfile
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AI profile generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIProfile'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/share:
+    put:
+      tags:
+      - AI Management
+      summary: Share an AI
+      description: Shares the AI with the provided emails.
+      operationId: shareAI
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareAIRequest'
+      responses:
+        '200':
+          description: AI shared.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/me/ai:
+    get:
+      tags:
+      - AI Management
+      summary: List AIs
+      parameters:
+      - in: query
+        name: scope
+        schema:
+          $ref: '#/components/schemas/ListAIsRequestScope'
+        description: The scope to filter results by
+      - in: query
+        name: groupId
+        schema:
+          type: string
+        description: The id of a group to filter results by
+      - in: query
+        name: categoryId
+        schema:
+          type: string
+        description: The id of a category to filter results by
+      - in: query
+        name: approvedByOrg
+        schema:
+          type: boolean
+        description: Filter results by whether the AI has been approved by the organization.
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search term
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AIDetail'
+components:
+  schemas:
+    AgentBundleDataSourceConfig:
+      type: object
+      properties:
+        originalId:
+          type: string
+          description: Original data source ID from the export environment, used for same-environment relink on import.
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        refreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        data:
+          type: object
+          additionalProperties: true
+          nullable: true
+        knowledgeItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleKnowledgeItemConfig'
+      required:
+      - originalId
+      - name
+      - type
+      - refreshPeriod
+      - data
+      - knowledgeItems
+    AgentBundleToolConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/ToolType'
+        data:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Tool configuration with secrets stripped.
+      required:
+      - name
+      - type
+      - data
+    ImportAgentResponse:
+      type: object
+      properties:
+        aiId:
+          type: string
+          description: Identifier of the newly created agent.
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Non-fatal issues encountered during import, such as model substitution or skipped skills.
+      required:
+      - aiId
+      - warnings
+    AgentBundleKnowledgeItemConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        uniqueId:
+          type: string
+          nullable: true
+        blobUrl:
+          type: string
+          nullable: true
+        filename:
+          type: string
+          nullable: true
+        mimeType:
+          type: string
+          nullable: true
+      required:
+      - name
+      - type
+      - uniqueId
+      - blobUrl
+      - filename
+      - mimeType
+    AgentBundleFlowConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleFlowVersionConfig'
+      required:
+      - name
+      - enabled
+      - versions
+    PublicCategoryType:
+      type: string
+      enum:
+      - ACCOUNTING_FINANCE
+      - AI_MODELS
+      - ENGINEERING
+      - HUMAN_RESOURCES
+      - INFORMATION_TECHNOLOGY
+      - LEARNING_DEVELOPMENT
+      - MARKETING
+      - PRODUCTIVITY
+      - SALES
+      - ADVISOR
+      - FEATURED
+    ListAIsRequestScope:
+      type: string
+      enum:
+      - PRIVATE
+      - OWNED
+      - GROUP
+      - SHARED
+      - ORGANIZATION
+      - PUBLIC
+      - ALL
+    AIUserInputType:
+      type: string
+      enum:
+      - SHORT_TEXT
+      - LONG_TEXT
+      - TEXT_CHOICE
+      - IMAGE_CHOICE
+      - DATE
+      - NUMBER
+      - PHONE_NUMBER
+      - FILE_UPLOAD
+      - DISPLAY
+      - ADDRESS
+    AIProfile:
+      type: object
+      properties:
+        headline:
+          type: string
+        description:
+          type: string
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIProfileFeature'
+        showCharacter:
+          type: boolean
+        showTraining:
+          type: boolean
+        showPersonality:
+          type: boolean
+        trainingDescription:
+          type: string
+        conversations:
+          type: array
+          items:
+            type: object
+        socialImage:
+          type: string
+        idleVideo:
+          type: string
+        idleVideoError:
+          type: string
+        showSpeaker:
+          type: boolean
+        showVideo:
+          type: boolean
+        voice:
+          type: string
+        voiceEngine:
+          type: string
+        videoModel:
+          type: string
+    AIUpdateRequest:
+      type: object
+      description: Request object for updating an AI configuration. Send only the fields you want to update.
+      properties:
+        src:
+          type: string
+        name:
+          type: string
+        introduction:
+          type: string
+          nullable: true
+        description:
+          type: string
+        instructions:
+          type: string
+        seed:
+          type: string
+        modelId:
+          type: string
+        visibility:
+          $ref: '#/components/schemas/AIVisibility'
+        listInOrgCatalog:
+          type: boolean
+        listInPublicCatalog:
+          type: boolean
+        listInTenantCatalog:
+          type: boolean
+        generateCitations:
+          type: boolean
+        chatLogsVisible:
+          type: boolean
+        intermediateStepsVisible:
+          type: boolean
+        options:
+          $ref: '#/components/schemas/AIModelOptions'
+        groups:
+          type: array
+          items:
+            type: string
+        profile:
+          $ref: '#/components/schemas/AIProfile'
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIEditorUser'
+        publicCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCategoryType'
+        orgCategoryIds:
+          type: array
+          items:
+            type: string
+    ToolType:
+      type: string
+      enum:
+      - API_FUNCTION
+      - SQL
+      - PYTHON
+      - USER_INPUT
+      - KNOWLEDGE_RETRIEVAL
+      - WEB_SEARCH
+      - MCP_SERVER
+      - IMAGE_GENERATION
+      - USER_CONTEXT
+      - SPREADSHEET
+      - BROWSER
+      - SANDBOX
+      - OPENAI_FUNCTION
+    AgentBundleAgentConfig:
+      type: object
+      description: Portable agent configuration included in an export bundle.
+      properties:
+        name:
+          type: string
+        introduction:
+          type: string
+          nullable: true
+        description:
+          type: string
+        instructions:
+          type: string
+        seed:
+          type: string
+          description: Legacy field from older exports. Merged into instructions on import.
+        src:
+          type: string
+        modelId:
+          type: string
+        visibility:
+          $ref: '#/components/schemas/AIVisibility'
+        listInOrgCatalog:
+          type: boolean
+        listInPublicCatalog:
+          type: boolean
+        listInTenantCatalog:
+          type: boolean
+        chatLogsVisible:
+          type: boolean
+        generateCitations:
+          type: boolean
+        intermediateStepsVisible:
+          type: boolean
+        options:
+          $ref: '#/components/schemas/AIModelOptions'
+          nullable: true
+        profile:
+          $ref: '#/components/schemas/AIProfile'
+          nullable: true
+      required:
+      - name
+      - introduction
+      - description
+      - instructions
+      - src
+      - modelId
+      - visibility
+      - listInOrgCatalog
+      - listInPublicCatalog
+      - listInTenantCatalog
+      - chatLogsVisible
+      - generateCitations
+      - intermediateStepsVisible
+      - options
+      - profile
+    ImportAgentRequest:
+      type: object
+      properties:
+        bundle:
+          $ref: '#/components/schemas/AgentBundle'
+        name:
+          type: string
+          description: Optional override for the imported agent name.
+        secrets:
+          type: object
+          additionalProperties:
+            type: string
+          description: Credential values keyed by requiredSecrets entries.
+      required:
+      - bundle
+    AIProfileFeature:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    AgentBundleUserInputConfig:
+      type: object
+      properties:
+        variableName:
+          type: string
+        type:
+          $ref: '#/components/schemas/AIUserInputType'
+        label:
+          type: string
+        configuration:
+          type: object
+          additionalProperties: true
+        showOnChatCreate:
+          type: boolean
+        orderIndex:
+          type: integer
+      required:
+      - variableName
+      - type
+      - label
+      - configuration
+      - showOnChatCreate
+      - orderIndex
+    ShareAIRequest:
+      type: object
+      properties:
+        emails:
+          type: string
+      required:
+      - emails
+    AgentBundleSecretDescriptor:
+      type: object
+      description: Describes a secret stripped during export. Keys map to credential fields in the import request.
+      properties:
+        key:
+          type: string
+          description: Secret key in the format tool:<index>:<name>:<field>.
+        description:
+          type: string
+          description: Human-readable label for the credential field.
+        secretType:
+          type: string
+          enum:
+          - apiKey
+          - password
+          - clientId
+          - clientSecret
+          - header
+          - custom
+      required:
+      - key
+      - description
+      - secretType
+    AIVisibility:
+      type: string
+      description: 'Visibility level controlling who can access the AI. PRIVATE: Only the owner can access. GROUP: Only specified groups can access. ORGANIZATION: Anyone in the organization can access. ANYONE_WITH_LINK: Anyone with the link can access.'
+      enum:
+      - PRIVATE
+      - GROUP
+      - ORGANIZATION
+      - ANYONE_WITH_LINK
+    AICreateRequest:
+      type: object
+      description: Request object for creating an AI configuration.
+      properties:
+        src:
+          type: string
+        name:
+          type: string
+        introduction:
+          type: string
+          nullable: true
+        description:
+          type: string
+        instructions:
+          type: string
+        seed:
+          type: string
+        modelId:
+          type: string
+        visibility:
+          $ref: '#/components/schemas/AIVisibility'
+        listInOrgCatalog:
+          type: boolean
+        listInPublicCatalog:
+          type: boolean
+        listInTenantCatalog:
+          type: boolean
+        generateCitations:
+          type: boolean
+        chatLogsVisible:
+          type: boolean
+        intermediateStepsVisible:
+          type: boolean
+        options:
+          $ref: '#/components/schemas/AIModelOptions'
+        groups:
+          type: array
+          items:
+            type: string
+        profile:
+          $ref: '#/components/schemas/AIProfile'
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIEditorUser'
+        publicCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCategoryType'
+        orgCategoryIds:
+          type: array
+          items:
+            type: string
+      required:
+      - src
+      - name
+      - description
+      - instructions
+    AIDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        introduction:
+          type: string
+          nullable: true
+        description:
+          type: string
+        instructions:
+          type: string
+        seed:
+          type: string
+        src:
+          type: string
+        orgId:
+          type: string
+        userId:
+          type: string
+        profile:
+          $ref: '#/components/schemas/AIProfile'
+        userName:
+          type: string
+        orgName:
+          type: string
+        categoryId:
+          type: string
+        visibility:
+          $ref: '#/components/schemas/AIVisibility'
+        listInOrgCatalog:
+          type: boolean
+        listInPublicCatalog:
+          type: boolean
+        listInTenantCatalog:
+          type: boolean
+        chatLogsVisible:
+          type: boolean
+        generateCitations:
+          type: boolean
+        intermediateStepsVisible:
+          type: boolean
+        modelId:
+          type: string
+        options:
+          $ref: '#/components/schemas/AIModelOptions'
+        groups:
+          type: array
+          items:
+            type: string
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIEditorUser'
+        publicCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCategoryType'
+        orgCategoryIds:
+          type: array
+          items:
+            type: string
+        messageCount:
+          type: integer
+        rating:
+          type: number
+        ratingCount:
+          type: integer
+        isShared:
+          type: boolean
+        hasUserChats:
+          type: boolean
+        isApprovedByOrg:
+          type: boolean
+        isPremiumModel:
+          type: boolean
+        isDeleted:
+          type: boolean
+    DataSourceRefreshPeriod:
+      type: string
+      description: How frequently the data source should be refreshed.
+      enum:
+      - NEVER
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+    DataSourceType:
+      type: string
+      description: The type of the data source.
+      enum:
+      - API
+      - FILE_UPLOAD
+      - GOOGLE_DRIVE
+      - ONEDRIVE
+      - WEB_URL
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
+    AgentBundleFlowVersionConfig:
+      type: object
+      properties:
+        version:
+          type: integer
+        active:
+          type: boolean
+        description:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+      required:
+      - version
+      - active
+      - description
+      - data
+    AgentBundleSkillConfig:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Skill slug: lowercase alphanumeric characters, hyphens, and underscores.'
+        description:
+          type: string
+        content:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - name
+      - description
+      - content
+      - enabled
+    AIModelOptions:
+      type: object
+      description: Configuration options for the AI model's behavior
+      properties:
+        temperature:
+          type: array
+          description: Controls randomness in the model's output
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        topP:
+          type: array
+          description: Controls diversity via nucleus sampling
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        topK:
+          type: array
+          description: Controls diversity by limiting to top K tokens
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        maxTokens:
+          type: array
+          description: Maximum number of tokens in the model's response
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        maxInputTokens:
+          type: array
+          description: Maximum number of input tokens allowed
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        frequencyPenalty:
+          type: array
+          description: Penalizes frequent token usage
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        presencePenalty:
+          type: array
+          description: Penalizes new token usage
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+    AIEditorUser:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        email:
+          type: string
+    AgentBundle:
+      type: object
+      description: Portable agent definition for export and import. Secrets are stripped from tool data and listed in requiredSecrets.
+      properties:
+        version:
+          type: string
+          enum:
+          - '1.0'
+        exportedAt:
+          type: string
+          format: date-time
+        source:
+          type: object
+          properties:
+            apiBaseUrl:
+              type: string
+            orgId:
+              type: string
+          required:
+          - apiBaseUrl
+          - orgId
+        agent:
+          $ref: '#/components/schemas/AgentBundleAgentConfig'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleToolConfig'
+        userInputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleUserInputConfig'
+        flows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleFlowConfig'
+        dataSources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleDataSourceConfig'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleSkillConfig'
+        requiredSecrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleSecretDescriptor'
+      required:
+      - version
+      - exportedAt
+      - source
+      - agent
+      - tools
+      - userInputs
+      - flows
+      - dataSources
+      - skills
+      - requiredSecrets

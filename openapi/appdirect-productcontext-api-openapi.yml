@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed ProductContext API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: ProductContext
+  x-displayName: Product Context
+paths:
+  /billing/v1/userProductContext/{applicationId}:
+    get:
+      description: Retrieve a product context for the current user
+      tags:
+      - ProductContext
+      summary: Retrieve a product context for the current user
+      operationId: resource_Other_readUserProductContext_GET
+      parameters:
+      - description: id of the application
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProductContextWS'
+              examples:
+                response:
+                  value:
+                    status: null
+                    assigned: false
+                    numAssignedUsers: null
+                    maxUsers: null
+                    partOfExistingBundle: false
+                    freeTrialDaysLeft: null
+                    freeTrialAllowed: true
+                    pendingEventType: ''
+                    editionId: null
+                    subscription: null
+                    owner: null
+                    paymentPlan: null
+                    purchaseRestrictions: []
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserProductContextWS'
+        '404':
+          description: Application Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /billing/v1/userProductContext/{applicationId}/companies/{companyId}/users/{userId}:
+    get:
+      description: Retrieve a product context for a supplied user and a company they belong to
+      tags:
+      - ProductContext
+      summary: Retrieve a product context for a supplied user and a company they belong to
+      operationId: resource_Other_readUserCompanyProductContext_GET
+      parameters:
+      - description: id of the application
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: uuid of the desired users' company
+        name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: uuid of the desired user
+        name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProductContextWS'
+              examples:
+                response:
+                  value:
+                    status: ACTIVE
+                    assigned: true
+                    numAssignedUsers: 1
+                    maxUsers: 2
+                    partOfExistingBundle: false
+                    freeTrialDaysLeft: null
+                    freeTrialAllowed: false
+                    pendingEventType: ''
+                    editionId: 22
+                    subscription:
+                      id: da43fcb9-988e-48d8-a132-fbc465e10aab
+                      href: http://appdirect/api/billing/v1/subscriptions/da43fcb9-988e-48d8-a132-fbc465e10aab
+                    owner:
+                      id: 7e5ff840-1e1b-4b8f-b243-26ac12ebd427
+                      href: http://appdirect/api/account/v1/users/7e5ff840-1e1b-4b8f-b243-26ac12ebd427
+                    paymentPlan:
+                      id: '41'
+                      href: http://appdirect/api/marketplace/v1/products/22/editions/22/paymentPlans/41
+                    purchaseRestrictions: []
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserProductContextWS'
+        '404':
+          description: User, Company or Application Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D/companies/%7BcompanyId%7D/users/%7BuserId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D/companies/%7BcompanyId%7D/users/%7BuserId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D/companies/%7BcompanyId%7D/users/%7BuserId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    UserProductContextWS:
+      type: object
+      title: UserProductContext
+      properties:
+        assigned:
+          description: True when the subscription has users assigned to it.
+          type: boolean
+        editionId:
+          description: The pricing plan ID of the subscription.
+          type: number
+          nullable: true
+        freeTrialAllowed:
+          description: True if a free trial is allowed for this edition or if the current subscription is in a free trial.
+          type: boolean
+        freeTrialDaysLeft:
+          description: 'The number of days remaining in the free trial for the application.
+
+            Not present if there is no free trial for the edition, if the free trial is over, or if the free trial has been
+
+            activated to a paid subscription.'
+          type: number
+          nullable: true
+        maxUsers:
+          description: Maximum number of users that can be assigned to the application. Not present when unlimited.
+          type: number
+          nullable: true
+        numAssignedUsers:
+          description: Number of users assigned to the subscription.
+          type: number
+          nullable: true
+        owner:
+          $ref: '#/components/schemas/LinkWS'
+        partOfExistingBundle:
+          description: True if this application was bought as part of a bundle.
+          type: boolean
+        paymentPlan:
+          $ref: '#/components/schemas/LinkWS'
+        pendingEventType:
+          description: 'If the subscription is blocked due to communication with a third party, this field represents the latest event type that
+
+            was blocked. Can be one of:
+
+
+            SUBSCRIPTION_ORDER,
+
+            SUBSCRIPTION_CHANGE,
+
+            SUBSCRIPTION_CANCEL,
+
+            SUBSCRIPTION_NOTICE,
+
+            USER_ASSIGNMENT,
+
+            USER_UNASSIGNMENT,
+
+            USER_UPDATED,
+
+            ADDON_ORDER,
+
+            ADDON_CHANGE,
+
+            ADDON_CANCEL,
+
+            ADDON_BIND,
+
+            ADDON_UNBIND'
+          type: string
+          nullable: true
+        purchaseRestriction:
+          description: Products that the user cannot buy due to restrictions of a currently/previously owned product or because other products are required.
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseRestrictionWS'
+        status:
+          description: 'The subscription status for the product owned by the requested user. Can be one of:
+
+            INITIALIZED,
+
+            FAILED,
+
+            FREE_TRIAL,
+
+            FREE_TRIAL_EXPIRED,
+
+            ACTIVE,
+
+            SUSPENDED,
+
+            CANCELLED;'
+          type: string
+          nullable: true
+        subscription:
+          $ref: '#/components/schemas/LinkWS'
+      example:
+        assigned: true
+        editionId: 12345
+        freeTrialAllowed: true
+        freeTrialDaysLeft: 12345
+        maxUsers: 12345
+        numAssignedUsers: 12345
+        owner:
+          href: '...'
+          id: '...'
+        partOfExistingBundle: true
+        paymentPlan:
+          href: '...'
+          id: '...'
+        pendingEventType: '...'
+        purchaseRestriction:
+        - appId: 12345
+          appName: '...'
+          browsedEditionId: 12345
+          ownedEditionId: 12345
+          ownedEditionName: '...'
+          requiredAppEdition:
+          - appId: 12345
+            appName: '...'
+            editionId: 12345
+            editionName: '...'
+          - appId: 12345
+            appName: '...'
+            editionId: 12345
+            editionName: '...'
+          restrictionType: '...'
+          upcomingSubscription: true
+        - appId: 12345
+          appName: '...'
+          browsedEditionId: 12345
+          ownedEditionId: 12345
+          ownedEditionName: '...'
+          requiredAppEdition:
+          - appId: 12345
+            appName: '...'
+            editionId: 12345
+            editionName: '...'
+          - appId: 12345
+            appName: '...'
+            editionId: 12345
+            editionName: '...'
+          restrictionType: '...'
+          upcomingSubscription: true
+        status: '...'
+        subscription:
+          href: '...'
+          id: '...'
+      nullable: true
+    LinkWS:
+      type: object
+      title: LinkWS
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+      example:
+        href: '...'
+        id: '...'
+      nullable: true
+    AppEditionWS:
+      description: Edition associated with a product
+      type: object
+      title: AppEdition
+      properties:
+        appId:
+          description: Application ID
+          type: number
+        appName:
+          description: Application name
+          type: string
+        editionId:
+          description: Edition ID
+          type: number
+        editionName:
+          description: Edition name
+          type: string
+      example:
+        appId: 12345
+        appName: '...'
+        editionId: 12345
+        editionName: '...'
+    PurchaseRestrictionWS:
+      description: Product that a user cannot buy due to restrictions of a currently/previously owned product or because other products are required
+      type: object
+      title: PurchaseRestriction
+      properties:
+        appId:
+          description: Non-purchasable application ID
+          type: number
+        appName:
+          description: Non-purchasable application name
+          type: string
+        browsedEditionId:
+          description: 'Browsed edition ID
+
+            If browsedEdition is null, then restrict the entire app.'
+          type: number
+        ownedEditionId:
+          description: Owned edition ID
+          type: number
+        ownedEditionName:
+          description: Owned edition name
+          type: string
+        requiredAppEdition:
+          description: Editions required to purchase the browsed edition
+          type: array
+          items:
+            $ref: '#/components/schemas/AppEditionWS'
+        restrictionType:
+          description: The type of restriction applied. Null if the type is unknown. For example, if the account is in transition.
+          type: string
+        upcomingSubscription:
+          description: Is upcoming subscription
+          type: boolean
+      example:
+        appId: 12345
+        appName: '...'
+        browsedEditionId: 12345
+        ownedEditionId: 12345
+        ownedEditionName: '...'
+        requiredAppEdition:
+        - appId: 12345
+          appName: '...'
+          editionId: 12345
+          editionName: '...'
+        - appId: 12345
+          appName: '...'
+          editionId: 12345
+          editionName: '...'
+        restrictionType: '...'
+        upcomingSubscription: true

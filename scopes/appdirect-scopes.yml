@@ -1,0 +1,64 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.appdirect.com/user-guides/api-usage/api-auth/scopes
+docs: https://developer.appdirect.com/user-guides/api-usage/api-auth/scopes
+note: >-
+  AppDirect OAuth 2.0 scopes correspond to marketplace user roles. Role scopes are
+  used with the Authorization Code / Implicit / Password grant types (user-level);
+  the ROLE_PARTNER_READ / ROLE_PARTNER scopes are used with the Client Credentials
+  grant (system-level). openid/profile/email are OIDC scopes.
+schemes:
+- name: OAuth2
+  source: https://developer.appdirect.com/user-guides/api-usage/api-auth
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{marketplaceURL}/oauth2/authorize
+    tokenUrl: https://{marketplaceURL}/oauth2/token
+  - flow: clientCredentials
+    tokenUrl: https://{marketplaceURL}/oauth2/token
+scopes:
+- scope: ROLE_USER
+  description: Allows access as an end user in the company associated with an API call.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_BILLING_ADMIN
+  description: Allows access as a Billing Admin for the company associated with an API call.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_SYS_ADMIN
+  description: Allows access as a Company Admin for the company associated with an API call.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_RESELLER
+  description: Allows access as a Reseller for the company associated with an API call.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_SALES_SUPPORT
+  description: Allows access as a Sales Support agent for the marketplace.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_CHANNEL_SUPPORT
+  description: Allows access as a Customer Support agent for the marketplace.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_CHANNEL_PRODUCT_SUPPORT
+  description: Allows access as a Product Support agent for the marketplace.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_CHANNEL_ADMIN
+  description: Allows access as a Marketplace Manager for the marketplace.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_CORPORATE_ADMIN
+  description: Allows access as a Network Manager for the marketplace.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_DEVELOPER
+  description: Allows access as a Developer for the user associated with an API call.
+  grant_types: [authorizationCode, implicit, password]
+- scope: ROLE_PARTNER_READ
+  description: Allows access to read all marketplace data.
+  grant_types: [clientCredentials]
+- scope: ROLE_PARTNER
+  description: Allows access to read and write all marketplace data.
+  grant_types: [clientCredentials]
+- scope: openid
+  description: Requests that the ID token be returned from the token endpoint for SSO (OIDC).
+  grant_types: [authorizationCode, implicit, password]
+- scope: profile
+  description: API client can retrieve user profile information like name (OIDC).
+  grant_types: [authorizationCode, implicit, password]
+- scope: email
+  description: API client can retrieve a user's email address (OIDC).
+  grant_types: [authorizationCode, implicit, password]

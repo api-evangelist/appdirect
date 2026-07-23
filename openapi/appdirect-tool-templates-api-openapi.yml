@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Tool Templates API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Tool Templates
+paths:
+  /api/v1/org-tool-templates:
+    get:
+      tags:
+      - Tool Templates
+      summary: List organization tool templates
+      description: Retrieves tool templates available for the organization.
+      operationId: listOrgToolTemplates
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of templates to return.
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        required: false
+        description: Offset for pagination.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Tool templates list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgToolTemplateSearchResponse'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/org-tool-templates/{id}:
+    get:
+      tags:
+      - Tool Templates
+      summary: Get an organization tool template
+      description: Retrieves details for a specific organization tool template.
+      operationId: getOrgToolTemplate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The template identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tool template details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgToolTemplate'
+        '404':
+          description: Template not found.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    OrgToolTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        orgId:
+          type: string
+        name:
+          type: string
+        templateId:
+          type: string
+        isEnabled:
+          type: boolean
+        isEnabledInChat:
+          type: boolean
+        orgConfiguration:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        template:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            logoImageUrl:
+              type: string
+            instructions:
+              type: string
+    OrgToolTemplateSearchResponse:
+      type: object
+      properties:
+        orgToolTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgToolTemplate'
+        total:
+          type: integer

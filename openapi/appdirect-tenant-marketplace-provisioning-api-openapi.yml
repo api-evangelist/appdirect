@@ -1,0 +1,1560 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Tenant Marketplace Provisioning API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Tenant Marketplace Provisioning
+  description: Tenant-owner M2M APIs for marketplace partners (org create, subscription lifecycle, balance top-up, member seats). Requires a tenant-scoped API key from the tenant-owner org.
+paths:
+  /api/v1/tenant/organizations/create:
+    post:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Create tenant organization
+      description: Creates a child organization under the tenant and returns the org ID and resolved admin user ID. When the tenant has subscription billing management enabled, the org is created without an automatic paid subscription (FREE bootstrap) so step 2 is POST .../subscription. Requires ORG_SETTINGS WRITE with a tenant-scoped API key from the tenant-owner org.
+      operationId: createTenantOrganization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantOrganizationRequestDto'
+      responses:
+        '201':
+          description: Organization created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTenantOrganizationResponseDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/subscription:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Get organization subscription
+      description: Returns the active subscription for the target org. Poll after async create/patch/cancel operations. Reconcile cancellation on cancelledAt (status may remain ACTIVE until period close). Requires ORG_SUBSCRIPTIONS READ.
+      operationId: getTenantOrgSubscription
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Active subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgSubscriptionDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Create organization subscription
+      description: Starts the subscription-created workflow (202 Accepted, empty body). Requires X-Idempotency-Key. Returns 403 when subscriptionBillingManagementEnabled is false on the tenant. Returns 409 when the org already has an active non-FREE subscription. Replay with the same idempotency key returns 202 again. Requires ORG_SUBSCRIPTIONS WRITE.
+      operationId: createTenantOrgSubscription
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantOrgSubscriptionRequestDto'
+      responses:
+        '202':
+          description: Subscription creation accepted (async workflow).
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Update organization subscription
+      description: Updates plan, seats, or external identifiers. Entitlement changes run via async workflow (202, empty body). Trivial field-only edits may return 200 with OrgSubscriptionDto. Requires X-Idempotency-Key and ORG_SUBSCRIPTIONS WRITE. Returns 403 when subscriptionBillingManagementEnabled is false.
+      operationId: patchTenantOrgSubscription
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchTenantOrgSubscriptionRequestDto'
+      responses:
+        '200':
+          description: Subscription updated synchronously.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgSubscriptionDto'
+        '202':
+          description: Subscription change accepted (async workflow).
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Cancel organization subscription
+      description: Starts the cancel lifecycle workflow (202 Accepted, empty body). Sets cancelledAt while status may remain ACTIVE until period close. Requires X-Idempotency-Key. Optional request body for provenance metadata. Requires ORG_SUBSCRIPTIONS WRITE. Returns 403 when subscriptionBillingManagementEnabled is false.
+      operationId: cancelTenantOrgSubscription
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelTenantOrgSubscriptionRequestDto'
+      responses:
+        '202':
+          description: Cancellation accepted (async workflow).
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/billing/balances:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization balances
+      description: Returns current included and extra balances per balance type. Requires BILLING_BALANCES READ.
+      operationId: getTenantOrgBalances
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization balances.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgBalanceDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Top up organization balance
+      description: 'Credits the org balance (positive amounts only). Requires X-Idempotency-Key mapped to the ledger referenceId; replays return alreadyRecorded: true. Partner convention: balanceType CHAT and targetColumn EXTRA for purchased credits. Requires BILLING_BALANCES WRITE. Returns 403 when subscriptionBillingManagementEnabled is false.'
+      operationId: topUpTenantOrgBalance
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantAdjustBalanceRequestDto'
+      responses:
+        '201':
+          description: Balance credited (or idempotent replay).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdjustBalanceResponseDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/billing/balances/ledger:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization balance ledger
+      description: Paginated ledger entries for reconciliation. Requires BILLING_BALANCES READ.
+      operationId: getTenantOrgBalanceLedger
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: balanceType
+        in: query
+        schema:
+          $ref: '#/components/schemas/BalanceTypeDto'
+      - name: since
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: until
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: entryType
+        in: query
+        schema:
+          $ref: '#/components/schemas/LedgerEntryTypeDto'
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      responses:
+        '200':
+          description: Ledger page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceLedgerPageDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/billing/invoices:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization invoices
+      description: Paginated invoices for the org subscription. Requires BILLING_INVOICES READ.
+      operationId: listTenantOrgInvoices
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          minLength: 1
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      responses:
+        '200':
+          description: Invoice page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePageDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/billing/allocations:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization allocation limits
+      description: Returns org-level monthly/daily allocation limits per balance type. Requires BILLING_ALLOCATIONS READ.
+      operationId: getTenantOrgAllocations
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Allocation limits.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgAllocationDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/members:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization members
+      description: Paginated member list for seat reconciliation. Requires ORG_SETTINGS READ.
+      operationId: listTenantOrgMembers
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: Member page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantOrganizationMembersPageDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/invitations:
+    get:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: List organization invitations
+      description: Paginated invitation list for reconciliation. Requires ORG_SETTINGS READ.
+      operationId: listTenantOrgInvitations
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - pending
+          - accepted
+          - revoked
+          default: pending
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: Invitation page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantOrganizationInvitationsPageDto'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Invite organization member
+      description: Sends an invitation email to add a member by email. Seat caps enforced. Requires ORG_SETTINGS WRITE.
+      operationId: inviteTenantOrgMember
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantOrganizationInvitationRequestDto'
+      responses:
+        '201':
+          description: Invitation sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantOrganizationInvitationSuccessDto'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+        '409':
+          description: Conflict — seat cap exceeded.
+        '429':
+          description: Rate limit exceeded.
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/members/{userId}:
+    put:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Update organization member
+      description: Updates role and/or membership type. At least one field required. Requires ORG_SETTINGS WRITE.
+      operationId: updateTenantOrgMember
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        description: Target user ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTenantOrganizationMemberRequestDto'
+      responses:
+        '200':
+          description: Member updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantMemberUpdateSuccessDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Tenant Marketplace Provisioning
+      summary: Unassign organization member
+      description: 'Removes membership and cancels seat assignment. Idempotent: returns 204 even if the member was already removed. Requires ORG_SETTINGS WRITE. Uses a Redis-backed lock; returns 503 when Redis is unavailable. Returns 400 when another deletion is already in progress for the org.'
+      operationId: unassignTenantOrgMember
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        description: Target user ID.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Member unassigned (or already absent).
+        '400':
+          description: Bad request — e.g. another member deletion is already in progress for this organization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — missing or invalid authentication.
+        '403':
+          description: Forbidden — caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable — member deletion requires Redis for the concurrency lock.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    OrgSubscriptionStatusDto:
+      type: string
+      enum:
+      - ACTIVE
+      - CANCELLED
+      - SUSPENDED
+      - FREE_TRIAL
+    AllocationLimitDto:
+      oneOf:
+      - type: string
+        enum:
+        - unlimited
+      - type: string
+        pattern: ^\d+(\.\d+)?$
+      - type: 'null'
+      description: Dollar cap, explicit unlimited, or null (inherit from next layer).
+    CreateTenantOrgSubscriptionRequestDto:
+      type: object
+      required:
+      - pricingPlan
+      - maxUsers
+      properties:
+        pricingPlan:
+          type: string
+          enum:
+          - FREE
+          - FREE_MULTI_USER
+          - PERSONAL
+          - BUSINESS
+          description: Pricing plan allowed on tenant marketplace subscription create/patch.
+        maxUsers:
+          type: integer
+          minimum: 1
+          description: Paid seat cap.
+        externalSubscriptionId:
+          type: string
+          nullable: true
+        externalCustomerId:
+          type: string
+          nullable: true
+        allowsFreeUsers:
+          type: boolean
+          description: When true, permits RESTRICTED members up to maxFreeUsers.
+        maxFreeUsers:
+          type: integer
+          minimum: 1
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
+      additionalProperties: false
+      description: Creates a subscription via async workflow. processorType is set server-side to TENANT. Plan-derived fields (balanceAllocationPerUser, usageLimits, etc.) are not accepted on the wire.
+    SubscriptionMetadataDto:
+      type: object
+      additionalProperties: true
+      properties:
+        trialEndDate:
+          type: string
+          format: date-time
+        promo:
+          type: string
+    TenantOrganizationInvitationDto:
+      type: object
+      required:
+      - id
+      - emailAddress
+      - role
+      - status
+      - membershipType
+      - createdAt
+      properties:
+        id:
+          type: string
+        emailAddress:
+          type: string
+          format: email
+        role:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - accepted
+          - revoked
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+    BillingPaginationDto:
+      type: object
+      required:
+      - nextCursor
+      - limit
+      properties:
+        nextCursor:
+          type: string
+          nullable: true
+        limit:
+          type: integer
+    BalanceLedgerPageDto:
+      type: object
+      required:
+      - data
+      - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BalanceLedgerEntryDto'
+        pagination:
+          $ref: '#/components/schemas/BillingPaginationDto'
+    SubscriptionProcessorTypeDto:
+      type: string
+      enum:
+      - STRIPE
+      - APPDIRECT
+      - APPLE
+      - TENANT
+    TenantOrganizationInvitationsPageDto:
+      type: object
+      required:
+      - invitations
+      - totalCount
+      properties:
+        invitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantOrganizationInvitationDto'
+        totalCount:
+          type: integer
+    OrgBalanceDto:
+      type: object
+      required:
+      - balanceType
+      - includedBalance
+      - extraBalance
+      properties:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        includedBalance:
+          type: string
+          description: Per-cycle included balance (decimal string).
+        extraBalance:
+          type: string
+          description: Top-up / extra balance (decimal string).
+    PatchTenantOrgSubscriptionRequestDto:
+      type: object
+      properties:
+        pricingPlan:
+          type: string
+          enum:
+          - FREE
+          - FREE_MULTI_USER
+          - PERSONAL
+          - BUSINESS
+          description: Pricing plan allowed on tenant marketplace subscription create/patch.
+        maxUsers:
+          type: integer
+          minimum: 1
+          nullable: true
+        allowsFreeUsers:
+          type: boolean
+        maxFreeUsers:
+          type: integer
+          minimum: 1
+          nullable: true
+        externalSubscriptionId:
+          type: string
+          nullable: true
+        externalCustomerId:
+          type: string
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
+      additionalProperties: false
+      description: Partial update. Status/lifecycle fields are not settable — use DELETE to cancel.
+    CancelTenantOrgSubscriptionRequestDto:
+      type: object
+      properties:
+        eventMetadata:
+          type: object
+          additionalProperties: true
+          description: Optional provenance metadata for the cancel workflow.
+      additionalProperties: false
+    OrgSubscriptionPricingPlanDto:
+      type: string
+      enum:
+      - FREE
+      - FREE_MULTI_USER
+      - PERSONAL
+      - BUSINESS
+      - ENTERPRISE
+    OrgMembershipTypeDto:
+      type: string
+      enum:
+      - FULL
+      - RESTRICTED
+    InvoicePageDto:
+      type: object
+      required:
+      - data
+      - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceDto'
+        pagination:
+          $ref: '#/components/schemas/BillingPaginationDto'
+    InitiatorTypeDto:
+      type: string
+      enum:
+      - SYSTEM
+      - USER
+      - ORG_ADMIN
+      - TENANT_ADMIN
+      - SUPERUSER
+    UsageLimitsDto:
+      type: object
+      required:
+      - tokenLimits
+      - dataUsageLimitInGb
+      - mediaUsageTokenLimit
+      properties:
+        tokenLimits:
+          type: object
+          required:
+          - standard
+          - premium
+          properties:
+            standard:
+              $ref: '#/components/schemas/TokenLimitsDto'
+              nullable: true
+            premium:
+              $ref: '#/components/schemas/TokenLimitsDto'
+              nullable: true
+        dataUsageLimitInGb:
+          type: number
+        mediaUsageTokenLimit:
+          type: integer
+    TenantMemberUpdateSuccessDto:
+      type: object
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+          enum:
+          - true
+    OrgSubscriptionDto:
+      type: object
+      required:
+      - uuid
+      - orgId
+      - createdAt
+      - updatedAt
+      - type
+      - pricingPlan
+      - pricingPlanLabel
+      - maxUsers
+      - allowsMultipleUsers
+      - maxFreeUsers
+      - allowsFreeUsers
+      - userMembershipType
+      - status
+      - periodEndDate
+      - usageLimits
+      - externalSubscriptionId
+      - externalCustomerId
+      - processorType
+      - metadata
+      - cancelledAt
+      - periodStartDate
+      - balanceAllocationPerUser
+      - storageAllocationGb
+      - enforceBillingSinceCycleStart
+      properties:
+        uuid:
+          type: string
+          description: Public identifier for the organization subscription.
+        orgId:
+          type: string
+          description: Organization ID associated with the subscription.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the subscription was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the subscription was last updated.
+        type:
+          $ref: '#/components/schemas/OrgSubscriptionTypeDto'
+        pricingPlan:
+          $ref: '#/components/schemas/OrgSubscriptionPricingPlanDto'
+        pricingPlanLabel:
+          type: string
+          description: Human-readable pricing plan label.
+        maxUsers:
+          type: integer
+          nullable: true
+          description: Maximum number of users allowed by the subscription.
+        allowsMultipleUsers:
+          type: boolean
+          description: Whether the subscription permits multiple users.
+        maxFreeUsers:
+          type: integer
+          nullable: true
+          description: Maximum number of free users allowed by the subscription.
+        allowsFreeUsers:
+          type: boolean
+          description: Whether the subscription permits restricted/free users.
+        userMembershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+        status:
+          $ref: '#/components/schemas/OrgSubscriptionStatusDto'
+        periodEndDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: The current subscription period end date, when available.
+        usageLimits:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/UsageLimitsDto'
+        externalSubscriptionId:
+          type: string
+          nullable: true
+          description: External processor subscription identifier.
+        externalCustomerId:
+          type: string
+          nullable: true
+          description: External processor customer identifier.
+        processorType:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/SubscriptionProcessorTypeDto'
+        metadata:
+          $ref: '#/components/schemas/SubscriptionMetadataDto'
+        cancelledAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO-8601 cancel signal. Set on cancellation while status may remain ACTIVE until the subscription period closes.
+        periodStartDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: Current subscription period start date, when available.
+        balanceAllocationPerUser:
+          type: string
+          nullable: true
+          description: Dollar allocation per user as a decimal string (preserves precision).
+        storageAllocationGb:
+          type: integer
+          nullable: true
+          description: Storage allocation in gigabytes for the subscription plan.
+        enforceBillingSinceCycleStart:
+          type: string
+          format: date-time
+          nullable: true
+          description: Cycle start when dollar-balance enforcement began, or null when deferred.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    AdjustBalanceResponseDto:
+      type: object
+      required:
+      - ledgerEntry
+      - alreadyRecorded
+      properties:
+        ledgerEntry:
+          $ref: '#/components/schemas/BalanceLedgerEntryDto'
+        alreadyRecorded:
+          type: boolean
+          description: True when an idempotent replay returned the previously recorded ledger row.
+    CreateTenantOrganizationInvitationRequestDto:
+      type: object
+      required:
+      - emailAddress
+      - role
+      properties:
+        emailAddress:
+          type: string
+          format: email
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+          description: Defaults to FULL.
+      additionalProperties: false
+    TenantOrganizationMembersPageDto:
+      type: object
+      required:
+      - members
+      - totalCount
+      properties:
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantOrganizationMemberDto'
+        totalCount:
+          type: integer
+    TenantOrganizationInvitationSuccessDto:
+      type: object
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+          enum:
+          - true
+    CreateTenantOrganizationAdminDto:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Admin email address.
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 255
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 255
+        externalId:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Partner external user identifier.
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+          description: Admin seat type. Defaults to FULL.
+      additionalProperties: false
+    LedgerEntryTypeDto:
+      type: string
+      enum:
+      - CONSUMPTION
+      - WEB_SEARCH_CONSUMPTION
+      - IMAGE_GENERATION_CONSUMPTION
+      - PROVISIONING
+      - TOP_UP
+      - RESET
+      - ADJUSTMENT
+      - FREE_TIER_CREDIT
+      - ADJUSTMENT_CREDIT_INCLUDED
+      - ADJUSTMENT_CREDIT_EXTRA
+      - ADJUSTMENT_DEBIT_INCLUDED
+      - ADJUSTMENT_DEBIT_EXTRA
+    CreateTenantOrganizationRequestDto:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Organization display name.
+        seedOrgName:
+          type: boolean
+          default: true
+          description: When true (default), seeds the org brand name from name. When false, inherits tenant branding for the name.
+        admin:
+          $ref: '#/components/schemas/CreateTenantOrganizationAdminDto'
+        externalId:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Partner external organization identifier for reconciliation.
+      additionalProperties: false
+    TenantOrganizationMemberDto:
+      type: object
+      required:
+      - userId
+      - email
+      - firstName
+      - lastName
+      - role
+      - status
+      - membershipType
+      - createdAt
+      - externalUserId
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+        status:
+          type: string
+          enum:
+          - member
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+        createdAt:
+          type: string
+          format: date-time
+        externalUserId:
+          type: string
+          nullable: true
+    UpdateTenantOrganizationMemberRequestDto:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+      additionalProperties: false
+      description: At least one of role or membershipType must be provided.
+    InvoiceDto:
+      type: object
+      required:
+      - id
+      - number
+      - description
+      - status
+      - currency
+      - amountPaid
+      - amountDue
+      - hostedInvoiceUrl
+      - invoicePdfUrl
+      - periodStart
+      - periodEnd
+      - createdAt
+      - paidAt
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        status:
+          type: string
+        currency:
+          type: string
+        amountPaid:
+          type: string
+        amountDue:
+          type: string
+        hostedInvoiceUrl:
+          type: string
+          nullable: true
+        invoicePdfUrl:
+          type: string
+          nullable: true
+        periodStart:
+          type: string
+          format: date-time
+        periodEnd:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        paidAt:
+          type: string
+          format: date-time
+          nullable: true
+    CreateTenantOrganizationResponseDto:
+      type: object
+      required:
+      - orgId
+      - adminUserId
+      - name
+      - tenantPublicId
+      - tenantName
+      - seededOrgName
+      properties:
+        orgId:
+          type: string
+        adminUserId:
+          type: string
+          description: Resolved admin user ID (supplied admin or API caller).
+        name:
+          type: string
+        tenantPublicId:
+          type: string
+        tenantName:
+          type: string
+        seededOrgName:
+          type: boolean
+          description: False when seedOrgName was requested but the brand-name write failed (org still created).
+    BalanceTypeDto:
+      type: string
+      enum:
+      - CHAT
+      - CLI
+      - APP_BUILDER
+      - FREE_TIER
+    OrgAllocationDto:
+      type: object
+      required:
+      - balanceType
+      - monthlyLimit
+      - dailyLimit
+      properties:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        monthlyLimit:
+          $ref: '#/components/schemas/AllocationLimitDto'
+        dailyLimit:
+          $ref: '#/components/schemas/AllocationLimitDto'
+    TenantSubscriptionMetadataRequestDto:
+      type: object
+      additionalProperties: false
+      properties:
+        trialEndDate:
+          type: string
+          format: date-time
+        promo:
+          type: string
+      description: Typed subscription metadata accepted on tenant marketplace create/patch. Unknown keys are rejected.
+    TenantAdjustBalanceRequestDto:
+      type: object
+      required:
+      - balanceType
+      - targetColumn
+      - amount
+      - reason
+      properties:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        targetColumn:
+          $ref: '#/components/schemas/BalanceColumnDto'
+        amount:
+          type: string
+          pattern: ^\d{1,8}(\.\d{1,12})?$
+          description: Positive non-zero dollar amount as a decimal string (up to 8 integer and 12 fractional digits). Must be greater than zero; floats are not accepted.
+        reason:
+          type: string
+          minLength: 10
+          maxLength: 500
+          description: Audit reason (trimmed; must be at least 10 characters after trim).
+      additionalProperties: false
+    BalanceLedgerEntryDto:
+      type: object
+      required:
+      - id
+      - userId
+      - balanceType
+      - entryType
+      - amount
+      - initiatorType
+      - initiatedBy
+      - reason
+      - referenceType
+      - referenceId
+      - consumptionDetail
+      - createdAt
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+          nullable: true
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        entryType:
+          $ref: '#/components/schemas/LedgerEntryTypeDto'
+        amount:
+          type: string
+          description: Signed decimal string.
+        initiatorType:
+          $ref: '#/components/schemas/InitiatorTypeDto'
+        initiatedBy:
+          type: string
+        reason:
+          type: string
+          nullable: true
+        referenceType:
+          type: string
+          nullable: true
+        referenceId:
+          type: string
+          nullable: true
+        consumptionDetail:
+          type: object
+          nullable: true
+          description: Null for manual adjustments and top-ups.
+        createdAt:
+          type: string
+          format: date-time
+    TokenLimitsDto:
+      type: object
+      required:
+      - input
+      - output
+      properties:
+        input:
+          type: integer
+        output:
+          type: integer
+    OrgSubscriptionTypeDto:
+      type: string
+      enum:
+      - FREE
+      - PAID
+    BalanceColumnDto:
+      type: string
+      enum:
+      - INCLUDED
+      - EXTRA
+      description: Balance column to credit. Partners typically send EXTRA for purchased top-ups.
+  parameters:
+    XIdempotencyKey:
+      name: X-Idempotency-Key
+      in: header
+      required: true
+      description: Client-supplied idempotency key (1–128 characters). Required for subscription lifecycle mutations and balance top-ups. Replaying the same key returns the same success outcome.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128

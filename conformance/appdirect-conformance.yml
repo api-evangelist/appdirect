@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/appdirect-companies-openapi-original.yml + https://developer.appdirect.com/user-guides/api-usage/api-auth
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Marketplace REST + GraphQL APIs use OAuth 2.0 (authorization code, implicit,
+    password, client credentials grants) per the auth docs.
+- id: oidc
+  conforms: true
+  evidence: openid/profile/email scopes documented; ID token returned from the token endpoint for SSO.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are standard HTTP status codes with JSON bodies, not application/problem+json.
+- id: webhooks
+  conforms: true
+  evidence: Documented HTTP POST JSON webhook system (developer.appdirect.com/webhooks/webhookintro).
+- id: graphql
+  conforms: true
+  evidence: Hosted GraphQL API with introspection and explorer tooling.
+- id: pagination
+  conforms: true
+  evidence: page/size/sort query parameters across list operations.
+- id: idempotency
+  conforms: true
+  evidence: idempotencyKey field on the billing/usage integration API.

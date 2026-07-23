@@ -1,0 +1,18 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for AppDirect Companies API
+  version: 1.0.0
+extends: openapi/appdirect-companies-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-17'
+    x-apievangelist-auth: OAuth 2.0 (see authentication/appdirect-authentication.yml)
+    x-apievangelist-pagination: page/size/sort
+    x-apievangelist-idempotency: idempotencyKey body field on POST /integration/v1/billing/usage
+    x-apievangelist-status-pages:
+    - https://us.status.appdirect.com/
+    - https://eu.status.appdirect.com/
+- target: $.servers
+  update:
+    x-apievangelist-note: Production base URL is marketplace-scoped; https://marketplace.appdirect.com/api is the reference host.

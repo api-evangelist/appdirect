@@ -1,0 +1,414 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Event API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Event
+  x-displayName: Events
+paths:
+  /channel/v1/events:
+    get:
+      description: This call lists  all events on your marketplace.
+      tags:
+      - Event
+      summary: List all events
+      operationId: resource_Other_readEvents_GET
+      parameters:
+      - description: Search events from this date in milliseconds.
+        name: fromDate
+        in: query
+        schema:
+          type: number
+      - description: Only return events for these purchase order.
+        name: orderId
+        in: query
+        schema:
+          type: number
+      - description: The desired page. Defaults to "0".
+        name: page
+        in: query
+        schema:
+          type: string
+          default: '0'
+      - description: Search term used to search on different fields of an application.
+        name: searchText
+        in: query
+        schema:
+          type: string
+          minLength: 0
+          maxLength: 1024
+      - description: The number of events per page. Defaults to "250".
+        name: size
+        in: query
+        schema:
+          type: string
+          default: '50'
+      - description: Ordering type. Default is "ASC".
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+      - description: Search events to this date in milliseconds.
+        name: toDate
+        in: query
+        schema:
+          type: number
+      - description: Only return events for these event type.
+        name: type
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: paged events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourcesOfEventWS'
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: EventID
+                      type: SUBSCRIPTION_ORDER
+                      creationDate: 1480310700384
+                      product:
+                        productId: 1341
+                        name: wvrZh7o1WOrZxmt3
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/marketplace/v1/products/1341
+                      company:
+                        companyId: null
+                        name: companyName
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v1/companies/null
+                      orderId: 362
+                      subscriptionId: null
+                      consumed: false
+                      successful: true
+                      asynchronous: true
+                      error:
+                        code: null
+                        message: null
+                      manuallyResolved: false
+                    page:
+                      size: 1
+                      totalElements: 1
+                      totalPages: 1
+                      number: 0
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/channel/v1/events?fromDate=SOME_NUMBER_VALUE&orderId=SOME_NUMBER_VALUE&page=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&size=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&toDate=SOME_NUMBER_VALUE&type=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/events',\n  qs: {\n    fromDate: 'SOME_NUMBER_VALUE',\n    orderId: 'SOME_NUMBER_VALUE',\n    page: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    size: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    toDate: 'SOME_NUMBER_VALUE',\n    type: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/events?fromDate=SOME_NUMBER_VALUE&orderId=SOME_NUMBER_VALUE&page=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&size=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&toDate=SOME_NUMBER_VALUE&type=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /channel/v1/events/{eventId}:
+    get:
+      description: This call returns all details for a specific event.
+      tags:
+      - Event
+      summary: Retrieve an event
+      operationId: resource_Other_readEventById_GET
+      parameters:
+      - description: Only return event with this event id.
+        name: eventId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event read.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventWS'
+              examples:
+                response:
+                  value:
+                    uuid: EventID
+                    type: SUBSCRIPTION_ORDER
+                    creationDate: 1480310699136
+                    product:
+                      productId: 1335
+                      name: rWA4Y3hiV6yU9OHm
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/marketplace/v1/products/1335
+                    company:
+                      companyId: acecc1af-174c-467c-9ac6-a1469ff9ef1a
+                      name: companyName
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v1/companies/acecc1af-174c-467c-9ac6-a1469ff9ef1a
+                    orderId: 356
+                    subscriptionId: 354
+                    consumed: false
+                    successful: true
+                    asynchronous: true
+                    error:
+                      code: null
+                      message: null
+                    manuallyResolved: false
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/channel/v1/events/EventID
+        '404':
+          description: Event not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/channel/v1/events/%7BeventId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/channel/v1/events/%7BeventId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/events/%7BeventId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    PagedResourcesOfEventWS:
+      allOf:
+      - $ref: '#/components/schemas/Resources'
+      - type: object
+        title: PagedResourcesOfEventWS
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+        example:
+          content:
+          - {}
+          - {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          page:
+            number: 12345
+            size: 12345
+            totalElements: 12345
+            totalPages: 12345
+    Resources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: Resources
+        properties:
+          content:
+            type: array
+            items:
+              type: object
+        example:
+          content:
+          - {}
+          - {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+    EventType:
+      type: string
+      title: EventType
+      enum:
+      - SUBSCRIPTION_ORDER
+      - SUBSCRIPTION_CHANGE
+      - SUBSCRIPTION_CANCEL
+      - SUBSCRIPTION_NOTICE
+      - USER_ASSIGNMENT
+      - USER_UNASSIGNMENT
+      - USER_UPDATED
+      - ADDON_ORDER
+      - ADDON_CHANGE
+      - ADDON_CANCEL
+      - ADDON_BIND
+      - ADDON_UNBIND
+    EventProductWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Production information being used in an event
+        type: object
+        title: EventProductWS
+        properties:
+          name:
+            description: Product name
+            type: string
+          productId:
+            description: Product id
+            type: number
+        example:
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+          productId: 12345
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    EventWS:
+      description: A subscription related integration event
+      type: object
+      title: Event
+      properties:
+        asynchronous:
+          description: Whether the event is asynchronous or not
+          type: boolean
+        company:
+          $ref: '#/components/schemas/CompanyWS'
+        consumed:
+          description: Whether the event has been consumed by vendor or not
+          type: boolean
+        creationDate:
+          description: Date when the event was created
+          type: number
+        error:
+          $ref: '#/components/schemas/ErrorWS'
+        manuallyResolved:
+          description: Whether the event has been manually resolved
+          type: boolean
+        orderId:
+          description: Order id
+          type: number
+        product:
+          $ref: '#/components/schemas/EventProductWS'
+        subscriptionId:
+          description: Subscription id
+          type: number
+        successful:
+          description: If the event is consumed, then whether it's successful or not
+          type: boolean
+        type:
+          $ref: '#/components/schemas/EventType'
+        uuid:
+          description: Unique event identifier
+          type: string
+      example:
+        asynchronous: true
+        company:
+          companyId: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+        consumed: true
+        creationDate: 12345
+        error:
+          code: '...'
+          message: '...'
+        manuallyResolved: true
+        orderId: 12345
+        product:
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+          productId: 12345
+        subscriptionId: 12345
+        successful: true
+        type: SUBSCRIPTION_CHANGE
+        uuid: '...'
+    CompanyWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Company information being used in an event
+        type: object
+        title: CompanyWS
+        properties:
+          companyId:
+            description: Company id
+            type: string
+          name:
+            description: Company name
+            type: string
+        example:
+          companyId: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    ErrorWS:
+      type: object
+      title: ErrorWS
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      example:
+        code: '...'
+        message: '...'
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

@@ -1,0 +1,477 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Integrations API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Integrations
+paths:
+  /api/v1/integrations/google-drive/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: List Google Drive accounts
+      description: Retrieves Google Drive OAuth accounts for the current user.
+      operationId: listGoogleDriveAccounts
+      responses:
+        '200':
+          description: List of Google Drive accounts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOAuthToken'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/onedrive/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: List OneDrive accounts
+      description: Retrieves OneDrive OAuth accounts for the current user.
+      operationId: listOneDriveAccounts
+      responses:
+        '200':
+          description: List of OneDrive accounts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOAuthToken'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/onedrive/accounts/{id}:
+    delete:
+      tags:
+      - Integrations
+      summary: Disconnect a OneDrive account
+      description: Deletes the specified OneDrive OAuth token.
+      operationId: deleteOneDriveAccount
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The OAuth token ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account disconnected.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/onedrive/search:
+    post:
+      tags:
+      - Integrations
+      summary: Search OneDrive content
+      description: Searches OneDrive files and folders.
+      operationId: searchOneDrive
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/onedrive/children:
+    post:
+      tags:
+      - Integrations
+      summary: List OneDrive folder children
+      description: Retrieves child items for a OneDrive folder.
+      operationId: listOneDriveChildren
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationItemRequest'
+      responses:
+        '200':
+          description: Children list.
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/onedrive/sharepoint:
+    post:
+      tags:
+      - Integrations
+      summary: List SharePoint children
+      description: Retrieves child items for a SharePoint site.
+      operationId: listSharePointChildren
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationItemRequest'
+      responses:
+        '200':
+          description: SharePoint children list.
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/confluence/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: List Confluence accounts
+      description: Retrieves Confluence OAuth accounts for the current user.
+      operationId: listConfluenceAccounts
+      responses:
+        '200':
+          description: List of Confluence accounts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOAuthToken'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/confluence/search:
+    post:
+      tags:
+      - Integrations
+      summary: Search Confluence content
+      description: Searches Confluence content for selection.
+      operationId: searchConfluence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/jira/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: List Jira accounts
+      description: Retrieves Jira OAuth accounts for the current user.
+      operationId: listJiraAccounts
+      responses:
+        '200':
+          description: List of Jira accounts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOAuthToken'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/jira/search:
+    post:
+      tags:
+      - Integrations
+      summary: Search Jira projects
+      description: Searches Jira projects for selection.
+      operationId: searchJira
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/github/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: List GitHub accounts
+      description: Retrieves GitHub OAuth accounts for the current user.
+      operationId: listGitHubAccounts
+      responses:
+        '200':
+          description: List of GitHub accounts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOAuthToken'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/me/integrations/github/installs:
+    get:
+      tags:
+      - Integrations
+      summary: List GitHub app installations
+      description: Retrieves GitHub app installations for the current user.
+      operationId: listGitHubAppInstallations
+      responses:
+        '200':
+          description: GitHub app installations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubAppInstallationsResponse'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/github/search:
+    post:
+      tags:
+      - Integrations
+      summary: Search GitHub repositories
+      description: Searches GitHub repositories accessible to an installation.
+      operationId: searchGitHubRepositories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubRepositorySearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedExternalGitHubRepositoryResponse'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/integrations/github/preview:
+    post:
+      tags:
+      - Integrations
+      summary: Preview GitHub repository
+      description: Previews repository content for selection.
+      operationId: previewGitHubRepository
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubPreviewRequest'
+      responses:
+        '200':
+          description: Preview results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubPreviewResponse'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    PaginatedExternalGitHubRepositoryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalGitHubRepository'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+    GitHubAppInstallation:
+      type: object
+      properties:
+        id:
+          type: integer
+        installationId:
+          type: string
+        targetId:
+          type: string
+        targetType:
+          type: string
+        targetLabel:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    GitHubRepositorySearchRequest:
+      type: object
+      properties:
+        searchTerm:
+          type: string
+        gitHubAppInstallationId:
+          type: string
+        limit:
+          type: integer
+        cursor:
+          type: string
+      required:
+      - gitHubAppInstallationId
+    OAuthTokenProvider:
+      type: string
+      enum:
+      - GOOGLE
+      - MSFT
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
+    UserOAuthToken:
+      type: object
+      properties:
+        id:
+          type: string
+        orgId:
+          type: string
+        userId:
+          type: string
+        provider:
+          $ref: '#/components/schemas/OAuthTokenProvider'
+        externalId:
+          type: string
+        label:
+          type: string
+        data:
+          type: object
+        metadata:
+          type: object
+        status:
+          $ref: '#/components/schemas/OAuthTokenStatus'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        issuedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        refreshExpiresAt:
+          type: string
+          format: date-time
+    GitHubAppInstallationsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GitHubAppInstallation'
+    GitHubPreviewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GithubFile'
+    IntegrationItemRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        oauthTokenId:
+          type: string
+      required:
+      - id
+      - oauthTokenId
+    OAuthTokenStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACTIVE
+      - EXPIRED
+      - REVOKED
+    GithubFile:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        sha:
+          type: string
+        size:
+          type: integer
+        url:
+          type: string
+        html_url:
+          type: string
+        git_url:
+          type: string
+        download_url:
+          type: string
+          nullable: true
+        type:
+          type: string
+        owner:
+          type: string
+        repo:
+          type: string
+        content:
+          type: string
+    GitHubPreviewRequest:
+      type: object
+      properties:
+        repo:
+          type: string
+        gitHubAppInstallationId:
+          type: string
+      required:
+      - repo
+      - gitHubAppInstallationId
+    IntegrationSearchRequest:
+      type: object
+      properties:
+        searchTerm:
+          type: string
+        oauthTokenId:
+          type: string
+      required:
+      - searchTerm
+      - oauthTokenId
+    ExternalGitHubRepository:
+      type: object
+      properties:
+        id:
+          type: integer
+        node_id:
+          type: string
+        name:
+          type: string
+        private:
+          type: boolean

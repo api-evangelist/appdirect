@@ -1,0 +1,295 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed DataUploader API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: DataUploader
+  x-displayName: Product Uploader
+paths:
+  /api/v1/product-uploader-api/updateCatalog:
+    post:
+      description: Update an existing product catalog using a CSV file. This endpoint allows you to modify existing product information in the catalog.
+      tags:
+      - DataUploader
+      summary: Update product catalog
+      operationId: resource_DataUploader_updateCatalog_POST
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: CSV file containing product catalog data to update
+                  type: string
+                  format: binary
+                entityType:
+                  description: Type of entity being uploaded (e.g., PRODUCT_BASIC)
+                  type: string
+                  enum:
+                  - EDITION
+                  - PRICING_PLAN
+                  - EDITION_PRICING
+                  - PRODUCT_SETTING_GENERAL
+                  - PRODUCT_SETTING_CATEGORY
+                  - PRODUCT_SETTING_PRODUCT_LINE
+                  - PRODUCT_SETTING_ATTRIBUTE
+                  - MARKETPLACE_PRICE
+                  - PRODUCTION_PRICE
+                  - WHOLESALE_PRICE
+                  - PRODUCT_CUSTOM_ATTRIBUTE
+                  - PRODUCT_BASIC
+                  - PRODUCT_FEATURE
+                  - PRODUCT_BENEFIT
+                  - PRODUCT_MEDIA
+                  - PRODUCT_FEATURE_CHARACTERISTIC
+                  - PRODUCT_IMAGE
+                  - PRICE_BOOK
+                  - PRODUCT_INTEGRATION
+                  - PRODUCT_INTEGRATION_CREDENTIAL
+              required:
+              - file
+              - entityType
+        required: true
+      responses:
+        '200':
+          description: Catalog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogUploadResponse'
+              examples:
+                response:
+                  value:
+                    message: Uploaded the file successfully
+                    data:
+                      file:
+                        fieldname: file
+                        originalname: test.csv
+                        encoding: 7bit
+                        mimetype: text/csv
+                        destination: /app/resources/static/uploads
+                        filename: 1750151421696_Single CSV Template (69).csv
+                        path: /app/resources/static/uploads/1750151421696_Single CSV Template (69).csv
+                        size: 3420
+                      processId: 4e4b146c-47dd-4b19-ac00-8214ff1e286d
+        '400':
+          description: Bad request - Invalid file format or entity type
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/api/v1/product-uploader-api/updateCatalog \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/api/v1/product-uploader-api/updateCatalog',\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/v1/product-uploader-api/updateCatalog\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /api/v1/product-uploader-api/createCatalog:
+    post:
+      description: Create a new product catalog using a CSV file. This endpoint allows you to create a completely new catalog with product information.
+      tags:
+      - DataUploader
+      summary: Create product catalog
+      operationId: resource_DataUploader_createCatalog_POST
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: CSV file containing product catalog data to create
+                  type: string
+                  format: binary
+                entityType:
+                  description: Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED)
+                  type: string
+                  enum:
+                  - CATALOG_CONSOLIDATED
+                  - PRODUCT_CONSOLIDATED
+                  - PRICE_BOOK_SCHEDULE
+              required:
+              - file
+              - entityType
+        required: true
+      responses:
+        '200':
+          description: Catalog created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogUploadResponse'
+              examples:
+                response:
+                  value:
+                    message: Uploaded the file successfully
+                    data:
+                      file:
+                        fieldname: file
+                        originalname: Single CSV Template.csv
+                        encoding: 7bit
+                        mimetype: text/csv
+                        destination: /app/resources/static/uploads
+                        filename: 1750151421697_Product Catalog Template.csv
+                        path: /app/resources/static/uploads/1750151421697_Product Catalog Template.csv
+                        size: 5120
+                      processId: 5f5c257d-58ee-5c2a-bd11-9325ff2f397e
+        '400':
+          description: Bad request - Invalid file format or entity type
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/api/v1/product-uploader-api/createCatalog \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/api/v1/product-uploader-api/createCatalog',\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/v1/product-uploader-api/createCatalog\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /api/v1/product-uploader-api/publishCatalog:
+    post:
+      description: Publish a product catalog using a CSV file. This endpoint makes the catalog available for use in the marketplace.
+      tags:
+      - DataUploader
+      summary: Publish product catalog
+      operationId: resource_DataUploader_publishCatalog_POST
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: CSV file containing product catalog data to publish
+                  type: string
+                  format: binary
+                entityType:
+                  description: Type of entity being uploaded (e.g., PRODUCT)
+                  type: string
+                  enum:
+                  - PRODUCT
+              required:
+              - file
+              - entityType
+        required: true
+      responses:
+        '200':
+          description: Catalog published successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogUploadResponse'
+              examples:
+                response:
+                  value:
+                    message: Uploaded the file successfully
+                    data:
+                      file:
+                        fieldname: file
+                        originalname: Publish Catalog Template.csv
+                        encoding: 7bit
+                        mimetype: text/csv
+                        destination: /app/resources/static/uploads
+                        filename: 1750151421698_Publish Catalog Template.csv
+                        path: /app/resources/static/uploads/1750151421698_Publish Catalog Template.csv
+                        size: 2800
+                      processId: 6g6d368e-69ff-6d3b-ce22-0436ff3f408f
+        '400':
+          description: Bad request - Invalid file format or entity type
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/api/v1/product-uploader-api/publishCatalog \\\n  --header 'content-type: multipart/form-data'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/api/v1/product-uploader-api/publishCatalog',\n  headers: {'content-type': 'multipart/form-data'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/v1/product-uploader-api/publishCatalog\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    UploadedFile:
+      title: UploadedFile
+      description: Details of the uploaded file
+      type: object
+      properties:
+        fieldname:
+          type: string
+          description: Name of the form field used for file upload
+        originalname:
+          type: string
+          description: Original filename of the uploaded file
+        encoding:
+          type: string
+          description: Encoding of the uploaded file
+        mimetype:
+          type: string
+          description: MIME type of the uploaded file
+        destination:
+          type: string
+          description: Directory where the file was saved
+        filename:
+          type: string
+          description: Generated filename for the saved file
+        path:
+          type: string
+          description: Full path to the saved file
+        size:
+          type: number
+          description: Size of the uploaded file in bytes
+      required:
+      - fieldname
+      - originalname
+      - encoding
+      - mimetype
+      - destination
+      - filename
+      - path
+      - size
+    CatalogUploadResponse:
+      title: CatalogUploadResponse
+      description: Response returned after a successful catalog upload operation
+      type: object
+      properties:
+        message:
+          type: string
+          description: Success message describing the operation result
+        data:
+          type: object
+          description: Data containing file upload details and process information
+          properties:
+            file:
+              $ref: '#/components/schemas/UploadedFile'
+            processId:
+              type: string
+              description: Unique process identifier for tracking the upload operation
+          required:
+          - file
+          - processId
+      required:
+      - message
+      - data
+      example:
+        message: Uploaded the file successfully
+        data:
+          file:
+            fieldname: file
+            originalname: Single CSV Template (69).csv
+            encoding: 7bit
+            mimetype: text/csv
+            destination: /app/resources/static/uploads
+            filename: 1750151421696_Single CSV Template (69).csv
+            path: /app/resources/static/uploads/1750151421696_Single CSV Template (69).csv
+            size: 3420
+          processId: 4e4b146c-47dd-4b19-ac00-8214ff1e286d

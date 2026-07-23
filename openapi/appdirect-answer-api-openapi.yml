@@ -1,0 +1,336 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Answer API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Answer
+  x-displayName: Product Answers
+paths:
+  /marketplace/v1/products/{applicationId}/questions/{questionId}/answers:
+    get:
+      description: List answers of a given question on an product
+      tags:
+      - Answer
+      summary: List all answers
+      operationId: resource_Answer_readProductQuestionAnswers_GET
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Question id
+        name: questionId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Question answers read.
+          content:
+            application/json:
+              schema:
+                description: Question answers read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionAnswerWS'
+              examples:
+                response:
+                  value:
+                  - id: 1
+                    comment: Sample Answer
+                    author:
+                      uuid: c1490377-953d-4701-8356-b1454b816476
+                      name: user.test
+                      profilePicUrl: null
+                    lastModified: 1461792712537
+                    official: true
+            application/xml:
+              schema:
+                description: Question answers read.
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionAnswerWS'
+        '404':
+          description: Application or question not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: This call creates an answer to a product question submitted on your marketplace.
+      tags:
+      - Answer
+      summary: Create an answer
+      operationId: resource_Answer_createProductQuestionAnswer_POST
+      parameters:
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Question id
+        name: questionId
+        in: path
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionAnswerWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QuestionAnswerWS'
+        description: Question answer data
+      responses:
+        '201':
+          description: Created question answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+              examples:
+                response:
+                  value:
+                    id: 4
+                    comment: Sample Answer
+                    author:
+                      uuid: a7723111-f4c6-4510-aba4-2f4bef9d2ce5
+                      name: user.test
+                      profilePicUrl: null
+                    lastModified: null
+                    official: true
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers \\\n  --data '{\"author\":{\"name\":\"...\",\"profilePicUrl\":\"...\",\"uuid\":\"...\"},\"comment\":\"...\",\"id\":12345,\"lastModified\":12345,\"official\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers',\n  body: {\n    author: {name: '...', profilePicUrl: '...', uuid: '...'},\n    comment: '...',\n    id: 12345,\n    lastModified: 12345,\n    official: true\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"author\\\":{\\\"name\\\":\\\"...\\\",\\\"profilePicUrl\\\":\\\"...\\\",\\\"uuid\\\":\\\"...\\\"},\\\"comment\\\":\\\"...\\\",\\\"id\\\":12345,\\\"lastModified\\\":12345,\\\"official\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /marketplace/v1/products/{applicationId}/questions/{questionId}/answers/{answerId}:
+    get:
+      description: This call returns all answer details for a specific product.
+      tags:
+      - Answer
+      summary: Retrieve an answer
+      operationId: resource_Answer_readProductQuestionAnswer_GET
+      parameters:
+      - description: Answer id
+        name: answerId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Question id
+        name: questionId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Question answer read.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+              examples:
+                response:
+                  value:
+                    id: 3
+                    comment: Sample Answer
+                    author:
+                      uuid: 3885644f-89b3-4b42-9293-d9fa446d2125
+                      name: user.test
+                      profilePicUrl: null
+                    lastModified: 1461792715058
+                    official: true
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+        '404':
+          description: Application, question or answer not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: This call updates an existing answer on your marketplace.
+      tags:
+      - Answer
+      summary: Update an answer
+      operationId: resource_Answer_updateProductQuestionAnswer_PUT
+      parameters:
+      - description: Answer id
+        name: answerId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Question id
+        name: questionId
+        in: path
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionAnswerWS'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QuestionAnswerWS'
+        description: Question answer data
+      responses:
+        '200':
+          description: Question answers updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+              examples:
+                response:
+                  value:
+                    id: 4
+                    comment: Sample Answer
+                    author:
+                      uuid: a7723111-f4c6-4510-aba4-2f4bef9d2ce5
+                      name: user.test
+                      profilePicUrl: null
+                    lastModified: null
+                    official: true
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QuestionAnswerWS'
+        '404':
+          description: Application, question or answer not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D \\\n  --data '{\"author\":{\"name\":\"...\",\"profilePicUrl\":\"...\",\"uuid\":\"...\"},\"comment\":\"...\",\"id\":12345,\"lastModified\":12345,\"official\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D',\n  body: {\n    author: {name: '...', profilePicUrl: '...', uuid: '...'},\n    comment: '...',\n    id: 12345,\n    lastModified: 12345,\n    official: true\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"author\\\":{\\\"name\\\":\\\"...\\\",\\\"profilePicUrl\\\":\\\"...\\\",\\\"uuid\\\":\\\"...\\\"},\\\"comment\\\":\\\"...\\\",\\\"id\\\":12345,\\\"lastModified\\\":12345,\\\"official\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: This call deletes an answer from your marketplace.
+      tags:
+      - Answer
+      summary: Delete an answer
+      operationId: resource_Answer_deleteProductQuestionAnswer_DELETE
+      parameters:
+      - description: Answer id
+        name: answerId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Application id
+        name: applicationId
+        in: path
+        required: true
+        schema:
+          type: number
+      - description: Question id
+        name: questionId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '204':
+          description: Question answer deleted.
+        '404':
+          description: Application, question or answer not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AuthorWS:
+      description: Author of a question, an answer, a review or a review comment
+      type: object
+      title: Author
+      properties:
+        name:
+          description: Name
+          type: string
+        profilePicUrl:
+          description: Profile pic URL
+          type: string
+          nullable: true
+        uuid:
+          description: Unique identifier
+          type: string
+          nullable: true
+      example:
+        name: '...'
+        profilePicUrl: '...'
+        uuid: '...'
+    QuestionAnswerWS:
+      description: Answer to a question on a product
+      type: object
+      title: QuestionAnswer
+      properties:
+        author:
+          $ref: '#/components/schemas/AuthorWS'
+        comment:
+          description: Comment
+          type: string
+        id:
+          description: ID
+          type: number
+          nullable: true
+        lastModified:
+          description: Last modified date
+          type: number
+          nullable: true
+        official:
+          description: Is the official answer
+          type: boolean
+      example:
+        author:
+          name: '...'
+          profilePicUrl: '...'
+          uuid: '...'
+        comment: '...'
+        id: 12345
+        lastModified: 12345
+        official: true

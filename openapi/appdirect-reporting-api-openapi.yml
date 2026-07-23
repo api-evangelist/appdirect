@@ -1,0 +1,259 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Reporting API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Reporting
+  x-displayName: Reports v1
+paths:
+  /reporting/v1/reports:
+    get:
+      x-appdirect-api-stage: Deprecated
+      description: Lists all reports that are automatically generated on your marketplace.
+      tags:
+      - Reporting
+      summary: List all reports
+      operationId: resource_Other_readReports_v1_GET
+      parameters:
+      - description: The number of reports to return from the results
+        name: count
+        in: query
+        schema:
+          type: integer
+      - description: The report generation start date and time, in epoch time
+        name: fromDate
+        in: query
+        schema:
+          type: number
+      - description: The lower bound index for the requested results
+        name: start
+        in: query
+        schema:
+          type: integer
+      - description: The report generation end date and time, in epoch time
+        name: toDate
+        in: query
+        schema:
+          type: number
+      - description: Report type
+        name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - ACTIVE_UNCONVERTED_USERS
+          - APPLICATION_USAGE
+          - CANCELLED_ENTITLEMENTS
+          - COMPANIES_CSV
+          - CONTRACT_TERM
+          - CUSTOMERS_CSV
+          - CUSTOMER_ACQUISITION_BONUS
+          - CUSTOMER_RETENTION_BONUS
+          - FAILED_ORDERS
+          - FAILURE_INTEGRATION_EVENT
+          - FREE_TRIALS
+          - GENERAL_PERFORMANCE_REPORT
+          - INVOICES
+          - INVOICES_CSV
+          - MICROSOFT_RECONCILIATION
+          - MIGRATION_PRODUCT_DATA
+          - MOSI_ACQUISITION_BONUS
+          - MOSI_RETENTION_BONUS
+          - NOT_USED_APP
+          - ORDER_EDITIONS_CSV
+          - ORDER_PRODUCTS_CSV
+          - PAYMENTS_DETAIL_CSV
+          - PAYMENTS_OVERVIEW_CSV
+          - RECONCILIATION
+          - RE_CALCULATE_SUBSCRIPTION_PRICES
+          - SUSPENDED_PURCHASED
+          - TAXES
+          - TRANSACTIONS
+          - VOICE_CONN_CSV
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportsWS'
+              examples:
+                response:
+                  value:
+                    reports:
+                    - id: 107
+                      reportType: PAYMENTS_DETAIL_CSV
+                      filename: reportFiles/appdirect/AppDirect_2013-03-25_17-10-15_payments_detail_csv_report.csv
+                      createdDate: 1364245815000
+                      startDate: 1363579200000
+                      endDate: 1364184000000
+                    - id: 108
+                      reportType: CONTRACT_TERM
+                      filename: reportFiles/appdirect/AppDirect_2013-03-25_17-10-15_contract_term_report.csv
+                      createdDate: 1364245816000
+                      startDate: 1363579200000
+                      endDate: 1364184000000
+                    totalCount: 27077
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReportsWS'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/reporting/v1/reports?count=SOME_INTEGER_VALUE&fromDate=SOME_NUMBER_VALUE&start=SOME_INTEGER_VALUE&toDate=SOME_NUMBER_VALUE&type=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/reporting/v1/reports',\n  qs: {\n    count: 'SOME_INTEGER_VALUE',\n    fromDate: 'SOME_NUMBER_VALUE',\n    start: 'SOME_INTEGER_VALUE',\n    toDate: 'SOME_NUMBER_VALUE',\n    type: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/reports?count=SOME_INTEGER_VALUE&fromDate=SOME_NUMBER_VALUE&start=SOME_INTEGER_VALUE&toDate=SOME_NUMBER_VALUE&type=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /reporting/v1/report/{id}:
+    get:
+      x-appdirect-api-stage: Deprecated
+      description: This call returns all details from a specific report.
+      tags:
+      - Reporting
+      summary: Retrieve a report
+      operationId: resource_Other_readReport_GET
+      parameters:
+      - description: Report ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '307':
+          description: Report redirect url returned.
+        '404':
+          description: Report not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: This call deletes a report from your marketplace
+      tags:
+      - Reporting
+      summary: Delete report
+      operationId: resource_Other_deleteReport_DELETE
+      parameters:
+      - description: Report ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '204':
+          description: Report deleted.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal error during deletion
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ReportWS:
+      description: Single report information for Reporting API
+      type: object
+      title: Report
+      properties:
+        createdDate:
+          description: Report creation date
+          type: number
+        endDate:
+          description: Period end time of the report
+          type: number
+        filename:
+          description: Report file name
+          type: string
+        id:
+          description: Report ID
+          type: number
+        reportType:
+          $ref: '#/components/schemas/ReportType'
+        startDate:
+          description: Period start time of the report
+          type: number
+      example:
+        createdDate: 12345
+        endDate: 12345
+        filename: '...'
+        id: 12345
+        reportType: INVOICES_CSV
+        startDate: 12345
+    ReportsWS:
+      description: Reports information for reporting API
+      type: object
+      title: Reports
+      properties:
+        reports:
+          description: List of reports
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportWS'
+        totalCount:
+          description: Total count of reports returned by API
+          type: number
+      example:
+        reports:
+        - createdDate: 12345
+          endDate: 12345
+          filename: '...'
+          id: 12345
+          reportType: COMPANIES_CSV
+          startDate: 12345
+        - createdDate: 12345
+          endDate: 12345
+          filename: '...'
+          id: 12345
+          reportType: CUSTOMERS_CSV
+          startDate: 12345
+        totalCount: 12345
+    ReportType:
+      type: string
+      title: ReportType
+      enum:
+      - ACTIVE_UNCONVERTED_USERS
+      - APPLICATION_USAGE
+      - CANCELLED_ENTITLEMENTS
+      - COMPANIES_CSV
+      - CONTRACT_TERM
+      - CUSTOMERS_CSV
+      - CUSTOMER_ACQUISITION_BONUS
+      - CUSTOMER_RETENTION_BONUS
+      - FAILED_ORDERS
+      - FAILURE_INTEGRATION_EVENT
+      - FREE_TRIALS
+      - GENERAL_PERFORMANCE_REPORT
+      - INVOICES
+      - INVOICES_CSV
+      - MICROSOFT_RECONCILIATION
+      - MIGRATION_PRODUCT_DATA
+      - MOSI_ACQUISITION_BONUS
+      - MOSI_RETENTION_BONUS
+      - NOT_USED_APP
+      - ORDER_EDITIONS_CSV
+      - ORDER_PRODUCTS_CSV
+      - PAYMENTS_DETAIL_CSV
+      - PAYMENTS_OVERVIEW_CSV
+      - RECONCILIATION
+      - RE_CALCULATE_SUBSCRIPTION_PRICES
+      - SUSPENDED_PURCHASED
+      - TAXES
+      - TRANSACTIONS
+      - VOICE_CONN_CSV

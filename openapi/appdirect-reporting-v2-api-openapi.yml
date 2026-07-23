@@ -1,0 +1,315 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Reporting V2 API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Reporting V2
+  x-displayName: Reports V2
+paths:
+  /reporting/v2/reports:
+    get:
+      description: Lists all reports generated from your marketplace.
+      tags:
+      - Reporting V2
+      summary: List all reports
+      operationId: resource_Report_readReports_v2_GET
+      parameters:
+      - description: The owner type that is allowed access to the reports
+        name: ownerType
+        in: query
+        schema:
+          type: string
+          enum:
+          - ROLE_CHANNEL_ADMIN
+          - ROLE_DEVELOPER
+          - ROLE_RESELLER_MANAGER
+          - ROLE_PARTNER
+      - description: Filter reports by name
+        name: reportName
+        in: query
+        schema:
+          type: string
+      - description: Time bound for filtering reports based on the from_date and to_date fields. Use gte([Unix timestamp]) for a lower bound (inclusive) or lte([Unix timestamp]) for an upper bound (inclusive). The timestamp must be in milliseconds.
+        name: date
+        in: query
+        schema:
+          type: string
+      - description: The page number of the requested result. The first page has index 1
+        name: number
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - description: The page size of the requested result
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: Show only reports whose names contain this text
+        name: searchText
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of all all reports matching the search criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportListingWS'
+              examples:
+                response:
+                  value:
+                    content:
+                    - uuid: adb97bd6-6fc5-4540-939d-8b5b02bcd0a7
+                      reportName: channel-payment-details
+                      jobName: channel-payment-details-APPDIRECT
+                      name: A sample report run
+                      ownerType: ROLE_CHANNEL_ADMIN
+                      ownerCompanyId: null
+                      ownerPartner: APPDIRECT
+                      status: IN_PROGRESS
+                      runDate: 1519249651000
+                      fromDate: 1517443200000
+                      toDate: null
+                      params:
+                        paymentMethod: 'NULL'
+                        lineType: 'NULL'
+                        excludeFullyDiscounted: 'NULL'
+                        partner: APPDIRECT
+                        type: 'NULL'
+                      createdBy: John Smith
+                      formatType: CSV
+                    - uuid: dead040d-6ebf-41db-a554-cf6f7c8e1e25
+                      reportName: customer-cancelled-entitlements
+                      jobName: customer-cancelled-entitlements-APPDIRECT
+                      name: A second sample report run
+                      ownerType: ROLE_CHANNEL_ADMIN
+                      ownerCompanyId: null
+                      ownerPartner: APPDIRECT
+                      status: IN_PROGRESS
+                      runDate: 1519249646000
+                      fromDate: 1517443200000
+                      toDate: null
+                      params:
+                        partner: APPDIRECT
+                        defaultMarketplaceCurrency: USD
+                      createdBy: John Smith
+                      formatType: CSV
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 1
+        '400':
+          description: Input is invalid or malformed
+        '403':
+          description: The user identified by the incoming credentials cannot be resolved, or does not have the authorization to view reports of the requested owner type
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/reporting/v2/reports?ownerType=SOME_STRING_VALUE&reportName=SOME_STRING_VALUE&date=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/reporting/v2/reports',\n  qs: {\n    ownerType: 'SOME_STRING_VALUE',\n    reportName: 'SOME_STRING_VALUE',\n    date: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v2/reports?ownerType=SOME_STRING_VALUE&reportName=SOME_STRING_VALUE&date=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /reporting/v2/reports/{reportUuid}:
+    get:
+      description: Download an individual report
+      tags:
+      - Reporting V2
+      summary: Download a report file
+      operationId: resource_Report_downloadReports_v2GET
+      parameters:
+      - description: Report UUID
+        name: reportUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '302':
+          description: Redirect to the S3-signed URL for downloading the report file
+        '403':
+          description: The user identified by the incoming credentials cannot be resolved, or is not authorized to download the requested report
+        '404':
+          description: No report exists for the UUID specified in the request
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/reporting/v2/reports/%7BreportUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/reporting/v2/reports/%7BreportUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v2/reports/%7BreportUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    PagedResources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - title: PagedResources
+        type: object
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+    ReportWS:
+      description: Single report information for Reporting API
+      type: object
+      title: Report
+      properties:
+        createdDate:
+          description: Report creation date
+          type: number
+        endDate:
+          description: Period end time of the report
+          type: number
+        filename:
+          description: Report file name
+          type: string
+        id:
+          description: Report ID
+          type: number
+        reportType:
+          $ref: '#/components/schemas/ReportType'
+        startDate:
+          description: Period start time of the report
+          type: number
+      example:
+        createdDate: 12345
+        endDate: 12345
+        filename: '...'
+        id: 12345
+        reportType: INVOICES_CSV
+        startDate: 12345
+    ReportType:
+      type: string
+      title: ReportType
+      enum:
+      - ACTIVE_UNCONVERTED_USERS
+      - APPLICATION_USAGE
+      - CANCELLED_ENTITLEMENTS
+      - COMPANIES_CSV
+      - CONTRACT_TERM
+      - CUSTOMERS_CSV
+      - CUSTOMER_ACQUISITION_BONUS
+      - CUSTOMER_RETENTION_BONUS
+      - FAILED_ORDERS
+      - FAILURE_INTEGRATION_EVENT
+      - FREE_TRIALS
+      - GENERAL_PERFORMANCE_REPORT
+      - INVOICES
+      - INVOICES_CSV
+      - MICROSOFT_RECONCILIATION
+      - MIGRATION_PRODUCT_DATA
+      - MOSI_ACQUISITION_BONUS
+      - MOSI_RETENTION_BONUS
+      - NOT_USED_APP
+      - ORDER_EDITIONS_CSV
+      - ORDER_PRODUCTS_CSV
+      - PAYMENTS_DETAIL_CSV
+      - PAYMENTS_OVERVIEW_CSV
+      - RECONCILIATION
+      - RE_CALCULATE_SUBSCRIPTION_PRICES
+      - SUSPENDED_PURCHASED
+      - TAXES
+      - TRANSACTIONS
+      - VOICE_CONN_CSV
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    ReportListingWS:
+      description: A list of reports
+      type: object
+      title: ReportListing
+      properties:
+        content:
+          description: Report run UUID
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportWS'
+        page:
+          $ref: '#/components/schemas/PagedResources'
+      example:
+        content:
+        - uuid: 00a667b0-3504-48c4-a8dc-c384ea2fb958
+          reportName: channel-companies
+          jobName: channel-companies-APPDIRECT
+          name: All companies report
+          ownerType: ROLE_CHANNEL_ADMIN
+          ownerCompanyId: null
+          ownerPartner: APPDIRECT
+          status: SUCCESSFUL
+          runDate: 1518656044000
+          fromDate: null
+          toDate: null
+          params:
+            enableStatus: 'NULL'
+            activeStatus: 'NULL'
+            partner: APPDIRECT
+            marketplaceStatus: 'NULL'
+            developerStatus: 'NULL'
+          createdBy: John Smith
+          formatType: CSV
+        page:
+          size: 50
+          totalElements: 1
+          totalPages: 1
+          number: 1
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

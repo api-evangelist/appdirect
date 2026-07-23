@@ -1,0 +1,642 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Payments v2 API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Payments v2
+  x-displayName: Payments v2
+paths:
+  /api/appMarket/v2/transferPlatformConfigurations:
+    get:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Retrieve all transfer platform configurations
+      description: 'Retrieves all transfer platform configurations for the marketplace of the current user
+
+        '
+      operationId: getTransferPlatformConfigurations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransferPlatformConfigurationResponse'
+              examples:
+                response:
+                  value:
+                  - id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
+                    platformType: stripe
+                    parameters:
+                      base_url: https://api.stripe.com/testupdate
+                      username: secret
+                  - id: 6ef5eb40-4520-49b6-97f6-d09dfa84e52a
+                    platformType: paypal
+                    parameters:
+                      base_url: https://api.paypal.com/testupdate
+                      username: secret
+        '401':
+          description: Unauthorized
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access to retrieve transfer platform configurations.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Create transfer platform configurations
+      description: 'Create a transfer platform configuration in the marketplace of the current user
+
+        '
+      operationId: createTransferPlatformConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferPlatformConfigurationRequest'
+        description: The transfer platform configuration request
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/TransferPlatformConfigurationRequestSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Cannot create duplicate configuration. A transfer platform configuration already exists for this tenant and type.
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access to create transfer platform configurations.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations \\\n  --data '{\"platformType\":\"stripe\",\"parameters\":{\"base_url\":\"https://api.stripe.com/testupdate\",\"username\":\"secret\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations',\n  body: {\n    platformType: 'stripe',\n    parameters: {base_url: 'https://api.stripe.com/testupdate', username: 'secret'}\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"platformType\\\":\\\"stripe\\\",\\\"parameters\\\":{\\\"base_url\\\":\\\"https://api.stripe.com/testupdate\\\",\\\"username\\\":\\\"secret\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /api/appMarket/v2/transferPlatformConfigurations/{transferPlatformConfigurationId}:
+    parameters:
+    - in: path
+      name: transferPlatformConfigurationId
+      description: The transfer platform configuration ID
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Retrieve transfer platform configurations
+      description: 'Retrieves the transfer platform configuration by ID
+
+        '
+      operationId: getTransferPlatformConfiguration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferPlatformConfigurationResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access to retrieve one transfer platform configuration.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Update transfer platform configurations
+      description: 'Updates the specified transfer platform configuration
+
+        '
+      operationId: updateTransferPlatformConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferPlatformConfigurationRequest'
+        description: The transfer platform configuration request
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/TransferPlatformConfigurationRequestSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorized
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access to update one transfer platform configuration.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D \\\n  --data '{\"platformType\":\"stripe\",\"parameters\":{\"base_url\":\"https://api.stripe.com/testupdate\",\"username\":\"secret\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D',\n  body: {\n    platformType: 'stripe',\n    parameters: {base_url: 'https://api.stripe.com/testupdate', username: 'secret'}\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"platformType\\\":\\\"stripe\\\",\\\"parameters\\\":{\\\"base_url\\\":\\\"https://api.stripe.com/testupdate\\\",\\\"username\\\":\\\"secret\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Delete transfer platform configurations
+      description: 'Deletes the specified transfer platform configuration. It cannot be used anymore
+
+        '
+      operationId: deleteTransferPlatformConfiguration
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-appdirect-required-scopes:
+        ROLE_CHANNEL_ADMIN:
+        - Allows access to delete one transfer platform configuration.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /api/appMarket/v2/transferMethods:
+    post:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Create transfer methods
+      description: 'Creates a new Transfer Method for the requesting (authenticated) user
+
+        '
+      operationId: createTransferMethod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferMethodRequest'
+        description: The transfer method to create
+        required: true
+      responses:
+        '201':
+          description: The transfer method request has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferMethodResponse'
+              examples:
+                response:
+                  value:
+                    id: ab65d3e8-4ee0-11e8-9c2d-222222222222
+                    platformType: stripe
+                    partyId: '1'
+                    partyType: USER
+                    balance:
+                      amount: '10.0000000000'
+                      currency: USD
+                    displayName: '****3456'
+                    properties:
+                      account_id: '123456'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Cannot create duplicate transfer method. A transfer method already exists for this party and platformType
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods \\\n  --header 'content-type: application/json' \\\n  --data '{\"platformType\":\"stripe\",\"partyId\":\"1\",\"partyType\":\"USER\",\"properties\":{\"account_id\":\"123456\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods',\n  headers: {'content-type': 'application/json'},\n  body: {\n    platformType: 'stripe',\n    partyId: '1',\n    partyType: 'USER',\n    properties: {account_id: '123456'}\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"platformType\\\":\\\"stripe\\\",\\\"partyId\\\":\\\"1\\\",\\\"partyType\\\":\\\"USER\\\",\\\"properties\\\":{\\\"account_id\\\":\\\"123456\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Retrieve transfer methods
+      description: 'Retrieves the transfer methods associated with the requesting (authenticated) user
+
+        '
+      operationId: getTransferMethods
+      parameters:
+      - in: query
+        name: includeBalance
+        description: Determines whether the response should include the transfer method balance
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransferMethodResponse'
+              examples:
+                response:
+                  value:
+                  - id: ab65d3e8-4ee0-11e8-9c2d-222222222222
+                    platformType: stripe
+                    partyId: '1'
+                    partyType: USER
+                    balance:
+                      amount: '10.00'
+                      currency: USD
+                    displayName: '****3456'
+                    properties:
+                      account_id: '123456'
+                  - id: a20b2ad9-2248-4393-ad35-8c27dd01c11e
+                    platformType: Paypal
+                    partyId: '1'
+                    partyType: USER
+                    balance:
+                      amount: '10.00'
+                      currency: USD
+                    displayName: '****WXYZ'
+                    properties:
+                      account_id: ABCDWXYZ
+        '401':
+          description: Unauthorized
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods?includeBalance=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods',\n  qs: {includeBalance: 'SOME_BOOLEAN_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods?includeBalance=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /api/appMarket/v2/transferMethods/{transferMethodId}:
+    parameters:
+    - in: path
+      name: transferMethodId
+      description: The Transfer Method ID
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Retrieves Transfer Method by ID
+      description: 'Retrieves the Transfer Method for the given ID
+
+        '
+      operationId: getTransferMethod
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferMethodResponse'
+              examples:
+                response:
+                  value:
+                    id: ab65d3e8-4ee0-11e8-9c2d-222222222222
+                    platformType: stripe
+                    partyId: '1'
+                    partyType: USER
+                    balance:
+                      amount: '10.00'
+                      currency: USD
+                    displayName: '****3456'
+                    properties:
+                      account_id: '123456'
+        '401':
+          description: Unauthorized
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - Payments v2
+      x-appdirect-api-stage: Early Access
+      summary: Delete transfer methods
+      description: 'Deletes the transfer method with the specified ID
+
+        '
+      operationId: deleteTransferMethod
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '500':
+          $ref: '#/components/responses/ServerError'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    AbstractTransferMethod:
+      title: AbstractTransferMethod
+      description: Transfer method base fields
+      properties:
+        properties:
+          type: object
+          description: The transfer method properties
+          minProperties: 1
+          additionalProperties:
+            type: string
+        platformType:
+          type: string
+          description: The transfer platform type
+          minLength: 1
+          maxLength: 255
+        partyId:
+          type: string
+          description: The ID of the transfer method's party
+          minLength: 1
+          maxLength: 255
+        partyType:
+          type: string
+          description: The type of the transfer method's party (USER, CHANNEL, and so on)
+          minLength: 1
+          maxLength: 255
+      required:
+      - properties
+      - platformType
+      - partyId
+      - partyType
+      example:
+        properties:
+        - property1: property1 value
+        platformType: stripe
+        partyId: '1'
+        partyType: USER
+    TransferPlatformConfigurationRequest:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationRequest
+        description: A transfer platform configuration request
+        example:
+          platformType: stripe
+          parameters:
+            base_url: https://api.stripe.com/testupdate
+            username: secret
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      description: Error details
+      properties:
+        status:
+          type: integer
+          description: Original HTTP error code, which should be consistent with the response HTTP code
+          minimum: 100
+          maximum: 599
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorPaymentDetail'
+      required:
+      - status
+      - code
+      example:
+        status: 400
+        code: VALIDATION_ERROR
+        message: Missing required parameters
+    TransferMethodRequest:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferMethod'
+      - title: TransferMethodRequest
+        description: The transfer method creation payload
+        example:
+          platformType: stripe
+          partyId: '1'
+          partyType: USER
+          properties:
+            account_id: '123456'
+    TransferMethodResponse:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferMethod'
+      - title: TransferMethodResponse
+        description: A transfer method response
+        type: object
+        properties:
+          id:
+            type: string
+            description: The transfer method ID
+            minLength: 36
+            maxLength: 36
+          balance:
+            $ref: '#/components/schemas/Balance'
+          displayName:
+            type: string
+            description: The transfer method display name
+            minLength: 1
+            maxLength: 255
+        required:
+        - id
+        - displayName
+        example:
+          id: 619da695-42d6-4189-9cc2-cdc885a3a4f7
+          properties:
+          - property1: property1 value
+          platformType: stripe
+          partyId: '1'
+          partyType: USER
+          balance:
+            amount: '10.00'
+            currency: USD
+          displayName: '****1234'
+    ErrorPaymentDetail:
+      type: object
+      title: ErrorPaymentDetail
+      description: A detail element of an ErrorResponse
+      properties:
+        field:
+          type: string
+          description: The element in the request payload that caused the error
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+      required:
+      - code
+      example:
+        code: INVALID_REQUEST
+        message: Missing parameter
+    Balance:
+      type: object
+      title: Balance
+      description: The balance of a transfer method
+      properties:
+        amount:
+          type: string
+          format: amount
+          description: A monetary amount
+        currency:
+          type: string
+          pattern: ^[A-Z]{3}$
+          description: The currency of the amount, using the ISO-4217 currency code
+      example:
+        amount: '49.99'
+        currency: USD
+    TransferPlatformConfigurationResponse:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationResponse
+        description: A transfer platform configuration response
+        type: object
+        properties:
+          id:
+            type: string
+            description: Id of the transfer platform configuration
+        required:
+        - id
+        example:
+          id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
+          platformType: stripe
+          parameters:
+            base_url: https://api.stripe.com/testupdate
+            username: secret
+    AbstractTransferPlatformConfiguration:
+      title: AbstractTransferPlatformConfiguration
+      description: Transfer platform configuration base fields
+      properties:
+        platformType:
+          type: string
+          description: The transfer platform type
+          minLength: 1
+          maxLength: 255
+        parameters:
+          type: object
+          description: The transfer platform parameters.
+          minProperties: 1
+          additionalProperties:
+            type: string
+      required:
+      - platformType
+      - parameters
+      example:
+        platformType: stripe
+        parameters:
+          base_url: https://api.stripe.com/testupdate
+          username: secret
+  responses:
+    ServerError:
+      description: Indicates an unknown internal error that prevents the server from processing the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 500
+                code: UNKNOWN_ERROR
+                message: Internal server error.
+    NotFound:
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: Not found
+    BadRequest:
+      description: Indicates a bad request, which can be due to violation(s) of HTTP or API rules
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 400
+                code: BAD_REQUEST
+                message: The locale is not recognized.
+    TransferPlatformConfigurationRequestSuccessful:
+      description: The transfer platform configuration request has been treated successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransferPlatformConfigurationResponse'
+          examples:
+            response:
+              value:
+                id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
+                platformType: stripe
+                parameters:
+                  base_url: https://api.stripe.com/testupdate
+                  username: secret

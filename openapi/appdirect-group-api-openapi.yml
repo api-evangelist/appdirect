@@ -1,0 +1,1245 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Group API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Group
+  x-displayName: Groups
+paths:
+  /account/v2/companies/{companyUuid}/groups:
+    get:
+      description: Retrieve a marketplace company's user groups.
+      tags:
+      - Group
+      summary: List user groups
+      operationId: resource_Group_readAll_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Search term used to search groups names
+        name: searchText
+        in: query
+        schema:
+          type: string
+      - description: The size of the page to be returned
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: The property to sort by. Supported values are createdOn, name.
+        name: sortField
+        in: query
+        schema:
+          type: string
+          default: createdOn
+      - description: Ordering type
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups?page=0&size=50&sortField=createdOn&sortOrder=DESC
+                    content:
+                    - uuid: feff91cf-e5b3-4833-9ad2-47a8c3d4deeb
+                      name: new-group-1
+                      description: new-group-1-desc
+                      memberCount: 0
+                      companyDefault: false
+                      systemManaged: false
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/feff91cf-e5b3-4833-9ad2-47a8c3d4deeb
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/feff91cf-e5b3-4833-9ad2-47a8c3d4deeb/memberships?member=true&page=0&size=50
+                    - uuid: 84d6c781-9290-461c-a18f-010791cb87ca
+                      name: Billing Admins
+                      description: All Billing Admin users
+                      memberCount: 20
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca/memberships?member=true&page=0&size=50
+                    - uuid: b7c9099c-aff1-42a9-824c-7f8a7ee1ab93
+                      name: Resellers
+                      description: All Reseller users
+                      memberCount: 1
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b7c9099c-aff1-42a9-824c-7f8a7ee1ab93
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b7c9099c-aff1-42a9-824c-7f8a7ee1ab93/memberships?member=true&page=0&size=50
+                    - uuid: a7d34c49-a376-433b-af53-f51be1cf2038
+                      name: Developers
+                      description: All Developer users
+                      memberCount: 78
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038/memberships?member=true&page=0&size=50
+                    - uuid: 73f252d5-0dbe-4414-8384-edb7544b83b6
+                      name: Sales Support
+                      description: All Sales Support users
+                      memberCount: 13
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6/memberships?member=true&page=0&size=50
+                    - uuid: b0cf07b9-9953-406f-ba64-b4ca239f30bf
+                      name: Product Support
+                      description: All Product Support users
+                      memberCount: 12
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf/memberships?member=true&page=0&size=50
+                    - uuid: 6d970a9e-a702-406f-808b-9483163efdd1
+                      name: Reseller Managers
+                      description: All Reseller Manager users
+                      memberCount: 2
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1/memberships?member=true&page=0&size=50
+                    - uuid: 70c65cb0-cbe5-447c-bdce-1d00e4d08f84
+                      name: Customer Support
+                      description: All Customer Support users
+                      memberCount: 12
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84/memberships?member=true&page=0&size=50
+                    - uuid: 9a79c98d-8e36-49ed-837c-cc9473dee851
+                      name: Marketplace Managers
+                      description: All Marketplace Managers
+                      memberCount: 9
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851/memberships?member=true&page=0&size=50
+                    - uuid: 74f7132f-8dd9-4b3a-8014-5aac81dc2c05
+                      name: Company Admins
+                      description: All Company Admin users
+                      memberCount: 14
+                      companyDefault: false
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05/memberships?member=true&page=0&size=50
+                    - uuid: 5acdd82e-5cb7-4a23-b842-38d514aafcdf
+                      name: Everyone
+                      description: All company users
+                      memberCount: 88
+                      companyDefault: true
+                      systemManaged: true
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf/memberships?member=true&page=0&size=50
+                    - uuid: 56ac8abc-2b63-4b66-a648-dde419aa6c4a
+                      name: superuser-group
+                      description: superuser group
+                      memberCount: 2
+                      companyDefault: false
+                      systemManaged: false
+                      externallyManaged: false
+                      companyUuid: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a/memberships?member=true&page=0&size=50
+                    page:
+                      size: 50
+                      totalElements: 12
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found.
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Company with UUID=6b4bd452-895d-4098-aa56-e6046b238erf not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups?page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups',\n  qs: {\n    page: 'SOME_INTEGER_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups?page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      description: Create a user group for a marketplace company.
+      tags:
+      - Group
+      summary: Create user group
+      operationId: resource_Group_create_POST
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyGroupAccountV2'
+        description: Group creation data
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 7f097767-b808-4a6c-8837-3dc57f57103d
+                    name: create-test-name
+                    description: create-test-desc
+                    memberCount: 0
+                    companyDefault: false
+                    externallyManaged: false
+                    companyUuid: 028818f1-deb1-43b7-94fe-1f8c874fb9ee
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee/groups/7f097767-b808-4a6c-8837-3dc57f57103d
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee/groups/7f097767-b808-4a6c-8837-3dc57f57103d/memberships?member=true&page=0&size=50
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company not found.
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Company with UUID=6b4bd452-895d-4098-aa56-e6046b238erf not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups \\\n  --header 'content-type: application/json' \\\n  --data '{\"name\":\"HR\",\"description\":\"Human Resources\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups',\n  headers: {'content-type': 'application/json'},\n  body: {name: 'HR', description: 'Human Resources'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"HR\\\",\\\"description\\\":\\\"Human Resources\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/groups/{groupUuid}:
+    put:
+      description: Update user group for the requested marketplace company.
+      tags:
+      - Group
+      summary: Update user group
+      operationId: resource_Group_update_PUT
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCompanyGroupAccountV2'
+        description: Updated user grouop data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 263b8d39-9cfe-49b0-94ee-779f3c98e76b
+                    name: update-test-name-new
+                    description: update-test-desc-new
+                    memberCount: 0
+                    companyDefault: false
+                    externallyManaged: false
+                    companyUuid: 7cd7e316-7ccd-41b3-9e46-a9bc58197adf
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf/groups/263b8d39-9cfe-49b0-94ee-779f3c98e76b
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf/groups/263b8d39-9cfe-49b0-94ee-779f3c98e76b/memberships?member=true&page=0&size=50
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company or company group not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"name\":\"Engineer\",\"description\":\"Engineering\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {name: 'Engineer', description: 'Engineering'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Engineer\\\",\\\"description\\\":\\\"Engineering\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      description: Retrieve a marketplace company's user group.
+      tags:
+      - Group
+      summary: Read user group
+      operationId: resource_Group_read_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 74a8e9c1-0e64-4009-b529-671ae9188e70
+                    name: read-test-name
+                    description: read-test-desc
+                    memberCount: 1
+                    companyDefault: false
+                    externallyManaged: false
+                    systemManged: false
+                    companyUuid: 999d6565-9694-457c-8941-fadeb36166e5
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5/groups/74a8e9c1-0e64-4009-b529-671ae9188e70
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5/groups/74a8e9c1-0e64-4009-b529-671ae9188e70/memberships?member=true&page=0&size=50
+        '401':
+          description: Unauthorized
+        '404':
+          description: Group is not found for company
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: Delete a user group for the requested marketplace company.
+      tags:
+      - Group
+      summary: Delete user group
+      operationId: resource_Group_delete_DELETE
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '401':
+          description: Unauthorized
+        '404':
+          description: Group is not found for company
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/groups/{groupUuid}/memberships:
+    get:
+      description: List members of a user group for the requested marketplace company.
+      tags:
+      - Group
+      summary: List user group members
+      operationId: resource_Group_readGroupMemberships_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Optional parameter object containing:<br/>searchText - Search term used to search on different fields of a user<br/>role       - If specified, only users with the specified marketplace role are returned<br/>status     - If specified, only users with the specified status are returned
+        in: query
+        name: searchText
+        schema:
+          type: string
+      - description: When true, only group members are return.  When false, non-members of the group are returned.
+        name: member
+        in: query
+        schema:
+          type: boolean
+          default: true
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: The size of the page to be returned   @return List of user/company membership resources
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - user:
+                        uuid: 671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                        email: user.test-6465249637976946765@appdirect.com
+                        userName: user.test-6465249637976946765@appdirect.com
+                        firstName: user.test
+                        lastName: Lee
+                        picture: http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                        activated: true
+                        allowLogin: true
+                        ldapId: '1'
+                        currency: USD
+                        customAttributes:
+                        - name: C5125859
+                          attributeType: TEXT
+                          label: Commission_Payout_ID
+                          hint: commission_hint
+                          value: t1
+                        - name: allow_credit_card
+                          attributeType: MULTISELECT
+                          label: Allow Credit Card
+                          hint: Allows credit card payments and enables credit card fields
+                          valueKeys: []
+                        - name: C5457097
+                          attributeType: TEXT
+                          label: C5457097
+                          hint: ''
+                          value: abcd
+                        boostUser:
+                          apsUid: murnu8w
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82/memberships
+                      company:
+                        uuid: c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                        name: Appdirect
+                        picture: null
+                        vendor: false
+                        phoneNumber: '9259221234'
+                        reseller: true
+                        defaultRole: USER
+                        enabled: true
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/memberships
+                      enabled: true
+                      lastUsed: false
+                      roles:
+                      - ROLE_SYS_ADMIN
+                      - ROLE_BILLING_ADMIN
+                      - ROLE_USER
+                      position: Business Analyst
+                      mosiUser:
+                        username: adazuretest@sdasd21321.onmicrosoft.com
+                      metadata:
+                        mosi_username: adazuretest@sdasd21321.onmicrosoft.com
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02/memberships/671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                      - rel: group
+                        href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02
+                    page:
+                      size: 50
+                      totalElements: 1
+                      totalPages: 0
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company or company group not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships?searchText=SOME_STRING_VALUE&member=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships',\n  qs: {\n    searchText: 'SOME_STRING_VALUE',\n    member: 'SOME_BOOLEAN_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships?searchText=SOME_STRING_VALUE&member=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      summary: Create batch group memberships change requests.
+      description: Create batched group memberships change requests.
+      tags:
+      - Group
+      x-appdirect-visible: false
+      operationId: resource_Group_batchCreateOrUpdateGroupMemberships_POST
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+      parameters:
+      - name: companyUuid
+        description: Unique identifier of company in the API request
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupUuid
+        description: Unique identifier of group in the API request
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: validateOnly
+        description: If specified, the API returns a response without actually persisting it through to the database.
+        in: query
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupAssignmentChangeRequests'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    groupAssignmentResponse:
+                    - userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
+                      result: SUCCESS
+                      errorMessage: group.membership.created
+                    groupUnassignmentResponse: []
+                    appAssignmentResponses:
+                    - request:
+                        userUuid: 49af5a70-e2ef-4c53-a44b-85510db91056
+                        companyEntitlementUuid: e160db9b-9b72-4578-83b5-7bf61ce88069
+                        parameters: {}
+                      resultStatus: ENQUEUED
+                      errorMessage: null
+                      userEntitlement:
+                        id: 1942
+                        userUuid: 49af5a70-e2ef-4c53-a44b-85510db91056
+                        companyEntitlementId: 1629
+                        companyEntitlementUuid: e160db9b-9b72-4578-83b5-7bf61ce88069
+                        createdOn: 1521039428243
+                        lastModified: 1521039428243
+                        status: PENDING_REMOTE_CREATION
+                        source: GROUP
+                        externalPartnerIdentifier: null
+                        externalVendorIdentifier: null
+                        modifiable: true
+                        customAttributes: []
+                      attributesInError: null
+                    appUnassignmentResponses:
+                    - request:
+                        userEntitlementId: 1941
+                      resultStatus: ENQUEUED
+                      userEntitlement:
+                        id: 1941
+                        userUuid: 17750a3b-d253-431e-8c72-deb7e0d0ef98
+                        companyEntitlementId: 1629
+                        companyEntitlementUuid: e160db9b-9b72-4578-83b5-7bf61ce88069
+                        createdOn: 1521038968000
+                        lastModified: 1521038968000
+                        status: PENDING_REMOTE_CANCELLATION
+                        source: GROUP
+                        externalPartnerIdentifier: null
+                        externalVendorIdentifier: b6accc26-8c54-49a2-8be2-3e8d5ad45049
+                        modifiable: true
+                        customAttributes: []
+                      errorMessage: null
+        '401':
+          description: Unauthorized
+        '404':
+          description: Company or company group not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships?validateOnly=SOME_BOOLEAN_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"assignments\":[{\"userUuid\":\"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"}],\"unassignments\":[{\"userUuid\":\"17750a3b-d253-431e-8c72-deb7e0d0ef98\"}],\"appAssignmentRequests\":[{\"userUuid\":\"49af5a70-e2ef-4c53-a44b-85510db91056\",\"companyEntitlementUuid\":\"e160db9b-9b72-4578-83b5-7bf61ce88069\",\"parameters\":{}}],\"appUnassignmentRequests\":[{\"userEntitlementId\":1941}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships',\n  qs: {validateOnly: 'SOME_BOOLEAN_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    assignments: [{userUuid: '85c8ccee-8207-45bb-9b3d-ac4e20f14234'}],\n    unassignments: [{userUuid: '17750a3b-d253-431e-8c72-deb7e0d0ef98'}],\n    appAssignmentRequests: [\n      {\n        userUuid: '49af5a70-e2ef-4c53-a44b-85510db91056',\n        companyEntitlementUuid: 'e160db9b-9b72-4578-83b5-7bf61ce88069',\n        parameters: {}\n      }\n    ],\n    appUnassignmentRequests: [{userEntitlementId: 1941}]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"assignments\\\":[{\\\"userUuid\\\":\\\"85c8ccee-8207-45bb-9b3d-ac4e20f14234\\\"}],\\\"unassignments\\\":[{\\\"userUuid\\\":\\\"17750a3b-d253-431e-8c72-deb7e0d0ef98\\\"}],\\\"appAssignmentRequests\\\":[{\\\"userUuid\\\":\\\"49af5a70-e2ef-4c53-a44b-85510db91056\\\",\\\"companyEntitlementUuid\\\":\\\"e160db9b-9b72-4578-83b5-7bf61ce88069\\\",\\\"parameters\\\":{}}],\\\"appUnassignmentRequests\\\":[{\\\"userEntitlementId\\\":1941}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships?validateOnly=SOME_BOOLEAN_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/companies/{companyUuid}/groups/{groupUuid}/memberships/{userUuid}:
+    put:
+      description: Add a user to marketplace company's user group.
+      tags:
+      - Group
+      summary: Add user to group
+      operationId: resource_Group_saveGroupMembership_PUT
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user (part of company) in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: 98050d65-fb1c-484b-a696-feb2345b952c
+                      email: user.test-6176537145049527751@appdirect.com
+                      userName: user.test-6176537145049527751@appdirect.com
+                      firstName: user.test
+                      lastName: Lee
+                      picture: http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                      activated: true
+                      allowLogin: true
+                      ldapId: '1'
+                      boostUser: null
+                      currency: USD
+                      customAttributes:
+                      - name: C5125859
+                        attributeType: TEXT
+                        label: Commission_Payout_ID
+                        hint: commission_hint
+                        value: t1
+                      roles:
+                      - ROLE_USER
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/98050d65-fb1c-484b-a696-feb2345b952c
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/98050d65-fb1c-484b-a696-feb2345b952c/memberships
+                    company:
+                      uuid: b3b61301-9117-4d69-b4c2-006f15865d99
+                      name: Appdirect
+                      picture: http://localhost:8080/profilePics/img8682785678220952561.png?2bf10bf40154c8e7642aea942fe1ff8d
+                      vendor: false
+                      reseller: true
+                      phoneNumber: '9259221234'
+                      defaultRole: USER
+                      enabled: true
+                      customAttributes:
+                      - name: Geographic Region
+                        attributeType: TEXT
+                        label: email
+                        hint: US West, US Central, or US East
+                        value: US1
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_SYS_ADMIN
+                    - ROLE_BILLING_ADMIN
+                    - ROLE_USER
+                    position: Business Analyst
+                    mosiUser:
+                      username: adazuretest@sdasd21321.onmicrosoft.com
+                    metadata:
+                      mosi_username: adazuretest@sdasd21321.onmicrosoft.com
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/groups/6febc9da-15ff-4404-a61a-0988bed2797d/memberships/98050d65-fb1c-484b-a696-feb2345b952c
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99
+                    - rel: group
+                      href: http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/groups/6febc9da-15ff-4404-a61a-0988bed2797d
+        '401':
+          description: Unauthorized
+        '404':
+          description: User is not a member of the company or group is not found for company
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User not found for Company.
+        '500':
+          description: Could not manually assign/unassign a member to/from a system managed group
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .put(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      description: Retrieve a user/company membership resource.
+      tags:
+      - Group
+      summary: Read user from group
+      operationId: resource_Group_readGroupMembership_GET
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    user:
+                      uuid: 671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                      email: user.test-6465249637976946765@appdirect.com
+                      userName: user.test-6465249637976946765@appdirect.com
+                      firstName: user.test
+                      lastName: Lee
+                      picture: http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                      activated: true
+                      allowLogin: true
+                      ldapId: '1'
+                      currency: USD
+                      customAttributes:
+                      - name: C5125859
+                        attributeType: TEXT
+                        label: Commission_Payout_ID
+                        hint: commission_hint
+                        value: t1
+                      - name: allow_credit_card
+                        attributeType: MULTISELECT
+                        label: Allow Credit Card
+                        hint: Allows credit card payments and enables credit card fields
+                        valueKeys: []
+                      - name: C5457097
+                        attributeType: TEXT
+                        label: C5457097
+                        hint: ''
+                        value: abcd
+                      boostUser:
+                        apsUid: murnu8w
+                      roles:
+                      - ROLE_USER
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82/memberships
+                    company:
+                      uuid: c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                      name: Appdirect
+                      picture: null
+                      vendor: false
+                      phoneNumber: '9259221234'
+                      reseller: true
+                      defaultRole: USER
+                      enabled: true
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/memberships
+                    enabled: true
+                    lastUsed: false
+                    roles:
+                    - ROLE_SYS_ADMIN
+                    - ROLE_BILLING_ADMIN
+                    - ROLE_USER
+                    position: Business Analyst
+                    mosiUser:
+                      username: adazuretest@sdasd21321.onmicrosoft.com
+                    metadata:
+                      mosi_username: adazuretest@sdasd21321.onmicrosoft.com
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02/memberships/671660e1-1ac8-4e0d-b7c4-7fe844193d82
+                    - rel: company
+                      href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7
+                    - rel: group
+                      href: http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02
+        '401':
+          description: Unauthorized
+        '404':
+          description: User is not a member of the company or group is not found for company
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User not found for Company.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      description: Delete a user from a marketplace company's user group.
+      tags:
+      - Group
+      summary: Delete user from group
+      operationId: resource_Group_deleteGroupMembership_DELETE
+      x-appdirect-required-scopes:
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+      parameters:
+      - description: Unique identifier of company in the API request
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of group in the API request
+        name: groupUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: User is not a member of the company or group is not found for company
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User not found for Company.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    UserGroupUnassignmentRequest:
+      type: object
+      title: UserGroupUnassignmentRequest
+      properties:
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
+    UpdateCompanyGroupAccountV2:
+      type: object
+      title: UpdateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: Engineer
+        description: Engineering
+    UserGroupAssignmentRequest:
+      type: object
+      title: UserGroupAssignmentRequest
+      properties:
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
+    CreateCompanyGroupAccountV2:
+      type: object
+      title: CreateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: HR
+        description: Human Resources
+    UserGroupAssignmentChangeRequests:
+      type: object
+      title: UserGroupAssignmentChangeRequests
+      properties:
+        appAssignmentRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignmentRequest'
+        appUnassignmentRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/UassignmentRequest'
+        assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroupAssignmentRequest'
+        unassignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroupUnassignmentRequest'
+      example:
+        assignments:
+        - userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
+        unassignments:
+        - userUuid: 17750a3b-d253-431e-8c72-deb7e0d0ef98
+        appAssignmentRequests:
+        - userUuid: 49af5a70-e2ef-4c53-a44b-85510db91056
+          companyEntitlementUuid: e160db9b-9b72-4578-83b5-7bf61ce88069
+          parameters: {}
+        appUnassignmentRequests:
+        - userEntitlementId: 1941
+    AssignmentRequest:
+      type: object
+      title: AssignmentRequest
+      properties:
+        companyEntitlementUuid:
+          description: Company entitlement unique identifier
+          type: string
+        parameters:
+          description: Parameters
+          type: object
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
+        companyEntitlementUuid: 90e74ec1-db36-474b-81ea-95a3b1fce48d
+        parameters: {}
+    UassignmentRequest:
+      type: object
+      title: UassignmentRequest
+      properties:
+        userEntitlementId:
+          description: User entitlement ID
+          type: number
+      example:
+        userEntitlementId: 1926

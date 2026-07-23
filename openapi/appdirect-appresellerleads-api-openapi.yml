@@ -1,0 +1,1834 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerLeads API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerLeads
+  x-displayName: Leads v2
+paths:
+  /lead/v2/leads:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a list of all leads visible for a given context. You can filter the list using optional query parameters. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them.
+      tags:
+      - AppResellerLeads
+      summary: List leads
+      operationId: resource_AppResellerLeadsApi_getAll_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: query
+        name: companyId
+        description: Company ID of the user who retrieved the list
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: Lead status
+        required: false
+        schema:
+          type: string
+          enum:
+          - CONVERTED
+          - DISQUALIFIED
+          - DELETED
+          - PENDING_CONVERSION_APPROVAL
+          - CONVERSION_APPROVED
+          - PENDING_SUBMISSION
+          - SUBMITTED
+          - ASSIGNED
+          - LEGACY
+          - PENDING_FOR_MANAGERS
+          - ACCEPTED_FOR_MANAGERS
+      - in: query
+        name: searchText
+        description: Search text, which filters the list of leads
+        schema:
+          type: string
+      - in: query
+        name: fromDate
+        description: Date on which the lead was created (lower bound) in Unix timestamp format
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: toDate
+        description: Date on which the lead was created (upper bound) in Unix timestamp format
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: sortField
+        description: The field by which to order the results
+        required: false
+        schema:
+          type: string
+          enum:
+          - DATE
+          - COMPANY_NAME
+          default: DATE
+      - in: query
+        name: sortOrder
+        description: Type of ordering used (ascending or descending)
+        required: false
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      - in: query
+        name: page
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: size
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 29a1dc26-8088-475c-ba75-7b73915a0fab
+                      partner: APPDIRECT
+                      leadType: MANUAL
+                      status: SUBMITTED
+                      customer:
+                        company:
+                          name: Acme
+                          street1: 1234 Main St
+                          city: Beverly Hills
+                          state: CA
+                          zip: '90210'
+                          country: US
+                        contact:
+                          firstName: John
+                          lastName: Doe
+                          email: john.doe@acme.com
+                          phone: '+14455555555'
+                      createdOn: 1534531428
+                      lastModified: 1534531428
+                      creator:
+                        id: 833d4c99-1939-4366-a5ae-6fb7ae3ec1be
+                        companyId: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                        companyName: AppDirect
+                        role: CHANNEL_ADMIN
+                      customAttributes: {}
+                      referrer:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      recipient:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                    - id: acfce97c-5428-4310-b841-3bf7cca4e047
+                      partner: APPDIRECT
+                      leadType: MANUAL
+                      status: CONVERTED
+                      customer:
+                        company:
+                          name: Globex
+                          street1: 5678 Main Av
+                          city: Beverly Hills
+                          state: CA
+                          zip: '90210'
+                          country: US
+                          companyExists: true
+                        contact:
+                          firstName: Jane
+                          lastName: Doe
+                          email: jane.doe@globex.com
+                          phone: '+18008888080'
+                      reseller:
+                        id: 01d75b7c-ea78-4dc2-9e58-6ad217bddcbd
+                        companyId: 386626c0-53e2-4515-8450-4a720bb5d029
+                      createdOn: 1534531428
+                      lastModified: 1534531428
+                      creator:
+                        id: 01d75b7c-ea78-4dc2-9e58-6ad217bddcbd
+                        companyId: 386626c0-53e2-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+                        role: RESELLER
+                      convertedCompany:
+                        id: dba89c75-f10c-4314-8a98-0692d04594d3
+                        name: Acme
+                      convertedUser:
+                        id: ad38f05b-7508-4c70-8ef8-c7929f35e414
+                        companyId: dba89c75-f10c-4314-8a98-0692d04594d3
+                      customAttributes: {}
+                      result: WON
+                      referrer:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      recipient:
+                        participantType: COMPANY
+                        companyId: 386626c0-53e2-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&status=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_NUMBER_VALUE&toDate=SOME_NUMBER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    status: 'SOME_STRING_VALUE',\n    searchText: 'SOME_STRING_VALUE',\n    fromDate: 'SOME_NUMBER_VALUE',\n    toDate: 'SOME_NUMBER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&status=SOME_STRING_VALUE&searchText=SOME_STRING_VALUE&fromDate=SOME_NUMBER_VALUE&toDate=SOME_NUMBER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Creates a manual, company profile or product profile lead. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them.<br/>Required parameters:<br/>Company name<br/>Contact email<br/>Lead type<br/>Partner<br/>If the lead type is PRODUCT, the product ID<br>If the lead type is COMPANY, the reseller company ID<br/>The required parameter correspond to the request payload in [LeadCreationRequest](#leadcreationrequest)
+      tags:
+      - AppResellerLeads
+      summary: Create lead
+      operationId: resource_AppResellerLeadsApi_create_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+        ROLE_PARTNER:
+        - Allows access to read and write all Marketplace data. Non-interactive OAuth 1.0 credentials with read and write access are required to use this scope. The companyId, userId, and context parameters are also required.
+      parameters:
+      - in: query
+        name: context
+        description: The supported lead's API contexts. ANONYMOUS context can be used to create a PRODUCT or COMPANY lead without authentication.
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: query
+        name: companyId
+        description: Company ID of the user who is creating the lead. Only required when creating a lead of type MANUAL.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: userId
+        description: 'User ID of the user who is creating the lead. Only required when using OAuth credentials with role PARTNER to create a lead of type MANUAL. In this case, the user ID must correspond to a marketplace user who has the Marketplace Manager role. The user must be a member of a company that has marketplace access. '
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadCreationRequest'
+        description: Information about the lead to create
+        required: true
+      responses:
+        '201':
+          description: Lead created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+              examples:
+                response:
+                  value:
+                    id: cc146924-afe3-4f6f-b368-2279e1e2039e
+                    partner: APPDIRECT
+                    leadType: MANUAL
+                    status: ASSIGNED
+                    customer:
+                      company:
+                        name: Acme
+                        street1: 1234 Main St
+                        street2: 30th Floor, Apt B
+                        city: Miami
+                        state: FL
+                        zip: '33033'
+                        country: US
+                      contact:
+                        firstName: John
+                        lastName: Doe
+                        email: john.doe@companysrl.com
+                        phone: '+13055555555'
+                    createdOn: 1534875428054
+                    lastModified: 1534875428054
+                    creator:
+                      id: e0f7521e-a297-4d02-942e-a8ee3216d5e5
+                      companyId: fb2ea14d-2be2-4572-b607-2d70500c14f3
+                      companyName: Referral Company
+                      role: REFERRAL
+                    referrer:
+                      participantType: COMPANY
+                      companyId: fb2ea14d-2be2-4572-b607-2d70500c14f3
+                      companyName: Referral Company
+                    recipient:
+                      participantType: COMPANY
+                      companyId: fb2ea14d-2be2-4572-b607-2d70500c14f3
+                      companyName: Referral Company
+        '400':
+          description: Error attempting to create the lead (missing required data, for example)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&userId=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"customer\":{\"company\":{\"street1\":\"1234 Main St\",\"street2\":\"30th Floor, Apt B\",\"city\":\"Miami\",\"country\":\"US\",\"state\":\"FL\",\"zip\":\"33033\",\"name\":\"Acme\"},\"contact\":{\"firstName\":\"John\",\"lastName\":\"Doe\",\"phone\":\"+13055555555\",\"email\":\"john.doe@acme.com\"}},\"leadType\":\"MANUAL\",\"partner\":\"APPDIRECT\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    userId: 'SOME_STRING_VALUE'\n  },\n  headers: {'content-type': 'application/json'},\n  body: {\n    customer: {\n      company: {\n        street1: '1234 Main St',\n        street2: '30th Floor, Apt B',\n        city: 'Miami',\n        country: 'US',\n        state: 'FL',\n        zip: '33033',\n        name: 'Acme'\n      },\n      contact: {\n        firstName: 'John',\n        lastName: 'Doe',\n        phone: '+13055555555',\n        email: 'john.doe@acme.com'\n      }\n    },\n    leadType: 'MANUAL',\n    partner: 'APPDIRECT'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customer\\\":{\\\"company\\\":{\\\"street1\\\":\\\"1234 Main St\\\",\\\"street2\\\":\\\"30th Floor, Apt B\\\",\\\"city\\\":\\\"Miami\\\",\\\"country\\\":\\\"US\\\",\\\"state\\\":\\\"FL\\\",\\\"zip\\\":\\\"33033\\\",\\\"name\\\":\\\"Acme\\\"},\\\"contact\\\":{\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"phone\\\":\\\"+13055555555\\\",\\\"email\\\":\\\"john.doe@acme.com\\\"}},\\\"leadType\\\":\\\"MANUAL\\\",\\\"partner\\\":\\\"APPDIRECT\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&userId=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/leads/{leadId}:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a single lead and its details
+      tags:
+      - AppResellerLeads
+      summary: Get lead details
+      operationId: resource_AppResellerLeadsApi_get_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: path
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: Company ID of the user who is retrieving the lead
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+              examples:
+                response:
+                  value:
+                    id: 29a1dc26-8088-475c-ba75-7b73915a0fab
+                    partner: APPDIRECT
+                    leadType: MANUAL
+                    status: SUBMITTED
+                    customer:
+                      company:
+                        name: Acme
+                        street1: 1234 Main St
+                        city: Beverly Hills
+                        state: CA
+                        zip: '90210'
+                        country: US
+                      contact:
+                        firstName: John
+                        lastName: Doe
+                        email: john.doe@acme.com
+                        phone: '+14455555555'
+                    createdOn: 1534465177000
+                    lastModified: 1534465179000
+                    creator:
+                      id: 833d4c99-1939-4366-a5ae-6fb7ae3ec1be
+                      companyId: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      companyName: AppDirect
+                      role: CHANNEL_ADMIN
+                    customAttributes: {}
+                    referrer:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+                    recipient:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      x-appdirect-api-stage: Early Access
+      description: Deletes or disqualifies a lead (depending on type and assignment)
+      tags:
+      - AppResellerLeads
+      summary: Discard lead
+      operationId: resource_AppResellerLeadsApi_delete_DELETE
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: path
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: Company ID of the user who is discarding the lead
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Lead deleted or disqualified
+        '400':
+          description: Error attempting to discard a lead that cannot be deleted or disqualified
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      x-appdirect-api-stage: Early Access
+      description: Updates the contact information or notes from a lead
+      tags:
+      - AppResellerLeads
+      summary: Update lead
+      operationId: resource_AppResellerLeadsApi_update_PATCH
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: path
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: Company ID of the user who is updating the lead
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadUpdateRequest'
+        description: Information about the lead to update
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+              examples:
+                response:
+                  value:
+                    id: 29a1dc26-8088-475c-ba75-7b73915a0fab
+                    partner: APPDIRECT
+                    leadType: MANUAL
+                    status: SUBMITTED
+                    customer:
+                      company:
+                        name: Globex
+                        street1: 1234 Main St
+                        street2: 5th floor
+                        city: Beverly Hills
+                        state: CA
+                        zip: '90210'
+                        country: US
+                      contact:
+                        firstName: Jane
+                        lastName: Jane
+                        email: jane.doe@globex.com
+                        phone: '+14455555555'
+                    notes: Updated company name, added floor and changed person to be contacted
+                    createdOn: 1534465177000
+                    lastModified: 1534857159000
+                    creator:
+                      id: 833d4c99-1939-4366-a5ae-6fb7ae3ec1be
+                      companyId: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      companyName: Appdirect
+                      role: CHANNEL_ADMIN
+                    customAttributes: {}
+                    referrer:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+                    recipient:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+        '400':
+          description: Error attempting to update a lead (for example, it is not possible to modify the lead)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"customer\":{\"company\":{\"name\":\"Globex\",\"street2\":\"5th floor\"},\"contact\":{\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"email\":\"jane.doe@globex.com\"}},\"notes\":\"Updated company name, added floor and changed person to be contacted\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    customer: {\n      company: {name: 'Globex', street2: '5th floor'},\n      contact: {firstName: 'Jane', lastName: 'Doe', email: 'jane.doe@globex.com'}\n    },\n    notes: 'Updated company name, added floor and changed person to be contacted'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customer\\\":{\\\"company\\\":{\\\"name\\\":\\\"Globex\\\",\\\"street2\\\":\\\"5th floor\\\"},\\\"contact\\\":{\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"email\\\":\\\"jane.doe@globex.com\\\"}},\\\"notes\\\":\\\"Updated company name, added floor and changed person to be contacted\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/assignment:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Assigns a lead to a Reseller company. The assignee will be able to see that lead as long as is not assigned to another company. The owner of the lead retains visibility even if it is assigned to another company.
+      tags:
+      - AppResellerLeads
+      summary: Assign lead
+      operationId: resource_AppResellerLeadsApi_assign_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: query
+        name: companyId
+        description: Company ID of the user who is assigning the lead
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadAssignmentRequest'
+        description: Information about the person to whom the lead is being assigned
+        required: true
+      responses:
+        '201':
+          description: Lead assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadAssignmentResponse'
+              examples:
+                response:
+                  value:
+                    lead:
+                      id: 29a1dc26-8088-475c-ba75-7b73915a0fab
+                      partner: APPDIRECT
+                      leadType: MANUAL
+                      status: ASSIGNED
+                      customer:
+                        company:
+                          name: Acme
+                          street1: 1234 Main St
+                          street2: 1st floor
+                          city: Beverly Hills
+                          state: CA
+                          zip: '90210'
+                          country: US
+                        contact:
+                          firstName: John
+                          lastName: Doe
+                          email: john.doe@acme.com
+                          phone: '+14455555555'
+                      notes: Some notes
+                      createdOn: 1534465177000
+                      lastModified: 1534857159000
+                      creator:
+                        id: 833d4c99-1939-4366-a5ae-6fb7ae3ec1be
+                        companyId: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                        companyName: Appdirect
+                        role: RESELLER_MANAGER
+                      customAttributes: {}
+                      referrer:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      recipient:
+                        participantType: COMPANY
+                        companyId: 386626c0-53e2-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+        '400':
+          description: Error attempting to assign the lead (missing required data, for example)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/assignment?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"leadId\":\"29a1dc26-8088-475c-ba75-7b73915a0fab\",\"recipient\":{\"participantType\":\"COMPANY\",\"companyId\":\"386626c0-1234-4515-8450-4a720bb5d029\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/assignment',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    leadId: '29a1dc26-8088-475c-ba75-7b73915a0fab',\n    recipient: {participantType: 'COMPANY', companyId: '386626c0-1234-4515-8450-4a720bb5d029'}\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"leadId\\\":\\\"29a1dc26-8088-475c-ba75-7b73915a0fab\\\",\\\"recipient\\\":{\\\"participantType\\\":\\\"COMPANY\\\",\\\"companyId\\\":\\\"386626c0-1234-4515-8450-4a720bb5d029\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/assignment?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/companyAssociation:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Associates a lead with an existing marketplace user and company
+      tags:
+      - AppResellerLeads
+      summary: Associate lead
+      operationId: resource_AppResellerLeadsApi_associate_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+          - CHANNEL_ADMIN
+      - in: query
+        name: companyId
+        description: Company ID of the user who is updating the lead
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadCompanyAssociationRequest'
+        description: Information about the user/company that the lead is being associated with
+        required: true
+      responses:
+        '200':
+          description: Lead associated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+              examples:
+                response:
+                  value:
+                    id: ce9d1713-7a48-43e4-bb43-b6880a19df24
+                    partner: APPDIRECT
+                    leadType: MANUAL
+                    status: SUBMITTED
+                    customer:
+                      company:
+                        name: Globex
+                        street1: 1234 Main St
+                        city: Beverly Hills
+                        state: CA
+                        zip: '90210'
+                        country: US
+                        companyExists: true
+                        linked: false
+                      contact:
+                        firstName: Jane
+                        lastName: Doe
+                        email: jane.doe@company.com
+                    createdOn: 1534845351000
+                    lastModified: 1534845352000
+                    creator:
+                      id: 833d4c99-1939-4366-a5ae-6fb7ae3ec1be
+                      companyId: 6b4bd452-895d-4098-aa56-e6046b238e0f
+                      companyName: Appdirect
+                      role: CHANNEL_ADMIN
+                    convertedCompany:
+                      id: 62377315-61ba-4b50-9891-02799bef4257
+                      name: Acme
+                    convertedUser:
+                      id: 1661c8d8-357b-4e8d-a0b9-a571ff00924b
+                      companyId: 62377315-61ba-4b50-9891-02799bef4257
+                    customAttributes: {}
+                    referrer:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+                    recipient:
+                      participantType: CHANNEL
+                      partner: APPDIRECT
+        '400':
+          description: Error attempting to associate the lead (missing required data, for example)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/companyAssociation?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"leadId\":\"ce9d1713-7a48-43e4-bb43-b6880a19df24\",\"user\":{\"companyId\":\"62377315-61ba-4b50-9891-02799bef4257\",\"id\":\"1661c8d8-357b-4e8d-a0b9-a571ff00924b\"}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/companyAssociation',\n  qs: {context: 'SOME_STRING_VALUE', companyId: 'SOME_STRING_VALUE'},\n  headers: {'content-type': 'application/json'},\n  body: {\n    leadId: 'ce9d1713-7a48-43e4-bb43-b6880a19df24',\n    user: {\n      companyId: '62377315-61ba-4b50-9891-02799bef4257',\n      id: '1661c8d8-357b-4e8d-a0b9-a571ff00924b'\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"leadId\\\":\\\"ce9d1713-7a48-43e4-bb43-b6880a19df24\\\",\\\"user\\\":{\\\"companyId\\\":\\\"62377315-61ba-4b50-9891-02799bef4257\\\",\\\"id\\\":\\\"1661c8d8-357b-4e8d-a0b9-a571ff00924b\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/companyAssociation?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/leads/{leadId}/activities:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a list of all lead activities visible for a given context. You can filter the list using optional query parameters.
+      tags:
+      - AppResellerLeads
+      summary: List activities
+      operationId: resource_AppResellerLeadsApi_activities_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_REFERRAL:
+        - Allows access as a Referral for the company
+        ROLE_DEVELOPER:
+        - Allows access as a Developer for the company
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+      - in: path
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: companyId
+        description: Company ID of the user who is retrieving the list
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: fromDate
+        description: Date on which the lead activity was created (lower bound) in Unix timestamp format
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: toDate
+        description: Date on which the lead activity was created (upper bound) in Unix timestamp format
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: creationDateOrder
+        description: Type of ordering used (ascending or descending) for the creation date
+        required: false
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      - in: query
+        name: page
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: size
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadActivityPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 9d0957c8-d78d-44ac-9789-4b60a5859a3a
+                      createdOn: 1528922810000
+                      verb: LEAD_CONVERSION_REQUESTED
+                      verbContext: COMPANY
+                      partner: APPDIRECT
+                      actorCompany:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        name: Reseller Company
+                      allowedResourcesAccess:
+                      - ACTOR_COMPANY
+                    - id: 259558f5-da66-4ce9-aede-0f15f68478f5
+                      createdOn: 1528922659000
+                      verb: LEAD_CREATED
+                      verbContext: COMPANY
+                      partner: APPDIRECT
+                      actorCompany:
+                        id: 386626c0-1234-4515-8450-4a720bb5d029
+                        name: Reseller Company
+                      allowedResourcesAccess:
+                      - ACTOR_COMPANY
+                    - id: c6350331-caa9-4942-b53c-611df7d7c1d7
+                      createdOn: 1528922904000
+                      verb: LEAD_CONVERSION_APPROVED
+                      verbContext: MARKETPLACE
+                      partner: APPDIRECT
+                      actorCompany:
+                        id: 6b4bd452-895d-4098-aaaa-e6046b238e0f
+                        name: Appdirect
+                      allowedResourcesAccess:
+                      - ACTOR_COMPANY
+                    - id: 49479105-36a9-4740-b9a3-b768c6755378
+                      createdOn: 1528922952000
+                      verb: LEAD_CONVERTED
+                      verbContext: COMPANY
+                      partner: APPDIRECT
+                      actorCompany:
+                        id: 386626c0-1234-4515-8450-4a720bb5d029
+                        name: Reseller Company
+                      allowedResourcesAccess:
+                      - ACTOR_COMPANY
+                    - id: 45e3a909-e3ec-46fc-8b08-bcc264fdc2f7
+                      createdOn: 1528923325000
+                      verb: LEAD_QUOTE_LINKED
+                      verbContext: COMPANY
+                      partner: APPDIRECT
+                      actorCompany:
+                        id: 386626c0-1234-4515-8450-4a720bb5d029
+                        name: Reseller Company
+                      contextQuote:
+                        id: 5f7a98c8-deac-40b2-8cef-cd41af042233
+                        friendlyId: I4HNJM
+                        applicationName: AUTO_WEBAPP_NEW
+                      allowedResourcesAccess:
+                      - ACTOR_COMPANY
+                    page:
+                      size: 5
+                      totalElements: 17
+                      totalPages: 4
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D/activities?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&fromDate=SOME_NUMBER_VALUE&toDate=SOME_NUMBER_VALUE&creationDateOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D/activities',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    fromDate: 'SOME_NUMBER_VALUE',\n    toDate: 'SOME_NUMBER_VALUE',\n    creationDateOrder: 'SOME_STRING_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/leads/%7BleadId%7D/activities?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&fromDate=SOME_NUMBER_VALUE&toDate=SOME_NUMBER_VALUE&creationDateOrder=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/conversion:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Converts the lead to a marketplace company
+      tags:
+      - AppResellerLeads
+      summary: Convert lead
+      operationId: resource_AppResellerLeadsApi_convert_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+      - in: query
+        name: companyId
+        description: Company ID of the user who is converting the lead
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadConversionResponse'
+              examples:
+                response:
+                  value:
+                    lead:
+                      id: 94890613-265d-4635-93d1-9fdddf70cf73
+                      partner: APPDIRECT
+                      leadType: COMPANY
+                      status: CONVERTED
+                      customer:
+                        company:
+                          name: Acme
+                          companyExists: true
+                          linked: true
+                        contact:
+                          firstName: John
+                          lastName: Doe
+                          email: john.doe@acme.com
+                      reseller:
+                        id: 01d75b7c-ea78-4dc2-9e58-6ad217bddcbd
+                        companyId: 386626c0-1234-4515-8450-4a720bb5d029
+                      createdOn: 1534846329000
+                      lastModified: 1534985564812
+                      convertedCompany:
+                        id: b3577d6f-8f29-454e-9d9d-da99e1e9618f
+                        name: Acme
+                      convertedUser:
+                        id: 6f3b8110-4e66-49bd-aec9-2e2fbe8c54ea
+                        companyId: b3577d6f-8f29-454e-9d9d-da99e1e9618f
+                      referrer:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      recipient:
+                        participantType: COMPANY
+                        companyId: 386626c0-53e2-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+                      profileCompany:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        name: Reseller Company
+        '400':
+          description: Error attempting to convert the lead (for example, it is not possible to convert the lead)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/conversion?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/conversion',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    leadId: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/conversion?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/conversionRequest:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Request permission to convert the lead to a marketplace company
+      tags:
+      - AppResellerLeads
+      summary: Request conversion approval
+      operationId: resource_AppResellerLeadsApi_convert_request_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+      - in: query
+        name: companyId
+        description: Company ID of the user who is requesting the lead conversion
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lead conversion request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadConversionResponse'
+              examples:
+                response:
+                  value:
+                    lead:
+                      id: 94890613-265d-4635-93d1-9fdddf70cf73
+                      partner: APPDIRECT
+                      leadType: COMPANY
+                      status: PENDING_CONVERSION_APPROVAL
+                      customer:
+                        company:
+                          name: Acme
+                        contact:
+                          firstName: John
+                          lastName: Doe
+                          email: john.doe@acme.com
+                      createdOn: 1534846329000
+                      lastModified: 1534846331000
+                      customAttributes: {}
+                      referrer:
+                        participantType: COMPANY
+                        companyId: 386626c0-1234-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+                      recipient:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      profileCompany:
+                        id: 386626c0-1234-4515-8450-4a720bb5d029
+                        name: Reseller Company
+        '400':
+          description: Error attempting to request approval (for example, approval has already been requested)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/conversionRequest?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/conversionRequest',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    companyId: 'SOME_STRING_VALUE',\n    leadId: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/conversionRequest?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /lead/v2/conversionApproval:
+    post:
+      x-appdirect-api-stage: Early Access
+      description: Approves the conversion request made by a Reseller company
+      tags:
+      - AppResellerLeads
+      summary: Approve conversion request
+      operationId: resource_AppResellerLeadsApi_convert_approval_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the marketplace
+      parameters:
+      - in: query
+        name: context
+        description: Supported contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER
+          - REFERRAL
+          - DEVELOPER
+          - RESELLER_MANAGER
+          - PARTNER
+          - ANONYMOUS
+      - in: query
+        name: leadId
+        description: Lead ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lead conversion approval successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadConversionResponse'
+              examples:
+                response:
+                  value:
+                    lead:
+                      id: 94890613-265d-4635-93d1-9fdddf70cf73
+                      partner: APPDIRECT
+                      leadType: COMPANY
+                      status: CONVERSION_APPROVED
+                      customer:
+                        company:
+                          name: Acme
+                        contact:
+                          firstName: John
+                          lastName: Doe
+                          email: john.doe@acme.com
+                      createdOn: 1534846329000
+                      lastModified: 1534984995000
+                      customAttributes: {}
+                      referrer:
+                        participantType: CHANNEL
+                        partner: APPDIRECT
+                      recipient:
+                        participantType: COMPANY
+                        companyId: 386626c0-1234-4515-8450-4a720bb5d029
+                        companyName: Reseller Company
+                      profileCompany:
+                        id: 386626c0-1234-4515-8450-4a720bb5d029
+                        name: Reseller Company
+        '400':
+          description: Error attempting to approve the request (for example, conversion is already approved)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/lead/v2/conversionApproval?context=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/lead/v2/conversionApproval',\n  qs: {context: 'SOME_STRING_VALUE', leadId: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/conversionApproval?context=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    LeadProduct:
+      description: Information about the product related to a lead
+      type: object
+      title: LeadProduct
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Product ID
+          type: string
+        name:
+          description: Product name
+          type: string
+        provider:
+          description: Marketplace partner code
+          type: string
+      example:
+        id: 009fd909-aaaa-4e37-bbad-701f87724bca
+        name: Appsome Product
+        provider: APPDIRECT
+    LeadActivity:
+      description: Information about the lead activity
+      type: object
+      title: LeadActivity
+      required:
+      - id
+      - partner
+      - createdOn
+      - verb
+      - allowedResourcesAccess
+      properties:
+        id:
+          description: Lead activity ID
+          type: string
+        partner:
+          description: Marketplace partner code
+          type: string
+        createdOn:
+          description: Date on which the activity was created, in UNIX Epoch milliseconds
+          type: number
+        verb:
+          $ref: '#/components/schemas/LeadActivityVerb'
+        verbContext:
+          $ref: '#/components/schemas/LeadActivityVerbContext'
+        allowedResourcesAccess:
+          description: The lead's activity resource (the type of object that the activity refers to)
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadActivityResource'
+        actorCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        contextCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        contextApplication:
+          $ref: '#/components/schemas/LeadProduct'
+        contextPurchaseOrder:
+          $ref: '#/components/schemas/LeadPurchaseOrder'
+        contextQuote:
+          $ref: '#/components/schemas/LeadQuote'
+      example:
+        id: 633d1fa9-16ce-4448-8741-85960ecee365
+        createdOn: 1533222783000
+        verb: LEAD_QUOTE_LINKED
+        verbContext: COMPANY
+        partner: APPDIRECT
+        actorCompany:
+          id: 386626c0-1234-4515-8450-4a720bb5d029
+          name: Reseller Company
+        contextQuote:
+          id: df4e34c4-4f82-458d-ba4a-db68c27878a6
+          friendlyId: ZVVZNQ
+          applicationName: Appsome Product
+        allowedResourcesAccess:
+        - CONTEXT_QUOTE
+        - ACTOR_COMPANY
+    LeadPagedReadResponse:
+      description: Paged response as an array of lead objects
+      type: object
+      title: LeadPagedReadResponse
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadResponse'
+    LeadType:
+      description: The type of lead. Leads created manually by users have the MANUAL type. Leads created by anonymous users through profiles have the PRODUCT or COMPANY types, depending on whether they were created from product profiles or reseller company profiles respectively.
+      type: string
+      title: LeadType
+      enum:
+      - MANUAL
+      - PRODUCT
+      - COMPANY
+    LeadUpdateRequest:
+      description: The lead information to update
+      type: object
+      title: LeadUpdateRequest
+      properties:
+        customer:
+          $ref: '#/components/schemas/LeadCustomer'
+        notes:
+          description: Notes attached to the lead
+          type: string
+      example:
+        customer:
+          company:
+            name: Globex
+            street2: 5th floor
+          contact:
+            firstName: Jane
+            lastName: Doe
+            email: jane.doe@globex.com
+        notes: Updated company name, added floor and changed person to be contacted
+    LeadAssignmentRequest:
+      description: Information about the person to whom the lead is being assigned
+      type: object
+      title: LeadAssignmentRequest
+      required:
+      - leadId
+      - recipient
+      properties:
+        leadId:
+          description: Lead ID
+          type: string
+        recipient:
+          $ref: '#/components/schemas/LeadParticipant'
+      example:
+        leadId: 29a1dc26-8088-475c-ba75-7b73915a0fab
+        recipient:
+          participantType: COMPANY
+          companyId: 386626c0-1234-4515-8450-4a720bb5d029
+    LeadActivityResource:
+      description: The lead's activity resource (the type of object that the activity refers to)
+      type: string
+      title: LeadActivityResource
+      enum:
+      - ACTOR_COMPANY
+      - CONTEXT_COMPANY
+      - CONTEXT_APPLICATION
+      - CONTEXT_QUOTE
+    LeadCustomer:
+      description: Information about the customer and customer company
+      type: object
+      title: LeadCustomer
+      required:
+      - company
+      - contact
+      properties:
+        company:
+          $ref: '#/components/schemas/LeadCustomerCompany'
+        contact:
+          $ref: '#/components/schemas/LeadCustomerContact'
+      example:
+        customer:
+          company:
+            name: Acme
+            street1: 1234 Main St
+            street2: Suite 100
+            city: Beverly Hills
+            state: CA
+            zip: '90210'
+            country: US
+            size: RANGE_1_9
+          contact:
+            firstName: John
+            lastName: Doe
+            email: john.doe@acme.com
+            phone: '+14455555555'
+    LeadConversionResponse:
+      description: Information about the lead conversion
+      type: object
+      title: LeadConversionResponse
+      required:
+      - lead
+      properties:
+        lead:
+          $ref: '#/components/schemas/LeadResponse'
+    LeadParticipant:
+      description: Information about the person who is receiving or referring the lead
+      type: object
+      title: LeadParticipant
+      required:
+      - participantType
+      properties:
+        participantType:
+          description: The type of the participant involved. It can be CUSTOMER (an anonymous participant), COMPANY (a Reseller, Referral or Developer company participant) or CHANNEL (a Partner participant).
+          type: string
+        partner:
+          description: The partner code of the marketplace (only for CHANNEL types)
+          type: string
+        companyId:
+          description: The company's ID (only for COMPANY types)
+          type: string
+        companyName:
+          description: The company's name (only for COMPANY types)
+          type: string
+      example:
+        participantType: CHANNEL
+        partner: APPDIRECT
+    LeadAssignmentResponse:
+      description: Information about the assigned lead
+      type: object
+      title: LeadAssignmentResponse
+      required:
+      - lead
+      properties:
+        lead:
+          $ref: '#/components/schemas/LeadResponse'
+    LeadPurchaseOrder:
+      description: Information about the purchase order linked to the lead
+      type: object
+      title: LeadPurchaseOrder
+      required:
+      - id
+      properties:
+        id:
+          description: Purchase order ID
+          type: number
+      example:
+        id: 1234
+    LeadCustomerContact:
+      description: Customer contact information
+      type: object
+      title: LeadCustomerContact
+      properties:
+        firstName:
+          description: First name
+          type: string
+        lastName:
+          description: Last name
+          type: string
+        email:
+          description: Email address
+          type: string
+        phone:
+          description: Phone number
+          type: string
+        phoneExtension:
+          description: Phone number extension
+          type: string
+      example:
+        contact:
+          firstName: John
+          lastName: Doe
+          email: john.doe@acme.com
+          phone: '+14455555555'
+          phoneExtension: '123'
+    LeadQuote:
+      description: Information about a quote linked to the lead
+      type: object
+      title: LeadQuote
+      required:
+      - id
+      - friendlyId
+      - applicationName
+      properties:
+        id:
+          description: Quote ID
+          type: string
+        friendlyId:
+          description: Quote ID in friendly format
+          type: string
+        applicationName:
+          description: The product name from the quote
+          type: string
+      example:
+        id: df4e34c4-4f82-458d-ba4a-db68c27878a6
+        friendlyId: ZVVZNQ
+        applicationName: AUTO_WEBAPP_NEW
+    LeadUser:
+      description: Information about the marketplace user related to the lead
+      type: object
+      title: LeadUser
+      required:
+      - id
+      - companyId
+      properties:
+        id:
+          description: User ID
+          type: string
+        companyId:
+          description: Company ID
+          type: string
+        companyName:
+          description: Company name
+          type: string
+        role:
+          description: User role (if applicable)
+          type: string
+      example:
+        companyId: 386626c0-53e2-4515-ffff-4a720bb5d029
+        companyName: Reseller Company
+        id: 01d75b7c-ea78-ffff-9e58-6ad217bddcbd
+        role: RESELLER
+    LeadCompanyAssociationRequest:
+      description: Contains information about user and company to associate with the lead
+      type: object
+      title: LeadCompanyAssociationRequest
+      required:
+      - leadId
+      - user
+      properties:
+        leadId:
+          description: Lead ID
+          type: string
+        user:
+          $ref: '#/components/schemas/LeadUser'
+      example:
+        leadId: ce9d1713-7a48-43e4-bb43-b6880a19df24
+        user:
+          companyId: 62377315-61ba-4b50-9891-02799bef4257
+          id: 1661c8d8-357b-4e8d-a0b9-a571ff00924b
+    LeadResponse:
+      description: The lead response. Depending on the action and status, some information might not be available.
+      type: object
+      title: LeadResponse
+      required:
+      - id
+      - partner
+      - leadType
+      - status
+      - customer
+      - createdOn
+      - lastModified
+      - referrer
+      - recipient
+      properties:
+        id:
+          description: Lead ID
+          type: string
+        partner:
+          description: Marketplace partner code
+          type: string
+        leadType:
+          $ref: '#/components/schemas/LeadType'
+        status:
+          $ref: '#/components/schemas/LeadStatus'
+        customer:
+          $ref: '#/components/schemas/LeadCustomer'
+        createdOn:
+          description: The date on which the lead was created, in UNIX Epoch milliseconds
+          type: number
+        lastModified:
+          description: The date on which the lead was last modified, in UNIX Epoch milliseconds
+          type: number
+        customAttributes:
+          description: Custom attributes associated with the lead
+          type: object
+        referrer:
+          $ref: '#/components/schemas/LeadParticipant'
+        recipient:
+          $ref: '#/components/schemas/LeadParticipant'
+        reseller:
+          $ref: '#/components/schemas/LeadUser'
+        notes:
+          description: Notes attached to the lead
+          type: string
+        creator:
+          $ref: '#/components/schemas/LeadUser'
+        convertedUser:
+          $ref: '#/components/schemas/LeadUser'
+        convertedCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        result:
+          $ref: '#/components/schemas/LeadResult'
+        profileCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        profileProduct:
+          $ref: '#/components/schemas/LeadProduct'
+        profileProductEdition:
+          $ref: '#/components/schemas/LeadProductEdition'
+    LeadCompany:
+      description: Information about the marketplace company related to the lead
+      type: object
+      title: LeadCompany
+      required:
+      - id
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 386626c0-53e2-4515-ffff-4a720bb5d029
+        name: Reseller Company
+    LeadCustomerCompany:
+      description: Information about the customer's company, including address and company size
+      type: object
+      title: LeadCustomerCompany
+      properties:
+        name:
+          description: Company Name
+          type: string
+        street1:
+          description: First line of street address
+          type: string
+        street2:
+          description: Second line of street address (suite, floor, and so on)
+          type: string
+        city:
+          description: City or town
+          type: string
+        state:
+          description: State, province, or region
+          type: string
+        zip:
+          description: ZIP or postal code
+          type: string
+        country:
+          description: The two-letter country code, in ISO 3166 format
+          type: string
+        size:
+          description: Company size, as determined by number of employees
+          type: string
+          enum:
+          - RANGE_1_9
+          - RANGE_10_24
+          - RANGE_25_49
+          - RANGE_50_249
+          - RANGE_250_499
+          - RANGE_500_999
+          - RANGE_1000_4999
+          - RANGE_5000_PLUS
+          - UNKNOWN
+      example:
+        company:
+          name: Acme
+          street1: 1234 Main St
+          street2: Suite 100
+          city: Beverly Hills
+          state: CA
+          zip: '90210'
+          country: US
+          size: RANGE_1_9
+    LeadActivityVerb:
+      description: Lead activity action (or verb)
+      type: string
+      title: LeadActivityVerb
+      enum:
+      - LEAD_CREATED
+      - LEAD_UPDATED
+      - LEAD_SUBMITTED
+      - LEAD_ASSIGNED
+      - LEAD_CONVERTED
+      - LEAD_DELETED
+      - LEAD_DISQUALIFIED
+      - LEAD_CONVERSION_REQUESTED
+      - LEAD_CONVERSION_APPROVED
+      - LEAD_MARKED_OPEN
+      - LEAD_MARKED_WON
+      - LEAD_MARKED_LOST
+      - LEAD_ORDER_LINKED
+      - LEAD_ORDER_UNLINKED
+      - LEAD_QUOTE_LINKED
+      - LEAD_QUOTE_UNLINKED
+      - LEAD_PRODUCT_LINKED
+      - LEAD_PRODUCT_UNLINKED
+      - LEAD_COMPANY_ASSOCIATED
+      - LEAD_COMPANY_ASSOCIATION_LOST
+      - LEAD_PRODUCT_DELETED
+    LeadActivityPagedReadResponse:
+      description: Paged response as an array of lead activity objects
+      type: object
+      title: LeadActivityPagedReadResponse
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadActivity'
+    LeadActivityVerbContext:
+      description: Lead activity action's context (or verb context)
+      type: string
+      title: LeadActivityVerbContext
+      enum:
+      - PRODUCT_PROFILE
+      - RESELLER_PROFILE
+      - COMPANY
+      - MARKETPLACE
+      - SALES_SUPPORT
+    LeadCreationRequest:
+      description: The lead creation request object. Some fields are mandatory depending on the type of the lead.
+      type: object
+      title: LeadCreationRequest
+      required:
+      - partner
+      - leadType
+      - customer
+      properties:
+        partner:
+          description: Marketplace partner code
+          type: string
+        leadType:
+          $ref: '#/components/schemas/LeadType'
+        customer:
+          $ref: '#/components/schemas/LeadCustomer'
+        customAttributes:
+          description: Custom attributes associated with the lead. This is a key-value object where the values are a set of strings associated with a given key, which is also a String.
+          type: object
+        reseller:
+          $ref: '#/components/schemas/LeadUser'
+        notes:
+          description: Notes attached to the lead
+          type: string
+        creator:
+          $ref: '#/components/schemas/LeadUser'
+        profileCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        profileProduct:
+          $ref: '#/components/schemas/LeadProduct'
+        profileProductEdition:
+          $ref: '#/components/schemas/LeadProductEdition'
+      example:
+        customer:
+          company:
+            street1: 1234 Main St
+            street2: 30th Floor, Apt B
+            city: Miami
+            country: US
+            state: FL
+            zip: '33033'
+            name: Acme
+          contact:
+            firstName: John
+            lastName: Doe
+            phone: '+13055555555'
+            email: john.doe@acme.com
+        leadType: MANUAL
+        partner: APPDIRECT
+    LeadStatus:
+      description: The lead status. PENDING_FOR_MANAGERS requires SUBMITTED and PENDING_CONVERSION_APPROVAL; ACCEPTED_FOR_MANAGERS requires ASSIGNED, CONVERSION_APPROVED, CONVERTED, DELETED, DISQUALIFIED and LEGACY.
+      type: string
+      enum:
+      - CONVERTED
+      - DISQUALIFIED
+      - DELETED
+      - PENDING_CONVERSION_APPROVAL
+      - CONVERSION_APPROVED
+      - PENDING_SUBMISSION
+      - SUBMITTED
+      - ASSIGNED
+      - LEGACY
+      - PENDING_FOR_MANAGERS
+      - ACCEPTED_FOR_MANAGERS
+    LeadResult:
+      description: Additional status information about CONVERTED leads
+      type: string
+      title: LeadResult
+      enum:
+      - OPEN
+      - LOST
+      - WON
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    LeadProductEdition:
+      description: Information about the product edition related to a lead
+      type: object
+      title: LeadProductEdition
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Edition ID
+          type: string
+        name:
+          description: Edition name
+          type: string
+      example:
+        id: d4610cd4-09d5-abcd-a769-a47666a1c311
+        name: Enterprise Edition

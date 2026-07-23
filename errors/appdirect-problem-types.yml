@@ -1,0 +1,45 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/appdirect-companies-openapi-original.yml
+format: http-status
+note: AppDirect Companies API returns standard HTTP status codes with JSON bodies (not RFC 9457 problem+json).
+  Derived from response codes across 328 operations.
+envelope:
+  content_type: application/json
+problems:
+- status: '400'
+  title: Bad request
+  example_operation: resource_Company_createCompanyMembership_PATCH
+- status: '401'
+  title: Unauthorized
+  example_operation: resource_Company_readCompanyActivities_GET
+- status: '403'
+  title: Forbidden to delete invitation of an active user
+  example_operation: resource_Company_revokeInvitation_DELETE
+- status: '404'
+  title: Company not found
+  example_operation: resource_Company_readCompanyActivities_GET
+- status: '409'
+  title: Active subscriptions found
+  example_operation: resource_Company_deleteCompanyMembership_DELETE
+- status: '410'
+  title: The discount has expired
+  example_operation: applyDiscount
+- status: '412'
+  title: The subscription cannot be updated
+  example_operation: resource_Other_updateSubscription_PATCH
+- status: '429'
+  title: Too many requests
+  example_operation: resource_Product_readProduct_GET
+- status: '500'
+  title: Could not manually assign/unassign a member to/from a system managed group
+  example_operation: resource_Group_saveGroupMembership_PUT
+- status: '502'
+  title: Error occurred
+  example_operation: resource_Subscription_createSubscriptionAssignment_POST
+- status: '503'
+  title: Unable to retrieve validation results because the service is unavailable
+  example_operation: getOpportunityValidationResults
+- status: '504'
+  title: Gateway Timeout
+  example_operation: createPaymentMethodToken

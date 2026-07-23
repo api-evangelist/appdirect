@@ -1,0 +1,369 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Tenant Rate Limits API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Tenant Rate Limits
+  description: Tenant owner APIs to configure default rate limits and per-organization overrides
+paths:
+  /api/v1/tenant/organizations/{orgId}/rate-limits/block:
+    post:
+      tags:
+      - Tenant Rate Limits
+      summary: Block organization rate limits
+      description: Sets a BLOCKED override for the specified child organization. Caller must be the tenant owner organization with org settings write access.
+      operationId: blockOrgRateLimit
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization rate limits blocked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRateLimitSimpleModeResponseDto'
+        '400':
+          description: Bad request - invalid path parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not Found - organization does not exist or is deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/rate-limits/override:
+    get:
+      tags:
+      - Tenant Rate Limits
+      summary: Get organization rate limit override status
+      description: Returns effective rate limit mode and whether an explicit override exists for the organization.
+      operationId: getOrgRateLimitOverride
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Current override and effective mode.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRateLimitOverrideResponseDto'
+        '400':
+          description: Bad request - invalid path parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not Found - organization does not exist or is deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Tenant Rate Limits
+      summary: Clear organization rate limit override
+      description: Removes any explicit BLOCKED or UNLIMITED override so the tenant default applies.
+      operationId: clearOrgRateLimitOverride
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Override cleared.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRateLimitSimpleModeResponseDto'
+        '400':
+          description: Bad request - invalid path parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not Found - organization does not exist or is deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/organizations/{orgId}/rate-limits/unblock:
+    post:
+      tags:
+      - Tenant Rate Limits
+      summary: Unblock organization rate limits
+      description: Sets an UNLIMITED override for the specified child organization. Caller must be the tenant owner organization with org settings write access.
+      operationId: unblockOrgRateLimit
+      parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Target organization ID (must belong to the tenant).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization rate limits set to unlimited override.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRateLimitSimpleModeResponseDto'
+        '400':
+          description: Bad request - invalid path parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner or cannot access this organization.
+        '404':
+          description: Not Found - organization does not exist or is deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/rate-limits/default:
+    get:
+      tags:
+      - Tenant Rate Limits
+      summary: Get tenant default rate limit mode
+      description: Returns the default rate limit mode applied to child organizations when no per-org override exists. Only the tenant owner organization may call this.
+      operationId: getTenantDefaultRateLimit
+      responses:
+        '200':
+          description: Tenant default configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantDefaultRateLimitResponseDto'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner organization.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+    put:
+      tags:
+      - Tenant Rate Limits
+      summary: Set tenant default rate limit mode
+      description: Updates the default rate limit mode for child organizations. Only the tenant owner organization may call this.
+      operationId: setTenantDefaultRateLimit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetTenantDefaultRateLimitRequestDto'
+      responses:
+        '200':
+          description: Updated tenant default configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantDefaultRateLimitResponseDto'
+        '400':
+          description: Bad request - invalid body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner organization.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/tenant/rate-limits/overrides:
+    get:
+      tags:
+      - Tenant Rate Limits
+      summary: List tenant rate limit overrides
+      description: Paginated list of organizations with an explicit BLOCKED or UNLIMITED override. Only the tenant owner organization may call this.
+      operationId: listTenantRateLimitOverrides
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        description: Page size (1–100, default 20).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        required: false
+        description: Opaque cursor from a previous response pagination.nextCursor.
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Page of override rows.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTenantRateLimitOverridesResponseDto'
+        '400':
+          description: Bad request - invalid query parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - missing or invalid authentication.
+        '403':
+          description: Forbidden - caller is not the tenant owner organization.
+        '500':
+          description: Internal Server Error.
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    OrgRateLimitOverrideResponseDto:
+      type: object
+      required:
+      - orgId
+      - effectiveMode
+      - hasExplicitOverride
+      properties:
+        orgId:
+          type: string
+          description: Organization ID.
+        effectiveMode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
+          - SUBSCRIPTION_LIMITS
+          description: Effective rate limit mode after tenant default and any per-org override.
+        hasExplicitOverride:
+          type: boolean
+          description: True when a BLOCKED or UNLIMITED override is set for this organization.
+    SetTenantDefaultRateLimitRequestDto:
+      type: object
+      required:
+      - mode
+      properties:
+        mode:
+          type: string
+          enum:
+          - SUBSCRIPTION_LIMITS
+          - UNLIMITED
+          description: Default rate limit mode for child organizations. SUBSCRIPTION_LIMITS applies subscription-based limits; UNLIMITED removes subscription caps.
+    OrgRateLimitOverrideItemDto:
+      type: object
+      required:
+      - orgId
+      - mode
+      properties:
+        orgId:
+          type: string
+        mode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
+    TenantDefaultRateLimitResponseDto:
+      type: object
+      required:
+      - mode
+      properties:
+        mode:
+          type: string
+          enum:
+          - SUBSCRIPTION_LIMITS
+          - UNLIMITED
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    ListTenantRateLimitOverridesResponseDto:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgRateLimitOverrideItemDto'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+          description: Present when additional pages can be fetched via the cursor query parameter.
+    OrgRateLimitSimpleModeResponseDto:
+      type: object
+      required:
+      - orgId
+      - mode
+      properties:
+        orgId:
+          type: string
+        mode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
+          - NONE
+          description: 'Resulting override state: BLOCKED after block, UNLIMITED after unblock, NONE after clearing override.'

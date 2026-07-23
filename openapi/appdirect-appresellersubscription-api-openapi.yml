@@ -1,0 +1,781 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerSubscription API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerSubscription
+  x-displayName: Subscriptions (Reseller)
+paths:
+  /appReseller/v1/subscriptions:
+    post:
+      x-appdirect-api-stage: Deprecated
+      description: 'Note: This endpoint is being deprecated. // Create a new subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company'
+      tags:
+      - AppResellerSubscription
+      summary: Create subscription
+      operationId: resource_AppResellerBillingV1SubscriptionApi_POST
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppResellerBillingSubscriptionCreationRequestWS'
+        description: Information about the new subscription that will be created
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerSubscriptionWS'
+              examples:
+                response:
+                  value:
+                    id: 386626c0-53e2-4515-8450-4a720bb5d029
+                    activeOrder:
+                      id: '1553'
+                      paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+                      status: PENDING MANUAL RECOVERY
+                      frequency: One Time
+                      totalFee: USD350.00
+                      editionName: Edition
+                      orderLines:
+                      - unit: USER
+                        quantity: '1'
+                      createdOn: 1529083173000
+                    company:
+                      id: 698555fc-bc65-4163-9fee-16308edec41b
+                      name: Company A
+                    user:
+                      id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+                      firstName: Michael
+                      lastName: Jordan
+                    applicationName: AUTO_DISCOUNTS_APP
+                    pendingEvent: SUBSCRIPTION_CHANGE
+                    status: ACTIVE
+                    createdOn: 1529083173000
+                    referenceCode: bundle09
+        '401':
+          description: Unauthorized
+        '409':
+          description: Subscription already created
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptions \\\n  --header 'content-type: application/json' \\\n  --data '{\"targetCompanyId\":\"698555fc-bc65-4163-9fee-16308edec41b\",\"targetUserId\":\"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\"parentSubscriptionId\":\"386626c0-53e2-4515-8450-4a720bb5d029\",\"paymentPlanId\":\"30ccf1e7-1937-40cb-8e73-851a226fd4ea\",\"orderLines\":[{\"unit\":\"USER\",\"quantity\":\"1\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions',\n  headers: {'content-type': 'application/json'},\n  body: {\n    targetCompanyId: '698555fc-bc65-4163-9fee-16308edec41b',\n    targetUserId: '2c061df6-4313-45e0-8709-a0ca19b0aaa3',\n    parentSubscriptionId: '386626c0-53e2-4515-8450-4a720bb5d029',\n    paymentPlanId: '30ccf1e7-1937-40cb-8e73-851a226fd4ea',\n    orderLines: [{unit: 'USER', quantity: '1'}]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"targetCompanyId\\\":\\\"698555fc-bc65-4163-9fee-16308edec41b\\\",\\\"targetUserId\\\":\\\"2c061df6-4313-45e0-8709-a0ca19b0aaa3\\\",\\\"parentSubscriptionId\\\":\\\"386626c0-53e2-4515-8450-4a720bb5d029\\\",\\\"paymentPlanId\\\":\\\"30ccf1e7-1937-40cb-8e73-851a226fd4ea\\\",\\\"orderLines\\\":[{\\\"unit\\\":\\\"USER\\\",\\\"quantity\\\":\\\"1\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Deprecated
+      description: 'Note: This endpoint is being deprecated. // Retrieves a list of all user subscriptions of a linked company. You can filter the list using optional query parameters.'
+      tags:
+      - AppResellerSubscription
+      summary: List subscriptions
+      operationId: resource_AppResellerBillingV1SubscriptionApi_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the company
+      parameters:
+      - name: context
+        in: query
+        description: Supported billing contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER, RESELLER_MANAGER
+      - name: number
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: For RESELLER, the customer's user ID; for RESELLER_MANAGER, the Reseller's user ID
+        required: false
+        schema:
+          type: string
+      - name: resellerCompanyId
+        in: query
+        description: Reseller's company ID
+        required: true
+        schema:
+          type: string
+      - name: customerCompanyId
+        in: query
+        description: User's company ID. Required only for RESELLER context
+        required: true
+        schema:
+          type: string
+      - name: createdOn
+        in: query
+        description: 'Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - ''greater than or equal to''; gt([timestamp]) - ''greater than''; lte([timestamp]) - ''less than or equal to''; or lt([timestamp]) - ''less than.'''
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 'Subscription status. Acceptable values are: [status] - ''equal to''; or in([status1],[status2]) - ''status in the list''. For example, status=FAILED or status=in(FAILED,ACTIVE)'
+        required: false
+        schema:
+          type: string
+          enum:
+          - INITIALIZED
+          - FAILED
+          - FREE_TRIAL
+          - FREE_TRIAL_EXPIRED
+          - ACTIVE
+          - SUSPENDED
+          - CANCELLED
+      - name: paidStatus
+        in: query
+        description: Status of the subscription related to the payment
+        required: false
+        schema:
+          type: string
+          enum:
+          - PAID, FREE
+      - name: pending
+        in: query
+        description: Indicates whether subscription has pending events
+        required: false
+        schema:
+          type: boolean
+      - name: searchText
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 386626c0-53e2-4515-8450-4a720bb5d029
+                      activeOrder:
+                        id: '1553'
+                        status: PENDING MANUAL RECOVERY
+                        frequency: One Time
+                        totalFee: USD350.00
+                        editionName: Edition
+                        createdOn: 1529083173000
+                      company:
+                        id: 698555fc-bc65-4163-9fee-16308edec41b
+                        name: Company A
+                      user:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        firstName: Michael
+                        lastName: Jordan
+                      applicationName: AUTO_DISCOUNTS_APP
+                      pendingEvent: SUBSCRIPTION_CHANGE
+                      status: ACTIVE
+                    - id: 38e8bb4a-d737-4564-afee-e68edb00fd38
+                      activeOrder:
+                        id: '3345'
+                        status: PENDING MANUAL RECOVERY
+                        frequency: One Time
+                        totalFee: USD350.00
+                        editionName: Recurring Edition
+                        createdOn: 1529083173000
+                      company:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        name: Company B
+                      user:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        firstName: Michael
+                        lastName: Jordan
+                      applicationName: AUTO_DISCOUNTS_APP
+                      pendingEvent: SUBSCRIPTION_CHANGE
+                      status: ACTIVE
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 1
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    userId: 'SOME_STRING_VALUE',\n    resellerCompanyId: 'SOME_STRING_VALUE',\n    customerCompanyId: 'SOME_STRING_VALUE',\n    createdOn: 'SOME_STRING_VALUE',\n    status: 'SOME_STRING_VALUE',\n    paidStatus: 'SOME_STRING_VALUE',\n    pending: 'SOME_BOOLEAN_VALUE',\n    searchText: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /appReseller/v1/subscriptions/{subscriptionId}:
+    get:
+      x-appdirect-api-stage: Deprecated
+      description: 'Note: This endpoint is being deprecated. // Read a subscription by ID'
+      tags:
+      - AppResellerSubscription
+      summary: Subscription details
+      operationId: resource_AppResellerBillingV1SubscriptionApi_GET_ONE
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller
+      parameters:
+      - name: subscriptionId
+        in: path
+        description: Subscription ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerSubscriptionWS'
+              examples:
+                response:
+                  value:
+                    id: 386626c0-53e2-4515-8450-4a720bb5d029
+                    activeOrder:
+                      id: '1553'
+                      createdOn: 1529083173000
+                      paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+                      status: PENDING MANUAL RECOVERY
+                      frequency: One Time
+                      totalFee: USD350.00
+                      editionName: Edition
+                      orderLines:
+                      - unit: USER
+                        quantity: '1'
+                    company:
+                      id: 698555fc-bc65-4163-9fee-16308edec41b
+                      name: Company A
+                    user:
+                      id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+                      firstName: Michael
+                      lastName: Jordan
+                    applicationName: AUTO_DISCOUNTS_APP
+                    pendingEvent: SUBSCRIPTION_CHANGE
+                    status: ACTIVE
+                    createdOn: 1529083173000
+                    referenceCode: bundle09
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      x-appdirect-api-stage: Deprecated
+      description: 'Note: This endpoint is being deprecated. // Upgrade or downgrade a subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company.<br/>When you upgrade or downgrade subscriptions, you must provide both the paymentPlanId and the orderLines objects in the request even if the units are not changing.'
+      tags:
+      - AppResellerSubscription
+      summary: Update subscription
+      operationId: resource_AppResellerBillingV1SubscriptionApi_PUT
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+      parameters:
+      - name: subscriptionId
+        in: path
+        description: Subscription ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppResellerBillingSubscriptionUpdateRequestWS'
+        description: Information about the new values to set to the subscription
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResellerSubscriptionWS'
+              examples:
+                response:
+                  value:
+                    id: 386626c0-53e2-4515-8450-4a720bb5d029
+                    activeOrder:
+                      id: '1553'
+                      paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+                      status: PENDING MANUAL RECOVERY
+                      frequency: One Time
+                      totalFee: USD350.00
+                      editionName: Edition
+                      orderLines:
+                      - unit: USER
+                        quantity: '15'
+                      createdOn: 1529083173000
+                    company:
+                      id: 698555fc-bc65-4163-9fee-16308edec41b
+                      name: Company A
+                    user:
+                      id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+                      firstName: Michael
+                      lastName: Jordan
+                    applicationName: AUTO_DISCOUNTS_APP
+                    pendingEvent: SUBSCRIPTION_CHANGE
+                    status: ACTIVE
+                    createdOn: 1529083173000
+                    referenceCode: bundle09
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '409':
+          description: Subscription has a pending event and can't be updated
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"paymentPlanId\":\"30ccf1e7-1937-40cb-8e73-851a226fd4ea\",\"orderLines\":[{\"unit\":\"USER\",\"quantity\":\"15\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    paymentPlanId: '30ccf1e7-1937-40cb-8e73-851a226fd4ea',\n    orderLines: [{unit: 'USER', quantity: '15'}]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"paymentPlanId\\\":\\\"30ccf1e7-1937-40cb-8e73-851a226fd4ea\\\",\\\"orderLines\\\":[{\\\"unit\\\":\\\"USER\\\",\\\"quantity\\\":\\\"15\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      x-appdirect-api-stage: Deprecated
+      description: 'Note: This endpoint is being deprecated. // Cancel a subscription on behalf of a user who is a member of a company linked to the current reseller'
+      tags:
+      - AppResellerSubscription
+      summary: Cancel subscription
+      operationId: resource_AppResellerBillingV1SubscriptionApi_DELETE
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+      parameters:
+      - name: subscriptionId
+        in: path
+        description: Subscription ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Subscription not found
+        '409':
+          description: Subscription has a pending event and can't be deleted
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
+    AppResellerBillingSubscriptionUpdateRequestWS:
+      type: object
+      title: AppResellerSubscriptionUpdateRequest
+      properties:
+        paymentPlanId:
+          description: Edition Payment Plan ID
+          type: string
+        orderLines:
+          description: Unit type and quantity
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineDetailsWS'
+      example:
+        paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+        orderLines:
+        - unit: USER
+          quantity: '15'
+    AppResellerSubscriptionWS:
+      type: object
+      title: AppResellerSubscriptionWS
+      required:
+      - id
+      - createdOn
+      - activeOrder
+      - company
+      - user
+      - applicationName
+      - status
+      properties:
+        id:
+          description: Subscription ID
+          type: string
+        createdOn:
+          description: Creation date of the subscription, in Unix timestamp format
+          type: number
+        activeOrder:
+          $ref: '#/components/schemas/AppResellerSubscriptionActiveOrderWS'
+        company:
+          $ref: '#/components/schemas/CompanyAssociation'
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        applicationName:
+          description: Name of the application related to the subscription
+          type: string
+        pendingEventType:
+          $ref: '#/components/schemas/EventType'
+        status:
+          description: Subscription status (valid values are INITIALIZED, FAILED, FREE_TRIAL, FREE_TRIAL_EXPIRED, ACTIVE, SUSPENDED, or CANCELLED)
+          type: string
+        referenceCode:
+          description: Code provided by Resellers and Sales Agents while purchasing a subscription
+          type: string
+      example:
+        id: 386626c0-53e2-4515-8450-4a720bb5d029
+        createdOn: 1529083173000
+        activeOrder:
+          id: '1553'
+          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+          orderLines:
+          - unit: USER
+            quantity: '1'
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          editionName: Edition
+          createdOn: 1529083173000
+        company:
+          id: 698555fc-bc65-4163-9fee-16308edec41b
+          name: Company A
+        user:
+          id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+          firstName: Michael
+          lastName: Jordan
+        applicationName: AUTO_DISCOUNTS_APP
+        pendingEvent: SUBSCRIPTION_CHANGE
+        status: ACTIVE
+        referenceCode: bundle09
+    OrderLineDetailsWS:
+      title: OrderLineDetailsWS
+      type: object
+      description: Unit type and quantity
+      required:
+      - unit
+      - quantity
+      properties:
+        unit:
+          description: Pricing Unit
+          type: string
+          nullable: true
+        quantity:
+          description: Quantity
+          type: string
+          nullable: true
+      example:
+        unit: USER
+        quantity: '1'
+    SubscriptionList:
+      type: object
+      title: SubscriptionList
+      required:
+      - content
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          description: List of subscriptions
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerSubscriptionLightWS'
+      example:
+        content:
+        - id: 386626c0-53e2-4515-8450-4a720bb5d029
+          activeOrder:
+            id: '1553'
+            status: PENDING MANUAL RECOVERY
+            frequency: One Time
+            totalFee: USD350.00
+            editionName: Edition
+            createdOn: 1529083173000
+          company:
+            id: 6b4bd452-895d-4098-aa56-e6046b238e0f
+            name: Company A
+          user:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            firstName: Michael
+            lastName: Jordan
+          applicationName: AUTO_DISCOUNTS_APP
+          pendingEvent: SUBSCRIPTION_CHANGE
+          status: ACTIVE
+        - id: 38e8bb4a-d737-4564-afee-e68edb00fd38
+          activeOrder:
+            id: '3345'
+            status: PENDING MANUAL RECOVERY
+            frequency: One Time
+            totalFee: USD350.00
+            editionName: Recurring Edition
+            createdOn: 1529083173000
+          company:
+            id: 698555fc-bc65-4163-9fee-16308edec41b
+            name: Company B
+          user:
+            id: 698555fc-bc65-4163-9fee-16308edec41b
+            firstName: Michael
+            lastName: Jordan
+          applicationName: AUTO_DISCOUNTS_APP
+          pendingEvent: SUBSCRIPTION_CHANGE
+          status: ACTIVE
+        page:
+          size: 10
+          totalElements: 2
+          totalPages: 1
+          number: 1
+    AppResellerOrderLightWS:
+      title: orderLightWS
+      type: object
+      required:
+      - id
+      - createdOn
+      - status
+      - frequency
+      - totalFee
+      - editionName
+      properties:
+        id:
+          description: Order ID
+          type: string
+        createdOn:
+          description: Creation date of the order, in Unix timestamp format
+          type: number
+        status:
+          description: Order status (valid values are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)
+          type: string
+        frequency:
+          description: Frequency (valid values are MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY)
+          type: string
+        totalFee:
+          description: Total fee for the order
+          type: string
+        editionName:
+          description: Edition name
+          type: string
+        orderCartId:
+          description: Order cart ID
+          type: string
+      example:
+        id: '1234'
+        createdOn: 1529083173000
+        status: PENDING MANUAL RECOVERY
+        frequency: One Time
+        totalFee: USD350.00
+        editionName: Edition
+        orderCartId: '4567'
+    AppResellerSubscriptionActiveOrderWS:
+      allOf:
+      - $ref: '#/components/schemas/AppResellerOrderLightWS'
+      - title: AppResellerSubscriptionActiveOrderWS
+        type: object
+        properties:
+          orderLines:
+            description: Unit type and quantity
+            type: array
+            items:
+              $ref: '#/components/schemas/OrderLineDetailsWS'
+          paymentPlanId:
+            description: Edition Payment Plan ID
+            type: string
+        example:
+          id: '1234'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          editionName: Edition
+          orderCartId: '4567'
+          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+          orderLines:
+          - unit: USER
+            quantity: '1'
+    AppResellerBillingSubscriptionCreationRequestWS:
+      type: object
+      title: AppResellerSubscriptionCreationRequest
+      required:
+      - targetCompanyId
+      - targetUserId
+      - paymentPlanId
+      - orderLines
+      properties:
+        targetCompanyId:
+          description: (Required) ID of the company in which the Reseller will create the new subscription
+          type: string
+        targetUserId:
+          description: (Required) ID of the user for whom the Reseller will create the new subscription
+          type: string
+        paymentPlanId:
+          description: (Required) Edition Payment Plan ID
+          type: string
+        parentSubscriptionId:
+          description: ID of an add-on product's parent subscription
+          type: string
+          nullable: true
+        orderLines:
+          description: Unit type and quantity
+          type: string
+      example:
+        targetCompanyId: 698555fc-bc65-4163-9fee-16308edec41b
+        targetUserId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        parentSubscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+        paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+        orderLines:
+        - unit: USER
+          quantity: '1'
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
+    EventType:
+      type: string
+      title: EventType
+      enum:
+      - SUBSCRIPTION_ORDER
+      - SUBSCRIPTION_CHANGE
+      - SUBSCRIPTION_CANCEL
+      - SUBSCRIPTION_NOTICE
+      - USER_ASSIGNMENT
+      - USER_UNASSIGNMENT
+      - USER_UPDATED
+      - ADDON_ORDER
+      - ADDON_CHANGE
+      - ADDON_CANCEL
+      - ADDON_BIND
+      - ADDON_UNBIND
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    AppResellerSubscriptionLightWS:
+      type: object
+      title: AppResellerSubscriptionLightWS
+      required:
+      - id
+      - activeOrder
+      - company
+      - user
+      - applicationName
+      - status
+      properties:
+        id:
+          description: Subscription ID
+          type: string
+        activeOrder:
+          $ref: '#/components/schemas/AppResellerOrderLightWS'
+        company:
+          $ref: '#/components/schemas/CompanyAssociation'
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        applicationName:
+          description: Name of the application related to the subscription
+          type: string
+        pendingEventType:
+          $ref: '#/components/schemas/EventType'
+        status:
+          description: Subscription status (valid values are INITIALIZED, FAILED, FREE_TRIAL, FREE_TRIAL_EXPIRED, ACTIVE, SUSPENDED, or CANCELLED)
+          type: string
+      example:
+        id: 386626c0-53e2-4515-8450-4a720bb5d029
+        activeOrder:
+          id: '1553'
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          editionName: Edition
+          createdOn: 1529083173000
+        company:
+          id: 698555fc-bc65-4163-9fee-16308edec41b
+          name: Company A
+        user:
+          id: 386626c0-53e2-4515-8450-4a720bb5d029
+          firstName: Michael
+          lastName: Jordan
+        applicationName: AUTO_DISCOUNTS_APP
+        pendingEvent: SUBSCRIPTION_CHANGE
+        status: ACTIVE

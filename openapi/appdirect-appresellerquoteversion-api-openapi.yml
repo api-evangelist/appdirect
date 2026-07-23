@@ -1,0 +1,1202 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerQuoteVersion API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerQuoteVersion
+  x-displayName: Quote Versions
+paths:
+  /assistedSales/v1/quotes:
+    post:
+      x-appdirect-api-stage: Early Access
+      summary: Create quote version
+      description: 'Creates a quote version from a quote source
+
+
+        Required: Accept-Language header with Locale format. For example: en-US'
+      tags:
+      - AppResellerQuoteVersion
+      operationId: createQuote
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller to the opportunity
+        ROLE_SALES_SUPPORT:
+        - Allows access as Sales Support to the opportunity
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager to the opportunity
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager to the opportunity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteVersionCreationRequest'
+        description: Details about the quote version being created
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersion'
+              examples:
+                response:
+                  value:
+                    id: e8801dc6-8c0f-4c0b-82bc-99c4ebfb5e8a
+                    name: API quote version
+                    createdOn: 1674590164842
+                    createdBy:
+                      id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                      email: customer@appdirect.com
+                      firstName: Customer FirstName
+                      lastName: Customer LastName
+                      company:
+                        id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                    status: OPEN
+                    ownerUser:
+                      id: a6cc4e69-74e0-47f4-b36d-215693f47165
+                      email: owner@appdirect.com
+                      firstName: Owner FirstName
+                      lastName: Owner LastName
+                      company:
+                        id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+                    customerUser:
+                      id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                      email: customer@appdirect.com
+                      firstName: Customer FirstName
+                      lastName: Customer LastName
+                      company:
+                        id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                    availableActions:
+                    - PRINT_PDF
+                    - EDIT_NAME
+                    - REQUEST_CUSTOMER_APPROVAL
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 401
+                    code: UNAUTHORIZED
+                    message: HTTP 401 Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 404
+                    code: NOT_FOUND
+                    message: No source found with the given ID
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/assistedSales/v1/quotes \\\n  --header 'content-type: application/json' \\\n  --data '{\"source\":{\"id\":\"1798fb8f-9f55-43f6-9f5e-4980467df9af\",\"type\":\"OPPORTUNITY\"},\"name\":\"Quote version name\",\"createdBy\":{\"id\":\"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\"company\":{\"id\":\"d9a6d470-c69a-4403-9355-5953ddcb9efb\"}}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/assistedSales/v1/quotes',\n  headers: {'content-type': 'application/json'},\n  body: {\n    source: {id: '1798fb8f-9f55-43f6-9f5e-4980467df9af', type: 'OPPORTUNITY'},\n    name: 'Quote version name',\n    createdBy: {\n      id: 'd17fee11-c6ce-4f9f-8fb6-9bc55d583699',\n      company: {id: 'd9a6d470-c69a-4403-9355-5953ddcb9efb'}\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"source\\\":{\\\"id\\\":\\\"1798fb8f-9f55-43f6-9f5e-4980467df9af\\\",\\\"type\\\":\\\"OPPORTUNITY\\\"},\\\"name\\\":\\\"Quote version name\\\",\\\"createdBy\\\":{\\\"id\\\":\\\"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\\\",\\\"company\\\":{\\\"id\\\":\\\"d9a6d470-c69a-4403-9355-5953ddcb9efb\\\"}}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/assistedSales/v1/quotes\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      x-appdirect-api-stage: Early Access
+      summary: A list of quote versions
+      description: 'List quote versions based on a source type and ID
+
+
+        Required: Accept-Language header with Locale format. For example: en-US'
+      tags:
+      - AppResellerQuoteVersion
+      operationId: readQuotes
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller to the opportunity
+        ROLE_SALES_SUPPORT:
+        - Allows access as Sales Support to the opportunity
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager to the opportunity
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager to the opportunity
+      parameters:
+      - in: query
+        name: sourceId
+        description: The source ID
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sourceType
+        description: The source type of the quote version
+        required: false
+        schema:
+          type: string
+          enum:
+          - OPPORTUNITY
+          - PLACE_HOLDER
+      - in: query
+        name: status
+        description: The status of the quote version
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: after
+        description: The page number
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: first
+        description: The number of results per page to return
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotePage'
+              examples:
+                response:
+                  value:
+                    quotes:
+                    - id: e8801dc6-8c0f-4c0b-82bc-99c4ebfb5e8a
+                      displayId: Q6201242
+                      name: API quote version
+                      createdOn: 1674590164842
+                      createdBy:
+                        id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                        email: jane.smith@company.com
+                        firstName: Jane
+                        lastName: Smith
+                        company:
+                          id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                      status: OPEN
+                      ownerUser:
+                        id: a6cc4e69-74e0-47f4-b36d-215693f47165
+                        email: john.doe@acme.com
+                        firstName: John
+                        lastName: Doe
+                        company:
+                          id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+                      customerUser:
+                        id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                        email: jane.smith@company.com
+                        firstName: Jane
+                        lastName: Smith
+                        company:
+                          id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                      availableActions:
+                      - PRINT_PDF
+                      - EDIT_NAME
+                      - REQUEST_CUSTOMER_APPROVAL
+                    - id: 757d0f09-385c-41df-9781-d6df98584953
+                      displayId: Q5701241
+                      name: API quote version
+                      createdOn: 1674574349898
+                      createdBy:
+                        id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                        email: jane.smith@company.com
+                        firstName: Jane
+                        lastName: Smith
+                        company:
+                          id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                      status: PENDING
+                      ownerUser:
+                        id: a6cc4e69-74e0-47f4-b36d-215693f47165
+                        email: john.doe@acme.com
+                        firstName: John
+                        lastName: Doe
+                        company:
+                          id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+                      customerUser:
+                        id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                        email: jane.smith@company.com
+                        firstName: Jane
+                        lastName: Smith
+                        company:
+                          id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                      availableActions:
+                      - PRINT_PDF
+                      - EDIT_NAME
+                      - SHARE_LINK
+                      - REVOKE
+                    pageInfo:
+                      startCursor: MA==
+                      endCursor: MA==
+                      hasNextPage: false
+                      hasPreviousPage: false
+                    totalCount: 2
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    status: 401
+                    code: UNAUTHORIZED
+                    message: HTTP 401 Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    status: 404
+                    code: NOT_FOUND
+                    message: No source found with the given ID
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/assistedSales/v1/quotes?sourceId=SOME_STRING_VALUE&sourceType=SOME_STRING_VALUE&status=SOME_STRING_VALUE&after=SOME_STRING_VALUE&first=SOME_INTEGER_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/assistedSales/v1/quotes',\n  qs: {\n    sourceId: 'SOME_STRING_VALUE',\n    sourceType: 'SOME_STRING_VALUE',\n    status: 'SOME_STRING_VALUE',\n    after: 'SOME_STRING_VALUE',\n    first: 'SOME_INTEGER_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/assistedSales/v1/quotes?sourceId=SOME_STRING_VALUE&sourceType=SOME_STRING_VALUE&status=SOME_STRING_VALUE&after=SOME_STRING_VALUE&first=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /assistedSales/v1/quotes/{quoteId}/executeAction:
+    post:
+      x-appdirect-api-stage: Early Access
+      summary: Execute action on a quote version
+      description: 'Execute the action passed by the parameter on the quote version
+
+
+        Required: Accept-Language header with Locale format. For example: en-US"'
+      tags:
+      - AppResellerQuoteVersion
+      operationId: executeAction
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller to the opportunity
+        ROLE_SALES_SUPPORT:
+        - Allows access as Sales Support to the opportunity
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager to the opportunity
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager to the opportunity
+      parameters:
+      - in: path
+        name: quoteId
+        description: The ID of a quote version
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteActionRequest'
+        description: Details about the action to be executed on the quote version
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteActionResponse'
+              examples:
+                response:
+                  value:
+                    id: 757d0f09-385c-41df-9781-d6df98584953
+                    name: API quote version
+                    createdBy:
+                      id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                      company:
+                        id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                    status: PENDING
+                    availableActions:
+                    - PRINT_PDF
+                    - EDIT_NAME
+                    - SHARE_LINK
+                    - REVOKE
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 401
+                    code: UNAUTHORIZED
+                    message: HTTP 401 Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 404
+                    code: NOT_FOUND
+                    message: No quote found with the given ID
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D/executeAction \\\n  --header 'content-type: application/json' \\\n  --data '{\"action\":\"REQUEST_CUSTOMER_APPROVAL\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D/executeAction',\n  headers: {'content-type': 'application/json'},\n  body: {action: 'REQUEST_CUSTOMER_APPROVAL'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"action\\\":\\\"REQUEST_CUSTOMER_APPROVAL\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D/executeAction\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /assistedSales/v1/quotes/{quoteId}:
+    get:
+      x-appdirect-api-stage: Early Access
+      summary: Get a quote version
+      description: 'Get a quote version from a quote ID
+
+
+        Required: Accept-Language header with Locale format. For example: en-US'
+      tags:
+      - AppResellerQuoteVersion
+      operationId: getQuoteById
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller to the opportunity
+        ROLE_SALES_SUPPORT:
+        - Allows access as Sales Support to the opportunity
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager to the opportunity
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager to the opportunity
+      parameters:
+      - in: path
+        name: quoteId
+        description: The ID of a quote version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersion'
+              examples:
+                response:
+                  value:
+                    id: 757d0f09-385c-41df-9781-d6df98584953
+                    displayId: Q5701241
+                    name: API quote version
+                    createdOn: 1674574349898
+                    createdBy:
+                      id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                      email: jane.smith@company.com
+                      firstName: Jane
+                      lastName: Smith
+                      company:
+                        id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                    status: OPEN
+                    ownerUser:
+                      id: a6cc4e69-74e0-47f4-b36d-215693f47165
+                      email: john.doe@acme.com
+                      firstName: John
+                      lastName: Doe
+                      company:
+                        id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+                    customerUser:
+                      id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+                      email: jane.smith@company.com
+                      firstName: Jane
+                      lastName: Smith
+                      company:
+                        id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+                    currency: USD
+                    pricingTotals:
+                      amountDueBeforeTax: '55.0000000000'
+                      amountDueAfterTax: '55.0000000000'
+                      taxSummary: []
+                      recurringTotals:
+                      - billingCycle:
+                          period: MONTHLY
+                          dayOfMonth: 24
+                        totalSalePrice: '55.0000000000'
+                    items:
+                    - id: 166e0ce6-4309-4a16-ac9b-61bea7ce1cbc
+                      product:
+                        id: fa776d2e-cda5-4256-9a27-125a0fe3f448
+                        name: Supported Product for Opportunity MVP
+                        editionId: b06358bc-cb63-45e6-87c7-19db9b0cf696
+                      pricingPlan:
+                        id: 19c06143-b21c-43c4-b236-eeca61512753
+                        name: Gold plan
+                      pricing:
+                      - costType: RECURRING_FLAT
+                        description: Gold plan
+                        quantity: '1.0000000000'
+                        totalSalePrice: '55.0000000000'
+                        salePrice: '55.0000000000'
+                      - costType: INCLUDED
+                        description: Per User Fee Included
+                        quantity: '1.0000000000'
+                        totalSalePrice: '0.0000000000'
+                        salePrice: '0.0000000000'
+                    quoteSource:
+                      id: 1798fb8f-9f55-43f6-9f5e-4980467df9af
+                      type: OPPORTUNITY
+                    availableActions:
+                    - PRINT_PDF
+                    - EDIT_NAME
+                    - REQUEST_CUSTOMER_APPROVAL
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 401
+                    code: UNAUTHORIZED
+                    message: HTTP 401 Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionError'
+              examples:
+                response:
+                  value:
+                    status: 404
+                    code: NOT_FOUND
+                    message: No quote found with the given ID
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/assistedSales/v1/quotes/%7BquoteId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    Company:
+      type: object
+      title: Company
+      properties:
+        id:
+          type: string
+          description: Company ID
+        name:
+          type: string
+          description: Company name
+        isReseller:
+          type: boolean
+          description: Indicate if the company is reseller
+      example:
+        id: '1'
+        name: Acme Corp.
+        isReseller: false
+    BillingCycle:
+      type: object
+      title: BillingCycle
+      description: The billing cycle
+      properties:
+        period:
+          $ref: '#/components/schemas/PricingPeriod'
+        dayOfMonth:
+          type: integer
+          description: Day of the month on which invoicing should be triggered
+      example:
+        period: YEARLY
+        dayOfMonth: 17
+    QuoteVersionSourceType:
+      type: string
+      title: QuoteVersionSourceType
+      description: The source type of the quote version
+      enum:
+      - OPPORTUNITY
+      - QUOTE_V2
+      - QUOTE_V1
+    CostTypeCategory:
+      type: string
+      title: CostTypeCategory
+      description: Category of cost
+      enum:
+      - RECURRING
+      - ONE_TIME
+      example: ONE_TIME
+    QuoteVersionSource:
+      type: object
+      title: QuoteVersionSource
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: The source ID
+        type:
+          $ref: '#/components/schemas/QuoteVersionSourceType'
+      example:
+        id: 37f56046-2cec-4bf4-a4e2-5a733dc849a9
+        type: OPPORTUNITY
+    ExecuteActionResponse:
+      type: object
+      title: ExecuteActionResponse
+      description: The body of an execute action response
+      properties:
+        quote:
+          $ref: '#/components/schemas/QuoteVersion'
+      example:
+        id: 757d0f09-385c-41df-9781-d6df98584953
+        name: API quote version
+        createdBy:
+          id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+          company:
+            id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+        status: PENDING
+        availableActions:
+        - PRINT_PDF
+        - EDIT_NAME
+        - SHARE_LINK
+        - REVOKE
+    PricingTotals:
+      type: object
+      title: PricingTotals
+      description: Details about the taxes, subtotals, totals and recurring totals
+      properties:
+        amountDueBeforeTax:
+          type: string
+          description: The amount due before taxes
+        amountDueAfterTax:
+          type: string
+          description: The amount due after taxes
+        taxSummary:
+          type: array
+          description: Details of a specific type of tax applied to a charged cost
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        recurringTotals:
+          type: array
+          description: The recurring total charges
+          items:
+            $ref: '#/components/schemas/QuoteVersionTotalRecurring'
+      example:
+        amountDueBeforeTax: '55.0000000000'
+        amountDueAfterTax: '55.0000000000'
+        taxSummary:
+        - description: Flat Tax
+          taxAmount: '2.0000000000'
+        recurringTotals:
+        - billingCycle:
+            period: MONTHLY
+            dayOfMonth: 24
+          totalSalePrice: '55.0000000000'
+          nextInvoiceDate: '2018-09-24'
+    OpportunityPricingStrategy:
+      type: string
+      title: OpportunityPricingStrategy
+      description: Pricing strategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - VOLUME
+      - TIERED
+      - UNLIMITED
+      - CUSTOM
+      example: FREE
+    QuoteVersionError:
+      type: object
+      title: QuoteVersionError
+      description: A description of the error from the quote version API
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        code:
+          $ref: '#/components/schemas/QuoteVersionErrorCode'
+        message:
+          type: string
+          description: A descriptive error message for debugging
+        details:
+          type: array
+          description: Additional details of the error
+          items:
+            $ref: '#/components/schemas/QuoteVersionErrorDetails'
+      example:
+        status: 503
+        code: SERVICE_UNAVAILABLE
+        message: Unable to reach the service, please contact support@appdirect.com
+    PriceRangeItem:
+      type: object
+      title: PriceRangeItem
+      properties:
+        min:
+          type: string
+          description: Minimum number of units for the price range
+        max:
+          type: string
+          description: Maximum number of units for the price range
+      example:
+        min: '1'
+        max: '100'
+    Item:
+      type: object
+      title: Item
+      description: Item
+      properties:
+        id:
+          type: string
+          description: Item ID
+        parentItemId:
+          type: string
+          description: The parent product's ID, which is only relevant and required for add-on products
+        product:
+          $ref: '#/components/schemas/OpportunityProduct'
+        pricingPlan:
+          $ref: '#/components/schemas/PricingPlan'
+        pricing:
+          type: array
+          description: The cost and flat rates for each quantifiable unit
+          items:
+            $ref: '#/components/schemas/OpportunityPricing'
+      example:
+        id: 166e0ce6-4309-4a16-ac9b-61bea7ce1cbc
+        product:
+          id: fa776d2e-cda5-4256-9a27-125a0fe3f448
+          name: Supported Product for Opportunity MVP
+          editionId: b06358bc-cb63-45e6-87c7-19db9b0cf696
+        pricingPlan:
+          id: 19c06143-b21c-43c4-b236-eeca61512753
+          name: Gold plan
+        pricing:
+        - costType: RECURRING_FLAT
+          description: Gold plan
+          quantity: '1.0000000000'
+          totalSalePrice: '55.0000000000'
+          salePrice: '55.0000000000'
+        - costType: INCLUDED
+          description: Per User Fee Included
+          quantity: '1.0000000000'
+          totalSalePrice: '0.0000000000'
+          salePrice: '0.0000000000'
+    PricingPeriod:
+      type: string
+      title: PricingPeriod
+      description: The pricing period. The billing frequency for the pricing plan.
+      enum:
+      - ONE_TIME
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: ONE_TIME
+    ExecuteActionRequest:
+      type: object
+      title: ExecuteActionRequest
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          description: Action name to be executed to a quote version
+      example:
+        action: REQUEST_CUSTOMER_APPROVAL
+    QuoteVersionCreationRequest:
+      type: object
+      title: QuoteVersionCreationRequest
+      required:
+      - source
+      - createdBy
+      properties:
+        name:
+          type: string
+          description: The name of the quote version
+        createdBy:
+          $ref: '#/components/schemas/User'
+        source:
+          $ref: '#/components/schemas/QuoteVersionSource'
+      example:
+        source:
+          id: 1798fb8f-9f55-43f6-9f5e-4980467df9af
+          type: OPPORTUNITY
+        name: Quote version name
+        createdBy:
+          id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+          company:
+            id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+    QuoteVersion:
+      type: object
+      title: QuoteVersion
+      description: The body of a quote version
+      properties:
+        id:
+          type: string
+          description: The ID of a quote version
+        displayId:
+          type: string
+          description: 'The display ID of a quote version in the format: ''Q + two_digits_random_number + five_digits_counter_value''. For example: ''Q3201230'''
+        name:
+          type: string
+          description: The name of the quote version
+        createdOn:
+          type: number
+          description: The creation date of the quote version in UNIX Epoch milliseconds
+        createdBy:
+          $ref: '#/components/schemas/User'
+        status:
+          type: string
+          description: The status of the quote version
+        ownerUser:
+          $ref: '#/components/schemas/User'
+        customerUser:
+          $ref: '#/components/schemas/User'
+        currency:
+          $ref: '#/components/schemas/Currency'
+        pricingTotals:
+          $ref: '#/components/schemas/PricingTotals'
+        items:
+          type: array
+          description: List of items
+          items:
+            $ref: '#/components/schemas/Item'
+        quoteSource:
+          $ref: '#/components/schemas/QuoteVersionSource'
+        availableActions:
+          type: array
+          description: The actions available for the quote version
+          items:
+            type: string
+      example:
+        id: 757d0f09-385c-41df-9781-d6df98584953
+        displayId: Q5701241
+        name: API quote version
+        createdOn: 1674574349898
+        createdBy:
+          id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+          email: jhon.doe@appdirect.com
+          firstName: Jhon
+          lastName: Doe
+          company:
+            id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+        status: OPEN
+        ownerUser:
+          id: a6cc4e69-74e0-47f4-b36d-215693f47165
+          email: susan.doe@appdirect.com
+          firstName: Susan
+          lastName: Doe
+          company:
+            id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+        customerUser:
+          id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+          email: jhon.doe@appdirect.com
+          firstName: Jhon
+          lastName: Doe
+          company:
+            id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+        currency: USD
+        pricingTotals:
+          amountDueBeforeTax: '55.0000000000'
+          amountDueAfterTax: '55.0000000000'
+          taxSummary: []
+          recurringTotals:
+          - billingCycle:
+              period: MONTHLY
+              dayOfMonth: 24
+            totalSalePrice: '55.0000000000'
+        items:
+        - id: 166e0ce6-4309-4a16-ac9b-61bea7ce1cbc
+          product:
+            id: fa776d2e-cda5-4256-9a27-125a0fe3f448
+            name: Supported Product for Opportunity MVP
+            editionId: b06358bc-cb63-45e6-87c7-19db9b0cf696
+          pricingPlan:
+            id: 19c06143-b21c-43c4-b236-eeca61512753
+            name: Gold plan
+          pricing:
+          - costType: RECURRING_FLAT
+            description: Gold plan
+            quantity: '1.0000000000'
+            totalSalePrice: '55.0000000000'
+            salePrice: '55.0000000000'
+          - costType: INCLUDED
+            description: Per User Fee Included
+            quantity: '1.0000000000'
+            totalSalePrice: '0.0000000000'
+            salePrice: '0.0000000000'
+        quoteSource:
+          id: 1798fb8f-9f55-43f6-9f5e-4980467df9af
+          type: OPPORTUNITY
+        availableActions:
+        - PRINT_PDF
+        - EDIT_NAME
+        - REQUEST_CUSTOMER_APPROVAL
+    TaxDetail:
+      type: object
+      title: TaxDetail
+      description: Opportunity tax detail
+      properties:
+        description:
+          type: string
+          description: Description of the tax
+        taxAmount:
+          type: string
+          description: The tax amount
+      example:
+        description: Flat Tax
+        taxAmount: '2.0000000000'
+    OpportunityPricing:
+      type: object
+      title: OpportunityPricing
+      description: Pricing structure for an item
+      required:
+      - costTypeCategory
+      - costType
+      - pricingStrategy
+      - salePrice
+      - wholesalePrice
+      - totalSalePrice
+      properties:
+        costId:
+          type: string
+          description: The cost ID
+        costTypeCategory:
+          $ref: '#/components/schemas/CostTypeCategory'
+        costType:
+          $ref: '#/components/schemas/CostType'
+        frequency:
+          $ref: '#/components/schemas/PricingPeriod'
+        pricingStrategy:
+          $ref: '#/components/schemas/OpportunityPricingStrategy'
+        priceRanges:
+          type: array
+          description: Range of units for which the price is valid
+          items:
+            $ref: '#/components/schemas/PriceRangeItem'
+        description:
+          type: string
+          description: Description of each pricing line
+        unit:
+          type: string
+          description: Unit
+        quantity:
+          type: string
+          description: Quantity
+        salePrice:
+          type: string
+          description: Sale price
+        wholesalePrice:
+          type: string
+          description: Wholesale price
+        totalSalePrice:
+          type: string
+          description: Total sale price
+      example:
+        costTypeCategory: RECURRING
+        costType: RECURRING_FLAT
+        frequency: MONTHLY
+        pricingStrategy: FLAT
+        priceRanges:
+        - max: '100'
+          min: '1'
+        description: RECURRING_FLAT
+        quantity: '1.0000000000'
+        salePrice: '14.9500000000'
+        wholesalePrice: '12.0000000000'
+        totalSalePrice: '14.9500000000'
+    QuotePage:
+      type: object
+      title: QuotePage
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/PageMetadata'
+        quotes:
+          description: A list of quote versions
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteVersion'
+      example:
+        quotes:
+        - id: e8801dc6-8c0f-4c0b-82bc-99c4ebfb5e8a
+          displayId: Q6201242
+          name: API quote version
+          createdOn: 1674590164842
+          createdBy:
+            id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+            email: jane.smith@company.com
+            firstName: Jane
+            lastName: Smith
+            company:
+              id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+          status: OPEN
+          ownerUser:
+            id: a6cc4e69-74e0-47f4-b36d-215693f47165
+            email: john.doe@acme.com
+            firstName: John
+            lastName: Doe
+            company:
+              id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+          customerUser:
+            id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+            email: jane.smith@company.com
+            firstName: Jane
+            lastName: Smith
+            company:
+              id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+          availableActions:
+          - PRINT_PDF
+          - EDIT_NAME
+          - REQUEST_CUSTOMER_APPROVAL
+        - id: 757d0f09-385c-41df-9781-d6df98584953
+          displayId: Q5701241
+          name: API quote version
+          createdOn: 1674574349898
+          createdBy:
+            id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+            email: jane.smith@company.com
+            firstName: Jane
+            lastName: Smith
+            company:
+              id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+          status: PENDING
+          ownerUser:
+            id: a6cc4e69-74e0-47f4-b36d-215693f47165
+            email: john.doe@acme.com
+            firstName: John
+            lastName: Doe
+            company:
+              id: 05ba75d3-3637-4a7a-807d-f2cb66466348
+          customerUser:
+            id: d17fee11-c6ce-4f9f-8fb6-9bc55d583699
+            email: jane.smith@company.com
+            firstName: Jane
+            lastName: Smith
+            company:
+              id: d9a6d470-c69a-4403-9355-5953ddcb9efb
+          availableActions:
+          - PRINT_PDF
+          - EDIT_NAME
+          - SHARE_LINK
+          - REVOKE
+        pageInfo:
+          startCursor: MA==
+          endCursor: MA==
+          hasNextPage: false
+          hasPreviousPage: false
+        totalCount: 2
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
+    User:
+      type: object
+      title: User
+      properties:
+        id:
+          type: string
+          description: User ID
+        email:
+          type: string
+          description: User email address
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          - description: User company
+      example:
+        id: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
+        email: john.doe@acme.com
+        firstName: John
+        lastName: Doe
+        company:
+          id: '1'
+          name: Acme Corp.
+          isReseller: true
+    OpportunityProduct:
+      type: object
+      title: OpportunityProduct
+      properties:
+        id:
+          type: string
+          description: Product ID
+        name:
+          type: string
+          description: Product name
+        type:
+          type: string
+          description: Product type
+        logo:
+          type: string
+          description: Product logo URL
+      example:
+        id: cc0c7c28-ea65-4bab-8a4a-5e84d90ab291
+        name: Appsome Webapp
+        type: WEB_APP
+        logo: https://logs.acme.com/400x400/ddd/000.png&text=Appsome+App
+    QuoteVersionTotalRecurring:
+      type: object
+      title: QuoteVersionTotalRecurring
+      description: Details about the recurring total charges
+      properties:
+        billingCycle:
+          $ref: '#/components/schemas/BillingCycle'
+        totalSalePrice:
+          type: string
+          description: The total sale price
+        nextInvoiceDate:
+          type: string
+          description: The next invoice date in the format YYYY-MM-DD
+      example:
+        recurringTotals:
+        - billingCycle:
+            period: MONTHLY
+            dayOfMonth: 28
+          totalSalePrice: '55.0000000000'
+          nextInvoiceDate: '2018-09-28'
+    CostType:
+      type: string
+      title: CostType
+      description: Type of cost
+      enum:
+      - RECURRING_FLAT
+      - ONE_TIME_FLAT
+      - INCLUDED
+      - SETUP_PER_UNIT
+      - RECURRING_PER_UNIT
+      - ONE_TIME_PER_UNIT
+      - SETUP_FEE
+      - CONTRACT_FEE
+      - DISCOUNT_PER_UNIT
+      - DISCOUNT_FLAT
+      - METERED_USAGE
+      example: RECURRING_PER_UNIT
+    QuoteVersionErrorDetails:
+      type: object
+      title: QuoteVersionErrorDetails
+      description: Additional error details returned after a failed quote API call
+      required:
+      - field
+      - code
+      - message
+      properties:
+        field:
+          type: string
+          description: The field related to the error
+        code:
+          $ref: '#/components/schemas/QuoteVersionErrorCode'
+        message:
+          type: string
+          description: Error description
+      example:
+        field: Source type
+        code: BAD_REQUEST
+        message: Source type not defined
+    PricingPlan:
+      type: object
+      title: PricingPlan
+      properties:
+        id:
+          type: string
+          description: Pricing plan ID
+        name:
+          type: string
+          description: Pricing plan name
+      example:
+        id: 031d9ed2-3df1-44f5-876a-6b4318ba7bdb
+        name: Recurring Edition with Unlimited Included Users
+    QuoteVersionErrorCode:
+      type: string
+      title: QuoteVersionErrorCode
+      description: The error code associated with the response
+      enum:
+      - SERVICE_UNAVAILABLE
+      - UNAUTHORIZED
+      - FORBIDDEN
+      - NOT_FOUND
+      - CONFLICT
+      - BAD_REQUEST
+      - OPPORTUNITY_READ_ERROR
+      - OPPORTUNITY_SUMMARY_READ_ERROR
+      - OPPORTUNITY_ALREADY_CLOSED
+      - UNKNOWN
+      - QUOTE_CREATION_ERROR
+      - QUOTE_READING_ERROR
+      - QUOTE_EDITION_ERROR
+      - QUOTE_ITEMS_EMPTY
+      example: BAD_REQUEST
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

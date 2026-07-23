@@ -1,0 +1,1750 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed User API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: User
+  x-displayName: Users
+paths:
+  /account/v2/users:
+    get:
+      description: Retrieves all marketplace users
+      tags:
+      - User
+      summary: List all users
+      operationId: resource_User_readAllUsers_GET
+      x-appdirect-required-scopes:
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+      parameters:
+      - description: First or last name of user
+        name: name
+        in: query
+        schema:
+          type: string
+      - description: Email address of user
+        name: email
+        in: query
+        schema:
+          type: string
+      - description: External ID of user
+        name: externalId
+        in: query
+        schema:
+          type: string
+      - description: User name of user
+        name: username
+        in: query
+        schema:
+          type: string
+      - description: 'If specified, returns only users with the specified role, one of the following values: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer)'
+        name: companyMembershipRole
+        in: query
+        schema:
+          type: string
+      - description: Accepts a notIn filter in the form of ?custom.customAttributeName=notIn(customAttributeValue1, customAttributeValue2, customAttributeValueN...) that excludes users with matching values. Before you can use the filter, you must first create "Text" type user custom attributes in the user interface. You can then specify the custom attribute name and values as customAttributeName and customAttributeValueN. See https://help.appdirect.com/appmarket/Default.htm#MarketplaceManager/MM-Setgscustui-create-attribs.html.
+        name: custom.customAttributeName
+        in: query
+        schema:
+          type: string
+      - description: The date on which the user was last modified, in UNIX Epoch milliseconds
+        name: lastModified
+        in: query
+        schema:
+          type: number
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Number of results per page to return
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: The property to sort by
+        name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - DATE
+          - FIRST_NAME
+          - LAST_NAME
+          default: DATE
+      - description: Ordering type
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+      - description: Optional. Default is true. When set to true, user custom attributes are included in the API response. When set to false, user custom attributes are not included.
+        name: includeCustomAttributes
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      email: john.lee@company0093957321.com
+                      userName: john.lee
+                      firstName: John
+                      lastName: Lee
+                      picture: http://appdirect/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                      activated: true
+                      allowLogin: true
+                      ldapId: '1'
+                      boostUser: null
+                      creationDate: 1398896238000
+                      externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+                      idpUuid: 1d37bace-f4cf-11e6-af80-22000a9513f7
+                      locale: en_US
+                      lastSuccessfulLogin: 1543268078000
+                      openId: http://appdirect/openid/id/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      roles:
+                      - ROLE_USER
+                      currency: USD
+                      customAttributes:
+                      - name: C5125859
+                        attributeType: TEXT
+                        label: Commission_Payout_ID
+                        hint: commission_hint
+                        value: t1
+                      - name: allow_credit_card
+                        attributeType: MULTISELECT
+                        label: Allow Credit Card
+                        hint: Allows credit card payments and enables credit card fields
+                        valueKeys: []
+                      - name: C5457097
+                        attributeType: TEXT
+                        label: C5457097
+                        hint: ''
+                        value: abcd
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/memberships
+                    - uuid: 8db1c051-73a6-4ff8-a0ce-bc1d80d0f156
+                      email: jane.lee@company1151609035.com
+                      userName: jane.lee
+                      firstName: Jane
+                      lastName: Lee
+                      picture: null
+                      activated: true
+                      allowLogin: true
+                      ldapId: null
+                      boostUser: null
+                      creationDate: 1498080462000
+                      externalId: 47ac42db-162e-11e7-af80-22000a9513f7
+                      locale: en_US
+                      lastSuccessfulLogin: 1542820131000
+                      openId: http://appdirect/openid/id/8db1c051-73a6-4ff8-a0ce-bc1d80d0f156
+                      roles:
+                      - ROLE_USER
+                      currency: USD
+                      customAttributes: []
+                      metadata:
+                        apsUid: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/users/8db1c051-73a6-4ff8-a0ce-bc1d80d0f156
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/users/8db1c051-73a6-4ff8-a0ce-bc1d80d0f156/memberships
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users?name=SOME_STRING_VALUE&email=SOME_STRING_VALUE&externalId=SOME_STRING_VALUE&username=SOME_STRING_VALUE&companyMembershipRole=SOME_STRING_VALUE&custom.customAttributeName=SOME_STRING_VALUE&lastModified=SOME_NUMBER_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&includeCustomAttributes=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users',\n  qs: {\n    name: 'SOME_STRING_VALUE',\n    email: 'SOME_STRING_VALUE',\n    externalId: 'SOME_STRING_VALUE',\n    username: 'SOME_STRING_VALUE',\n    companyMembershipRole: 'SOME_STRING_VALUE',\n    'custom.customAttributeName': 'SOME_STRING_VALUE',\n    lastModified: 'SOME_NUMBER_VALUE',\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE',\n    includeCustomAttributes: 'SOME_BOOLEAN_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users?name=SOME_STRING_VALUE&email=SOME_STRING_VALUE&externalId=SOME_STRING_VALUE&username=SOME_STRING_VALUE&companyMembershipRole=SOME_STRING_VALUE&custom.customAttributeName=SOME_STRING_VALUE&lastModified=SOME_NUMBER_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&includeCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/inactiveUsers/{activationToken}:
+    patch:
+      description: Activate a marketplace user using its associated activation token.
+      tags:
+      - User
+      summary: Activate a user
+      operationId: resource_User_updateInactiveUser_PATCH
+      x-appdirect-required-scopes:
+        ROLE_USER:
+        - Allows access to an user who possesses an activation token.
+      parameters:
+      - description: User's activation token, typically received via invitation emails
+        name: activationToken
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InactiveUserAccountV2'
+        description: User activation information
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    email: alex.gonsalez@company2438285395.com
+                    password: ''
+                    activated: true
+                    termsOfService: true
+                    privacyPolicy: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Token not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    code: '404'
+                    message: Token not found
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/account/v2/inactiveUsers/%7BactivationToken%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"email\":\"alex.gonsalez@company2438285395.com\",\"password\":\"some-password\",\"activated\":true,\"termsOfService\":true,\"privacyPolicy\":true}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/inactiveUsers/%7BactivationToken%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    email: 'alex.gonsalez@company2438285395.com',\n    password: 'some-password',\n    activated: true,\n    termsOfService: true,\n    privacyPolicy: true\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"email\\\":\\\"alex.gonsalez@company2438285395.com\\\",\\\"password\\\":\\\"some-password\\\",\\\"activated\\\":true,\\\"termsOfService\\\":true,\\\"privacyPolicy\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/inactiveUsers/%7BactivationToken%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}:
+    get:
+      description: Retrieves a marketplace user by ID or external ID. If you use the ID, you can omit a prefix or use 'id:' as the prefix. If you use the external ID, you must always specify the 'externalId:' prefix.
+      tags:
+      - User
+      summary: Read a user
+      operationId: resource_User_readUser_GET
+      x-appdirect-required-scopes:
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_USER:
+        - Allows access to read any company user.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Unique identifier (ID or external ID) of the user
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Optional. Default is true. When set to true, user custom attributes are included in the API response. When set to false, user custom attributes are not included.
+        name: includeCustomAttributes
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    email: jane.lee@company1151609035.com
+                    userName: jane.lee
+                    firstName: Jane
+                    lastName: Lee
+                    picture: http://appdirect/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                    activated: true
+                    allowLogin: true
+                    ldapId: '1'
+                    boostUser: null
+                    creationDate: 1398896238000
+                    externalId: 0e149998-6c1a-4c82-90ed-57468a394447
+                    idpUuid: 1d37bace-f4cf-11e6-af80-22000a9513f7
+                    locale: en_US
+                    lastSuccessfulLogin: 1543528191000
+                    openId: http://appdirect/openid/id/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    roles:
+                    - ROLE_USER
+                    currency: USD
+                    customAttributes:
+                    - name: C5125859
+                      attributeType: TEXT
+                      label: Commission_Payout_ID
+                      hint: commission_hint
+                      value: t1
+                    - name: allow_credit_card
+                      attributeType: MULTISELECT
+                      label: Allow Credit Card
+                      hint: Allows credit card payments and enables credit card fields
+                      valueKeys: []
+                    - name: C5457097
+                      attributeType: TEXT
+                      label: C5457097
+                      hint: ''
+                      value: abcd
+                    metadata:
+                      apsUid: null
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D?includeCustomAttributes=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D',\n  qs: {includeCustomAttributes: 'SOME_BOOLEAN_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D?includeCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: Updates a marketplace user
+      tags:
+      - User
+      summary: Update a user
+      operationId: resource_User_updateUser_PUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Unique identifier of the user assigned by the AppDirect platform
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserAccountV2'
+        description: Specified updates to user information
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    email: jane.lee@company1151609035.com
+                    userName: jane.lee
+                    firstName: Jane
+                    lastName: Lee
+                    picture: http://appdirect/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                    activated: true
+                    allowLogin: true
+                    ldapId: '1'
+                    boostUser:
+                      apsUid: murnu8w
+                    creationDate: 1398896238000
+                    externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+                    idpUuid: 1d37bace-f4cf-11e6-af80-22000a9513f7
+                    locale: en_US
+                    lastSuccessfulLogin: 1543528191000
+                    openId: http://appdirect/openid/id/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    roles:
+                    - ROLE_CORPORATE_ADMIN
+                    - ROLE_USER
+                    currency: USD
+                    customAttributes:
+                    - name: C5125859
+                      attributeType: TEXT
+                      label: Commission_Payout_ID
+                      hint: commission_hint
+                      value: t1
+                    - name: allow_credit_card
+                      attributeType: MULTISELECT
+                      label: Allow Credit Card
+                      hint: Allows credit card payments and enables credit card fields
+                      valueKeys: []
+                    - name: C5457097
+                      attributeType: TEXT
+                      label: C5457097
+                      hint: ''
+                      value: abcd
+                    metadata:
+                      apsUid: murnu8w
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/memberships
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"firstName\":\"Jane\",\"lastName\":\"Lee\",\"currency\":\"USD\",\"externalId\":\"b34974b2-f5d6-4326-9859-5247dc42ee60\",\"locale\":\"en_US\",\"ldapId\":\"1\",\"boostUser\":{\"apsUid\":\"murnu8w\"},\"roles\":[\"ROLE_CORPORATE_ADMIN\"]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    firstName: 'Jane',\n    lastName: 'Lee',\n    currency: 'USD',\n    externalId: 'b34974b2-f5d6-4326-9859-5247dc42ee60',\n    locale: 'en_US',\n    ldapId: '1',\n    boostUser: {apsUid: 'murnu8w'},\n    roles: ['ROLE_CORPORATE_ADMIN']\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Lee\\\",\\\"currency\\\":\\\"USD\\\",\\\"externalId\\\":\\\"b34974b2-f5d6-4326-9859-5247dc42ee60\\\",\\\"locale\\\":\\\"en_US\\\",\\\"ldapId\\\":\\\"1\\\",\\\"boostUser\\\":{\\\"apsUid\\\":\\\"murnu8w\\\"},\\\"roles\\\":[\\\"ROLE_CORPORATE_ADMIN\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: Update ('patch') one or more fields in the user details. This only adds or updates the values for the properties that you include in the call; all other properties, and data already saved for them, are ignored
+      tags:
+      - User
+      summary: Patch a user
+      operationId: resource_User_updateUser_PATCH
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_USER:
+        - 'Allows access as a User for the marketplace.This permission allows a user to modify the following fields for their own user account: firstName, lastName, locale, and currency'
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Unique identifier of the user assigned by the AppDirect platform
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchUserAccountV2'
+        description: Specified updates to user information
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    email: jane.lee@company1151609035.com
+                    userName: jane.lee
+                    firstName: Jane
+                    lastName: Lee
+                    picture: http://appdirect/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743
+                    activated: true
+                    allowLogin: true
+                    ldapId: '1'
+                    boostUser:
+                      apsUid: murnu8w
+                    creationDate: 1398896238000
+                    externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+                    idpUuid: 1d37bace-f4cf-11e6-af80-22000a9513f7
+                    locale: en_US
+                    lastSuccessfulLogin: 1543528191000
+                    openId: http://appdirect/openid/id/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    roles:
+                    - ROLE_CORPORATE_ADMIN
+                    - ROLE_USER
+                    currency: USD
+                    customAttributes:
+                    - name: C5125859
+                      attributeType: TEXT
+                      label: Commission_Payout_ID
+                      hint: commission_hint
+                      value: t1
+                    - name: allow_credit_card
+                      attributeType: MULTISELECT
+                      label: Allow Credit Card
+                      hint: Allows credit card payments and enables credit card fields
+                      valueKeys: []
+                    - name: C5457097
+                      attributeType: TEXT
+                      label: C5457097
+                      hint: ''
+                      value: abcd
+                    metadata:
+                      apsUid: murnu8w
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/users/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/memberships
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D \\\n  --header 'content-type: application/json' \\\n  --data '{\"firstName\":\"Jane\",\"lastName\":\"Lee\",\"currency\":\"USD\",\"externalId\":\"b34974b2-f5d6-4326-9859-5247dc42ee60\",\"locale\":\"en_US\",\"ldapId\":\"1\",\"boostUser\":{\"apsUid\":\"murnu8w\"},\"roles\":[\"ROLE_CORPORATE_ADMIN\"],\"idpUuid\":\"c412543-1233-6547-9809-0647dc42ee51\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D',\n  headers: {'content-type': 'application/json'},\n  body: {\n    firstName: 'Jane',\n    lastName: 'Lee',\n    currency: 'USD',\n    externalId: 'b34974b2-f5d6-4326-9859-5247dc42ee60',\n    locale: 'en_US',\n    ldapId: '1',\n    boostUser: {apsUid: 'murnu8w'},\n    roles: ['ROLE_CORPORATE_ADMIN'],\n    idpUuid: 'c412543-1233-6547-9809-0647dc42ee51'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Lee\\\",\\\"currency\\\":\\\"USD\\\",\\\"externalId\\\":\\\"b34974b2-f5d6-4326-9859-5247dc42ee60\\\",\\\"locale\\\":\\\"en_US\\\",\\\"ldapId\\\":\\\"1\\\",\\\"boostUser\\\":{\\\"apsUid\\\":\\\"murnu8w\\\"},\\\"roles\\\":[\\\"ROLE_CORPORATE_ADMIN\\\"],\\\"idpUuid\\\":\\\"c412543-1233-6547-9809-0647dc42ee51\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/rssrCompanyAssociations:
+    get:
+      description: Reads a reseller user's company associations
+      tags:
+      - User
+      summary: Read reseller user company associations
+      operationId: resource_User_readResellerUser_GET
+      x-appdirect-required-scopes:
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_USER:
+        - Allows access to read any company user.
+      parameters:
+      - description: Unique identifier of the user
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Zero-based page index
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - description: Number of results per page to return
+        name: size
+        in: query
+        schema:
+          type: integer
+          default: 50
+      - description: The property to sort by
+        name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - DATE
+          default: DATE
+      - description: Ordering type
+        name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - uuid: a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      name: Matt & Co
+                      enabled: true
+                      address:
+                        street1: Harris Place NW
+                        street2: '907'
+                        city: Calgary
+                        state: AB
+                        zip: T3B2V4
+                        country: Canada
+                      companySize: SMALL
+                      customAttributes: []
+                      creationDate: 1457416568000
+                      industry: Finance
+                      salesAgent:
+                        rel: salesRepLink
+                        href: http://appdirect/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      emailAddress: jane.lee@company.com
+                      website: company.com
+                      picture: null
+                      vendor: true
+                      reseller: false
+                      channelAdmin: true
+                      salesSupport: false
+                      externalId: 37ac4899-0847-41ac-8e6b-adfde0363b37
+                      phoneNumber: 888-888-8888
+                      defaultRole: USER
+                      countryCode: US
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/a3f385be-e10b-444e-99d1-95cd7d4c1f5a/memberships
+                    - uuid: 42f4e0cd-0614-4695-87ba-fcaee49fb995
+                      name: NewCompany & Co
+                      enabled: false
+                      address:
+                        street1: Harris Place NW
+                        street2: '907'
+                        city: Montreal
+                        state: AB
+                        zip: H3H2N3
+                        country: Canada
+                      companySize: SMALL
+                      customAttributes:
+                      - name: C1593404
+                        attributeType: TEXT
+                        label: C1593404
+                        hint: ''
+                        value: t1
+                      creationDate: 1521573411000
+                      industry: Finance
+                      salesAgent:
+                        rel: salesRepLink
+                        href: http://appdirect/api/account/v2/users/a3f385be-e10b-444e-99d1-95cd7d4c1f5a
+                      emailAddress: Jane@company.com
+                      website: company.com
+                      picture: null
+                      vendor: true
+                      reseller: false
+                      channelAdmin: true
+                      salesSupport: false
+                      externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+                      phoneNumber: 888-888-8888
+                      defaultRole: USER
+                      countryCode: US
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/42f4e0cd-0614-4695-87ba-fcaee49fb995
+                      - rel: memberships
+                        href: http://appdirect/api/account/v2/companies/42f4e0cd-0614-4695-87ba-fcaee49fb995/memberships
+                    page:
+                      size: 50
+                      totalElements: 2
+                      totalPages: 1
+                      number: 0
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/rssrCompanyAssociations?page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/rssrCompanyAssociations',\n  qs: {\n    page: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/rssrCompanyAssociations?page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/memberships:
+    get:
+      description: Retrieve a user's company memberships.
+      tags:
+      - User
+      summary: Read user memberships
+      operationId: resource_User_readUserMemberships_GET
+      x-appdirect-required-scopes:
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_USER:
+        - Allows access to retrieve own membership.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: 'Status of membership to be requested '
+        name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - description: Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included.
+        name: includeUserCustomAttributes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - description: Optional. Default is true. When set to true, company custom attributes will be included in the API response. When set to false, company custom attributes will not be included.
+        name: includeCompanyCustomAttributes
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    links: []
+                    content:
+                    - user:
+                        uuid: dcf7b936-c01f-4c98-b349-dae4769ff754
+                        email: jane.lee@company1151609035.com
+                        userName: jane.lee
+                        firstName: Jane
+                        lastName: Lee
+                        picture: null
+                        activated: true
+                        allowLogin: true
+                        ldapId: null
+                        boostUser: null
+                        roles:
+                        - ROLE_USER
+                        metadata:
+                          apsUid: null
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/users/dcf7b936-c01f-4c98-b349-dae4769ff754
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/users/dcf7b936-c01f-4c98-b349-dae4769ff754/memberships
+                      company:
+                        uuid: 97e573e2-1d11-4df4-8071-da1006509493
+                        name: Company 1040203757
+                        picture: http://localhost:8080/profilePics/http://cdn/company.png
+                        vendor: false
+                        phoneNumber: null
+                        defaultRole: USER
+                        enabled: true
+                        links:
+                        - rel: self
+                          href: http://appdirect/api/account/v2/companies/97e573e2-1d11-4df4-8071-da1006509493
+                        - rel: memberships
+                          href: http://appdirect/api/account/v2/companies/97e573e2-1d11-4df4-8071-da1006509493/memberships
+                      enabled: true
+                      lastUsed: false
+                      roles:
+                      - ROLE_BILLING_ADMIN
+                      - ROLE_SYS_ADMIN
+                      position: null
+                      mosiUser: null
+                      metadata:
+                        mosi_username: null
+                      links:
+                      - rel: self
+                        href: http://appdirect/api/account/v2/companies/97e573e2-1d11-4df4-8071-da1006509493/memberships/dcf7b936-c01f-4c98-b349-dae4769ff754
+                      - rel: user
+                        href: http://appdirect/api/account/v2/users/dcf7b936-c01f-4c98-b349-dae4769ff754
+                      - rel: company
+                        href: http://appdirect/api/account/v2/companies/97e573e2-1d11-4df4-8071-da1006509493
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships?status=SOME_STRING_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE&includeCompanyCustomAttributes=SOME_BOOLEAN_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships',\n  qs: {\n    status: 'SOME_STRING_VALUE',\n    includeUserCustomAttributes: 'SOME_BOOLEAN_VALUE',\n    includeCompanyCustomAttributes: 'SOME_BOOLEAN_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships?status=SOME_STRING_VALUE&includeUserCustomAttributes=SOME_BOOLEAN_VALUE&includeCompanyCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/memberships/{companyUuid}/current:
+    put:
+      description: Update a marketplace user's last used company.
+      tags:
+      - User
+      summary: Update last used company membership
+      operationId: resource_User_updateCurrentCompany_PUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_USER:
+        - Allows updating company as company member.
+      parameters:
+      - description: Unique identifier of company to set as last used
+        name: companyUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success, no content
+        '401':
+          description: Unauthorized
+        '404':
+          description: User/Company not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships/%7BcompanyUuid%7D/current"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships/%7BcompanyUuid%7D/current'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/memberships/%7BcompanyUuid%7D/current\")\n  .put(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/picture:
+    put:
+      description: 'Update a marketplace user’s profile picture.
+
+        This method expects a Content-Type request header with a value of “multipart/form-data”. The updated user resource is returned.'
+      tags:
+      - User
+      summary: Update user picture
+      operationId: resource_User_updateUserPicture_PUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_USER:
+        - Allows access to retrieve self or other company users.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: Image file that will be used as the profile picture.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    uuid: 42d71f0c-50b2-4c3d-913d-4b24be19df8f
+                    email: john.smith@company.com
+                    userName: john.smith@company.com
+                    firstName: John
+                    lastName: Smith
+                    picture: http://cdn/picture.png
+                    activated: true
+                    allowLogin: true
+                    ldapId: john.smith
+                    boostUser:
+                      appuid: 1234
+                    roles:
+                    - ROLE_USER
+                    metadata:
+                      apsUid: apsUid
+                    links:
+                    - rel: self
+                      href: http://appdirect/api/account/v2/users/0f24e0d4-f64d-45d1-8ddd-14f28aa5c074
+                    - rel: memberships
+                      href: http://appdirect/api/account/v2/users/0f24e0d4-f64d-45d1-8ddd-14f28aa5c074/memberships
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/picture \\\n  --header 'content-type: application/json' \\\n  --data '{}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/picture',\n  headers: {'content-type': 'application/json'},\n  body: {},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/picture\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/profile:
+    get:
+      description: Retrieve profile information for a marketplace user.
+      tags:
+      - User
+      summary: Read user profile
+      operationId: resource_User_readUserProfile_GET
+      x-appdirect-required-scopes:
+        ROLE_PARTNER_READ:
+        - Allows access to read all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_CHANNEL_SUPPORT:
+        - Allows access as a Customer Support agent for the marketplace.
+        ROLE_SALES_SUPPORT:
+        - Allows access as a Sales Support agent for the marketplace.
+        ROLE_USER:
+        - Allows access to retrieve self or other company user profiles.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    emailAddresses:
+                    - address: alternate@company.com
+                      type: WORK
+                      verified: false
+                    homePhone: +1 123 123 1234
+                    workPhone: +1 123 123 1234
+                    mobilePhone: '+1 123 '
+                    ims:
+                    - type: OTHER
+                      account: someAccount
+                    - type: OTHER
+                      account: someAccount
+                    - type: OTHER
+                      account: someAccount
+                    twitter: twitter_account
+                    workExperiences:
+                    - employer: Appdirect
+                      position: Manager
+                      description: Developer @ Appdirect
+                      startYear: 2011
+                      endYear: 2017
+                      current: true
+                    educations:
+                    - school: MIT
+                      degree: bachelor
+                      field: Computer Science
+                      startYear: 2007
+                      endYear: 2010
+                      current: false
+                    birthday: 1999/9/9
+                    currentCity: Current City
+                    hometown: Home Town
+                    customAttributes: []
+                    twoFactorAuthenticationMethod: twoFactorAuthenticationIsGreat
+                    links:
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      description: Update a marketplace user's profile. Also marks user's checklist with profile as completed.
+      tags:
+      - User
+      summary: Update user profile
+      operationId: resource_User_updateUserProfile_PUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_USER:
+        - Allows updating own or other company user profiles.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: 'When true, custom attributes not included in the body will be removed from the user''s profile. When false, custom attributes
+
+          not included in the body will remain in the user''s profile, unmodified.'
+        name: removeUnspecifiedCustomAttributes
+        in: query
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileAccountV2'
+        description: User profile resource containing requested updates
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    emailAddresses:
+                    - address: alternate@company.com
+                      type: WORK
+                      verified: false
+                    homePhone: +1 123 123 1234
+                    workPhone: +1 123 123 1234
+                    mobilePhone: '+1 123 '
+                    ims:
+                    - type: OTHER
+                      account: account1
+                    - type: OTHER
+                      account: account2
+                    - type: OTHER
+                      account: account3
+                    twitter: twitter_account
+                    workExperiences:
+                    - employer: Appdirect
+                      position: Manager
+                      description: Developer @ Appdirect
+                      startYear: 2011
+                      endYear: 2017
+                      current: true
+                    educations:
+                    - school: MIT
+                      degree: bachelor
+                      field: Computer Science
+                      startYear: 2007
+                      endYear: 2010
+                      current: false
+                    birthday: 1999/9/9
+                    currentCity: Current City
+                    hometown: Home Town
+                    customAttributes: []
+                    twoFactorAuthenticationMethod: twoFactorAuthenticationSavesMoney
+                    links:
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile?removeUnspecifiedCustomAttributes=SOME_BOOLEAN_VALUE' \\\n  --data '{\"links\":[{\"href\":\"http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd\",\"rel\":\"user\"},{\"href\":\"...\",\"rel\":\"...\"}],\"birthday\":\"1999/9/9\",\"currentCity\":\"Current City\",\"customAttributes\":[],\"educations\":[{\"current\":false,\"degree\":\"bachelor'\\''s\",\"endYear\":2010,\"field\":\"Computer Science\",\"school\":\"MIT\",\"startYear\":2007}],\"emailAddresses\":[{\"address\":\"alternate@company.com\",\"type\":\"WORK\",\"verified\":false}],\"homePhone\":\"+1 123 123 1234\",\"hometown\":\"Home Town\",\"ims\":[{\"account\":\"someAccount\",\"type\":\"OTHER\"},{\"account\":\"someAccount\",\"type\":\"OTHER\"},{\"account\":\"someAccount\",\"type\":\"OTHER\"}],\"mobilePhone\":\"+1 123 \",\"twitter\":\"twitter_account\",\"twoFactorAuthenticationMethod\":\"twoFactorAuthenticationIsGreat\",\"workExperiences\":[{\"current\":true,\"description\":\"Developer @ Appdirect\",\"employer\":\"Appdirect\",\"endYear\":2017,\"position\":\"Manager\",\"startYear\":2011}],\"workPhone\":\"+1 123 123 1234\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile',\n  qs: {removeUnspecifiedCustomAttributes: 'SOME_BOOLEAN_VALUE'},\n  body: {\n    links: [\n      {\n        href: 'http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd',\n        rel: 'user'\n      },\n      {href: '...', rel: '...'}\n    ],\n    birthday: '1999/9/9',\n    currentCity: 'Current City',\n    customAttributes: [],\n    educations: [\n      {\n        current: false,\n        degree: 'bachelor\\'s',\n        endYear: 2010,\n        field: 'Computer Science',\n        school: 'MIT',\n        startYear: 2007\n      }\n    ],\n    emailAddresses: [{address: 'alternate@company.com', type: 'WORK', verified: false}],\n    homePhone: '+1 123 123 1234',\n    hometown: 'Home Town',\n    ims: [\n      {account: 'someAccount', type: 'OTHER'},\n      {account: 'someAccount', type: 'OTHER'},\n      {account: 'someAccount', type: 'OTHER'}\n    ],\n    mobilePhone: '+1 123 ',\n    twitter: 'twitter_account',\n    twoFactorAuthenticationMethod: 'twoFactorAuthenticationIsGreat',\n    workExperiences: [\n      {\n        current: true,\n        description: 'Developer @ Appdirect',\n        employer: 'Appdirect',\n        endYear: 2017,\n        position: 'Manager',\n        startYear: 2011\n      }\n    ],\n    workPhone: '+1 123 123 1234'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"links\\\":[{\\\"href\\\":\\\"http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd\\\",\\\"rel\\\":\\\"user\\\"},{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"}],\\\"birthday\\\":\\\"1999/9/9\\\",\\\"currentCity\\\":\\\"Current City\\\",\\\"customAttributes\\\":[],\\\"educations\\\":[{\\\"current\\\":false,\\\"degree\\\":\\\"bachelor's\\\",\\\"endYear\\\":2010,\\\"field\\\":\\\"Computer Science\\\",\\\"school\\\":\\\"MIT\\\",\\\"startYear\\\":2007}],\\\"emailAddresses\\\":[{\\\"address\\\":\\\"alternate@company.com\\\",\\\"type\\\":\\\"WORK\\\",\\\"verified\\\":false}],\\\"homePhone\\\":\\\"+1 123 123 1234\\\",\\\"hometown\\\":\\\"Home Town\\\",\\\"ims\\\":[{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"},{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"},{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"}],\\\"mobilePhone\\\":\\\"+1 123 \\\",\\\"twitter\\\":\\\"twitter_account\\\",\\\"twoFactorAuthenticationMethod\\\":\\\"twoFactorAuthenticationIsGreat\\\",\\\"workExperiences\\\":[{\\\"current\\\":true,\\\"description\\\":\\\"Developer @ Appdirect\\\",\\\"employer\\\":\\\"Appdirect\\\",\\\"endYear\\\":2017,\\\"position\\\":\\\"Manager\\\",\\\"startYear\\\":2011}],\\\"workPhone\\\":\\\"+1 123 123 1234\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile?removeUnspecifiedCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      description: Update a marketplace user's profile. Also marks user's checklist with profile as completed.
+      tags:
+      - User
+      summary: Patch user profile
+      operationId: resource_User_patchUserProfile_PATCH
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+        ROLE_USER:
+        - Allows updating own or other company user profiles.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: 'When true, custom attributes not included in the body will be removed from the user''s profile. When false, custom attributes
+
+          not included in the body will remain in the user''s profile, unmodified.'
+        name: removeUnspecifiedCustomAttributes
+        in: query
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileAccountV2'
+        description: User profile resource containing requested updates
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    emailAddresses:
+                    - address: alternate@company.com
+                      type: WORK
+                      verified: false
+                    homePhone: '+14155552671'
+                    workPhone: '+442071838750'
+                    mobilePhone: '+442071833545'
+                    ims:
+                    - type: OTHER
+                      account: account1
+                    - type: OTHER
+                      account: account2
+                    - type: OTHER
+                      account: account3
+                    twitter: twitter_account
+                    workExperiences:
+                    - employer: Appdirect
+                      position: Manager
+                      description: Developer @ Appdirect
+                      startYear: 2011
+                      endYear: 2017
+                      current: true
+                    educations:
+                    - school: MIT
+                      degree: bachelor
+                      field: Computer Science
+                      startYear: 2007
+                      endYear: 2010
+                      current: false
+                    birthday: 1999/9/9
+                    currentCity: Current City
+                    hometown: Home Town
+                    customAttributes: []
+                    twoFactorAuthenticationMethod: twoFactorAuthenticationSavesMoney
+                    links:
+                    - rel: user
+                      href: http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile?removeUnspecifiedCustomAttributes=SOME_BOOLEAN_VALUE' \\\n  --data '{\"links\":[{\"href\":\"http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd\",\"rel\":\"user\"},{\"href\":\"...\",\"rel\":\"...\"}],\"birthday\":\"1999/9/9\",\"currentCity\":\"Current City\",\"customAttributes\":[],\"educations\":[{\"current\":false,\"degree\":\"bachelor'\\''s\",\"endYear\":2010,\"field\":\"Computer Science\",\"school\":\"MIT\",\"startYear\":2007}],\"emailAddresses\":[{\"address\":\"alternate@company.com\",\"type\":\"WORK\",\"verified\":false}],\"homePhone\":\"+1 123 123 1234\",\"hometown\":\"Home Town\",\"ims\":[{\"account\":\"someAccount\",\"type\":\"OTHER\"},{\"account\":\"someAccount\",\"type\":\"OTHER\"},{\"account\":\"someAccount\",\"type\":\"OTHER\"}],\"mobilePhone\":\"+1 123 \",\"twitter\":\"twitter_account\",\"twoFactorAuthenticationMethod\":\"twoFactorAuthenticationIsGreat\",\"workExperiences\":[{\"current\":true,\"description\":\"Developer @ Appdirect\",\"employer\":\"Appdirect\",\"endYear\":2017,\"position\":\"Manager\",\"startYear\":2011}],\"workPhone\":\"+1 123 123 1234\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile',\n  qs: {removeUnspecifiedCustomAttributes: 'SOME_BOOLEAN_VALUE'},\n  body: {\n    links: [\n      {\n        href: 'http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd',\n        rel: 'user'\n      },\n      {href: '...', rel: '...'}\n    ],\n    birthday: '1999/9/9',\n    currentCity: 'Current City',\n    customAttributes: [],\n    educations: [\n      {\n        current: false,\n        degree: 'bachelor\\'s',\n        endYear: 2010,\n        field: 'Computer Science',\n        school: 'MIT',\n        startYear: 2007\n      }\n    ],\n    emailAddresses: [{address: 'alternate@company.com', type: 'WORK', verified: false}],\n    homePhone: '+1 123 123 1234',\n    hometown: 'Home Town',\n    ims: [\n      {account: 'someAccount', type: 'OTHER'},\n      {account: 'someAccount', type: 'OTHER'},\n      {account: 'someAccount', type: 'OTHER'}\n    ],\n    mobilePhone: '+1 123 ',\n    twitter: 'twitter_account',\n    twoFactorAuthenticationMethod: 'twoFactorAuthenticationIsGreat',\n    workExperiences: [\n      {\n        current: true,\n        description: 'Developer @ Appdirect',\n        employer: 'Appdirect',\n        endYear: 2017,\n        position: 'Manager',\n        startYear: 2011\n      }\n    ],\n    workPhone: '+1 123 123 1234'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"links\\\":[{\\\"href\\\":\\\"http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd\\\",\\\"rel\\\":\\\"user\\\"},{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"}],\\\"birthday\\\":\\\"1999/9/9\\\",\\\"currentCity\\\":\\\"Current City\\\",\\\"customAttributes\\\":[],\\\"educations\\\":[{\\\"current\\\":false,\\\"degree\\\":\\\"bachelor's\\\",\\\"endYear\\\":2010,\\\"field\\\":\\\"Computer Science\\\",\\\"school\\\":\\\"MIT\\\",\\\"startYear\\\":2007}],\\\"emailAddresses\\\":[{\\\"address\\\":\\\"alternate@company.com\\\",\\\"type\\\":\\\"WORK\\\",\\\"verified\\\":false}],\\\"homePhone\\\":\\\"+1 123 123 1234\\\",\\\"hometown\\\":\\\"Home Town\\\",\\\"ims\\\":[{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"},{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"},{\\\"account\\\":\\\"someAccount\\\",\\\"type\\\":\\\"OTHER\\\"}],\\\"mobilePhone\\\":\\\"+1 123 \\\",\\\"twitter\\\":\\\"twitter_account\\\",\\\"twoFactorAuthenticationMethod\\\":\\\"twoFactorAuthenticationIsGreat\\\",\\\"workExperiences\\\":[{\\\"current\\\":true,\\\"description\\\":\\\"Developer @ Appdirect\\\",\\\"employer\\\":\\\"Appdirect\\\",\\\"endYear\\\":2017,\\\"position\\\":\\\"Manager\\\",\\\"startYear\\\":2011}],\\\"workPhone\\\":\\\"+1 123 123 1234\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/profile?removeUnspecifiedCustomAttributes=SOME_BOOLEAN_VALUE\")\n  .patch(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /account/v2/users/{userUuid}/temporaryPassword:
+    put:
+      description: 'Set a temporary password for the given marketplace user.
+
+        User must be active and specified password must meet user''s company password policy.
+
+        Effective company is the last company used by the user.'
+      x-appdirect-visible: false
+      tags:
+      - User
+      summary: Set a temporary password
+      operationId: resource_User_setTemporaryPassword_PUT
+      x-appdirect-required-scopes:
+        ROLE_PARTNER:
+        - Allows access to read and write all marketplace data.
+        ROLE_CORPORATE_ADMIN:
+        - Allows access as a Network Manager for the marketplace.
+        ROLE_CHANNEL_ADMIN:
+        - Allows access as a Marketplace Manager for the marketplace.
+        ROLE_SYS_ADMIN:
+        - Allows access as a Company Admin for the company.
+      parameters:
+      - description: Unique identifier of user in the API request
+        name: userUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemporaryPasswordAccountV2'
+        description: Temporary password, user require to reset password at next login
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Role hierarchy violation. The user making the request cannot change the password of a user with a higher role than their own.
+        '404':
+          description: User not found
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - code: Not Found
+                    message: User with UUID=4c8aad2f-288f-41eb-8467-fa7e52bc4fac not found.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/temporaryPassword \\\n  --header 'content-type: application/json' \\\n  --data '{\"password\":\"temppassword123\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/temporaryPassword',\n  headers: {'content-type': 'application/json'},\n  body: {password: 'temppassword123'},\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"password\\\":\\\"temppassword123\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/temporaryPassword\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    BoostUser:
+      type: object
+      title: BoostUser
+      properties:
+        apsUid:
+          type: string
+      nullable: true
+    EmailAddressAccountV2:
+      description: Email address information
+      type: object
+      title: EmailAddressAccountV2
+      properties:
+        address:
+          description: Email address
+          type: string
+        type:
+          $ref: '#/components/schemas/EmailAddressType'
+        verified:
+          description: Indicates whether the email address is verified
+          type: boolean
+      example:
+        address: alternate@company.com
+        type: WORK
+        verified: false
+    InactiveUserAccountV2:
+      description: User activation information
+      type: object
+      title: InactiveUserAccountV2
+      properties:
+        activated:
+          description: Is user activated
+          type: boolean
+        email:
+          description: User email
+          type: string
+        password:
+          description: User password
+          type: string
+        termsOfService:
+          description: Indicates whether the user has accepted the terms of service
+          type: boolean
+        privacyPolicy:
+          description: Indicates whether the user has agreed to the privacy policy
+          type: boolean
+      example:
+        email: alex.gonsalez@company2438285395.com
+        password: some-password
+        activated: true
+        termsOfService: true
+        privacyPolicy: true
+    TemporaryPasswordAccountV2:
+      description: Temporary Password
+      type: object
+      title: TemporaryPasswordAccountV2
+      properties:
+        password:
+          description: Password
+          type: string
+      example:
+        password: temppassword123
+    CustomAttributeAccountV2:
+      description: Custom attributes
+      type: object
+      title: CustomAttributeAccountV2
+      properties:
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        hint:
+          description: Localized hint
+          type: string
+        label:
+          description: Localized label
+          type: string
+        name:
+          description: Name
+          type: string
+        value:
+          description: Value
+          type: string
+        valueKeys:
+          description: Value keys
+          type: array
+          items:
+            type: string
+      example:
+        name: Company Details
+        attributeType: MULTISELECT
+        label: Label Names
+        hint: ''
+        valueKeys:
+        - great option
+    EmailAddressType:
+      type: string
+      title: EmailAddressType
+      description: Email address type
+      enum:
+      - PERSONAL
+      - WORK
+    EducationAccountV2:
+      description: User profile's education information
+      type: object
+      title: EducationAccountV2
+      properties:
+        current:
+          description: If currently still at this school
+          type: boolean
+        degree:
+          description: Degree
+          type: string
+        endYear:
+          description: End year
+          type: number
+        field:
+          description: Field of studies
+          type: string
+        school:
+          description: School
+          type: string
+        startYear:
+          description: Start year
+          type: number
+      example:
+        current: false
+        degree: bachelor's
+        endYear: 2010
+        field: Computer Science
+        school: MIT
+        startYear: 2007
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    UserProfileAccountV2:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Represents a User profile (User)
+        type: object
+        title: UserProfileAccountV2
+        properties:
+          birthday:
+            description: Birthday date
+            type: string
+          currentCity:
+            description: Current city
+            type: string
+          customAttributes:
+            description: Custom attributes
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomAttributeAccountV2'
+          educations:
+            description: List of user's educational credentials
+            type: array
+            items:
+              $ref: '#/components/schemas/EducationAccountV2'
+          emailAddresses:
+            description: Email addresses
+            type: array
+            items:
+              $ref: '#/components/schemas/EmailAddressAccountV2'
+          homePhone:
+            description: Home phone number
+            type: string
+          hometown:
+            description: Hometown
+            type: string
+          ims:
+            description: List of instant messaging accounts
+            type: array
+            items:
+              $ref: '#/components/schemas/IM'
+          mobilePhone:
+            description: Mobile phone number
+            type: string
+          twitter:
+            description: Twitter account
+            type: string
+          twoFactorAuthenticationMethod:
+            description: Two factor authentication method
+            type: string
+          workExperiences:
+            description: List of work experiences
+            type: array
+            items:
+              $ref: '#/components/schemas/WorkExperienceAccountV2'
+          workPhone:
+            description: Work phone number
+            type: string
+        example:
+          birthday: 1999/9/9
+          currentCity: Current City
+          customAttributes: []
+          educations:
+          - current: false
+            degree: bachelor's
+            endYear: 2010
+            field: Computer Science
+            school: MIT
+            startYear: 2007
+          emailAddresses:
+          - address: alternate@company.com
+            type: WORK
+            verified: false
+          homePhone: +1 123 123 1234
+          hometown: Home Town
+          ims:
+          - account: someAccount
+            type: OTHER
+          - account: someAccount
+            type: OTHER
+          - account: someAccount
+            type: OTHER
+          links:
+          - href: http://appdirect/api/account/v2/users/48dc0e2b-995b-4013-bd3f-2946309ca0fd
+            rel: user
+          mobilePhone: '+1 123 '
+          twitter: twitter_account
+          twoFactorAuthenticationMethod: twoFactorAuthenticationIsGreat
+          workExperiences:
+          - current: true
+            description: Developer @ Appdirect
+            employer: Appdirect
+            endYear: 2017
+            position: Manager
+            startYear: 2011
+          workPhone: +1 123 123 1234
+    IM:
+      description: Instant messenger
+      type: object
+      title: IM
+      properties:
+        account:
+          description: Account identifier
+          type: string
+        type:
+          $ref: '#/components/schemas/IMType'
+      example:
+        account: da853378-2e9a-4944-ad53-6257bf773ace
+        type: GOOGLE_TALK
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    PatchUserAccountV2:
+      description: Update user information
+      type: object
+      title: PatchUserAccountV2
+      properties:
+        boostUser:
+          $ref: '#/components/schemas/BoostUser'
+        externalId:
+          description: External identifier of user
+          type: string
+        firstName:
+          description: First name of user
+          type: string
+          nullable: true
+        lastName:
+          description: Last name of user
+          type: string
+          nullable: true
+        username:
+          description: 'User name.
+
+            If not provided, use the user''s email address'
+          type: string
+          nullable: true
+        ldapId:
+          description: LDAP identifier of user
+          type: string
+          nullable: true
+        idpUuid:
+          description: The external identity provider's ID for the user
+          type: string
+          nullable: true
+        locale:
+          description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
+          type: string
+        currency:
+          description: Currency
+          type: string
+        roles:
+          description: All users have ROLE_USER (end-user access). To assign the Network Manager, role use ROLE_CORPORATE_ADMIN. For company membership roles, see [UserCompanyMembershipAccountV2](#usercompanymembershipaccountv2).
+          type: array
+          items:
+            type: string
+      example:
+        firstName: Jane
+        lastName: Lee
+        currency: USD
+        externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+        locale: en_US
+        ldapId: '1'
+        boostUser:
+          apsUid: murnu8w
+        roles:
+        - ROLE_CORPORATE_ADMIN
+        idpUuid: c412543-1233-6547-9809-0647dc42ee51
+    IMType:
+      type: string
+      title: IMType
+      description: Instant messenger type
+      enum:
+      - YAHOO
+      - MSN
+      - GOOGLE_TALK
+      - JABBER
+      - AIM
+      - SKYPE
+      - ICQ
+      - COMUNICATOR
+      - OTHER
+    UpdateUserAccountV2:
+      description: Update user information
+      type: object
+      title: UpdateUserAccountV2
+      properties:
+        boostUser:
+          $ref: '#/components/schemas/BoostUser'
+        externalId:
+          description: External identifier of user
+          type: string
+        firstName:
+          description: First name of user
+          type: string
+          nullable: true
+        lastName:
+          description: Last name of user
+          type: string
+          nullable: true
+        ldapId:
+          description: LDAP identifier of user
+          type: string
+          nullable: true
+        idpUuid:
+          description: The external identity provider's ID for the user
+          type: string
+          nullable: true
+        locale:
+          description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
+          type: string
+        currency:
+          description: Currency
+          type: string
+        roles:
+          description: All users have ROLE_USER (end-user access). To assign the Network Manager, role use ROLE_CORPORATE_ADMIN. For company membership roles, see [UserCompanyMembershipAccountV2](#usercompanymembershipaccountv2).
+          type: array
+          items:
+            type: string
+      example:
+        firstName: Jane
+        lastName: Lee
+        currency: USD
+        externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+        locale: en_US
+        ldapId: '1'
+        boostUser:
+          apsUid: murnu8w
+        roles:
+        - ROLE_CORPORATE_ADMIN
+    WorkExperienceAccountV2:
+      description: Represents a work experience
+      type: object
+      title: WorkExperienceAccountV2
+      properties:
+        current:
+          description: Currently working
+          type: boolean
+        description:
+          description: Description
+          type: string
+        employer:
+          description: Employer
+          type: string
+        endYear:
+          description: Year ended
+          type: number
+        position:
+          description: Position
+          type: string
+        startYear:
+          description: Year started
+          type: number
+      example:
+        current: true
+        description: Developer @ Appdirect
+        employer: Appdirect
+        endYear: 2017
+        position: Manager
+        startYear: 2011

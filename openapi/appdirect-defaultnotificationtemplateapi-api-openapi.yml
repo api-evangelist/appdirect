@@ -1,0 +1,501 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed DefaultNotificationTemplateApi API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- description: 'API endpoint to manage default notification templates (email and sms)
+
+    When a partner have not customized a notification template, the default
+
+    template will be used to send notification to users if it exists for the
+
+    required notification template type and required locale.'
+  name: DefaultNotificationTemplateApi
+  x-displayName: Default Notification Template Api
+paths:
+  /notification/v1/templates/default:
+    get:
+      x-appdirect-visible: false
+      description: 'Read default notification templates available for the current channel.
+
+        Reserved for super support users.'
+      tags:
+      - DefaultNotificationTemplateApi
+      summary: Read default notification templates available for the current channel.
+      operationId: resource_DefaultNotificationTemplateApi_getDefaultTemplateDefinitions_GET
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationTemplateDefinitionWS'
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/notification/v1/templates/default"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/notification/v1/templates/default'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /notification/v1/templates/default/common/email:
+    post:
+      x-appdirect-visible: false
+      description: Create or update a default common email template element
+      tags:
+      - DefaultNotificationTemplateApi
+      summary: Create or update a default common email template element.
+      operationId: resource_DefaultNotificationTemplateApi_createOrUpdateDefaultCommonEmailTemplate_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationCommonEmailElementWS'
+        description: Common element definition
+      responses:
+        '201':
+          description: Success
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email \\\n  --data '{\"content\":\"string\",\"defaultCommonElement\":true,\"enabled\":true,\"id\":0,\"locale\":\"string\",\"partner\":\"string\",\"type\":\"UNSUBSCRIBE\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email',\n  body: {\n    content: 'string',\n    defaultCommonElement: true,\n    enabled: true,\n    id: 0,\n    locale: 'string',\n    partner: 'string',\n    type: 'UNSUBSCRIBE'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"content\\\":\\\"string\\\",\\\"defaultCommonElement\\\":true,\\\"enabled\\\":true,\\\"id\\\":0,\\\"locale\\\":\\\"string\\\",\\\"partner\\\":\\\"string\\\",\\\"type\\\":\\\"UNSUBSCRIBE\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /notification/v1/templates/default/common/email/{type}:
+    get:
+      x-appdirect-visible: false
+      description: Read default common email element by type
+      tags:
+      - DefaultNotificationTemplateApi
+      summary: Read default common email element by type.
+      operationId: resource_DefaultNotificationTemplateApi_getDefaultCommonEmailTemplate_GET
+      parameters:
+      - description: Notification common element type
+        name: type
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationCommonEmailElementWS'
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email/%7Btype%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email/%7Btype%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/common/email/%7Btype%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /notification/v1/templates/default/email:
+    post:
+      x-appdirect-visible: false
+      description: Create or update default email template. Reserved for super support users.
+      tags:
+      - DefaultNotificationTemplateApi
+      summary: Create or update default email template
+      operationId: resource_DefaultNotificationTemplateApi_createOrUpdateDefaultEmailTemplate_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationEmailTemplateWS'
+        description: Template definition
+      responses:
+        '201':
+          description: Success
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/notification/v1/templates/default/email \\\n  --data '{\"content\":\"string\",\"defaultTemplate\":true,\"directSales\":true,\"enabled\":true,\"fallbackEmailTemplateId\":0,\"id\":0,\"locale\":\"string\",\"partner\":\"string\",\"reminderPattern\":\"string\",\"subject\":\"string\",\"type\":\"ACCOUNT_ACTIVATION\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/notification/v1/templates/default/email',\n  body: {\n    content: 'string',\n    defaultTemplate: true,\n    directSales: true,\n    enabled: true,\n    fallbackEmailTemplateId: 0,\n    id: 0,\n    locale: 'string',\n    partner: 'string',\n    reminderPattern: 'string',\n    subject: 'string',\n    type: 'ACCOUNT_ACTIVATION'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"content\\\":\\\"string\\\",\\\"defaultTemplate\\\":true,\\\"directSales\\\":true,\\\"enabled\\\":true,\\\"fallbackEmailTemplateId\\\":0,\\\"id\\\":0,\\\"locale\\\":\\\"string\\\",\\\"partner\\\":\\\"string\\\",\\\"reminderPattern\\\":\\\"string\\\",\\\"subject\\\":\\\"string\\\",\\\"type\\\":\\\"ACCOUNT_ACTIVATION\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/email\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /notification/v1/templates/default/email/{type}:
+    get:
+      x-appdirect-visible: false
+      description: Read default email template by type. Reserved for super support user.
+      tags:
+      - DefaultNotificationTemplateApi
+      summary: Read default email template by type
+      operationId: resource_DefaultNotificationTemplateApi_getDefaultNotificationEmailTemplate_GET
+      parameters:
+      - description: Email template type
+        name: type
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationEmailTemplateWS'
+        default:
+          description: Unexpected error.
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    NotificationAudienceType:
+      type: string
+      title: NotificationAudienceType
+      enum:
+      - NEW_USER
+      - EXISTING_USER
+      - EXISTING_USER_WITHOUT_COMPANY_PARAM
+      - PRODUCT_OWNER
+      - CHANNEL_ADMIN
+      - CHANNEL_ADMIN_WITHOUT_PARAM
+      - CHANNEL_SUPPORT
+      - PRODUCT_USER
+      - COMPANY_ADMIN
+      - APP_DEVELOPER
+      - CUSTOM_INTEGRATION_APP_SUPPORT
+      - RESELLER
+      - RESELLER_WITHOUT_PARAM
+      - RESELLER_MANAGER
+      - RESELLER_MANAGER_WITHOUT_PARAM
+      - RESELLER_COMPANY_ADMIN
+      - SALES_SUPPORT
+      - SALES_SUPPORT_WITHOUT_PARAMS
+      - TICKET_SUPPORT
+      - DOMAIN_SUPPORT
+      - SUPER_SUPPORT
+    NotificationCommonElementType:
+      type: string
+      title: NotificationCommonElementType
+      enum:
+      - UNSUBSCRIBE
+    NotificationTemplateDefinitionWS:
+      type: object
+      title: NotificationTemplateDefinition
+      properties:
+        audience:
+          $ref: '#/components/schemas/NotificationAudienceType'
+        category:
+          $ref: '#/components/schemas/NotificationTemplateCategory'
+        generated:
+          description: If the template body is generated
+          type: boolean
+        methods:
+          description: Notification methods(Email, sms)
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationMethodTemplateWS'
+        reminder:
+          $ref: '#/components/schemas/NotificationReminderType'
+        required:
+          description: If the template can be disabled or not
+          type: boolean
+        type:
+          $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationMethod:
+      type: string
+      title: NotificationMethod
+      enum:
+      - EMAIL
+      - SMS
+    NotificationTemplateType:
+      type: string
+      title: NotificationTemplateType
+      enum:
+      - ACCOUNT_ACTIVATION
+      - ACCOUNT_ACTIVATION_AFTER_MIGRATION
+      - BRANDED_ACCOUNT_ACTIVATION
+      - ACCOUNT_ACTIVATION_CREATED_BY_ASSISTED_SALES
+      - ACTIVE_USER_TEMP_PASSWORD
+      - NEW_USER
+      - INVITE_USER
+      - BAAS_MARKETPLACE_SIGN_UP_REQUEST
+      - LISTING_MARKETPLACE_SIGN_UP_REQUEST
+      - STORE_MARKETPLACE_SIGN_UP_REQUEST
+      - LISTING_MARKETPLACE_SIGN_UP_REMINDER
+      - STORE_MARKETPLACE_SIGN_UP_REMINDER
+      - PASSWORD_RESET
+      - PASSWORD_CHANGED_NOTICE
+      - PRIMARY_EMAIL_CHANGED_NOTICE
+      - EMAIL_VERIFICATION
+      - IMPERSONATE_REQUEST
+      - PASSWORD_REMINDER
+      - REGISTRATION_REMINDER
+      - FIRST_TIME_LOGIN
+      - INACTIVE_USER_LOGIN_REMINDER
+      - INACTIVE_USER_PURCHASE_REMINDER
+      - ACCOUNT_ACTIVATION_FOR_EMAIL_CHANGE
+      - TWO_FACTOR_AUTHENTICATION_EMAIL
+      - ASSIGNMENT_NOTICE
+      - UNASSIGNMENT_NOTICE
+      - ASSIGNED_USERS_LIMIT
+      - ADOPTION_NOTICE
+      - SUBSCRIPTION_ADOPTION
+      - APPLICATION_ACCESS_REQUEST_NOTICE
+      - APPLICATION_PURCHASE_REQUEST_NOTICE
+      - EXPIRED_APPLICATION_REQUEST
+      - SUSPENDED_APPLICATION_REQUEST
+      - UPDATED_DOWNLOAD
+      - REVIEW_PURCHASE_REMINDER
+      - DENY_REVIEW
+      - DISCOUNT_DEACTIVATED
+      - CHANGE_OWNERSHIP
+      - REACTIVATE_DOMAIN
+      - SUBSCRIPTION_ORDER
+      - SUBSCRIPTION_ORDER_SINGLE_USER
+      - SUBSCRIPTION_ORDER_FREE_TRIAL
+      - PERSONAL_SUBSCRIPTION_NOTICE
+      - SUBSCRIPTION_ORDER_DOCUMENT
+      - SUBSCRIPTION_ORDER_MODULE
+      - FAILED_ORDER
+      - SUBSCRIPTION_UPGRADE
+      - FREE_TRIAL_OVER
+      - FREE_TRIAL_AUTO_UPGRADE_TO_PAID
+      - EXPIRED_TRIAL_UPGRADE_REMINDER
+      - INVOICE
+      - PAYMENT_SUCCESSFUL
+      - PAYMENT_FAILED
+      - REFUND
+      - EXPIRED_CREDIT_CARD
+      - SUBSCRIPTION_SUSPENDED_OVERDUE_INVOICE
+      - SUBSCRIPTION_SUSPENDED
+      - SUBSCRIPTION_CANCEL
+      - SUBSCRIPTION_CANCEL_SCHEDULED
+      - SCHEDULED_CANCELLATION_REMINDER
+      - TICKET_SUPPORT_SUBSCRIPTION_CANCEL
+      - FAILED_TO_REMOVE_USER
+      - FAILED_TO_REMOVE_USER_HAS_ACTIVE_OR_PENDING_APPS
+      - FAILED_TO_REMOVE_USER_OWNS_APPS
+      - FAILED_TO_REMOVE_USER_SOLE_SYSADMIN
+      - END_OF_CONTRACT
+      - OFF_PURCHASE_ORDER
+      - ORDER_APPROVAL_REQUEST
+      - SUBSCRIPTION_ORDER_RESELLER
+      - SUBSCRIPTION_CHANGE_RESELLER
+      - PUBLISH_REQUEST_PENDING_APPROVAL
+      - APPLICATION_PUBLISHED
+      - PUBLISH_DENIED
+      - VENDOR_NOTIFICATION
+      - VENDOR_REVIEW
+      - QUESTION_ASKED
+      - VENDOR_PUBLISH_REQUEST
+      - NETWORK_APPLICATION_REPUBLISHED
+      - MANUAL_EVENT_RESOLUTION
+      - NEW_REPORT_AVAILABLE
+      - REPORT_GENERATED
+      - REPORT_SUMMARY
+      - NEW_REPORT_SPECIFIC_NOTIFICATION
+      - OFFLINE_ORDER
+      - OFFLINE_ASSIGNMENT
+      - PRODUCT_CREDENTIALS
+      - MOSI_BOOST_FAILURE
+      - CREST_NEW_ADMIN
+      - MOSI_NEW_ADMIN
+      - MOSI_NEW_USER
+      - MOSI_UPDATE_USERNAME
+      - MOSI_ORDER_PLACED
+      - GOOGLE_NEW_ADMIN_USER
+      - GOOGLE_NEW_USER
+      - SENDGRID_PURCHASE
+      - MCAFEE_PURCHASE
+      - SCALEXTREME_ACCOUNT
+      - SYMANTEC_CLOUD_NEW_ACCOUNT
+      - SYMANTEC_CLOUD_OLD_ACCOUNT
+      - SYMANTEC_EV_CLOUD_NOTIFICATION
+      - MOZY_NEW_USER
+      - NORTON_NEW_USER_PC
+      - WEBEX_NEW_USER
+      - ASYNCHRONOUS_PRODUCT_PURCHASE_NOTIFICATION
+      - MARKETPLACE_REQUEST_TO_ADD_PRODUCT
+      - VENDOR_ADD_REQUEST
+      - PRODUCT_ADDED
+      - VENDOR_APPROVED
+      - AZURE_SYNC_INVITE_NEW_USER
+      - AZURE_SYNC_INVITE_USER
+      - DOCUSIGN_PURCHASE
+      - DOCUSIGN_ASSIGN
+      - RESELLER_LINKED
+      - RESELLER_UNLINKED
+      - RESELLER_SIGNUP_REQUESTED
+      - RESELLER_SIGNUP_APPROVED
+      - RESELLER_SIGNUP_DENIED
+      - TBILL_VALIDATION
+      - TBILL_APPROVED_USER_NOTIFICATION
+      - TBILL_REJECTED_USER_NOTIFICATION
+      - TBILL_APPROVED_CHANNEL_NOTIFICATION
+      - TBILL_REJECTED_CHANNEL_NOTIFICATION
+      - TBILL_INVALID_NOTIFICATION
+      - LEFTRONIC_ACCOUNT_ACTIVATION
+      - DOMAIN_REGISTRATION_DOMAIN_PURCHASED_NEW
+      - DOMAIN_REGISTRATION_DOMAIN_PURCHASED_TRANSFER
+      - DOMAIN_REGISTRATION_DOMAIN_TRANSFER_COMPLETE
+      - DOMAIN_REGISTRATION_END_OF_CONTRACT
+      - DOMAIN_REGISTRATION_END_OF_CONTRACT_MANUAL_RENEWAL
+      - DOMAIN_REGISTRATION_DOMAIN_SUSPENDED
+      - DOMAIN_REGISTRATION_DOMAIN_CANCELED
+      - O365_RESET_DOMAIN_USER_PASSWORDS
+      - SALES_LEAD_CREATED
+      - SALES_LEAD_ACCEPTED
+      - SALES_LEAD_DENIED
+      - SALES_LEAD_ASSIGNED
+      - SALES_LEAD_WON
+      - SALES_LEAD_LOST
+      - LEAD_PRODUCT_CREATED_ADMIN
+      - LEAD_MANUAL_CREATED_RESELLER
+      - LEAD_MANUAL_CREATED_DEVELOPER
+      - LEAD_PRODUCT_CREATED_SSR
+      - LEAD_REFERRED_COMPANY_SSR
+      - LEAD_REFERRED_COMPANY_RESELLER
+      - LEAD_CONVERTED_ADMIN
+      - LEAD_CONVERTED_SSR
+      - PRODUCT_PROFILE_LEAD_CREATED
+      - CUSTOM_AD_HOC
+      - SALES_OPPORTUNITY_CREATED
+      - SALES_OPPORTUNITY_APPROVED
+      - SALES_OPPORTUNITY_DENIED
+      - RESELLER_PROFILE_PUBLICATION_REQUESTED
+      - RESELLER_PROFILE_PUBLICATION_REQUEST_CANCELLED
+      - RESELLER_PROFILE_UNPUBLISHED
+      - RESELLER_PROFILE_PUBLICATION_APPROVED
+      - RESELLER_PROFILE_PUBLICATION_DENIED
+      - MICROSOFT_CREDENTIALS_SENT
+      - FAILED_CONTRACT
+      - WHOLESALES_PRICE_END_USER_ACTION_PENDING_PRICE_GRANTED
+      - WHOLESALE_PRICE_END_USER_ACTION_PENDING_PRICE_GRANTED_BY_SALES_SUPPORT
+      - WHOLESALE_PRICE_END_USER_ACTION_PENDING_REJECTED
+      - WHOLESALE_PRICE_END_USER_ACTION_PENDING_REJECTED_BY_CHANNEL
+      - WHOLESALES_PRICE_RESELLER_ACTION_PENDING_PRICE_REQUESTED
+      - WHOLESALE_PRICE_SALES_SUPPORT_ACTION_PENDING_PRICE_REQUESTED
+      - WHOLESALES_PRICE_RESELLER_ACTION_PENDING_PRICE_REQUESTED_FOR_COMPANY_ADMIN
+      - WHOLESALE_PRICE_RESELLER_ACTION_PENDING_REJECTED_BY_RESELLER_MANAGER
+      - WHOLESALE_PRICE_SALES_SUPPORT_ACTION_PENDING_REJECTED_BY_CHANNEL_ADMIN
+      - WHOLESALE_PRICE_RESELLER_ACTION_PENDING_REJECTED_BY_END_USER
+      - WHOLESALE_PRICE_SALES_SUPPORT_ACTION_PENDING_REJECTED_BY_END_USER
+      - WHOLESALES_PRICE_RESELLER_ACTION_PENDING_MANAGER_APPROVED
+      - WHOLESALES_PRICE_RESELLER_MANAGER_ACTION_PENDING_PRICE_REQUESTED
+      - WHOLESALES_PRICE_RESELLER_MANAGER_ACTION_PENDING_PRICE_REQUESTED_FOR_CHANNEL_ADMIN
+      - API_ALERT
+      - WELCOME_USER
+      - CREDIT_CARD_REQUIRED
+    NotificationCommonEmailElementWS:
+      type: object
+      title: NotificationCommonEmailElementWS
+      required:
+      - type
+      - content
+      - locale
+      properties:
+        content:
+          description: Email notification content
+          type: string
+        defaultCommonElement:
+          description: If the elements are default common elements
+          type: boolean
+        enabled:
+          description: If the email template is enabled
+          type: boolean
+        id:
+          description: Email notification template ID
+          type: number
+        locale:
+          description: Email notification locale to determine the language
+          type: string
+        partner:
+          description: Partner being used to render the email
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationCommonElementType'
+    NotificationTemplateCategory:
+      type: string
+      title: NotificationTemplateCategory
+      enum:
+      - ACCOUNTS
+      - PRODUCTS
+      - VENDORS
+      - BILLING
+      - MARKETPLACE
+      - DOMAIN_REGISTRATION
+      - ASSISTED_SALES
+      - MISC
+    NotificationMethodTemplateWS:
+      type: object
+      title: NotificationMethodTemplate
+      properties:
+        enabled:
+          description: If notification method is enabled
+          type: boolean
+        method:
+          $ref: '#/components/schemas/NotificationMethod'
+    NotificationEmailTemplateWS:
+      type: object
+      title: NotificationEmailTemplateWS
+      required:
+      - type
+      - locale
+      - subject
+      - content
+      properties:
+        content:
+          description: Email notification content
+          type: string
+        defaultTemplate:
+          description: If the template is a default template of it's kind
+          type: boolean
+        directSales:
+          description: If the template is used for a direct sale product
+          type: boolean
+        enabled:
+          description: If the email template is enabled
+          type: boolean
+        fallbackEmailTemplateId:
+          description: The ID of the template to fallback to if current one is disabled or not existing
+          type: number
+        id:
+          description: Email notification template ID
+          type: number
+        locale:
+          description: Email notification locale to determine the language
+          type: string
+        partner:
+          description: Partner being used to render the email
+          type: string
+        reminderPattern:
+          description: Notification reminder pattern
+          type: string
+        subject:
+          description: Email notification subject
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationReminderType:
+      type: string
+      title: NotificationReminderType
+      enum:
+      - NONE
+      - BEFORE
+      - AFTER

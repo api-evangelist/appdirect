@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AppResellerOrder API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AppResellerOrder
+  x-displayName: Purchase Orders (Reseller)
+paths:
+  /appReseller/v1/orders:
+    get:
+      x-appdirect-api-stage: Early Access
+      description: Retrieves a list of all user orders of a linked company. You can filter the list using optional query parameters.
+      tags:
+      - AppResellerOrder
+      summary: List orders
+      operationId: resource_AppResellerBillingV1OrderUIApi_GET
+      x-appdirect-required-scopes:
+        ROLE_RESELLER:
+        - Allows access as a Reseller for the company
+        ROLE_RESELLER_MANAGER:
+        - Allows access as a Reseller Manager for the company
+      parameters:
+      - name: context
+        in: query
+        description: Supported billing contexts
+        required: true
+        schema:
+          type: string
+          enum:
+          - RESELLER, RESELLER_MANAGER
+      - name: number
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+      - name: size
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format.
+        required: false
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: For RESELLER, the customer's user ID; for RESELLER_MANAGER, the Reseller's user ID
+        required: false
+        schema:
+          type: string
+      - name: resellerCompanyId
+        in: query
+        description: Reseller's company ID. Required only for the RESELLER_MANAGER context.
+        required: true
+        schema:
+          type: string
+      - name: customerCompanyId
+        in: query
+        description: User's company ID. Required only for the RESELLER context.
+        required: true
+        schema:
+          type: string
+      - name: createdOn
+        in: query
+        description: 'Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - ''greater than or equal to''; gt([timestamp]) - ''greater than''; lte([timestamp]) - ''less than or equal to''; or lt([timestamp]) - ''less than.'''
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Order status (valid status are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)
+        required: false
+        schema:
+          type: string
+      - name: paidStatus
+        in: query
+        description: Status of the subscription related to the payment of this order
+        required: false
+        schema:
+          type: string
+          enum:
+          - PAID, FREE
+      - name: pending
+        in: query
+        description: Indicates whether order has pending events
+        required: false
+        schema:
+          type: boolean
+      - name: searchText
+        in: query
+        description: Search text
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPagedReadResponse'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: '1234'
+                      createdOn: 1529083173000
+                      status: ACTIVE
+                      frequency: One Time
+                      totalFee: USD350.00
+                      applicationName: AUTO_DISCOUNTS_APP
+                      editionName: Edition
+                      orderCardId: '4567'
+                      company:
+                        id: 698555fc-bc65-4163-9fee-16308edec41b
+                        name: Company A
+                    - id: '4567'
+                      createdOn: 1529083173000
+                      status: PENDING MANUAL RECOVERY
+                      frequency: One Time
+                      totalFee: USD350.00
+                      applicationName: AUTO_DISCOUNTS_APP
+                      editionName: Edition
+                      orderCardId: '4567'
+                      company:
+                        id: 386626c0-53e2-4515-8450-4a720bb5d029
+                        name: Company B
+                    page:
+                      size: 10
+                      totalElements: 2
+                      totalPages: 1
+                      number: 1
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appReseller/v1/orders?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appReseller/v1/orders',\n  qs: {\n    context: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sort: 'SOME_STRING_VALUE',\n    userId: 'SOME_STRING_VALUE',\n    resellerCompanyId: 'SOME_STRING_VALUE',\n    customerCompanyId: 'SOME_STRING_VALUE',\n    createdOn: 'SOME_STRING_VALUE',\n    status: 'SOME_STRING_VALUE',\n    paidStatus: 'SOME_STRING_VALUE',\n    pending: 'SOME_BOOLEAN_VALUE',\n    searchText: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/orders?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    OrderPagedReadItem:
+      allOf:
+      - $ref: '#/components/schemas/AppResellerOrderLightWS'
+      - title: OrderPagedReadItem
+        type: object
+        required:
+        - applicationName
+        - company
+        properties:
+          applicationName:
+            description: Application name
+            type: string
+          company:
+            $ref: '#/components/schemas/CompanyAssociation'
+        example:
+          id: '1234'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          applicationName: AUTO_DISCOUNTS_APP
+          editionName: Edition
+          orderCartId: '4567'
+          company:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            name: ACME
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
+    OrderPagedReadResponse:
+      type: object
+      title: OrderPagedReadResponse
+      required:
+      - content
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          description: List of orders
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderPagedReadItem'
+      example:
+        content:
+        - id: '1234'
+          createdOn: 1529083173000
+          status: ACTIVE
+          frequency: One Time
+          totalFee: USD350.00
+          applicationName: AUTO_DISCOUNTS_APP
+          editionName: Edition
+          orderCardId: '4567'
+          company:
+            id: 698555fc-bc65-4163-9fee-16308edec41b
+            name: Company A
+        - id: '4567'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          applicationName: AUTO_DISCOUNTS_APP
+          editionName: Edition
+          orderCardId: '4567'
+          company:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            name: Company B
+        page:
+          size: 10
+          totalElements: 2
+          totalPages: 1
+          number: 1
+    AppResellerOrderLightWS:
+      title: orderLightWS
+      type: object
+      required:
+      - id
+      - createdOn
+      - status
+      - frequency
+      - totalFee
+      - editionName
+      properties:
+        id:
+          description: Order ID
+          type: string
+        createdOn:
+          description: Creation date of the order, in Unix timestamp format
+          type: number
+        status:
+          description: Order status (valid values are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)
+          type: string
+        frequency:
+          description: Frequency (valid values are MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY)
+          type: string
+        totalFee:
+          description: Total fee for the order
+          type: string
+        editionName:
+          description: Edition name
+          type: string
+        orderCartId:
+          description: Order cart ID
+          type: string
+      example:
+        id: '1234'
+        createdOn: 1529083173000
+        status: PENDING MANUAL RECOVERY
+        frequency: One Time
+        totalFee: USD350.00
+        editionName: Edition
+        orderCartId: '4567'
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

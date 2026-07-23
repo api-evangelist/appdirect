@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed AI User Inputs API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: AI User Inputs
+paths:
+  /api/v1/ai/{aiId}/user-inputs:
+    get:
+      tags:
+      - AI User Inputs
+      summary: List AI user inputs
+      description: Retrieves configured user inputs for the AI.
+      operationId: listAIUserInputs
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of user inputs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAIUserInputsResponse'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - AI User Inputs
+      summary: Create an AI user input
+      description: Creates a user input field for the AI.
+      operationId: createAIUserInput
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAIUserInputRequest'
+      responses:
+        '201':
+          description: User input created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIUserInput'
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/user-inputs/{userInputId}:
+    put:
+      tags:
+      - AI User Inputs
+      summary: Update an AI user input
+      description: Updates a configured user input for the AI.
+      operationId: updateAIUserInput
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: userInputId
+        in: path
+        required: true
+        description: The identifier of the user input.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAIUserInputRequest'
+      responses:
+        '200':
+          description: User input updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIUserInput'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - AI User Inputs
+      summary: Delete an AI user input
+      description: Deletes a configured user input from the AI.
+      operationId: deleteAIUserInput
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      - name: userInputId
+        in: path
+        required: true
+        description: The identifier of the user input.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: User input deleted.
+      security:
+      - ApiKeyAuth: []
+  /api/v1/ai/{aiId}/user-inputs/order:
+    put:
+      tags:
+      - AI User Inputs
+      summary: Reorder AI user inputs
+      description: Updates the order of configured user inputs for the AI.
+      operationId: updateAIUserInputsOrder
+      parameters:
+      - name: aiId
+        in: path
+        required: true
+        description: The identifier of the AI.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAIUserInputsOrderRequest'
+      responses:
+        '200':
+          description: Order updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAIUserInputsOrderResponse'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    UpdateAIUserInputRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateAIUserInputRequest'
+    UpdateAIUserInputsOrderRequest:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUserInputOrderItem'
+      required:
+      - inputs
+    AIUserInputType:
+      type: string
+      enum:
+      - SHORT_TEXT
+      - LONG_TEXT
+      - TEXT_CHOICE
+      - IMAGE_CHOICE
+      - DATE
+      - NUMBER
+      - PHONE_NUMBER
+      - FILE_UPLOAD
+      - DISPLAY
+      - ADDRESS
+    UpdateAIUserInputsOrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    AIUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        aiId:
+          type: string
+        variableName:
+          type: string
+        type:
+          $ref: '#/components/schemas/AIUserInputType'
+        label:
+          type: string
+        configuration:
+          type: object
+        showOnChatCreate:
+          type: boolean
+        orderIndex:
+          type: integer
+    CreateAIUserInputRequest:
+      type: object
+      properties:
+        variableName:
+          type: string
+        type:
+          $ref: '#/components/schemas/AIUserInputType'
+        label:
+          type: string
+        configuration:
+          type: object
+        showOnChatCreate:
+          type: boolean
+        orderIndex:
+          type: integer
+      required:
+      - variableName
+      - type
+      - label
+      - configuration
+    AIUserInputOrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        orderIndex:
+          type: integer
+      required:
+      - id
+      - orderIndex
+    ListAIUserInputsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUserInput'

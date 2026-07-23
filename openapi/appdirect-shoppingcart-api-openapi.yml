@@ -1,0 +1,2160 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed ShoppingCart API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: ShoppingCart
+  description: Operations related to shopping carts
+  x-displayName: ShoppingCart
+paths:
+  /v3/checkout/shoppingCarts:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: List shopping carts
+      description: Returns all ACTIVE and FINISHED shopping carts
+      operationId: listShoppingCarts
+      parameters:
+      - in: query
+        name: buyerUserId
+        description: Buyer user ID
+        schema:
+          type: string
+      - in: query
+        name: buyerCompanyId
+        description: Buyer user company ID
+        schema:
+          type: string
+      - in: query
+        name: ownerUserId
+        description: Owner user ID
+        schema:
+          type: string
+      - in: query
+        name: ownerCompanyId
+        description: Owner company ID
+        schema:
+          type: string
+      - in: query
+        name: productId
+        description: Product ID
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: Shopping cart status
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: partner
+        description: Shopping cart partner (This field is not public to client)
+        schema:
+          type: string
+      - in: query
+        name: number
+        description: 1-based page index
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: size
+        description: The number of results per page to return
+        schema:
+          type: integer
+          default: 10
+      - in: query
+        name: sortField
+        description: Sort field
+        schema:
+          type: string
+          default: createdOn
+      - in: query
+        name: sortOrder
+        description: Sort order.
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResources'
+              examples:
+                response:
+                  value:
+                    content:
+                    - id: 5bda35f8dd54f108b898c777
+                      createdOn: '1541027320333'
+                      ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      buyerType: CUSTOMER
+                      currency: USD
+                      status: ACTIVE
+                      buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      items:
+                      - id: 0129ddf5-4977-4f20-b42a-c41d47b00e2a
+                        pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                        units: []
+                    - id: 5bda370cdd54f10bccf03ba2
+                      createdOn: '1541027596771'
+                      ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      buyerType: CUSTOMER
+                      currency: USD
+                      status: ACTIVE
+                      buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      items:
+                      - id: 12815d48-b7e6-41c7-804f-252bf64ad411
+                        pricingPlanId: f1257109-8c81-402e-a61f-147fea66ab91
+                        units: []
+                    - id: 5bda373fdd54f10bccf03ba3
+                      createdOn: '1541027647666'
+                      ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      buyerType: CUSTOMER
+                      currency: USD
+                      status: ACTIVE
+                      buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                      buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                      items:
+                      - id: abada11b-977e-4466-834a-6b2b45e0266f
+                        pricingPlanId: 46f442b8-e3c0-4e9a-ba7d-d062058bac25
+                        units: []
+                    page:
+                      size: 3
+                      totalElements: 188
+                      totalPages: 10
+                      number: 10
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts?buyerUserId=SOME_STRING_VALUE&buyerCompanyId=SOME_STRING_VALUE&ownerUserId=SOME_STRING_VALUE&ownerCompanyId=SOME_STRING_VALUE&productId=SOME_STRING_VALUE&status=SOME_ARRAY_VALUE&partner=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts',\n  qs: {\n    buyerUserId: 'SOME_STRING_VALUE',\n    buyerCompanyId: 'SOME_STRING_VALUE',\n    ownerUserId: 'SOME_STRING_VALUE',\n    ownerCompanyId: 'SOME_STRING_VALUE',\n    productId: 'SOME_STRING_VALUE',\n    status: 'SOME_ARRAY_VALUE',\n    partner: 'SOME_STRING_VALUE',\n    number: 'SOME_INTEGER_VALUE',\n    size: 'SOME_INTEGER_VALUE',\n    sortField: 'SOME_STRING_VALUE',\n    sortOrder: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts?buyerUserId=SOME_STRING_VALUE&buyerCompanyId=SOME_STRING_VALUE&ownerUserId=SOME_STRING_VALUE&ownerCompanyId=SOME_STRING_VALUE&productId=SOME_STRING_VALUE&status=SOME_ARRAY_VALUE&partner=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Create shopping carts
+      operationId: createShoppingCart
+      parameters:
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        description: ShoppingCartWS
+        required: true
+      description: Creates a shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCart'
+              examples:
+                response:
+                  value:
+                    ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    buyerType: CUSTOMER
+                    currency: USD
+                    buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    items:
+                    - pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      units:
+                      - quantity: '5'
+                        unit: USERS
+                      customPrices:
+                      - costId: 63e20fed-f340-11e8-8fb5-125b89b63428
+                        priceType: MARKETPLACE_RESELLER_PURCHASE_PRICE
+                        pricingStrategy: FLAT
+                        definition:
+                          price: 9.99
+                      - costId: 491f1e67-223a-4c2d-9508-772b545085ad
+                        priceType: MARKETPLACE_RESELLER_PURCHASE_PRICE
+                        pricingStrategy: TIERED
+                        definition:
+                          priceRanges:
+                          - min: 1
+                            max: 5
+                            price: 9.99
+                          - min: 5
+                            max: 10
+                            price: 6.99
+                      - costId: 77e5badb-90f3-438d-9f3c-506a063fd6e7
+                        priceType: MARKETPLACE_RESELLER_PURCHASE_PRICE
+                        pricingStrategy: UNIT
+                        definition:
+                          priceRanges:
+                          - min: 0
+                            max: null
+                            price: 1.99
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts',\n  headers: {'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'},\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts\")\n  .post(body)\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve shopping cart
+      operationId: getShoppingCart
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      description: Retrieves the specified shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCart'
+              examples:
+                response:
+                  value:
+                    id: 5bda3aeedd54f113e3694422
+                    createdOn: '1541028590204'
+                    ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    buyerType: CUSTOMER
+                    currency: USD
+                    status: ACTIVE
+                    items:
+                    - id: 38ffe338-aaf0-4422-b419-61372ba4ecec
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                    customAttributes:
+                      purchase:
+                        preferredTime: '10:00'
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Delete shopping carts
+      operationId: deleteShoppingCart
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      description: Deletes the specified shopping cart
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    patch:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Update shopping carts
+      operationId: updateShoppingCart
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        description: ShoppingCartWS
+        required: true
+      description: Updates the specified shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCart'
+              examples:
+                response:
+                  value:
+                    id: 5be20b01411e037ed1e5dbd5
+                    createdOn: '1541540609246'
+                    ownerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    ownerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    buyerUserId: 01ada338-52fb-42b8-8c47-c72c30b8a602
+                    buyerCompanyId: 08a28380-b2cf-4915-aaf8-2958b350b090
+                    buyerType: CUSTOMER
+                    currency: USD
+                    status: ACTIVE
+                    items:
+                    - id: c039a3bd-9dc2-42fc-916f-dea189e8ec30
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      units:
+                      - quantity: '8'
+                        unit: USERS
+                    customAttributes:
+                      purchase:
+                        preferredTime: '10:00'
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PATCH \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PATCH',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D',\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D\")\n  .patch(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/finalize:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Finalize shopping carts
+      operationId: finalizeShoppingCart
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      description: Returns requested shopping cart
+      responses:
+        '202':
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/ShoppingCartRequestAcceptedResponse'
+              examples:
+                response:
+                  value:
+                    purchaseId: 42d444da-9da5-4fc6-b0e0-4879fe549307
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/finalize \\\n  --header 'AD-Timezone: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/finalize',\n  headers: {'AD-Timezone': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/finalize\")\n  .post(null)\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/finalize:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Create and finalize shopping carts
+      operationId: createAndFinalizeShoppingCart
+      parameters:
+      - in: header
+        name: AD-ShoppingCart-Partner
+        required: true
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        description: shoppingCartWS
+        required: true
+      description: Creates and finalizes a shopping cart in a single request
+      responses:
+        '202':
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/ShoppingCartRequestAcceptedResponse'
+              examples:
+                response:
+                  value:
+                    purchaseId: 42d444da-9da5-4fc6-b0e0-4879fe549307
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/finalize \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'AD-Timezone: SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/finalize',\n  headers: {\n    'content-type': 'application/json',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE',\n    'AD-Timezone': 'SOME_STRING_VALUE'\n  },\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/finalize\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/associations:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve cart associations
+      operationId: getShoppingCartAssociations
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      description: Returns the associations included in the shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Association'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/associations"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/associations'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/associations\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/preauth:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Get cart pre-authorization
+      description: Retrieves the payment pre-authorization for the specified cart.
+      operationId: getPreAuth
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      responses:
+        '200':
+          $ref: '#/components/responses/PreAuthResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preauth"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preauth'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preauth\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/items:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve shopping cart items
+      operationId: listShoppingCartItems
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      description: Returns all items included in the shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShoppingCartItem'
+              examples:
+                response:
+                  value:
+                  - id: 553e4f1a-66bc-4e25-92ab-c573c8c3f96f
+                    pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                    units:
+                    - quantity: '5'
+                      unit: USERS
+                  - id: 64c6b624-e5be-48c6-8e97-c8b2fe056c06
+                    pricingPlanId: 36142d03-0aea-49cc-beab-3f94cc08fc18
+                    units:
+                    - quantity: '50'
+                      unit: GIGABYTE
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Add items to cart
+      operationId: createShoppingCartItem
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartItem'
+        description: A shopping cart item
+        required: true
+      description: Adds the specified item to the shopping cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCartItem'
+              examples:
+                response:
+                  value:
+                    id: e34b836e-3963-4eb7-8ce2-ca5867549ba6
+                    pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                    units:
+                    - quantity: '5'
+                      unit: USERS
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items \\\n  --data '{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items',\n  body: {\n    id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n    referenceId: '45',\n    subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n    serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n    billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n    discountCode: 'DISCOUNT',\n    discountId: '30',\n    customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n    units: [],\n    customAttributes: {\n      vendorRequiredFields: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      subscription: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    customContractConfiguration: {\n      minimumServiceLength: 1,\n      minimumServiceLengthUnit: 'MONTHLY',\n      endOfContractGracePeriod: 0,\n      endOfContractGracePeriodUnit: 'INFINITY',\n      contractCancellationPeriodLimit: 0,\n      contractCancellationPeriodUnit: 'NONE',\n      continueWithoutContract: false,\n      autoExtensionPricingId: 'string',\n      terminationFeeGracePeriod: 0,\n      terminationFeeGracePeriodUnit: 'INFINITY',\n      blockContractUpgrades: false,\n      blockContractDowngrades: false,\n      blockSwitchToShorterContract: false,\n      keepContractDateOnPlanChange: false,\n      alignWithParentCycleStartDate: false,\n      unitTerms: {\n        property1: {\n          blockContractIncrease: false,\n          blockOriginalContractDecrease: false,\n          blockContractDecrease: true\n        },\n        property2: {\n          blockContractIncrease: false,\n          blockOriginalContractDecrease: false,\n          blockContractDecrease: true\n        }\n      },\n      sourceId: 'string',\n      terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n      contractFee: 0\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items\")\n  .post(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/items/{itemId}:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve cart item
+      operationId: getShoppingCartItem
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: path
+        name: itemId
+        required: true
+        description: Item ID
+        schema:
+          type: string
+      description: Returns the specified shopping cart item
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCartItem'
+              examples:
+                response:
+                  value:
+                    id: e34b836e-3963-4eb7-8ce2-ca5867549ba6
+                    pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                    units:
+                    - quantity: '5'
+                      unit: USERS
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    put:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Update shopping cart item
+      operationId: updateShoppingCartItem
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: path
+        name: itemId
+        required: true
+        description: Item ID
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartItem'
+        description: A shopping cart item
+        required: true
+      description: Updates the specified shopping cart item
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCartItem'
+              examples:
+                response:
+                  value:
+                    id: e34b836e-3963-4eb7-8ce2-ca5867549ba6
+                    pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                    units:
+                    - quantity: '15'
+                      unit: USERS
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D \\\n  --data '{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D',\n  body: {\n    id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n    referenceId: '45',\n    subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n    serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n    billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n    discountCode: 'DISCOUNT',\n    discountId: '30',\n    customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n    units: [],\n    customAttributes: {\n      vendorRequiredFields: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      subscription: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    customContractConfiguration: {\n      minimumServiceLength: 1,\n      minimumServiceLengthUnit: 'MONTHLY',\n      endOfContractGracePeriod: 0,\n      endOfContractGracePeriodUnit: 'INFINITY',\n      contractCancellationPeriodLimit: 0,\n      contractCancellationPeriodUnit: 'NONE',\n      continueWithoutContract: false,\n      autoExtensionPricingId: 'string',\n      terminationFeeGracePeriod: 0,\n      terminationFeeGracePeriodUnit: 'INFINITY',\n      blockContractUpgrades: false,\n      blockContractDowngrades: false,\n      blockSwitchToShorterContract: false,\n      keepContractDateOnPlanChange: false,\n      alignWithParentCycleStartDate: false,\n      unitTerms: {\n        property1: {\n          blockContractIncrease: false,\n          blockOriginalContractDecrease: false,\n          blockContractDecrease: true\n        },\n        property2: {\n          blockContractIncrease: false,\n          blockOriginalContractDecrease: false,\n          blockContractDecrease: true\n        }\n      },\n      sourceId: 'string',\n      terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n      contractFee: 0\n    }\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Remove cart item
+      operationId: deleteShoppingCartItem
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: path
+        name: itemId
+        required: true
+        description: Application ID
+        schema:
+          type: string
+      description: Removes the specified item from the shopping cart
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/items/%7BitemId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /shoppingCarts/{shoppingCartId}/items/delete:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Delete cart items
+      operationId: deleteShoppingCartItems
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteItemIds'
+        required: true
+      description: Removes the specified items from the shopping cart.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCart'
+        '401':
+          description: NOT AUTHORIZED
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/shoppingCarts/%7BshoppingCartId%7D/items/delete \\\n  --header 'content-type: application/json' \\\n  --data '{\"ids\":\"[]\",\"cascade\":\"[\\\"ADDON\\\"]\",\"itemPath\":\".items[?(@.pricingPlanId=='\\''planid'\\'')]\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/shoppingCarts/%7BshoppingCartId%7D/items/delete',\n  headers: {'content-type': 'application/json'},\n  body: {\n    ids: '[]',\n    cascade: '[\"ADDON\"]',\n    itemPath: '.items[?(@.pricingPlanId==\\'planid\\')]'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"ids\\\":\\\"[]\\\",\\\"cascade\\\":\\\"[\\\\\\\"ADDON\\\\\\\"]\\\",\\\"itemPath\\\":\\\".items[?(@.pricingPlanId=='planid')]\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/shoppingCarts/%7BshoppingCartId%7D/items/delete\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/preview:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Preview non-persisted carts
+      description: Returns a preview of the shopping cart with pricing summary information and a list of errors, if any
+      operationId: previewShoppingCart
+      parameters:
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        description: A shopping cart
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    items:
+                    - itemId: 72af4c57-3aa7-432d-ac11-749284ede2d7
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      productId: 8130e107-644e-4013-8673-1f3b04d2a39d
+                      pricingSources:
+                      - source: BASE_CATALOG
+                        costs:
+                        - costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          pricingStrategy: FREE
+                          salePrice: '0.0000000000'
+                        - costTypeCategory: RECURRING
+                          costType: INCLUDED
+                          pricingStrategy: UNLIMITED
+                          unit: USER
+                      costs:
+                      - costTypeCategory: RECURRING
+                        costType: INCLUDED
+                        pricingStrategy: UNLIMITED
+                        unit: USER
+                        salePrice: '0.0000000000'
+                        totalSalePrice: '0.0000000000'
+                      - costTypeCategory: RECURRING
+                        costType: RECURRING_FLAT
+                        pricingStrategy: FREE
+                        quantity: '1.0000000000'
+                        salePrice: '0.0000000000'
+                        totalSalePrice: '0.0000000000'
+                      schedule:
+                        billingCycle:
+                          period: MONTHLY
+                          dayOfMonth: 28
+                        servicePeriod:
+                          start: '2018-09-28'
+                        billingPeriod:
+                          start: '2018-09-28'
+                    amountDueBeforeTax: '0.0000000000'
+                    amountDueAfterTax: '0.0000000000'
+                    recurringTotals:
+                    - billingCycle:
+                        period: MONTHLY
+                        dayOfMonth: 28
+                      totalSalePrice: '0.0000000000'
+                      nextInvoiceDate: '2018-09-28'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/preview \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'AD-Timezone: SOME_STRING_VALUE' \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/preview',\n  headers: {\n    'AD-Timezone': 'SOME_STRING_VALUE',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'\n  },\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/preview\")\n  .post(body)\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/preview:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Preview shopping carts
+      description: Previews the specified, persisted shopping cart
+      operationId: previewShoppingCartById
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    items:
+                    - itemId: 72af4c57-3aa7-432d-ac11-749284ede2d7
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      productId: 8130e107-644e-4013-8673-1f3b04d2a39d
+                      pricingSources:
+                      - source: BASE_CATALOG
+                        costs:
+                        - costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          pricingStrategy: FREE
+                          salePrice: '0.0000000000'
+                        - costTypeCategory: RECURRING
+                          costType: INCLUDED
+                          pricingStrategy: UNLIMITED
+                          unit: USER
+                      costs:
+                      - costTypeCategory: RECURRING
+                        costType: INCLUDED
+                        pricingStrategy: UNLIMITED
+                        unit: USER
+                        salePrice: '0.0000000000'
+                        totalSalePrice: '0.0000000000'
+                      - costTypeCategory: RECURRING
+                        costType: RECURRING_FLAT
+                        pricingStrategy: FREE
+                        quantity: '1.0000000000'
+                        salePrice: '0.0000000000'
+                        totalSalePrice: '0.0000000000'
+                      schedule:
+                        billingCycle:
+                          period: MONTHLY
+                          dayOfMonth: 28
+                        servicePeriod:
+                          start: '2018-09-28'
+                        billingPeriod:
+                          start: '2018-09-28'
+                    amountDueBeforeTax: '0.0000000000'
+                    amountDueAfterTax: '0.0000000000'
+                    recurringTotals:
+                    - billingCycle:
+                        period: MONTHLY
+                        dayOfMonth: 28
+                      totalSalePrice: '0.0000000000'
+                      nextInvoiceDate: '2018-09-28'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preview \\\n  --header 'AD-Timezone: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preview',\n  headers: {'AD-Timezone': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/preview\")\n  .get()\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/pricingSummary:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve pricing summary (non-persisted shopping cart)
+      description: Retrieves a pricing summary for the cart. The pricing summary includes the detailed and effective costs as well as the billing schedule and recurring charges. The effective cost indicates the price that the customer pays whereas the detailed cost provides the price sources used in the calculation of the effective cost. Prices are not prorated and tax is not included in the pricing summary.
+      operationId: getPricingSummary
+      parameters:
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        description: A shopping cart
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    items:
+                    - itemId: 0dfba095-1727-4885-b90c-c32344090a3b
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      productId: 5932bcea-5485-4a81-9b34-58ccd4210132
+                      editionId: c134a1b5-b667-45a3-b572-8f3453a277a7
+                      detailedCost:
+                        costSources:
+                        - costId: 2fbde3b4-f92a-11e8-8fb5-125b89b63428
+                          costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          unit: null
+                          sources:
+                          - priceType: BASE_PRICE
+                            priceLevel: NONE
+                            priceEntity: NONE
+                            pricingStrategy: FLAT
+                            definition:
+                              price: '10.0000000000'
+                              priceRanges: null
+                            calculations:
+                            - quantity: '1.0000000000'
+                              salePrice: '10.0000000000'
+                              totalPrice: '10.0000000000'
+                      effectiveCost:
+                        costs:
+                        - costId: 2fbde3b4-f92a-11e8-8fb5-125b89b63428
+                          costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          pricingStrategy: FLAT
+                          unit: null
+                          definition:
+                            price: '10.0000000000'
+                            priceRanges: null
+                          calculations:
+                          - quantity: '1.0000000000'
+                            salePrice: '10.0000000000'
+                            totalPrice: '10.0000000000'
+                      schedule:
+                        billingCycle:
+                          period: MONTHLY
+                          dayOfMonth: 15
+                        servicePeriod:
+                          start: '2019-02-15'
+                          end: null
+                        billingPeriod:
+                          start: '2019-02-15'
+                          end: null
+                        freeTrialPeriod: null
+                    recurringTotals:
+                    - billingCycle:
+                        period: MONTHLY
+                        dayOfMonth: 15
+                      totalSalePrice: '215.0000000000'
+                      nextInvoiceDate: '2019-02-15'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/pricingSummary \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'AD-Timezone: SOME_STRING_VALUE' \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/pricingSummary',\n  headers: {\n    'AD-Timezone': 'SOME_STRING_VALUE',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'\n  },\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/pricingSummary\")\n  .post(body)\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/pricingSummary:
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Retrieve pricing summary
+      description: Retrieves a pricing summary for the cart. The pricing summary includes the detailed and effective costs as well as the billing schedule and recurring charges. The effective cost indicates the price that the customer pays whereas the detailed cost provides the price sources used in the calculation of the effective cost. Prices are not prorated and tax is not included in the pricing summary.
+      operationId: getPricingSummaryByShoppingCartId
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-Timezone
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    items:
+                    - itemId: 0dfba095-1727-4885-b90c-c32344090a3b
+                      pricingPlanId: d0495026-dcab-45fe-858a-757491e93121
+                      productId: 5932bcea-5485-4a81-9b34-58ccd4210132
+                      editionId: c134a1b5-b667-45a3-b572-8f3453a277a7
+                      detailedCost:
+                        costSources:
+                        - costId: 2fbde3b4-f92a-11e8-8fb5-125b89b63428
+                          costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          unit: null
+                          sources:
+                          - priceType: BASE_PRICE
+                            priceLevel: NONE
+                            priceEntity: NONE
+                            pricingStrategy: FLAT
+                            definition:
+                              price: '10.0000000000'
+                              priceRanges: null
+                            calculations:
+                            - quantity: '1.0000000000'
+                              salePrice: '10.0000000000'
+                              totalPrice: '10.0000000000'
+                      effectiveCost:
+                        costs:
+                        - costId: 2fbde3b4-f92a-11e8-8fb5-125b89b63428
+                          costTypeCategory: RECURRING
+                          costType: RECURRING_FLAT
+                          pricingStrategy: FLAT
+                          unit: null
+                          definition:
+                            price: '10.0000000000'
+                            priceRanges: null
+                          calculations:
+                          - quantity: '1.0000000000'
+                            salePrice: '10.0000000000'
+                            totalPrice: '10.0000000000'
+                      schedule:
+                        billingCycle:
+                          period: MONTHLY
+                          dayOfMonth: 15
+                        servicePeriod:
+                          start: '2019-02-15'
+                          end: null
+                        billingPeriod:
+                          start: '2019-02-15'
+                          end: null
+                        freeTrialPeriod: null
+                    recurringTotals:
+                    - billingCycle:
+                        period: MONTHLY
+                        dayOfMonth: 15
+                      totalSalePrice: '215.0000000000'
+                      nextInvoiceDate: '2019-02-15'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/pricingSummary \\\n  --header 'AD-Timezone: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/pricingSummary',\n  headers: {'AD-Timezone': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/pricingSummary\")\n  .get()\n  .addHeader(\"AD-Timezone\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/validation:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Validate non-persisted shopping carts
+      description: Validates and retrieves the validation summary of the specified shopping cart payload
+      operationId: validateShoppingCart
+      parameters:
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: level
+        required: true
+        description: Level of validation. Run PRE_FINALIZE validations before the shopping cart is finalized. Run PREVENT_FINALIZE and PREVENT_PROVISIONING at the time of finalization and provisioning respectively to prevent those operations if validation fails.
+        schema:
+          type: string
+          enum:
+          - PRE_FINALIZE
+          - PREVENT_FINALIZE
+          - PREVENT_PROVISIONING
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCart'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    id: ad26eb9c-f414-4ae1-9c52-06c478ec12b0
+                    blockingErrors:
+                    - code: PRICING_PLAN_NOT_FOUND
+                      message: Pricing plan with ID e209b620-1fc3-4fe9-bd38-e811e605df8 not found.
+                      messageParameters:
+                      - key: PRICING_PLAN
+                        value: e209b620-1fc3-4fe9-bd38-e811e605df8
+                    warnings: []
+                    info: []
+                    pendingValidations: []
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/validation?level=SOME_STRING_VALUE' \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"id\":\"4f59d160-0e63-45c4-bb91-7ebe873da29f\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"ownerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"ownerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"buyerType\":\"CUSTOMER\",\"currency\":\"USD\",\"status\":\"ACTIVE\",\"isBlocked\":false,\"paymentMethodId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"preAuthId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"locale\":\"en_US\",\"buyerUserId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"buyerCompanyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\",\"items\":[{\"id\":\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\",\"referenceId\":\"45\",\"subscriptionId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"pricingPlanId\":\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\",\"serviceConfiguration\":{\"date\":\"2010-10-19T00:00:00.000Z\",\"strategy\":\"CUSTOM\"},\"billingConfiguration\":{\"date\":\"1546300800000\",\"strategy\":\"CUSTOM\"},\"discountCode\":\"DISCOUNT\",\"discountId\":\"30\",\"customPrices\":[{\"costId\":\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\",\"price\":20}],\"units\":[],\"customAttributes\":{\"vendorRequiredFields\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"subscription\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"customContractConfiguration\":{\"minimumServiceLength\":1,\"minimumServiceLengthUnit\":\"MONTHLY\",\"endOfContractGracePeriod\":0,\"endOfContractGracePeriodUnit\":\"INFINITY\",\"contractCancellationPeriodLimit\":0,\"contractCancellationPeriodUnit\":\"NONE\",\"continueWithoutContract\":false,\"autoExtensionPricingId\":\"string\",\"terminationFeeGracePeriod\":0,\"terminationFeeGracePeriodUnit\":\"INFINITY\",\"blockContractUpgrades\":false,\"blockContractDowngrades\":false,\"blockSwitchToShorterContract\":false,\"keepContractDateOnPlanChange\":false,\"alignWithParentCycleStartDate\":false,\"unitTerms\":{\"property1\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true},\"property2\":{\"blockContractIncrease\":false,\"blockOriginalContractDecrease\":false,\"blockContractDecrease\":true}},\"sourceId\":\"string\",\"terminationFee\":{\"feeType\":\"FIXED\",\"amount\":0,\"description\":\"string\"},\"contractFee\":0}}],\"customAttributes\":{\"purchase\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"buyerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerUser\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}},\"ownerCompany\":{\"customAttributes\":{\"preferredColours\":[\"key_red\",\"key_white\"],\"preferredTime\":\"12:00\"}}},\"associations\":[{\"parentItemId\":\"string\",\"childItemIds\":[\"string\"],\"type\":\"ADDON\"}],\"fees\":[{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}],\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/validation',\n  qs: {level: 'SOME_STRING_VALUE'},\n  headers: {\n    'content-type': 'application/json',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'\n  },\n  body: {\n    id: '4f59d160-0e63-45c4-bb91-7ebe873da29f',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    ownerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    ownerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    buyerType: 'CUSTOMER',\n    currency: 'USD',\n    status: 'ACTIVE',\n    isBlocked: false,\n    paymentMethodId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    preAuthId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    locale: 'en_US',\n    buyerUserId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n    buyerCompanyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118',\n    items: [\n      {\n        id: '45ae34b7-ffc1-4d74-be78-dce34008cd2e',\n        referenceId: '45',\n        subscriptionId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        pricingPlanId: '3dcc468d-fd4c-41ce-b700-f88c0c74561f',\n        serviceConfiguration: {date: '2010-10-19T00:00:00.000Z', strategy: 'CUSTOM'},\n        billingConfiguration: {date: '1546300800000', strategy: 'CUSTOM'},\n        discountCode: 'DISCOUNT',\n        discountId: '30',\n        customPrices: [{costId: '9742e09a-e1b4-4b9e-b1a7-66df3e41cebe', price: 20}],\n        units: [],\n        customAttributes: {\n          vendorRequiredFields: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          },\n          subscription: {\n            customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n          }\n        },\n        customContractConfiguration: {\n          minimumServiceLength: 1,\n          minimumServiceLengthUnit: 'MONTHLY',\n          endOfContractGracePeriod: 0,\n          endOfContractGracePeriodUnit: 'INFINITY',\n          contractCancellationPeriodLimit: 0,\n          contractCancellationPeriodUnit: 'NONE',\n          continueWithoutContract: false,\n          autoExtensionPricingId: 'string',\n          terminationFeeGracePeriod: 0,\n          terminationFeeGracePeriodUnit: 'INFINITY',\n          blockContractUpgrades: false,\n          blockContractDowngrades: false,\n          blockSwitchToShorterContract: false,\n          keepContractDateOnPlanChange: false,\n          alignWithParentCycleStartDate: false,\n          unitTerms: {\n            property1: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            },\n            property2: {\n              blockContractIncrease: false,\n              blockOriginalContractDecrease: false,\n              blockContractDecrease: true\n            }\n          },\n          sourceId: 'string',\n          terminationFee: {feeType: 'FIXED', amount: 0, description: 'string'},\n          contractFee: 0\n        }\n      }\n    ],\n    customAttributes: {\n      purchase: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      buyerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerUser: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      },\n      ownerCompany: {\n        customAttributes: {preferredColours: ['key_red', 'key_white'], preferredTime: '12:00'}\n      }\n    },\n    associations: [{parentItemId: 'string', childItemIds: ['string'], type: 'ADDON'}],\n    fees: [\n      {\n        id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n        externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n        createdOn: '2020-10-12 07:20:50.52Z',\n        key: 'SHIPPING_FEE_100',\n        currency: 'USD',\n        amount: '9.81',\n        description: {\n          defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n          localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n          params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n        },\n        revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n        itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n        metadata: 'key1: \"value1\"'\n      }\n    ],\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"4f59d160-0e63-45c4-bb91-7ebe873da29f\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"ownerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"ownerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"buyerType\\\":\\\"CUSTOMER\\\",\\\"currency\\\":\\\"USD\\\",\\\"status\\\":\\\"ACTIVE\\\",\\\"isBlocked\\\":false,\\\"paymentMethodId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"preAuthId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"locale\\\":\\\"en_US\\\",\\\"buyerUserId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"buyerCompanyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\",\\\"items\\\":[{\\\"id\\\":\\\"45ae34b7-ffc1-4d74-be78-dce34008cd2e\\\",\\\"referenceId\\\":\\\"45\\\",\\\"subscriptionId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"pricingPlanId\\\":\\\"3dcc468d-fd4c-41ce-b700-f88c0c74561f\\\",\\\"serviceConfiguration\\\":{\\\"date\\\":\\\"2010-10-19T00:00:00.000Z\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"billingConfiguration\\\":{\\\"date\\\":\\\"1546300800000\\\",\\\"strategy\\\":\\\"CUSTOM\\\"},\\\"discountCode\\\":\\\"DISCOUNT\\\",\\\"discountId\\\":\\\"30\\\",\\\"customPrices\\\":[{\\\"costId\\\":\\\"9742e09a-e1b4-4b9e-b1a7-66df3e41cebe\\\",\\\"price\\\":20}],\\\"units\\\":[],\\\"customAttributes\\\":{\\\"vendorRequiredFields\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"subscription\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"customContractConfiguration\\\":{\\\"minimumServiceLength\\\":1,\\\"minimumServiceLengthUnit\\\":\\\"MONTHLY\\\",\\\"endOfContractGracePeriod\\\":0,\\\"endOfContractGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"contractCancellationPeriodLimit\\\":0,\\\"contractCancellationPeriodUnit\\\":\\\"NONE\\\",\\\"continueWithoutContract\\\":false,\\\"autoExtensionPricingId\\\":\\\"string\\\",\\\"terminationFeeGracePeriod\\\":0,\\\"terminationFeeGracePeriodUnit\\\":\\\"INFINITY\\\",\\\"blockContractUpgrades\\\":false,\\\"blockContractDowngrades\\\":false,\\\"blockSwitchToShorterContract\\\":false,\\\"keepContractDateOnPlanChange\\\":false,\\\"alignWithParentCycleStartDate\\\":false,\\\"unitTerms\\\":{\\\"property1\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true},\\\"property2\\\":{\\\"blockContractIncrease\\\":false,\\\"blockOriginalContractDecrease\\\":false,\\\"blockContractDecrease\\\":true}},\\\"sourceId\\\":\\\"string\\\",\\\"terminationFee\\\":{\\\"feeType\\\":\\\"FIXED\\\",\\\"amount\\\":0,\\\"description\\\":\\\"string\\\"},\\\"contractFee\\\":0}}],\\\"customAttributes\\\":{\\\"purchase\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"buyerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerUser\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}},\\\"ownerCompany\\\":{\\\"customAttributes\\\":{\\\"preferredColours\\\":[\\\"key_red\\\",\\\"key_white\\\"],\\\"preferredTime\\\":\\\"12:00\\\"}}},\\\"associations\\\":[{\\\"parentItemId\\\":\\\"string\\\",\\\"childItemIds\\\":[\\\"string\\\"],\\\"type\\\":\\\"ADDON\\\"}],\\\"fees\\\":[{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}],\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/validation?level=SOME_STRING_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/validation:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Validate persisted shopping carts
+      description: Validates and retrieves the validation summary of the specified shopping cart
+      operationId: createShoppingCartValidationByShoppingCartId
+      parameters:
+      - in: query
+        name: level
+        required: true
+        description: Level of validation
+        schema:
+          type: string
+          enum:
+          - PRE_FINALIZE
+          - PREVENT_FINALIZE
+          - PREVENT_PROVISIONING
+      - $ref: '#/components/parameters/shoppingCartId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    id: ad26eb9c-f414-4ae1-9c52-06c478ec12b0
+                    blockingErrors:
+                    - code: PRICING_PLAN_NOT_FOUND
+                      message: Pricing plan with ID e209b620-1fc3-4fe9-bd38-e811e605df8 not found.
+                      messageParameters:
+                      - key: PRICING_PLAN
+                        value: e209b620-1fc3-4fe9-bd38-e811e605df8
+                    warnings: []
+                    info: []
+                    pendingValidations: []
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation?level=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation',\n  qs: {level: 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation?level=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    get:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Read validation summary for persisted shopping carts
+      description: Retrieves the validation summary for the specified shopping cart, but does not validate the cart. You must use the "Validate persisted shopping carts" request to generate a summary before you can use this request.
+      operationId: getShoppingCartValidationByShoppingCartId
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    id: ad26eb9c-f414-4ae1-9c52-06c478ec12b0
+                    blockingErrors:
+                    - code: PRICING_PLAN_NOT_FOUND
+                      message: Pricing plan with ID e209b620-1fc3-4fe9-bd38-e811e605df8 not found.
+                      messageParameters:
+                      - key: PRICING_PLAN
+                        value: e209b620-1fc3-4fe9-bd38-e811e605df8
+                    warnings: []
+                    info: []
+                    pendingValidations: []
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation'\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/validation\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/discounts/{discountCode}:
+    delete:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Remove cart discounts
+      description: Deletes a discount by code from shopping cart items. To remove the discount from specific items only, send the item IDs as parameters. Otherwise, the discount will be removed from all items.
+      operationId: deleteDiscountByShoppingCartId
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - $ref: '#/components/parameters/discountCode'
+      - in: query
+        name: itemId
+        description: Cart item IDs
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '204':
+          description: NO CONTENT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/discounts/%7BdiscountCode%7D?itemId=SOME_ARRAY_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/discounts/%7BdiscountCode%7D',\n  qs: {itemId: 'SOME_ARRAY_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/discounts/%7BdiscountCode%7D?itemId=SOME_ARRAY_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/fees/{feeId}:
+    delete:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Delete shopping cart fees
+      operationId: deleteShoppingCartFee
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - $ref: '#/components/parameters/feeId'
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      description: Removes fees from the specified cart
+      responses:
+        '204':
+          description: NO CONTENT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees/%7BfeeId%7D \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees/%7BfeeId%7D',\n  headers: {'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees/%7BfeeId%7D\")\n  .delete(null)\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/fees:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Create cart fees
+      operationId: createShoppingCartFee
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-ShoppingCart-Partner
+        required: true
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fee'
+        required: true
+      description: Creates a fee and applies it to the specified cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fee'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"id\":\"ce402858-4fe8-4254-8b69-73c41142f4ba\",\"externalId\":\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\",\"createdOn\":\"2020-10-12 07:20:50.52Z\",\"key\":\"SHIPPING_FEE_100\",\"currency\":\"USD\",\"amount\":\"9.81\",\"description\":{\"defaultDescription\":\"Some description here. Valid from {$fromDate} until {$toDate}\",\"localizedDescriptions\":\"{\\\"en_US\\\": \\\"Some description here. Valid from {$fromDate} until {$toDate}\\\", \\\"es_AR\\\": \\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\"}\",\"params\":\"{\\\"fromDate\\\": \\\"2019-10-12 07:20:50.52Z\\\", \\\"toDate\\\": \\\"2020-10-12 07:20:50.52Z\\\"}\"},\"revenueShare\":{\"appdirect\":\"0.00\",\"channel\":\"1.00\",\"vendor\":\"0.00\"},\"itemIds\":\"[\\\"b126e204-05f9-444a-af43-7629069eed03\\\", \\\"20de5578-a903-43da-95b8-65a3b584bc29\\\", \\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\"]\",\"metadata\":\"key1: \\\"value1\\\"\"}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees',\n  headers: {\n    'content-type': 'application/json',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'\n  },\n  body: {\n    id: 'ce402858-4fe8-4254-8b69-73c41142f4ba',\n    externalId: 'a8bf31a8-fe75-4ab9-9559-dcd41eca9d12',\n    createdOn: '2020-10-12 07:20:50.52Z',\n    key: 'SHIPPING_FEE_100',\n    currency: 'USD',\n    amount: '9.81',\n    description: {\n      defaultDescription: 'Some description here. Valid from {$fromDate} until {$toDate}',\n      localizedDescriptions: '{\"en_US\": \"Some description here. Valid from {$fromDate} until {$toDate}\", \"es_AR\": \"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\"}',\n      params: '{\"fromDate\": \"2019-10-12 07:20:50.52Z\", \"toDate\": \"2020-10-12 07:20:50.52Z\"}'\n    },\n    revenueShare: {appdirect: '0.00', channel: '1.00', vendor: '0.00'},\n    itemIds: '[\"b126e204-05f9-444a-af43-7629069eed03\", \"20de5578-a903-43da-95b8-65a3b584bc29\", \"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\"]',\n    metadata: 'key1: \"value1\"'\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":\\\"ce402858-4fe8-4254-8b69-73c41142f4ba\\\",\\\"externalId\\\":\\\"a8bf31a8-fe75-4ab9-9559-dcd41eca9d12\\\",\\\"createdOn\\\":\\\"2020-10-12 07:20:50.52Z\\\",\\\"key\\\":\\\"SHIPPING_FEE_100\\\",\\\"currency\\\":\\\"USD\\\",\\\"amount\\\":\\\"9.81\\\",\\\"description\\\":{\\\"defaultDescription\\\":\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\",\\\"localizedDescriptions\\\":\\\"{\\\\\\\"en_US\\\\\\\": \\\\\\\"Some description here. Valid from {$fromDate} until {$toDate}\\\\\\\", \\\\\\\"es_AR\\\\\\\": \\\\\\\"Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}\\\\\\\"}\\\",\\\"params\\\":\\\"{\\\\\\\"fromDate\\\\\\\": \\\\\\\"2019-10-12 07:20:50.52Z\\\\\\\", \\\\\\\"toDate\\\\\\\": \\\\\\\"2020-10-12 07:20:50.52Z\\\\\\\"}\\\"},\\\"revenueShare\\\":{\\\"appdirect\\\":\\\"0.00\\\",\\\"channel\\\":\\\"1.00\\\",\\\"vendor\\\":\\\"0.00\\\"},\\\"itemIds\\\":\\\"[\\\\\\\"b126e204-05f9-444a-af43-7629069eed03\\\\\\\", \\\\\\\"20de5578-a903-43da-95b8-65a3b584bc29\\\\\\\", \\\\\\\"a104ae19-d5cd-4de1-802b-5b2ec60e7fbf\\\\\\\"]\\\",\\\"metadata\\\":\\\"key1: \\\\\\\"value1\\\\\\\"\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/fees\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/{shoppingCartId}/accreditedAgents:
+    put:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Set accredited agents
+      operationId: updateShoppingCartAccreditedAgents
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-ShoppingCart-Partner
+        required: true
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccreditedAgents'
+        required: true
+      description: Associates an accredited Agent with the specified cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccreditedAgent'
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request PUT \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE' \\\n  --header 'content-type: application/json' \\\n  --data '{\"accreditedAgents\":[{\"userId\":\"83407ce8-373f-11e6-ac61-9e71128cae77\",\"companyId\":\"a411dc54-d46f-4002-ab00-3ea52e4eb118\"}]}'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'PUT',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents',\n  headers: {\n    'content-type': 'application/json',\n    'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'\n  },\n  body: {\n    accreditedAgents: [\n      {\n        userId: '83407ce8-373f-11e6-ac61-9e71128cae77',\n        companyId: 'a411dc54-d46f-4002-ab00-3ea52e4eb118'\n      }\n    ]\n  },\n  json: true\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"accreditedAgents\\\":[{\\\"userId\\\":\\\"83407ce8-373f-11e6-ac61-9e71128cae77\\\",\\\"companyId\\\":\\\"a411dc54-d46f-4002-ab00-3ea52e4eb118\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+    delete:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Remove accredited agents
+      operationId: deleteShoppingCartAccreditedAgents
+      parameters:
+      - $ref: '#/components/parameters/shoppingCartId'
+      - in: header
+        name: AD-ShoppingCart-Partner
+        required: true
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      description: Removes the accredited agent from the specified cart
+      responses:
+        '204':
+          description: NO CONTENT
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request DELETE \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'DELETE',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents',\n  headers: {'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/%7BshoppingCartId%7D/accreditedAgents\")\n  .delete(null)\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+  /v3/checkout/shoppingCarts/notifyLockedCarts:
+    post:
+      tags:
+      - ShoppingCart
+      x-appdirect-api-stage: Early Access
+      x-appdirect-visible: false
+      summary: Send locked cart notifications
+      description: Finds all locked carts in ACTIVE status and sends approval request notifications for each one. Locked carts must be approved before they can be finalized.
+      operationId: notifyLockedCarts
+      parameters:
+      - in: header
+        name: AD-ShoppingCart-Partner
+        description: The partner code of a marketplace
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request POST \\\n  --url https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/notifyLockedCarts \\\n  --header 'AD-ShoppingCart-Partner: SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'POST',\n  url: 'https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/notifyLockedCarts',\n  headers: {'AD-ShoppingCart-Partner': 'SOME_STRING_VALUE'}\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/notifyLockedCarts\")\n  .post(null)\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+components:
+  schemas:
+    ShoppingCartItem:
+      type: object
+      title: ShoppingCartItem
+      description: Shopping cart item properties
+      properties:
+        id:
+          type: string
+          example: 45ae34b7-ffc1-4d74-be78-dce34008cd2e
+          description: Item UUID
+        referenceId:
+          type: string
+          example: '45'
+          description: A 'local' ID for the item, which can be used in requests instead of the full UUID. Use the ref:{referenceId} format.
+        subscriptionId:
+          type: string
+          example: 83407ce8-373f-11e6-ac61-9e71128cae77
+          description: Existing subscription UUID.
+        pricingPlanId:
+          type: string
+          example: 3dcc468d-fd4c-41ce-b700-f88c0c74561f
+          description: ID of the pricing plan that the user is going to purchase
+        serviceConfiguration:
+          $ref: '#/components/schemas/ServiceConfiguration'
+        billingConfiguration:
+          $ref: '#/components/schemas/BillingConfiguration'
+        discountCode:
+          type: string
+          example: DISCOUNT
+          description: Discount applied to the product
+        discountId:
+          type: string
+          example: '30'
+          description: Discount ID
+        customPrices:
+          type: array
+          description: Definition of custom prices for the purchase
+          items:
+            $ref: '#/components/schemas/CustomPrice'
+        units:
+          type: array
+          description: List of units included in the product
+          default: []
+          items:
+            $ref: '#/components/schemas/Unit'
+        customAttributes:
+          $ref: '#/components/schemas/ItemCustomAttributes'
+        customContractConfiguration:
+          $ref: '#/components/schemas/CustomContractConfiguration'
+    Unit:
+      type: object
+      description: Purchase item unit
+      title: Unit
+      properties:
+        quantity:
+          type: number
+          description: Quantity
+        unit:
+          type: string
+          description: Unit
+      example:
+        quantity: '8'
+        unit: USER
+    ServiceStrategy:
+      title: ServiceStrategy
+      description: Service strategy. By default, the service is activated immediately. To set a custom activation date, specify CUSTOM.
+      type: string
+      enum:
+      - CUSTOM
+      - IMMEDIATELY
+    PreAuthStatus:
+      title: PreAuthStatus
+      type: string
+      enum:
+      - SUCCESS
+      - FAILURE
+      - NOT_SUPPORTED
+      - ERROR
+      - PROCESSING
+    GracePeriodUnit:
+      type: string
+      title: GracePeriodUnit
+      description: End-of-contract grace period unit. Time unit by which the endOfContractGracePeriod is measured.
+      enum:
+      - NONE
+      - INFINITY
+      - DAY
+      - MONTH
+      example: INFINITY
+    BillingConfiguration:
+      type: object
+      title: BillingConfiguration
+      description: Determines when the billing cycle starts. Set UPON_SERVICE_ACTIVATION to start the billing cycle according to the specified provisioning strategy (either immediately after the opportunity is finalized or on a custom provisioning date). Set NEXT_BILLING_CYCLE to start the billing cycle according to the marketplace billing configuration (for example, first of the month). Set CUSTOM to start the billing cycle on a specified date in the future.
+      properties:
+        date:
+          type: number
+          description: Custom billing activation date in UNIX Epoch milliseconds. This date is required when the billing strategy is CUSTOM. Do not set the date when the strategy is UPON_SERVICE_ACTIVATION or NEXT_BILLING_CYCLE.
+        strategy:
+          $ref: '#/components/schemas/BillingStrategy'
+      example:
+        date: '1546300800000'
+        strategy: CUSTOM
+    TerminationFee:
+      type: object
+      title: TerminationFee
+      description: Termination Fee object
+      properties:
+        feeType:
+          $ref: '#/components/schemas/TerminationFeeType'
+        amount:
+          type: number
+        description:
+          type: string
+    DeleteItemIds:
+      title: DeleteItemIds
+      type: object
+      properties:
+        ids:
+          type: array
+          description: Item IDs
+          items:
+            type: string
+          example: '[]'
+        cascade:
+          type: array
+          description: Cascade deletion of associated items
+          items:
+            $ref: '#/components/schemas/AssociationType'
+          example: '["ADDON"]'
+        itemPath:
+          type: string
+          description: Selection of items to delete, in JsonPath syntax
+          example: .items[?(@.pricingPlanId=='planid')]
+    Fee:
+      type: object
+      title: Fee
+      description: The fee associated with a shopping cart
+      properties:
+        id:
+          type: string
+          description: Fee ID
+          example: ce402858-4fe8-4254-8b69-73c41142f4ba
+        externalId:
+          type: string
+          description: External ID assigned by the fee provider service
+          example: a8bf31a8-fe75-4ab9-9559-dcd41eca9d12
+        createdOn:
+          type: string
+          description: Fee creation date and time
+          example: '2020-10-12 07:20:50.52Z'
+        key:
+          type: string
+          description: Key used to identify fee type
+          example: SHIPPING_FEE_100
+        currency:
+          type: string
+          description: Currency code (ISO 4217) of the fee
+          example: USD
+        amount:
+          type: number
+          description: Fee amount
+          example: '9.81'
+        description:
+          $ref: '#/components/schemas/Description'
+        revenueShare:
+          $ref: '#/components/schemas/RevenueShare'
+        itemIds:
+          type: array
+          description: List of item IDs
+          items:
+            type: string
+          example: '["b126e204-05f9-444a-af43-7629069eed03", "20de5578-a903-43da-95b8-65a3b584bc29", "a104ae19-d5cd-4de1-802b-5b2ec60e7fbf"]'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata
+          example: 'key1: "value1"'
+    UnitContractTerms:
+      type: object
+      title: UnitContractTerms
+      description: Contract terms that restrict mid-contract quantity changes on subscriptions. unitTerms maps UnitContractTerms to a unit type (for example, user); enabled terms prevent actions for the unit type.
+      properties:
+        blockContractIncrease:
+          type: boolean
+          default: false
+        blockContractDecrease:
+          type: boolean
+          default: false
+        blockOriginalContractDecrease:
+          type: boolean
+          default: false
+      example:
+        blockContractIncrease: false
+        blockOriginalContractDecrease: false
+        blockContractDecrease: true
+    PagedResources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - title: PagedResources
+        type: object
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+    BillingStrategy:
+      type: string
+      title: BillingStrategy
+      enum:
+      - CUSTOM
+      - NEXT_BILLING_CYCLE
+      - UPON_SERVICE_ACTIVATION
+      default: UPON_SERVICE_ACTIVATION
+      example: CUSTOM
+    Link:
+      type: object
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+      nullable: true
+    Association:
+      type: object
+      title: Association
+      description: MISSING
+      properties:
+        parentItemId:
+          type: string
+          description: Parent product UUID or $item[referenceId] to reference the item in the cart.
+        childItemIds:
+          type: array
+          description: Child products UUID or $item[referenceId] to reference the item in the cart.
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/AssociationType'
+    TerminationFeeType:
+      title: TerminationFeeType
+      type: string
+      enum:
+      - FIXED
+      - PERCENTAGE
+    PriceRange:
+      type: object
+      title: PriceRange
+      description: Price definition for an explicit unit range.
+      required:
+      - min
+      - price
+      properties:
+        min:
+          type: number
+        max:
+          type: number
+        price:
+          type: number
+        salePrice:
+          type: string
+          format: amount
+          description: Regular sale price
+        wholesalePrice:
+          type: string
+          format: amount
+          description: Wholesale sale price
+      example:
+        min: 1
+        max: 5
+        salePrice: '4.0000000000'
+        wholeSalePrice: null
+    Definition:
+      type: object
+      title: Definition
+      description: Definition for flat/unit range prices.
+      properties:
+        price:
+          description: Flat price.
+          type: number
+        priceRanges:
+          description: Unit range prices.
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceRange'
+    PreAuth:
+      title: PreAuth
+      type: object
+      required:
+      - strategy
+      properties:
+        preAuthId:
+          description: Pre-authorization ID from the payment service
+          type: string
+        status:
+          $ref: '#/components/schemas/PreAuthStatus'
+        message:
+          description: Message returned from the payment gateway.
+          type: string
+        code:
+          description: Code returned from the payment gateway.
+          type: string
+    PricingStrategy:
+      description: Pricing strategy
+      type: string
+      title: PricingStrategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - TIERED
+      - VOLUME
+      - VARIABLE_PRICE_STRATEGIES
+      - UNLIMITED
+      - CUSTOM
+    CustomPrice:
+      type: object
+      title: CustomPrice
+      description: Custom price definition.
+      required:
+      - costId
+      - price
+      properties:
+        costId:
+          description: ID of the cost/pricing item for which to override prices.
+          type: string
+        priceType:
+          $ref: '#/components/schemas/CustomPriceType'
+        pricingStrategy:
+          $ref: '#/components/schemas/PricingStrategy'
+        definition:
+          $ref: '#/components/schemas/Definition'
+      example:
+        costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
+        price: 20
+    ServiceConfiguration:
+      title: ServiceConfiguration
+      type: object
+      description: Service Configuration
+      properties:
+        date:
+          description: Custom date (YYYY-MM-DD) that determines when the purchased service is activated
+          example: '2010-10-19T00:00:00.000Z'
+          type: string
+          format: date
+        strategy:
+          $ref: '#/components/schemas/ServiceStrategy'
+    RevenueShare:
+      title: RevenueShare
+      type: object
+      description: Revenue shares of the fee sent to AppDirect, the marketplace owner, and the product vendor. The total of all three revenue shares must be 1.00.
+      properties:
+        appdirect:
+          type: number
+          description: Revenue share sent to AppDirect, as a fraction of 1.00
+          example: '0.00'
+        channel:
+          type: number
+          description: Revenue share sent to the marketplace owner, as a fraction of 1.00
+          example: '1.00'
+        vendor:
+          type: number
+          description: Revenue share sent to the product vendor, as a fraction of 1.00
+          example: '0.00'
+    ShoppingCartCustomAttributes:
+      type: object
+      title: ShoppingCartCustomAttributes
+      description: Collection of custom attributes linked to cart entities
+      properties:
+        purchase:
+          $ref: '#/components/schemas/CustomAttributes'
+        buyerUser:
+          $ref: '#/components/schemas/CustomAttributes'
+        buyerCompany:
+          $ref: '#/components/schemas/CustomAttributes'
+        ownerUser:
+          $ref: '#/components/schemas/CustomAttributes'
+        ownerCompany:
+          $ref: '#/components/schemas/CustomAttributes'
+    CustomContractConfiguration:
+      title: CustomContractConfiguration
+      type: object
+      description: Configuration to use for custom contract
+      required:
+      - minimumServiceLength
+      - minimumServiceLengthUnit
+      properties:
+        minimumServiceLength:
+          description: Minimum pricing duration of the pricing plan
+          type: integer
+          minimum: 1
+        minimumServiceLengthUnit:
+          $ref: '#/components/schemas/MinimumServiceLengthUnit'
+        endOfContractGracePeriod:
+          description: Grace period after the end of the contract
+          type: integer
+        endOfContractGracePeriodUnit:
+          $ref: '#/components/schemas/GracePeriodUnit'
+        contractCancellationPeriodLimit:
+          description: Contract cancellation period limit
+          type: integer
+        contractCancellationPeriodUnit:
+          $ref: '#/components/schemas/CancellationPeriodUnit'
+        continueWithoutContract:
+          description: Determines whether to continue the subscription without a contract
+          type: boolean
+          default: false
+        autoExtensionPricingId:
+          description: The edition pricing ID to which to bind the contract when it is automatically renewed. To retrieve the value, use the "uuid" value from the "Read payment plan" https://help.appdirect.com/api/appdirect.html#read-payment-plan request.
+          type: string
+        terminationFeeGracePeriod:
+          description: The termination fee grace period
+          type: integer
+        terminationFeeGracePeriodUnit:
+          $ref: '#/components/schemas/GracePeriodUnit'
+        blockContractUpgrades:
+          description: Determines whether to block upgrades to the contract terms
+          type: boolean
+          default: false
+        blockContractDowngrades:
+          description: Determines whether to block downgrades to the contract terms
+          type: boolean
+          default: false
+        blockSwitchToShorterContract:
+          description: Determines whether to block the ability to switch to a shorter contract
+          type: boolean
+          default: false
+        keepContractDateOnPlanChange:
+          description: Determines whether to keep the contract date if the plan changes
+          type: boolean
+          default: false
+        alignWithParentCycleStartDate:
+          description: For add-on products, determines whether to align the contract start date with the parent subscription start date. This is an internal setting.
+          type: boolean
+          default: false
+        unitTerms:
+          type: object
+          description: List of contract unit terms
+          additionalProperties:
+            $ref: '#/components/schemas/UnitContractTerms'
+        sourceId:
+          description: The UUID of the custom contract creator
+          type: string
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFee'
+        contractFee:
+          type: number
+          description: Contract Fee
+    Description:
+      title: Description
+      type: object
+      description: Description of the fee
+      properties:
+        defaultDescription:
+          type: string
+          description: Description of the fee
+          example: Some description here. Valid from {$fromDate} until {$toDate}
+        localizedDescriptions:
+          type: object
+          additionalProperties:
+            type: string
+          description: Localized description texts. The default is determined by the marketplace's default locale setting.
+          example: '{"en_US": "Some description here. Valid from {$fromDate} until {$toDate}", "es_AR": "Alguna descripción acá. Válido desde {$fromDate} hasta {$toDate}"}'
+        params:
+          type: object
+          additionalProperties:
+            type: string
+          description: Dynamic parameters to populate within descriptions. Reserved for values whose formats need to be localized, such as dates.
+          example: '{"fromDate": "2019-10-12 07:20:50.52Z", "toDate": "2020-10-12 07:20:50.52Z"}'
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
+    BuyerType:
+      type: string
+      title: BuyerType
+      description: Describes the buyer's relationship with the platform, either CUSTOMER (end user), PLATFORM_OWNER (sales representative) or PARTNER (reseller)
+      enum:
+      - CUSTOMER
+      - PLATFORM_OWNER
+      - PARTNER
+      default: CUSTOMER
+    CustomPriceType:
+      title: CustomPriceType
+      type: string
+      enum:
+      - RESELLER_PURCHASE_PRICE
+      - MARKETPLACE_RESELLER_PURCHASE_PRICE
+    ShoppingCart:
+      type: object
+      title: ShoppingCart
+      description: Shopping cart object
+      allOf:
+      - properties:
+          id:
+            type: string
+            example: 4f59d160-0e63-45c4-bb91-7ebe873da29f
+            description: Shopping cart ID
+          createdOn:
+            type: string
+            example: '2020-10-12 07:20:50.52Z'
+            description: Shopping cart creation date
+          ownerUserId:
+            type: string
+            default: ''
+            example: 83407ce8-373f-11e6-ac61-9e71128cae77
+            description: Cart owner user ID
+          ownerCompanyId:
+            type: string
+            default: ''
+            example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+            description: Cart owner company ID
+          buyerType:
+            $ref: '#/components/schemas/BuyerType'
+          currency:
+            $ref: '#/components/schemas/Currency'
+          status:
+            type: string
+            example: ACTIVE
+            description: Shopping cart status
+          isBlocked:
+            type: boolean
+            example: false
+            default: false
+            description: Shopping Cart is locked waiting for an external event
+          paymentMethodId:
+            type: string
+            default: ''
+            example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+            description: Payment method ID
+          preAuthId:
+            type: string
+            default: ''
+            example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+            description: Cart payment pre-authorization ID
+          locale:
+            type: string
+            default: ''
+            example: en_US
+            description: Locale of shopping cart (ISO 639 language, ISO 3166 country, variant).
+          buyerUserId:
+            type: string
+            default: ''
+            example: 83407ce8-373f-11e6-ac61-9e71128cae77
+            description: User ID of the buyer (customer, reseller, sales representative) who initiates the purchase
+          buyerCompanyId:
+            type: string
+            default: ''
+            example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+            description: Buyer company ID
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ShoppingCartItem'
+          customAttributes:
+            allOf:
+            - description: Custom attributes for the purchase, buyer, and owner
+            - $ref: '#/components/schemas/ShoppingCartCustomAttributes'
+          associations:
+            type: array
+            description: Item associations
+            items:
+              $ref: '#/components/schemas/Association'
+          fees:
+            type: array
+            description: Cart fees
+            items:
+              $ref: '#/components/schemas/Fee'
+      - $ref: '#/components/schemas/AccreditedAgents'
+    AccreditedAgents:
+      title: AccreditedAgents
+      type: object
+      description: Information about the accredited agents associated with shopping carts
+      properties:
+        accreditedAgents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccreditedAgent'
+    AssociationType:
+      title: AssociationType
+      type: string
+      enum:
+      - ADDON
+    CancellationPeriodUnit:
+      type: string
+      title: CancellationPeriodUnit
+      description: Cancellation period unit. Time unit by which the contractCancellationPeriodLimit is measured.
+      enum:
+      - NONE
+      - DAY
+      example: NONE
+    ResourceSupport:
+      type: object
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+      nullable: true
+    MinimumServiceLengthUnit:
+      type: string
+      title: MinimumServiceLengthUnit
+      description: Time unit for contract length. This property must have the same value as the contract length unit configured for the pricing plan.
+      enum:
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: MONTHLY
+    ItemCustomAttributes:
+      type: object
+      title: ItemCustomAttributes
+      description: Collection of custom attributes
+      properties:
+        vendorRequiredFields:
+          $ref: '#/components/schemas/CustomAttributes'
+        subscription:
+          $ref: '#/components/schemas/CustomAttributes'
+    CustomAttributes:
+      type: object
+      title: CustomAttributes
+      additionalProperties: true
+      description: Specify custom attributes as key-value pairs for the purchase. Values can be strings (for text) or string arrays (for checkboxes). Marketplace managers must create the custom attributes in the user interface before they can be used in API calls.
+      example:
+        customAttributes:
+          preferredColours:
+          - key_red
+          - key_white
+          preferredTime: '12:00'
+    AccreditedAgent:
+      title: AccreditedAgent
+      type: object
+      description: Details about an accredited agent associated with a shopping cart
+      properties:
+        userId:
+          type: string
+          default: ''
+          example: 83407ce8-373f-11e6-ac61-9e71128cae77
+          description: Accredited agent to whom the purchase is attributed.
+        companyId:
+          type: string
+          default: ''
+          example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+          description: Company of the accredited agent to whom the purchase is attributed.
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+  parameters:
+    discountCode:
+      name: discountCode
+      in: path
+      required: true
+      description: Discount code
+      schema:
+        type: string
+    shoppingCartId:
+      name: shoppingCartId
+      in: path
+      required: true
+      description: Shopping cart ID
+      schema:
+        type: string
+    feeId:
+      name: feeId
+      in: path
+      required: true
+      description: Fee UUID
+      schema:
+        type: string
+  responses:
+    ShoppingCartRequestAcceptedResponse:
+      description: ACCEPTED
+    '500':
+      description: Unknown error
+      content:
+        application/json:
+          examples:
+            response:
+              value:
+                status: 500
+                code: UNKNOWN_ERROR
+                message: Internal server error
+    PreAuthResponse:
+      description: Payment pre-authorization response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreAuth'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          examples:
+            response:
+              value:
+                status: 400
+                code: BAD_REQUEST
+                message: Unknown locale

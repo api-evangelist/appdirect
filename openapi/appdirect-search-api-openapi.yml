@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Search API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Search
+  x-displayName: Search
+paths:
+  /appwise/v2/search:
+    get:
+      x-appdirect-api-stage: Early Access
+      tags:
+      - Search
+      summary: Search content
+      description: Search a unified index of content derived from a user's connected accounts. Requires a user-based token.
+      operationId: users_index_search
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    content:
+                    - source: 5a70e453-49b4-49a5-bef4-879ddddc7e09
+                      title: The White Tiger
+                      description: Saw this last month. Movie exceeded my expectations, highly recommended. :)
+                      url: https://www.somemoviewebsite.com/ca/movie/the-white-tiger
+                      author: Bob Smith
+                      id: 79009-the-white-tiger-movie
+                      instance: '123'
+                      resourceId: the-white-tiger-movie
+                      contentType: recommendation
+                      metadataType: Movie
+                      metadataReleaseYear: '2021'
+                      metadataRecommendedBy: Jardani Reeves
+                      lastModified: '2021-05-28T20:20:06Z'
+                      highlight:
+                        description:
+                        - Saw this last month. <em>Movie</em> exceeded my expectations, highly recommended. :)
+                    - source: 5a70e453-49b4-49a5-bef4-879ddddc7e09
+                      title: 'The Lord of the Rings: The Fellowship of the Ring'
+                      description: Best movie in the LOTR trilogy!!
+                      url: https://www.somemoviewebsite.com/ca/movie/the-lord-of-the-rings-the-fellowship-of-the-ring
+                      author: Bob Smith
+                      id: 79009-the-lord-of-the-rings-the-fellowship-of-the-ring-movie
+                      instance: '123'
+                      resourceId: the-lord-of-the-rings-the-fellowship-of-the-ring-movie
+                      contentType: recommendation
+                      metadataType: Movie
+                      metadataReleaseYear: '2001'
+                      metadataRecommendedBy: Mac Parker
+                      lastModified: '2021-05-28T20:11:44Z'
+                      highlight:
+                        description:
+                        - Best <em>movie</em> in the LOTR trilogy!!
+                    - source: 5a70e453-49b4-49a5-bef4-879ddddc7e09
+                      title: Shrek
+                      description: Fun movie
+                      url: https://www.somemoviewebsite.com/ca/movie/shrek
+                      author: Bob Smith
+                      id: 79009-shrek-movie
+                      instance: '123'
+                      resourceId: shrek-movie
+                      contentType: recommendation
+                      metadataType: Movie
+                      metadataReleaseYear: '2001'
+                      metadataRecommendedBy: Mac Parker
+                      lastModified: '2021-05-28T17:33:41Z'
+                      highlight:
+                        description:
+                        - Fun <em>movie</em>
+                    page:
+                      size: 3
+                      totalElements: 8
+                      totalPages: 3
+                      number: 2
+      parameters:
+      - name: q
+        in: query
+        description: 'Search query. The term(s) you are searching for. Format: URL-encoded string. For example: To search for Testing String, use Testing%20string'
+        required: true
+        schema:
+          type: string
+      - name: number
+        in: query
+        description: 'Which page of results to return. For example, to return the page with the 60th result, when there are 50 results per page (size), submit 2 to return the 2nd page of results. Max value: N/A'
+        required: false
+        schema:
+          type: number
+          default: 1
+      - name: size
+        in: query
+        description: 'Page size: maximum number of search results per page. Max value: 250'
+        required: false
+        schema:
+          type: number
+          default: 50
+      - name: sort
+        in: query
+        description: A URL-encoded value that defines how to sort the results. The supported values are +lastModified or -lastModified to sort by ascending/descending respectively.
+        required: false
+        schema:
+          type: string
+      x-codeSamples:
+      - lang: Shell + Curl
+        source: "curl --request GET \\\n  --url 'https://marketplace.appdirect.com/api/appwise/v2/search?q=SOME_STRING_VALUE&number=SOME_NUMBER_VALUE&size=SOME_NUMBER_VALUE&sort=SOME_STRING_VALUE'"
+      - lang: Node + Request
+        source: "const request = require('request');\n\nconst options = {\n  method: 'GET',\n  url: 'https://marketplace.appdirect.com/api/appwise/v2/search',\n  qs: {\n    q: 'SOME_STRING_VALUE',\n    number: 'SOME_NUMBER_VALUE',\n    size: 'SOME_NUMBER_VALUE',\n    sort: 'SOME_STRING_VALUE'\n  }\n};\n\nrequest(options, function (error, response, body) {\n  if (error) throw new Error(error);\n\n  console.log(body);\n});\n"
+      - lang: Java + Okhttp
+        source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/search?q=SOME_STRING_VALUE&number=SOME_NUMBER_VALUE&size=SOME_NUMBER_VALUE&sort=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"

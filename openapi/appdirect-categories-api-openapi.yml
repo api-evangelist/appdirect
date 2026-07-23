@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Categories API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Categories
+paths:
+  /api/v1/categories:
+    get:
+      tags:
+      - Categories
+      summary: List tenant categories
+      description: Retrieves available tenant categories for AI assignment.
+      operationId: listTenantCategories
+      parameters:
+      - name: orgId
+        in: query
+        required: false
+        description: Optional org ID for superusers.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of tenant categories.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenantCategory'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    TenantCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        sortOrder:
+          type: integer
+        isActive:
+          type: boolean
+        parentCategoryId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

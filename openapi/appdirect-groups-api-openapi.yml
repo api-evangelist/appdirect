@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  description: The Companies API allows developers to manage marketplace companies and their user memberships.
+  title: Companies AI Embed Groups API
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: v296.0-SNAPSHOT
+servers:
+- url: https://marketplace.appdirect.com/api
+- url: https://virtserver.swaggerhub.com
+tags:
+- name: Groups
+  description: Manage user groups for AI access control
+paths:
+  /api/v1/groups:
+    post:
+      tags:
+      - Groups
+      summary: Create a new group
+      description: Creates a new group with the specified details.
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the group.
+                availability:
+                  $ref: '#/components/schemas/GroupAvailability'
+                memberEmails:
+                  type: string
+                  description: A comma-separated list of emails of users who should be added to the group.
+              required:
+              - name
+              - availability
+              - memberEmails
+      responses:
+        '200':
+          description: Group successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetail'
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '500':
+          description: Internal Server Error.
+  /api/v1/groups/{groupId}:
+    put:
+      tags:
+      - Groups
+      summary: Update a group
+      description: Updates the details of a specific group and manages its member list.
+      operationId: updateGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        description: The unique identifier of the group to update.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the group.
+                availability:
+                  $ref: '#/components/schemas/GroupAvailability'
+                memberEmailsToAdd:
+                  type: string
+                  description: A comma-separated list of emails of users to be added to the group.
+                memberEmailsToRemove:
+                  type: array
+                  items:
+                    type: string
+                  description: A comma-separated list of emails of users to be removed from the group.
+      responses:
+        '200':
+          description: Group details updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetail'
+        '400':
+          description: Bad request, when the input data is invalid.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not found, when the specified group ID does not exist.
+        '500':
+          description: Internal Server Error.
+    delete:
+      tags:
+      - Groups
+      summary: Delete a group
+      description: Deletes the group with the specified identifier.
+      operationId: deleteGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        description: The unique identifier of the group to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Group successfully deleted, no content to return.
+        '400':
+          description: Bad request, when the request is malformed.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not found, when the specified group ID does not exist.
+        '500':
+          description: Internal Server Error.
+  /api/v1/groups/{groupId}/leave:
+    put:
+      tags:
+      - Groups
+      summary: Leave a group
+      description: Allows the current user to leave the group specified by the groupId.
+      operationId: leaveGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        description: The unique identifier of the group to leave.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully left the group, no content to return.
+        '400':
+          description: Bad request, when the request is malformed.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '404':
+          description: Not found, when the specified group ID does not exist.
+        '500':
+          description: Internal Server Error.
+  /api/v1/me/groups:
+    get:
+      tags:
+      - Groups
+      summary: Get groups of the current user
+      description: Retrieves a list of groups associated with the current user.
+      operationId: getUserGroups
+      responses:
+        '200':
+          description: A list of groups associated with the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupSummary'
+        '401':
+          description: Missing authorization context. User must be authenticated.
+        '403':
+          description: Forbidden, the user is not authorized to perform this action.
+        '500':
+          description: Internal Server Error.
+components:
+  schemas:
+    GroupAvailability:
+      type: string
+      enum:
+      - EVERYONE
+      - RESTRICTED
+      description: Availability status of the group.
+    GroupDetail:
+      allOf:
+      - $ref: '#/components/schemas/GroupSummary'
+      - type: object
+        properties:
+          users:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupUser'
+    GroupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        orgId:
+          type: string
+        ownerUserId:
+          type: string
+        name:
+          type: string
+        availability:
+          $ref: '#/components/schemas/GroupAvailability'
+    GroupUser:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+          nullable: true
+        email:
+          type: string
