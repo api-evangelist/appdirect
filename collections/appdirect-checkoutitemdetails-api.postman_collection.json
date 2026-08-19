@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "ea98d219-a2c8-4a7a-bf31-fb51ad17f9e2",
+      "name": "checkoutItemDetails",
+      "description": {
+        "content": "Retrieves product details such as branding, pricing, and so on.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "095c42cb-66e5-40ad-8f28-baa78354206b",
+          "name": "Get item details",
+          "request": {
+            "name": "Get item details",
+            "description": {
+              "content": "Retrieves product details such as branding, pricing, and so on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "checkout",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerUserId\": \"<string>\",\n  \"ownerCompanyId\": \"<string>\",\n  \"buyerUserId\": \"<string>\",\n  \"buyerCompanyId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"productIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pricingPlanIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bundleIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriptionIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "755b4449-6209-4e78-97cb-9700854fb9b7",
+              "name": "Item details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "checkout",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerUserId\": \"19d7343b-b8ab-464a-a893-8b107d77137d\",\n  \"ownerCompanyId\": \"b0410709-8333-43e2-84d6-3228f6b9998b\",\n  \"buyerUserId\": \"55144410-a14a-43a1-9e0a-062c6cf31770\",\n  \"buyerCompanyId\": \"6e5a0af2-e6be-4a86-a1b0-ffabcc2c6324\",\n  \"currency\": \"USD\",\n  \"productIds\": [\n    \"100\",\n    \"200\"\n  ],\n  \"pricingPlanIds\": [\n    \"a12bcf2e-d27e-4808-aae0-6099cc828664\",\n    \"3e0a22d3-dafb-4b3d-a487-7f4e7a94b32a\"\n  ],\n  \"bundleIds\": [\n    \"300\",\n    \"400\"\n  ],\n  \"subscriptionIds\": [\n    \"915a6558-5a1b-446a-8ec6-334cc60e3d37\",\n    \"8569269e-4c7f-4238-807c-513c718be135\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"098357e5-7a88-45fe-82d3-843bfd6bcbd1\",\n  \"type\": \"PRODUCT\",\n  \"branding\": {\n    \"name\": \"Sample Application\",\n    \"vendor\": \"AppDirect\",\n    \"desc\": \"Sample Application description\",\n    \"iconUrl\": \"https://appdirect.cloudfront.net/app_resources/1111/thumbs_64/img1111.png\",\n    \"href\": \"https://marketplace.appdirect.com/api/marketplace/v1/products/1111\",\n    \"storefrontUrl\": \"https://marketplace.appdirect.com/apps/1111\"\n  },\n  \"stacked\": false,\n  \"editions\": [\n    {\n      \"id\": \"45b79e06-1ac6-11e5-90d8-ca7e16f380a7\",\n      \"freeTrialTerms\": {\n        \"freeTrialDuration\": 1,\n        \"freeTrialDurationPeriod\": \"MONTH\",\n        \"freeTrialGracePeriod\": 10\n      },\n      \"name\": \"Sample Edition\",\n      \"revenueModel\": \"RECURRING\",\n      \"pricingPlans\": [\n        {\n          \"id\": \"b794c2a1-69a7-40bc-9bf7-75a2f945a5fc\",\n          \"currency\": \"USD\",\n          \"pricingPeriod\": \"MONTHLY\",\n          \"pricingSources\": [\n            {\n              \"source\": \"BASE_CATALOG\",\n              \"pricingDefinitions\": [\n                {\n                  \"costTypeCategory\": \"RECURRING\",\n                  \"costType\": \"RECURRING_PER_UNIT\",\n                  \"pricingStrategy\": \"UNIT\",\n                  \"unit\": \"USER\",\n                  \"priceRanges\": [\n                    {\n                      \"min\": 0,\n                      \"max\": 5,\n                      \"salePrice\": \"4.0000000000\",\n                      \"wholeSalePrice\": null\n                    }\n                  ],\n                  \"unitAllowsDecimals\": false,\n                  \"increment\": 5,\n                  \"allowsMeteredUsage\": true,\n                  \"displaysPricePerIncrement\": true\n                }\n              ]\n            },\n            {\n              \"source\": \"CHANNEL_CATALOG\",\n              \"pricingDefinitions\": [\n                {\n                  \"costTypeCategory\": \"ONE_TIME\",\n                  \"costType\": \"ONE_TIME_FLAT\",\n                  \"pricingStrategy\": \"FLAT\",\n                  \"salePrice\": \"3.0000000000\",\n                  \"wholeSalePrice\": null\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e97bce93-de07-4a2d-94b1-e5ced30b2936",
+    "name": "Companies AI Embed checkoutItemDetails API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1239 @@
+{
+  "item": [
+    {
+      "id": "e9640f15-075a-49dd-8584-9a7dbe467942",
+      "name": "PaymentInstrument",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d161050-4fe2-47ad-9b50-ef53c7476aa7",
+          "name": "List all payment instruments for a user",
+          "request": {
+            "name": "List all payment instruments for a user",
+            "description": {
+              "content": "List all of the payment instruments for the given user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "paymentInstruments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) User's company UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b325332-13d6-4a16-9d0e-7286d48fa604",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d\",\n    \"company\": {\n      \"id\": \"7ee20d50-8147-482e-839c-775c02e73c45\",\n      \"href\": \"http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45\"\n    },\n    \"user\": {\n      \"id\": \"952105f7-ad15-4fa3-bdbf-f25736a0dc48\",\n      \"href\": \"http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48\"\n    },\n    \"accountDisplay\": \"1111\",\n    \"paymentMethod\": \"CREDIT_CARD\",\n    \"billingAddress\": {\n      \"street1\": \"50 Grove St.\",\n      \"street2\": \"500 Grove St.\",\n      \"city\": \"Somerville\",\n      \"state\": \"Massachusetts\",\n      \"zip\": \"02114\",\n      \"country\": \"US\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"companyName\": \"AppDirect\",\n      \"phone\": \"9999999999\"\n    },\n    \"creditCard\": {\n      \"name\": \"John Doe\",\n      \"expirationMonth\": 12,\n      \"expirationYear\": 2016,\n      \"type\": \"VISA\",\n      \"number\": \"12655615611\",\n      \"securityCode\": \"111\"\n    },\n    \"createdOn\": 1481002402567,\n    \"default\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e034a23-5b2a-40f4-9e8b-9c47163b703c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4a8e3b5-ec9b-49a5-8a94-fe8a7c18d1e1",
+          "name": "Create a payment instrument",
+          "request": {
+            "name": "Create a payment instrument",
+            "description": {
+              "content": "Create a payment instrument for the given user and company using the provided data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "paymentInstruments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) User's company UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"name\": \"<string>\",\n    \"number\": \"<string>\",\n    \"securityCode\": \"<string>\",\n    \"expirationMonth\": \"<number>\",\n    \"expirationYear\": \"<number>\",\n    \"type\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"vatId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94b7af82-b89c-4b18-9511-0c2df4b614fe",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d\",\n  \"company\": {\n    \"id\": \"7ee20d50-8147-482e-839c-775c02e73c45\",\n    \"href\": \"http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45\"\n  },\n  \"user\": {\n    \"id\": \"952105f7-ad15-4fa3-bdbf-f25736a0dc48\",\n    \"href\": \"http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48\"\n  },\n  \"accountDisplay\": \"1111\",\n  \"paymentMethod\": \"CREDIT_CARD\",\n  \"billingAddress\": {\n    \"street1\": \"50 Grove St.\",\n    \"street2\": \"500 Grove St.\",\n    \"city\": \"Somerville\",\n    \"state\": \"Massachusetts\",\n    \"zip\": \"02114\",\n    \"country\": \"US\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyName\": \"AppDirect\",\n    \"phone\": \"9999999999\"\n  },\n  \"creditCard\": {\n    \"name\": \"John Doe\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2016,\n    \"type\": \"VISA\",\n    \"number\": \"12655615611\",\n    \"securityCode\": \"111\"\n  },\n  \"createdOn\": 1481002402567,\n  \"default\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d80868e2-fc6a-466f-b1b3-0dda43dfbc3b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "927320bf-7aa8-41ec-8251-249a4944a97f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "707c0bcc-ed4f-46b6-9c81-55b812ff5ea4",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbcadc07-0221-4b92-b4c7-a835474d7682",
+          "name": "Update a payment instrument",
+          "request": {
+            "name": "Update a payment instrument",
+            "description": {
+              "content": "Update the payment instrument for the given user and company using the provided data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "paymentInstruments",
+                ":paymentInstrumentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) User's company UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentInstrumentId",
+                  "description": "(Required) Existing payment instrument UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"name\": \"<string>\",\n    \"number\": \"<string>\",\n    \"securityCode\": \"<string>\",\n    \"expirationMonth\": \"<number>\",\n    \"expirationYear\": \"<number>\",\n    \"type\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"vatId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "295b647b-f975-4e7e-8f1e-cd5754575dbc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Existing payment instrument UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e3f7f37b-1e0b-4f05-a8b2-aae74e2f5f2d\",\n  \"company\": {\n    \"id\": \"7ee20d50-8147-482e-839c-775c02e73c45\",\n    \"href\": \"http://appdirect/api/account/v1/companies/7ee20d50-8147-482e-839c-775c02e73c45\"\n  },\n  \"user\": {\n    \"id\": \"952105f7-ad15-4fa3-bdbf-f25736a0dc48\",\n    \"href\": \"http://appdirect/api/account/v1/users/952105f7-ad15-4fa3-bdbf-f25736a0dc48\"\n  },\n  \"accountDisplay\": \"1111\",\n  \"paymentMethod\": \"CREDIT_CARD\",\n  \"billingAddress\": {\n    \"street1\": \"50 Grove St.\",\n    \"street2\": \"500 Grove St.\",\n    \"city\": \"Somerville\",\n    \"state\": \"Massachusetts\",\n    \"zip\": \"02114\",\n    \"country\": \"US\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyName\": \"AppDirect\",\n    \"phone\": \"9999999999\"\n  },\n  \"creditCard\": {\n    \"name\": \"Updated Credit Card name\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2016,\n    \"type\": \"VISA\",\n    \"number\": \"13688112366\",\n    \"securityCode\": \"111\"\n  },\n  \"default\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ac95961-b0f1-4eb7-b29b-6edf480b643a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Existing payment instrument UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ed52df3-d799-4bb8-a90d-1712e426720e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Existing payment instrument UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "174636be-0bf1-4178-a2e6-a1aec2c8d9c6",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Existing payment instrument UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountDisplay\": \"<string>\",\n  \"billingAddress\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"phoneExtension\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"salutation\": \"<string>\"\n  },\n  \"company\": {\n    \"href\": \"...\"\n  },\n  \"createdOn\": \"<number>\",\n  \"creditCard\": {\n    \"expirationMonth\": 12345,\n    \"expirationYear\": 12345,\n    \"name\": \"...\",\n    \"number\": \"...\",\n    \"securityCode\": \"...\",\n    \"type\": \"JCB\"\n  },\n  \"id\": \"<string>\",\n  \"isDefault\": \"<boolean>\",\n  \"paymentMethod\": \"<string>\",\n  \"user\": {\n    \"href\": \"...\"\n  },\n  \"vatId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9391ce3a-9c8b-4100-8cdc-511ef6ed4143",
+          "name": "Retrieve the default payment instrument",
+          "request": {
+            "name": "Retrieve the default payment instrument",
+            "description": {
+              "content": "Retrieve the default payment instrument for a given user and company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "paymentInstruments",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "companyUuid",
+                  "value": "<string>",
+                  "description": "User's company UUID"
+                },
+                {
+                  "disabled": false,
+                  "key": "userUuid",
+                  "value": "<string>",
+                  "description": "User's UUID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc5bbf3c-b332-455a-8d85-b3ab2dd41460",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyUuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ce6266c9-7939-42ee-8cdb-a7a2bc240be4\",\n  \"company\": {\n    \"id\": \"81ae9b52-f6d6-446e-a1b7-7107998cb4e0\",\n    \"href\": \"http://appdirect/api/account/v1/companies/81ae9b52-f6d6-446e-a1b7-7107998cb4e0\"\n  },\n  \"user\": {\n    \"id\": \"b665be4f-42a8-47d8-bebc-8e2387fb86d8\",\n    \"href\": \"http://appdirect/api/account/v1/users/b665be4f-42a8-47d8-bebc-8e2387fb86d8\"\n  },\n  \"accountDisplay\": \"1111\",\n  \"paymentMethod\": \"CREDIT_CARD\",\n  \"billingAddress\": {\n    \"street1\": \"50 Grove St.\",\n    \"street2\": \"500 Grove St.\",\n    \"city\": \"Somerville\",\n    \"state\": \"Massachusetts\",\n    \"zip\": \"02114\",\n    \"country\": \"US\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyName\": \"AppDirect\",\n    \"phone\": \"9999999999\"\n  },\n  \"creditCard\": {\n    \"number\": \"333\",\n    \"securityCode\": \"333\",\n    \"name\": \"John Doe\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2016,\n    \"type\": \"VISA\"\n  },\n  \"createdOn\": 1481065767448,\n  \"default\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "498bc6f4-6513-46c7-8956-d568b61e24eb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyUuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cea5798-778a-4abb-b3ec-8181f23afdd6",
+          "name": "Retrieve a payment instrument",
+          "request": {
+            "name": "Retrieve a payment instrument",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "paymentInstruments",
+                ":paymentInstrumentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentInstrumentId",
+                  "description": "(Required) Payment Instrument Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8c780a7-adff-420f-91f2-dcdea55013bf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Payment Instrument Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"3aa51449-474d-4a2e-974c-b9b390e9cd54\",\n  \"company\": {\n    \"id\": \"709997cb-f3b9-42ea-8e8f-2ea0ada4f9e2\",\n    \"href\": \"http://appdirect/api/account/v1/companies/709997cb-f3b9-42ea-8e8f-2ea0ada4f9e2\"\n  },\n  \"user\": {\n    \"id\": \"81a3aa25-4da1-4322-8fb2-1a7c79a9f5ff\",\n    \"href\": \"http://appdirect/api/account/v1/users/81a3aa25-4da1-4322-8fb2-1a7c79a9f5ff\"\n  },\n  \"accountDisplay\": \"1111\",\n  \"paymentMethod\": \"CREDIT_CARD\",\n  \"billingAddress\": {\n    \"street1\": \"50 Grove St.\",\n    \"street2\": \"500 Grove St.\",\n    \"city\": \"Somerville\",\n    \"state\": \"Massachusetts\",\n    \"zip\": \"02114\",\n    \"country\": \"US\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyName\": \"AppDirect\",\n    \"phone\": \"9999999999\"\n  },\n  \"creditCard\": {\n    \"number\": \"333\",\n    \"securityCode\": \"333\",\n    \"name\": \"John Doe\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2016,\n    \"type\": \"VISA\"\n  },\n  \"createdOn\": 1481065768024,\n  \"default\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3b4ce4f-eddd-4eff-b07d-54c0e91a1e58",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Payment Instrument Id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ded03a78-18e2-45b0-8ed7-e7ad8993cb32",
+          "name": "Delete a payment instrument",
+          "request": {
+            "name": "Delete a payment instrument",
+            "description": {
+              "content": "Delete a payment instrument",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "paymentInstruments",
+                ":paymentInstrumentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentInstrumentId",
+                  "description": "(Required) Payment Instrument Id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b105147-f253-4bc1-b359-3969795404f9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Payment Instrument Id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36fa5e32-6c9f-451c-adbb-9296c38984a7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "paymentInstruments",
+                    ":paymentInstrumentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentInstrumentId",
+                      "description": "(Required) Payment Instrument Id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6df37f58-966f-4a7d-83f6-c427cd4fa103",
+    "name": "Companies AI Embed PaymentInstrument API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

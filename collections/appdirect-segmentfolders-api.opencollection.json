@@ -1,0 +1,411 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed SegmentFolders API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SegmentFolders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read segment folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/companyGroups",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of segment folders for the marketplace"
+        },
+        {
+          "info": {
+            "name": "Create segment folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/companyGroups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a segment folder"
+        },
+        {
+          "info": {
+            "name": "Update segment folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/companyGroups/:companyGroupId",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Segment folder ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a segment folder"
+        },
+        {
+          "info": {
+            "name": "Delete segment folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/companyGroups/:companyGroupId",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Segment folder ID"
+              }
+            ]
+          },
+          "docs": "Deletes a segment folder, all associated segments, and all product associations"
+        },
+        {
+          "info": {
+            "name": "Delete segments from segment folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/companyGroups/:companyGroupId/segments/:companySegmentId",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Segment folder ID"
+              },
+              {
+                "name": "companySegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Segment ID"
+              }
+            ]
+          },
+          "docs": "Deletes a segment from a segment folder"
+        },
+        {
+          "info": {
+            "name": "Read segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Segment folder ID"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of segments"
+        },
+        {
+          "info": {
+            "name": "Create manual segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Segment folder ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a manual segment. Manual segments allow Marketplace Managers to select companies manually, as opposed to dynamic segments, which contain user selected automatically based on filter values."
+        },
+        {
+          "info": {
+            "name": "Update manual segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/:companySegmentId",
+            "params": [
+              {
+                "name": "companySegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Segment ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a manual segment"
+        },
+        {
+          "info": {
+            "name": "Create or remove segment-company associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/:companySegmentId/associationsBatchUpdate",
+            "params": [
+              {
+                "name": "companySegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Segment ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or removes associations between segments and companies"
+        },
+        {
+          "info": {
+            "name": "Read segment companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/:companySegmentId/availableAndAssociatedCompanies",
+            "params": [
+              {
+                "name": "companySegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Segment ID"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              },
+              {
+                "name": "selected",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns only associated companies"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all marketplace companies and indicates whether they are associated with the segment"
+        },
+        {
+          "info": {
+            "name": "Update dynamic segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/:dynamicSegmentId",
+            "params": [
+              {
+                "name": "dynamicSegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Segment ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a dynamic segment"
+        },
+        {
+          "info": {
+            "name": "Read filter parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/filterParameters",
+            "headers": [
+              {
+                "name": "AD-Tenant",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Locale"
+              }
+            ]
+          },
+          "docs": "Returns a list of parameters for the dynamic filter"
+        },
+        {
+          "info": {
+            "name": "Test dynamic segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments/matchUser/:userEmail",
+            "params": [
+              {
+                "name": "userEmail",
+                "value": "",
+                "type": "path",
+                "description": "User email address"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Determines whether the specified user matches the specified dynamic segment"
+        },
+        {
+          "info": {
+            "name": "Read dynamic segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments",
+            "params": [
+              {
+                "name": "dynamicSegmentId",
+                "value": "",
+                "type": "query",
+                "description": "Dynamic segment ID"
+              }
+            ]
+          },
+          "docs": "Reads a dynamic segment"
+        },
+        {
+          "info": {
+            "name": "Create dynamic segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/segments/dynamicSegments",
+            "params": [
+              {
+                "name": "companyGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Segment folder ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a dynamic segment. Dynamic segments contain user selected automatically based on filter values, as opposed to manual segments, in which Marketplace Managers select companies manually."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

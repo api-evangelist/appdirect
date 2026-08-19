@@ -1,0 +1,2085 @@
+{
+  "item": [
+    {
+      "id": "cb44f049-ce4a-49ba-9600-0cb95c5a08df",
+      "name": "Invoice",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8e842f7-ad54-438e-b25e-03840ce95d94",
+          "name": "List all invoices for a user",
+          "request": {
+            "name": "List all invoices for a user",
+            "description": {
+              "content": "List all of the invoices for the given user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeFree",
+                  "value": "<boolean>",
+                  "description": "Exclude invoices with no charges (free)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "INVOICE_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Invoice status"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) User's company UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3928b165-2e27-4e66-87b1-a68139df2803",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-Total-Count",
+                  "value": "9102",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"invoiceId\": 20,\n    \"referenceNumber\": null,\n    \"creationDate\": 1481002410613,\n    \"dueDate\": 1481353200000,\n    \"status\": \"PAID\",\n    \"total\": 10,\n    \"orderIds\": [\n      \"2030\"\n    ],\n    \"currency\": \"USD\",\n    \"user\": {\n      \"id\": \"a18c91e8-d5d5-4fb8-915c-726535a0bc8a\",\n      \"href\": \"http://appdirect/api/account/v1/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n    },\n    \"company\": {\n      \"id\": \"644eb32e-4afa-4699-9dae-5d3394320968\",\n      \"href\": \"http://appdirect/api/account/v1/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"user\",\n        \"href\": \"http://appdirect/api/account/v2/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n      },\n      {\n        \"rel\": \"company\",\n        \"href\": \"http://appdirect/api/account/v2/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/invoices/20\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c90e60b1-0ac2-4609-8214-63062f4bc326",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d433876-d6dd-4de4-8b50-ebb940129d86",
+          "name": "List all invoices for a company",
+          "request": {
+            "name": "List all invoices for a company",
+            "description": {
+              "content": "List all of the invoices for the given company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeFree",
+                  "value": "<boolean>",
+                  "description": "Exclude invoices with no charges (free)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "INVOICE_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Invoice status"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) Company UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f98036b-cb32-40f5-95a6-83ac29882bf4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"invoiceId\": 20,\n    \"referenceNumber\": null,\n    \"creationDate\": 1481002410613,\n    \"dueDate\": 1481353200000,\n    \"status\": \"PAID\",\n    \"total\": 10,\n    \"orderIds\": [\n      \"2030\"\n    ],\n    \"currency\": \"USD\",\n    \"user\": {\n      \"id\": \"a18c91e8-d5d5-4fb8-915c-726535a0bc8a\",\n      \"href\": \"http://appdirect/api/account/v1/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n    },\n    \"company\": {\n      \"id\": \"644eb32e-4afa-4699-9dae-5d3394320968\",\n      \"href\": \"http://appdirect/api/account/v1/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"user\",\n        \"href\": \"http://appdirect/api/account/v2/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n      },\n      {\n        \"rel\": \"company\",\n        \"href\": \"http://appdirect/api/account/v2/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/invoices/20\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70a667b8-3379-4f62-8426-8955593fd4a8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf7fe994-f676-44a7-8842-3566dd919e79",
+          "name": "List All Invoice Payments",
+          "request": {
+            "name": "List All Invoice Payments",
+            "description": {
+              "content": "List all payment data for an invoice",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "invoices",
+                ":invoiceNumber",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date."
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "Payment method."
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "Payment result."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "PAYMENT_ID",
+                  "description": "Sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "invoiceNumber",
+                  "description": "(Required) Invoice number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9aeb8e24-3432-4279-8de4-acde4d73e205",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) Invoice number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentNumber\": 2,\n    \"date\": 1481003382652,\n    \"amount\": 10,\n    \"currency\": \"USD\",\n    \"result\": \"SUCCESSFUL\",\n    \"method\": \"CREDIT_CARD\",\n    \"transactionId\": \"123456abcdef\",\n    \"user\": {\n      \"id\": \"72ae0d01-8036-4203-95c0-4c2fb424ff6d\",\n      \"href\": \"http://appdirect/api/account/v1/users/72ae0d01-8036-4203-95c0-4c2fb424ff6d\"\n    },\n    \"company\": {\n      \"id\": \"5aae5a52-cec3-4cb2-87b4-6352624d2a31\",\n      \"href\": \"http://appdirect/api/account/v1/companies/5aae5a52-cec3-4cb2-87b4-6352624d2a31\"\n    },\n    \"gatewayResponse\": {\n      \"avs\": true,\n      \"cvv\": true,\n      \"code\": null,\n      \"message\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/payments/2\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0509652-287d-4f08-a72b-c918a32422bd",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) Invoice number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  },\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dbf1600-9916-4266-943e-ddff241c6991",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) Invoice number."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca83cf72-e5e0-4d93-98b4-ba4c1ad8abf8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) Invoice number."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23e675f5-2680-42f0-9388-4fb56b93bca5",
+          "name": "Pay an Invoice",
+          "request": {
+            "name": "Pay an Invoice",
+            "description": {
+              "content": "If the invoice is unpaid, will process the payment and return the result. Will return an exception otherwise",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "invoices",
+                ":invoiceNumber",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "invoiceNumber",
+                  "description": "(Required) The unique identifier for the invoice provided by the channel."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"links\": [\n    {\n      \"href\": \"<string>\",\n      \"rel\": \"<string>\"\n    },\n    {\n      \"href\": \"<string>\",\n      \"rel\": \"<string>\"\n    }\n  ],\n  \"amount\": \"<number>\",\n  \"company\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"currency\": \"USD\",\n  \"date\": \"<number>\",\n  \"gatewayResponse\": {\n    \"avs\": \"<boolean>\",\n    \"code\": \"<string>\",\n    \"cvv\": \"<boolean>\",\n    \"message\": \"<string>\"\n  },\n  \"id\": \"<number>\",\n  \"method\": \"<string>\",\n  \"result\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"user\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d4eb24c-a286-4818-82cc-6de5d025779b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32fe445b-3374-4c23-bda8-e30e3aab4e06",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18452bb1-af95-4db3-9aeb-1df768f3a5d8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "414448b3-9905-4757-9b9e-5bedc9045ac8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dcccea19-4325-40e1-a4d8-ef706a7ef46b",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8738b294-5082-4230-86b8-7447f1dacbe9",
+          "name": "List All Invoices",
+          "request": {
+            "name": "List All Invoices",
+            "description": {
+              "content": "List all invoice data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeFree",
+                  "value": "<boolean>",
+                  "description": "Exclude invoices with no charges."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "INVOICE_ID",
+                  "description": "Sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Invoice status."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date."
+                },
+                {
+                  "disabled": false,
+                  "key": "buyerRole",
+                  "value": "<string>",
+                  "description": "Filter invoices with purchases made by user with this role."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "915cb466-fb59-471a-97b3-bd030691d7a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "buyerRole",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"invoiceId\": 1,\n    \"referenceNumber\": null,\n    \"creationDate\": 1481003387753,\n    \"dueDate\": 1481353200000,\n    \"status\": \"PAID\",\n    \"total\": 10,\n    \"orderIds\": [\n      \"2030\"\n    ],\n    \"currency\": \"USD\",\n    \"user\": {\n      \"id\": \"eefdf767-9197-4402-ba0d-614cfec17ee1\",\n      \"href\": \"http://appdirect/api/account/v1/users/eefdf767-9197-4402-ba0d-614cfec17ee1\"\n    },\n    \"company\": {\n      \"id\": \"5a95127f-4b06-459c-bdb1-da80568de2fd\",\n      \"href\": \"http://appdirect/api/account/v1/companies/5a95127f-4b06-459c-bdb1-da80568de2fd\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"user\",\n        \"href\": \"http://appdirect/api/account/v2/users/eefdf767-9197-4402-ba0d-614cfec17ee1\"\n      },\n      {\n        \"rel\": \"company\",\n        \"href\": \"http://appdirect/api/account/v2/companies/5a95127f-4b06-459c-bdb1-da80568de2fd\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/invoices/1\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9724eb4a-bd31-4868-9866-f2995827711f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "buyerRole",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  },\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d765be86-0551-45dc-ac6f-5412268c483d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "buyerRole",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "678ef82d-5f84-42e9-aa2f-2dccef711632",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "buyerRole",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72443854-d0b1-433a-8e6c-1e79c7b6eb8b",
+          "name": "Retrieve an Invoice",
+          "request": {
+            "name": "Retrieve an Invoice",
+            "description": {
+              "content": "Read an invoice",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "invoices",
+                ":invoiceNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "invoiceNumber",
+                  "description": "(Required) The unique identifier for the invoice provided by the channel."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69700ca8-84ee-42b1-9433-45b3fdef6f6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceId\": 1,\n  \"referenceNumber\": null,\n  \"creationDate\": 1481003386696,\n  \"dueDate\": 1481353200000,\n  \"status\": \"PAID\",\n  \"total\": 10,\n  \"orderIds\": [\n    \"2030\"\n  ],\n  \"currency\": \"USD\",\n  \"user\": {\n    \"id\": \"f090d591-8909-43ed-883d-71fb09ef3941\",\n    \"href\": \"http://appdirect/api/account/v1/users/f090d591-8909-43ed-883d-71fb09ef3941\"\n  },\n  \"company\": {\n    \"id\": \"ba550905-e0ea-48f2-a04f-0763e999d89c\",\n    \"href\": \"http://appdirect/api/account/v1/companies/ba550905-e0ea-48f2-a04f-0763e999d89c\"\n  },\n  \"invoiceLines\": [\n    {\n      \"id\": 23,\n      \"type\": \"ITEM\",\n      \"itemId\": null,\n      \"description\": \"Invoice Line description\",\n      \"quantity\": 1,\n      \"price\": null,\n      \"percentage\": null,\n      \"total\": null,\n      \"periodStart\": null,\n      \"periodEnd\": null,\n      \"paymentPlanId\": 1367,\n      \"editionId\": 1210,\n      \"productId\": 788,\n      \"pricingUnit\": \"USER\"\n    }\n  ],\n  \"delegatedToInvoice\": null,\n  \"includedInvoices\": null,\n  \"links\": [\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://appdirect/api/account/v2/users/f090d591-8909-43ed-883d-71fb09ef3941\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/ba550905-e0ea-48f2-a04f-0763e999d89c\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/billing/v1/invoices/1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75a6819f-0cb9-4f61-9931-42dedfbce2f4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5af3675-78fa-4207-a461-f26821df833d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier for the invoice provided by the channel."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d9c38c1-da31-46d0-8a17-f8f6c2a8b477",
+          "name": "Patch method to partially update an invoice",
+          "request": {
+            "name": "Patch method to partially update an invoice",
+            "description": {
+              "content": "Currently only used to void an invoice by updating the invoice status",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "invoices",
+                ":invoiceNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "invoiceNumber",
+                  "description": "(Required) The unique identifier of the invoice that should be patched."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"links\": [\n    {\n      \"href\": \"<string>\",\n      \"rel\": \"<string>\"\n    },\n    {\n      \"href\": \"<string>\",\n      \"rel\": \"<string>\"\n    }\n  ],\n  \"company\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"creationDate\": \"<number>\",\n  \"orderIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"currency\": \"USD\",\n  \"dueDate\": \"<number>\",\n  \"invoiceId\": \"<number>\",\n  \"referenceNumber\": \"<string>\",\n  \"status\": \"<string>\",\n  \"total\": \"<number>\",\n  \"user\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"delegatedToInvoice\": {\n    \"href\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"includedInvoices\": [\n    {\n      \"href\": \"<string>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"href\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"invoiceLines\": [\n    {\n      \"description\": \"<string>\",\n      \"id\": \"<number>\",\n      \"itemId\": \"<number>\",\n      \"percentage\": \"<number>\",\n      \"periodEnd\": \"<number>\",\n      \"periodStart\": \"<number>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"total\": \"<number>\",\n      \"type\": \"<string>\",\n      \"paymentPlanId\": \"<number>\",\n      \"editionId\": \"<number>\",\n      \"productId\": \"<number>\",\n      \"pricingUnit\": \"<string>\",\n      \"vendor\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"saleRepCompany\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"isReseller\": \"<boolean>\",\n        \"isSalesSupport\": \"<boolean>\"\n      },\n      \"saleRepUser\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"isReseller\": \"<boolean>\",\n        \"isSalesSupport\": \"<boolean>\"\n      }\n    },\n    {\n      \"description\": \"<string>\",\n      \"id\": \"<number>\",\n      \"itemId\": \"<number>\",\n      \"percentage\": \"<number>\",\n      \"periodEnd\": \"<number>\",\n      \"periodStart\": \"<number>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"total\": \"<number>\",\n      \"type\": \"<string>\",\n      \"paymentPlanId\": \"<number>\",\n      \"editionId\": \"<number>\",\n      \"productId\": \"<number>\",\n      \"pricingUnit\": \"<string>\",\n      \"vendor\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"saleRepCompany\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"isReseller\": \"<boolean>\",\n        \"isSalesSupport\": \"<boolean>\"\n      },\n      \"saleRepUser\": {\n        \"uuid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"isReseller\": \"<boolean>\",\n        \"isSalesSupport\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ffe282d4-4f9f-4223-a04a-bda74e3f4e58",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier of the invoice that should be patched."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c490fc22-4e1a-4b80-b3d4-05ae6f1406df",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier of the invoice that should be patched."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d249e35f-77ed-4cad-b13b-455536451042",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier of the invoice that should be patched."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e1e7465-d99a-422b-b775-3a0bd490ebc9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "invoices",
+                    ":invoiceNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceNumber",
+                      "description": "(Required) The unique identifier of the invoice that should be patched."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "94496ca3-654c-4ee9-8233-c4a4beb084cd",
+    "name": "Companies AI Embed Invoice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

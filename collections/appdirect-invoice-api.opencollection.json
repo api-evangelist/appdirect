@@ -1,0 +1,357 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Invoice API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all invoices for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/invoices",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company UUID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User UUID"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "excludeFree",
+                "value": "",
+                "type": "query",
+                "description": "Exclude invoices with no charges (free)"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Invoice status"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date"
+              }
+            ]
+          },
+          "docs": "List all of the invoices for the given user"
+        },
+        {
+          "info": {
+            "name": "List all invoices for a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/invoices",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "Company UUID"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "excludeFree",
+                "value": "",
+                "type": "query",
+                "description": "Exclude invoices with no charges (free)"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Invoice status"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date"
+              }
+            ]
+          },
+          "docs": "List all of the invoices for the given company"
+        },
+        {
+          "info": {
+            "name": "List All Invoice Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/invoices/:invoiceNumber/payments",
+            "params": [
+              {
+                "name": "invoiceNumber",
+                "value": "",
+                "type": "path",
+                "description": "Invoice number."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date."
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Payment method."
+              },
+              {
+                "name": "result",
+                "value": "",
+                "type": "query",
+                "description": "Payment result."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date."
+              }
+            ]
+          },
+          "docs": "List all payment data for an invoice"
+        },
+        {
+          "info": {
+            "name": "Pay an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/invoices/:invoiceNumber/payments",
+            "params": [
+              {
+                "name": "invoiceNumber",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice provided by the channel."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the invoice is unpaid, will process the payment and return the result. Will return an exception otherwise"
+        },
+        {
+          "info": {
+            "name": "List All Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/invoices",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "excludeFree",
+                "value": "",
+                "type": "query",
+                "description": "Exclude invoices with no charges."
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Invoice status."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date."
+              },
+              {
+                "name": "buyerRole",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices with purchases made by user with this role."
+              }
+            ]
+          },
+          "docs": "List all invoice data"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/invoices/:invoiceNumber",
+            "params": [
+              {
+                "name": "invoiceNumber",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice provided by the channel."
+              }
+            ]
+          },
+          "docs": "Read an invoice"
+        },
+        {
+          "info": {
+            "name": "Patch method to partially update an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/invoices/:invoiceNumber",
+            "params": [
+              {
+                "name": "invoiceNumber",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the invoice that should be patched."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Currently only used to void an invoice by updating the invoice status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

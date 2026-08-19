@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Payment Methods API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Methods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tokenize payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTokens",
+            "headers": [
+              {
+                "name": "AD-Public-Developer-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calls the payment gateway to validate the payment method, which is not yet associated with a user. A front-end should call this endpoint directly, not a back-end. Requires a public developer key (use the AD-Public-Developer-Key header), which you must obtain from AppDirect.\n"
+        },
+        {
+          "info": {
+            "name": "List payment methods for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user whose payment method you want to retrieve"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the company of which the user is a member"
+              }
+            ]
+          },
+          "docs": "Returns all available payment methods for the specified user in the specified company.\n"
+        },
+        {
+          "info": {
+            "name": "Create payment methods using a token OR by providing all of the payment method data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When using a token, the validated payment method is assigned to the current user on the current marketplace. When providing all of the payment method data, the payment gateway is called, and the payment method is validated and assigned to the user.\n"
+        },
+        {
+          "info": {
+            "name": "Delete payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/:paymentMethodId",
+            "params": [
+              {
+                "name": "paymentMethodId",
+                "value": "",
+                "type": "path",
+                "description": "The Payment Method ID"
+              }
+            ]
+          },
+          "docs": "The payment method is deleted from the system and cannot be used anymore.\n"
+        },
+        {
+          "info": {
+            "name": "List default payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user whose default payment method you want to retrieve"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the company of which the user is a member"
+              }
+            ]
+          },
+          "docs": "Returns the default payment methods for the specified user in the specified company\n"
+        },
+        {
+          "info": {
+            "name": "Set default payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethods/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets a default payment method for the specified user\n"
+        },
+        {
+          "info": {
+            "name": "Returns all supported Payment Method Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTypes"
+          },
+          "docs": "Returns all supported Payment Method Types. These are the only types of payment method that can be created.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

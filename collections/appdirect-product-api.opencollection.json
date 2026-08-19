@@ -1,0 +1,378 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Product API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve buyable products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/applications",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number. Defaults to 0."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of products to return. The default is 20."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The field by which to sort results. The default is NAME. RATING: Sort by the rating in descending order. POPULARITY: Sort by product popularity, from most to least popular. Popularity is calculated from the number of purchases. NEWEST_FIRST: Sort by product creation date/time. NAME: Sort by the product name in alphabetic order."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, either ASC (ascending) or DESC (descending). The default is ASC."
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text."
+              },
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "query",
+                "description": "Product category IDs. If specified, only products belonging to these categories are returned."
+              }
+            ]
+          },
+          "docs": "Retrieve all products in the production catalog, including products that are not marked as visible on either the marketplace or network."
+        },
+        {
+          "info": {
+            "name": "Retrieve a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/products/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "Application ID"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Specify the locale context. Supports both web standard ISO format with hyphen (en-US) and Java standard format with underscore (en_US)"
+              }
+            ]
+          },
+          "docs": "This request returns all details about a specific product on your marketplace. The product in the response contains invisible editions if you are using OAuth to access the endpoint and the current user has either a Marketplace Manager role or a Sales Support role.</br>Maximum of 5 requests per second per caller.</br>To receive language-specific content in your response, ensure that your marketplace supports the specified language. Also ensure that you have a version of your product in the specif"
+        },
+        {
+          "info": {
+            "name": "List all products by vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/vendors/:vendorUuid/products",
+            "params": [
+              {
+                "name": "vendorUuid",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vendor company"
+              }
+            ]
+          },
+          "docs": "Lists all products offered by the specified vendor. On the product profile page, the results appear in the Related Products list, in ascending order by product ID. To retrieve the vendor ID, use the [List all companies](#list-all-companies) endpoint (vendor companies have the \"vendor\" property set to \"true\")."
+        },
+        {
+          "info": {
+            "name": "Retrieve a product status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/products/:applicationId/status",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "Application id"
+              }
+            ]
+          },
+          "docs": "This call returns the status of a product on your marketplace."
+        },
+        {
+          "info": {
+            "name": "List all product recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/products/:applicationId/recommendations",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "Application id"
+              }
+            ]
+          },
+          "docs": "This call lists all  products that other customers have bought in addition to the one specified.\nReturns recommendations for additional purchases (currently simply returning what others who have bought the product have also bought).\nThis may be augmented later to include additional recommendation strategies but always in the context of a single product"
+        },
+        {
+          "info": {
+            "name": "List all products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/listing",
+            "params": [
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "Only return products for these attribute ids"
+              },
+              {
+                "name": "approvalAfter",
+                "value": "",
+                "type": "query",
+                "description": "Search products published after this date in milliseconds"
+              },
+              {
+                "name": "approvalBefore",
+                "value": "",
+                "type": "query",
+                "description": "Search products published before this date in milliseconds"
+              },
+              {
+                "name": "publishedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Filter products last modified after this date (epoch milliseconds). Use with publishedBefore to define a date range."
+              },
+              {
+                "name": "publishedBefore",
+                "value": "",
+                "type": "query",
+                "description": "Filter products last modified before this date (epoch milliseconds). Use with publishedAfter to define a date range."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Only return products for these categories"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Limit number of products returned"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Only return products for these characteristics"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "Only return products for these sub category ids"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              },
+              {
+                "name": "pl",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search on different fields of an product"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start to return product after this offset"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Only return product for these product types"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Only return products for the specified vendor IDs"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Specify the locale context"
+              }
+            ]
+          },
+          "docs": "This call lists products based on specific parameters such as attribute, category, date, or type."
+        },
+        {
+          "info": {
+            "name": "List all add-on products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/marketplace/v1/addons",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (0-based). Combined with count, start + count is capped at 10,000."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of add-ons to return per page. Defaults to 50; capped at 500. Clients performing bulk synchronisation should opt in to a larger page size explicitly (e.g. count=500)."
+              },
+              {
+                "name": "parentProductId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent product numeric ID. Mutually exclusive with parentProductUuid."
+              },
+              {
+                "name": "parentProductUuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent product UUID. Mutually exclusive with parentProductId."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code, forwarded to product display logic"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code, forwarded to product display logic"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Locale (e.g. en_US). Falls back to the channel default if not specified."
+              }
+            ]
+          },
+          "docs": "Lists add-on products visible on the current marketplace. An \"add-on\" is a separate catalog product linked to a parent product via an AppAssociation of type ADDON. Each entry contains the full add-on product payload (same shape as a /listing entry) plus a reference to the parent product. The `parentProductId` and `parentProductUuid` parameters are mutually exclusive — supplying both returns 400 Bad Request."
+        },
+        {
+          "info": {
+            "name": "Read staging catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/stagingCatalog",
+            "params": [
+              {
+                "name": "appStatus",
+                "value": "",
+                "type": "query",
+                "description": "The status of the application, optional."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number. Optional, defaults to 0."
+              },
+              {
+                "name": "productType",
+                "value": "",
+                "type": "query",
+                "description": "The product type, optional."
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "The search text, optional."
+              },
+              {
+                "name": "vendorUuid",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the vendor company"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of application returned. Optional, defaults to 20."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "The order. Optional, default to ascending."
+              },
+              {
+                "name": "sortProperty",
+                "value": "",
+                "type": "query",
+                "description": "The sort field. Optional, defaults to the creation date of the application."
+              }
+            ]
+          },
+          "docs": "This call lists all products in the Staging Catalog of your marketplace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

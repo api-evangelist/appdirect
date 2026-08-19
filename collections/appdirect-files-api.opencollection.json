@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Files API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List files in a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId/files",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all files associated with the specified chat session."
+        },
+        {
+          "info": {
+            "name": "Upload a file to a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId/files",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "source",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a file that can be referenced in messages sent to this chat. Max file size: 5MB. After uploading, use the returned file ID to reference it in the prompt field using ComplexMessageContent."
+        },
+        {
+          "info": {
+            "name": "Create a file record or upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/files",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint supports two modes: 1) Create a file record with metadata (application/json), or 2) Upload a file directly (multipart/form-data). When creating a record, you'll need to upload the actual file separately. When uploading directly, the file is uploaded immediately."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

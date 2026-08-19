@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Reporting V2 API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/reporting/v2/reports",
+            "params": [
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "query",
+                "description": "The owner type that is allowed access to the reports"
+              },
+              {
+                "name": "reportName",
+                "value": "",
+                "type": "query",
+                "description": "Filter reports by name"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Time bound for filtering reports based on the from_date and to_date fields. Use gte([Unix timestamp]) for a lower bound (inclusive) or lte([Unix timestamp]) for an upper bound (inclusive). The timestamp must be in milliseconds."
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the requested result. The first page has index 1"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The page size of the requested result"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Show only reports whose names contain this text"
+              }
+            ]
+          },
+          "docs": "Lists all reports generated from your marketplace."
+        },
+        {
+          "info": {
+            "name": "Download a report file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/reporting/v2/reports/:reportUuid",
+            "params": [
+              {
+                "name": "reportUuid",
+                "value": "",
+                "type": "path",
+                "description": "Report UUID"
+              }
+            ]
+          },
+          "docs": "Download an individual report"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

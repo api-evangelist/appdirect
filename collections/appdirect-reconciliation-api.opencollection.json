@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Reconciliation API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reconciliation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve ledger lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/reconciliation/ledgerLines",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Currently only supported value is 'RESELLER_MANAGER'"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to be returned in the result. Default value is 1"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Size of the page to be returned. Default value is 50, maximum allowed is 250"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sorting is done against 'reconciliationDate'. Defaults to sorting in ascending order"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters ledger lines from given date. Filtering is performed against the reconciliation date of the ledger line. The parameter represents milliseconds since epoch date, but only the date part is taken into account. The time component is ignored"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters ledger lines until given date. Filtering is performed against the reconciliation date of the ledger line. The parameter represents milliseconds since epoch date, but only the date part is taken into account. The time component is ignored"
+              },
+              {
+                "name": "reconciliationType",
+                "value": "",
+                "type": "query",
+                "description": "Filters by ledger line reconciliation type"
+              },
+              {
+                "name": "operationType",
+                "value": "",
+                "type": "query",
+                "description": "Filters by ledger line operation type"
+              }
+            ]
+          },
+          "docs": "Retrieve ledger lines generated for a specific role. Example, retrieve all ledger lines that a reseller manager has against all resellers"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

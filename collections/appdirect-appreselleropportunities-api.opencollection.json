@@ -1,0 +1,643 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerOpportunities API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerOpportunities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List opportunities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's user ID"
+              },
+              {
+                "name": "ownerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's company ID, which defines which company owns opportunities. This is an optional filter to only return opportunities that the sale's agent's company owns. Only valid for Marketplace Manager, Reseller Manager, Partner, and Partner Read roles (invalid for Reseller and SSR roles because they can only see opportunities owned by their company). No opportunities are returned when the call is filtered by a company ID for which the user does not have access."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Customer's user ID"
+              },
+              {
+                "name": "customerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Customer's company ID"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Optional. For Marketplace Manager, Partner, and Partner Read roles, filter the returned opportunities by those owned by SSRs or Resellers."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Opportunity status"
+              },
+              {
+                "name": "purchaseEffectiveDate",
+                "value": "",
+                "type": "query",
+                "description": "Opportunity purchase effective date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; or lte([timestamp]) - 'less than or equal to'"
+              },
+              {
+                "name": "createdOn",
+                "value": "",
+                "type": "query",
+                "description": "Opportunity creation date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; or lte([timestamp]) - 'less than or equal to'"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "General text search filter used for any ID (opportunity, sales agent, sales agent company, customer, or customer company) and opportunity name"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of opportunities. Returned opportunities are limited to role visibility: \n Marketplace Manager, Partner, Partner Read: all opportunities. \n Reseller Manager: all opportunities owned by Reseller companies. \n Reseller, SSR: all opportunities owned by the company to which the Reseller or SSR belongs. \n When users have multiple roles, visibility is the sum of visibility for all their roles. \n Additional filter parameters are available for some roles.\n\nRequired: Accept-Language header"
+        },
+        {
+          "info": {
+            "name": "Create opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Parameter has no impact on this endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Remove opportunities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is required. The parameter lists the opportunity IDs."
+              }
+            ]
+          },
+          "docs": "Removes a list of opportunities\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Get opportunity details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Read an opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Update opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing opportunity: name, purchase effective date and purchase custom attributes\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "List items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/items",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Lists all items in an opportunity.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Add items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/items",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add one or more items to an opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Edit item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/items/:itemId",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit an item on the opportunity.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Remove item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/items/:itemId",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Item ID"
+              }
+            ]
+          },
+          "docs": "Removes an item from the opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Finalize opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v2/opportunities/:opportunityId/finalize",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Finalize an opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Request opportunity review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/requestReview",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Submit the opportunity to the manager for review. After it is submitted, the sales agent cannot modify the opportunity. Managers can still modify and finalize it.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Get opportunity summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/summary",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Read the pricing summary of an opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Get opportunity pricing plan costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/pricingPlanCosts",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              },
+              {
+                "name": "pricingPlanId",
+                "value": "",
+                "type": "query",
+                "description": "Pricing plan ID"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Opportunity currency, using the ISO-4217 currency code"
+              }
+            ]
+          },
+          "docs": "Read initial costs for a pricing plan of an opportunity item.\n\n'Required: Accept-Language' header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Get opportunity pricing plan costs without specifying an opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/pricingPlanCosts",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pricingPlanId",
+                "value": "",
+                "type": "query",
+                "description": "Pricing plan ID"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's user ID"
+              },
+              {
+                "name": "ownerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's company ID"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Opportunity currency, using the ISO-4217 currency code"
+              }
+            ]
+          },
+          "docs": "Read initial costs for a pricing plan of an opportunity item without specifying an opportunity.\n\n'Required: Accept-Language' header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Change opportunity owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/owner",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the owner of an opportunity. When the owner changes, all products are removed from the opportunity.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Retrieve validation results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/validation",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              },
+              {
+                "name": "enforce",
+                "value": "",
+                "type": "query",
+                "description": "Indicates that a new validation must be executed and returned"
+              }
+            ]
+          },
+          "docs": "Retrieve the latest validation results for an opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Required field definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/items/requiredFields/definitions",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Customer's unique identifier"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Customer's company's unique identifier"
+              },
+              {
+                "name": "salesAgentUserId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's unique user identifier"
+              },
+              {
+                "name": "salesAgentCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Sales agent's company's unique identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For a customer/sales agent combination, returns the vendor-required fields for one or more products, and a description of the fields. Request can be made before or after an opportunity is created. It returns the fields that will be required, and any values previously saved on the AppDirect platform that can be prepopulated when an opportunity is created. It does not return required field values edited, added, or saved with an opportunity.\n\nSome vendors (for example, Microsoft) have business rule"
+        },
+        {
+          "info": {
+            "name": "Apply discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v2/opportunities/:opportunityId/applyDiscount",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a discount to an opportunity. More than one discount (one per call) can be applied to an opportunity. The response is an updated opportunity summary.\nThe discount is applied to all eligible products. However, redemption limits apply. When the redemption limits exceed the contents of the opportunity, the discount is not applied.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Remove discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v2/opportunities/:opportunityId/deleteDiscount",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a discount from an opportunity. The response is an updated opportunity summary.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Update required fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/items/requiredFields",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update required fields for all products from the same vendor on an opportunity, with identical required field values.\n\nWhen a vendor requires the same required fields for all products (also known as vendor 'cart level' required fields), the required field values must be identical for all the vendor's products on an opportunity. To ensure all values remain identical, always include the itemIds for all the vendor's products on the opportunity in the array, even if required field values are already"
+        },
+        {
+          "info": {
+            "name": "Get shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/shipping",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Retrieve the shipping address for the opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Create or replace shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/shipping",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or replace a shipping address for physical goods that require one on an opportunity. There is one shipping address per opportunity.\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Clone opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/:opportunityId/clone",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clone an existing opportunity\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,746 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed ShoppingCart API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ShoppingCart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts",
+            "params": [
+              {
+                "name": "buyerUserId",
+                "value": "",
+                "type": "query",
+                "description": "Buyer user ID"
+              },
+              {
+                "name": "buyerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Buyer user company ID"
+              },
+              {
+                "name": "ownerUserId",
+                "value": "",
+                "type": "query",
+                "description": "Owner user ID"
+              },
+              {
+                "name": "ownerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Owner company ID"
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "query",
+                "description": "Product ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Shopping cart status"
+              },
+              {
+                "name": "partner",
+                "value": "",
+                "type": "query",
+                "description": "Shopping cart partner (This field is not public to client)"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "1-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of results per page to return"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ]
+          },
+          "docs": "Returns all ACTIVE and FINISHED shopping carts"
+        },
+        {
+          "info": {
+            "name": "Create shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a shopping cart"
+        },
+        {
+          "info": {
+            "name": "Retrieve shopping cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified shopping cart"
+        },
+        {
+          "info": {
+            "name": "Update shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified shopping cart"
+        },
+        {
+          "info": {
+            "name": "Delete shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Deletes the specified shopping cart"
+        },
+        {
+          "info": {
+            "name": "Finalize shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/finalize",
+            "headers": [
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Returns requested shopping cart"
+        },
+        {
+          "info": {
+            "name": "Create and finalize shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/finalize",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              },
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates and finalizes a shopping cart in a single request"
+        },
+        {
+          "info": {
+            "name": "Retrieve cart associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/associations",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Returns the associations included in the shopping cart"
+        },
+        {
+          "info": {
+            "name": "Get cart pre-authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/preauth",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the payment pre-authorization for the specified cart."
+        },
+        {
+          "info": {
+            "name": "Retrieve shopping cart items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/items",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Returns all items included in the shopping cart"
+        },
+        {
+          "info": {
+            "name": "Add items to cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/items",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified item to the shopping cart"
+        },
+        {
+          "info": {
+            "name": "Retrieve cart item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/items/:itemId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Item ID"
+              }
+            ]
+          },
+          "docs": "Returns the specified shopping cart item"
+        },
+        {
+          "info": {
+            "name": "Update shopping cart item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/items/:itemId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified shopping cart item"
+        },
+        {
+          "info": {
+            "name": "Remove cart item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/items/:itemId",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Application ID"
+              }
+            ]
+          },
+          "docs": "Removes the specified item from the shopping cart"
+        },
+        {
+          "info": {
+            "name": "Delete cart items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/shoppingCarts/:shoppingCartId/items/delete",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the specified items from the shopping cart."
+        },
+        {
+          "info": {
+            "name": "Preview non-persisted carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/preview",
+            "headers": [
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              },
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a preview of the shopping cart with pricing summary information and a list of errors, if any"
+        },
+        {
+          "info": {
+            "name": "Preview shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/preview",
+            "headers": [
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Previews the specified, persisted shopping cart"
+        },
+        {
+          "info": {
+            "name": "Retrieve pricing summary (non-persisted shopping cart)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/pricingSummary",
+            "headers": [
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              },
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a pricing summary for the cart. The pricing summary includes the detailed and effective costs as well as the billing schedule and recurring charges. The effective cost indicates the price that the customer pays whereas the detailed cost provides the price sources used in the calculation of the effective cost. Prices are not prorated and tax is not included in the pricing summary."
+        },
+        {
+          "info": {
+            "name": "Retrieve pricing summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/pricingSummary",
+            "headers": [
+              {
+                "name": "AD-Timezone",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a pricing summary for the cart. The pricing summary includes the detailed and effective costs as well as the billing schedule and recurring charges. The effective cost indicates the price that the customer pays whereas the detailed cost provides the price sources used in the calculation of the effective cost. Prices are not prorated and tax is not included in the pricing summary."
+        },
+        {
+          "info": {
+            "name": "Validate non-persisted shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/validation",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Level of validation. Run PRE_FINALIZE validations before the shopping cart is finalized. Run PREVENT_FINALIZE and PREVENT_PROVISIONING at the time of finalization and provisioning respectively to prevent those operations if validation fails."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates and retrieves the validation summary of the specified shopping cart payload"
+        },
+        {
+          "info": {
+            "name": "Read validation summary for persisted shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/validation",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the validation summary for the specified shopping cart, but does not validate the cart. You must use the \"Validate persisted shopping carts\" request to generate a summary before you can use this request."
+        },
+        {
+          "info": {
+            "name": "Validate persisted shopping carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/validation",
+            "params": [
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Level of validation"
+              },
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Validates and retrieves the validation summary of the specified shopping cart"
+        },
+        {
+          "info": {
+            "name": "Remove cart discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/discounts/:discountCode",
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              },
+              {
+                "name": "discountCode",
+                "value": "",
+                "type": "path",
+                "description": "Discount code"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query",
+                "description": "Cart item IDs"
+              }
+            ]
+          },
+          "docs": "Deletes a discount by code from shopping cart items. To remove the discount from specific items only, send the item IDs as parameters. Otherwise, the discount will be removed from all items."
+        },
+        {
+          "info": {
+            "name": "Delete shopping cart fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/fees/:feeId",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              },
+              {
+                "name": "feeId",
+                "value": "",
+                "type": "path",
+                "description": "Fee UUID"
+              }
+            ]
+          },
+          "docs": "Removes fees from the specified cart"
+        },
+        {
+          "info": {
+            "name": "Create cart fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/fees",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a fee and applies it to the specified cart"
+        },
+        {
+          "info": {
+            "name": "Set accredited agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/accreditedAgents",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates an accredited Agent with the specified cart"
+        },
+        {
+          "info": {
+            "name": "Remove accredited agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/:shoppingCartId/accreditedAgents",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shoppingCartId",
+                "value": "",
+                "type": "path",
+                "description": "Shopping cart ID"
+              }
+            ]
+          },
+          "docs": "Removes the accredited agent from the specified cart"
+        },
+        {
+          "info": {
+            "name": "Send locked cart notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/notifyLockedCarts",
+            "headers": [
+              {
+                "name": "AD-ShoppingCart-Partner",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Finds all locked carts in ACTIVE status and sends approval request notifications for each one. Locked carts must be approved before they can be finalized."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,437 @@
+{
+  "item": [
+    {
+      "id": "b893d33b-9eb3-4048-913a-b202da86dfc6",
+      "name": "AppResellerCompanyAssociation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cdf45d9a-bee5-4a83-acb3-dab252e66b16",
+          "name": "Create company association",
+          "request": {
+            "name": "Create company association",
+            "description": {
+              "content": "Creates an association (link) between a customer company and a reseller company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companyAssociations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerCompanyId\": \"<string>\",\n  \"resellerCompanyId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9fff7816-f1ba-4eaa-a83d-2969765fca2d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companyAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerCompanyId\": \"<string>\",\n  \"resellerCompanyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"c39b8bcd-db7a-46d0-939f-facdeb1d6967\",\n  \"resellerCompany\": {\n    \"id\": \"0a69093c-0000-4f8d-0000-5e0000630000\",\n    \"name\": \"Reseller\"\n  },\n  \"customerCompany\": {\n    \"id\": \"0dc2860e-0000-40f7-0000-ef0000a30000\",\n    \"name\": \"Customer\"\n  },\n  \"createdOn\": 1531839782000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81ebe5b5-d0f6-4aa3-ba0a-c09b51308d6e",
+              "name": "Resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companyAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerCompanyId\": \"<string>\",\n  \"resellerCompanyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eaeb453d-0e92-42b1-b043-2d4439511545",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companyAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerCompanyId\": \"<string>\",\n  \"resellerCompanyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"code\": \"COMPANY_INACTIVE\",\n  \"message\": \"Acme is not an active company\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "023382fa-aa71-43e5-bb3c-9d0d96274428",
+          "name": "List company associations",
+          "request": {
+            "name": "List company associations",
+            "description": {
+              "content": "Retrieves all customer company associations. This request requires either the Reseller company ID or the Customer company ID, which you can retrieve with the [List companies](#list-companies) request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companyAssociations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resellerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) Reseller company ID. This field is required if you do not include the Customer company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) Customer company ID. This field is required if you do not include the Reseller company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search term used to search on different fields of the customer company association."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdOn",
+                  "value": "<string>",
+                  "description": "Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; or lte([timestamp]) - 'less than or equal to'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ce3a3dd-d9ec-480d-9053-a00fb99deff5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companyAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resellerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"c39b8bcd-db7a-46d0-939f-facdeb1d6967\",\n      \"resellerCompany\": {\n        \"id\": \"0a69093c-0000-4f8d-0000-5e0000630000\",\n        \"name\": \"Reseller1\"\n      },\n      \"customerCompany\": {\n        \"id\": \"0dc2860e-0000-40f7-0000-ef0000a30000\",\n        \"name\": \"Customer1\"\n      },\n      \"createdOn\": 1531839782000\n    },\n    {\n      \"id\": \"c39b8bcd-db7a-46d0-939f-facdeb1d6967\",\n      \"resellerCompany\": {\n        \"id\": \"0a69093c-0000-4f8d-0000-5000020000ef\",\n        \"name\": \"Reseller2\"\n      },\n      \"customerCompany\": {\n        \"id\": \"0dc2860e-0000-40f7-0000-e0000600000a\",\n        \"name\": \"Customer2\"\n      },\n      \"createdOn\": 1531839782000\n    }\n  ],\n  \"page\": {\n    \"size\": 10,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23ebb84a-7c97-4e94-b01b-aeadb7419b05",
+          "name": "Remove company association",
+          "request": {
+            "name": "Remove company association",
+            "description": {
+              "content": "Deletes a company association.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companyAssociations",
+                ":companyAssociationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyAssociationId",
+                  "description": "(Required) Company Association ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "961bd4b6-35fe-4d8e-be45-e1ba6743a2d5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companyAssociations",
+                    ":companyAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyAssociationId",
+                      "description": "(Required) Company Association ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0bbc750c-cf25-4982-87c8-53aca5cb0ab0",
+    "name": "Companies AI Embed AppResellerCompanyAssociation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,4189 @@
+{
+  "item": [
+    {
+      "id": "b215ecab-6733-41e0-a467-d4da0eb993db",
+      "name": "Tools",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c87fe240-f8d4-4099-9eb2-0c52455e9713",
+          "name": "List tools for the AI",
+          "request": {
+            "name": "List tools for the AI",
+            "description": {
+              "content": "Retrieves all tools associated with the specified AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "03fc103c-c5fb-4a61-b316-ba9e3a4a6a64",
+              "name": "List of tools for the AI.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3746a6bb-b617-457d-a013-ac773b4679ee",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6447c596-35a5-4817-b38b-e4436aa2d2f4",
+              "name": "AI not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7780ff4f-b931-433e-afc5-05112aa8312d",
+          "name": "Create a tool for the AI",
+          "request": {
+            "name": "Create a tool for the AI",
+            "description": {
+              "content": "Creates a new tool and associates it with the specified AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55aecdbc-2386-4912-88c2-44ca3c42684b",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e2f4b1a-3cc4-46bb-bac8-99512a42ab8a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b72b5fcc-704b-4e6b-8ec1-ebf47a2764d5",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "687262d0-60b6-4a0d-a06e-60bb019b15a9",
+          "name": "Get a tool for the AI",
+          "request": {
+            "name": "Get a tool for the AI",
+            "description": {
+              "content": "Retrieves details for a specific tool associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                ":toolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "f4f656c6-134f-4c2d-b24a-0d8fb46542c1",
+              "name": "Tool details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ae73d65-6f75-4ae8-b279-26d81f94b38c",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22f1dc2e-79c4-4daa-b59b-c2ac43ffe6e9",
+              "name": "AI or tool not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4c964fc-aa0e-4f36-a740-3f54abba6358",
+          "name": "Update a tool for the AI",
+          "request": {
+            "name": "Update a tool for the AI",
+            "description": {
+              "content": "Updates supported tool types (e.g., spreadsheet, web search).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                ":toolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f8a7355-52e3-4cc8-a885-4db54b6d417a",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ce59b8b-403b-40af-a543-3ebda40fc000",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1be212c6-81d4-44fb-a737-fc7c2be5ff15",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee328d30-b23c-4b49-ade3-dfdf4930a87f",
+          "name": "Delete a tool",
+          "request": {
+            "name": "Delete a tool",
+            "description": {
+              "content": "Deletes the specified tool from the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                ":toolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "5aab0767-a5dd-4d35-b070-390b1a8291b3",
+              "name": "Tool deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb984419-3b79-4204-b8c6-874388d519db",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cdf1483-cd8a-4642-b81e-2b366ebba92e",
+          "name": "List API function tools for the AI",
+          "request": {
+            "name": "List API function tools for the AI",
+            "description": {
+              "content": "Retrieves API function tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "api-function"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8e875c0a-794a-47a9-84ac-92b78136c675",
+              "name": "List of API function tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "api-function"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"2007-04-09T21:10:06.199Z\",\n      \"updatedAt\": \"1966-03-12T06:42:45.443Z\",\n      \"orgId\": \"string\",\n      \"userId\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"MCP_SERVER\",\n      \"data\": {},\n      \"orgTemplateUuid\": \"string\",\n      \"orgTemplateConfig\": {},\n      \"templateConfig\": {}\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1954-01-07T08:04:08.617Z\",\n      \"updatedAt\": \"2021-08-17T21:32:15.324Z\",\n      \"orgId\": \"string\",\n      \"userId\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"BROWSER\",\n      \"data\": {},\n      \"orgTemplateUuid\": \"string\",\n      \"orgTemplateConfig\": {},\n      \"templateConfig\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21632f63-2b6d-4273-83b9-891edb835b0f",
+              "name": "AI not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "api-function"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c658a6e-da51-4be9-8e27-ee949c4504ab",
+          "name": "Create an API function tool",
+          "request": {
+            "name": "Create an API function tool",
+            "description": {
+              "content": "Creates an API function tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "api-function"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d344ac35-03a6-420e-ba70-38199b9fc2c7",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "api-function"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8348590e-741d-477b-ba3a-d6ed559ff3ef",
+          "name": "Update an API function tool",
+          "request": {
+            "name": "Update an API function tool",
+            "description": {
+              "content": "Updates an API function tool associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                ":toolId",
+                "api-function"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e136795-cb1f-465b-894f-81bc6773aefa",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    ":toolId",
+                    "api-function"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42358cc0-f1c0-4a02-853e-33767ca08021",
+          "name": "Create a SQL tool",
+          "request": {
+            "name": "Create a SQL tool",
+            "description": {
+              "content": "Creates a SQL tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "sql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"databaseType\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"host\": \"<string>\",\n  \"database\": \"<string>\",\n  \"port\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70029898-b3ed-4b93-b08e-b8e3bdc908d7",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "sql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"databaseType\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"host\": \"<string>\",\n  \"database\": \"<string>\",\n  \"port\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42886c7f-e4de-4148-880d-1893c843d2bc",
+          "name": "List Python tools for the AI",
+          "request": {
+            "name": "List Python tools for the AI",
+            "description": {
+              "content": "Retrieves Python tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "python"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "985cda2f-36ef-4cc8-8d46-cc45981704cb",
+              "name": "List of Python tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "python"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cc548dd-cbe4-4341-9fee-e1cef639c6f0",
+          "name": "Create a Python tool",
+          "request": {
+            "name": "Create a Python tool",
+            "description": {
+              "content": "Creates a Python tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "python"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "6598bbda-7291-4258-9d29-de31609cd95b",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "python"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20d0e975-42d1-4294-8701-ca9a65817c6a",
+          "name": "List user input tools for the AI",
+          "request": {
+            "name": "List user input tools for the AI",
+            "description": {
+              "content": "Retrieves user input tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "user-input"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "5dffb54c-0ac8-4e5b-bdd7-c152222faef2",
+              "name": "List of user input tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "user-input"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b10c096-6df2-4921-ac2f-bc1d650cb0e9",
+          "name": "Create a user input tool",
+          "request": {
+            "name": "Create a user input tool",
+            "description": {
+              "content": "Creates a user input tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "user-input"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"textInput\": \"<boolean>\",\n  \"selectInput\": \"<boolean>\",\n  \"multiSelectInput\": \"<boolean>\",\n  \"confirmInput\": \"<boolean>\",\n  \"addressInput\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88f55301-5834-4cce-9bdf-f895376a5c6a",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "user-input"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"textInput\": \"<boolean>\",\n  \"selectInput\": \"<boolean>\",\n  \"multiSelectInput\": \"<boolean>\",\n  \"confirmInput\": \"<boolean>\",\n  \"addressInput\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "581c27e1-d487-413f-93b7-2775aea0aa67",
+          "name": "List knowledge retrieval tools for the AI",
+          "request": {
+            "name": "List knowledge retrieval tools for the AI",
+            "description": {
+              "content": "Retrieves knowledge retrieval tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "knowledge-retrieval"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "50811963-2489-44a5-ac26-ea80f077c81a",
+              "name": "List of knowledge retrieval tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "knowledge-retrieval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8740c3d9-2306-4fd2-afe1-54106e18e7e2",
+          "name": "Create a knowledge retrieval tool",
+          "request": {
+            "name": "Create a knowledge retrieval tool",
+            "description": {
+              "content": "Creates a knowledge retrieval tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "knowledge-retrieval"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"maxRetrievalTokens\": \"<integer>\",\n  \"maxRetrievalDocuments\": \"<integer>\",\n  \"queryExpansion\": \"<boolean>\",\n  \"alternateQueryCount\": \"<integer>\",\n  \"hyde\": \"<boolean>\",\n  \"rerank\": \"<boolean>\",\n  \"grade\": \"<boolean>\",\n  \"compress\": \"<boolean>\",\n  \"minRelevanceScore\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d14349cd-4c3c-4e4e-b755-3c7ed3247101",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "knowledge-retrieval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"maxRetrievalTokens\": \"<integer>\",\n  \"maxRetrievalDocuments\": \"<integer>\",\n  \"queryExpansion\": \"<boolean>\",\n  \"alternateQueryCount\": \"<integer>\",\n  \"hyde\": \"<boolean>\",\n  \"rerank\": \"<boolean>\",\n  \"grade\": \"<boolean>\",\n  \"compress\": \"<boolean>\",\n  \"minRelevanceScore\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7db598d-f503-467d-bc34-bbf9a8397ec9",
+          "name": "List image generation tools for the AI",
+          "request": {
+            "name": "List image generation tools for the AI",
+            "description": {
+              "content": "Retrieves image generation tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "image-generation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ae7d8637-02f1-460c-8a0f-788d9265ecf5",
+              "name": "List of image generation tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "image-generation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33753943-a381-4427-afbc-d1772120d4b1",
+          "name": "Create an image generation tool",
+          "request": {
+            "name": "Create an image generation tool",
+            "description": {
+              "content": "Creates an image generation tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "image-generation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"modelId\": \"<string>\",\n  \"samples\": \"<integer>\",\n  \"size\": \"<string>\",\n  \"aspectRatio\": \"<string>\",\n  \"quality\": \"<string>\",\n  \"style\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a5cde04-b963-4a7b-aad4-19688dd92292",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "image-generation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"samples\": \"<integer>\",\n  \"size\": \"<string>\",\n  \"aspectRatio\": \"<string>\",\n  \"quality\": \"<string>\",\n  \"style\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ed74312-f16c-4126-8166-ada3e6b71828",
+          "name": "List MCP server tools for the AI",
+          "request": {
+            "name": "List MCP server tools for the AI",
+            "description": {
+              "content": "Retrieves MCP server tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "mcp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "43515ecb-f3ee-42e0-aef1-cfa0f23e47d7",
+              "name": "List of MCP server tools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "mcp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-05-03T23:02:55.416Z\",\n    \"updatedAt\": \"1976-07-15T06:58:25.496Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"createdAt\": \"2019-02-25T01:04:37.275Z\",\n    \"updatedAt\": \"1954-04-06T08:22:58.054Z\",\n    \"orgId\": \"string\",\n    \"userId\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"API_FUNCTION\",\n    \"data\": {},\n    \"orgTemplateUuid\": \"string\",\n    \"orgTemplateConfig\": {},\n    \"templateConfig\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "994641ee-2ad5-4471-adad-e39747864102",
+          "name": "Create an MCP server tool",
+          "request": {
+            "name": "Create an MCP server tool",
+            "description": {
+              "content": "Creates an MCP server tool and associates it with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "mcp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"allTools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    }\n  ],\n  \"selectedTools\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c1b1172c-e5ea-4a8b-885c-d51bab93973b",
+              "name": "Tool created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "mcp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"allTools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    }\n  ],\n  \"selectedTools\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "caccef06-78cf-432b-9b3b-a26db3f49a7a",
+          "name": "List tool OAuth status for the AI",
+          "request": {
+            "name": "List tool OAuth status for the AI",
+            "description": {
+              "content": "Lists OAuth token status information for tools associated with the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "bbafd2f8-2117-4303-a8a9-97b5e582a950",
+              "name": "Tool OAuth status list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"scope\": \"string\",\n    \"expiresIn\": 8965,\n    \"issuedAt\": \"2017-10-03T22:25:10.587Z\"\n  },\n  {\n    \"name\": \"string\",\n    \"scope\": \"string\",\n    \"expiresIn\": 1595,\n    \"issuedAt\": \"1969-11-09T20:24:57.968Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd9ef17b-c43e-4fe0-96b4-00980ddaeb7f",
+          "name": "Reset tool OAuth tokens for the AI",
+          "request": {
+            "name": "Reset tool OAuth tokens for the AI",
+            "description": {
+              "content": "Deletes tool OAuth tokens for the AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "tools",
+                "auth",
+                "reset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [
+            {
+              "id": "20905f0e-3424-4588-851b-77ee16b68fcf",
+              "name": "OAuth tokens deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "tools",
+                    "auth",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59f9668b-61aa-421b-a48c-ef479bf664bc",
+          "name": "Get a tool",
+          "request": {
+            "name": "Get a tool",
+            "description": {
+              "content": "Retrieves a tool by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "a0d5ecc0-df89-4c1f-87f3-bb5dbf469f62",
+              "name": "Tool details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97585f14-c74b-46a0-9295-f2cbf95b4a48",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4d0f52b-b15b-4686-8caa-4ba3257a9cd2",
+              "name": "Tool not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93e3d5d8-8be2-4f0e-8462-7fe7c98c96de",
+          "name": "Delete a tool",
+          "request": {
+            "name": "Delete a tool",
+            "description": {
+              "content": "Deletes the specified tool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "603fd9f9-8ae9-42c4-8c59-ddeb692d1aff",
+              "name": "Tool deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a015555-dd06-4c61-a79f-6533c9ef1203",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1017a141-95b7-4e5c-82ed-a2715a48879f",
+          "name": "Update a SQL tool",
+          "request": {
+            "name": "Update a SQL tool",
+            "description": {
+              "content": "Updates the SQL tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "sql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"databaseType\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"host\": \"<string>\",\n  \"database\": \"<string>\",\n  \"port\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "339d8b15-d308-48d3-b3fb-4b9c5eddfc09",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "sql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"databaseType\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"host\": \"<string>\",\n  \"database\": \"<string>\",\n  \"port\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11f63884-cf80-466a-a96b-3b4b157851b7",
+          "name": "Update a user input tool",
+          "request": {
+            "name": "Update a user input tool",
+            "description": {
+              "content": "Updates the user input tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "user-input"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"textInput\": \"<boolean>\",\n  \"selectInput\": \"<boolean>\",\n  \"multiSelectInput\": \"<boolean>\",\n  \"confirmInput\": \"<boolean>\",\n  \"addressInput\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e0577ef-d2bb-427d-9e28-7424e75465d4",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "user-input"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"textInput\": \"<boolean>\",\n  \"selectInput\": \"<boolean>\",\n  \"multiSelectInput\": \"<boolean>\",\n  \"confirmInput\": \"<boolean>\",\n  \"addressInput\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f16dc98-d8e3-40d6-b4ee-835721c447a9",
+          "name": "Update a knowledge retrieval tool",
+          "request": {
+            "name": "Update a knowledge retrieval tool",
+            "description": {
+              "content": "Updates the knowledge retrieval tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "knowledge-retrieval"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"maxRetrievalTokens\": \"<integer>\",\n  \"maxRetrievalDocuments\": \"<integer>\",\n  \"queryExpansion\": \"<boolean>\",\n  \"alternateQueryCount\": \"<integer>\",\n  \"hyde\": \"<boolean>\",\n  \"rerank\": \"<boolean>\",\n  \"grade\": \"<boolean>\",\n  \"compress\": \"<boolean>\",\n  \"minRelevanceScore\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35a2b9df-3bf1-4da0-866e-006f5f275d26",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "knowledge-retrieval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"maxRetrievalTokens\": \"<integer>\",\n  \"maxRetrievalDocuments\": \"<integer>\",\n  \"queryExpansion\": \"<boolean>\",\n  \"alternateQueryCount\": \"<integer>\",\n  \"hyde\": \"<boolean>\",\n  \"rerank\": \"<boolean>\",\n  \"grade\": \"<boolean>\",\n  \"compress\": \"<boolean>\",\n  \"minRelevanceScore\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91b57cbf-0aa2-4245-b60e-64cadd3f1cec",
+          "name": "Update an image generation tool",
+          "request": {
+            "name": "Update an image generation tool",
+            "description": {
+              "content": "Updates the image generation tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "image-generation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"modelId\": \"<string>\",\n  \"samples\": \"<integer>\",\n  \"size\": \"<string>\",\n  \"aspectRatio\": \"<string>\",\n  \"quality\": \"<string>\",\n  \"style\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "767d86f8-92ab-4b6b-b085-b1c276e6f5e2",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "image-generation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"samples\": \"<integer>\",\n  \"size\": \"<string>\",\n  \"aspectRatio\": \"<string>\",\n  \"quality\": \"<string>\",\n  \"style\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f516c949-2ee6-4722-a250-a63e0945058a",
+          "name": "Update an MCP server tool",
+          "request": {
+            "name": "Update an MCP server tool",
+            "description": {
+              "content": "Updates the MCP server tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "mcp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"allTools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    }\n  ],\n  \"selectedTools\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "137e8e42-43cb-4a42-ac7e-cc46b49e399a",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "mcp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"allTools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    }\n  ],\n  \"selectedTools\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c3c8e1d-af1d-43d5-910c-6297184644f0",
+          "name": "Update an API function tool",
+          "request": {
+            "name": "Update an API function tool",
+            "description": {
+              "content": "Updates the API function tool configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "api-function"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "492be201-70dc-4dcf-a6e3-355cfb3c8887",
+              "name": "Tool updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "api-function"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiUrl\": \"<string>\",\n  \"schema\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"compressionEnabled\": \"<boolean>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"compressionConfiguration\": {\n    \"compressionModel\": \"<string>\",\n    \"compressionThreshold\": \"<integer>\",\n    \"compressionChunkSize\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2002-10-04T21:49:25.071Z\",\n  \"updatedAt\": \"1999-10-03T02:10:28.770Z\",\n  \"orgId\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"WEB_SEARCH\",\n  \"data\": {},\n  \"orgTemplateUuid\": \"string\",\n  \"orgTemplateConfig\": {},\n  \"templateConfig\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94259bbe-95ba-466c-a36f-64d5bec0f84b",
+          "name": "API function tool OAuth callback",
+          "request": {
+            "name": "API function tool OAuth callback",
+            "description": {
+              "content": "Handles OAuth callbacks for API function tools.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "api-function",
+                "callback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) Authorization code."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ff2dc4ba-2c59-4dc0-b319-5eb363e49687",
+              "name": "Callback handled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "api-function",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adf86d0f-4d26-4269-8e41-379b713662f9",
+          "name": "Get tool OAuth status",
+          "request": {
+            "name": "Get tool OAuth status",
+            "description": {
+              "content": "Checks whether a tool has an active OAuth token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "oauth-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "71e258a4-4ced-4dc9-9c34-a54c52dd873f",
+              "name": "OAuth status for the tool.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "oauth-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hasToken\": false,\n  \"scopes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6051737b-5b25-4df0-b649-f1d187c12259",
+          "name": "Delete a tool OAuth token",
+          "request": {
+            "name": "Delete a tool OAuth token",
+            "description": {
+              "content": "Revokes the OAuth token for the specified tool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "oauth-token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "e33b04e1-6002-453b-8d9e-aaa7b4c1434f",
+              "name": "Token deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "oauth-token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a077328-1d15-460c-a411-915d23edb055",
+          "name": "Initiate tool OAuth flow",
+          "request": {
+            "name": "Initiate tool OAuth flow",
+            "description": {
+              "content": "Generates an authorization URL for tool OAuth.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                ":toolId",
+                "oauth-initiate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "toolId",
+                  "description": "(Required) The identifier of the tool."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "f2e184dc-a391-4b4a-a967-d17d1e298e59",
+              "name": "Authorization URL generated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    ":toolId",
+                    "oauth-initiate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "toolId",
+                      "description": "(Required) The identifier of the tool."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a34a16d5-4d6c-4a27-b0f4-dd77e6023467",
+          "name": "Preview MCP server tools",
+          "request": {
+            "name": "Preview MCP server tools",
+            "description": {
+              "content": "Previews available tools from an MCP server or template.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tools",
+                "mcp",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"toolTemplateId\": \"<string>\",\n  \"toolId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "640a8b36-2d42-4028-badd-7c2d061e569b",
+              "name": "Preview results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tools",
+                    "mcp",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"orgToolTemplateId\": \"<string>\",\n  \"toolTemplateId\": \"<string>\",\n  \"toolId\": \"<string>\",\n  \"authenticationType\": \"<string>\",\n  \"authenticationData\": {\n    \"apiKey\": \"<string>\",\n    \"apiKeyAuthType\": \"<string>\",\n    \"customHeader\": [\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"header\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availableTools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<string>\"\n    }\n  ],\n  \"authenticationRequired\": true,\n  \"oauthDiscovery\": {},\n  \"requiresToolSave\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a243617e-4a5b-453b-b3d6-2d7eaa30bba9",
+    "name": "Companies AI Embed Tools API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

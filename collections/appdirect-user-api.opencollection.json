@@ -1,0 +1,425 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed User API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "First or last name of user"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of user"
+              },
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "query",
+                "description": "External ID of user"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "User name of user"
+              },
+              {
+                "name": "companyMembershipRole",
+                "value": "",
+                "type": "query",
+                "description": "If specified, returns only users with the specified role, one of the following values: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer)"
+              },
+              {
+                "name": "custom.customAttributeName",
+                "value": "",
+                "type": "query",
+                "description": "Accepts a notIn filter in the form of ?custom.customAttributeName=notIn(customAttributeValue1, customAttributeValue2, customAttributeValueN...) that excludes users with matching values. Before you can use the filter, you must first create \"Text\" type user custom attributes in the user interface. You can then specify the custom attribute name and values as customAttributeName and customAttributeValueN. See https://help.appdirect.com/appmarket/Default.htm#MarketplaceManager/MM-Setgscustui-create-attribs.html."
+              },
+              {
+                "name": "lastModified",
+                "value": "",
+                "type": "query",
+                "description": "The date on which the user was last modified, in UNIX Epoch milliseconds"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page to return"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The property to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              },
+              {
+                "name": "includeCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, user custom attributes are included in the API response. When set to false, user custom attributes are not included."
+              }
+            ]
+          },
+          "docs": "Retrieves all marketplace users"
+        },
+        {
+          "info": {
+            "name": "Activate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/inactiveUsers/:activationToken",
+            "params": [
+              {
+                "name": "activationToken",
+                "value": "",
+                "type": "path",
+                "description": "User's activation token, typically received via invitation emails"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Activate a marketplace user using its associated activation token."
+        },
+        {
+          "info": {
+            "name": "Read a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (ID or external ID) of the user"
+              },
+              {
+                "name": "includeCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, user custom attributes are included in the API response. When set to false, user custom attributes are not included."
+              }
+            ]
+          },
+          "docs": "Retrieves a marketplace user by ID or external ID. If you use the ID, you can omit a prefix or use 'id:' as the prefix. If you use the external ID, you must always specify the 'externalId:' prefix."
+        },
+        {
+          "info": {
+            "name": "Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user assigned by the AppDirect platform"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a marketplace user"
+        },
+        {
+          "info": {
+            "name": "Patch a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user assigned by the AppDirect platform"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update ('patch') one or more fields in the user details. This only adds or updates the values for the properties that you include in the call; all other properties, and data already saved for them, are ignored"
+        },
+        {
+          "info": {
+            "name": "Read reseller user company associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/rssrCompanyAssociations",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page to return"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The property to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              }
+            ]
+          },
+          "docs": "Reads a reseller user's company associations"
+        },
+        {
+          "info": {
+            "name": "Read user memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/memberships",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of membership to be requested "
+              },
+              {
+                "name": "includeUserCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included."
+              },
+              {
+                "name": "includeCompanyCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, company custom attributes will be included in the API response. When set to false, company custom attributes will not be included."
+              }
+            ]
+          },
+          "docs": "Retrieve a user's company memberships."
+        },
+        {
+          "info": {
+            "name": "Update last used company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/memberships/:companyUuid/current",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company to set as last used"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Update a marketplace user's last used company."
+        },
+        {
+          "info": {
+            "name": "Update user picture",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/picture",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace user’s profile picture.\nThis method expects a Content-Type request header with a value of “multipart/form-data”. The updated user resource is returned."
+        },
+        {
+          "info": {
+            "name": "Read user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/profile",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve profile information for a marketplace user."
+        },
+        {
+          "info": {
+            "name": "Update user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/profile",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "removeUnspecifiedCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "When true, custom attributes not included in the body will be removed from the user's profile. When false, custom attributes\nnot included in the body will remain in the user's profile, unmodified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace user's profile. Also marks user's checklist with profile as completed."
+        },
+        {
+          "info": {
+            "name": "Patch user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/profile",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "removeUnspecifiedCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "When true, custom attributes not included in the body will be removed from the user's profile. When false, custom attributes\nnot included in the body will remain in the user's profile, unmodified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace user's profile. Also marks user's checklist with profile as completed."
+        },
+        {
+          "info": {
+            "name": "Set a temporary password",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/users/:userUuid/temporaryPassword",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a temporary password for the given marketplace user.\nUser must be active and specified password must meet user's company password policy.\nEffective company is the last company used by the user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

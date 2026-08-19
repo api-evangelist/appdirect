@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AI Management API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AI Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/api/v1/api-keys",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates fields on the specified AI."
+        },
+        {
+          "info": {
+            "name": "Delete AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/api-keys",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI to delete."
+              }
+            ]
+          },
+          "docs": "Deletes the specified AI."
+        },
+        {
+          "info": {
+            "name": "Create New AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new AI specified by the given identifier."
+        },
+        {
+          "info": {
+            "name": "Import Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new agent from a portable AgentBundle. Tool secrets can be supplied via the secrets map. Skills are imported only when the caller has SKILLS WRITE permission; otherwise they are skipped with a warning. If the bundle model is unavailable, the first available model is substituted and a warning is returned."
+        },
+        {
+          "info": {
+            "name": "Get AI Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI whose details are to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves details of the AI specified by the given identifier."
+        },
+        {
+          "info": {
+            "name": "Export Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/export",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the agent to export."
+              },
+              {
+                "name": "includeDataSources",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include data sources in the export. Defaults to true."
+              },
+              {
+                "name": "dataSourceIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of specific data source IDs to include. When provided, only the listed data sources are exported."
+              }
+            ]
+          },
+          "docs": "Exports an agent and its configuration as a portable AgentBundle JSON document. Secrets are stripped from tool configurations and listed in requiredSecrets. Skills are included only when the caller has SKILLS READ permission. Organization-scoped callers can export agents in their org; instance-level callers can export across orgs."
+        },
+        {
+          "info": {
+            "name": "Approve an AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/approve",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI to be approved."
+              }
+            ]
+          },
+          "docs": "Marks an AI as approved by the organization."
+        },
+        {
+          "info": {
+            "name": "Revoke AI approval",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/revoke",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI whose approval is to be revoked."
+              }
+            ]
+          },
+          "docs": "Revokes the organization approval for an AI."
+        },
+        {
+          "info": {
+            "name": "Generate AI profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/generate-profile",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI."
+              }
+            ]
+          },
+          "docs": "Generates an AI profile based on existing AI data."
+        },
+        {
+          "info": {
+            "name": "Share an AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/share",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Shares the AI with the provided emails."
+        },
+        {
+          "info": {
+            "name": "List AIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/me/ai",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "The scope to filter results by"
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query",
+                "description": "The id of a group to filter results by"
+              },
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "query",
+                "description": "The id of a category to filter results by"
+              },
+              {
+                "name": "approvedByOrg",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by whether the AI has been approved by the organization."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search term"
+              }
+            ]
+          },
+          "docs": "List AIs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

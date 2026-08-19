@@ -1,0 +1,868 @@
+{
+  "item": [
+    {
+      "id": "16b723ba-36ab-463b-8072-6a1ed802cdaa",
+      "name": "AppResellerQuoteVersion",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "59fd760c-9216-4d45-9c62-9fa426edaecf",
+          "name": "Create quote version",
+          "request": {
+            "name": "Create quote version",
+            "description": {
+              "content": "Creates a quote version from a quote source\n\nRequired: Accept-Language header with Locale format. For example: en-US",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assistedSales",
+                "v1",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"createdBy\": {\n    \"id\": \"<string>\",\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"company\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"isReseller\": \"<boolean>\"\n    }\n  },\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7801b6f5-056f-4ff2-825b-68a836480297",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"createdBy\": {\n    \"email\": \"john.doe@acme.com\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"company\": {\n      \"name\": \"Acme Corp.\",\n      \"isReseller\": true\n    }\n  },\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e8801dc6-8c0f-4c0b-82bc-99c4ebfb5e8a\",\n  \"name\": \"API quote version\",\n  \"createdOn\": 1674590164842,\n  \"createdBy\": {\n    \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n    \"email\": \"customer@appdirect.com\",\n    \"firstName\": \"Customer FirstName\",\n    \"lastName\": \"Customer LastName\",\n    \"company\": {\n      \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n    }\n  },\n  \"status\": \"OPEN\",\n  \"ownerUser\": {\n    \"id\": \"a6cc4e69-74e0-47f4-b36d-215693f47165\",\n    \"email\": \"owner@appdirect.com\",\n    \"firstName\": \"Owner FirstName\",\n    \"lastName\": \"Owner LastName\",\n    \"company\": {\n      \"id\": \"05ba75d3-3637-4a7a-807d-f2cb66466348\"\n    }\n  },\n  \"customerUser\": {\n    \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n    \"email\": \"customer@appdirect.com\",\n    \"firstName\": \"Customer FirstName\",\n    \"lastName\": \"Customer LastName\",\n    \"company\": {\n      \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n    }\n  },\n  \"availableActions\": [\n    \"PRINT_PDF\",\n    \"EDIT_NAME\",\n    \"REQUEST_CUSTOMER_APPROVAL\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "928f06f3-5d50-4a61-9188-3faf3986200b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"createdBy\": {\n    \"email\": \"john.doe@acme.com\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"company\": {\n      \"name\": \"Acme Corp.\",\n      \"isReseller\": true\n    }\n  },\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"HTTP 401 Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "936db2bb-30a3-48e9-8932-725acb278d78",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"createdBy\": {\n    \"email\": \"john.doe@acme.com\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"company\": {\n      \"name\": \"Acme Corp.\",\n      \"isReseller\": true\n    }\n  },\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"No source found with the given ID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c076b794-e090-4400-a811-2ca910a0ebf1",
+          "name": "A list of quote versions",
+          "request": {
+            "name": "A list of quote versions",
+            "description": {
+              "content": "List quote versions based on a source type and ID\n\nRequired: Accept-Language header with Locale format. For example: en-US",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assistedSales",
+                "v1",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sourceId",
+                  "value": "<string>",
+                  "description": "The source ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceType",
+                  "value": "<string>",
+                  "description": "The source type of the quote version"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "The status of the quote version"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "The page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "first",
+                  "value": "<integer>",
+                  "description": "The number of results per page to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c5ef465-16a3-4e72-bc89-625d9cef4fea",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sourceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quotes\": [\n    {\n      \"id\": \"e8801dc6-8c0f-4c0b-82bc-99c4ebfb5e8a\",\n      \"displayId\": \"Q6201242\",\n      \"name\": \"API quote version\",\n      \"createdOn\": 1674590164842,\n      \"createdBy\": {\n        \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n        \"email\": \"jane.smith@company.com\",\n        \"firstName\": \"Jane\",\n        \"lastName\": \"Smith\",\n        \"company\": {\n          \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n        }\n      },\n      \"status\": \"OPEN\",\n      \"ownerUser\": {\n        \"id\": \"a6cc4e69-74e0-47f4-b36d-215693f47165\",\n        \"email\": \"john.doe@acme.com\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"company\": {\n          \"id\": \"05ba75d3-3637-4a7a-807d-f2cb66466348\"\n        }\n      },\n      \"customerUser\": {\n        \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n        \"email\": \"jane.smith@company.com\",\n        \"firstName\": \"Jane\",\n        \"lastName\": \"Smith\",\n        \"company\": {\n          \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n        }\n      },\n      \"availableActions\": [\n        \"PRINT_PDF\",\n        \"EDIT_NAME\",\n        \"REQUEST_CUSTOMER_APPROVAL\"\n      ]\n    },\n    {\n      \"id\": \"757d0f09-385c-41df-9781-d6df98584953\",\n      \"displayId\": \"Q5701241\",\n      \"name\": \"API quote version\",\n      \"createdOn\": 1674574349898,\n      \"createdBy\": {\n        \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n        \"email\": \"jane.smith@company.com\",\n        \"firstName\": \"Jane\",\n        \"lastName\": \"Smith\",\n        \"company\": {\n          \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n        }\n      },\n      \"status\": \"PENDING\",\n      \"ownerUser\": {\n        \"id\": \"a6cc4e69-74e0-47f4-b36d-215693f47165\",\n        \"email\": \"john.doe@acme.com\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"company\": {\n          \"id\": \"05ba75d3-3637-4a7a-807d-f2cb66466348\"\n        }\n      },\n      \"customerUser\": {\n        \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n        \"email\": \"jane.smith@company.com\",\n        \"firstName\": \"Jane\",\n        \"lastName\": \"Smith\",\n        \"company\": {\n          \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n        }\n      },\n      \"availableActions\": [\n        \"PRINT_PDF\",\n        \"EDIT_NAME\",\n        \"SHARE_LINK\",\n        \"REVOKE\"\n      ]\n    }\n  ],\n  \"pageInfo\": {\n    \"startCursor\": \"MA==\",\n    \"endCursor\": \"MA==\",\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": false\n  },\n  \"totalCount\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33a943b9-6cae-4070-b3ad-551815e9e74c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sourceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"HTTP 401 Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ec170de-fefc-4456-961e-a05aab5c3c9f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sourceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"No source found with the given ID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d8cba1b-1ee7-4af1-bc41-11c5ecf30e62",
+          "name": "Execute action on a quote version",
+          "request": {
+            "name": "Execute action on a quote version",
+            "description": {
+              "content": "Execute the action passed by the parameter on the quote version\n\nRequired: Accept-Language header with Locale format. For example: en-US\"",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assistedSales",
+                "v1",
+                "quotes",
+                ":quoteId",
+                "executeAction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quoteId",
+                  "description": "(Required) The ID of a quote version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "340083d3-2bd6-40d1-bcc0-43558c199dbc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId",
+                    "executeAction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"REQUEST_CUSTOMER_APPROVAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"757d0f09-385c-41df-9781-d6df98584953\",\n  \"name\": \"API quote version\",\n  \"createdBy\": {\n    \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n    \"company\": {\n      \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n    }\n  },\n  \"status\": \"PENDING\",\n  \"availableActions\": [\n    \"PRINT_PDF\",\n    \"EDIT_NAME\",\n    \"SHARE_LINK\",\n    \"REVOKE\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42f8af68-73a8-4666-86de-72f06f2d6e12",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId",
+                    "executeAction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"REQUEST_CUSTOMER_APPROVAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"HTTP 401 Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98aacbff-6829-4e59-9b1e-5c8ec6852100",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId",
+                    "executeAction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"REQUEST_CUSTOMER_APPROVAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"No quote found with the given ID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4523fe35-e928-4657-a31e-e8bcdaec86a1",
+          "name": "Get a quote version",
+          "request": {
+            "name": "Get a quote version",
+            "description": {
+              "content": "Get a quote version from a quote ID\n\nRequired: Accept-Language header with Locale format. For example: en-US",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assistedSales",
+                "v1",
+                "quotes",
+                ":quoteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quoteId",
+                  "description": "(Required) The ID of a quote version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d1f8b81-c96f-4eef-bd2c-94fff9ddd9a3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"757d0f09-385c-41df-9781-d6df98584953\",\n  \"displayId\": \"Q5701241\",\n  \"name\": \"API quote version\",\n  \"createdOn\": 1674574349898,\n  \"createdBy\": {\n    \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n    \"email\": \"jane.smith@company.com\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"company\": {\n      \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n    }\n  },\n  \"status\": \"OPEN\",\n  \"ownerUser\": {\n    \"id\": \"a6cc4e69-74e0-47f4-b36d-215693f47165\",\n    \"email\": \"john.doe@acme.com\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"company\": {\n      \"id\": \"05ba75d3-3637-4a7a-807d-f2cb66466348\"\n    }\n  },\n  \"customerUser\": {\n    \"id\": \"d17fee11-c6ce-4f9f-8fb6-9bc55d583699\",\n    \"email\": \"jane.smith@company.com\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"company\": {\n      \"id\": \"d9a6d470-c69a-4403-9355-5953ddcb9efb\"\n    }\n  },\n  \"currency\": \"USD\",\n  \"pricingTotals\": {\n    \"amountDueBeforeTax\": \"55.0000000000\",\n    \"amountDueAfterTax\": \"55.0000000000\",\n    \"taxSummary\": [],\n    \"recurringTotals\": [\n      {\n        \"billingCycle\": {\n          \"period\": \"MONTHLY\",\n          \"dayOfMonth\": 24\n        },\n        \"totalSalePrice\": \"55.0000000000\"\n      }\n    ]\n  },\n  \"items\": [\n    {\n      \"id\": \"166e0ce6-4309-4a16-ac9b-61bea7ce1cbc\",\n      \"product\": {\n        \"id\": \"fa776d2e-cda5-4256-9a27-125a0fe3f448\",\n        \"name\": \"Supported Product for Opportunity MVP\",\n        \"editionId\": \"b06358bc-cb63-45e6-87c7-19db9b0cf696\"\n      },\n      \"pricingPlan\": {\n        \"id\": \"19c06143-b21c-43c4-b236-eeca61512753\",\n        \"name\": \"Gold plan\"\n      },\n      \"pricing\": [\n        {\n          \"costType\": \"RECURRING_FLAT\",\n          \"description\": \"Gold plan\",\n          \"quantity\": \"1.0000000000\",\n          \"totalSalePrice\": \"55.0000000000\",\n          \"salePrice\": \"55.0000000000\"\n        },\n        {\n          \"costType\": \"INCLUDED\",\n          \"description\": \"Per User Fee Included\",\n          \"quantity\": \"1.0000000000\",\n          \"totalSalePrice\": \"0.0000000000\",\n          \"salePrice\": \"0.0000000000\"\n        }\n      ]\n    }\n  ],\n  \"quoteSource\": {\n    \"id\": \"1798fb8f-9f55-43f6-9f5e-4980467df9af\",\n    \"type\": \"OPPORTUNITY\"\n  },\n  \"availableActions\": [\n    \"PRINT_PDF\",\n    \"EDIT_NAME\",\n    \"REQUEST_CUSTOMER_APPROVAL\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40984eed-b6d0-4ea2-a5e6-544e09f894ef",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"HTTP 401 Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e7ee1a1-cf13-4160-9e9f-8208d5a195c3",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistedSales",
+                    "v1",
+                    "quotes",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The ID of a quote version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"No quote found with the given ID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "501c3a58-7dfa-4f5f-9e2e-8eca32353314",
+    "name": "Companies AI Embed AppResellerQuoteVersion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

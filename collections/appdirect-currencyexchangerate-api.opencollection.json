@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed CurrencyExchangeRate API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CurrencyExchangeRate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read all Currency Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/exchangeRates",
+            "params": [
+              {
+                "name": "baseCurrency",
+                "value": "",
+                "type": "query",
+                "description": "The base currency filter. Optional."
+              },
+              {
+                "name": "counterCurrency",
+                "value": "",
+                "type": "query",
+                "description": "The counter currency filter. Optional."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number. Optional."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of application returned by page. Optional."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The order field. Optional."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "The sort direction. Optional."
+              }
+            ]
+          },
+          "docs": "Retrieve all of the current and historical exchange rates set on the marketplace."
+        },
+        {
+          "info": {
+            "name": "Create new Currency Exchange Rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/exchangeRates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Define a new exchange rate to be used when custom metered usage is reported to your marketplace by a Developer in a currency that isn't supported by your marketplace. This enables you to invoice your customers in your marketplace currency, even though a Developer's external price list for metered usage charges (like Amazon Web Services) might be in a different currency."
+        },
+        {
+          "info": {
+            "name": "Read a Currency Exchange Rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/exchangeRates/:currencyExchangeRateUuid",
+            "params": [
+              {
+                "name": "currencyExchangeRateUuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the currency exchange rate."
+              }
+            ]
+          },
+          "docs": "Retrieve the details of a specific Currency Exchange Rate."
+        },
+        {
+          "info": {
+            "name": "Deactivate a Currency Exchange Rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/exchangeRates/:currencyExchangeRateUuid",
+            "params": [
+              {
+                "name": "currencyExchangeRateUuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the currency exchange rate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deactivate a Currency Exchange Rate. To stop supporting currency exchange on your marketplace, deactivate a rate. This will prevent the exchange rate from being used to convert usage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

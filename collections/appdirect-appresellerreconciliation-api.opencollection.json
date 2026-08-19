@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerReconciliation API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerReconciliation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/reseller/v1/reconciliation/transfers",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves all transfers"
+        },
+        {
+          "info": {
+            "name": "Retrieve transfer details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/reseller/v1/reconciliation/transfers/:transferId",
+            "params": [
+              {
+                "name": "transferId",
+                "value": "",
+                "type": "path",
+                "description": "Transfer ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the summary of a transfer, which includes the date of the transfer, the transfer status, currency, net payable and net receivable"
+        },
+        {
+          "info": {
+            "name": "List transfer ledger lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/reseller/v1/reconciliation/transfers/:transferId/details",
+            "params": [
+              {
+                "name": "transferId",
+                "value": "",
+                "type": "path",
+                "description": "Transfer ID"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves the ledger lines of a transfer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

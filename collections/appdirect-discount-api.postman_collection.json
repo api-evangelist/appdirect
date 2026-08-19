@@ -1,0 +1,937 @@
+{
+  "item": [
+    {
+      "id": "8b2b85a1-286c-4be5-ba7b-bee533b705d5",
+      "name": "Discount",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76342715-11f7-4d94-8b01-bfed71947f27",
+          "name": "List all discounts",
+          "request": {
+            "name": "List all discounts",
+            "description": {
+              "content": "Lists all available discounts.\nThe parameters can be used to filter the results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "Discount code"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "CREATED_ON",
+                  "description": "Sort field. Default value is creation date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order. Default value is ascending."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>",
+                  "description": "First result index. Used for paging."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06c25d57-91e2-4211-a7c6-64e355a1091d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "CREATED_ON"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-Total-Count",
+                  "value": "3495",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 4,\n    \"uuid\": \"47055f26-ace6-4abe-87a6-ab64f4de80ce\",\n    \"code\": null,\n    \"redemptions\": 0,\n    \"maxRedemptions\": null,\n    \"createdOn\": 1480969138028,\n    \"startDate\": null,\n    \"expirationDate\": null,\n    \"type\": \"PERCENTAGE\",\n    \"percentage\": 70,\n    \"price\": null,\n    \"description\": \"SOMEDESCRIPTION\",\n    \"applicationName\": null,\n    \"applicationId\": null,\n    \"applicationUuid\": null,\n    \"editionId\": null,\n    \"editionUuid\": null,\n    \"paymentPlanId\": null,\n    \"paymentPlanUuid\": null,\n    \"autoApply\": true,\n    \"billingCycles\": null,\n    \"retainable\": false,\n    \"redemptionRestriction\": \"NONE\",\n    \"vendorSharePercentage\": null,\n    \"partnerSharePercentage\": null,\n    \"basePartnerSharePercentage\": null,\n    \"unit\": \"USER\",\n    \"minUnits\": 0,\n    \"maxUnits\": 0,\n    \"industryId\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6afd130f-0bf0-48b0-86a6-833403e590d8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "CREATED_ON"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "651b93eb-7a69-4fb0-93a4-3e49381132e8",
+          "name": "Create discounts",
+          "request": {
+            "name": "Create discounts",
+            "description": {
+              "content": "Creates a discount with the provided data. Note that percentage discounts cannot exceed two decimal places (for example, 10.15).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df87c8e8-35dc-49b5-a304-aeb7c475057d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"uuid\": \"17055f26-ace6-4abe-87a6-ab64f4de80ce\",\n  \"code\": null,\n  \"redemptions\": 0,\n  \"maxRedemptions\": null,\n  \"createdOn\": 1480969136160,\n  \"startDate\": null,\n  \"expirationDate\": null,\n  \"type\": \"PERCENTAGE\",\n  \"percentage\": 70,\n  \"price\": null,\n  \"description\": \"SOMEDESCRIPTION\",\n  \"applicationName\": null,\n  \"applicationId\": null,\n  \"applicationUuid\": null,\n  \"editionId\": null,\n  \"editionUuid\": null,\n  \"paymentPlanId\": null,\n  \"paymentPlanUuid\": null,\n  \"autoApply\": true,\n  \"billingCycles\": null,\n  \"retainable\": false,\n  \"redemptionRestriction\": \"NONE\",\n  \"vendorSharePercentage\": 50,\n  \"partnerSharePercentage\": 25,\n  \"basePartnerSharePercentage\": 25,\n  \"unit\": \"USER\",\n  \"minUnits\": 0,\n  \"maxUnits\": 0,\n  \"industryId\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "867284c1-3cf3-464d-afb1-f8c779ff8129",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "408b88f1-977c-46b2-9f2b-f686cf33faa2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44d54de1-7b76-4825-9a61-7707cf4f7996",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5a31959-7216-46fa-8e0d-ff30660eaccb",
+          "name": "Update discounts",
+          "request": {
+            "name": "Update discounts",
+            "description": {
+              "content": "Updates the specified discount with the provided data. Note that percentage discounts cannot exceed two decimal places (for example, 10.15).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "discounts",
+                ":discountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "discountId",
+                  "description": "(Required) Discount ID or Discount UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5acc4e84-5916-44c7-8e42-3bf63fb48c1b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5,\n  \"uuid\": \"57055f26-ace6-4abe-87a6-ab64f4de80ce\",\n  \"code\": null,\n  \"redemptions\": 0,\n  \"maxRedemptions\": null,\n  \"createdOn\": null,\n  \"startDate\": null,\n  \"expirationDate\": null,\n  \"type\": \"PERCENTAGE\",\n  \"percentage\": 50,\n  \"price\": null,\n  \"description\": \"SOMEDESCRIPTION\",\n  \"applicationName\": null,\n  \"applicationId\": null,\n  \"applicationUuid\": null,\n  \"editionId\": null,\n  \"editionUuid\": null,\n  \"paymentPlanId\": null,\n  \"paymentPlanUuid\": null,\n  \"autoApply\": true,\n  \"billingCycles\": null,\n  \"retainable\": false,\n  \"redemptionRestriction\": \"NONE\",\n  \"vendorSharePercentage\": 50,\n  \"partnerSharePercentage\": 25,\n  \"basePartnerSharePercentage\": 25,\n  \"unit\": \"USER\",\n  \"minUnits\": 0,\n  \"maxUnits\": 0,\n  \"industryId\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ba5a489-c3f4-48de-ba8f-94839ce9340e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c73928ec-2c8b-447b-a0ed-f506237f9113",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cceb4f99-26a8-46fd-935f-f33e183f7c6f",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": {\n    \"DiscountType\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"applicationId\": \"<number>\",\n  \"applicationUuid\": \"<string>\",\n  \"applicationName\": \"<string>\",\n  \"autoApply\": \"<boolean>\",\n  \"basePartnerSharePercentage\": \"<number>\",\n  \"billingCycles\": \"<number>\",\n  \"code\": \"<string>\",\n  \"createdOn\": \"<number>\",\n  \"editionId\": \"<number>\",\n  \"editionUuid\": \"<string>\",\n  \"expirationDate\": \"<number>\",\n  \"id\": \"<number>\",\n  \"uuid\": \"<string>\",\n  \"industryId\": \"<number>\",\n  \"maxRedemptions\": \"<number>\",\n  \"maxUnits\": \"<number>\",\n  \"minUnits\": \"<number>\",\n  \"partnerSharePercentage\": \"<number>\",\n  \"paymentPlanId\": \"<number>\",\n  \"paymentPlanUuid\": \"<string>\",\n  \"percentage\": \"<number>\",\n  \"price\": \"<number>\",\n  \"redemptionRestriction\": {\n    \"RedemptionRestriction\": \"<string>\"\n  },\n  \"redemptions\": \"<number>\",\n  \"retainable\": \"<boolean>\",\n  \"startDate\": \"<number>\",\n  \"unit\": \"<string>\",\n  \"vendorSharePercentage\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be556854-2dfa-41c4-983b-5a289ffd57a0",
+          "name": "Retrieve discounts",
+          "request": {
+            "name": "Retrieve discounts",
+            "description": {
+              "content": "Retrieves the discount for the given discount ID or UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "discounts",
+                ":discountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "discountId",
+                  "description": "(Required) Discount ID or Discount UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a40caf01-39ab-4b04-a57e-470cf1381969",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"uuid\": \"47055f26-ace6-4abe-87a6-ab64f4de80ce\",\n  \"code\": null,\n  \"redemptions\": 0,\n  \"maxRedemptions\": null,\n  \"createdOn\": 1480969138028,\n  \"startDate\": null,\n  \"expirationDate\": null,\n  \"type\": \"PERCENTAGE\",\n  \"percentage\": 70,\n  \"price\": null,\n  \"description\": \"SOMEDESCRIPTION\",\n  \"applicationName\": null,\n  \"applicationId\": null,\n  \"applicationUuid\": null,\n  \"editionId\": null,\n  \"editionUuid\": null,\n  \"paymentPlanId\": null,\n  \"paymentPlanUuid\": null,\n  \"autoApply\": true,\n  \"billingCycles\": null,\n  \"retainable\": false,\n  \"redemptionRestriction\": \"NONE\",\n  \"vendorSharePercentage\": null,\n  \"partnerSharePercentage\": null,\n  \"basePartnerSharePercentage\": null,\n  \"unit\": \"USER\",\n  \"minUnits\": 0,\n  \"maxUnits\": 0,\n  \"industryId\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d3bfc46-7616-43b8-b07e-b1aa84aef153",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cab7314a-9e3b-432f-a373-aaeefdbf74f9",
+          "name": "Delete discounts",
+          "request": {
+            "name": "Delete discounts",
+            "description": {
+              "content": "Deletes the discount with the specified discount ID or UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "discounts",
+                ":discountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "discountId",
+                  "description": "(Required) Discount ID or Discount UUID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f2b596c-6fbf-496b-830f-84bf188e6638",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01f37b80-b56e-4e07-b308-5342e15ca036",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "discounts",
+                    ":discountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "discountId",
+                      "description": "(Required) Discount ID or Discount UUID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "01346e91-66dc-4302-a162-e8ba764be024",
+    "name": "Companies AI Embed Discount API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

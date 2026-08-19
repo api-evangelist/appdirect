@@ -1,0 +1,682 @@
+{
+  "item": [
+    {
+      "id": "13cb0a00-0e8a-49af-862b-466801cf95c6",
+      "name": "DefaultNotificationTemplateApi",
+      "description": {
+        "content": "API endpoint to manage default notification templates (email and sms)\nWhen a partner have not customized a notification template, the default\ntemplate will be used to send notification to users if it exists for the\nrequired notification template type and required locale.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d561df8d-0950-421d-a1de-6049920c0439",
+          "name": "Read default notification templates available for the current channel.",
+          "request": {
+            "name": "Read default notification templates available for the current channel.",
+            "description": {
+              "content": "Read default notification templates available for the current channel.\nReserved for super support users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification",
+                "v1",
+                "templates",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f2caac5-b2c8-4fa0-a409-d48bd4e29fca",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"audience\": \"CHANNEL_ADMIN_WITHOUT_PARAM\",\n    \"category\": \"ACCOUNTS\",\n    \"generated\": false,\n    \"methods\": [\n      {\n        \"enabled\": false,\n        \"method\": \"SMS\"\n      },\n      {\n        \"enabled\": true,\n        \"method\": \"EMAIL\"\n      }\n    ],\n    \"reminder\": \"AFTER\",\n    \"required\": false,\n    \"type\": \"ACCOUNT_ACTIVATION_AFTER_MIGRATION\"\n  },\n  {\n    \"audience\": \"RESELLER\",\n    \"category\": \"ACCOUNTS\",\n    \"generated\": false,\n    \"methods\": [\n      {\n        \"enabled\": true,\n        \"method\": \"EMAIL\"\n      },\n      {\n        \"enabled\": false,\n        \"method\": \"EMAIL\"\n      }\n    ],\n    \"reminder\": \"BEFORE\",\n    \"required\": true,\n    \"type\": \"AZURE_SYNC_INVITE_NEW_USER\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1904547e-e21b-457b-8765-1f791dac7de2",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97694b0c-6f2c-4b07-b9a6-3d0c21f2df12",
+          "name": "Create or update a default common email template element.",
+          "request": {
+            "name": "Create or update a default common email template element.",
+            "description": {
+              "content": "Create or update a default common email template element",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification",
+                "v1",
+                "templates",
+                "default",
+                "common",
+                "email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"content\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"defaultCommonElement\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c27e2581-bbe1-4bcc-a9e9-2d9165e68731",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "common",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"content\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"defaultCommonElement\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6481646f-e4de-4025-809b-292d4fcc2bbf",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "common",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"content\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"defaultCommonElement\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32b5a9c9-23f8-4106-a2ab-6840e75eca94",
+          "name": "Read default common email element by type.",
+          "request": {
+            "name": "Read default common email element by type.",
+            "description": {
+              "content": "Read default common email element by type",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification",
+                "v1",
+                "templates",
+                "default",
+                "common",
+                "email",
+                ":type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Notification common element type"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8311d748-63d8-4b08-94f4-fc909e460b30",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "common",
+                    "email",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Notification common element type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"content\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"defaultCommonElement\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef054b12-96dc-4d0a-b311-bc6801cf943a",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "common",
+                    "email",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Notification common element type"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a892a135-ea60-4396-8111-91bfffc24847",
+          "name": "Create or update default email template",
+          "request": {
+            "name": "Create or update default email template",
+            "description": {
+              "content": "Create or update default email template. Reserved for super support users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification",
+                "v1",
+                "templates",
+                "default",
+                "email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"defaultTemplate\": \"<boolean>\",\n  \"directSales\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"fallbackEmailTemplateId\": \"<number>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\",\n  \"reminderPattern\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e95ff38e-24c7-4d1e-bf40-b6bcc4b2f581",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"defaultTemplate\": \"<boolean>\",\n  \"directSales\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"fallbackEmailTemplateId\": \"<number>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\",\n  \"reminderPattern\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5236d069-5edb-4289-9c04-aa84c746a76e",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"defaultTemplate\": \"<boolean>\",\n  \"directSales\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"fallbackEmailTemplateId\": \"<number>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\",\n  \"reminderPattern\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10378e5c-6910-4c18-abbe-3358324b01c8",
+          "name": "Read default email template by type",
+          "request": {
+            "name": "Read default email template by type",
+            "description": {
+              "content": "Read default email template by type. Reserved for super support user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification",
+                "v1",
+                "templates",
+                "default",
+                "email",
+                ":type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Email template type"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f806a70f-4665-4e65-84ba-67b7aebc535f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "email",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Email template type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"defaultTemplate\": \"<boolean>\",\n  \"directSales\": \"<boolean>\",\n  \"enabled\": \"<boolean>\",\n  \"fallbackEmailTemplateId\": \"<number>\",\n  \"id\": \"<number>\",\n  \"partner\": \"<string>\",\n  \"reminderPattern\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7c3aadb-edb3-43f5-8a86-2f44ba15b228",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification",
+                    "v1",
+                    "templates",
+                    "default",
+                    "email",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Email template type"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2431996a-f9ee-482b-9292-ab2447791586",
+    "name": "Companies AI Embed DefaultNotificationTemplateApi API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

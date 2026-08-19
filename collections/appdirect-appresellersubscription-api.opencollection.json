@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerSubscription API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerSubscription",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptions",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported billing contexts"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "For RESELLER, the customer's user ID; for RESELLER_MANAGER, the Reseller's user ID"
+              },
+              {
+                "name": "resellerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Reseller's company ID"
+              },
+              {
+                "name": "customerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "User's company ID. Required only for RESELLER context"
+              },
+              {
+                "name": "createdOn",
+                "value": "",
+                "type": "query",
+                "description": "Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; gt([timestamp]) - 'greater than'; lte([timestamp]) - 'less than or equal to'; or lt([timestamp]) - 'less than.'"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Subscription status. Acceptable values are: [status] - 'equal to'; or in([status1],[status2]) - 'status in the list'. For example, status=FAILED or status=in(FAILED,ACTIVE)"
+              },
+              {
+                "name": "paidStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of the subscription related to the payment"
+              },
+              {
+                "name": "pending",
+                "value": "",
+                "type": "query",
+                "description": "Indicates whether subscription has pending events"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              }
+            ]
+          },
+          "docs": "Note: This endpoint is being deprecated. // Retrieves a list of all user subscriptions of a linked company. You can filter the list using optional query parameters."
+        },
+        {
+          "info": {
+            "name": "Create subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note: This endpoint is being deprecated. // Create a new subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company"
+        },
+        {
+          "info": {
+            "name": "Subscription details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ]
+          },
+          "docs": "Note: This endpoint is being deprecated. // Read a subscription by ID"
+        },
+        {
+          "info": {
+            "name": "Update subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note: This endpoint is being deprecated. // Upgrade or downgrade a subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company.<br/>When you upgrade or downgrade subscriptions, you must provide both the paymentPlanId and the orderLines objects in the request even if the units are not changing."
+        },
+        {
+          "info": {
+            "name": "Cancel subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ]
+          },
+          "docs": "Note: This endpoint is being deprecated. // Cancel a subscription on behalf of a user who is a member of a company linked to the current reseller"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

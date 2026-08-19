@@ -1,0 +1,1030 @@
+{
+  "item": [
+    {
+      "id": "1b5f114a-b438-4fe7-a75b-17a2c6af2f64",
+      "name": "AppResellerSubscription",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3aa32d01-8879-4fa5-be8d-a0b86e5b4836",
+          "name": "Create subscription",
+          "request": {
+            "name": "Create subscription",
+            "description": {
+              "content": "Note: This endpoint is being deprecated. // Create a new subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetCompanyId\": \"<string>\",\n  \"targetUserId\": \"<string>\",\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": \"<string>\",\n  \"parentSubscriptionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9160bcb-fbdd-4688-91ce-d0ebd7580c59",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetCompanyId\": \"<string>\",\n  \"targetUserId\": \"<string>\",\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": \"<string>\",\n  \"parentSubscriptionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"activeOrder\": {\n    \"id\": \"1553\",\n    \"paymentPlanId\": \"30ccf1e7-1937-40cb-8e73-851a226fd4ea\",\n    \"status\": \"PENDING MANUAL RECOVERY\",\n    \"frequency\": \"One Time\",\n    \"totalFee\": \"USD350.00\",\n    \"editionName\": \"Edition\",\n    \"orderLines\": [\n      {\n        \"unit\": \"USER\",\n        \"quantity\": \"1\"\n      }\n    ],\n    \"createdOn\": 1529083173000\n  },\n  \"company\": {\n    \"id\": \"698555fc-bc65-4163-9fee-16308edec41b\",\n    \"name\": \"Company A\"\n  },\n  \"user\": {\n    \"id\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n    \"firstName\": \"Michael\",\n    \"lastName\": \"Jordan\"\n  },\n  \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n  \"pendingEvent\": \"SUBSCRIPTION_CHANGE\",\n  \"status\": \"ACTIVE\",\n  \"createdOn\": 1529083173000,\n  \"referenceCode\": \"bundle09\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2766be35-3fca-410a-9cf1-3eb302ff3d3e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetCompanyId\": \"<string>\",\n  \"targetUserId\": \"<string>\",\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": \"<string>\",\n  \"parentSubscriptionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3349935d-9c64-4ffb-988f-a2c84305161a",
+              "name": "Subscription already created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetCompanyId\": \"<string>\",\n  \"targetUserId\": \"<string>\",\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": \"<string>\",\n  \"parentSubscriptionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3053a112-c149-4739-a9d4-12140369ec2d",
+          "name": "List subscriptions",
+          "request": {
+            "name": "List subscriptions",
+            "description": {
+              "content": "Note: This endpoint is being deprecated. // Retrieves a list of all user subscriptions of a linked company. You can filter the list using optional query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported billing contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "For RESELLER, the customer's user ID; for RESELLER_MANAGER, the Reseller's user ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "resellerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) Reseller's company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) User's company ID. Required only for RESELLER context"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdOn",
+                  "value": "<string>",
+                  "description": "Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; gt([timestamp]) - 'greater than'; lte([timestamp]) - 'less than or equal to'; or lt([timestamp]) - 'less than.'"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Subscription status. Acceptable values are: [status] - 'equal to'; or in([status1],[status2]) - 'status in the list'. For example, status=FAILED or status=in(FAILED,ACTIVE)"
+                },
+                {
+                  "disabled": false,
+                  "key": "paidStatus",
+                  "value": "<string>",
+                  "description": "Status of the subscription related to the payment"
+                },
+                {
+                  "disabled": false,
+                  "key": "pending",
+                  "value": "<boolean>",
+                  "description": "Indicates whether subscription has pending events"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "272917b6-630d-4ed9-a445-1b8a10953359",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resellerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paidStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pending",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"activeOrder\": {\n        \"id\": \"1553\",\n        \"status\": \"PENDING MANUAL RECOVERY\",\n        \"frequency\": \"One Time\",\n        \"totalFee\": \"USD350.00\",\n        \"editionName\": \"Edition\",\n        \"createdOn\": 1529083173000\n      },\n      \"company\": {\n        \"id\": \"698555fc-bc65-4163-9fee-16308edec41b\",\n        \"name\": \"Company A\"\n      },\n      \"user\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"firstName\": \"Michael\",\n        \"lastName\": \"Jordan\"\n      },\n      \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n      \"pendingEvent\": \"SUBSCRIPTION_CHANGE\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": \"38e8bb4a-d737-4564-afee-e68edb00fd38\",\n      \"activeOrder\": {\n        \"id\": \"3345\",\n        \"status\": \"PENDING MANUAL RECOVERY\",\n        \"frequency\": \"One Time\",\n        \"totalFee\": \"USD350.00\",\n        \"editionName\": \"Recurring Edition\",\n        \"createdOn\": 1529083173000\n      },\n      \"company\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"name\": \"Company B\"\n      },\n      \"user\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"firstName\": \"Michael\",\n        \"lastName\": \"Jordan\"\n      },\n      \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n      \"pendingEvent\": \"SUBSCRIPTION_CHANGE\",\n      \"status\": \"ACTIVE\"\n    }\n  ],\n  \"page\": {\n    \"size\": 10,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9043c827-bbca-4416-b629-83dc52b63e2d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resellerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paidStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pending",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdacb194-fb2d-4c75-80c6-1b2d2d6f0c11",
+          "name": "Subscription details",
+          "request": {
+            "name": "Subscription details",
+            "description": {
+              "content": "Note: This endpoint is being deprecated. // Read a subscription by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) Subscription ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7c12c2d-0c18-4b19-88b6-e7c2adb53c99",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"activeOrder\": {\n    \"id\": \"1553\",\n    \"createdOn\": 1529083173000,\n    \"paymentPlanId\": \"30ccf1e7-1937-40cb-8e73-851a226fd4ea\",\n    \"status\": \"PENDING MANUAL RECOVERY\",\n    \"frequency\": \"One Time\",\n    \"totalFee\": \"USD350.00\",\n    \"editionName\": \"Edition\",\n    \"orderLines\": [\n      {\n        \"unit\": \"USER\",\n        \"quantity\": \"1\"\n      }\n    ]\n  },\n  \"company\": {\n    \"id\": \"698555fc-bc65-4163-9fee-16308edec41b\",\n    \"name\": \"Company A\"\n  },\n  \"user\": {\n    \"id\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n    \"firstName\": \"Michael\",\n    \"lastName\": \"Jordan\"\n  },\n  \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n  \"pendingEvent\": \"SUBSCRIPTION_CHANGE\",\n  \"status\": \"ACTIVE\",\n  \"createdOn\": 1529083173000,\n  \"referenceCode\": \"bundle09\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44af63ad-688c-4f22-93e0-063416a26200",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5277c656-a4d1-4f24-ae52-858164a9f96d",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5c28918-b495-4e74-9b7b-5366cbc8d4ff",
+          "name": "Update subscription",
+          "request": {
+            "name": "Update subscription",
+            "description": {
+              "content": "Note: This endpoint is being deprecated. // Upgrade or downgrade a subscription on behalf of a user who is a member of a marketplace company linked to the current reseller company.<br/>When you upgrade or downgrade subscriptions, you must provide both the paymentPlanId and the orderLines objects in the request even if the units are not changing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) Subscription ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": [\n    {\n      \"unit\": \"<string>\",\n      \"quantity\": \"<string>\"\n    },\n    {\n      \"unit\": \"<string>\",\n      \"quantity\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5b44210-287b-4075-8755-25ae93464050",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": [\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    },\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"activeOrder\": {\n    \"id\": \"1553\",\n    \"paymentPlanId\": \"30ccf1e7-1937-40cb-8e73-851a226fd4ea\",\n    \"status\": \"PENDING MANUAL RECOVERY\",\n    \"frequency\": \"One Time\",\n    \"totalFee\": \"USD350.00\",\n    \"editionName\": \"Edition\",\n    \"orderLines\": [\n      {\n        \"unit\": \"USER\",\n        \"quantity\": \"15\"\n      }\n    ],\n    \"createdOn\": 1529083173000\n  },\n  \"company\": {\n    \"id\": \"698555fc-bc65-4163-9fee-16308edec41b\",\n    \"name\": \"Company A\"\n  },\n  \"user\": {\n    \"id\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n    \"firstName\": \"Michael\",\n    \"lastName\": \"Jordan\"\n  },\n  \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n  \"pendingEvent\": \"SUBSCRIPTION_CHANGE\",\n  \"status\": \"ACTIVE\",\n  \"createdOn\": 1529083173000,\n  \"referenceCode\": \"bundle09\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d011052-d4f6-4fe8-9df7-2a28bf5e3a08",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": [\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    },\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "379d17cd-3fc4-48d7-bbd0-5743843c79e3",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": [\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    },\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19e1d696-7fc2-4195-afab-a96459f5acfd",
+              "name": "Subscription has a pending event and can't be updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentPlanId\": \"<string>\",\n  \"orderLines\": [\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    },\n    {\n      \"unit\": \"USER\",\n      \"quantity\": \"1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8d51f26-b348-4f62-a436-f23da02b2574",
+          "name": "Cancel subscription",
+          "request": {
+            "name": "Cancel subscription",
+            "description": {
+              "content": "Note: This endpoint is being deprecated. // Cancel a subscription on behalf of a user who is a member of a company linked to the current reseller",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) Subscription ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96248d73-c01b-47ed-b07b-1f87a63a6e1d",
+              "name": "Subscription not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eef8b73f-9d27-4897-983d-d1c7a5dc3fbb",
+              "name": "Subscription has a pending event and can't be deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) Subscription ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8638d819-68a1-4b02-9356-75ae3cd565bf",
+    "name": "Companies AI Embed AppResellerSubscription API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

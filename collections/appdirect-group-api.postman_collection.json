@@ -1,0 +1,2573 @@
+{
+  "item": [
+    {
+      "id": "d0c8e847-8812-444f-aed9-f275e0e3da51",
+      "name": "Group",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "40c8a1d9-0ce6-4bf2-a47f-4442d6addc6c",
+          "name": "List user groups",
+          "request": {
+            "name": "List user groups",
+            "description": {
+              "content": "Retrieve a marketplace company's user groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-based page index"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search term used to search groups names"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "createdOn",
+                  "description": "The property to sort by. Supported values are createdOn, name."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC",
+                  "description": "Ordering type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5e9182c-fddb-49bf-b5c0-8d5341aa6d3a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups?page=0&size=50&sortField=createdOn&sortOrder=DESC\"\n    }\n  ],\n  \"content\": [\n    {\n      \"uuid\": \"feff91cf-e5b3-4833-9ad2-47a8c3d4deeb\",\n      \"name\": \"new-group-1\",\n      \"description\": \"new-group-1-desc\",\n      \"memberCount\": 0,\n      \"companyDefault\": false,\n      \"systemManaged\": false,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/feff91cf-e5b3-4833-9ad2-47a8c3d4deeb\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/feff91cf-e5b3-4833-9ad2-47a8c3d4deeb/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"84d6c781-9290-461c-a18f-010791cb87ca\",\n      \"name\": \"Billing Admins\",\n      \"description\": \"All Billing Admin users\",\n      \"memberCount\": 20,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"b7c9099c-aff1-42a9-824c-7f8a7ee1ab93\",\n      \"name\": \"Resellers\",\n      \"description\": \"All Reseller users\",\n      \"memberCount\": 1,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b7c9099c-aff1-42a9-824c-7f8a7ee1ab93\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b7c9099c-aff1-42a9-824c-7f8a7ee1ab93/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"a7d34c49-a376-433b-af53-f51be1cf2038\",\n      \"name\": \"Developers\",\n      \"description\": \"All Developer users\",\n      \"memberCount\": 78,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"73f252d5-0dbe-4414-8384-edb7544b83b6\",\n      \"name\": \"Sales Support\",\n      \"description\": \"All Sales Support users\",\n      \"memberCount\": 13,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"b0cf07b9-9953-406f-ba64-b4ca239f30bf\",\n      \"name\": \"Product Support\",\n      \"description\": \"All Product Support users\",\n      \"memberCount\": 12,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"6d970a9e-a702-406f-808b-9483163efdd1\",\n      \"name\": \"Reseller Managers\",\n      \"description\": \"All Reseller Manager users\",\n      \"memberCount\": 2,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"70c65cb0-cbe5-447c-bdce-1d00e4d08f84\",\n      \"name\": \"Customer Support\",\n      \"description\": \"All Customer Support users\",\n      \"memberCount\": 12,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"9a79c98d-8e36-49ed-837c-cc9473dee851\",\n      \"name\": \"Marketplace Managers\",\n      \"description\": \"All Marketplace Managers\",\n      \"memberCount\": 9,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"74f7132f-8dd9-4b3a-8014-5aac81dc2c05\",\n      \"name\": \"Company Admins\",\n      \"description\": \"All Company Admin users\",\n      \"memberCount\": 14,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"5acdd82e-5cb7-4a23-b842-38d514aafcdf\",\n      \"name\": \"Everyone\",\n      \"description\": \"All company users\",\n      \"memberCount\": 88,\n      \"companyDefault\": true,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"56ac8abc-2b63-4b66-a648-dde419aa6c4a\",\n      \"name\": \"superuser-group\",\n      \"description\": \"superuser group\",\n      \"memberCount\": 2,\n      \"companyDefault\": false,\n      \"systemManaged\": false,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 12,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b18cad99-4be3-4f24-95fc-28a47805725c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ecfb86d0-c02c-4e2b-9b33-7ce52d5f8530",
+              "name": "Company not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Company with UUID=6b4bd452-895d-4098-aa56-e6046b238erf not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f631f9c2-de15-45d0-8c98-d827c5ff9dbb",
+          "name": "Create user group",
+          "request": {
+            "name": "Create user group",
+            "description": {
+              "content": "Create a user group for a marketplace company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89c645e7-ceb2-4428-896a-c82efda7404d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"HR\",\n  \"description\": \"Human Resources\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"7f097767-b808-4a6c-8837-3dc57f57103d\",\n  \"name\": \"create-test-name\",\n  \"description\": \"create-test-desc\",\n  \"memberCount\": 0,\n  \"companyDefault\": false,\n  \"externallyManaged\": false,\n  \"companyUuid\": \"028818f1-deb1-43b7-94fe-1f8c874fb9ee\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee/groups/7f097767-b808-4a6c-8837-3dc57f57103d\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee\"\n    },\n    {\n      \"rel\": \"memberships\",\n      \"href\": \"http://appdirect/api/account/v2/companies/028818f1-deb1-43b7-94fe-1f8c874fb9ee/groups/7f097767-b808-4a6c-8837-3dc57f57103d/memberships?member=true&page=0&size=50\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c26eaf0-8783-48db-9888-7a111c293e60",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"HR\",\n  \"description\": \"Human Resources\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4beccb62-0c00-4635-9f97-c4caa66ad71b",
+              "name": "Company not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"HR\",\n  \"description\": \"Human Resources\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Company with UUID=6b4bd452-895d-4098-aa56-e6046b238erf not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed14486a-915e-4bad-aa41-8e40e86dc573",
+          "name": "Update user group",
+          "request": {
+            "name": "Update user group",
+            "description": {
+              "content": "Update user group for the requested marketplace company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2edab63f-5592-4ec8-bd97-595bc406dfec",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Engineer\",\n  \"description\": \"Engineering\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"263b8d39-9cfe-49b0-94ee-779f3c98e76b\",\n  \"name\": \"update-test-name-new\",\n  \"description\": \"update-test-desc-new\",\n  \"memberCount\": 0,\n  \"companyDefault\": false,\n  \"externallyManaged\": false,\n  \"companyUuid\": \"7cd7e316-7ccd-41b3-9e46-a9bc58197adf\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf/groups/263b8d39-9cfe-49b0-94ee-779f3c98e76b\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf\"\n    },\n    {\n      \"rel\": \"memberships\",\n      \"href\": \"http://appdirect/api/account/v2/companies/7cd7e316-7ccd-41b3-9e46-a9bc58197adf/groups/263b8d39-9cfe-49b0-94ee-779f3c98e76b/memberships?member=true&page=0&size=50\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67033544-fc80-4661-ab79-a50bbeeab641",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Engineer\",\n  \"description\": \"Engineering\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f552f7f-8798-409c-9495-63ef3c1d6784",
+              "name": "Company or company group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Engineer\",\n  \"description\": \"Engineering\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f18c9c5-b09c-4a50-afec-b70d20ad4051",
+          "name": "Read user group",
+          "request": {
+            "name": "Read user group",
+            "description": {
+              "content": "Retrieve a marketplace company's user group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31680529-766e-4228-965e-10a969881db9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"74a8e9c1-0e64-4009-b529-671ae9188e70\",\n  \"name\": \"read-test-name\",\n  \"description\": \"read-test-desc\",\n  \"memberCount\": 1,\n  \"companyDefault\": false,\n  \"externallyManaged\": false,\n  \"systemManged\": false,\n  \"companyUuid\": \"999d6565-9694-457c-8941-fadeb36166e5\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5/groups/74a8e9c1-0e64-4009-b529-671ae9188e70\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5\"\n    },\n    {\n      \"rel\": \"memberships\",\n      \"href\": \"http://appdirect/api/account/v2/companies/999d6565-9694-457c-8941-fadeb36166e5/groups/74a8e9c1-0e64-4009-b529-671ae9188e70/memberships?member=true&page=0&size=50\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a30300fc-f3be-4c3e-ae20-399dfc1a32a1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ac73eeb-64e8-4024-9665-68b7c3c7aa22",
+              "name": "Group is not found for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00f2c07d-a432-4e35-bbef-be8e696ceee3",
+          "name": "Delete user group",
+          "request": {
+            "name": "Delete user group",
+            "description": {
+              "content": "Delete a user group for the requested marketplace company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c38f71d-8410-4c69-bcd6-919e938fa21c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3cd3a335-5466-4920-9dca-d92e8484a00e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93964938-f748-4045-a79a-84d638e008ca",
+              "name": "Group is not found for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97d6e66c-9af1-4b2f-a5c3-af35da67a414",
+          "name": "List user group members",
+          "request": {
+            "name": "List user group members",
+            "description": {
+              "content": "List members of a user group for the requested marketplace company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid",
+                "memberships"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Optional parameter object containing:<br/>searchText - Search term used to search on different fields of a user<br/>role       - If specified, only users with the specified marketplace role are returned<br/>status     - If specified, only users with the specified status are returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "member",
+                  "value": "true",
+                  "description": "When true, only group members are return.  When false, non-members of the group are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-based page index"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The size of the page to be returned   @return List of user/company membership resources"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b0727fd-99e9-410a-8faa-88964f4b7a5d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "member",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"user\": {\n        \"uuid\": \"671660e1-1ac8-4e0d-b7c4-7fe844193d82\",\n        \"email\": \"user.test-6465249637976946765@appdirect.com\",\n        \"userName\": \"user.test-6465249637976946765@appdirect.com\",\n        \"firstName\": \"user.test\",\n        \"lastName\": \"Lee\",\n        \"picture\": \"http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743\",\n        \"activated\": true,\n        \"allowLogin\": true,\n        \"ldapId\": \"1\",\n        \"currency\": \"USD\",\n        \"customAttributes\": [\n          {\n            \"name\": \"C5125859\",\n            \"attributeType\": \"TEXT\",\n            \"label\": \"Commission_Payout_ID\",\n            \"hint\": \"commission_hint\",\n            \"value\": \"t1\"\n          },\n          {\n            \"name\": \"allow_credit_card\",\n            \"attributeType\": \"MULTISELECT\",\n            \"label\": \"Allow Credit Card\",\n            \"hint\": \"Allows credit card payments and enables credit card fields\",\n            \"valueKeys\": []\n          },\n          {\n            \"name\": \"C5457097\",\n            \"attributeType\": \"TEXT\",\n            \"label\": \"C5457097\",\n            \"hint\": \"\",\n            \"value\": \"abcd\"\n          }\n        ],\n        \"boostUser\": {\n          \"apsUid\": \"murnu8w\"\n        },\n        \"roles\": [\n          \"ROLE_USER\"\n        ],\n        \"metadata\": {\n          \"apsUid\": null\n        },\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82/memberships\"\n          }\n        ]\n      },\n      \"company\": {\n        \"uuid\": \"c2e3ad7c-0549-4638-9a23-9e19c046c3d7\",\n        \"name\": \"Appdirect\",\n        \"picture\": null,\n        \"vendor\": false,\n        \"phoneNumber\": \"9259221234\",\n        \"reseller\": true,\n        \"defaultRole\": \"USER\",\n        \"enabled\": true,\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/memberships\"\n          }\n        ]\n      },\n      \"enabled\": true,\n      \"lastUsed\": false,\n      \"roles\": [\n        \"ROLE_SYS_ADMIN\",\n        \"ROLE_BILLING_ADMIN\",\n        \"ROLE_USER\"\n      ],\n      \"position\": \"Business Analyst\",\n      \"mosiUser\": {\n        \"username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n      },\n      \"metadata\": {\n        \"mosi_username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n      },\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02/memberships/671660e1-1ac8-4e0d-b7c4-7fe844193d82\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7\"\n        },\n        {\n          \"rel\": \"group\",\n          \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 1,\n    \"totalPages\": 0,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4412650b-c653-4e05-bb62-aaf24fb1d482",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "member",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "305644dc-d7f5-4373-80b0-f33f21bd6b47",
+              "name": "Company or company group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "member",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1984f90a-42db-4ce7-8eac-7baef274506e",
+          "name": "Create batch group memberships change requests.",
+          "request": {
+            "name": "Create batch group memberships change requests.",
+            "description": {
+              "content": "Create batched group memberships change requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid",
+                "memberships"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "validateOnly",
+                  "value": "false",
+                  "description": "If specified, the API returns a response without actually persisting it through to the database."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appAssignmentRequests\": [\n    {\n      \"companyEntitlementUuid\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"userUuid\": \"<string>\"\n    },\n    {\n      \"companyEntitlementUuid\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"userUuid\": \"<string>\"\n    }\n  ],\n  \"appUnassignmentRequests\": [\n    {\n      \"userEntitlementId\": \"<number>\"\n    },\n    {\n      \"userEntitlementId\": \"<number>\"\n    }\n  ],\n  \"assignments\": [\n    {\n      \"userUuid\": \"<string>\"\n    },\n    {\n      \"userUuid\": \"<string>\"\n    }\n  ],\n  \"unassignments\": [\n    {\n      \"userUuid\": \"<string>\"\n    },\n    {\n      \"userUuid\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74905ab9-1b1f-4ece-989f-99f19000d6d3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "validateOnly",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appAssignmentRequests\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    }\n  ],\n  \"appUnassignmentRequests\": [\n    {\n      \"userEntitlementId\": 1926\n    },\n    {\n      \"userEntitlementId\": 1926\n    }\n  ],\n  \"assignments\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    }\n  ],\n  \"unassignments\": [\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    },\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"groupAssignmentResponse\": [\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\",\n      \"result\": \"SUCCESS\",\n      \"errorMessage\": \"group.membership.created\"\n    }\n  ],\n  \"groupUnassignmentResponse\": [],\n  \"appAssignmentResponses\": [\n    {\n      \"request\": {\n        \"userUuid\": \"49af5a70-e2ef-4c53-a44b-85510db91056\",\n        \"companyEntitlementUuid\": \"e160db9b-9b72-4578-83b5-7bf61ce88069\",\n        \"parameters\": {}\n      },\n      \"resultStatus\": \"ENQUEUED\",\n      \"errorMessage\": null,\n      \"userEntitlement\": {\n        \"id\": 1942,\n        \"userUuid\": \"49af5a70-e2ef-4c53-a44b-85510db91056\",\n        \"companyEntitlementId\": 1629,\n        \"companyEntitlementUuid\": \"e160db9b-9b72-4578-83b5-7bf61ce88069\",\n        \"createdOn\": 1521039428243,\n        \"lastModified\": 1521039428243,\n        \"status\": \"PENDING_REMOTE_CREATION\",\n        \"source\": \"GROUP\",\n        \"externalPartnerIdentifier\": null,\n        \"externalVendorIdentifier\": null,\n        \"modifiable\": true,\n        \"customAttributes\": []\n      },\n      \"attributesInError\": null\n    }\n  ],\n  \"appUnassignmentResponses\": [\n    {\n      \"request\": {\n        \"userEntitlementId\": 1941\n      },\n      \"resultStatus\": \"ENQUEUED\",\n      \"userEntitlement\": {\n        \"id\": 1941,\n        \"userUuid\": \"17750a3b-d253-431e-8c72-deb7e0d0ef98\",\n        \"companyEntitlementId\": 1629,\n        \"companyEntitlementUuid\": \"e160db9b-9b72-4578-83b5-7bf61ce88069\",\n        \"createdOn\": 1521038968000,\n        \"lastModified\": 1521038968000,\n        \"status\": \"PENDING_REMOTE_CANCELLATION\",\n        \"source\": \"GROUP\",\n        \"externalPartnerIdentifier\": null,\n        \"externalVendorIdentifier\": \"b6accc26-8c54-49a2-8be2-3e8d5ad45049\",\n        \"modifiable\": true,\n        \"customAttributes\": []\n      },\n      \"errorMessage\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "356c7f08-d523-4f0a-8251-7f7b0a454431",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "validateOnly",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appAssignmentRequests\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    }\n  ],\n  \"appUnassignmentRequests\": [\n    {\n      \"userEntitlementId\": 1926\n    },\n    {\n      \"userEntitlementId\": 1926\n    }\n  ],\n  \"assignments\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    }\n  ],\n  \"unassignments\": [\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    },\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "47d0fee8-4a44-40d0-9cc0-28dbba75e8e6",
+              "name": "Company or company group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "validateOnly",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appAssignmentRequests\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\",\n      \"companyEntitlementUuid\": \"90e74ec1-db36-474b-81ea-95a3b1fce48d\",\n      \"parameters\": {}\n    }\n  ],\n  \"appUnassignmentRequests\": [\n    {\n      \"userEntitlementId\": 1926\n    },\n    {\n      \"userEntitlementId\": 1926\n    }\n  ],\n  \"assignments\": [\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    },\n    {\n      \"userUuid\": \"b7a2b92c-26cd-4e5b-8488-82dc0821bc1b\"\n    }\n  ],\n  \"unassignments\": [\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    },\n    {\n      \"userUuid\": \"85c8ccee-8207-45bb-9b3d-ac4e20f14234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"Group with companyUuid=6b4bd452-895d-4098-aa56-e6046b238e0f, groupUuid=c7d2ad85-4a79-49c3-836e-881230347d5b not found.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbd77fb8-c8e8-4916-a307-6e553c77d241",
+          "name": "Add user to group",
+          "request": {
+            "name": "Add user to group",
+            "description": {
+              "content": "Add a user to marketplace company's user group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user (part of company) in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "717c06cb-4fb5-4b62-b43c-ff4fe9b8eea8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user (part of company) in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"98050d65-fb1c-484b-a696-feb2345b952c\",\n    \"email\": \"user.test-6176537145049527751@appdirect.com\",\n    \"userName\": \"user.test-6176537145049527751@appdirect.com\",\n    \"firstName\": \"user.test\",\n    \"lastName\": \"Lee\",\n    \"picture\": \"http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743\",\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": \"1\",\n    \"boostUser\": null,\n    \"currency\": \"USD\",\n    \"customAttributes\": [\n      {\n        \"name\": \"C5125859\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"Commission_Payout_ID\",\n        \"hint\": \"commission_hint\",\n        \"value\": \"t1\"\n      }\n    ],\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"metadata\": {\n      \"apsUid\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/users/98050d65-fb1c-484b-a696-feb2345b952c\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/users/98050d65-fb1c-484b-a696-feb2345b952c/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"b3b61301-9117-4d69-b4c2-006f15865d99\",\n    \"name\": \"Appdirect\",\n    \"picture\": \"http://localhost:8080/profilePics/img8682785678220952561.png?2bf10bf40154c8e7642aea942fe1ff8d\",\n    \"vendor\": false,\n    \"reseller\": true,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"USER\",\n    \"enabled\": true,\n    \"customAttributes\": [\n      {\n        \"name\": \"Geographic Region\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"email\",\n        \"hint\": \"US West, US Central, or US East\",\n        \"value\": \"US1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_SYS_ADMIN\",\n    \"ROLE_BILLING_ADMIN\",\n    \"ROLE_USER\"\n  ],\n  \"position\": \"Business Analyst\",\n  \"mosiUser\": {\n    \"username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"metadata\": {\n    \"mosi_username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/groups/6febc9da-15ff-4404-a61a-0988bed2797d/memberships/98050d65-fb1c-484b-a696-feb2345b952c\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99\"\n    },\n    {\n      \"rel\": \"group\",\n      \"href\": \"http://appdirect/api/account/v2/companies/b3b61301-9117-4d69-b4c2-006f15865d99/groups/6febc9da-15ff-4404-a61a-0988bed2797d\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "add5edbc-6e5d-4741-ac39-f13d62bad582",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user (part of company) in the API request"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4a6bde7f-b386-48df-baaa-0927e37a923e",
+              "name": "User is not a member of the company or group is not found for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user (part of company) in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"User not found for Company.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "486515b1-cce2-4c46-a652-373787ce9a44",
+              "name": "Could not manually assign/unassign a member to/from a system managed group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user (part of company) in the API request"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdfa2f26-c182-42f4-992d-ff63d3762141",
+          "name": "Read user from group",
+          "request": {
+            "name": "Read user from group",
+            "description": {
+              "content": "Retrieve a user/company membership resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13a5b025-81c6-4780-8f58-635d4e789c7e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"671660e1-1ac8-4e0d-b7c4-7fe844193d82\",\n    \"email\": \"user.test-6465249637976946765@appdirect.com\",\n    \"userName\": \"user.test-6465249637976946765@appdirect.com\",\n    \"firstName\": \"user.test\",\n    \"lastName\": \"Lee\",\n    \"picture\": \"http://localhost:8080/profilePics/img6839249962619189663.png?32339267f9f00643fd18373adf580743\",\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": \"1\",\n    \"currency\": \"USD\",\n    \"customAttributes\": [\n      {\n        \"name\": \"C5125859\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"Commission_Payout_ID\",\n        \"hint\": \"commission_hint\",\n        \"value\": \"t1\"\n      },\n      {\n        \"name\": \"allow_credit_card\",\n        \"attributeType\": \"MULTISELECT\",\n        \"label\": \"Allow Credit Card\",\n        \"hint\": \"Allows credit card payments and enables credit card fields\",\n        \"valueKeys\": []\n      },\n      {\n        \"name\": \"C5457097\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"C5457097\",\n        \"hint\": \"\",\n        \"value\": \"abcd\"\n      }\n    ],\n    \"boostUser\": {\n      \"apsUid\": \"murnu8w\"\n    },\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"metadata\": {\n      \"apsUid\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/users/671660e1-1ac8-4e0d-b7c4-7fe844193d82/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"c2e3ad7c-0549-4638-9a23-9e19c046c3d7\",\n    \"name\": \"Appdirect\",\n    \"picture\": null,\n    \"vendor\": false,\n    \"phoneNumber\": \"9259221234\",\n    \"reseller\": true,\n    \"defaultRole\": \"USER\",\n    \"enabled\": true,\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_SYS_ADMIN\",\n    \"ROLE_BILLING_ADMIN\",\n    \"ROLE_USER\"\n  ],\n  \"position\": \"Business Analyst\",\n  \"mosiUser\": {\n    \"username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"metadata\": {\n    \"mosi_username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02/memberships/671660e1-1ac8-4e0d-b7c4-7fe844193d82\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7\"\n    },\n    {\n      \"rel\": \"group\",\n      \"href\": \"http://appdirect/api/account/v2/companies/c2e3ad7c-0549-4638-9a23-9e19c046c3d7/groups/d6c89ee4-c5ee-4996-9103-08d6766ced02\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa47c025-6ed3-4bdb-8516-21caad52f9f3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "554ae658-50ec-4970-9dc5-2166bcaef8f0",
+              "name": "User is not a member of the company or group is not found for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"User not found for Company.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64fad37b-f54b-4e4f-be74-c786be063e50",
+          "name": "Delete user from group",
+          "request": {
+            "name": "Delete user from group",
+            "description": {
+              "content": "Delete a user from a marketplace company's user group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "groups",
+                ":groupUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupUuid",
+                  "description": "(Required) Unique identifier of group in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "941384c2-8227-435c-ad1c-ff23269aa72a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bf1eb4e0-1ad6-4e1a-bc29-abd9a10f3fdf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6d9f1fb-ccad-4ff8-aa62-0936fb69b48f",
+              "name": "User is not a member of the company or group is not found for company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "groups",
+                    ":groupUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupUuid",
+                      "description": "(Required) Unique identifier of group in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"Not Found\",\n    \"message\": \"User not found for Company.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "26cdeef4-a300-46b2-bcff-7676250fe028",
+    "name": "Companies AI Embed Group API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

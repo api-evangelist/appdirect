@@ -1,0 +1,1967 @@
+{
+  "item": [
+    {
+      "id": "be858e06-35b0-49c2-b9b8-a688b7bc8ade",
+      "name": "Payment Methods",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72bbfb17-56e0-402b-8bbc-d9fa24092797",
+          "name": "Tokenize payment methods",
+          "request": {
+            "name": "Tokenize payment methods",
+            "description": {
+              "content": "Calls the payment gateway to validate the payment method, which is not yet associated with a user. A front-end should call this endpoint directly, not a back-end. Requires a public developer key (use the AD-Public-Developer-Key header), which you must obtain from AppDirect.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethodTokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "AD-Public-Developer-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "44fa98f9-322f-4cf3-bef0-29e96d2ea4c6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\",\n  \"expiration\": \"2018-04-112T19:15:00Z\",\n  \"paymentMethod\": {\n    \"accountDisplay\": \"1111\",\n    \"paymentMethodType\": \"CARD\",\n    \"properties\": {\n      \"cardHolderName\": \"John Smith\",\n      \"expirationMonth\": \"5\",\n      \"expirationYear\": \"2019\",\n      \"brand\": \"VISA\"\n    },\n    \"billingAddress\": {\n      \"street1\": \"279 Prince St\",\n      \"city\": \"Montreal\",\n      \"state\": \"Quebec\",\n      \"country\": \"CA\",\n      \"zip\": \"H3C 2N4\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2936e9ae-7a66-4b79-b56c-16e3166ede94",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be3d2c04-8bf9-45f3-87f2-4fdb6da1755b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c860cf34-f113-47d3-a541-cb993909b8da",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70f287e2-974e-4731-b54a-9c2ca4de2a05",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bb5db6f-f235-4cea-bcbd-66be998a4548",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Public-Developer-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"number\": \"4111111111111111\",\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "817acb9d-4d81-40bd-9762-e9d24eff67e2",
+          "name": "List payment methods for a user",
+          "request": {
+            "name": "List payment methods for a user",
+            "description": {
+              "content": "Returns all available payment methods for the specified user in the specified company.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ownerId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the user whose payment method you want to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the company of which the user is a member"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc60f029-df69-49dd-bf26-94594ab2d0f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\",\n    \"default\": false,\n    \"accountDisplay\": \"1111\",\n    \"paymentMethodType\": \"CARD\",\n    \"properties\": {\n      \"cardHolderName\": \"John Smith\",\n      \"expirationMonth\": \"5\",\n      \"expirationYear\": \"2019\",\n      \"brand\": \"VISA\"\n    },\n    \"billingAddress\": {\n      \"street1\": \"279 Prince St\",\n      \"city\": \"Montreal\",\n      \"state\": \"Quebec\",\n      \"country\": \"CA\",\n      \"zip\": \"H3C 2N4\"\n    }\n  },\n  {\n    \"id\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\",\n    \"default\": false,\n    \"accountDisplay\": \"11111111\",\n    \"paymentMethodType\": \"BANKACCOUNT\",\n    \"properties\": {\n      \"accountNumber\": \"11111111\",\n      \"routingNumber\": \"123456789\",\n      \"accountType\": \"CHECKING\",\n      \"isCorporateAccount\": \"false\",\n      \"firstName\": \"John\",\n      \"lastname\": \"Smith\"\n    },\n    \"billingAddress\": {\n      \"street1\": \"279 Prince St\",\n      \"city\": \"Montreal\",\n      \"state\": \"Quebec\",\n      \"country\": \"CA\",\n      \"zip\": \"H3C 2N4\"\n    }\n  },\n  {\n    \"id\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\",\n    \"default\": false,\n    \"accountDisplay\": \"5555555555\",\n    \"paymentMethodType\": \"MYRANDOMTYPE\",\n    \"properties\": {\n      \"msisdn\": \"5555555555\"\n    },\n    \"billingAddress\": {\n      \"street1\": \"279 Prince St\",\n      \"city\": \"Montreal\",\n      \"state\": \"Quebec\",\n      \"country\": \"CA\",\n      \"zip\": \"H3C 2N4\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ab040c1-b567-46a5-b704-eaa27792c3cd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15c2dc93-ee78-449b-a528-735b16a9553a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5750f8e-58ac-412d-b362-72fcdbab2e41",
+          "name": "Create payment methods using a token OR by providing all of the payment method data",
+          "request": {
+            "name": "Create payment methods using a token OR by providing all of the payment method data",
+            "description": {
+              "content": "When using a token, the validated payment method is assigned to the current user on the current marketplace. When providing all of the payment method data, the payment gateway is called, and the payment method is validated and assigned to the user.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerId\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"token\": \"<string>\",\n  \"paymentMethodType\": \"<string>\",\n  \"properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"salutation\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"poBox\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18acc1f1-1312-4b97-be3d-50ced7c19f06",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\",\n  \"accountDisplay\": \"1111\",\n  \"default\": true,\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"cardHolderName\": \"John Smith\",\n    \"expirationMonth\": \"5\",\n    \"expirationYear\": \"2019\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"279 Prince St\",\n    \"city\": \"Montreal\",\n    \"state\": \"Quebec\",\n    \"country\": \"CA\",\n    \"zip\": \"H3C 2N4\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83b7d271-175c-4b0d-872f-d7caaef66031",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"TOKEN_EXPIRED\",\n  \"message\": \"Token expired.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aadd40fd-bfd5-4027-ae3a-20ac32f6b37e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42f3dec4-6015-4177-9aca-abfb546931ad",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe991d78-b99c-4622-9782-e18a5f53e2d0",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54436252-e3bc-4317-882b-6b4854355a1e",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"token\": \"pm_0838a859-dfa6-4863-aa38-042d50a9e69a\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6bb3a88-5682-478a-bd61-edfdaaf7e16a",
+          "name": "Delete payment methods",
+          "request": {
+            "name": "Delete payment methods",
+            "description": {
+              "content": "The payment method is deleted from the system and cannot be used anymore.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethods",
+                ":paymentMethodId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentMethodId",
+                  "description": "(Required) The Payment Method ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0fc7df6-1c70-4b5c-a2fb-714979095ad5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) The Payment Method ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "280b78a0-5039-42ea-acff-c6bca6582714",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) The Payment Method ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be2ae1cf-f391-49df-ae3f-346734075264",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) The Payment Method ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b85680a5-244c-410e-8379-fd0c478e9545",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) The Payment Method ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad1d2ce2-0bfe-42c6-a36d-c3ece88e614f",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) The Payment Method ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e6309ce-00ed-4952-b8d4-ba7a3d071b2c",
+          "name": "List default payment methods",
+          "request": {
+            "name": "List default payment methods",
+            "description": {
+              "content": "Returns the default payment methods for the specified user in the specified company\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethods",
+                "defaults"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ownerId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the user whose default payment method you want to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the company of which the user is a member"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b446afd-a41d-4009-bdda-53bbf2a7f446",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93363921-dd77-46e7-bcc7-5aa7a507c6e9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b54bd8f0-b25a-4a87-a133-267c900ad20d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9846f830-cdd2-4bf4-8d75-10337fe9d57e",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f0b2341-3785-4c9a-8cb4-c694bdd1fc41",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e0aa42b-392b-4e90-9217-c4479e543a67",
+          "name": "Set default payment methods",
+          "request": {
+            "name": "Set default payment methods",
+            "description": {
+              "content": "Sets a default payment method for the specified user\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethods",
+                "defaults"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerId\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"paymentMethodId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd2f20ef-9fd7-49cd-b2e6-ebfaa48a656f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58b9b8a2-df65-456b-ad28-cb024b482807",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "181568c3-3ab5-4a02-8750-1303d4426f08",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "afedbe2f-b69f-4735-82a0-7ece46c41e5b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec297706-3ac8-4aeb-921f-f4db8fa7f97b",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89fcf97f-be6c-4274-9590-4d7d98645f12",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethods",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"40e8af95-4caf-415a-96d9-7b023207b535\",\n  \"companyId\": \"9c130291-cf29-4272-8005-a280b1e81388\",\n  \"paymentMethodId\": \"e35c2f85-ef92-4a8f-89f0-45b62fb95fa7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd009cdd-88dc-4706-9faa-d35b5a10de96",
+          "name": "Returns all supported Payment Method Types",
+          "request": {
+            "name": "Returns all supported Payment Method Types",
+            "description": {
+              "content": "Returns all supported Payment Method Types. These are the only types of payment method that can be created.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appMarket",
+                "v2",
+                "paymentMethodTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c03f8b72-0126-4d9a-910a-916a28a59f4e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentMethodType\": \"CARD\",\n    \"addressNeeded\": true,\n    \"propertyDefinitions\": [\n      {\n        \"name\": \"cardHolderName\",\n        \"type\": \"string\",\n        \"minLength\": 0,\n        \"maxLength\": 255\n      },\n      {\n        \"name\": \"number\",\n        \"type\": \"string\",\n        \"minLength\": 0,\n        \"maxLength\": 255\n      },\n      {\n        \"name\": \"securityCode\",\n        \"type\": \"string\",\n        \"minLength\": 0,\n        \"maxLength\": 4,\n        \"secret\": true\n      },\n      {\n        \"name\": \"expirationMonth\",\n        \"type\": \"number\",\n        \"minLength\": 1,\n        \"maxLength\": 2\n      },\n      {\n        \"name\": \"expirationYear\",\n        \"type\": \"number\",\n        \"minLength\": 2,\n        \"maxLength\": 4\n      },\n      {\n        \"name\": \"brand\",\n        \"type\": \"string\",\n        \"readOnly\": true,\n        \"minLength\": 0,\n        \"maxLength\": 255,\n        \"possibleValues\": [\n          \"VISA\",\n          \"MASTERCARD\",\n          \"AMEX\",\n          \"DINERS_CLUB\",\n          \"DISCOVER\",\n          \"JCB\",\n          \"UNKNOWN\",\n          \"GATEWAY\"\n        ]\n      }\n    ]\n  },\n  {\n    \"paymentMethodType\": \"BANKACCOUNT\",\n    \"addressNeeded\": true,\n    \"propertyDefinitions\": [\n      {\n        \"name\": \"routingNumber\",\n        \"type\": \"string\",\n        \"minLength\": 9,\n        \"maxLength\": 9,\n        \"required\": true\n      },\n      {\n        \"name\": \"accountNumber\",\n        \"type\": \"string\",\n        \"minLength\": 4,\n        \"maxLength\": 17,\n        \"required\": true\n      },\n      {\n        \"name\": \"accountType\",\n        \"type\": \"string\",\n        \"required\": true,\n        \"possibleValues\": [\n          \"CHECKING\",\n          \"SAVINGS\",\n          \"CORPORATE_CHECKING\",\n          \"CORPORATE_SAVINGS\"\n        ]\n      },\n      {\n        \"name\": \"isCorporateAccount\",\n        \"type\": \"boolean\",\n        \"required\": true\n      },\n      {\n        \"name\": \"companyName\",\n        \"type\": \"string\",\n        \"minLength\": 0,\n        \"maxLength\": 255,\n        \"required\": false\n      },\n      {\n        \"name\": \"firstName\",\n        \"type\": \"string\",\n        \"maxLength\": 255,\n        \"required\": true\n      },\n      {\n        \"name\": \"lastName\",\n        \"type\": \"string\",\n        \"maxLength\": 255,\n        \"required\": true\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "991f0025-e58e-4c3a-9da5-a4d1acff2d58",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "631dcac3-1fcf-40c5-b773-29cb9d869d20",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"code\": \"INTERNAL_SERVER_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4ffa1e3-c2a5-43c8-93e8-b2acad39efb3",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 502,\n  \"code\": \"BAD_GATEWAY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1629344-5641-4d7e-8231-9906168e580d",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appMarket",
+                    "v2",
+                    "paymentMethodTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 504,\n  \"code\": \"GATEWAY_TIMEOUT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5e96f967-d252-4f26-b6d8-f2ef80420b80",
+    "name": "Companies AI Embed Payment Methods API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

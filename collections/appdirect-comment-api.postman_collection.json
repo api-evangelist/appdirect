@@ -1,0 +1,972 @@
+{
+  "item": [
+    {
+      "id": "4853a558-f027-4708-a54c-def674dcb523",
+      "name": "Comment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37202afe-720e-4d23-88ef-cfc32ea98bf2",
+          "name": "Create a comment",
+          "request": {
+            "name": "Create a comment",
+            "description": {
+              "content": "This call creates a new review comment on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "reviews",
+                ":reviewId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "reviewId",
+                  "description": "(Required) Review id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": {\n    \"name\": \"<string>\",\n    \"profilePicUrl\": \"<string>\",\n    \"uuid\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"id\": \"<number>\",\n  \"lastModified\": \"<number>\",\n  \"official\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "54720b7a-c01b-4309-abec-cce9875fd21a",
+              "name": "Review comment created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 12,\n  \"comment\": \"Sample Comment\",\n  \"author\": {\n    \"uuid\": \"92b4573e-81d2-4d20-bda0-93be2ce9a966\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": null,\n  \"official\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc0a9a08-580d-4e0b-8975-67d3a1da49fc",
+              "name": "Application, review or comment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7adffe9-df82-4755-bac8-95257acf47ef",
+          "name": "List all comments",
+          "request": {
+            "name": "List all comments",
+            "description": {
+              "content": "This call lists all  review comments on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "reviews",
+                ":reviewId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "reviewId",
+                  "description": "(Required) Review id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5a503cb-9e3b-42e9-b4d2-895e32bf2042",
+              "name": "Review comments read.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2,\n    \"comment\": \"Sample Comment\",\n    \"author\": {\n      \"uuid\": \"5330591d-cd96-43c6-8644-2d41d6f39e28\",\n      \"name\": \"user.test\",\n      \"profilePicUrl\": null\n    },\n    \"lastModified\": 1461792756274,\n    \"official\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d97214-c21a-43eb-b6ed-d6ca5aa90ae7",
+              "name": "Application or review not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02873185-c5d6-4920-a351-b7235d1e8534",
+          "name": "Retrieve a comment",
+          "request": {
+            "name": "Retrieve a comment",
+            "description": {
+              "content": "This call returns all the comment details from a specific product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "reviews",
+                ":reviewId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "commentId",
+                  "description": "(Required) Comment id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "reviewId",
+                  "description": "(Required) Review id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6628ecd-f8fa-448f-b1ef-eb3d2855712d",
+              "name": "Review comment read.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6,\n  \"comment\": \"Sample Comment\",\n  \"author\": {\n    \"uuid\": \"e003b878-4c08-43b3-bcda-90a4813efb44\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": 1461792757753,\n  \"official\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b311e64e-8a9f-4def-9383-fb2c8728fe81",
+              "name": "Application, review or comment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33711e6e-64b1-4e31-8b40-516bd7d459ce",
+          "name": "Update a comment",
+          "request": {
+            "name": "Update a comment",
+            "description": {
+              "content": "This call updates a product comment on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "reviews",
+                ":reviewId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "commentId",
+                  "description": "(Required) Comment id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "reviewId",
+                  "description": "(Required) Review id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": {\n    \"name\": \"<string>\",\n    \"profilePicUrl\": \"<string>\",\n    \"uuid\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"id\": \"<number>\",\n  \"lastModified\": \"<number>\",\n  \"official\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "acbf04d6-f39e-465a-a23c-a1f9ad60e02b",
+              "name": "Review comment updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8,\n  \"comment\": \"Sample Comment\",\n  \"author\": {\n    \"uuid\": \"7977159d-33f6-4334-8a7e-8b2de85cf6df\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": null,\n  \"official\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7839fdc5-fcb4-41f4-a34e-95f09ac1baf7",
+              "name": "Application, review or comment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cacbb2f8-2908-4689-934f-7937cb89c5ac",
+          "name": "Delete a comment",
+          "request": {
+            "name": "Delete a comment",
+            "description": {
+              "content": "This call deletes a review comment from your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "reviews",
+                ":reviewId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "commentId",
+                  "description": "(Required) Comment id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "reviewId",
+                  "description": "(Required) Review id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06f62663-57b6-4aa9-bf23-ca1f63aa6d40",
+              "name": "Review comments deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b88bd784-d9ea-4eaf-bc59-af7f6d93f729",
+              "name": "Application, review or comment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "reviews",
+                    ":reviewId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "reviewId",
+                      "description": "(Required) Review id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "eafff508-3753-42f9-a371-743666f72339",
+    "name": "Companies AI Embed Comment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

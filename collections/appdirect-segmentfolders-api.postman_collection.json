@@ -1,0 +1,2818 @@
+{
+  "item": [
+    {
+      "id": "e796b012-7b59-4790-8062-0ad02e94b38b",
+      "name": "SegmentFolders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d902900-7e5c-4994-b67b-6f2cf58bd6ba",
+          "name": "Create segment folders",
+          "request": {
+            "name": "Create segment folders",
+            "description": {
+              "content": "Creates a segment folder",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "companyGroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "635ee28e-f19c-4e65-94a8-67de2c0ec12d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"7e3b3bb8-1b75-408b-8cbf-561ccd910479\",\n  \"name\": \"Fortune 500 Companies\",\n  \"enable\": true,\n  \"partner\": \"APPDIRECT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2752196-8479-4ce4-a3df-c04cf2c7920c",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5820ab95-60a2-4ea9-bb6b-02d52d8d518b",
+              "name": "The segment folder name already exists for the partner",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7f93ac9-da67-4970-b8eb-0d22a177ce80",
+          "name": "Read segment folders",
+          "request": {
+            "name": "Read segment folders",
+            "description": {
+              "content": "Returns a paginated list of segment folders for the marketplace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "companyGroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "0",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "+name",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Search text"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3c07253-6f3e-4767-bc70-7cbd8010d8cf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"7e3b3bb8-1b75-408b-8cbf-561ccd910479\",\n      \"name\": \"Fortune 500 Companies\",\n      \"partner\": \"APPDIRECT\",\n      \"segments\": [\n        {\n          \"id\": \"04f8d043-10f1-4b89-8c0e-0780e5a62299\",\n          \"name\": \"iOS users\",\n          \"partner\": \"APPDIRECT\",\n          \"code\": \"IOS\",\n          \"type\": \"MANUAL\"\n        }\n      ]\n    },\n    {\n      \"id\": \"7e3b3bb8-1b75-408b-8cbf-561ccd910479\",\n      \"name\": \"Fortune 100 Companies\",\n      \"partner\": \"APPDIRECT\",\n      \"segments\": [\n        {\n          \"id\": \"04f8d043-10f1-4b89-8c0e-0780e5a62299\",\n          \"name\": \"Android users\",\n          \"partner\": \"APPDIRECT\",\n          \"code\": \"DROID\",\n          \"type\": \"MANUAL\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"number\": 1,\n    \"size\": 2,\n    \"totalElements\": 10,\n    \"totalPages\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a680b7c9-ba33-4af3-a507-15c0fe44e502",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8636cde-4633-4087-a8e5-e2fb0e5d281f",
+          "name": "Update segment folders",
+          "request": {
+            "name": "Update segment folders",
+            "description": {
+              "content": "Updates a segment folder",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "companyGroups",
+                ":companyGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyGroupId",
+                  "description": "(Required) Segment folder ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c472ed8-bc4f-413c-93ce-e5a02aa53750",
+              "name": "The segment folder was successfully updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "658a20d4-b1bd-4207-b6ee-8e7989881202",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7218031-a726-4035-b770-718f357644d2",
+              "name": "The segment folder name already exists for the partner",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Fortune 500 Companies\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5ca2819-2bb6-41e3-ab71-04e9e84c20e2",
+          "name": "Delete segment folder",
+          "request": {
+            "name": "Delete segment folder",
+            "description": {
+              "content": "Deletes a segment folder, all associated segments, and all product associations",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "companyGroups",
+                ":companyGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyGroupId",
+                  "description": "(Required) Segment folder ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ccaff43-3512-4fb1-ac9a-6103a830c527",
+              "name": "The segment folder was successfully deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19fd7cdc-c7dc-47ea-9c1a-04c439a42d6f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8a3b5e6-3ff3-46f4-8078-e3eafd4e1398",
+          "name": "Delete segments from segment folders",
+          "request": {
+            "name": "Delete segments from segment folders",
+            "description": {
+              "content": "Deletes a segment from a segment folder",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "companyGroups",
+                ":companyGroupId",
+                "segments",
+                ":companySegmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyGroupId",
+                  "description": "(Required) Segment folder ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companySegmentId",
+                  "description": "(Required) Segment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b25647b-3f8e-4314-8885-34aaf79e692d",
+              "name": "The segment was successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId",
+                    "segments",
+                    ":companySegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3abde90b-83aa-4feb-99e3-5ae0edc78e33",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "companyGroups",
+                    ":companyGroupId",
+                    "segments",
+                    ":companySegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyGroupId",
+                      "description": "(Required) Segment folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71efc386-caaa-40fd-9491-bd3bbfaa83f6",
+          "name": "Read segments",
+          "request": {
+            "name": "Read segments",
+            "description": {
+              "content": "Returns a paginated list of segments",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "companyGroupId",
+                  "value": "<string>",
+                  "description": "(Required) Segment folder ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "0",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "+name",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59479902-2808-4c5e-929f-f8a7f974212b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"9f4e5c52-5258-4193-a132-303f06e9eef1\",\n      \"name\": \"Canada\",\n      \"partner\": \"APPDIRECT\",\n      \"code\": \"CAN\",\n      \"type\": \"MANUAL\"\n    },\n    {\n      \"id\": \"b1f5af35-ca68-431f-83b7-ef56189924ed\",\n      \"name\": \"France\",\n      \"partner\": \"APPDIRECT\",\n      \"code\": \"FRA\",\n      \"type\": \"MANUAL\"\n    },\n    {\n      \"id\": \"5ca15227-da6b-413e-a09c-f8d06ab3dcd7\",\n      \"name\": \"United States\",\n      \"partner\": \"APPDIRECT\",\n      \"code\": \"USA\",\n      \"type\": \"MANUAL\"\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 3,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ff5a631-3d65-40dd-8c4c-533e4a6762fe",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7d4c716-6425-4f57-91af-f0894d7d3120",
+          "name": "Create manual segment",
+          "request": {
+            "name": "Create manual segment",
+            "description": {
+              "content": "Creates a manual segment. Manual segments allow Marketplace Managers to select companies manually, as opposed to dynamic segments, which contain user selected automatically based on filter values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "companyGroupId",
+                  "value": "<string>",
+                  "description": "(Required) Segment folder ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52f8d57d-c122-448a-8d11-89eb827db0e6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9f4e5c52-5258-4193-a132-303f06e9eef1\",\n  \"name\": \"Canada\",\n  \"partner\": \"APPDIRECT\",\n  \"code\": \"CAN\",\n  \"type\": \"MANUAL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3191cb0b-bb53-4c4a-90cb-47ded4a5ce06",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "567dbf14-6203-462b-aead-f4510c7260a2",
+              "name": "The segment already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccc5f9f6-367e-4b8e-89a0-9adedde1ad73",
+          "name": "Update manual segments",
+          "request": {
+            "name": "Update manual segments",
+            "description": {
+              "content": "Updates a manual segment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                ":companySegmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companySegmentId",
+                  "description": "(Required) Segment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b660c70f-73f3-45be-a916-07b0e6038452",
+              "name": "The segment was successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c763342-d296-4324-b9c1-752087f88eae",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed12b7dc-b0c4-4e33-b57b-35f10cd60825",
+              "name": "The segment already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Canada\",\n  \"code\": \"XXYU\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bbd6ba90-2525-4807-9ca0-708e6f972c13",
+          "name": "Create or remove segment-company associations",
+          "request": {
+            "name": "Create or remove segment-company associations",
+            "description": {
+              "content": "Creates or removes associations between segments and companies",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                ":companySegmentId",
+                "associationsBatchUpdate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companySegmentId",
+                  "description": "(Required) Segment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deleteAll\": \"<boolean>\",\n  \"companyIdsToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"companyIdsToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9d62d84-bd09-4c32-b94d-ca8b8dc51985",
+              "name": "The segment to company associations were successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId",
+                    "associationsBatchUpdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAll\": \"<boolean>\",\n  \"companyIdsToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"companyIdsToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d40525d-e2bd-4d32-8860-0b112293bd4b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId",
+                    "associationsBatchUpdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAll\": \"<boolean>\",\n  \"companyIdsToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"companyIdsToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a143ad4b-c67b-4b2e-ab28-0d253043a4c9",
+              "name": "The association already exists between the segment and company.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId",
+                    "associationsBatchUpdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAll\": \"<boolean>\",\n  \"companyIdsToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"companyIdsToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee5d862-5f49-4b46-99ad-c39a327d443c",
+          "name": "Read segment companies",
+          "request": {
+            "name": "Read segment companies",
+            "description": {
+              "content": "Returns a paginated list of all marketplace companies and indicates whether they are associated with the segment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                ":companySegmentId",
+                "availableAndAssociatedCompanies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "0",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "+name",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                },
+                {
+                  "disabled": false,
+                  "key": "selected",
+                  "value": "false",
+                  "description": "If true, returns only associated companies"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companySegmentId",
+                  "description": "(Required) Segment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69e955bf-1603-48c1-92d0-536de1dd3f09",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId",
+                    "availableAndAssociatedCompanies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selected",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"name\": \"Canada Company\",\n      \"id\": \"04f8d043-10f1-4b89-8c0e-0780e5a62299\",\n      \"selected\": false\n    },\n    {\n      \"name\": \"US Company\",\n      \"id\": \"04f8d043-10f1-4b89-8c0e-0780e5a62298\",\n      \"selected\": true\n    }\n  ],\n  \"page\": {\n    \"number\": 1,\n    \"size\": 2,\n    \"totalElements\": 10,\n    \"totalPages\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c96d5f2-6c8e-41ad-bd8c-0e03379dde59",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    ":companySegmentId",
+                    "availableAndAssociatedCompanies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "+name"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selected",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companySegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ec1e2cb-1f8a-4768-bd58-40d54bf9bf15",
+          "name": "Update dynamic segments",
+          "request": {
+            "name": "Update dynamic segments",
+            "description": {
+              "content": "Updates a dynamic segment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                "dynamicSegments",
+                ":dynamicSegmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dynamicSegmentId",
+                  "description": "(Required) Segment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cab6088a-8fc7-4d8e-afb8-f0009fc3254b",
+              "name": "The segment was successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    ":dynamicSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dynamicSegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d8a69e5-728f-4862-9cc2-82f59a67a8b3",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    ":dynamicSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dynamicSegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b284a6c-9afe-4401-a4b0-02b31cd95178",
+              "name": "The segment already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    ":dynamicSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dynamicSegmentId",
+                      "description": "(Required) Segment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3abd9ee0-f115-444e-97ec-16b9b4cd41df",
+          "name": "Read filter parameters",
+          "request": {
+            "name": "Read filter parameters",
+            "description": {
+              "content": "Returns a list of parameters for the dynamic filter",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                "dynamicSegments",
+                "filterParameters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "en_US",
+                  "description": "Locale"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "AD-Tenant",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d4ce365-cb99-4bfa-b8e8-f6c8bf00d5a7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    "filterParameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "locale",
+                      "value": "en_US"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Tenant",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"company\",\n    \"label\": \"company\",\n    \"fields\": [\n      {\n        \"key\": \"company.state\",\n        \"label\": \"state\",\n        \"dataType\": \"text\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52c3a72e-3a16-4ca1-a75f-433d27d5701e",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    "filterParameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "locale",
+                      "value": "en_US"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "AD-Tenant",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89c0d259-85b5-4254-8df8-f70471662a57",
+          "name": "Test dynamic segments",
+          "request": {
+            "name": "Test dynamic segments",
+            "description": {
+              "content": "Determines whether the specified user matches the specified dynamic segment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                "dynamicSegments",
+                "matchUser",
+                ":userEmail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userEmail",
+                  "description": "(Required) User email address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b109955a-4408-44f3-ba47-adea758b82c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    "matchUser",
+                    ":userEmail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userEmail",
+                      "description": "(Required) User email address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"matches\": \"true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1330cd6-b0c3-4a61-9087-1cf14f3e41c5",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments",
+                    "matchUser",
+                    ":userEmail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userEmail",
+                      "description": "(Required) User email address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73cfedd8-0a56-43b9-801d-2ee2fc3aaa7a",
+          "name": "Read dynamic segments",
+          "request": {
+            "name": "Read dynamic segments",
+            "description": {
+              "content": "Reads a dynamic segment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                "dynamicSegments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dynamicSegmentId",
+                  "value": "<string>",
+                  "description": "(Required) Dynamic segment ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6017612-ffd2-4dcc-8a79-58997b5398f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dynamicSegmentId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9f4e5c52-5258-4193-a132-303f06e9eef1\",\n  \"name\": \"Canada\",\n  \"partner\": \"APPDIRECT\",\n  \"code\": \"CAN\",\n  \"type\": \"DYNAMIC\",\n  \"filters\": [\n    [\n      {\n        \"conditions\": [\n          {\n            \"parameter\": \"company.state\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Quebec\"\n            ]\n          },\n          {\n            \"parameter\": \"company.city\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Montreal\"\n            ]\n          }\n        ]\n      },\n      {\n        \"conditions\": [\n          {\n            \"parameter\": \"company.state\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Quebec\"\n            ]\n          },\n          {\n            \"parameter\": \"company.city\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Montreal\"\n            ]\n          }\n        ]\n      }\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2462ab5-848a-4bda-872c-2b0b4376fd0a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dynamicSegmentId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9c10348-bae8-44fa-9c6a-1e0a2c61d669",
+          "name": "Create dynamic segments",
+          "request": {
+            "name": "Create dynamic segments",
+            "description": {
+              "content": "Creates a dynamic segment. Dynamic segments contain user selected automatically based on filter values, as opposed to manual segments, in which Marketplace Managers select companies manually.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "segments",
+                "dynamicSegments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "companyGroupId",
+                  "value": "<string>",
+                  "description": "(Required) Segment folder ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ebb477f-280f-40f6-8e3a-3fb05fda5c3d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9f4e5c52-5258-4193-a132-303f06e9eef1\",\n  \"name\": \"Canada\",\n  \"partner\": \"APPDIRECT\",\n  \"code\": \"CAN\",\n  \"type\": \"DYNAMIC\",\n  \"filters\": [\n    [\n      {\n        \"conditions\": [\n          {\n            \"parameter\": \"company.state\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Quebec\"\n            ]\n          },\n          {\n            \"parameter\": \"company.city\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Montreal\"\n            ]\n          }\n        ]\n      },\n      {\n        \"conditions\": [\n          {\n            \"parameter\": \"company.state\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Quebec\"\n            ]\n          },\n          {\n            \"parameter\": \"company.city\",\n            \"operator\": \"matches\",\n            \"values\": [\n              \"Montreal\"\n            ]\n          }\n        ]\n      }\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd34fd03-69ca-42eb-9f46-0829c9591533",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e62be0d5-a4b3-460f-86c3-a2d1ebbe8484",
+              "name": "The segment already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "segments",
+                    "dynamicSegments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "companyGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"filters\": [\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    [\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"operator\": \"<string>\",\n        \"conditions\": [\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"parameter\": \"<string>\",\n            \"operator\": \"<string>\",\n            \"values\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  ],\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6466b878-3e63-4a5a-8415-66945fb3cc04",
+    "name": "Companies AI Embed SegmentFolders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

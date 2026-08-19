@@ -1,0 +1,515 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed PurchaseOrder API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PurchaseOrder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all purchase orders for a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/orders",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              },
+              {
+                "name": "startDateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or after the specified date"
+              },
+              {
+                "name": "startDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or before the specified date"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order status"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by currency"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps the original NEW purchase order type.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by pricing frequency"
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal application ID"
+              },
+              {
+                "name": "fromCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date"
+              },
+              {
+                "name": "toCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "List all of the purchase orders for the given company"
+        },
+        {
+          "info": {
+            "name": "List all purchase orders for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/orders",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "startDateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or after the specified date"
+              },
+              {
+                "name": "startDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or before the specified date"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order status"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by currency"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps its NEW status purchase order.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by pricing frequency"
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal application ID"
+              },
+              {
+                "name": "fromCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date"
+              },
+              {
+                "name": "toCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "List all of the purchase orders for the given user"
+        },
+        {
+          "info": {
+            "name": "List all purchase order payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/orders/:orderId/payments",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The specific order id for which information is requested"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the start date of the invoice"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Filter by method of the payment"
+              },
+              {
+                "name": "result",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results of the payment"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order org.springframework.data.domain.Sort.Direction."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the end date of the invoice"
+              }
+            ]
+          },
+          "docs": "List all purchase order payments"
+        },
+        {
+          "info": {
+            "name": "List all purchase orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/orders",
+            "params": [
+              {
+                "name": "startDateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or after the specified date"
+              },
+              {
+                "name": "startDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were started on or before the specified date"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders with an order status"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders by currency"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders by type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps its NEW status purchase order.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders by payment frequency"
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders by order reference code"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters orders by internal application ID"
+              },
+              {
+                "name": "fromCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date"
+              },
+              {
+                "name": "toCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "referenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Code provided by resellers and Sales Reps while purchasing a subscription"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order org.springframework.data.domain.Sort.Direction."
+              }
+            ]
+          },
+          "docs": "List all purchase orders"
+        },
+        {
+          "info": {
+            "name": "Retrieve a purchase order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The specific order id for which information is requested"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Provide the list of comma separated resource name (possible values = \"user,company,salesSupportUser\") which is needed to be expanded in the response"
+              }
+            ]
+          },
+          "docs": "Retrieve a purchase order.</br></br>Rate limit: Bucket size is 20 requests, with a leak rate of 4 requests per second.<br></br>Rate limit uses [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Usage of a leaky bucket algorithm allows client applications to make an unlimited number of requests over a large time horizon but prevents excessively large bursts over a short one."
+        },
+        {
+          "info": {
+            "name": "Update purchase order configuration details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/orders/:orderId/parameters",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the specific purchase order to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update purchase order configuration details"
+        },
+        {
+          "info": {
+            "name": "List all purchase order invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/orders/:orderId/invoices",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The specific order id for which information is requested"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "excludeFree",
+                "value": "",
+                "type": "query",
+                "description": "Exclude invoices whose amount is zero"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the start date of the invoice"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order org.springframework.data.domain.Sort.Direction."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the status of the invoice"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the end date of the invoice"
+              }
+            ]
+          },
+          "docs": "List all purchase order invoices"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

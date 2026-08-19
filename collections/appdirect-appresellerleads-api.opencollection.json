@@ -1,0 +1,429 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerLeads API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerLeads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List leads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who retrieved the list"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Lead status"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text, which filters the list of leads"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Date on which the lead was created (lower bound) in Unix timestamp format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Date on which the lead was created (upper bound) in Unix timestamp format"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The field by which to order the results"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Type of ordering used (ascending or descending)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all leads visible for a given context. You can filter the list using optional query parameters. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them."
+        },
+        {
+          "info": {
+            "name": "Create lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "The supported lead's API contexts. ANONYMOUS context can be used to create a PRODUCT or COMPANY lead without authentication."
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is creating the lead. Only required when creating a lead of type MANUAL."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "User ID of the user who is creating the lead. Only required when using OAuth credentials with role PARTNER to create a lead of type MANUAL. In this case, the user ID must correspond to a marketplace user who has the Marketplace Manager role. The user must be a member of a company that has marketplace access. "
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a manual, company profile or product profile lead. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them.<br/>Required parameters:<br/>Company name<br/>Contact email<br/>Lead type"
+        },
+        {
+          "info": {
+            "name": "Get lead details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads/:leadId",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is retrieving the lead"
+              }
+            ]
+          },
+          "docs": "Retrieves a single lead and its details"
+        },
+        {
+          "info": {
+            "name": "Update lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads/:leadId",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is updating the lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the contact information or notes from a lead"
+        },
+        {
+          "info": {
+            "name": "Discard lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads/:leadId",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is discarding the lead"
+              }
+            ]
+          },
+          "docs": "Deletes or disqualifies a lead (depending on type and assignment)"
+        },
+        {
+          "info": {
+            "name": "Assign lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/assignment",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is assigning the lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a lead to a Reseller company. The assignee will be able to see that lead as long as is not assigned to another company. The owner of the lead retains visibility even if it is assigned to another company."
+        },
+        {
+          "info": {
+            "name": "Associate lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/companyAssociation",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is updating the lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates a lead with an existing marketplace user and company"
+        },
+        {
+          "info": {
+            "name": "List activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/leads/:leadId/activities",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is retrieving the list"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Date on which the lead activity was created (lower bound) in Unix timestamp format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Date on which the lead activity was created (upper bound) in Unix timestamp format"
+              },
+              {
+                "name": "creationDateOrder",
+                "value": "",
+                "type": "query",
+                "description": "Type of ordering used (ascending or descending) for the creation date"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all lead activities visible for a given context. You can filter the list using optional query parameters."
+        },
+        {
+          "info": {
+            "name": "Convert lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/conversion",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is converting the lead"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "query",
+                "description": "Lead ID"
+              }
+            ]
+          },
+          "docs": "Converts the lead to a marketplace company"
+        },
+        {
+          "info": {
+            "name": "Request conversion approval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/conversionRequest",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID of the user who is requesting the lead conversion"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "query",
+                "description": "Lead ID"
+              }
+            ]
+          },
+          "docs": "Request permission to convert the lead to a marketplace company"
+        },
+        {
+          "info": {
+            "name": "Approve conversion request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/lead/v2/conversionApproval",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported contexts"
+              },
+              {
+                "name": "leadId",
+                "value": "",
+                "type": "query",
+                "description": "Lead ID"
+              }
+            ]
+          },
+          "docs": "Approves the conversion request made by a Reseller company"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

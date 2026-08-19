@@ -1,0 +1,354 @@
+{
+  "item": [
+    {
+      "id": "ede20e45-ab43-4044-9825-6e78a1b850ff",
+      "name": "AppResellerCatalog",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ba79074-8c87-456e-ac03-898919082e8c",
+          "name": "List sellable products",
+          "request": {
+            "name": "List sellable products",
+            "description": {
+              "content": "Retrieve all products that a Reseller can sell.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "catalog",
+                "sellableProducts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                },
+                {
+                  "disabled": false,
+                  "key": "targetUserId",
+                  "value": "<string>",
+                  "description": "Current user ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ae86397-04b7-4772-9f8e-3ced162cdab8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "catalog",
+                    "sellableProducts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetUserId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"id\": \"cf6ab187-000a-4571-8089-000019d68801\",\n      \"name\": \"Product name 1\",\n      \"blurb\": \"Product 1 short description\",\n      \"provider\": \"Appdirect\",\n      \"imageUrl\": \"https://appdirect.com/resource1\",\n      \"visible\": true\n    },\n    {\n      \"id\": \"9b997bfc-000a-4ee3-b9f2-66d634ee993f\",\n      \"name\": \"Product name 2\",\n      \"blurb\": \"Product 2 short description\",\n      \"provider\": \"Appdirect\",\n      \"imageUrl\": \"https://appdirect.com/resource2\",\n      \"visible\": true\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5883a72-d96b-4ed3-9993-c9f2230260d1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "catalog",
+                    "sellableProducts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetUserId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9bb0b63-3ba6-4216-9eb2-8050f1107363",
+          "name": "Edition details",
+          "request": {
+            "name": "Edition details",
+            "description": {
+              "content": "Get product editions, costs and markups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "catalog",
+                "sellableProducts",
+                ":productId",
+                "editions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "targetUserId",
+                  "value": "<string>",
+                  "description": "User ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productId",
+                  "description": "(Required) Product ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dada4673-3d56-4d72-a2e0-ca24b36cb7e0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "catalog",
+                    "sellableProducts",
+                    ":productId",
+                    "editions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "targetUserId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) Product ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"12fe4576-0000-4d7b-bdf4-0000cd112b27\",\n    \"name\": \"IT HelpDesk Session\",\n    \"revenueType\": \"ONE_TIME\",\n    \"paymentPlans\": [\n      {\n        \"id\": \"28e14ece-00a0-0055-8000-0000c4c8e329\",\n        \"frequency\": \"ONE_TIME\",\n        \"minimumServiceLength\": null,\n        \"cancellationPeriodLimit\": null,\n        \"endOfContractGracePeriod\": null,\n        \"costs\": [\n          {\n            \"id\": 54479,\n            \"unit\": \"SESSION\",\n            \"unitDependency\": null,\n            \"pricingStrategy\": \"UNIT\",\n            \"minUnits\": 0,\n            \"maxUnits\": 111,\n            \"itemPrices\": {\n              \"CAD\": 60,\n              \"GBP\": 60,\n              \"USD\": 60,\n              \"IDR\": 0\n            },\n            \"markupPrices\": [\n              {\n                \"markupType\": \"CHANNEL_RESELLER_COMPANY\",\n                \"markupPrices\": {\n                  \"USD\": 898989\n                }\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb790127-46b9-4457-a46e-dfa2cb217fa0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "catalog",
+                    "sellableProducts",
+                    ":productId",
+                    "editions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "targetUserId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) Product ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "85866fd6-9f09-4f6d-aae2-d7c699ae68a2",
+    "name": "Companies AI Embed AppResellerCatalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Responses API v2 API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Responses API v2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a prompt and receive a model response. When `stream=true` (default),\nreturns an SSE event stream following the OpenAI Responses streaming format.\nWhen `stream=false`, returns the completed response as JSON.\n\n**Execution modes:**\n- **Threaded**: when `previous_response_id` or `conversation` is provided.\n  Signals a long-lived Temporal `ThreadWorkflow` that processes requests sequentially.\n- **Stateless**: when neither `previous_response_id` nor `conversation` is set.\n  Starts a one-shot `S"
+        },
+        {
+          "info": {
+            "name": "Get a response",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a response run by ID. Returns the full response object including\noutput items, usage, and status.\n"
+        },
+        {
+          "info": {
+            "name": "Reconnect to an in-flight response stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId/stream",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamChatId",
+                "value": "",
+                "type": "query",
+                "description": "**[devs.ai extension]** Must equal the path `responseId`. Identifies the underlying chat-stream to attach to."
+              },
+              {
+                "name": "lastSequence",
+                "value": "",
+                "type": "query",
+                "description": "**[devs.ai extension]** Last `sequence_number` the client has already processed. Events with `sequence_number <= lastSequence` are suppressed. Default `-1` (no events suppressed)."
+              }
+            ]
+          },
+          "docs": "**[devs.ai extension]** Re-attach to a still-running response's SSE event stream after a network drop. The path parameter `responseId` and the required query parameter `streamChatId` MUST be equal — `streamChatId` exists for explicit client-side intent and to align with the underlying chat-stream backend.\n\nWhen `lastSequence` is supplied, events with `sequence_number <= lastSequence` are suppressed so the client receives only events it has not yet seen. The first event delivered is therefore typ"
+        },
+        {
+          "info": {
+            "name": "Cancel a response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId/cancel",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel an active response run. Only works for threaded execution mode.\nIdempotent — returns success if the response is already in a terminal state.\nSends a `CANCEL_ACTIVE_REQUEST` signal to the Temporal workflow.\n"
+        },
+        {
+          "info": {
+            "name": "Pause a response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId/pause",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**[devs.ai extension]** Pause an active response run. Execution halts at the next safe checkpoint;\nin-flight activities complete but no new turns are scheduled.\nOnly works for threaded execution mode. No equivalent in OpenAI's Responses API.\n"
+        },
+        {
+          "info": {
+            "name": "Resume a response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId/resume",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**[devs.ai extension]** Resume a paused response run. Optionally provide tool outputs for\nhuman-in-the-loop tool calling (function tools that require client execution).\nOnly works for threaded execution mode. No equivalent in OpenAI's Responses API.\n"
+        },
+        {
+          "info": {
+            "name": "Resume a deep research subagent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v2/responses/:responseId/deep-research/resume",
+            "params": [
+              {
+                "name": "responseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**[devs.ai extension]** Resume a paused deep research child workflow. Used to approve, deny,\nor provide clarification for a deep research run that is awaiting\nhuman input. Signals the deep research subagent workflow directly. No equivalent in OpenAI's Responses API.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

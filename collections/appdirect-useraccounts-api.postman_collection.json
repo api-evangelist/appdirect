@@ -1,0 +1,703 @@
+{
+  "item": [
+    {
+      "id": "da538274-25b0-4b87-a856-9511591346ae",
+      "name": "UserAccounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c770dc2e-333b-4d43-bcf9-54cb06f481d1",
+          "name": "Create user connections",
+          "request": {
+            "name": "Create user connections",
+            "description": {
+              "content": "Creates a new user connection for Search. A connection (accountName) associates the app (application UUID) and user information (userId, companyId, and handle). The connection is used to, for example, identify events related to the user's app account. accountName Format: {user_handle}@{user_uuid}@{company_uuid}\nNote: Application UUID = Product UUID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appwise",
+                "v2",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"companyId\": \"<string>\",\n    \"handle\": \"<string>\",\n    \"userId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1c963fe-1bfe-49b0-a41e-d3b7b6dcf8af",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"connection\": {\n    \"accountName\": \"bob@a1130ec9-3044-4cc6-b9a8-5a71fd2581a5@ce91a616-77f6-48b5-b6f3-d22bdeb362d9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cf3eb5e-d80a-479f-8191-d63867c782e1",
+              "name": "Input is invalid or malformed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"User not found.\",\n  \"moreInfo\": \"https://help.appdirect.com/api/appwise.html\",\n  \"details\": [\n    \"Details of error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bdb79cf-2d47-43a8-b432-c4809519722f",
+              "name": "Request cannot be authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1485381a-225f-459a-b25d-5b1bd1207ed4",
+              "name": "Request is authenticated but does not have permission to access the resource(s)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2c5c87d-4c55-4f4c-b92f-9a3e01bba729",
+              "name": "The application and/or user were not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee4405f4-1a4d-4662-a1e7-4a5b7341d884",
+              "name": "Inputs are valid, but this user and handle are already connected to the service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7b89603-e158-41b8-80ed-44b2c34c614f",
+              "name": "Internal services are unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app\": {\n    \"id\": \"<string>\"\n  },\n  \"user\": {\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\",\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"handle\": \"bob\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "741e4778-ce8b-4df3-b1a4-3eb243d9aee4",
+          "name": "Disconnect user accounts",
+          "request": {
+            "name": "Disconnect user accounts",
+            "description": {
+              "content": "Disconnects an existing user account from Search. To access this API, you must configure product-scoped OAuth2 authentication for the application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appwise",
+                "v2",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Note: Application UUID = Product UUID"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountName",
+                  "value": "<string>",
+                  "description": "(Required) The user application account connection (accountName) to disconnect"
+                },
+                {
+                  "disabled": false,
+                  "key": "callbackUrl",
+                  "value": "<string>",
+                  "description": "Callback URL to which to publish status updates about the disconnection"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "414ed3ff-e836-45fe-a7d8-3a143c6e2124",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app\": {\n    \"id\": \"b2fc6737-3d3f-4da2-afda-f80f25b89af9\"\n  },\n  \"connection\": {\n    \"accountName\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"status\": \"PENDING\"\n  },\n  \"user\": {\n    \"companyId\": \"2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"userId\": \"a13a9998-e025-4751-8fee-72afdc0fe6d5\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8a3251b-304a-4329-ab65-cd578def8b0b",
+              "name": "Input is invalid or malformed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdc7b6d4-06a2-4134-9b5c-a8743a12359f",
+              "name": "Request cannot be authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6858f009-14fc-4ec2-80b8-e0a2b5a5a8d9",
+              "name": "Request is authenticated but does not have permission to access the resource(s)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d867b785-69c6-496a-82f4-150e1e574c23",
+              "name": "Internal services are unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"status\": 1719,\n  \"moreInfo\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7077ecfe-d1ab-403e-8858-cb61b1096865",
+    "name": "Companies AI Embed UserAccounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

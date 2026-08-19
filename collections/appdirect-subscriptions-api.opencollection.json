@@ -1,0 +1,1047 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Subscriptions API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscription reactivation request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/reactivationRequest",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company subscription in the API request"
+              }
+            ]
+          },
+          "docs": "Send a subscription reactivation request.\n\nThis endpoint sends a notification to the subscription owner.\nIf company-wide billing is enabled, this endpoint also sends a notification to all company administrators (Company Admin and Billing Admin)."
+        },
+        {
+          "info": {
+            "name": "Read subscription SAML Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/saml/certificate",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company subscription in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a subscriptions's public SAML verification certificate."
+        },
+        {
+          "info": {
+            "name": "Read SAML metadata for subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/saml",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company subscription in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a subscription's SAML metadata."
+        },
+        {
+          "info": {
+            "name": "List all subscriptions for a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/subscriptions",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal discount ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by status"
+              },
+              {
+                "name": "editionId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal edition ID"
+              },
+              {
+                "name": "paymentPlanId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal payment plan ID"
+              },
+              {
+                "name": "lastModified",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by last modified date"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal application ID"
+              },
+              {
+                "name": "bundleApplicationId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal bundle ID"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Expands filtered subscription results to include details about the specified query parameters, one or more of \"order\", \"product\", or \"edition\"."
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "List all of the subscriptions for the given company"
+        },
+        {
+          "info": {
+            "name": "Change subscription details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "sendNotification",
+                "value": "",
+                "type": "query",
+                "description": "Send notification of the subscription's creation.  Default value is true."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change the specified subscription for the specified user and company with the provided data.</br>You cannot perform assisted sales, in which the buyer purchases a product for or on behalf of someone else, through the API.</br>When you use the Change Subscription Details request to update a subscription that was created though the user interface as an assisted sale, a new order is created for the specified user ID and company. Because the new order is not created as an assisted sale, the salesSup"
+        },
+        {
+          "info": {
+            "name": "List all subscriptions for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/subscriptions",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal discount ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order status"
+              },
+              {
+                "name": "editionId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal edition ID"
+              },
+              {
+                "name": "paymentPlanId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal payment plan ID"
+              },
+              {
+                "name": "lastModified",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by last modified date"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal application ID"
+              },
+              {
+                "name": "bundleApplicationId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal bundle ID"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Expands filtered subscription results to include details about the specified query parameters, one or more of \"order\", \"product\", or \"edition\"."
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "List all of the subscriptions for the given user"
+        },
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/subscriptions",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "sendNotification",
+                "value": "",
+                "type": "query",
+                "description": "Send notification of the subscription's creation.  Default value is true."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a subscription for the given user and company using the provided data"
+        },
+        {
+          "info": {
+            "name": "Preview changed subscription details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/subscriptions/:subscriptionId/preview",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview the changes for the given subscription using the provided data"
+        },
+        {
+          "info": {
+            "name": "Preview create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/companies/:companyId/users/:userId/subscriptions/preview",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "User's company ID"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview creating a subscription for the given user and company using the provided data"
+        },
+        {
+          "info": {
+            "name": "List all purchase orders for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/orders",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID."
+              },
+              {
+                "name": "startDateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions where billing starts on or after the specified date (format: Mon March 01 00:00:00 EDT 2015)"
+              },
+              {
+                "name": "startDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions where billing starts on or before the specified date (format: Mon March 01 00:00:00 EDT 2015)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order status"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by currency"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps its NEW status purchase order.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by pricing frequency"
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal application ID"
+              },
+              {
+                "name": "fromCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date"
+              },
+              {
+                "name": "toCreationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "List all the purchase orders for the given subscription"
+        },
+        {
+          "info": {
+            "name": "Update an add-on instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons/:addonInstanceUuid",
+            "params": [
+              {
+                "name": "addonInstanceUuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the given add-on instance on the given subscription using the provided data"
+        },
+        {
+          "info": {
+            "name": "Delete an add-on instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons/:addonInstanceUuid",
+            "params": [
+              {
+                "name": "addonInstanceUuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ]
+          },
+          "docs": "Delete the given add-on instance on the given subscription"
+        },
+        {
+          "info": {
+            "name": "List all subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or after the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were created on or before the specified date in yyyy/MM/DD HH:mm:ss format"
+              },
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal discount ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order status"
+              },
+              {
+                "name": "editionId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal edition ID"
+              },
+              {
+                "name": "paymentPlanId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal payment plan ID"
+              },
+              {
+                "name": "lastModified",
+                "value": "",
+                "type": "query",
+                "description": "Filters results to only include subscriptions that were modified on or after the specified date in UNIX Epoch milliseconds"
+              },
+              {
+                "name": "applicationIds",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal Application ID"
+              },
+              {
+                "name": "bundleApplicationId",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by internal bundle ID"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Expands filtered subscription results to include details about the specified query parameters, one or more of \"order\", \"product\", or \"edition\"."
+              },
+              {
+                "name": "orderReferenceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filters subscriptions by order reference code"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "The list may be filtered using the optional filter parameters"
+        },
+        {
+          "info": {
+            "name": "List all payments for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/payments",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Payment method"
+              },
+              {
+                "name": "result",
+                "value": "",
+                "type": "query",
+                "description": "Payment result"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date"
+              }
+            ]
+          },
+          "docs": "List all the payments for the given subscription"
+        },
+        {
+          "info": {
+            "name": "Retrieve a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the subscription"
+              }
+            ]
+          },
+          "docs": "Retrieve the subscription for the given subscription ID"
+        },
+        {
+          "info": {
+            "name": "Update subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this request to manage subscription lifecycles (suspend and activate subscriptions), update external IDs, and add or change subscription custom attribute values."
+        },
+        {
+          "info": {
+            "name": "Request cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "sendNotification",
+                "value": "",
+                "type": "query",
+                "description": "Sends email notification if true"
+              }
+            ]
+          },
+          "docs": "Requests cancellation of the given subscription"
+        },
+        {
+          "info": {
+            "name": "Read addon instances for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Search filter"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field (UUID, DATE or STATUS)"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (ASC or DESC)"
+              }
+            ]
+          },
+          "docs": "Read addon instances for a subscription"
+        },
+        {
+          "info": {
+            "name": "Create an add-on instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an add-on instance on the given subscription using the given data"
+        },
+        {
+          "info": {
+            "name": "List all invoices for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/invoices",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "excludeFree",
+                "value": "",
+                "type": "query",
+                "description": "Exclude invoices with no charges (free)"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Invoice status"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date"
+              }
+            ]
+          },
+          "docs": "List all of the invoices for the given subscription"
+        },
+        {
+          "info": {
+            "name": "Preview creation of an addon instance for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons/preview",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview creation of an addon instance for a subscription"
+        },
+        {
+          "info": {
+            "name": "Preview change of an addon instance for a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/addons/:addonInstanceUuid/preview",
+            "params": [
+              {
+                "name": "addonInstanceUuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview change of an addon instance for a subscription"
+        },
+        {
+          "info": {
+            "name": "Preview subscription cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/billing/v1/subscriptions/:subscriptionId/previewCancel",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID"
+              }
+            ]
+          },
+          "docs": "Preview a subscription cancellation for the given subscription ID"
+        },
+        {
+          "info": {
+            "name": "Get an organization subscription by public ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/org-subscriptions/:publicId",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public subscription identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves an organization subscription by its public subscription identifier. Callers must have organization, tenant, or instance-level read permission on organization subscriptions. When that requirement is met, the subscription is returned only if it exists and the caller is permitted to read that specific subscription; otherwise the API responds with 404 so clients cannot infer whether a given public ID exists."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

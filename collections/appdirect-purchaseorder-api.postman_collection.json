@@ -1,0 +1,1716 @@
+{
+  "item": [
+    {
+      "id": "5256680c-253c-4bb7-9b2d-d44331bb3c46",
+      "name": "PurchaseOrder",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "328a3a01-9a83-4e4b-95ad-65c3de316b20",
+          "name": "List all purchase orders for a company",
+          "request": {
+            "name": "List all purchase orders for a company",
+            "description": {
+              "content": "List all of the purchase orders for the given company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDateFrom",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTo",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order status"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by currency"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps the original NEW purchase order type.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by pricing frequency"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderReferenceCode",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order reference code"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationIds",
+                  "value": "<number>",
+                  "description": "Filters subscriptions by internal application ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "toCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "DATE",
+                  "description": "Sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) Company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e83ef9f5-6958-4501-89e9-0f758a03cd7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDateFrom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "startDateTo",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderReferenceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "applicationIds",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orders\": [\n    {\n      \"startDate\": 1480921200000,\n      \"endDate\": null,\n      \"nextBillingDate\": 1483599600000,\n      \"endOfDiscountDate\": null,\n      \"status\": \"ACTIVE\",\n      \"frequency\": \"MONTHLY\",\n      \"currency\": \"USD\",\n      \"type\": \"NEW\",\n      \"totalPrice\": 10,\n      \"user\": {\n        \"id\": \"c47d0fd7-b67a-4e07-84f8-f93dfafbeecc\",\n        \"href\": \"http://appdirect/api/account/v1/users/c47d0fd7-b67a-4e07-84f8-f93dfafbeecc\"\n      },\n      \"salesSupportUser\": null,\n      \"company\": {\n        \"id\": \"e83cd3d6-7865-4fc2-9d7c-603ad17dd639\",\n        \"href\": \"http://appdirect/api/account/v1/companies/e83cd3d6-7865-4fc2-9d7c-603ad17dd639\"\n      },\n      \"referenceCode\": null,\n      \"paymentPlan\": {\n        \"href\": \"http://appdirect/api/marketplace/v1/products/2/editions/2/paymentPlans/2\",\n        \"id\": 2,\n        \"uuid\": \"eaca1aa5-4c4f-44cb-8cf4-eb0aa9267273\",\n        \"frequency\": \"MONTHLY\",\n        \"contract\": {\n          \"minimumServiceLength\": null,\n          \"cancellationPeriodLimit\": null,\n          \"endOfContractGracePeriod\": null,\n          \"blockSwitchToShorterContract\": false,\n          \"blockContractDowngrades\": false,\n          \"blockContractUpgrades\": false,\n          \"alignWithParentCycleStartDate\": false,\n          \"gracePeriod\": null,\n          \"terminationFee\": null,\n          \"autoExtensionPricingId\": null\n        },\n        \"allowCustomUsage\": false,\n        \"keepBillDateOnUsageChange\": false,\n        \"separatePrepaid\": false,\n        \"isPrimaryPrice\": false,\n        \"costs\": [\n          {\n            \"id\": 2,\n            \"unit\": \"USER\",\n            \"unitDependency\": null,\n            \"minUnits\": 0,\n            \"maxUnits\": null,\n            \"meteredUsage\": false,\n            \"increment\": 1,\n            \"pricePerIncrement\": false,\n            \"blockContractDecrease\": false,\n            \"blockContractIncrease\": false,\n            \"blockOriginalContractDecrease\": false,\n            \"amount\": {\n              \"USD\": 10\n            },\n            \"pricingStrategy\": \"UNIT\"\n          }\n        ],\n        \"discount\": null,\n        \"primaryPrice\": false\n      },\n      \"contract\": null,\n      \"previousOrder\": null,\n      \"nextOrder\": null,\n      \"discount\": null,\n      \"paymentPlanId\": 2,\n      \"discountId\": null,\n      \"activated\": false,\n      \"oneTimeOrders\": [],\n      \"orderLines\": [\n        {\n          \"id\": 1,\n          \"type\": \"ITEM\",\n          \"unit\": \"USER\",\n          \"quantity\": 1,\n          \"price\": 10,\n          \"listingPrice\": 10,\n          \"totalPrice\": 10,\n          \"description\": \"Test App 1 - null - Per User Fee\"\n        }\n      ],\n      \"parameters\": [],\n      \"links\": [\n        {\n          \"rel\": \"subscription\",\n          \"href\": \"http://appdirect/api/billing/v1/subscriptions/1b577640-9b77-47bc-beb8-ed59accb4836\"\n        }\n      ],\n      \"id\": 1\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb69c455-1377-44a2-8c23-835e2485be32",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDateFrom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "startDateTo",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderReferenceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "applicationIds",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc88f540-ca84-4507-8ddc-3c81dc2e757a",
+          "name": "List all purchase orders for a user",
+          "request": {
+            "name": "List all purchase orders for a user",
+            "description": {
+              "content": "List all of the purchase orders for the given user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDateFrom",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTo",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order status"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by currency"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps its NEW status purchase order.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by pricing frequency"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderReferenceCode",
+                  "value": "<string>",
+                  "description": "Filters subscriptions by order reference code"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationIds",
+                  "value": "<number>",
+                  "description": "Filters subscriptions by internal application ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "toCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "DATE",
+                  "description": "Sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) User's company ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6c503d7-f176-4c44-97d1-90344381856a",
+              "name": "Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDateFrom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "startDateTo",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderReferenceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "applicationIds",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) User's company ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orders\": [\n    {\n      \"startDate\": 1480921200000,\n      \"endDate\": null,\n      \"nextBillingDate\": 1483599600000,\n      \"endOfDiscountDate\": null,\n      \"status\": \"ACTIVE\",\n      \"frequency\": \"MONTHLY\",\n      \"currency\": \"USD\",\n      \"type\": \"NEW\",\n      \"totalPrice\": 0,\n      \"user\": {\n        \"id\": \"c47d0fd7-b67a-4e07-84f8-f93dfafbeecc\",\n        \"href\": \"http://appdirect/api/account/v1/users/c47d0fd7-b67a-4e07-84f8-f93dfafbeecc\"\n      },\n      \"salesSupportUser\": null,\n      \"company\": {\n        \"id\": \"e83cd3d6-7865-4fc2-9d7c-603ad17dd639\",\n        \"href\": \"http://appdirect/api/account/v1/companies/e83cd3d6-7865-4fc2-9d7c-603ad17dd639\"\n      },\n      \"referenceCode\": null,\n      \"paymentPlan\": {\n        \"href\": \"http://appdirect/api/marketplace/v1/products/2/editions/2/paymentPlans/2\",\n        \"id\": 2,\n        \"uuid\": \"eaca1aa5-4c4f-44cb-8cf4-eb0aa9267273\",\n        \"frequency\": \"MONTHLY\",\n        \"contract\": {\n          \"minimumServiceLength\": null,\n          \"cancellationPeriodLimit\": null,\n          \"endOfContractGracePeriod\": null,\n          \"blockSwitchToShorterContract\": false,\n          \"blockContractDowngrades\": false,\n          \"blockContractUpgrades\": false,\n          \"alignWithParentCycleStartDate\": false,\n          \"gracePeriod\": null,\n          \"terminationFee\": null,\n          \"autoExtensionPricingId\": null\n        },\n        \"allowCustomUsage\": false,\n        \"keepBillDateOnUsageChange\": false,\n        \"separatePrepaid\": false,\n        \"isPrimaryPrice\": false,\n        \"costs\": [\n          {\n            \"id\": 2,\n            \"unit\": \"USER\",\n            \"unitDependency\": null,\n            \"minUnits\": 0,\n            \"maxUnits\": null,\n            \"meteredUsage\": false,\n            \"increment\": 1,\n            \"pricePerIncrement\": false,\n            \"blockContractDecrease\": false,\n            \"blockContractIncrease\": false,\n            \"blockOriginalContractDecrease\": false,\n            \"amount\": {\n              \"USD\": 10\n            },\n            \"pricingStrategy\": \"UNIT\"\n          }\n        ],\n        \"discount\": null,\n        \"primaryPrice\": false\n      },\n      \"contract\": null,\n      \"previousOrder\": null,\n      \"nextOrder\": null,\n      \"discount\": null,\n      \"paymentPlanId\": 2,\n      \"discountId\": null,\n      \"activated\": false,\n      \"oneTimeOrders\": [],\n      \"orderLines\": [\n        {\n          \"id\": 1,\n          \"type\": \"ITEM\",\n          \"unit\": \"USER\",\n          \"quantity\": 1,\n          \"price\": 10,\n          \"listingPrice\": 10,\n          \"totalPrice\": 10,\n          \"description\": \"Test App 1 - null - Per User Fee\"\n        }\n      ],\n      \"parameters\": [],\n      \"links\": [\n        {\n          \"rel\": \"subscription\",\n          \"href\": \"http://appdirect/api/billing/v1/subscriptions/1b577640-9b77-47bc-beb8-ed59accb4836\"\n        }\n      ],\n      \"id\": 1\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37e45e96-9547-409f-96bf-1027783291f2",
+          "name": "List all purchase order payments",
+          "request": {
+            "name": "List all purchase order payments",
+            "description": {
+              "content": "List all purchase order payments",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "orders",
+                ":orderId",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Filter by the start date of the invoice"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "Filter by method of the payment"
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "Filter by results of the payment"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "PAYMENT_ID",
+                  "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order org.springframework.data.domain.Sort.Direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Filter by the end date of the invoice"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "orderId",
+                  "description": "(Required) The specific order id for which information is requested"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f3bfd47-8367-4494-846f-5f5de9edd647",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentNumber\": 17,\n    \"date\": 1481001027061,\n    \"amount\": 10,\n    \"currency\": \"USD\",\n    \"result\": \"SUCCESSFUL\",\n    \"method\": \"CREDIT_CARD\",\n    \"transactionId\": \"123456abcdef\",\n    \"user\": {\n      \"id\": \"091d24f6-7b0c-42a0-84ff-86e1cdcf893c\",\n      \"href\": \"http://appdirect/api/account/v1/users/091d24f6-7b0c-42a0-84ff-86e1cdcf893c\"\n    },\n    \"company\": {\n      \"id\": \"5df15aa3-a3f3-4c6f-a434-9a85545e9c95\",\n      \"href\": \"http://appdirect/api/account/v1/companies/5df15aa3-a3f3-4c6f-a434-9a85545e9c95\"\n    },\n    \"gatewayResponse\": {\n      \"avs\": true,\n      \"cvv\": true,\n      \"code\": null,\n      \"message\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/payments/17\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79cdbf9f-29c5-4082-920e-7519520200ee",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9313e23f-c9bd-4b29-b6a6-1f08ffa796e0",
+          "name": "List all purchase orders",
+          "request": {
+            "name": "List all purchase orders",
+            "description": {
+              "content": "List all purchase orders",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDateFrom",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTo",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were started on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters orders with an order status"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Filters orders by currency"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filters orders by type.<br/>NEW: The first order of a subscription. The order contains flat fees (one time or recurring) for this subscription. It is active until the subscription is updated or canceled.<br/>MIGRATION: The order created after a subscription change. The order includes flat fees for both one-time and recurring editions.<br/>ADOPTION: The order created by an administrator who has taken ownership of an application from another user within the same company.<br/>FREE_TRIAL_ACTIVATION: Created when a free trial is manually upgraded to a paid subscription. Any subscription that is updated from free trial to paid automatically keeps its NEW status purchase order.<br/>TERMINATION_FEE: A subscription is canceled that had a termination fee. This purchase order represents the fees incurred as a result of the cancellation.<br/>END_OF_CONTRACT_MIGRATION: Created when a subscription update takes place as a result of a contract extension. If the contract autorenewal is set to either continue without a contract or renew the contract with the same pricing plan, then no migration occurs and the original purchase order is updated to include the new end date for the contract.<br/>REFUND: Created when a refund is performed. The refund purchase order is created for only on-platform refunds. Off-platform refunds do not generate this type of purchase order.<br/>CREDIT: Created during subscription update events. Any subscription update calculates a paid period and a credit period. The credit is then provided to the user to prorate the subscription.<br/>ONE_TIME_FEE: Created if an edition includes one-time setup fees.<br/>ADDITIONAL_FEE: Used for off-order charges. A developer change creates an off-order charge and charges their customer a custom amount outside of the normal subscription cycle.<br/>END_OF_DISCOUNT_MIGRATION: Created after a discount of limited duration expires. This purchase order is created to represent the updated costs without the discount.<br/>METERED_USAGE: A purchase order created to accumulate usage fees during a billing period. The order is only valid for the billing period but it is updated with usage lines over the course of the billing period. A metered purchase order is invoiced in arrears at the end of the billing cycle."
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "<string>",
+                  "description": "Filters orders by payment frequency"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderReferenceCode",
+                  "value": "<string>",
+                  "description": "Filters orders by order reference code"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationIds",
+                  "value": "<number>",
+                  "description": "Filters orders by internal application ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or after the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "toCreationDate",
+                  "value": "<number>",
+                  "description": "Filters results to only include subscriptions that were created on or before the specified date"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "referenceCode",
+                  "value": "",
+                  "description": "Code provided by resellers and Sales Reps while purchasing a subscription"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "DATE",
+                  "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order org.springframework.data.domain.Sort.Direction."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6be8616b-1260-488d-a7c4-3b587a363052",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDateFrom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "startDateTo",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderReferenceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "applicationIds",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "referenceCode",
+                      "value": ""
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orders\": [\n    {\n      \"startDate\": 1481001027061,\n      \"endDate\": null,\n      \"serviceStartDate\": 1483679427061,\n      \"nextBillingDate\": 1483679427061,\n      \"endOfDiscountDate\": null,\n      \"status\": \"ACTIVE\",\n      \"frequency\": \"MONTHLY\",\n      \"currency\": \"USD\",\n      \"type\": \"NEW\",\n      \"totalPrice\": 0,\n      \"user\": {\n        \"id\": \"091d24f6-7b0c-42a0-84ff-86e1cdcf893c\",\n        \"href\": \"http://appdirect/api/account/v1/users/091d24f6-7b0c-42a0-84ff-86e1cdcf893c\"\n      },\n      \"salesSupportUser\": null,\n      \"salesSupportCompany\": null,\n      \"company\": {\n        \"id\": \"5df15aa3-a3f3-4c6f-a434-9a85545e9c95\",\n        \"href\": \"http://appdirect/api/account/v1/companies/5df15aa3-a3f3-4c6f-a434-9a85545e9c95\"\n      },\n      \"referenceCode\": null,\n      \"paymentPlan\": {\n        \"href\": \"http://appdirect/api/marketplace/v1/products/4/editions/4/paymentPlans/7\",\n        \"id\": 7,\n        \"uuid\": \"4e29be4a-142b-482f-938c-418720bfd092\",\n        \"frequency\": \"MONTHLY\",\n        \"contract\": {\n          \"minimumServiceLength\": 3,\n          \"cancellationPeriodLimit\": null,\n          \"endOfContractGracePeriod\": null,\n          \"blockSwitchToShorterContract\": false,\n          \"blockContractDowngrades\": false,\n          \"blockContractUpgrades\": false,\n          \"alignWithParentCycleStartDate\": false,\n          \"gracePeriod\": null,\n          \"terminationFee\": null,\n          \"autoExtensionPricingId\": 7\n        },\n        \"allowCustomUsage\": false,\n        \"keepBillDateOnUsageChange\": false,\n        \"separatePrepaid\": false,\n        \"isPrimaryPrice\": false,\n        \"costs\": [\n          {\n            \"id\": 7,\n            \"unit\": \"USER\",\n            \"unitDependency\": null,\n            \"minUnits\": 0,\n            \"maxUnits\": null,\n            \"meteredUsage\": false,\n            \"increment\": 1,\n            \"pricePerIncrement\": false,\n            \"blockContractDecrease\": false,\n            \"blockContractIncrease\": false,\n            \"blockOriginalContractDecrease\": false,\n            \"amount\": {\n              \"USD\": 10\n            },\n            \"pricingStrategy\": \"UNIT\"\n          }\n        ],\n        \"discount\": null,\n        \"primaryPrice\": false\n      },\n      \"contract\": null,\n      \"previousOrder\": null,\n      \"nextOrder\": null,\n      \"discount\": null,\n      \"paymentPlanId\": 7,\n      \"discountId\": null,\n      \"activated\": false,\n      \"oneTimeOrders\": [],\n      \"orderLines\": [],\n      \"parameters\": [],\n      \"links\": [\n        {\n          \"rel\": \"subscription\",\n          \"href\": \"http://appdirect/api/billing/v1/subscriptions/6d2a0cb2-aa95-48d4-a0c3-37427164475e\"\n        }\n      ],\n      \"id\": 4,\n      \"parentSubscriptionId\": 5\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0dc302ae-fe02-4cbb-aac9-13090481b185",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDateFrom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "startDateTo",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderReferenceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "applicationIds",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toCreationDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "referenceCode",
+                      "value": ""
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c6cd22c-3bd3-4762-890e-5d93bd41ab91",
+          "name": "Retrieve a purchase order",
+          "request": {
+            "name": "Retrieve a purchase order",
+            "description": {
+              "content": "Retrieve a purchase order.</br></br>Rate limit: Bucket size is 20 requests, with a leak rate of 4 requests per second.<br></br>Rate limit uses [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Usage of a leaky bucket algorithm allows client applications to make an unlimited number of requests over a large time horizon but prevents excessively large bursts over a short one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Provide the list of comma separated resource name (possible values = \"user,company,salesSupportUser\") which is needed to be expanded in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Provide the list of comma separated resource name (possible values = \"user,company,salesSupportUser\") which is needed to be expanded in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "orderId",
+                  "description": "(Required) The specific order id for which information is requested"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3199294e-ae77-4479-b22e-58539a018944",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"startDate\": 1481001027061,\n  \"endDate\": null,\n  \"serviceStartDate\": 1483679427061,\n  \"nextBillingDate\": 1483679427061,\n  \"endOfDiscountDate\": null,\n  \"status\": \"ACTIVE\",\n  \"frequency\": \"MONTHLY\",\n  \"currency\": \"USD\",\n  \"type\": \"NEW\",\n  \"totalPrice\": 0,\n  \"user\": {\n    \"id\": \"091d24f6-7b0c-42a0-84ff-86e1cdcf893c\",\n    \"href\": \"http://appdirect/api/account/v1/users/091d24f6-7b0c-42a0-84ff-86e1cdcf893c\"\n  },\n  \"salesSupportUser\": null,\n  \"salesSupportCompany\": null,\n  \"company\": {\n    \"id\": \"5df15aa3-a3f3-4c6f-a434-9a85545e9c95\",\n    \"href\": \"http://appdirect/api/account/v1/companies/5df15aa3-a3f3-4c6f-a434-9a85545e9c95\"\n  },\n  \"referenceCode\": null,\n  \"paymentPlan\": {\n    \"href\": \"http://appdirect/api/marketplace/v1/products/4/editions/4/paymentPlans/7\",\n    \"id\": 7,\n    \"uuid\": \"4e29be4a-142b-482f-938c-418720bfd092\",\n    \"frequency\": \"MONTHLY\",\n    \"contract\": {\n      \"minimumServiceLength\": 3,\n      \"cancellationPeriodLimit\": null,\n      \"endOfContractGracePeriod\": null,\n      \"blockSwitchToShorterContract\": false,\n      \"blockContractDowngrades\": false,\n      \"blockContractUpgrades\": false,\n      \"alignWithParentCycleStartDate\": false,\n      \"gracePeriod\": null,\n      \"terminationFee\": null,\n      \"autoExtensionPricingId\": 7\n    },\n    \"allowCustomUsage\": false,\n    \"keepBillDateOnUsageChange\": false,\n    \"separatePrepaid\": false,\n    \"isPrimaryPrice\": false,\n    \"costs\": [\n      {\n        \"id\": 7,\n        \"unit\": \"USER\",\n        \"unitDependency\": null,\n        \"minUnits\": 0,\n        \"maxUnits\": null,\n        \"meteredUsage\": false,\n        \"increment\": 1,\n        \"pricePerIncrement\": false,\n        \"blockContractDecrease\": false,\n        \"blockContractIncrease\": false,\n        \"blockOriginalContractDecrease\": false,\n        \"amount\": {\n          \"USD\": 10\n        },\n        \"pricingStrategy\": \"UNIT\"\n      }\n    ],\n    \"discount\": null,\n    \"primaryPrice\": false\n  },\n  \"contract\": null,\n  \"previousOrder\": null,\n  \"nextOrder\": null,\n  \"discount\": null,\n  \"paymentPlanId\": 7,\n  \"discountId\": null,\n  \"activated\": false,\n  \"oneTimeOrders\": [],\n  \"orderLines\": [],\n  \"parameters\": [],\n  \"links\": [\n    {\n      \"rel\": \"subscription\",\n      \"href\": \"http://appdirect/api/billing/v1/subscriptions/6d2a0cb2-aa95-48d4-a0c3-37427164475e\"\n    }\n  ],\n  \"id\": 4,\n  \"parentSubscriptionId\": 5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d21105c5-adb1-4ab1-af66-aff04c24c99c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7225e9df-3d6a-4f76-98ee-f90601a22e7a",
+          "name": "Update purchase order configuration details",
+          "request": {
+            "name": "Update purchase order configuration details",
+            "description": {
+              "content": "Update purchase order configuration details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "orders",
+                ":orderId",
+                "parameters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "orderId",
+                  "description": "(Required) Id of the specific purchase order to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e681a4e-86c2-4e17-8fc1-f6ea28e13c24",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId",
+                    "parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) Id of the specific purchase order to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"...\",\n    \"value\": \"...\"\n  },\n  {\n    \"name\": \"...\",\n    \"value\": \"...\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de51186f-e5e8-4f0f-beeb-fda07a5e712b",
+          "name": "List all purchase order invoices",
+          "request": {
+            "name": "List all purchase order invoices",
+            "description": {
+              "content": "List all purchase order invoices",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "orders",
+                ":orderId",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeFree",
+                  "value": "<boolean>",
+                  "description": "Exclude invoices whose amount is zero"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Filter by the start date of the invoice"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "INVOICE_ID",
+                  "description": "The filed to be used for sorting com.appdirect.backend.api.billing.types.OrderSortWS."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order org.springframework.data.domain.Sort.Direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by the status of the invoice"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Filter by the end date of the invoice"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "orderId",
+                  "description": "(Required) The specific order id for which information is requested"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af5eb8bd-83f0-4b8a-b90e-0355871018b7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"invoiceId\": 16,\n    \"referenceNumber\": null,\n    \"creationDate\": 1481001027061,\n    \"dueDate\": 1481353200000,\n    \"status\": \"PAID\",\n    \"total\": 10,\n    \"orderIds\": [\n      \"3754\"\n    ],\n    \"currency\": \"USD\",\n    \"user\": {\n      \"id\": \"091d24f6-7b0c-42a0-84ff-86e1cdcf893c\",\n      \"href\": \"http://appdirect/api/account/v1/users/091d24f6-7b0c-42a0-84ff-86e1cdcf893c\"\n    },\n    \"company\": {\n      \"id\": \"5df15aa3-a3f3-4c6f-a434-9a85545e9c95\",\n      \"href\": \"http://appdirect/api/account/v1/companies/5df15aa3-a3f3-4c6f-a434-9a85545e9c95\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"user\",\n        \"href\": \"http://appdirect/api/account/v2/users/091d24f6-7b0c-42a0-84ff-86e1cdcf893c\"\n      },\n      {\n        \"rel\": \"company\",\n        \"href\": \"http://appdirect/api/account/v2/companies/5df15aa3-a3f3-4c6f-a434-9a85545e9c95\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/invoices/16\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a47cbf9-f0d4-465b-b0e7-971f893c73bb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "orders",
+                    ":orderId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "orderId",
+                      "description": "(Required) The specific order id for which information is requested"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f9b14f22-f93b-4c3b-af35-861c5d5b680b",
+    "name": "Companies AI Embed PurchaseOrder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

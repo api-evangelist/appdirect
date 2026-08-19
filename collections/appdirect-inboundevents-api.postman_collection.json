@@ -1,0 +1,262 @@
+{
+  "item": [
+    {
+      "id": "a2ac55c6-837b-4a61-9639-61c0afcbecdb",
+      "name": "InboundEvents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "134f9633-37f3-4efd-824e-72b58e7c82c6",
+          "name": "Publish content events",
+          "request": {
+            "name": "Publish content events",
+            "description": {
+              "content": "Publishes content events that contain new or changed data in referenced resources. To access this API, you must configure product-scoped OAuth2 authentication for your application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appwise",
+                "v2",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": {\n    \"instance\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"source\": \"<string>\",\n    \"timestamp\": \"<long>\"\n  },\n  \"eventMetadata\": {\n    \"id\": \"<string>\",\n    \"timestamp\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"actor\": {\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"action\": {\n    \"text\": \"<string>\",\n    \"verb\": \"<string>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"changes\": {\n    \"fields\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\",\n        \"label\": \"<string>\",\n        \"op\": \"<string>\",\n        \"display\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\",\n        \"label\": \"<string>\",\n        \"op\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    ],\n    \"users\": [\n      {\n        \"identifier\": \"<string>\",\n        \"name\": \"<string>\",\n        \"delete\": \"<boolean>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"name\": \"<string>\",\n        \"delete\": \"<boolean>\"\n      }\n    ],\n    \"groups\": [\n      {\n        \"identifier\": \"<string>\",\n        \"delete\": \"<boolean>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"delete\": \"<boolean>\"\n      }\n    ]\n  },\n  \"contents\": [\n    {\n      \"url\": \"<string>\",\n      \"previewUrl\": \"<string>\",\n      \"title\": \"<string>\",\n      \"searchText\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"linkedToResource\": \"<boolean>\",\n      \"delete\": \"<boolean>\"\n    },\n    {\n      \"url\": \"<string>\",\n      \"previewUrl\": \"<string>\",\n      \"title\": \"<string>\",\n      \"searchText\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"linkedToResource\": \"<boolean>\",\n      \"delete\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9332e29-c078-4795-a1ac-431d519b345b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": {\n    \"source\": \"b2fc6737-3d3f-4da2-afda-f80f25b89af9\",\n    \"instance\": \"myclient.myapp.com\",\n    \"resourceId\": \"order-12345\",\n    \"timestamp\": 1500558736123\n  },\n  \"eventMetadata\": {\n    \"id\": \"<string>\",\n    \"timestamp\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"actor\": {\n    \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"name\": \"Bob Roberts\"\n  },\n  \"action\": {\n    \"verb\": \"assigned\",\n    \"text\": \"a task\"\n  },\n  \"changes\": {\n    \"fields\": [\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      },\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      }\n    ],\n    \"users\": [\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      },\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      }\n    ],\n    \"groups\": [\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      },\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      }\n    ]\n  },\n  \"contents\": [\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    },\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2ccb411-64e1-4d72-ae5a-1cbe735ad522",
+              "name": "Input is invalid or malformed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": {\n    \"source\": \"b2fc6737-3d3f-4da2-afda-f80f25b89af9\",\n    \"instance\": \"myclient.myapp.com\",\n    \"resourceId\": \"order-12345\",\n    \"timestamp\": 1500558736123\n  },\n  \"eventMetadata\": {\n    \"id\": \"<string>\",\n    \"timestamp\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"actor\": {\n    \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"name\": \"Bob Roberts\"\n  },\n  \"action\": {\n    \"verb\": \"assigned\",\n    \"text\": \"a task\"\n  },\n  \"changes\": {\n    \"fields\": [\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      },\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      }\n    ],\n    \"users\": [\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      },\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      }\n    ],\n    \"groups\": [\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      },\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      }\n    ]\n  },\n  \"contents\": [\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    },\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"User not found.\",\n  \"moreInfo\": \"https://help.appdirect.com/api/appwise.html\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e9180f1-aecc-4e77-b9b7-7f5dc3244855",
+              "name": "Unauthorized to publish this event",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": {\n    \"source\": \"b2fc6737-3d3f-4da2-afda-f80f25b89af9\",\n    \"instance\": \"myclient.myapp.com\",\n    \"resourceId\": \"order-12345\",\n    \"timestamp\": 1500558736123\n  },\n  \"eventMetadata\": {\n    \"id\": \"<string>\",\n    \"timestamp\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"actor\": {\n    \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"name\": \"Bob Roberts\"\n  },\n  \"action\": {\n    \"verb\": \"assigned\",\n    \"text\": \"a task\"\n  },\n  \"changes\": {\n    \"fields\": [\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      },\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      }\n    ],\n    \"users\": [\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      },\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      }\n    ],\n    \"groups\": [\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      },\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      }\n    ]\n  },\n  \"contents\": [\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    },\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"User not found.\",\n  \"moreInfo\": \"https://help.appdirect.com/api/appwise.html\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc32a469-51bd-4a23-b4d1-a81c66fef108",
+              "name": "An internal error occurred during event processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": {\n    \"source\": \"b2fc6737-3d3f-4da2-afda-f80f25b89af9\",\n    \"instance\": \"myclient.myapp.com\",\n    \"resourceId\": \"order-12345\",\n    \"timestamp\": 1500558736123\n  },\n  \"eventMetadata\": {\n    \"id\": \"<string>\",\n    \"timestamp\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"actor\": {\n    \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n    \"name\": \"Bob Roberts\"\n  },\n  \"action\": {\n    \"verb\": \"assigned\",\n    \"text\": \"a task\"\n  },\n  \"changes\": {\n    \"fields\": [\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      },\n      {\n        \"name\": \"projectStatus\",\n        \"value\": \"In progress\",\n        \"label\": \"Project Status\",\n        \"op\": \"replace\",\n        \"display\": \"expanded\"\n      }\n    ],\n    \"users\": [\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      },\n      {\n        \"identifier\": \"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\",\n        \"name\": \"Bob Roberts\"\n      }\n    ],\n    \"groups\": [\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      },\n      {\n        \"identifier\": \"c390a4bf-4f54-418a-87ca-5970c332ba17\"\n      }\n    ]\n  },\n  \"contents\": [\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    },\n    {\n      \"url\": \"https://myapp.com/orders/1234\",\n      \"previewUrl\": \"https://myapp.com/orders/1234?preview\",\n      \"title\": \"Order request\",\n      \"searchText\": \"string\",\n      \"mimeType\": \"application/pdf\",\n      \"linkedToResource\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"User not found.\",\n  \"moreInfo\": \"https://help.appdirect.com/api/appwise.html\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ac51be4e-b283-4341-a2a5-015efb449576",
+    "name": "Companies AI Embed InboundEvents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

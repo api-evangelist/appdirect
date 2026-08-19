@@ -1,0 +1,908 @@
+{
+  "item": [
+    {
+      "id": "930b4615-4873-4d1b-9cef-608f1cb7dd00",
+      "name": "Files",
+      "description": {
+        "content": "Upload and manage files for chat sessions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a56a7b1c-8e61-4f24-a820-36c9d1f9c430",
+          "name": "Upload a file to a chat session",
+          "request": {
+            "name": "Upload a file to a chat session",
+            "description": {
+              "content": "Uploads a file that can be referenced in messages sent to this chat. Max file size: 5MB. After uploading, use the returned file ID to reference it in the prompt field using ComplexMessageContent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The file to upload."
+                },
+                {
+                  "key": "source",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4209f17d-4e42-420e-8900-51cae721d0b7",
+              "name": "File successfully uploaded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"1971-07-17T04:37:00.155Z\",\n  \"source\": \"SYSTEM\",\n  \"filename\": \"string\",\n  \"size\": 5890,\n  \"mimeType\": \"string\",\n  \"url\": \"string\",\n  \"metadata\": {},\n  \"deletedAt\": \"2024-05-05T13:50:13.060Z\",\n  \"status\": \"DELETED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e4ba5f1-b1b1-424f-b2e7-6b976e5761b2",
+              "name": "Bad request - No file found or invalid file data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75742daf-8bca-4e31-ab8b-f7859b795eae",
+              "name": "Forbidden, the user is not authorized to upload files to this chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a766bfd8-25b7-48ff-a8a0-0c6c5c30b636",
+              "name": "Chat not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b26bcd68-4776-44be-b088-f57377c9a48f",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The source of the file. Defaults to USER if not specified. (This can only be one of USER,SYSTEM)",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25066c51-d618-4ca8-9f9e-e5d1c7a494b8",
+          "name": "List files in a chat session",
+          "request": {
+            "name": "List files in a chat session",
+            "description": {
+              "content": "Retrieves a list of all files associated with the specified chat session.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "665f6f78-f6ea-4a78-9595-178cc3534801",
+              "name": "List of files in the chat session.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1987-08-09T17:08:37.879Z\",\n      \"source\": \"SYSTEM\",\n      \"filename\": \"string\",\n      \"size\": 5075,\n      \"mimeType\": \"string\",\n      \"url\": \"string\",\n      \"metadata\": {},\n      \"deletedAt\": \"2025-08-30T04:52:58.734Z\",\n      \"status\": \"DELETED\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"2014-10-18T17:14:36.064Z\",\n      \"source\": \"SYSTEM\",\n      \"filename\": \"string\",\n      \"size\": 7229,\n      \"mimeType\": \"string\",\n      \"url\": \"string\",\n      \"metadata\": {},\n      \"deletedAt\": \"1975-02-09T02:49:00.197Z\",\n      \"status\": \"DELETING\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e397ef7-f124-4ee5-b473-de186cdfa61b",
+              "name": "Bad request - Chat ID required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a27d262-db5a-4ae3-8959-5b702faa45d0",
+              "name": "Forbidden, the user is not authorized to access this chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9797462-be84-456d-bab8-5ec942321475",
+              "name": "Chat not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74f876e0-69d3-4089-8c12-0975b2fbe290",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cdfcb8d-48c3-460e-a56a-697a7f5cef4b",
+          "name": "Create a file record or upload a file",
+          "request": {
+            "name": "Create a file record or upload a file",
+            "description": {
+              "content": "This endpoint supports two modes: 1) Create a file record with metadata (application/json), or 2) Upload a file directly (multipart/form-data). When creating a record, you'll need to upload the actual file separately. When uploading directly, the file is uploaded immediately.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The file to upload directly."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b2ffa5af-b630-4e0f-b823-bf3b367ace63",
+              "name": "File successfully created or uploaded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload directly.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"1971-07-17T04:37:00.155Z\",\n  \"source\": \"SYSTEM\",\n  \"filename\": \"string\",\n  \"size\": 5890,\n  \"mimeType\": \"string\",\n  \"url\": \"string\",\n  \"metadata\": {},\n  \"deletedAt\": \"2024-05-05T13:50:13.060Z\",\n  \"status\": \"DELETED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "512dd9aa-7bb3-48ed-ba3e-0391dc464682",
+              "name": "Bad request - Missing required fields or invalid file data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload directly.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "771e6560-d62c-4686-a344-dfb4a84b9532",
+              "name": "Forbidden, the user is not authorized to upload files.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload directly.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "84632e2d-217e-4fca-b669-1ed4946ea02a",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload directly.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0406250d-4307-4f36-8c11-add750559a86",
+    "name": "Companies AI Embed Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

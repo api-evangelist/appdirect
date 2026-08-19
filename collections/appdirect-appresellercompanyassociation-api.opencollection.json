@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerCompanyAssociation API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerCompanyAssociation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List company associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations",
+            "params": [
+              {
+                "name": "resellerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Reseller company ID. This field is required if you do not include the Customer company ID"
+              },
+              {
+                "name": "customerCompanyId",
+                "value": "",
+                "type": "query",
+                "description": "Customer company ID. This field is required if you do not include the Reseller company ID"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search on different fields of the customer company association."
+              },
+              {
+                "name": "createdOn",
+                "value": "",
+                "type": "query",
+                "description": "Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; or lte([timestamp]) - 'less than or equal to'"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves all customer company associations. This request requires either the Reseller company ID or the Customer company ID, which you can retrieve with the [List companies](#list-companies) request."
+        },
+        {
+          "info": {
+            "name": "Create company association",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an association (link) between a customer company and a reseller company."
+        },
+        {
+          "info": {
+            "name": "Remove company association",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/:companyAssociationId",
+            "params": [
+              {
+                "name": "companyAssociationId",
+                "value": "",
+                "type": "path",
+                "description": "Company Association ID"
+              }
+            ]
+          },
+          "docs": "Deletes a company association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,902 @@
+{
+  "item": [
+    {
+      "id": "ef1e2ccf-4a35-4e36-af6d-2342d7bc6bd6",
+      "name": "Answer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "39bc2069-47cd-40d9-a05c-6d32755e75ac",
+          "name": "List all answers",
+          "request": {
+            "name": "List all answers",
+            "description": {
+              "content": "List answers of a given question on an product",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "questions",
+                ":questionId",
+                "answers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "questionId",
+                  "description": "(Required) Question id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32abfa32-dffe-4409-ac84-114d4bc5a9b3",
+              "name": "Question answers read.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"comment\": \"Sample Answer\",\n    \"author\": {\n      \"uuid\": \"c1490377-953d-4701-8356-b1454b816476\",\n      \"name\": \"user.test\",\n      \"profilePicUrl\": null\n    },\n    \"lastModified\": 1461792712537,\n    \"official\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3701d1f-9fe7-4b84-944c-e8c03d4bf53f",
+              "name": "Application or question not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "609ca41a-7a74-4126-8d25-a28e67cc44a8",
+          "name": "Create an answer",
+          "request": {
+            "name": "Create an answer",
+            "description": {
+              "content": "This call creates an answer to a product question submitted on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "questions",
+                ":questionId",
+                "answers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "questionId",
+                  "description": "(Required) Question id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": {\n    \"name\": \"<string>\",\n    \"profilePicUrl\": \"<string>\",\n    \"uuid\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"id\": \"<number>\",\n  \"lastModified\": \"<number>\",\n  \"official\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65e29292-f572-4c02-9383-34b657df62be",
+              "name": "Created question answer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"comment\": \"Sample Answer\",\n  \"author\": {\n    \"uuid\": \"a7723111-f4c6-4510-aba4-2f4bef9d2ce5\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": null,\n  \"official\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ef0b4b6-751d-4b1c-b68d-3cdf175a3cda",
+          "name": "Retrieve an answer",
+          "request": {
+            "name": "Retrieve an answer",
+            "description": {
+              "content": "This call returns all answer details for a specific product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "questions",
+                ":questionId",
+                "answers",
+                ":answerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "answerId",
+                  "description": "(Required) Answer id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "questionId",
+                  "description": "(Required) Question id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b2d5dda-cc19-4559-9075-ea998a531a30",
+              "name": "Question answer read.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3,\n  \"comment\": \"Sample Answer\",\n  \"author\": {\n    \"uuid\": \"3885644f-89b3-4b42-9293-d9fa446d2125\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": 1461792715058,\n  \"official\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9cbdd6c-3494-4208-b8f6-43622ad49559",
+              "name": "Application, question or answer not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eab7ee8-64e3-4093-a97e-d00375e457eb",
+          "name": "Update an answer",
+          "request": {
+            "name": "Update an answer",
+            "description": {
+              "content": "This call updates an existing answer on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "questions",
+                ":questionId",
+                "answers",
+                ":answerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "answerId",
+                  "description": "(Required) Answer id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "questionId",
+                  "description": "(Required) Question id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": {\n    \"name\": \"<string>\",\n    \"profilePicUrl\": \"<string>\",\n    \"uuid\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"id\": \"<number>\",\n  \"lastModified\": \"<number>\",\n  \"official\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "381c438c-f20a-4f7d-8360-c106d44c39a8",
+              "name": "Question answers updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"comment\": \"Sample Answer\",\n  \"author\": {\n    \"uuid\": \"a7723111-f4c6-4510-aba4-2f4bef9d2ce5\",\n    \"name\": \"user.test\",\n    \"profilePicUrl\": null\n  },\n  \"lastModified\": null,\n  \"official\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2edecf3-6921-4f4e-a13f-7abb5853cf09",
+              "name": "Application, question or answer not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author\": {\n    \"name\": \"...\",\n    \"profilePicUrl\": \"...\",\n    \"uuid\": \"...\"\n  },\n  \"comment\": \"...\",\n  \"id\": 12345,\n  \"lastModified\": 12345,\n  \"official\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b398ca5e-25fe-45ac-84ad-3b7e2c7b6e27",
+          "name": "Delete an answer",
+          "request": {
+            "name": "Delete an answer",
+            "description": {
+              "content": "This call deletes an answer from your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "v1",
+                "products",
+                ":applicationId",
+                "questions",
+                ":questionId",
+                "answers",
+                ":answerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "answerId",
+                  "description": "(Required) Answer id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "applicationId",
+                  "description": "(Required) Application id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "questionId",
+                  "description": "(Required) Question id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38bb4129-e900-4e3e-8fdb-458e5694099b",
+              "name": "Question answer deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db668e24-414b-4b33-81a5-e62487b02133",
+              "name": "Application, question or answer not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "v1",
+                    "products",
+                    ":applicationId",
+                    "questions",
+                    ":questionId",
+                    "answers",
+                    ":answerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "answerId",
+                      "description": "(Required) Answer id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "applicationId",
+                      "description": "(Required) Application id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "questionId",
+                      "description": "(Required) Question id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ca677219-ec33-4e05-9301-32105eabab2f",
+    "name": "Companies AI Embed Answer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "item": [
+    {
+      "id": "9372ddba-5b9f-4f25-aa07-6e871f6ee5ad",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f0cbd0e-bd13-49f6-a163-0dd30108b9e3",
+          "name": "Search content",
+          "request": {
+            "name": "Search content",
+            "description": {
+              "content": "Search a unified index of content derived from a user's connected accounts. Requires a user-based token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appwise",
+                "v2",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Search query. The term(s) you are searching for. Format: URL-encoded string. For example: To search for Testing String, use Testing%20string"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "1",
+                  "description": "Which page of results to return. For example, to return the page with the 60th result, when there are 50 results per page (size), submit 2 to return the 2nd page of results. Max value: N/A"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Page size: maximum number of search results per page. Max value: 250"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "A URL-encoded value that defines how to sort the results. The supported values are +lastModified or -lastModified to sort by ascending/descending respectively."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76f6c733-e2d8-446f-b1d9-5d247215a6ec",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appwise",
+                    "v2",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"source\": \"5a70e453-49b4-49a5-bef4-879ddddc7e09\",\n      \"title\": \"The White Tiger\",\n      \"description\": \"Saw this last month. Movie exceeded my expectations, highly recommended. :)\",\n      \"url\": \"https://www.somemoviewebsite.com/ca/movie/the-white-tiger\",\n      \"author\": \"Bob Smith\",\n      \"id\": \"79009-the-white-tiger-movie\",\n      \"instance\": \"123\",\n      \"resourceId\": \"the-white-tiger-movie\",\n      \"contentType\": \"recommendation\",\n      \"metadataType\": \"Movie\",\n      \"metadataReleaseYear\": \"2021\",\n      \"metadataRecommendedBy\": \"Jardani Reeves\",\n      \"lastModified\": \"2021-05-28T20:20:06Z\",\n      \"highlight\": {\n        \"description\": [\n          \"Saw this last month. <em>Movie</em> exceeded my expectations, highly recommended. :)\"\n        ]\n      }\n    },\n    {\n      \"source\": \"5a70e453-49b4-49a5-bef4-879ddddc7e09\",\n      \"title\": \"The Lord of the Rings: The Fellowship of the Ring\",\n      \"description\": \"Best movie in the LOTR trilogy!!\",\n      \"url\": \"https://www.somemoviewebsite.com/ca/movie/the-lord-of-the-rings-the-fellowship-of-the-ring\",\n      \"author\": \"Bob Smith\",\n      \"id\": \"79009-the-lord-of-the-rings-the-fellowship-of-the-ring-movie\",\n      \"instance\": \"123\",\n      \"resourceId\": \"the-lord-of-the-rings-the-fellowship-of-the-ring-movie\",\n      \"contentType\": \"recommendation\",\n      \"metadataType\": \"Movie\",\n      \"metadataReleaseYear\": \"2001\",\n      \"metadataRecommendedBy\": \"Mac Parker\",\n      \"lastModified\": \"2021-05-28T20:11:44Z\",\n      \"highlight\": {\n        \"description\": [\n          \"Best <em>movie</em> in the LOTR trilogy!!\"\n        ]\n      }\n    },\n    {\n      \"source\": \"5a70e453-49b4-49a5-bef4-879ddddc7e09\",\n      \"title\": \"Shrek\",\n      \"description\": \"Fun movie\",\n      \"url\": \"https://www.somemoviewebsite.com/ca/movie/shrek\",\n      \"author\": \"Bob Smith\",\n      \"id\": \"79009-shrek-movie\",\n      \"instance\": \"123\",\n      \"resourceId\": \"shrek-movie\",\n      \"contentType\": \"recommendation\",\n      \"metadataType\": \"Movie\",\n      \"metadataReleaseYear\": \"2001\",\n      \"metadataRecommendedBy\": \"Mac Parker\",\n      \"lastModified\": \"2021-05-28T17:33:41Z\",\n      \"highlight\": {\n        \"description\": [\n          \"Fun <em>movie</em>\"\n        ]\n      }\n    }\n  ],\n  \"page\": {\n    \"size\": 3,\n    \"totalElements\": 8,\n    \"totalPages\": 3,\n    \"number\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8c024e15-89f9-421b-a502-40d6ea0c9df3",
+    "name": "Companies AI Embed Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

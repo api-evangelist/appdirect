@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Tenant Rate Limits API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tenant Rate Limits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Block organization rate limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/rate-limits/block",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Sets a BLOCKED override for the specified child organization. Caller must be the tenant owner organization with org settings write access."
+        },
+        {
+          "info": {
+            "name": "Get organization rate limit override status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/rate-limits/override",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Returns effective rate limit mode and whether an explicit override exists for the organization."
+        },
+        {
+          "info": {
+            "name": "Clear organization rate limit override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/rate-limits/override",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Removes any explicit BLOCKED or UNLIMITED override so the tenant default applies."
+        },
+        {
+          "info": {
+            "name": "Unblock organization rate limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/rate-limits/unblock",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Sets an UNLIMITED override for the specified child organization. Caller must be the tenant owner organization with org settings write access."
+        },
+        {
+          "info": {
+            "name": "Get tenant default rate limit mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/rate-limits/default"
+          },
+          "docs": "Returns the default rate limit mode applied to child organizations when no per-org override exists. Only the tenant owner organization may call this."
+        },
+        {
+          "info": {
+            "name": "Set tenant default rate limit mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/rate-limits/default",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the default rate limit mode for child organizations. Only the tenant owner organization may call this."
+        },
+        {
+          "info": {
+            "name": "List tenant rate limit overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/rate-limits/overrides",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Page size (1–100, default 20)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque cursor from a previous response pagination.nextCursor."
+              }
+            ]
+          },
+          "docs": "Paginated list of organizations with an explicit BLOCKED or UNLIMITED override. Only the tenant owner organization may call this."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

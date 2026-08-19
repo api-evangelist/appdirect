@@ -1,0 +1,2033 @@
+{
+  "item": [
+    {
+      "id": "4d02688d-f336-4b50-a25e-ffd540bd3015",
+      "name": "Chat Sessions",
+      "description": {
+        "content": "Manage chat sessions and send messages to AI assistants",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c10ccd9d-9ace-4d0d-b0bd-bf8da158b449",
+          "name": "Get all chats for the AI",
+          "request": {
+            "name": "Get all chats for the AI",
+            "description": {
+              "content": "Retrieves a list of all chat sessions associated with the given AI identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "chats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI whose chats are to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "b7074703-dd2b-40e3-92bd-b6a9fae2b955",
+              "name": "A list of chat sessions associated with the AI.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI whose chats are to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"2009-02-14T23:38:43.778Z\",\n      \"updatedAt\": \"1948-03-15T18:19:51.673Z\",\n      \"name\": \"string\",\n      \"userId\": \"string\",\n      \"pinPosition\": 952,\n      \"ai\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"src\": \"string\",\n        \"description\": \"string\",\n        \"userId\": \"string\",\n        \"userName\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1963-08-15T11:28:32.776Z\",\n      \"updatedAt\": \"1963-06-28T13:50:14.635Z\",\n      \"name\": \"string\",\n      \"userId\": \"string\",\n      \"pinPosition\": 6542,\n      \"ai\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"src\": \"string\",\n        \"description\": \"string\",\n        \"userId\": \"string\",\n        \"userName\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "432e5057-ea0d-4189-837d-98ba09eac9dc",
+              "name": "AI not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI whose chats are to be retrieved."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da8424c8-3f7c-43f9-98dc-bc445d5a8604",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI whose chats are to be retrieved."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05801ccb-0300-4a8e-b2be-ee5aa720fd82",
+          "name": "Create a new chat session for the AI",
+          "request": {
+            "name": "Create a new chat session for the AI",
+            "description": {
+              "content": "Creates a new chat session associated with the given AI identifier and returns the created chat session data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ai",
+                ":aiId",
+                "chats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "aiId",
+                  "description": "(Required) The identifier of the AI with which the chat session is to be associated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "51914d92-e4c0-4c54-a78e-dc8ed1a63d8d",
+              "name": "Chat session successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI with which the chat session is to be associated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2006-11-05T06:36:29.459Z\",\n  \"updatedAt\": \"1967-04-27T19:25:57.584Z\",\n  \"name\": \"string\",\n  \"userId\": \"string\",\n  \"pinPosition\": 5284,\n  \"ai\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"src\": \"string\",\n    \"description\": \"string\",\n    \"userId\": \"string\",\n    \"userName\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6237bf95-9202-4793-baba-33410abec217",
+              "name": "Not found, when the specified AI ID does not exist or is not visible to the current user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI with which the chat session is to be associated."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "698753b7-4346-4d81-8548-ac0faae68478",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ai",
+                    ":aiId",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "aiId",
+                      "description": "(Required) The identifier of the AI with which the chat session is to be associated."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1321cc45-d5e3-43f0-9f97-642f1eeab74e",
+          "name": "Get a chat session",
+          "request": {
+            "name": "Get a chat session",
+            "description": {
+              "content": "Retrieves the chat session with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "11ad3602-2ca9-4c87-b555-95f8e683a079",
+              "name": "Chat session successfully retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"1964-03-27T12:23:12.976Z\",\n  \"updatedAt\": \"1975-04-07T00:21:02.733Z\",\n  \"name\": \"string\",\n  \"userId\": \"string\",\n  \"pinPosition\": 3777,\n  \"ai\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"src\": \"string\",\n    \"description\": \"string\",\n    \"userId\": \"string\",\n    \"userName\": \"string\"\n  },\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1986-04-30T10:19:30.164Z\",\n      \"updatedAt\": \"1996-05-12T07:25:36.397Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1957-03-18T16:28:10.962Z\",\n      \"updatedAt\": \"1983-04-28T15:38:40.637Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f31d9f06-3e1a-472a-bc17-3e821f4584b3",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3e824d2-1b9c-44cc-8e29-57292c8a7dd8",
+              "name": "Not found, when the specified chat ID does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e542d884-eb17-43ea-9b0f-d71aa704e51d",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e17e89ef-51d6-4a7e-8f4d-361c704bb2d7",
+          "name": "Message a chat session",
+          "request": {
+            "name": "Message a chat session",
+            "description": {
+              "content": "Send a message to a chat session with an AI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"modelId\": \"<string>\",\n  \"options\": {\n    \"flow\": {\n      \"override\": {\n        \"force\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"version\": \"<number>\"\n      },\n      \"tracing\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"userSecrets\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8358bfc-1383-483b-9767-4296806b3a3e",
+              "name": "SSE stream of chat events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d1b3ff83-f0e5-4ecc-b94c-469d80b51f81",
+              "name": "Bad request, when the request body does not contain the required fields or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "df8df267-df30-445f-9f62-088ada8c5054",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6978232b-8936-43c1-aa3e-13b177ae873c",
+              "name": "Not found, when the specified chat ID does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a344514f-827b-4e79-8a6d-af715f294863",
+              "name": "Rate limit exceeded. The user has sent too many messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7771bbcb-347b-490f-9d19-8335c19bbba3",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"prompt\": \"Hello, how are you?\",\n  \"tools\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71b7ef54-b87d-41c6-a34f-f32a8e6002e6",
+          "name": "Delete a chat session",
+          "request": {
+            "name": "Delete a chat session",
+            "description": {
+              "content": "Deletes the chat session with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session to delete."
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "572d3d88-2666-45bf-8507-cb1aca481bad",
+              "name": "Chat session successfully deleted, no content to return.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c0cc9b53-2f71-4548-8c7a-7dfdee4fe06c",
+              "name": "Forbidden, the user is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "539533f4-2bd0-48ed-ae79-a73ae7a01125",
+              "name": "Not Found, the specified chat ID does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d524addf-8951-4d12-a979-087c14377922",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bafae478-bcb8-4494-9d2e-2dd6eecb7343",
+          "name": "Duplicate a chat session",
+          "request": {
+            "name": "Duplicate a chat session",
+            "description": {
+              "content": "Creates a duplicate of the chat session with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId",
+                "duplicate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session to duplicate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [
+            {
+              "id": "6d90c98a-d840-483e-a357-74fe7f53ecb2",
+              "name": "Chat session successfully duplicated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to duplicate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2023-04-09T13:38:52.837Z\",\n  \"updatedAt\": \"1997-09-22T07:11:20.974Z\",\n  \"name\": \"string\",\n  \"userId\": \"string\",\n  \"pinPosition\": 4127,\n  \"ai\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"src\": \"string\",\n    \"description\": \"string\",\n    \"userId\": \"string\",\n    \"userName\": \"string\"\n  },\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1989-06-19T14:58:29.095Z\",\n      \"updatedAt\": \"1952-12-06T21:44:38.246Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"2010-10-09T18:43:03.384Z\",\n      \"updatedAt\": \"1977-11-13T13:47:29.871Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d20c584-979c-4787-a9f2-08c9f9349b84",
+              "name": "Bad request, when the request contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to duplicate."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b8e4b62-e45b-4de5-b100-8c7a43858f7d",
+              "name": "Not found, when the specified chat ID does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to duplicate."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe761f61-eab1-4828-851c-5b9092471702",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to duplicate."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90dacc53-a52d-4d17-814b-c2ac719d924f",
+          "name": "Reset a chat session",
+          "request": {
+            "name": "Reset a chat session",
+            "description": {
+              "content": "Resets the chat session with the specified ID, clearing its current state or content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId",
+                "reset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session to reset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [
+            {
+              "id": "6e761d7c-a65b-499b-9876-01d473691774",
+              "name": "Chat session successfully reset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to reset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2023-04-09T13:38:52.837Z\",\n  \"updatedAt\": \"1997-09-22T07:11:20.974Z\",\n  \"name\": \"string\",\n  \"userId\": \"string\",\n  \"pinPosition\": 4127,\n  \"ai\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"src\": \"string\",\n    \"description\": \"string\",\n    \"userId\": \"string\",\n    \"userName\": \"string\"\n  },\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1989-06-19T14:58:29.095Z\",\n      \"updatedAt\": \"1952-12-06T21:44:38.246Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"2010-10-09T18:43:03.384Z\",\n      \"updatedAt\": \"1977-11-13T13:47:29.871Z\",\n      \"content\": \"string\",\n      \"role\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb8d1331-76d9-4668-9787-ea4dec2c4f1f",
+              "name": "Not found, when the specified chat ID does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to reset."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4b01172-5dfb-4524-8f81-dcf285d73a59",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session to reset."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54e7e5e4-47f6-4c64-b270-1df7e57bfb38",
+          "name": "Submit tool outputs (e.g., input field responses)",
+          "request": {
+            "name": "Submit tool outputs (e.g., input field responses)",
+            "description": {
+              "content": "When the AI requests user input through tool calls (e.g., asking the user to fill in form fields), use this endpoint to submit the user's responses. The AI will receive these outputs and continue the conversation. Listen for 'tool.call' events in the chat stream to know when input is needed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "chats",
+                ":chatId",
+                "tool-output"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chatId",
+                  "description": "(Required) The unique identifier of the chat session."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"systemMessageId\": \"<string>\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    },\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    }\n  ],\n  \"options\": {\n    \"flow\": {\n      \"override\": {\n        \"force\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"version\": \"<number>\"\n      },\n      \"tracing\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8216ac74-d963-410f-8c4c-34d155b6ba39",
+              "name": "SSE stream of chat events. The AI will process the submitted inputs and continue the conversation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef8a0956-db23-406c-8fa1-2b8a2b43640f",
+              "name": "Bad request - Missing required fields, invalid tool call IDs, or outputs don't match requested tool calls.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da3bbf8c-d226-4cbe-9ed4-75f2163d5c43",
+              "name": "Forbidden, the user is not authorized to access this chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "921f9d18-6606-4581-a4fc-d7dbc30038ca",
+              "name": "Chat not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "334fbb2a-e2af-4c9e-bfe9-a0d1f6ce9bef",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cbb0a7c0-65ee-4f4e-bf1f-a4354df05ea5",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "chats",
+                    ":chatId",
+                    "tool-output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chatId",
+                      "description": "(Required) The unique identifier of the chat session."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemMessageId\": \"msg_abc123\",\n  \"outputs\": [\n    {\n      \"toolCallId\": \"call_xyz789\",\n      \"status\": \"success\",\n      \"output\": \"John Doe\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0db03309-024f-44b9-bc0c-d023a89bb9d3",
+          "name": "Get all chats for the User",
+          "request": {
+            "name": "Get all chats for the User",
+            "description": {
+              "content": "Retrieves a list of all chat sessions associated with the current user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "me",
+                "chats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "02014766-2b2f-48b0-8b96-dcfc90261b5b",
+              "name": "A list of chat sessions associated with the AI.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "me",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1956-07-11T13:59:54.644Z\",\n      \"updatedAt\": \"1976-02-21T13:22:22.698Z\",\n      \"name\": \"string\",\n      \"userId\": \"string\",\n      \"pinPosition\": 2424,\n      \"ai\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"src\": \"string\",\n        \"description\": \"string\",\n        \"userId\": \"string\",\n        \"userName\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1951-02-19T12:26:54.354Z\",\n      \"updatedAt\": \"2009-09-20T22:37:14.261Z\",\n      \"name\": \"string\",\n      \"userId\": \"string\",\n      \"pinPosition\": 8836,\n      \"ai\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"src\": \"string\",\n        \"description\": \"string\",\n        \"userId\": \"string\",\n        \"userName\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63386c83-a548-46be-8c59-dc2859e69f0a",
+              "name": "AI not found with the given identifier.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "me",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "139d3f56-1f45-4bfd-8b39-55f29621177e",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "me",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0da8efac-f0c4-4a41-a1b6-952e1f2ad0cd",
+    "name": "Companies AI Embed Chat Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,795 @@
+{
+  "item": [
+    {
+      "id": "574d3526-2e64-40aa-9dec-bc62a98afb08",
+      "name": "AppResellerReconciliation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d014bce-9ff2-4f53-b153-3c024e536524",
+          "name": "List transfers",
+          "request": {
+            "name": "List transfers",
+            "description": {
+              "content": "Retrieves all transfers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reseller",
+                "v1",
+                "reconciliation",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "10",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b372bfd8-d3f1-4089-9800-e0bc24113cd8",
+              "name": "A pageable list of transfers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"2319ee21-185c-485e-bcb0-18328b49b58f\",\n      \"transferRequestId\": 3,\n      \"status\": \"COMPLETE\",\n      \"accountReceivable\": 0,\n      \"accountPayable\": 52,\n      \"netReceivable\": 0,\n      \"netPayable\": 52,\n      \"currency\": \"USD\",\n      \"transferDate\": 1572451157602\n    },\n    {\n      \"id\": \"43a9d114-7157-4e91-a2ed-7c683aba068e\",\n      \"transferRequestId\": 2,\n      \"status\": \"COMPLETE\",\n      \"accountReceivable\": 0,\n      \"accountPayable\": 15,\n      \"netReceivable\": 0,\n      \"netPayable\": 15,\n      \"currency\": \"USD\",\n      \"transferDate\": 1572378298608\n    },\n    {\n      \"id\": \"875ce19f-1dfb-4ff8-aad0-f4c2fe866d44\",\n      \"transferRequestId\": 1,\n      \"status\": \"COMPLETE\",\n      \"accountReceivable\": 13.5,\n      \"accountPayable\": 59,\n      \"netReceivable\": 0,\n      \"netPayable\": 45.5,\n      \"currency\": \"USD\",\n      \"transferDate\": 1572359937730\n    }\n  ],\n  \"page\": {\n    \"size\": 3,\n    \"number\": 1,\n    \"totalElements\": 3,\n    \"totalPages\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "976ff31d-9a9a-474b-a132-c5a568c5ffea",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24cd9d7a-d241-4fc3-846a-83d1382bd4f5",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "194abe50-1a9b-46e5-b7de-bf2c9aa37c28",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d172b584-6874-46b7-a2ce-43f0a6088021",
+          "name": "Retrieve transfer details",
+          "request": {
+            "name": "Retrieve transfer details",
+            "description": {
+              "content": "Retrieves the summary of a transfer, which includes the date of the transfer, the transfer status, currency, net payable and net receivable",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reseller",
+                "v1",
+                "reconciliation",
+                "transfers",
+                ":transferId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transferId",
+                  "description": "(Required) Transfer ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b853397a-50ad-4797-9e1c-8d233fb9357e",
+              "name": "The overview of the transfer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"2319ee21-185c-485e-bcb0-18328b49b58f\",\n  \"transferRequestId\": 3,\n  \"status\": \"COMPLETE\",\n  \"accountReceivable\": 0,\n  \"accountPayable\": 52,\n  \"netReceivable\": 0,\n  \"netPayable\": 52,\n  \"currency\": \"USD\",\n  \"transferDate\": 1572451157602\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "431de20c-ef9b-4ac2-a989-d2d4365191bd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "840664ca-9b53-463b-8c53-3c172ede93a6",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0831a96f-43d9-4e96-b225-dd4da0551b76",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0262386e-74f7-43b7-a309-b7b5b997f2ad",
+          "name": "List transfer ledger lines",
+          "request": {
+            "name": "List transfer ledger lines",
+            "description": {
+              "content": "Retrieves the ledger lines of a transfer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reseller",
+                "v1",
+                "reconciliation",
+                "transfers",
+                ":transferId",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transferId",
+                  "description": "(Required) Transfer ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a330966-1d5d-49dd-b602-e278c4c42b99",
+              "name": "The ledger lines of the transfer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": 72,\n      \"currency\": \"USD\",\n      \"credit\": 52,\n      \"debit\": 0,\n      \"customer\": \"Appdirect\",\n      \"product\": \"FEATURED_WEBAPP\"\n    }\n  ],\n  \"page\": {\n    \"size\": 1,\n    \"number\": 1,\n    \"totalElements\": 1,\n    \"totalPages\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "963c1a16-2fe7-4a10-8d70-98a70128000c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a648a7ee-3d72-4177-ae55-1c5dd771f9c6",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f8cfb66-6df7-4f68-9216-cdfb47d4a29d",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reseller",
+                    "v1",
+                    "reconciliation",
+                    "transfers",
+                    ":transferId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transferId",
+                      "description": "(Required) Transfer ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Missing required parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc71fdbc-7a77-499c-a0b8-c87015cf3812",
+    "name": "Companies AI Embed AppResellerReconciliation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

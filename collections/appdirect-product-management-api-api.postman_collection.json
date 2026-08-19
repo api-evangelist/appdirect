@@ -1,0 +1,1555 @@
+{
+  "item": [
+    {
+      "id": "40069573-64c3-455d-9a62-7474113db89f",
+      "name": "Product Management API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3888d7b3-c1fa-46d8-8996-69aedbf379c5",
+          "name": "Delete image from product",
+          "request": {
+            "name": "Delete image from product",
+            "description": {
+              "content": "Deletes a specific image resource from a product. The image is identified by the product reference ID, upload type, locale, and path to delete. This operation permanently removes the image from the product and cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "v1",
+                "resources",
+                "image",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"locale\": \"<string>\",\n  \"pathToDelete\": \"<string>\",\n  \"productRefId\": \"<string>\",\n  \"uploadType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d37ff87d-fc0f-4e16-9738-50e6d7ac5096",
+              "name": "Image deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locale\": \"en_US\",\n  \"pathToDelete\": \"/images/logo.png\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\",\n  \"uploadType\": \"LISTING_LOGO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "177c6558-a0e9-44f7-a807-4c256ee0e7cf",
+              "name": "Bad Request - Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locale\": \"en_US\",\n  \"pathToDelete\": \"/images/logo.png\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\",\n  \"uploadType\": \"LISTING_LOGO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39945ec9-0fc3-4c8d-b019-92008fb4dfca",
+              "name": "Unauthorized - Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locale\": \"en_US\",\n  \"pathToDelete\": \"/images/logo.png\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\",\n  \"uploadType\": \"LISTING_LOGO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c9bef72c-3b23-43de-bba3-36bf83cba91b",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locale\": \"en_US\",\n  \"pathToDelete\": \"/images/logo.png\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\",\n  \"uploadType\": \"LISTING_LOGO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58601603-7a3d-400e-89fa-fe47340ffbe7",
+              "name": "Internal Server Error - Unexpected error when deleting image",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locale\": \"en_US\",\n  \"pathToDelete\": \"/images/logo.png\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\",\n  \"uploadType\": \"LISTING_LOGO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b7fc5bb-e2d1-4cb0-9151-c068641c11a2",
+          "name": "Upload and link image to product",
+          "request": {
+            "name": "Upload and link image to product",
+            "description": {
+              "content": "Uploads an image file and links it to a specific product resource. Supports various image types for different use cases like logos, screenshots, and overview images. The uploaded image is automatically processed and stored in the appropriate format for the specified upload type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "v1",
+                "resources",
+                "image",
+                "uploadAndLink"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "productRefId",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Product reference ID to link the image to"
+                },
+                {
+                  "key": "uploadType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)"
+                },
+                {
+                  "key": "locale",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Locale for the image (ISO 639-1 language code with optional country code)"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)"
+                },
+                {
+                  "key": "identifier",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Optional identifier for the uploaded image resource"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8590157d-3658-409b-aabb-85d29919af4d",
+              "name": "Image uploaded and linked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the image to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadType",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the image (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional identifier for the uploaded image resource",
+                        "type": "text/plain"
+                      },
+                      "key": "identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c984e5f8-815b-43f6-850e-8ff55ee59a84",
+              "name": "Bad Request - Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the image to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadType",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the image (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional identifier for the uploaded image resource",
+                        "type": "text/plain"
+                      },
+                      "key": "identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "319b29e8-e869-451c-8c8c-44084c709533",
+              "name": "Unauthorized - Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the image to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadType",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the image (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional identifier for the uploaded image resource",
+                        "type": "text/plain"
+                      },
+                      "key": "identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d407503c-d16c-46d6-9e73-f1e4ca77a774",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the image to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadType",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the image (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional identifier for the uploaded image resource",
+                        "type": "text/plain"
+                      },
+                      "key": "identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e8ef66a-d5b4-49c2-b2f3-82acc25b20e9",
+              "name": "Internal Server Error - Unexpected error uploading and linking image",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "image",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the image to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of upload specifying where the image will be used (This can only be one of PROFILE_LOGO,MYAPPS_LOGO,LISTING_LOGO,LISTING_AND_MYAPPS_LOGO,OVERVIEW,SCREENSHOT,FEATURE)",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadType",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the image (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Image file to upload (supported formats: JPG, PNG, GIF)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional identifier for the uploaded image resource",
+                        "type": "text/plain"
+                      },
+                      "key": "identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d336b53-a1b0-483e-b6be-5213180ac78c",
+          "name": "Upload and link PDF file to product",
+          "request": {
+            "name": "Upload and link PDF file to product",
+            "description": {
+              "content": "Uploads a PDF file and links it to a specific product as documentation or resource material. PDF files can be configured for visibility (public or reseller-only) and can have custom names and identifiers. Commonly used for user manuals, installation guides, terms of service, and other product documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "v1",
+                "resources",
+                "file",
+                "uploadAndLink"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "productRefId",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Product reference ID to link the PDF file to"
+                },
+                {
+                  "key": "locale",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) PDF file to upload"
+                },
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Display name for the uploaded PDF file"
+                },
+                {
+                  "key": "onlyVisibleToResellers",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Whether the PDF should only be visible to resellers (true/false)"
+                },
+                {
+                  "key": "externalResourceRefId",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "External reference ID for the uploaded PDF resource"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9013c49d-7ac0-4bd1-9dba-a37deee34930",
+              "name": "PDF file uploaded and linked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the PDF file to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) PDF file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the uploaded PDF file",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the PDF should only be visible to resellers (true/false)",
+                        "type": "text/plain"
+                      },
+                      "key": "onlyVisibleToResellers",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External reference ID for the uploaded PDF resource",
+                        "type": "text/plain"
+                      },
+                      "key": "externalResourceRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8bb86043-bc1f-4514-8e8e-71560d93be2b",
+              "name": "Bad Request - Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the PDF file to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) PDF file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the uploaded PDF file",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the PDF should only be visible to resellers (true/false)",
+                        "type": "text/plain"
+                      },
+                      "key": "onlyVisibleToResellers",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External reference ID for the uploaded PDF resource",
+                        "type": "text/plain"
+                      },
+                      "key": "externalResourceRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9fcc3378-88de-4334-bd8e-e387217fc712",
+              "name": "Unauthorized - Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the PDF file to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) PDF file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the uploaded PDF file",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the PDF should only be visible to resellers (true/false)",
+                        "type": "text/plain"
+                      },
+                      "key": "onlyVisibleToResellers",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External reference ID for the uploaded PDF resource",
+                        "type": "text/plain"
+                      },
+                      "key": "externalResourceRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5aaf7397-72ba-4b6a-977f-ea3335f32731",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the PDF file to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) PDF file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the uploaded PDF file",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the PDF should only be visible to resellers (true/false)",
+                        "type": "text/plain"
+                      },
+                      "key": "onlyVisibleToResellers",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External reference ID for the uploaded PDF resource",
+                        "type": "text/plain"
+                      },
+                      "key": "externalResourceRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85e147f8-8d3f-4b8f-bc81-17fe3af0d9eb",
+              "name": "Internal Server Error - Unexpected error uploading and linking external resource pdf file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "uploadAndLink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Product reference ID to link the PDF file to",
+                        "type": "text/plain"
+                      },
+                      "key": "productRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Locale for the PDF file (ISO 639-1 language code with optional country code)",
+                        "type": "text/plain"
+                      },
+                      "key": "locale",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) PDF file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the uploaded PDF file",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the PDF should only be visible to resellers (true/false)",
+                        "type": "text/plain"
+                      },
+                      "key": "onlyVisibleToResellers",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External reference ID for the uploaded PDF resource",
+                        "type": "text/plain"
+                      },
+                      "key": "externalResourceRefId",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c2bda6e-4973-4ef3-bd9a-16251133c508",
+          "name": "Delete file from product",
+          "request": {
+            "name": "Delete file from product",
+            "description": {
+              "content": "Deletes a specific file resource from a product. Currently supports deletion of PDF files only. The file is identified by the product reference ID and file identifier. This operation permanently removes the file from the product and cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "v1",
+                "resources",
+                "file",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"<string>\",\n  \"productRefId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "438d4130-9f01-4b45-a94f-24fba5d9ca66",
+              "name": "File deleted successfully (No Content)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"94832c55-bbec-4539-b082-f0a2b1cd8060\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d284bc3d-5e34-4389-aa1a-a515fbc8877b",
+              "name": "Bad Request - Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"94832c55-bbec-4539-b082-f0a2b1cd8060\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a22d3a29-17f5-40d2-a670-2d548af21d14",
+              "name": "Unauthorized - Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"94832c55-bbec-4539-b082-f0a2b1cd8060\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c9240f72-3cb2-4d1b-82ec-fb75a33fce74",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"94832c55-bbec-4539-b082-f0a2b1cd8060\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e9189c3-f1a1-4c5d-b111-9469386dd872",
+              "name": "Internal Server Error - Unexpected error deleting file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "v1",
+                    "resources",
+                    "file",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"94832c55-bbec-4539-b082-f0a2b1cd8060\",\n  \"productRefId\": \"c0e98d88-bc85-4578-b953-fdede4235b5c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d3887dd8-eaeb-4b10-adc6-5d5725fb84ec",
+    "name": "Companies AI Embed Product Management API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

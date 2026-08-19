@@ -1,0 +1,529 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Data Sources API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List data sources for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI whose data sources are to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of data sources associated with the given AI identifier."
+        },
+        {
+          "info": {
+            "name": "Add an existing data source to the specified AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI to which the data source is to be added."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates an existing data source with the specified AI."
+        },
+        {
+          "info": {
+            "name": "Delete all data sources from the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI whose data sources are to be deleted."
+              }
+            ]
+          },
+          "docs": "Requests deletion of all data sources associated with the specified AI."
+        },
+        {
+          "info": {
+            "name": "Create a new API data source for the specified AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/api",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new API data source with a specified name and JSON payload for the given AI."
+        },
+        {
+          "info": {
+            "name": "Adds a file upload data source for the specified AI. Max file size: 4.5Mb.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/file",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Adds a file upload data source for the specified AI. Max file size: 4.5Mb."
+        },
+        {
+          "info": {
+            "name": "Initialize a file-blob upload for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/file-blob",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a signed upload token for Vercel Blob and creates the data source after upload."
+        },
+        {
+          "info": {
+            "name": "Create a web URL data source for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/web-urls",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a web URL knowledge source and associates it with the AI."
+        },
+        {
+          "info": {
+            "name": "Create Google Drive data sources for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/google-drive",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates Google Drive knowledge sources and associates them with the AI."
+        },
+        {
+          "info": {
+            "name": "Create a OneDrive data source for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/onedrive",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a OneDrive knowledge source and associates it with the AI."
+        },
+        {
+          "info": {
+            "name": "Create a Confluence data source for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/confluence",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Confluence knowledge source and associates it with the AI."
+        },
+        {
+          "info": {
+            "name": "Create a Jira data source for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/jira",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Jira knowledge source and associates it with the AI."
+        },
+        {
+          "info": {
+            "name": "Create a GitHub data source for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/github",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a GitHub knowledge source and associates it with the AI."
+        },
+        {
+          "info": {
+            "name": "Remove a data source from the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/:dataSourceId",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI."
+              },
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source to remove."
+              }
+            ]
+          },
+          "docs": "Removes the specified data source from the AI."
+        },
+        {
+          "info": {
+            "name": "Delete multiple data sources from the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/data-sources/delete",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete data sources by ID for the specified AI."
+        },
+        {
+          "info": {
+            "name": "List all data sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search term for data sources."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by data source type."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Order by field and direction. Prefix field name with '+' for ascending or '-' for descending order. Allowed fields: createdAt, lastIndexedAt, usageCount."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of data sources associated which the user has access to."
+        },
+        {
+          "info": {
+            "name": "Update a Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties for the specified data source."
+        },
+        {
+          "info": {
+            "name": "Delete a Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source to be deleted."
+              }
+            ]
+          },
+          "docs": "Deletes a specific data source associated with the given AI identifier."
+        },
+        {
+          "info": {
+            "name": "Refresh a Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId/refresh",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source to be refreshed."
+              },
+              {
+                "name": "forceRefresh",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if the data source should be refreshed even if the content has not been updated"
+              }
+            ]
+          },
+          "docs": "This endpoint refreshes the specified data source."
+        },
+        {
+          "info": {
+            "name": "Get data source stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId/stats",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source."
+              }
+            ]
+          },
+          "docs": "Retrieves indexing statistics for the specified data source."
+        },
+        {
+          "info": {
+            "name": "List knowledge items for a data source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId/knowledge",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source."
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves paginated knowledge items for the specified data source."
+        },
+        {
+          "info": {
+            "name": "Update a knowledge item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/api/v1/data-sources/:dataSourceId/knowledge/:knowledgeId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the data source."
+              },
+              {
+                "name": "knowledgeId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the knowledge item."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a knowledge item for the specified data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

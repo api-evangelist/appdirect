@@ -1,0 +1,2966 @@
+{
+  "item": [
+    {
+      "id": "878c60bd-e47b-4777-8b5e-818f9feb1960",
+      "name": "AppResellerLeads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03d647a2-2588-4510-8bc0-95eedac85d4a",
+          "name": "List leads",
+          "request": {
+            "name": "List leads",
+            "description": {
+              "content": "Retrieves a list of all leads visible for a given context. You can filter the list using optional query parameters. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who retrieved the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Lead status"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text, which filters the list of leads"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Date on which the lead was created (lower bound) in Unix timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Date on which the lead was created (upper bound) in Unix timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "DATE",
+                  "description": "The field by which to order the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC",
+                  "description": "Type of ordering used (ascending or descending)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48a59cc2-9e90-447f-89b8-72f48920a2c9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n      \"partner\": \"APPDIRECT\",\n      \"leadType\": \"MANUAL\",\n      \"status\": \"SUBMITTED\",\n      \"customer\": {\n        \"company\": {\n          \"name\": \"Acme\",\n          \"street1\": \"1234 Main St\",\n          \"city\": \"Beverly Hills\",\n          \"state\": \"CA\",\n          \"zip\": \"90210\",\n          \"country\": \"US\"\n        },\n        \"contact\": {\n          \"firstName\": \"John\",\n          \"lastName\": \"Doe\",\n          \"email\": \"john.doe@acme.com\",\n          \"phone\": \"+14455555555\"\n        }\n      },\n      \"createdOn\": 1534531428,\n      \"lastModified\": 1534531428,\n      \"creator\": {\n        \"id\": \"833d4c99-1939-4366-a5ae-6fb7ae3ec1be\",\n        \"companyId\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n        \"companyName\": \"AppDirect\",\n        \"role\": \"CHANNEL_ADMIN\"\n      },\n      \"customAttributes\": {},\n      \"referrer\": {\n        \"participantType\": \"CHANNEL\",\n        \"partner\": \"APPDIRECT\"\n      },\n      \"recipient\": {\n        \"participantType\": \"CHANNEL\",\n        \"partner\": \"APPDIRECT\"\n      }\n    },\n    {\n      \"id\": \"acfce97c-5428-4310-b841-3bf7cca4e047\",\n      \"partner\": \"APPDIRECT\",\n      \"leadType\": \"MANUAL\",\n      \"status\": \"CONVERTED\",\n      \"customer\": {\n        \"company\": {\n          \"name\": \"Globex\",\n          \"street1\": \"5678 Main Av\",\n          \"city\": \"Beverly Hills\",\n          \"state\": \"CA\",\n          \"zip\": \"90210\",\n          \"country\": \"US\",\n          \"companyExists\": true\n        },\n        \"contact\": {\n          \"firstName\": \"Jane\",\n          \"lastName\": \"Doe\",\n          \"email\": \"jane.doe@globex.com\",\n          \"phone\": \"+18008888080\"\n        }\n      },\n      \"reseller\": {\n        \"id\": \"01d75b7c-ea78-4dc2-9e58-6ad217bddcbd\",\n        \"companyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\"\n      },\n      \"createdOn\": 1534531428,\n      \"lastModified\": 1534531428,\n      \"creator\": {\n        \"id\": \"01d75b7c-ea78-4dc2-9e58-6ad217bddcbd\",\n        \"companyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"companyName\": \"Reseller Company\",\n        \"role\": \"RESELLER\"\n      },\n      \"convertedCompany\": {\n        \"id\": \"dba89c75-f10c-4314-8a98-0692d04594d3\",\n        \"name\": \"Acme\"\n      },\n      \"convertedUser\": {\n        \"id\": \"ad38f05b-7508-4c70-8ef8-c7929f35e414\",\n        \"companyId\": \"dba89c75-f10c-4314-8a98-0692d04594d3\"\n      },\n      \"customAttributes\": {},\n      \"result\": \"WON\",\n      \"referrer\": {\n        \"participantType\": \"CHANNEL\",\n        \"partner\": \"APPDIRECT\"\n      },\n      \"recipient\": {\n        \"participantType\": \"COMPANY\",\n        \"companyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"companyName\": \"Reseller Company\"\n      }\n    }\n  ],\n  \"page\": {\n    \"size\": 10,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a544bc8-8bba-4c68-9f65-bd5689205f5c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab943af0-4a27-444a-b0e0-ac0a30fc112a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98aeffa1-d8ab-44bf-8b4b-7e1829bd6399",
+          "name": "Create lead",
+          "request": {
+            "name": "Create lead",
+            "description": {
+              "content": "Creates a manual, company profile or product profile lead. Manual leads are visible to only those who created them. Company profile leads are visible to the Reseller that created the profile page as well as the Reseller Managers and Marketplace Managers. Product profile leads are visible to Marketplace Managers and Reseller Managers and can be configured so that the Developers who own the product profile can also see them.<br/>Required parameters:<br/>Company name<br/>Contact email<br/>Lead type<br/>Partner<br/>If the lead type is PRODUCT, the product ID<br>If the lead type is COMPANY, the reseller company ID<br/>The required parameter correspond to the request payload in [LeadCreationRequest](#leadcreationrequest)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) The supported lead's API contexts. ANONYMOUS context can be used to create a PRODUCT or COMPANY lead without authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is creating the lead. Only required when creating a lead of type MANUAL."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) User ID of the user who is creating the lead. Only required when using OAuth credentials with role PARTNER to create a lead of type MANUAL. In this case, the user ID must correspond to a marketplace user who has the Marketplace Manager role. The user must be a member of a company that has marketplace access. "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partner\": \"<string>\",\n  \"leadType\": \"<string>\",\n  \"customer\": {\n    \"company\": {\n      \"name\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"size\": \"<string>\"\n    },\n    \"contact\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"phoneExtension\": \"<string>\"\n    }\n  },\n  \"customAttributes\": \"<object>\",\n  \"reseller\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  },\n  \"notes\": \"<string>\",\n  \"creator\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  },\n  \"profileCompany\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"profileProduct\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\"\n  },\n  \"profileProductEdition\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1dbc2879-3c0c-425a-81bd-8c17d40dd1ed",
+              "name": "Lead created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"30th Floor, Apt B\",\n      \"city\": \"Miami\",\n      \"country\": \"US\",\n      \"state\": \"FL\",\n      \"zip\": \"33033\",\n      \"name\": \"Acme\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"phone\": \"+13055555555\",\n      \"email\": \"john.doe@acme.com\"\n    }\n  },\n  \"leadType\": \"MANUAL\",\n  \"partner\": \"APPDIRECT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cc146924-afe3-4f6f-b368-2279e1e2039e\",\n  \"partner\": \"APPDIRECT\",\n  \"leadType\": \"MANUAL\",\n  \"status\": \"ASSIGNED\",\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Acme\",\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"30th Floor, Apt B\",\n      \"city\": \"Miami\",\n      \"state\": \"FL\",\n      \"zip\": \"33033\",\n      \"country\": \"US\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"email\": \"john.doe@companysrl.com\",\n      \"phone\": \"+13055555555\"\n    }\n  },\n  \"createdOn\": 1534875428054,\n  \"lastModified\": 1534875428054,\n  \"creator\": {\n    \"id\": \"e0f7521e-a297-4d02-942e-a8ee3216d5e5\",\n    \"companyId\": \"fb2ea14d-2be2-4572-b607-2d70500c14f3\",\n    \"companyName\": \"Referral Company\",\n    \"role\": \"REFERRAL\"\n  },\n  \"referrer\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"fb2ea14d-2be2-4572-b607-2d70500c14f3\",\n    \"companyName\": \"Referral Company\"\n  },\n  \"recipient\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"fb2ea14d-2be2-4572-b607-2d70500c14f3\",\n    \"companyName\": \"Referral Company\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f841741-8b6f-449b-9721-7821bf5de6ce",
+              "name": "Error attempting to create the lead (missing required data, for example)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"30th Floor, Apt B\",\n      \"city\": \"Miami\",\n      \"country\": \"US\",\n      \"state\": \"FL\",\n      \"zip\": \"33033\",\n      \"name\": \"Acme\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"phone\": \"+13055555555\",\n      \"email\": \"john.doe@acme.com\"\n    }\n  },\n  \"leadType\": \"MANUAL\",\n  \"partner\": \"APPDIRECT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d80c3086-e384-474a-9630-bd9071c25c27",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"30th Floor, Apt B\",\n      \"city\": \"Miami\",\n      \"country\": \"US\",\n      \"state\": \"FL\",\n      \"zip\": \"33033\",\n      \"name\": \"Acme\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"phone\": \"+13055555555\",\n      \"email\": \"john.doe@acme.com\"\n    }\n  },\n  \"leadType\": \"MANUAL\",\n  \"partner\": \"APPDIRECT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7299afb2-9c0b-4659-b51d-b6afb5a7839d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"30th Floor, Apt B\",\n      \"city\": \"Miami\",\n      \"country\": \"US\",\n      \"state\": \"FL\",\n      \"zip\": \"33033\",\n      \"name\": \"Acme\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"phone\": \"+13055555555\",\n      \"email\": \"john.doe@acme.com\"\n    }\n  },\n  \"leadType\": \"MANUAL\",\n  \"partner\": \"APPDIRECT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cabda8dd-4794-44c2-96fe-735585111dcd",
+          "name": "Get lead details",
+          "request": {
+            "name": "Get lead details",
+            "description": {
+              "content": "Retrieves a single lead and its details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads",
+                ":leadId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is retrieving the lead"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "leadId",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33a73678-76bb-440f-8260-ad0ec74864ad",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"partner\": \"APPDIRECT\",\n  \"leadType\": \"MANUAL\",\n  \"status\": \"SUBMITTED\",\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Acme\",\n      \"street1\": \"1234 Main St\",\n      \"city\": \"Beverly Hills\",\n      \"state\": \"CA\",\n      \"zip\": \"90210\",\n      \"country\": \"US\"\n    },\n    \"contact\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"email\": \"john.doe@acme.com\",\n      \"phone\": \"+14455555555\"\n    }\n  },\n  \"createdOn\": 1534465177000,\n  \"lastModified\": 1534465179000,\n  \"creator\": {\n    \"id\": \"833d4c99-1939-4366-a5ae-6fb7ae3ec1be\",\n    \"companyId\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n    \"companyName\": \"AppDirect\",\n    \"role\": \"CHANNEL_ADMIN\"\n  },\n  \"customAttributes\": {},\n  \"referrer\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  },\n  \"recipient\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "204ebaba-9371-46fb-9cef-b9aab9cabf50",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5cef1652-b878-4fa3-858e-97fb6ffc1b1e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0527d0fd-1f87-40f4-b378-23d5d7af5c4b",
+          "name": "Discard lead",
+          "request": {
+            "name": "Discard lead",
+            "description": {
+              "content": "Deletes or disqualifies a lead (depending on type and assignment)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads",
+                ":leadId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is discarding the lead"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "leadId",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a3693b9-aea8-464f-8307-227135ed3b23",
+              "name": "Lead deleted or disqualified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8afdca8e-6f37-41c3-ab4c-64dd2939dccd",
+              "name": "Error attempting to discard a lead that cannot be deleted or disqualified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "551f45f7-336c-436a-af96-48af479138f5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba11ad31-06fb-4f28-ad0e-bef14eca2582",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d37ea661-82d1-4e43-9048-a4002dc181ea",
+          "name": "Update lead",
+          "request": {
+            "name": "Update lead",
+            "description": {
+              "content": "Updates the contact information or notes from a lead",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads",
+                ":leadId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is updating the lead"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "leadId",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"name\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"size\": \"<string>\"\n    },\n    \"contact\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"phoneExtension\": \"<string>\"\n    }\n  },\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4e8cd99-d28a-4274-b3e8-d211501dfada",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street2\": \"5th floor\"\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email\": \"jane.doe@globex.com\"\n    }\n  },\n  \"notes\": \"Updated company name, added floor and changed person to be contacted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"partner\": \"APPDIRECT\",\n  \"leadType\": \"MANUAL\",\n  \"status\": \"SUBMITTED\",\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street1\": \"1234 Main St\",\n      \"street2\": \"5th floor\",\n      \"city\": \"Beverly Hills\",\n      \"state\": \"CA\",\n      \"zip\": \"90210\",\n      \"country\": \"US\"\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Jane\",\n      \"email\": \"jane.doe@globex.com\",\n      \"phone\": \"+14455555555\"\n    }\n  },\n  \"notes\": \"Updated company name, added floor and changed person to be contacted\",\n  \"createdOn\": 1534465177000,\n  \"lastModified\": 1534857159000,\n  \"creator\": {\n    \"id\": \"833d4c99-1939-4366-a5ae-6fb7ae3ec1be\",\n    \"companyId\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n    \"companyName\": \"Appdirect\",\n    \"role\": \"CHANNEL_ADMIN\"\n  },\n  \"customAttributes\": {},\n  \"referrer\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  },\n  \"recipient\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5dd9967-1fc0-42f7-88d1-cd78fac57687",
+              "name": "Error attempting to update a lead (for example, it is not possible to modify the lead)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street2\": \"5th floor\"\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email\": \"jane.doe@globex.com\"\n    }\n  },\n  \"notes\": \"Updated company name, added floor and changed person to be contacted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11629936-1758-443b-a60f-e1e112718b73",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street2\": \"5th floor\"\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email\": \"jane.doe@globex.com\"\n    }\n  },\n  \"notes\": \"Updated company name, added floor and changed person to be contacted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "264271da-6d73-4e3e-a671-7f567ad9064b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street2\": \"5th floor\"\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email\": \"jane.doe@globex.com\"\n    }\n  },\n  \"notes\": \"Updated company name, added floor and changed person to be contacted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8dd6ff34-597b-4396-8af3-fa9a4d38a8ef",
+          "name": "Assign lead",
+          "request": {
+            "name": "Assign lead",
+            "description": {
+              "content": "Assigns a lead to a Reseller company. The assignee will be able to see that lead as long as is not assigned to another company. The owner of the lead retains visibility even if it is assigned to another company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "assignment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is assigning the lead"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leadId\": \"<string>\",\n  \"recipient\": {\n    \"participantType\": \"<string>\",\n    \"partner\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74000a15-9c88-4486-be34-047135c7856c",
+              "name": "Lead assigned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "assignment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"recipient\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lead\": {\n    \"id\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n    \"partner\": \"APPDIRECT\",\n    \"leadType\": \"MANUAL\",\n    \"status\": \"ASSIGNED\",\n    \"customer\": {\n      \"company\": {\n        \"name\": \"Acme\",\n        \"street1\": \"1234 Main St\",\n        \"street2\": \"1st floor\",\n        \"city\": \"Beverly Hills\",\n        \"state\": \"CA\",\n        \"zip\": \"90210\",\n        \"country\": \"US\"\n      },\n      \"contact\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@acme.com\",\n        \"phone\": \"+14455555555\"\n      }\n    },\n    \"notes\": \"Some notes\",\n    \"createdOn\": 1534465177000,\n    \"lastModified\": 1534857159000,\n    \"creator\": {\n      \"id\": \"833d4c99-1939-4366-a5ae-6fb7ae3ec1be\",\n      \"companyId\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"companyName\": \"Appdirect\",\n      \"role\": \"RESELLER_MANAGER\"\n    },\n    \"customAttributes\": {},\n    \"referrer\": {\n      \"participantType\": \"CHANNEL\",\n      \"partner\": \"APPDIRECT\"\n    },\n    \"recipient\": {\n      \"participantType\": \"COMPANY\",\n      \"companyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"companyName\": \"Reseller Company\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "395d12b6-1517-4247-873f-68f7d64e983f",
+              "name": "Error attempting to assign the lead (missing required data, for example)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "assignment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"recipient\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89bb335d-e0a1-46d2-8dc1-413aaaf7cbb7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "assignment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"recipient\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "370c99c5-ef24-40fe-a89f-2ef8c711ab3f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "assignment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"29a1dc26-8088-475c-ba75-7b73915a0fab\",\n  \"recipient\": {\n    \"participantType\": \"COMPANY\",\n    \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df532b6-31a3-499c-a0b1-dcbcbcf66bbd",
+          "name": "Associate lead",
+          "request": {
+            "name": "Associate lead",
+            "description": {
+              "content": "Associates a lead with an existing marketplace user and company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "companyAssociation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is updating the lead"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leadId\": \"<string>\",\n  \"user\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b67e8e8-29fb-442a-bf75-80703d825f4b",
+              "name": "Lead associated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "companyAssociation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"<string>\",\n  \"user\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ce9d1713-7a48-43e4-bb43-b6880a19df24\",\n  \"partner\": \"APPDIRECT\",\n  \"leadType\": \"MANUAL\",\n  \"status\": \"SUBMITTED\",\n  \"customer\": {\n    \"company\": {\n      \"name\": \"Globex\",\n      \"street1\": \"1234 Main St\",\n      \"city\": \"Beverly Hills\",\n      \"state\": \"CA\",\n      \"zip\": \"90210\",\n      \"country\": \"US\",\n      \"companyExists\": true,\n      \"linked\": false\n    },\n    \"contact\": {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"email\": \"jane.doe@company.com\"\n    }\n  },\n  \"createdOn\": 1534845351000,\n  \"lastModified\": 1534845352000,\n  \"creator\": {\n    \"id\": \"833d4c99-1939-4366-a5ae-6fb7ae3ec1be\",\n    \"companyId\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n    \"companyName\": \"Appdirect\",\n    \"role\": \"CHANNEL_ADMIN\"\n  },\n  \"convertedCompany\": {\n    \"id\": \"62377315-61ba-4b50-9891-02799bef4257\",\n    \"name\": \"Acme\"\n  },\n  \"convertedUser\": {\n    \"id\": \"1661c8d8-357b-4e8d-a0b9-a571ff00924b\",\n    \"companyId\": \"62377315-61ba-4b50-9891-02799bef4257\"\n  },\n  \"customAttributes\": {},\n  \"referrer\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  },\n  \"recipient\": {\n    \"participantType\": \"CHANNEL\",\n    \"partner\": \"APPDIRECT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79fe0771-b6f5-4963-b315-62d30378f659",
+              "name": "Error attempting to associate the lead (missing required data, for example)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "companyAssociation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"<string>\",\n  \"user\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb745454-aa1a-404d-be22-6df6da5e6be3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "companyAssociation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"<string>\",\n  \"user\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22455e2f-ddc0-44fa-a362-60fc1cfac5fd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "companyAssociation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"leadId\": \"<string>\",\n  \"user\": {\n    \"id\": \"<string>\",\n    \"companyId\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"role\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0492428-6963-459c-aec6-7732eed18fca",
+          "name": "List activities",
+          "request": {
+            "name": "List activities",
+            "description": {
+              "content": "Retrieves a list of all lead activities visible for a given context. You can filter the list using optional query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "leads",
+                ":leadId",
+                "activities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is retrieving the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Date on which the lead activity was created (lower bound) in Unix timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Date on which the lead activity was created (upper bound) in Unix timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "creationDateOrder",
+                  "value": "DESC",
+                  "description": "Type of ordering used (ascending or descending) for the creation date"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "leadId",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2c0db11-302a-4421-8319-267f379d8389",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId",
+                    "activities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "creationDateOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"9d0957c8-d78d-44ac-9789-4b60a5859a3a\",\n      \"createdOn\": 1528922810000,\n      \"verb\": \"LEAD_CONVERSION_REQUESTED\",\n      \"verbContext\": \"COMPANY\",\n      \"partner\": \"APPDIRECT\",\n      \"actorCompany\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"name\": \"Reseller Company\"\n      },\n      \"allowedResourcesAccess\": [\n        \"ACTOR_COMPANY\"\n      ]\n    },\n    {\n      \"id\": \"259558f5-da66-4ce9-aede-0f15f68478f5\",\n      \"createdOn\": 1528922659000,\n      \"verb\": \"LEAD_CREATED\",\n      \"verbContext\": \"COMPANY\",\n      \"partner\": \"APPDIRECT\",\n      \"actorCompany\": {\n        \"id\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n        \"name\": \"Reseller Company\"\n      },\n      \"allowedResourcesAccess\": [\n        \"ACTOR_COMPANY\"\n      ]\n    },\n    {\n      \"id\": \"c6350331-caa9-4942-b53c-611df7d7c1d7\",\n      \"createdOn\": 1528922904000,\n      \"verb\": \"LEAD_CONVERSION_APPROVED\",\n      \"verbContext\": \"MARKETPLACE\",\n      \"partner\": \"APPDIRECT\",\n      \"actorCompany\": {\n        \"id\": \"6b4bd452-895d-4098-aaaa-e6046b238e0f\",\n        \"name\": \"Appdirect\"\n      },\n      \"allowedResourcesAccess\": [\n        \"ACTOR_COMPANY\"\n      ]\n    },\n    {\n      \"id\": \"49479105-36a9-4740-b9a3-b768c6755378\",\n      \"createdOn\": 1528922952000,\n      \"verb\": \"LEAD_CONVERTED\",\n      \"verbContext\": \"COMPANY\",\n      \"partner\": \"APPDIRECT\",\n      \"actorCompany\": {\n        \"id\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n        \"name\": \"Reseller Company\"\n      },\n      \"allowedResourcesAccess\": [\n        \"ACTOR_COMPANY\"\n      ]\n    },\n    {\n      \"id\": \"45e3a909-e3ec-46fc-8b08-bcc264fdc2f7\",\n      \"createdOn\": 1528923325000,\n      \"verb\": \"LEAD_QUOTE_LINKED\",\n      \"verbContext\": \"COMPANY\",\n      \"partner\": \"APPDIRECT\",\n      \"actorCompany\": {\n        \"id\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n        \"name\": \"Reseller Company\"\n      },\n      \"contextQuote\": {\n        \"id\": \"5f7a98c8-deac-40b2-8cef-cd41af042233\",\n        \"friendlyId\": \"I4HNJM\",\n        \"applicationName\": \"AUTO_WEBAPP_NEW\"\n      },\n      \"allowedResourcesAccess\": [\n        \"ACTOR_COMPANY\"\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 5,\n    \"totalElements\": 17,\n    \"totalPages\": 4,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d706b986-9c31-4e5d-a30b-f868122a93e9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId",
+                    "activities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "creationDateOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f30bfdc-3bb6-4e36-867b-4771eb1d6d05",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "leads",
+                    ":leadId",
+                    "activities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "creationDateOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadId",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a14eae6b-aab4-444b-96ea-46c6dce85e06",
+          "name": "Convert lead",
+          "request": {
+            "name": "Convert lead",
+            "description": {
+              "content": "Converts the lead to a marketplace company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "conversion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is converting the lead"
+                },
+                {
+                  "disabled": false,
+                  "key": "leadId",
+                  "value": "<string>",
+                  "description": "(Required) Lead ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa5f9f1d-aa7b-455a-9f5e-8bc2eed42c6c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lead\": {\n    \"id\": \"94890613-265d-4635-93d1-9fdddf70cf73\",\n    \"partner\": \"APPDIRECT\",\n    \"leadType\": \"COMPANY\",\n    \"status\": \"CONVERTED\",\n    \"customer\": {\n      \"company\": {\n        \"name\": \"Acme\",\n        \"companyExists\": true,\n        \"linked\": true\n      },\n      \"contact\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@acme.com\"\n      }\n    },\n    \"reseller\": {\n      \"id\": \"01d75b7c-ea78-4dc2-9e58-6ad217bddcbd\",\n      \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\"\n    },\n    \"createdOn\": 1534846329000,\n    \"lastModified\": 1534985564812,\n    \"convertedCompany\": {\n      \"id\": \"b3577d6f-8f29-454e-9d9d-da99e1e9618f\",\n      \"name\": \"Acme\"\n    },\n    \"convertedUser\": {\n      \"id\": \"6f3b8110-4e66-49bd-aec9-2e2fbe8c54ea\",\n      \"companyId\": \"b3577d6f-8f29-454e-9d9d-da99e1e9618f\"\n    },\n    \"referrer\": {\n      \"participantType\": \"CHANNEL\",\n      \"partner\": \"APPDIRECT\"\n    },\n    \"recipient\": {\n      \"participantType\": \"COMPANY\",\n      \"companyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"companyName\": \"Reseller Company\"\n    },\n    \"profileCompany\": {\n      \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"name\": \"Reseller Company\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20cd40ec-2b9f-4ee4-8ab3-99632b568741",
+              "name": "Error attempting to convert the lead (for example, it is not possible to convert the lead)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "df308a33-89ab-4731-8be6-23c12aff32ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "def3f7e9-2a99-43e5-9d60-e32a9268d6bd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6834115b-2880-406f-8187-d6920358ca4f",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4556a230-f33b-4fa3-997b-b116d95e6fa0",
+          "name": "Request conversion approval",
+          "request": {
+            "name": "Request conversion approval",
+            "description": {
+              "content": "Request permission to convert the lead to a marketplace company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "conversionRequest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID of the user who is requesting the lead conversion"
+                },
+                {
+                  "disabled": false,
+                  "key": "leadId",
+                  "value": "<string>",
+                  "description": "(Required) Lead ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc332f91-cd6c-46ac-b51a-40ccc5e011a2",
+              "name": "Lead conversion request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lead\": {\n    \"id\": \"94890613-265d-4635-93d1-9fdddf70cf73\",\n    \"partner\": \"APPDIRECT\",\n    \"leadType\": \"COMPANY\",\n    \"status\": \"PENDING_CONVERSION_APPROVAL\",\n    \"customer\": {\n      \"company\": {\n        \"name\": \"Acme\"\n      },\n      \"contact\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@acme.com\"\n      }\n    },\n    \"createdOn\": 1534846329000,\n    \"lastModified\": 1534846331000,\n    \"customAttributes\": {},\n    \"referrer\": {\n      \"participantType\": \"COMPANY\",\n      \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n      \"companyName\": \"Reseller Company\"\n    },\n    \"recipient\": {\n      \"participantType\": \"CHANNEL\",\n      \"partner\": \"APPDIRECT\"\n    },\n    \"profileCompany\": {\n      \"id\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n      \"name\": \"Reseller Company\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70a48c9f-a9a7-4137-bcf1-03bb0130a979",
+              "name": "Error attempting to request approval (for example, approval has already been requested)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ebc5db7-eb6b-4b1d-87fe-e329a8c5c5e9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5989ef2e-9cb6-4400-8f2f-e1e180930ea5",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b112d363-45b6-4879-9507-20d6e9a22c76",
+          "name": "Approve conversion request",
+          "request": {
+            "name": "Approve conversion request",
+            "description": {
+              "content": "Approves the conversion request made by a Reseller company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lead",
+                "v2",
+                "conversionApproval"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "leadId",
+                  "value": "<string>",
+                  "description": "(Required) Lead ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34b57696-3a20-4b66-b54c-fcd06b24eebf",
+              "name": "Lead conversion approval successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionApproval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lead\": {\n    \"id\": \"94890613-265d-4635-93d1-9fdddf70cf73\",\n    \"partner\": \"APPDIRECT\",\n    \"leadType\": \"COMPANY\",\n    \"status\": \"CONVERSION_APPROVED\",\n    \"customer\": {\n      \"company\": {\n        \"name\": \"Acme\"\n      },\n      \"contact\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@acme.com\"\n      }\n    },\n    \"createdOn\": 1534846329000,\n    \"lastModified\": 1534984995000,\n    \"customAttributes\": {},\n    \"referrer\": {\n      \"participantType\": \"CHANNEL\",\n      \"partner\": \"APPDIRECT\"\n    },\n    \"recipient\": {\n      \"participantType\": \"COMPANY\",\n      \"companyId\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n      \"companyName\": \"Reseller Company\"\n    },\n    \"profileCompany\": {\n      \"id\": \"386626c0-1234-4515-8450-4a720bb5d029\",\n      \"name\": \"Reseller Company\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d8eeeaf-e61a-4ee5-8f4c-9223ba28af74",
+              "name": "Error attempting to approve the request (for example, conversion is already approved)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionApproval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d9db451e-beb8-49be-b3f6-d0f081b108c9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionApproval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0848923-68c5-4f82-83b8-85466004825d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lead",
+                    "v2",
+                    "conversionApproval"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ff67cea0-616a-428e-8049-db70246ab97f",
+    "name": "Companies AI Embed AppResellerLeads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed UserAccounts API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "UserAccounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create user connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appwise/v2/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user connection for Search. A connection (accountName) associates the app (application UUID) and user information (userId, companyId, and handle). The connection is used to, for example, identify events related to the user's app account. accountName Format: {user_handle}@{user_uuid}@{company_uuid}\nNote: Application UUID = Product UUID"
+        },
+        {
+          "info": {
+            "name": "Disconnect user accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appwise/v2/accounts",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Note: Application UUID = Product UUID"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "query",
+                "description": "The user application account connection (accountName) to disconnect"
+              },
+              {
+                "name": "callbackUrl",
+                "value": "",
+                "type": "query",
+                "description": "Callback URL to which to publish status updates about the disconnection"
+              }
+            ]
+          },
+          "docs": "Disconnects an existing user account from Search. To access this API, you must configure product-scoped OAuth2 authentication for the application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

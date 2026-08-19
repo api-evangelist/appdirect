@@ -1,0 +1,320 @@
+{
+  "item": [
+    {
+      "id": "78782d4d-bc1e-4a8b-b542-151da38c6848",
+      "name": "Event",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e949112-bd8c-40a9-8d6b-7af047b897c3",
+          "name": "List all events",
+          "request": {
+            "name": "List all events",
+            "description": {
+              "content": "This call lists  all events on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Search events from this date in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderId",
+                  "value": "<number>",
+                  "description": "Only return events for these purchase order."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "The desired page. Defaults to \"0\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search term used to search on different fields of an application."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The number of events per page. Defaults to \"250\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Ordering type. Default is \"ASC\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Search events to this date in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Only return events for these event type."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ace942b6-f3d1-418b-897c-327a688371a7",
+              "name": "paged events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"uuid\": \"EventID\",\n      \"type\": \"SUBSCRIPTION_ORDER\",\n      \"creationDate\": 1480310700384,\n      \"product\": {\n        \"productId\": 1341,\n        \"name\": \"wvrZh7o1WOrZxmt3\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/marketplace/v1/products/1341\"\n          }\n        ]\n      },\n      \"company\": {\n        \"companyId\": null,\n        \"name\": \"companyName\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v1/companies/null\"\n          }\n        ]\n      },\n      \"orderId\": 362,\n      \"subscriptionId\": null,\n      \"consumed\": false,\n      \"successful\": true,\n      \"asynchronous\": true,\n      \"error\": {\n        \"code\": null,\n        \"message\": null\n      },\n      \"manuallyResolved\": false\n    }\n  ],\n  \"page\": {\n    \"size\": 1,\n    \"totalElements\": 1,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55d95f1d-8ce0-4eca-b126-e178c7466a85",
+          "name": "Retrieve an event",
+          "request": {
+            "name": "Retrieve an event",
+            "description": {
+              "content": "This call returns all details for a specific event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "events",
+                ":eventId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "eventId",
+                  "description": "(Required) Only return event with this event id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f8648c2-f005-41fa-b4e4-20e2c3dbec54",
+              "name": "Event read.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "events",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "eventId",
+                      "description": "(Required) Only return event with this event id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"EventID\",\n  \"type\": \"SUBSCRIPTION_ORDER\",\n  \"creationDate\": 1480310699136,\n  \"product\": {\n    \"productId\": 1335,\n    \"name\": \"rWA4Y3hiV6yU9OHm\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/marketplace/v1/products/1335\"\n      }\n    ]\n  },\n  \"company\": {\n    \"companyId\": \"acecc1af-174c-467c-9ac6-a1469ff9ef1a\",\n    \"name\": \"companyName\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v1/companies/acecc1af-174c-467c-9ac6-a1469ff9ef1a\"\n      }\n    ]\n  },\n  \"orderId\": 356,\n  \"subscriptionId\": 354,\n  \"consumed\": false,\n  \"successful\": true,\n  \"asynchronous\": true,\n  \"error\": {\n    \"code\": null,\n    \"message\": null\n  },\n  \"manuallyResolved\": false,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/channel/v1/events/EventID\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94e1a99-ea01-4b57-8a79-434ed70806a3",
+              "name": "Event not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "events",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "eventId",
+                      "description": "(Required) Only return event with this event id."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "66bb1f79-6754-440e-917e-72fbc005600e",
+    "name": "Companies AI Embed Event API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

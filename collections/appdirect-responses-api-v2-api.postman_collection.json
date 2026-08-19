@@ -1,0 +1,1415 @@
+{
+  "item": [
+    {
+      "id": "b8884197-b10a-46d6-b75c-04027cf1ee65",
+      "name": "Responses API v2",
+      "description": {
+        "content": "OpenAI Responses-compatible API (v2). Supports streaming (SSE) and non-streaming runs, threaded and stateless execution, and lifecycle control (cancel / pause / resume).\n\nThe shape mirrors the [official OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses) for inputs, outputs, tools, and streaming events. Items below labelled **[devs.ai extension]** have no equivalent in OpenAI's spec; everything else is intended to be 1:1 compatible.\n\n### Vendor extensions used to flag devs.ai additions\n\nEvery devs.ai-specific element in this spec is also tagged with a machine-readable [OpenAPI specification extension](https://swagger.io/docs/specification/openapi-extensions/) so tooling can detect them programmatically without parsing description text:\n\n- **`x-devs-ai-extension: true`** — applied to schemas, schema properties, parameters, response headers, and operations that have no OpenAI counterpart.\n- **`x-devs-ai-extension-values: [string, ...]`** — applied to enum schemas/properties whose enum is OpenAI-aligned but where devs.ai accepts/emits additional values. Lists only the extra values (e.g. `[\"cancelled\"]` on `ResponseStatus`).\n- **`x-devs-ai-extension-behavior: \"<id>\"`** — applied where the field name itself is OpenAI-standard but devs.ai's handling differs (e.g. `optional-on-request` on `MessageInputItem.type` because devs.ai accepts the field being omitted while OpenAI requires it).\n\n### devs.ai Extensions\n\nA single reference list of every devs.ai-specific addition exposed by this API. Each entry below is also marked `**[devs.ai extension]**` at its source and carries one of the `x-devs-ai-extension*` vendor extensions described above.\n\n**Request fields (`CreateResponseRequest`)**\n- `chat_mode` — `execute` / `chat` / `plan` execution mode.\n- `user_secrets` — short-lived per-request API keys / secrets for tools.\n- `thread_mode` — concurrent-request handling on an existing thread (`collect` / `steer` / `interrupt` / `force`).\n- `options` — internal devs.ai chat options (provider routing, tracing, etc.).\n- `reasoning.effort` extra values `none` and `xhigh` (in addition to OpenAI's `minimal` / `low` / `medium` / `high`).\n\n**Input content-part flags**\n- `input_text.invisible` / `input_image.invisible` / `input_file.invisible` — content sent to the model but hidden from end-user transcripts.\n- `input_text.metadata` — arbitrary metadata attached to a content part (not forwarded to the model).\n- `output_text.logprobs` (when `output_text` appears inside an `OutputMessageInputItem`).\n\n**Input item enum**\n- `FunctionCallOutputInputItem.status` uses `[\"success\", \"error\", \"cancelled\"]` instead of OpenAI's `[\"in_progress\", \"completed\", \"incomplete\"]` (incompatible enum).\n\n**Tools (`ToolDefinition`)** — only `function` and `web_search` mirror OpenAI; everything below is devs.ai-specific.\n- `python` — emits `server_tool_call` items (not OpenAI's `code_interpreter_call`).\n- `image_generation` — shares the type name with OpenAI but uses devs.ai's input shape and emits `server_tool_call` items.\n- `mcp_server` — references a configured devs.ai MCP integration; does not emit OpenAI's `mcp_list_tools` discovery events or `mcp_approval_request` / `mcp_approval_response` items.\n- `spreadsheet`, `memory`, `sandbox`, `deep_research` — no OpenAI counterpart.\n- `web_search.includeXSearch` — extra X (Twitter) search inclusion flag.\n\n**Output items (`OutputItem`)**\n- `server_tool_call` and `server_tool_call_output` — emitted instead of OpenAI's `code_interpreter_call` / `image_generation_call` items for devs.ai's server-side tools.\n\n**Response fields (`Response`)**\n- `selection_metadata` — model routing / selection metadata (chosen provider, fallback chain, latency hints).\n- `status` extra value `cancelled` (in addition to OpenAI's `in_progress` / `completed` / `failed` / `incomplete`).\n- `incomplete_details.reason` extra value `paused` (in addition to OpenAI's `max_output_tokens` / `content_filter`).\n\n**Streaming events** (full list and payloads in the `x-streaming-events` reference under `components`)\n- `response.server_tool_call.in_progress` / `.completed` / `.failed`.\n- `response.server_tool_call_arguments.delta` / `.done`.\n- `response.subagent.started` / `.progress` / `.completed`.\n- `response.output_item.added.status_hints` (optional field on `response.output_item.added`).\n- Every event payload includes a monotonically increasing `sequence_number` field.\n- Terminal sentinel `event: done` / `data: [DONE]` after the last lifecycle event.\n\n**Endpoints / headers**\n- `POST /api/v2/responses/{responseId}/pause` — pause an active threaded response run.\n- `POST /api/v2/responses/{responseId}/resume` — resume a paused threaded response run, optionally supplying tool outputs.\n- `GET /api/v2/responses/{responseId}/stream` — reconnect to an in-flight SSE stream after a network drop, resuming from `lastSequence`.\n- `POST /api/v2/responses/{responseId}/deep-research/resume` — approve / deny / clarify a paused deep research subagent.\n- `x-stream-chat-id` response header on streaming `POST /api/v2/responses` and on the `/stream` reconnect endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a993ad1e-c90b-4d13-b293-c23f79592452",
+          "name": "Create a response",
+          "request": {
+            "name": "Create a response",
+            "description": {
+              "content": "Submit a prompt and receive a model response. When `stream=true` (default),\nreturns an SSE event stream following the OpenAI Responses streaming format.\nWhen `stream=false`, returns the completed response as JSON.\n\n**Execution modes:**\n- **Threaded**: when `previous_response_id` or `conversation` is provided.\n  Signals a long-lived Temporal `ThreadWorkflow` that processes requests sequentially.\n- **Stateless**: when neither `previous_response_id` nor `conversation` is set.\n  Starts a one-shot `SingleResponseWorkflow`.\n\nResponse headers include `x-response-id`, `x-response-status`, and, for streaming responses, `x-stream-epoch`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"conversation\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"reasoning\": {\n    \"effort\": \"<string>\",\n    \"summary\": \"<string>\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  },\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tool_choice\": {},\n  \"store\": \"<boolean>\",\n  \"truncation\": {},\n  \"text\": {},\n  \"service_tier\": \"<string>\",\n  \"user\": \"<string>\",\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"background\": \"<boolean>\",\n  \"options\": {\n    \"flow\": {\n      \"override\": {\n        \"force\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"version\": \"<number>\"\n      },\n      \"tracing\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"chat_mode\": \"execute\",\n  \"user_secrets\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"thread_mode\": \"collect\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d2eba95-ccfe-457c-ab74-5a2c6b8621c7",
+              "name": "When `stream=true`: SSE event stream. When `stream=false`: completed Response object.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"conversation\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"reasoning\": {\n    \"effort\": \"<string>\",\n    \"summary\": \"<string>\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tool_choice\": {},\n  \"store\": \"<boolean>\",\n  \"truncation\": {},\n  \"text\": {},\n  \"service_tier\": \"<string>\",\n  \"user\": \"<string>\",\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"background\": \"<boolean>\",\n  \"options\": {\n    \"flow\": {\n      \"override\": {\n        \"force\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"version\": \"<number>\"\n      },\n      \"tracing\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"chat_mode\": \"execute\",\n  \"user_secrets\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"thread_mode\": \"collect\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique response run identifier.",
+                  "key": "x-response-id",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Initial response status.",
+                  "key": "x-response-status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "**[devs.ai extension]** Set on streaming responses (`stream=true`). Equals the underlying chat-stream identifier and can be passed as `streamChatId` to `GET /api/v2/responses/{responseId}/stream` to reconnect after a network drop. Equal to `x-response-id`.",
+                  "key": "x-stream-chat-id",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "**[devs.ai extension]** Redis stream epoch for reconnect handshakes. Persist this with `lastSequence` and pass it as `streamEpoch` to `GET /api/v2/responses/{responseId}/stream`.",
+                  "key": "x-stream-epoch",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response\",\n  \"status\": \"cancelled\",\n  \"output\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"status\": \"incomplete\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"created_at\": 9126,\n  \"model\": \"string\",\n  \"usage\": {\n    \"input_tokens\": 3901,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 9295\n    },\n    \"output_tokens\": 8390,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 9412\n    },\n    \"total_tokens\": 6180\n  },\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  },\n  \"instructions\": \"string\",\n  \"temperature\": 9465.600901172944,\n  \"top_p\": 8314.992101500648,\n  \"max_output_tokens\": 6469,\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"previous_response_id\": \"string\",\n  \"parallel_tool_calls\": true,\n  \"incomplete_details\": {\n    \"reason\": \"paused\"\n  },\n  \"tool_choice\": \"string\",\n  \"text\": {\n    \"key_0\": 1063.4767163674285\n  },\n  \"reasoning\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1916.304651336217\n  },\n  \"selection_metadata\": {\n    \"key_0\": 1922.3032903352266,\n    \"key_1\": 6348,\n    \"key_2\": 8612,\n    \"key_3\": 7626\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cedfe948-3b13-4c0e-8172-955bcb9170d8",
+              "name": "Invalid request (missing model, invalid file references, schema validation failure)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"conversation\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"reasoning\": {\n    \"effort\": \"<string>\",\n    \"summary\": \"<string>\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tool_choice\": {},\n  \"store\": \"<boolean>\",\n  \"truncation\": {},\n  \"text\": {},\n  \"service_tier\": \"<string>\",\n  \"user\": \"<string>\",\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"background\": \"<boolean>\",\n  \"options\": {\n    \"flow\": {\n      \"override\": {\n        \"force\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"version\": \"<number>\"\n      },\n      \"tracing\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"chat_mode\": \"execute\",\n  \"user_secrets\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"thread_mode\": \"collect\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd6f25ee-4d73-4727-9ef9-7ca9dcb22817",
+          "name": "Get a response",
+          "request": {
+            "name": "Get a response",
+            "description": {
+              "content": "Retrieve a response run by ID. Returns the full response object including\noutput items, usage, and status.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "0d91b63c-5cee-4a8a-9b69-88edcf10674a",
+              "name": "Response object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response\",\n  \"status\": \"cancelled\",\n  \"output\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"string\",\n          \"annotations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"created_at\": 9126,\n  \"model\": \"string\",\n  \"usage\": {\n    \"input_tokens\": 5047,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 769\n    },\n    \"output_tokens\": 429,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 6548\n    },\n    \"total_tokens\": 1502\n  },\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  },\n  \"instructions\": \"string\",\n  \"temperature\": 5267.55566432912,\n  \"top_p\": 8188.155412785339,\n  \"max_output_tokens\": 2280,\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"previous_response_id\": \"string\",\n  \"parallel_tool_calls\": false,\n  \"incomplete_details\": {\n    \"reason\": \"content_filter\"\n  },\n  \"tool_choice\": \"string\",\n  \"text\": {\n    \"key_0\": 739.5889159123825\n  },\n  \"reasoning\": {\n    \"key_0\": 9108.828500953685\n  },\n  \"selection_metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2d720f4-b244-4856-a830-af6e3b27c366",
+              "name": "Response not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86039920-917c-40d0-b6a8-42cc0a2be30f",
+          "name": "Reconnect to an in-flight response stream",
+          "request": {
+            "name": "Reconnect to an in-flight response stream",
+            "description": {
+              "content": "**[devs.ai extension]** Re-attach to a still-running response's SSE event stream after a network drop. The path parameter `responseId` and the required query parameter `streamChatId` MUST be equal — `streamChatId` exists for explicit client-side intent and to align with the underlying chat-stream backend.\n\nWhen `lastSequence` is supplied, events with `sequence_number <= lastSequence` are suppressed so the client receives only events it has not yet seen. The first event delivered is therefore typically `response.in_progress` (or whatever event follows `lastSequence`), NOT `response.created`.\n\nThis endpoint has no equivalent in OpenAI's Responses API.\n\nReturns `404` when the run cannot be found, `streamChatId` does not equal `responseId`, or the underlying stream has already completed and can no longer be reattached.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId",
+                "stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "streamChatId",
+                  "value": "<string>",
+                  "description": "(Required) **[devs.ai extension]** Must equal the path `responseId`. Identifies the underlying chat-stream to attach to."
+                },
+                {
+                  "disabled": false,
+                  "key": "lastSequence",
+                  "value": "-1",
+                  "description": "**[devs.ai extension]** Last `sequence_number` the client has already processed. Events with `sequence_number <= lastSequence` are suppressed. Default `-1` (no events suppressed)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8ccfdaf7-5179-4b0b-98b7-e550ab5e83b2",
+              "name": "SSE event stream identical in shape to the create-response stream (see Streaming Events section).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "streamChatId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastSequence",
+                      "value": "-1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Echoed response run identifier.",
+                  "key": "x-response-id",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "**[devs.ai extension]** Echoed `streamChatId` query parameter.",
+                  "key": "x-stream-chat-id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "199a1cbb-4dbc-41b1-894a-af07ab35a0aa",
+              "name": "Response not found, `streamChatId` does not match `responseId`, or the underlying stream has already completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "streamChatId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastSequence",
+                      "value": "-1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f69c42cd-619e-407d-8609-7157061822a9",
+          "name": "Cancel a response",
+          "request": {
+            "name": "Cancel a response",
+            "description": {
+              "content": "Cancel an active response run. Only works for threaded execution mode.\nIdempotent — returns success if the response is already in a terminal state.\nSends a `CANCEL_ACTIVE_REQUEST` signal to the Temporal workflow.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"<string>\",\n  \"cancelPolicy\": \"graceful\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b026fbe6-e273-4ae4-8065-bed08baa0476",
+              "name": "Cancel requested (or already terminal)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"cancelPolicy\": \"graceful\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response.pause\",\n  \"status\": \"cancel_requested\",\n  \"chatId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "344c8482-4c72-4fbd-9163-e2a54a0e51ed",
+              "name": "Response not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"cancelPolicy\": \"graceful\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "876c6f34-38e8-4a0f-bc18-b8c811eccd99",
+              "name": "Not a threaded response (stateless responses cannot be cancelled via this endpoint)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"cancelPolicy\": \"graceful\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3069e22-2140-492b-add8-fff5956185c3",
+          "name": "Pause a response",
+          "request": {
+            "name": "Pause a response",
+            "description": {
+              "content": "**[devs.ai extension]** Pause an active response run. Execution halts at the next safe checkpoint;\nin-flight activities complete but no new turns are scheduled.\nOnly works for threaded execution mode. No equivalent in OpenAI's Responses API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0ce6bc85-fd4c-4b79-b09b-55a2dd5f5830",
+              "name": "Pause requested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response.pause\",\n  \"status\": \"cancel_requested\",\n  \"chatId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3cf1406-f873-4a20-8759-dac8d0beebf7",
+              "name": "Response not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d1e7006-1413-48a8-bedd-656c147641ec",
+              "name": "Not a threaded response or already terminal",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5c1777b-2ea6-4bfc-b13e-fc2ccebb5d5b",
+          "name": "Resume a response",
+          "request": {
+            "name": "Resume a response",
+            "description": {
+              "content": "**[devs.ai extension]** Resume a paused response run. Optionally provide tool outputs for\nhuman-in-the-loop tool calling (function tools that require client execution).\nOnly works for threaded execution mode. No equivalent in OpenAI's Responses API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"<string>\",\n  \"toolOutputs\": [\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    },\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4d67e07-eb6a-443d-a079-59924e2e4678",
+              "name": "Resume requested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"toolOutputs\": [\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    },\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response.pause\",\n  \"status\": \"cancel_requested\",\n  \"chatId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee24aa36-ff04-48e9-8df9-a7158f706d75",
+              "name": "Response not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"toolOutputs\": [\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    },\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d010c89d-c8b4-4b12-8daa-51b8f081340f",
+              "name": "Not a threaded response or already terminal",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"<string>\",\n  \"toolOutputs\": [\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    },\n    {\n      \"toolCallId\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"success\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34fa68fb-f8e2-4a14-8b89-6178d51b2060",
+          "name": "Resume a deep research subagent",
+          "request": {
+            "name": "Resume a deep research subagent",
+            "description": {
+              "content": "**[devs.ai extension]** Resume a paused deep research child workflow. Used to approve, deny,\nor provide clarification for a deep research run that is awaiting\nhuman input. Signals the deep research subagent workflow directly. No equivalent in OpenAI's Responses API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "responses",
+                ":responseId",
+                "deep-research",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "responseId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subagentRunId\": \"<string>\",\n  \"approved\": \"<boolean>\",\n  \"clarificationAnswer\": \"<string>\",\n  \"goal\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"deniedReason\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72675733-3c4b-4514-aeda-8fa6c8b97621",
+              "name": "Resume requested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "deep-research",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subagentRunId\": \"<string>\",\n  \"approved\": \"<boolean>\",\n  \"clarificationAnswer\": \"<string>\",\n  \"goal\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"deniedReason\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response.deep_research.resume\",\n  \"status\": \"resume_requested\",\n  \"subagentRunId\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aac0f1b1-2ad7-4495-a1fb-909a348ea99a",
+              "name": "Response not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "deep-research",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subagentRunId\": \"<string>\",\n  \"approved\": \"<boolean>\",\n  \"clarificationAnswer\": \"<string>\",\n  \"goal\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"deniedReason\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1692d62e-dbae-4a31-9837-d23d38313bed",
+              "name": "Response is already terminal",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "responses",
+                    ":responseId",
+                    "deep-research",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "responseId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subagentRunId\": \"<string>\",\n  \"approved\": \"<boolean>\",\n  \"clarificationAnswer\": \"<string>\",\n  \"goal\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"deniedReason\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "594760b5-a9cd-44e8-9844-24a8d0c0641b",
+    "name": "Companies AI Embed Responses API v2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

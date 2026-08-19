@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerQuoteVersion API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerQuoteVersion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "A list of quote versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/quotes",
+            "params": [
+              {
+                "name": "sourceId",
+                "value": "",
+                "type": "query",
+                "description": "The source ID"
+              },
+              {
+                "name": "sourceType",
+                "value": "",
+                "type": "query",
+                "description": "The source type of the quote version"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the quote version"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "The page number"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "The number of results per page to return"
+              }
+            ]
+          },
+          "docs": "List quote versions based on a source type and ID\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Create quote version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/quotes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a quote version from a quote source\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        },
+        {
+          "info": {
+            "name": "Execute action on a quote version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/quotes/:quoteId/executeAction",
+            "params": [
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a quote version"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute the action passed by the parameter on the quote version\n\nRequired: Accept-Language header with Locale format. For example: en-US\""
+        },
+        {
+          "info": {
+            "name": "Get a quote version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/assistedSales/v1/quotes/:quoteId",
+            "params": [
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a quote version"
+              }
+            ]
+          },
+          "docs": "Get a quote version from a quote ID\n\nRequired: Accept-Language header with Locale format. For example: en-US"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

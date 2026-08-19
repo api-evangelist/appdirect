@@ -1,0 +1,1256 @@
+{
+  "item": [
+    {
+      "id": "da795b0b-ac49-4070-a0f0-722fe82679fe",
+      "name": "AppResellerAccount",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b3708cf-768c-4932-a5a6-5d9f1eea1feb",
+          "name": "Create company",
+          "request": {
+            "name": "Create company",
+            "description": {
+              "content": "Create a new company linked to the current reseller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"createdByCompanyId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"companySize\": \"<string>\",\n  \"website\": \"<string>\",\n  \"companyAccess\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb09f957-4d9d-40fc-b651-ffb8903c68de",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdByCompanyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"name\": \"Test Name\",\n  \"externalId\": \"externalRandom\",\n  \"phone\": \"50505055\",\n  \"companySize\": \"SMALL\",\n  \"website\": \"www.new_company.com\",\n  \"companyAccess\": \"RESELLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"externalId\": \"externalRandom\",\n  \"name\": \"Test Name\",\n  \"createdOn\": 1519158286000,\n  \"phone\": \"50505055\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79b809a4-d477-4f3f-b9b0-144c201f014b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdByCompanyId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"name\": \"Test Name\",\n  \"externalId\": \"externalRandom\",\n  \"phone\": \"50505055\",\n  \"companySize\": \"SMALL\",\n  \"website\": \"www.new_company.com\",\n  \"companyAccess\": \"RESELLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80b2b39e-9356-408b-b134-ad1a917c1743",
+          "name": "List companies",
+          "request": {
+            "name": "List companies",
+            "description": {
+              "content": "Retrieves companies depending on context: in the Reseller context, this endpoint lists all companies linked to the current reseller company; in the Reseller Manager context, it lists all referral and reseller companies in the current marketplace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported AppReseller contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<string>",
+                  "description": "User activation status"
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "<string>",
+                  "description": "User enablement status"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "From date, in timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "To date, in timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "<string>",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendor",
+                  "value": "<string>",
+                  "description": "This enum filters companies that can sell (or not) or resell products in the marketplace."
+                },
+                {
+                  "disabled": false,
+                  "key": "channelAdmin",
+                  "value": "<string>",
+                  "description": "This enum filters companies that have (or not) permission to manage the marketplace."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f94d33d1-5187-45ae-a0cc-dccbdd14b4c2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channelAdmin",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n    \"externalId\": \"externalRandom\",\n    \"name\": \"Test Name\",\n    \"createdOn\": 1519158286000,\n    \"phone\": \"50505055\",\n    \"activated\": true,\n    \"numOfUsers\": 1,\n    \"grantedAccesses\": []\n  },\n  {\n    \"id\": \"296626c0-53e2-4515-8450-4a720bb5d040\",\n    \"externalId\": \"externalRandom2\",\n    \"name\": \"Test Name 2\",\n    \"createdOn\": 1519158286000,\n    \"phone\": \"50505056\",\n    \"activated\": true,\n    \"numOfUsers\": 1,\n    \"grantedAccesses\": []\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe2b40c-27ab-457d-9912-bacf973759dd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channelAdmin",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15373a22-5460-4124-9b49-72d311ced301",
+          "name": "Company details",
+          "request": {
+            "name": "Company details",
+            "description": {
+              "content": "Retrieves the current reseller company details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "companies",
+                ":companyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported AppReseller contexts"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) Company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "418b662f-0a03-41f6-a94d-07aa8c60f7f0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9e00b38b-7918-4a27-b2f6-123b77cfac0b\",\n  \"name\": \"C37719018\",\n  \"createdOn\": 1523007202000,\n  \"enabled\": true,\n  \"active\": true,\n  \"grantedAccesses\": [],\n  \"defaultRole\": \"USER\",\n  \"availableAccesses\": [],\n  \"availableTaxExemptions\": [\n    \"FEDERAL_GOVERNMENT_US\",\n    \"STATE_GOVERNMENT_US\",\n    \"TRIBE_INDIAN\",\n    \"FOREIGN_DIPLOMAT\",\n    \"CHARITABLE_ORG\",\n    \"RELIGIOUS_ORG\",\n    \"RESALE\",\n    \"COMMERCIAL_AGRICULTURAL\",\n    \"INDUSTRIAL_PRODUCTION\",\n    \"DIRECT_MAIL_US\",\n    \"DIRECT_PAY_PERMIT_US\",\n    \"OTHER\",\n    \"LOCAL_GOVERNMENT_US\",\n    \"COMMERCIAL_AQUACULTURE\",\n    \"COMMERCIAL_FISHERY\",\n    \"NON_RESIDENT_CAN\",\n    \"MEDICAL_DEVICE_WITH_EXEMPT_SALES_TAX_US\",\n    \"MEDICAL_DEVICE_WITH_TAXABLE_SALES_TAX_US\"\n  ],\n  \"stats\": [\n    {\n      \"unit\": \"Free Trials\",\n      \"children\": \"0\"\n    },\n    {\n      \"unit\": \"Expired Free Trials\",\n      \"children\": \"0\"\n    },\n    {\n      \"unit\": \"Purchased Products\",\n      \"children\": \"0\"\n    },\n    {\n      \"unit\": \"Suspended Products\",\n      \"children\": \"0\"\n    },\n    {\n      \"unit\": \"Unpaid Invoices\",\n      \"children\": \"0\"\n    },\n    {\n      \"unit\": \"Total Spent\",\n      \"children\": \"$0.00\"\n    }\n  ],\n  \"settings\": [],\n  \"actions\": [\n    \"JOIN_COMPANY\",\n    \"DISABLE_COMPANY\",\n    \"MANAGE_CUSTOM_ATTRIBUTES\",\n    \"INVITE_USERS\"\n  ],\n  \"availableRoles\": [\n    \"USER\"\n  ],\n  \"idpConfigurations\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26492ff2-7574-4018-845e-1c303b668ea6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78963f1d-695d-4721-8377-fe5fb2ca2ee4",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "916330ad-f56a-4e07-8571-4b0242d4ae97",
+          "name": "Create user",
+          "request": {
+            "name": "Create user",
+            "description": {
+              "content": "Create a new user in a company linked to the Reseller company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"createdByCompanyId\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "080d87c3-eb97-4932-a32a-3528dfacc241",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdByCompanyId\": \"386626c0-53e2-0000-0000-4a720bb5d000\",\n  \"companyId\": \"4c00cad1-f741-0zf6-bb00-0000e73cec00\",\n  \"externalId\": \"01\",\n  \"email\": \"user@appdirect.com\",\n  \"firstName\": \"James\",\n  \"lastName\": \"Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6d375008-3b19-4cb8-bbb9-dcd9fce99432\",\n  \"companyId\": \"460fad0d-19e2-4eec-a756-59c15dc7a56a\",\n  \"email\": \"test4@yopmail.com\",\n  \"firstName\": \"user4\",\n  \"lastName\": \"user4\",\n  \"memberships\": [\n    {\n      \"company\": {\n        \"id\": \"460fad0d-19e2-4eec-a756-59c15dc7a56a\",\n        \"externalId\": \"external11\",\n        \"name\": \"Company3\",\n        \"createdOn\": 1525682872000,\n        \"phone\": null\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1a92b9c-4270-4621-851e-0bb825176afd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdByCompanyId\": \"386626c0-53e2-0000-0000-4a720bb5d000\",\n  \"companyId\": \"4c00cad1-f741-0zf6-bb00-0000e73cec00\",\n  \"externalId\": \"01\",\n  \"email\": \"user@appdirect.com\",\n  \"firstName\": \"James\",\n  \"lastName\": \"Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "03016561-eb9f-4911-aabd-6312db773796",
+              "name": "User not created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdByCompanyId\": \"386626c0-53e2-0000-0000-4a720bb5d000\",\n  \"companyId\": \"4c00cad1-f741-0zf6-bb00-0000e73cec00\",\n  \"externalId\": \"01\",\n  \"email\": \"user@appdirect.com\",\n  \"firstName\": \"James\",\n  \"lastName\": \"Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "458e7426-0f52-4f95-8189-bd9247e70370",
+          "name": "List users",
+          "request": {
+            "name": "List users",
+            "description": {
+              "content": "In the Reseller Manager context, this request retrieves all Resellers and Referral users. In the Reseller context, it retrieves all users that belong to companies linked to the reseller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "partner",
+                  "value": "<string>",
+                  "description": "User partner"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "User company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "ONLY_PENDING_INVITE",
+                  "description": "List of user activation status"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "From date, in timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "To date, in timestamp format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "<string>",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3dcd4cfd-00a9-4ca4-b507-a6509720f44f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "ONLY_ACTIVE"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"0af398ee-0000-000a-0000-a83d70caeff8\",\n      \"companyId\": \"0a357e6b-0000-000a-0000-680eabb9e322\",\n      \"email\": \"john@appdirect.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Grande\",\n      \"createdOn\": 1525682872000,\n      \"activated\": false,\n      \"invitationRequired\": false,\n      \"memberships\": [\n        {\n          \"company\": {\n            \"id\": \"0a357e6b-0000-000a-0000-680eabb9e322\",\n            \"name\": \"TestCompany\",\n            \"createdOn\": 1525682872000\n          },\n          \"enabled\": true\n        }\n      ]\n    },\n    {\n      \"id\": \"47e70302-0000-000a-0000-a01cb6129c6c\",\n      \"companyId\": \"a5811d92-0000-000a-0000-3c69e47fe126\",\n      \"email\": \"george@appdirect.com\",\n      \"firstName\": \"George\",\n      \"lastName\": \"Common\",\n      \"createdOn\": 1461321550000,\n      \"activated\": false,\n      \"invitationRequired\": false,\n      \"memberships\": [\n        {\n          \"company\": {\n            \"id\": \"a5811d92-0000-000a-0000-3c69e47fe126\",\n            \"name\": \"C4027287\",\n            \"createdOn\": 1461321550000\n          },\n          \"enabled\": true\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 10,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f8503a1-d04a-4c9b-a11d-f9eb6f6d4c94",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "ONLY_ACTIVE"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5da300ae-b23b-4bd4-a309-d292f9a0e984",
+          "name": "User details",
+          "request": {
+            "name": "User details",
+            "description": {
+              "content": "Get a single user details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) User's company ID (some user details depend on the specified company)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0b0e1cc-282c-4291-b15e-612d789a5792",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"64535371-9e83-0000-0000-61cb17bc0c9e\",\n  \"companyId\": \"c5fe2ca9-3db1-0000-0000-0cf0a01bd437\",\n  \"email\": \"c4201720@appdirect.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Grande\",\n  \"createdOn\": 1465984400000,\n  \"activated\": true,\n  \"invitationRequired\": false,\n  \"memberships\": [\n    {\n      \"company\": {\n        \"id\": \"c5fe2ca9-0000-408c-0000-0cf0a01bd437\",\n        \"name\": \"C4200000\"\n      },\n      \"roles\": [\n        \"BILLING_ADMIN\",\n        \"SYS_ADMIN\",\n        \"RESELLER\"\n      ],\n      \"enabled\": true\n    }\n  ],\n  \"partner\": \"APPDIRECT\",\n  \"enabled\": true,\n  \"customAttributes\": [],\n  \"settings\": [\n    {\n      \"setting\": \"SYS_ADMIN\",\n      \"permission\": \"READ\",\n      \"value\": \"true\"\n    },\n    {\n      \"setting\": \"BILLING_ADMIN\",\n      \"permission\": \"READ\",\n      \"value\": \"true\"\n    }\n  ],\n  \"actions\": [\n    \"SEND_RESET_PASSWORD_EMAIL\"\n  ],\n  \"availableRoles\": [\n    {\n      \"name\": \"BILLING_ADMIN\",\n      \"permission\": \"READ\"\n    },\n    {\n      \"name\": \"SYS_ADMIN\",\n      \"permission\": \"READ\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5158698e-e46f-4cdc-b177-c64bb4fceaad",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e7b68107-68a7-4df8-8cb4-49a8cb234f40",
+    "name": "Companies AI Embed AppResellerAccount API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

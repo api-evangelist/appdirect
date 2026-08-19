@@ -1,0 +1,308 @@
+{
+  "item": [
+    {
+      "id": "402a3c4a-454e-4156-be17-b56e515b4205",
+      "name": "AppResellerOrder",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71cafe82-bb10-41df-b6a3-4aeeef81e61e",
+          "name": "List orders",
+          "request": {
+            "name": "List orders",
+            "description": {
+              "content": "Retrieves a list of all user orders of a linked company. You can filter the list using optional query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Supported billing contexts"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use the '-[FieldName]' format."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "For RESELLER, the customer's user ID; for RESELLER_MANAGER, the Reseller's user ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "resellerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) Reseller's company ID. Required only for the RESELLER_MANAGER context."
+                },
+                {
+                  "disabled": false,
+                  "key": "customerCompanyId",
+                  "value": "<string>",
+                  "description": "(Required) User's company ID. Required only for the RESELLER context."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdOn",
+                  "value": "<string>",
+                  "description": "Date filter, defined by upper or lower inclusive or exclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; gt([timestamp]) - 'greater than'; lte([timestamp]) - 'less than or equal to'; or lt([timestamp]) - 'less than.'"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Order status (valid status are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)"
+                },
+                {
+                  "disabled": false,
+                  "key": "paidStatus",
+                  "value": "<string>",
+                  "description": "Status of the subscription related to the payment of this order"
+                },
+                {
+                  "disabled": false,
+                  "key": "pending",
+                  "value": "<boolean>",
+                  "description": "Indicates whether order has pending events"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search text"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8a40836-f62d-46d4-9e3f-9f1f35e3c0a1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resellerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paidStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pending",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"1234\",\n      \"createdOn\": 1529083173000,\n      \"status\": \"ACTIVE\",\n      \"frequency\": \"One Time\",\n      \"totalFee\": \"USD350.00\",\n      \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n      \"editionName\": \"Edition\",\n      \"orderCardId\": \"4567\",\n      \"company\": {\n        \"id\": \"698555fc-bc65-4163-9fee-16308edec41b\",\n        \"name\": \"Company A\"\n      }\n    },\n    {\n      \"id\": \"4567\",\n      \"createdOn\": 1529083173000,\n      \"status\": \"PENDING MANUAL RECOVERY\",\n      \"frequency\": \"One Time\",\n      \"totalFee\": \"USD350.00\",\n      \"applicationName\": \"AUTO_DISCOUNTS_APP\",\n      \"editionName\": \"Edition\",\n      \"orderCardId\": \"4567\",\n      \"company\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"name\": \"Company B\"\n      }\n    }\n  ],\n  \"page\": {\n    \"size\": 10,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29d63615-b843-4dd1-bc48-f76895e4d643",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resellerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerCompanyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paidStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pending",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8c7731c5-9ce4-4986-b0e9-0102a321cb7f",
+    "name": "Companies AI Embed AppResellerOrder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

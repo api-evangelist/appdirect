@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Invitation API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invitation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Revoke user invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/invitations/:email",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of invitee in the API request"
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of marketplace user who sent invitation"
+              }
+            ]
+          },
+          "docs": "Revoke a user's invitiation to a marketplace company."
+        },
+        {
+          "info": {
+            "name": "List company invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/invitations",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter query used to reduce the returned result set"
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of marketplace user who sent invitation"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace company's user invitations."
+        },
+        {
+          "info": {
+            "name": "Invite users to company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/invitations",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "api.usesExternalIds",
+                "value": "",
+                "type": "query",
+                "description": "If \"true\", specified companyUuid is used as company external Id."
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of inviter (marketplace user) in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite multiple users to a marketplace company using list of Invitation resources.\n\n**Note: You cannot set the Marketplace Manager role through the API.**"
+        },
+        {
+          "info": {
+            "name": "Invite users to company (CSV)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/invitations/csv",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of inviter (marketplace user) in the API request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "invitations",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Invite multiple users to a marketplace company using a CSV file.\nThis method expects a Content-Type request header with a value of “multipart/form-data”, “text/plain” or “text/csv”.\n\n**Note: You cannot set the Marketplace Manager role through the API.**"
+        },
+        {
+          "info": {
+            "name": "Accept user invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/invitations/:invitationToken/registration",
+            "params": [
+              {
+                "name": "invitationToken",
+                "value": "",
+                "type": "path",
+                "description": "Unique invitation token in the API request"
+              },
+              {
+                "name": "api.usesExternalIds",
+                "value": "",
+                "type": "query",
+                "description": "When \"true\", inviter external Id will be used instead of UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accept a user's invitation to a marketplace company"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Chat Sessions API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all chats for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/chats",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI whose chats are to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all chat sessions associated with the given AI identifier."
+        },
+        {
+          "info": {
+            "name": "Create a new chat session for the AI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/ai/:aiId/chats",
+            "params": [
+              {
+                "name": "aiId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the AI with which the chat session is to be associated."
+              }
+            ]
+          },
+          "docs": "Creates a new chat session associated with the given AI identifier and returns the created chat session data."
+        },
+        {
+          "info": {
+            "name": "Get a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves the chat session with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Message a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a message to a chat session with an AI."
+        },
+        {
+          "info": {
+            "name": "Delete a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session to delete."
+              }
+            ]
+          },
+          "docs": "Deletes the chat session with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Duplicate a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId/duplicate",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session to duplicate."
+              }
+            ]
+          },
+          "docs": "Creates a duplicate of the chat session with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Reset a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId/reset",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session to reset."
+              }
+            ]
+          },
+          "docs": "Resets the chat session with the specified ID, clearing its current state or content."
+        },
+        {
+          "info": {
+            "name": "Submit tool outputs (e.g., input field responses)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/chats/:chatId/tool-output",
+            "params": [
+              {
+                "name": "chatId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the chat session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When the AI requests user input through tool calls (e.g., asking the user to fill in form fields), use this endpoint to submit the user's responses. The AI will receive these outputs and continue the conversation. Listen for 'tool.call' events in the chat stream to know when input is needed."
+        },
+        {
+          "info": {
+            "name": "Get all chats for the User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/me/chats"
+          },
+          "docs": "Retrieves a list of all chat sessions associated with the current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

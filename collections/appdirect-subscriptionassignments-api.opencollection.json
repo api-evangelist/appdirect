@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed SubscriptionAssignments API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SubscriptionAssignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read application assignment for user and subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/assignments/:userUuid",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company subscription in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's application assignment for a given subscription."
+        },
+        {
+          "info": {
+            "name": "Create application assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/assignments/:userUuid",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company subscription in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user to assign the application to"
+              },
+              {
+                "name": "creatorUuid",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter and will be ignored if the APIs are accessed using any role except ROLE_PARTNER"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an application assignment for a marketplace user."
+        },
+        {
+          "info": {
+            "name": "Delete application assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/assignments/:userUuid",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company subscription in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user to remove the application assignment for"
+              },
+              {
+                "name": "disconnectVoiceConnection",
+                "value": "",
+                "type": "query",
+                "description": "Disconnect voice connection of Boost application"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Source of event. Possible values are: APP_SYNC, MICROSOFT_PROVISIONING_MIGRATION"
+              }
+            ]
+          },
+          "docs": "Delete a marketplace user's application assignment."
+        },
+        {
+          "info": {
+            "name": "List application assignments for subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/assignments",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company subscription in the API request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search on different assignment fields"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of search results to return per page"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of marketplace application assignments for the given subscription."
+        },
+        {
+          "info": {
+            "name": "Read application assignment count",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://marketplace.appdirect.com/api/account/v2/subscriptions/:subscriptionUuid/assignments",
+            "params": [
+              {
+                "name": "subscriptionUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company subscription in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve the number of users assigned to a subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

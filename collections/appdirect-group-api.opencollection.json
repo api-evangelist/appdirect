@@ -1,0 +1,346 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Group API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Group",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List user groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search groups names"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The property to sort by. Supported values are createdOn, name."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace company's user groups."
+        },
+        {
+          "info": {
+            "name": "Create user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a user group for a marketplace company."
+        },
+        {
+          "info": {
+            "name": "Read user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace company's user group."
+        },
+        {
+          "info": {
+            "name": "Update user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user group for the requested marketplace company."
+        },
+        {
+          "info": {
+            "name": "Delete user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              }
+            ]
+          },
+          "docs": "Delete a user group for the requested marketplace company."
+        },
+        {
+          "info": {
+            "name": "List user group members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid/memberships",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter object containing:<br/>searchText - Search term used to search on different fields of a user<br/>role       - If specified, only users with the specified marketplace role are returned<br/>status     - If specified, only users with the specified status are returned"
+              },
+              {
+                "name": "member",
+                "value": "",
+                "type": "query",
+                "description": "When true, only group members are return.  When false, non-members of the group are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned   @return List of user/company membership resources"
+              }
+            ]
+          },
+          "docs": "List members of a user group for the requested marketplace company."
+        },
+        {
+          "info": {
+            "name": "Create batch group memberships change requests.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid/memberships",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              },
+              {
+                "name": "validateOnly",
+                "value": "",
+                "type": "query",
+                "description": "If specified, the API returns a response without actually persisting it through to the database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create batched group memberships change requests."
+        },
+        {
+          "info": {
+            "name": "Read user from group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a user/company membership resource."
+        },
+        {
+          "info": {
+            "name": "Add user to group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user (part of company) in the API request"
+              }
+            ]
+          },
+          "docs": "Add a user to marketplace company's user group."
+        },
+        {
+          "info": {
+            "name": "Delete user from group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/groups/:groupUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of group in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Delete a user from a marketplace company's user group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

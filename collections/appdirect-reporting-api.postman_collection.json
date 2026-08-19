@@ -1,0 +1,438 @@
+{
+  "item": [
+    {
+      "id": "7e232baf-b6c1-40ab-bcc4-50c1bf41d24b",
+      "name": "Reporting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9850ca5b-bee4-49ac-af81-b76c39591732",
+          "name": "List all reports",
+          "request": {
+            "name": "List all reports",
+            "description": {
+              "content": "Lists all reports that are automatically generated on your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "v1",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "The number of reports to return from the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "The report generation start date and time, in epoch time"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>",
+                  "description": "The lower bound index for the requested results"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "The report generation end date and time, in epoch time"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Report type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56cf36af-4e65-4cfa-9fb3-9d53cfe6ff7c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"id\": 107,\n      \"reportType\": \"PAYMENTS_DETAIL_CSV\",\n      \"filename\": \"reportFiles/appdirect/AppDirect_2013-03-25_17-10-15_payments_detail_csv_report.csv\",\n      \"createdDate\": 1364245815000,\n      \"startDate\": 1363579200000,\n      \"endDate\": 1364184000000\n    },\n    {\n      \"id\": 108,\n      \"reportType\": \"CONTRACT_TERM\",\n      \"filename\": \"reportFiles/appdirect/AppDirect_2013-03-25_17-10-15_contract_term_report.csv\",\n      \"createdDate\": 1364245816000,\n      \"startDate\": 1363579200000,\n      \"endDate\": 1364184000000\n    }\n  ],\n  \"totalCount\": 27077\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66235dbc-43d5-4535-9140-e78b83678a0f",
+          "name": "Retrieve a report",
+          "request": {
+            "name": "Retrieve a report",
+            "description": {
+              "content": "This call returns all details from a specific report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "v1",
+                "report",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "id",
+                  "description": "(Required) Report ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81e5bb10-8c88-444e-a522-520477fde6f5",
+              "name": "Report redirect url returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Temporary Redirect (since HTTP/1.1)",
+              "code": 307,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e2a6d8ab-ce0f-4ebb-a501-4c628ac26378",
+              "name": "Report not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cdd6fc1-3c8d-4608-a0ed-59f64eee513f",
+          "name": "Delete report",
+          "request": {
+            "name": "Delete report",
+            "description": {
+              "content": "This call deletes a report from your marketplace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "v1",
+                "report",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "id",
+                  "description": "(Required) Report ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8a6109c-e494-44d8-8d1d-bc7425406257",
+              "name": "Report deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11c8ee31-8f9e-488e-a656-c997175c04cb",
+              "name": "Report not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "446a79e3-c7e0-4d60-b730-67b2b6e13a60",
+              "name": "Internal error during deletion",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v1",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a074e4f5-3606-4a69-99bf-a27fd7bef394",
+    "name": "Companies AI Embed Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

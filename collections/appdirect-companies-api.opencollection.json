@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AI Embed Companies API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/activities",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "displayType",
+                "value": "",
+                "type": "query",
+                "description": "Scope"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              }
+            ]
+          },
+          "docs": "Retrieve company or user activities.\n\nThe displayType parameter dictates whether activities for the given user or activities for the whole company are returned."
+        },
+        {
+          "info": {
+            "name": "List all companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Company name"
+              },
+              {
+                "name": "includeCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, company custom attributes are included in the API response. When set to false, company custom attributes are not included."
+              },
+              {
+                "name": "includePurchaseLimitData",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, the purchase limit attributes are fetched, calculated and populated in the response. When set to false, the purchase limit attributes are not fetched."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Optional. When set to true, only vendor companies are returned. When set to false, only non-vendor companies are returned. When omitted, all companies are returned (existing behaviour)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of search results to return per page"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The property to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              },
+              {
+                "name": "custom.customAttributeName",
+                "value": "",
+                "type": "query",
+                "description": "Accepts a notIn filter in the form of ?custom.customAttributeName=notIn(customAttributeValue1, customAttributeValue2, customAttributeValueN...) that excludes companies with matching values. Before you can use the filter, you must first create \"Text\" type company custom attributes in the user interface. You can then specify the custom attribute name and values as customAttributeName and customAttributeValueN. See https://help.appdirect.com/platform/Default.htm#MarketplaceManager/MM-Setgscustui-create-attribs.html."
+              }
+            ]
+          },
+          "docs": "Retrieve all marketplace companies.</br></br>Rate limit: Bucket size is 20 requests, with a leak rate of 5 requests per second.<br></br>Rate limit uses [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Usage of a leaky bucket algorithm allows client applications to make an unlimited number of requests over a large time horizon but prevents excessively large bursts over a short one."
+        },
+        {
+          "info": {
+            "name": "Create new company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new marketplace company"
+        },
+        {
+          "info": {
+            "name": "Read a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (ID or external ID) of the company in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace company by ID or external ID. If you use the ID, you can omit a prefix or use 'id:' as the prefix. If you use the external ID, you must always specify the 'externalId:' prefix."
+        },
+        {
+          "info": {
+            "name": "Update company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace company."
+        },
+        {
+          "info": {
+            "name": "Patch company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update marketplace company account information. This only adds or updates the values for the properties that you include in the call; all other properties are ignored."
+        },
+        {
+          "info": {
+            "name": "Update company picture",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/picture",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace company’s profile picture, for example, with an image of a logo.\nThis method requires a Content-Type request header with a value of “multipart/form-data”. The updated company resource is returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

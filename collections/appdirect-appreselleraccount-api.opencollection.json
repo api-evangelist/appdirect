@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerAccount API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerAccount",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companies",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported AppReseller contexts"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "User activation status"
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "User enablement status"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date, in timestamp format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date, in timestamp format"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "This enum filters companies that can sell (or not) or resell products in the marketplace."
+              },
+              {
+                "name": "channelAdmin",
+                "value": "",
+                "type": "query",
+                "description": "This enum filters companies that have (or not) permission to manage the marketplace."
+              }
+            ]
+          },
+          "docs": "Retrieves companies depending on context: in the Reseller context, this endpoint lists all companies linked to the current reseller company; in the Reseller Manager context, it lists all referral and reseller companies in the current marketplace"
+        },
+        {
+          "info": {
+            "name": "Create company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new company linked to the current reseller."
+        },
+        {
+          "info": {
+            "name": "Company details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/companies/:companyId",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Supported AppReseller contexts"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the current reseller company details."
+        },
+        {
+          "info": {
+            "name": "List users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/users",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner",
+                "value": "",
+                "type": "query",
+                "description": "User partner"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "User company ID"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "List of user activation status"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "From date, in timestamp format"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "To date, in timestamp format"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "In the Reseller Manager context, this request retrieves all Resellers and Referral users. In the Reseller context, it retrieves all users that belong to companies linked to the reseller."
+        },
+        {
+          "info": {
+            "name": "Create user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/users",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new user in a company linked to the Reseller company."
+        },
+        {
+          "info": {
+            "name": "User details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/users/:userId",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "User's company ID (some user details depend on the specified company)"
+              }
+            ]
+          },
+          "docs": "Get a single user details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

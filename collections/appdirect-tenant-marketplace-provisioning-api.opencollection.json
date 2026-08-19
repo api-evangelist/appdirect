@@ -1,0 +1,424 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Tenant Marketplace Provisioning API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tenant Marketplace Provisioning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create tenant organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a child organization under the tenant and returns the org ID and resolved admin user ID. When the tenant has subscription billing management enabled, the org is created without an automatic paid subscription (FREE bootstrap) so step 2 is POST .../subscription. Requires ORG_SETTINGS WRITE with a tenant-scoped API key from the tenant-owner org."
+        },
+        {
+          "info": {
+            "name": "Get organization subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/subscription",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Returns the active subscription for the target org. Poll after async create/patch/cancel operations. Reconcile cancellation on cancelledAt (status may remain ACTIVE until period close). Requires ORG_SUBSCRIPTIONS READ."
+        },
+        {
+          "info": {
+            "name": "Create organization subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/subscription",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts the subscription-created workflow (202 Accepted, empty body). Requires X-Idempotency-Key. Returns 403 when subscriptionBillingManagementEnabled is false on the tenant. Returns 409 when the org already has an active non-FREE subscription. Replay with the same idempotency key returns 202 again. Requires ORG_SUBSCRIPTIONS WRITE."
+        },
+        {
+          "info": {
+            "name": "Update organization subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/subscription",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates plan, seats, or external identifiers. Entitlement changes run via async workflow (202, empty body). Trivial field-only edits may return 200 with OrgSubscriptionDto. Requires X-Idempotency-Key and ORG_SUBSCRIPTIONS WRITE. Returns 403 when subscriptionBillingManagementEnabled is false."
+        },
+        {
+          "info": {
+            "name": "Cancel organization subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/subscription",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts the cancel lifecycle workflow (202 Accepted, empty body). Sets cancelledAt while status may remain ACTIVE until period close. Requires X-Idempotency-Key. Optional request body for provenance metadata. Requires ORG_SUBSCRIPTIONS WRITE. Returns 403 when subscriptionBillingManagementEnabled is false."
+        },
+        {
+          "info": {
+            "name": "List organization balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/billing/balances",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Returns current included and extra balances per balance type. Requires BILLING_BALANCES READ."
+        },
+        {
+          "info": {
+            "name": "Top up organization balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/billing/balances",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Credits the org balance (positive amounts only). Requires X-Idempotency-Key mapped to the ledger referenceId; replays return alreadyRecorded: true. Partner convention: balanceType CHAT and targetColumn EXTRA for purchased credits. Requires BILLING_BALANCES WRITE. Returns 403 when subscriptionBillingManagementEnabled is false."
+        },
+        {
+          "info": {
+            "name": "List organization balance ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/billing/balances/ledger",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "balanceType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entryType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Paginated ledger entries for reconciliation. Requires BILLING_BALANCES READ."
+        },
+        {
+          "info": {
+            "name": "List organization invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/billing/invoices",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Paginated invoices for the org subscription. Requires BILLING_INVOICES READ."
+        },
+        {
+          "info": {
+            "name": "List organization allocation limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/billing/allocations",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ]
+          },
+          "docs": "Returns org-level monthly/daily allocation limits per balance type. Requires BILLING_ALLOCATIONS READ."
+        },
+        {
+          "info": {
+            "name": "List organization members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/members",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Paginated member list for seat reconciliation. Requires ORG_SETTINGS READ."
+        },
+        {
+          "info": {
+            "name": "List organization invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/invitations",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Paginated invitation list for reconciliation. Requires ORG_SETTINGS READ."
+        },
+        {
+          "info": {
+            "name": "Invite organization member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/invitations",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an invitation email to add a member by email. Seat caps enforced. Requires ORG_SETTINGS WRITE."
+        },
+        {
+          "info": {
+            "name": "Update organization member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/members/:userId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Target user ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates role and/or membership type. At least one field required. Requires ORG_SETTINGS WRITE."
+        },
+        {
+          "info": {
+            "name": "Unassign organization member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/api/v1/tenant/organizations/:orgId/members/:userId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Target organization ID (must belong to the tenant)."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Target user ID."
+              }
+            ]
+          },
+          "docs": "Removes membership and cancels seat assignment. Idempotent: returns 204 even if the member was already removed. Requires ORG_SETTINGS WRITE. Uses a Redis-backed lock; returns 503 when Redis is unavailable. Returns 400 when another deletion is already in progress for the org."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

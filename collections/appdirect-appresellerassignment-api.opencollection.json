@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerAssignment API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerAssignment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subscription assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number starting at 1. The default value is 1."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. The default value is 50."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use '-[FieldName]' format. The default value is '-createdOn'."
+              },
+              {
+                "name": "createdOn",
+                "value": "",
+                "type": "query",
+                "description": "Date filter, defined by upper or lower inclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; lte([timestamp]) - 'less than or equal to'."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Subscription status (valid values are PENDING_REQUIRED_DATA, PENDING_SEAT_AVAILABILITY, PENDING_USER_ACTIVATION, PENDING_REMOTE_CREATION, SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED, SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT, SUBSCRIPTION_SUSPENDED_PAY_INVOICE, SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION, FAILED, ACTIVE, PENDING_REMOTE_CANCELLATION, CANCELLED). The filter format is: in([status], ...)."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "query",
+                "description": "Subscription ID purchased by the Reseller company"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "User ID. Use the in([id], ...) format to filter by multiple IDs, or the userId=[id] format to filter by a single ID."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of assignments for a given subscription. You can filter the list using optional query parameters."
+        },
+        {
+          "info": {
+            "name": "Assign product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a seat of a purchased product to a user who is a member of a linked marketplace company"
+        },
+        {
+          "info": {
+            "name": "Unassign product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/:subscriptionAssignmentId",
+            "params": [
+              {
+                "name": "subscriptionAssignmentId",
+                "value": "",
+                "type": "path",
+                "description": "Subscription Assignment ID."
+              }
+            ]
+          },
+          "docs": "Unassign a product from a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

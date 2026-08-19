@@ -1,0 +1,872 @@
+{
+  "item": [
+    {
+      "id": "61b93adb-55b5-4929-b7a0-de2a7640bc2b",
+      "name": "DataUploader",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4d33ed2-90af-40a0-87b8-c63cad6dc091",
+          "name": "Update product catalog",
+          "request": {
+            "name": "Update product catalog",
+            "description": {
+              "content": "Update an existing product catalog using a CSV file. This endpoint allows you to modify existing product information in the catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "product-uploader-api",
+                "updateCatalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) CSV file containing product catalog data to update"
+                },
+                {
+                  "key": "entityType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Type of entity being uploaded (e.g., PRODUCT_BASIC) (This can only be one of EDITION,PRICING_PLAN,EDITION_PRICING,PRODUCT_SETTING_GENERAL,PRODUCT_SETTING_CATEGORY,PRODUCT_SETTING_PRODUCT_LINE,PRODUCT_SETTING_ATTRIBUTE,MARKETPLACE_PRICE,PRODUCTION_PRICE,WHOLESALE_PRICE,PRODUCT_CUSTOM_ATTRIBUTE,PRODUCT_BASIC,PRODUCT_FEATURE,PRODUCT_BENEFIT,PRODUCT_MEDIA,PRODUCT_FEATURE_CHARACTERISTIC,PRODUCT_IMAGE,PRICE_BOOK,PRODUCT_INTEGRATION,PRODUCT_INTEGRATION_CREDENTIAL)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5ca9d7b-eda1-4a4b-8d5d-24485bb2f50a",
+              "name": "Catalog updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "updateCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to update",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_BASIC) (This can only be one of EDITION,PRICING_PLAN,EDITION_PRICING,PRODUCT_SETTING_GENERAL,PRODUCT_SETTING_CATEGORY,PRODUCT_SETTING_PRODUCT_LINE,PRODUCT_SETTING_ATTRIBUTE,MARKETPLACE_PRICE,PRODUCTION_PRICE,WHOLESALE_PRICE,PRODUCT_CUSTOM_ATTRIBUTE,PRODUCT_BASIC,PRODUCT_FEATURE,PRODUCT_BENEFIT,PRODUCT_MEDIA,PRODUCT_FEATURE_CHARACTERISTIC,PRODUCT_IMAGE,PRICE_BOOK,PRODUCT_INTEGRATION,PRODUCT_INTEGRATION_CREDENTIAL)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Uploaded the file successfully\",\n  \"data\": {\n    \"file\": {\n      \"fieldname\": \"file\",\n      \"originalname\": \"test.csv\",\n      \"encoding\": \"7bit\",\n      \"mimetype\": \"text/csv\",\n      \"destination\": \"/app/resources/static/uploads\",\n      \"filename\": \"1750151421696_Single CSV Template (69).csv\",\n      \"path\": \"/app/resources/static/uploads/1750151421696_Single CSV Template (69).csv\",\n      \"size\": 3420\n    },\n    \"processId\": \"4e4b146c-47dd-4b19-ac00-8214ff1e286d\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce97037e-836a-48cd-ba0c-56c663abe028",
+              "name": "Bad request - Invalid file format or entity type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "updateCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to update",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_BASIC) (This can only be one of EDITION,PRICING_PLAN,EDITION_PRICING,PRODUCT_SETTING_GENERAL,PRODUCT_SETTING_CATEGORY,PRODUCT_SETTING_PRODUCT_LINE,PRODUCT_SETTING_ATTRIBUTE,MARKETPLACE_PRICE,PRODUCTION_PRICE,WHOLESALE_PRICE,PRODUCT_CUSTOM_ATTRIBUTE,PRODUCT_BASIC,PRODUCT_FEATURE,PRODUCT_BENEFIT,PRODUCT_MEDIA,PRODUCT_FEATURE_CHARACTERISTIC,PRODUCT_IMAGE,PRICE_BOOK,PRODUCT_INTEGRATION,PRODUCT_INTEGRATION_CREDENTIAL)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77583c12-2bef-456f-a1a7-e0b29c70b8e3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "updateCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to update",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_BASIC) (This can only be one of EDITION,PRICING_PLAN,EDITION_PRICING,PRODUCT_SETTING_GENERAL,PRODUCT_SETTING_CATEGORY,PRODUCT_SETTING_PRODUCT_LINE,PRODUCT_SETTING_ATTRIBUTE,MARKETPLACE_PRICE,PRODUCTION_PRICE,WHOLESALE_PRICE,PRODUCT_CUSTOM_ATTRIBUTE,PRODUCT_BASIC,PRODUCT_FEATURE,PRODUCT_BENEFIT,PRODUCT_MEDIA,PRODUCT_FEATURE_CHARACTERISTIC,PRODUCT_IMAGE,PRICE_BOOK,PRODUCT_INTEGRATION,PRODUCT_INTEGRATION_CREDENTIAL)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "09b4ed2e-254f-4431-ad11-b1edeac67448",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "updateCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to update",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_BASIC) (This can only be one of EDITION,PRICING_PLAN,EDITION_PRICING,PRODUCT_SETTING_GENERAL,PRODUCT_SETTING_CATEGORY,PRODUCT_SETTING_PRODUCT_LINE,PRODUCT_SETTING_ATTRIBUTE,MARKETPLACE_PRICE,PRODUCTION_PRICE,WHOLESALE_PRICE,PRODUCT_CUSTOM_ATTRIBUTE,PRODUCT_BASIC,PRODUCT_FEATURE,PRODUCT_BENEFIT,PRODUCT_MEDIA,PRODUCT_FEATURE_CHARACTERISTIC,PRODUCT_IMAGE,PRICE_BOOK,PRODUCT_INTEGRATION,PRODUCT_INTEGRATION_CREDENTIAL)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3beafbe1-e242-4cdb-9b22-524f89f1ee63",
+          "name": "Create product catalog",
+          "request": {
+            "name": "Create product catalog",
+            "description": {
+              "content": "Create a new product catalog using a CSV file. This endpoint allows you to create a completely new catalog with product information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "product-uploader-api",
+                "createCatalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) CSV file containing product catalog data to create"
+                },
+                {
+                  "key": "entityType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED) (This can only be one of CATALOG_CONSOLIDATED,PRODUCT_CONSOLIDATED,PRICE_BOOK_SCHEDULE)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "960f6a6b-c61d-40dc-b943-20d298b86cae",
+              "name": "Catalog created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "createCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to create",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED) (This can only be one of CATALOG_CONSOLIDATED,PRODUCT_CONSOLIDATED,PRICE_BOOK_SCHEDULE)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Uploaded the file successfully\",\n  \"data\": {\n    \"file\": {\n      \"fieldname\": \"file\",\n      \"originalname\": \"Single CSV Template.csv\",\n      \"encoding\": \"7bit\",\n      \"mimetype\": \"text/csv\",\n      \"destination\": \"/app/resources/static/uploads\",\n      \"filename\": \"1750151421697_Product Catalog Template.csv\",\n      \"path\": \"/app/resources/static/uploads/1750151421697_Product Catalog Template.csv\",\n      \"size\": 5120\n    },\n    \"processId\": \"5f5c257d-58ee-5c2a-bd11-9325ff2f397e\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99789528-a86a-41d0-9e2e-e520de92c21c",
+              "name": "Bad request - Invalid file format or entity type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "createCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to create",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED) (This can only be one of CATALOG_CONSOLIDATED,PRODUCT_CONSOLIDATED,PRICE_BOOK_SCHEDULE)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "46a1c6d4-b723-4728-a833-1e6f9e05d1cc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "createCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to create",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED) (This can only be one of CATALOG_CONSOLIDATED,PRODUCT_CONSOLIDATED,PRICE_BOOK_SCHEDULE)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b432e13-f166-40a1-9613-4f932f4b898f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "createCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to create",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT_CONSOLIDATED) (This can only be one of CATALOG_CONSOLIDATED,PRODUCT_CONSOLIDATED,PRICE_BOOK_SCHEDULE)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d1b2e9d-382c-4278-b4a4-c965838a5d06",
+          "name": "Publish product catalog",
+          "request": {
+            "name": "Publish product catalog",
+            "description": {
+              "content": "Publish a product catalog using a CSV file. This endpoint makes the catalog available for use in the marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "product-uploader-api",
+                "publishCatalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) CSV file containing product catalog data to publish"
+                },
+                {
+                  "key": "entityType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Type of entity being uploaded (e.g., PRODUCT) (This can only be one of PRODUCT)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d565ceaa-8223-461e-9269-197ce13a394e",
+              "name": "Catalog published successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "publishCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to publish",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT) (This can only be one of PRODUCT)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Uploaded the file successfully\",\n  \"data\": {\n    \"file\": {\n      \"fieldname\": \"file\",\n      \"originalname\": \"Publish Catalog Template.csv\",\n      \"encoding\": \"7bit\",\n      \"mimetype\": \"text/csv\",\n      \"destination\": \"/app/resources/static/uploads\",\n      \"filename\": \"1750151421698_Publish Catalog Template.csv\",\n      \"path\": \"/app/resources/static/uploads/1750151421698_Publish Catalog Template.csv\",\n      \"size\": 2800\n    },\n    \"processId\": \"6g6d368e-69ff-6d3b-ce22-0436ff3f408f\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45911cdc-6131-4612-b72a-096270c30e0a",
+              "name": "Bad request - Invalid file format or entity type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "publishCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to publish",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT) (This can only be one of PRODUCT)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce9a85c9-d29a-44df-86aa-a58e7953c037",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "publishCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to publish",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT) (This can only be one of PRODUCT)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99d0bec5-3fc3-4571-be18-e12699886885",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "product-uploader-api",
+                    "publishCatalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) CSV file containing product catalog data to publish",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Type of entity being uploaded (e.g., PRODUCT) (This can only be one of PRODUCT)",
+                        "type": "text/plain"
+                      },
+                      "key": "entityType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6c32840e-6a9d-47db-8b0e-662ed94532af",
+    "name": "Companies AI Embed DataUploader API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

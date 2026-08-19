@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Product Management API API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Management API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete image from product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/products/v1/resources/image/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a specific image resource from a product. The image is identified by the product reference ID, upload type, locale, and path to delete. This operation permanently removes the image from the product and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Upload and link image to product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/products/v1/resources/image/uploadAndLink",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "productRefId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "uploadType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "locale",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "identifier",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads an image file and links it to a specific product resource. Supports various image types for different use cases like logos, screenshots, and overview images. The uploaded image is automatically processed and stored in the appropriate format for the specified upload type."
+        },
+        {
+          "info": {
+            "name": "Upload and link PDF file to product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/products/v1/resources/file/uploadAndLink",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "productRefId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "locale",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "onlyVisibleToResellers",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "externalResourceRefId",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a PDF file and links it to a specific product as documentation or resource material. PDF files can be configured for visibility (public or reseller-only) and can have custom names and identifiers. Commonly used for user manuals, installation guides, terms of service, and other product documentation."
+        },
+        {
+          "info": {
+            "name": "Delete file from product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/products/v1/resources/file/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a specific file resource from a product. Currently supports deletion of PDF files only. The file is identified by the product reference ID and file identifier. This operation permanently removes the file from the product and cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

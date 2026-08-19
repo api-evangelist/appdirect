@@ -1,0 +1,1247 @@
+{
+  "item": [
+    {
+      "id": "86528afc-92d6-4d2d-adaf-7eea680f8021",
+      "name": "Payment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "54bccd14-e324-454f-9bc0-916f88661ce0",
+          "name": "List all payments for a company",
+          "request": {
+            "name": "List all payments for a company",
+            "description": {
+              "content": "List all of  the payments for the given company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "Payment method"
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "Payment result"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "PAYMENT_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) Company UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef406f1e-4817-46ef-a18d-1852098dba5f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentNumber\": 21,\n    \"date\": 1481002410613,\n    \"amount\": 10,\n    \"currency\": \"USD\",\n    \"result\": \"SUCCESSFUL\",\n    \"method\": \"CREDIT_CARD\",\n    \"transactionId\": \"123456abcdef\",\n    \"user\": {\n      \"id\": \"a18c91e8-d5d5-4fb8-915c-726535a0bc8a\",\n      \"href\": \"http://appdirect/api/account/v1/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n    },\n    \"company\": {\n      \"id\": \"644eb32e-4afa-4699-9dae-5d3394320968\",\n      \"href\": \"http://appdirect/api/account/v1/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n    },\n    \"gatewayResponse\": {\n      \"avs\": true,\n      \"cvv\": true,\n      \"code\": null,\n      \"message\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/payments/21\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df7cb6f9-642a-4a51-bded-8d81cd74f6ca",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d6c5fc2-1a74-44b2-bd6f-39268656857a",
+          "name": "List all payments for a user",
+          "request": {
+            "name": "List all payments for a user",
+            "description": {
+              "content": "List all of the payments for the given user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "companies",
+                ":companyId",
+                "users",
+                ":userId",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "Payment method"
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "Payment result"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "PAYMENT_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyId",
+                  "description": "(Required) Company UUID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b55f540-12a1-408a-9efe-72fa5d6684a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentNumber\": 21,\n    \"date\": 1481002410613,\n    \"amount\": 10,\n    \"currency\": \"USD\",\n    \"result\": \"SUCCESSFUL\",\n    \"method\": \"CREDIT_CARD\",\n    \"transactionId\": \"123456abcdef\",\n    \"user\": {\n      \"id\": \"a18c91e8-d5d5-4fb8-915c-726535a0bc8a\",\n      \"href\": \"http://appdirect/api/account/v1/users/a18c91e8-d5d5-4fb8-915c-726535a0bc8a\"\n    },\n    \"company\": {\n      \"id\": \"644eb32e-4afa-4699-9dae-5d3394320968\",\n      \"href\": \"http://appdirect/api/account/v1/companies/644eb32e-4afa-4699-9dae-5d3394320968\"\n    },\n    \"gatewayResponse\": {\n      \"avs\": true,\n      \"cvv\": true,\n      \"code\": null,\n      \"message\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/payments/21\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4867d39-02fe-4e8a-8aa5-536f6e353366",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "companies",
+                    ":companyId",
+                    "users",
+                    ":userId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyId",
+                      "description": "(Required) Company UUID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31aaffaa-4994-4828-b3eb-7e49ee20a348",
+          "name": "List all payments",
+          "request": {
+            "name": "List all payments",
+            "description": {
+              "content": "List all payments matching the input filters",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "Payment method"
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "Payment result"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "PAYMENT_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0f9ba15-6d3e-4d1d-9417-55a62543b70e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"paymentNumber\": 1,\n    \"date\": 1480980392947,\n    \"amount\": 10,\n    \"currency\": \"USD\",\n    \"result\": \"SUCCESSFUL\",\n    \"method\": \"CREDIT_CARD\",\n    \"transactionId\": null,\n    \"user\": {\n      \"id\": \"46b7ee79-5cb4-4ccf-b6cb-5ec869c67ffc\",\n      \"href\": \"http://appdirect/api/account/v1/users/46b7ee79-5cb4-4ccf-b6cb-5ec869c67ffc\"\n    },\n    \"company\": {\n      \"id\": \"13febe65-6774-4c99-aee4-85a57dab94e4\",\n      \"href\": \"http://appdirect/api/account/v1/companies/13febe65-6774-4c99-aee4-85a57dab94e4\"\n    },\n    \"gatewayResponse\": {\n      \"avs\": true,\n      \"cvv\": true,\n      \"code\": null,\n      \"message\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/payments/1\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51633bb0-d939-4bc3-a1fb-0606fc540b78",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "PAYMENT_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 12345,\n  \"company\": {\n    \"href\": \"...\",\n    \"id\": \"...\"\n  },\n  \"currency\": \"SEK\",\n  \"date\": 12345,\n  \"gatewayResponse\": {\n    \"avs\": true,\n    \"code\": \"...\",\n    \"cvv\": true,\n    \"message\": \"...\"\n  },\n  \"id\": 12345,\n  \"links\": [\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    },\n    {\n      \"href\": \"...\",\n      \"rel\": \"...\"\n    }\n  ],\n  \"method\": \"TBILL\",\n  \"result\": \"GATEWAY_NOT_AVAILABLE\",\n  \"transactionId\": \"...\",\n  \"user\": {\n    \"href\": \"...\",\n    \"id\": \"...\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "915f94f5-e326-4e44-81e0-d8f7d3c56a09",
+          "name": "Retrieve a payment",
+          "request": {
+            "name": "Retrieve a payment",
+            "description": {
+              "content": "Retrieve a payment given its payment number",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "payments",
+                ":paymentNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "paymentNumber",
+                  "description": "(Required) Payment number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e62c8b2c-a1d7-464b-b630-4ce5174e6722",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments",
+                    ":paymentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "paymentNumber",
+                      "description": "(Required) Payment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentNumber\": 1,\n  \"date\": 1480980388022,\n  \"amount\": 10,\n  \"currency\": \"USD\",\n  \"result\": \"SUCCESSFUL\",\n  \"method\": \"CREDIT_CARD\",\n  \"transactionId\": null,\n  \"user\": {\n    \"id\": \"24cf38da-ca99-4ea6-ac63-ed7b310456bc\",\n    \"href\": \"http://appdirect/api/account/v1/users/24cf38da-ca99-4ea6-ac63-ed7b310456bc\"\n  },\n  \"company\": {\n    \"id\": \"a5e58cc5-1162-4066-9d07-2275d9759d4e\",\n    \"href\": \"http://appdirect/api/account/v1/companies/a5e58cc5-1162-4066-9d07-2275d9759d4e\"\n  },\n  \"gatewayResponse\": {\n    \"avs\": true,\n    \"cvv\": true,\n    \"code\": null,\n    \"message\": null\n  },\n  \"links\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96355b92-d708-403b-a3e8-6d0875f1a8b5",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments",
+                    ":paymentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "paymentNumber",
+                      "description": "(Required) Payment number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7be654e-9be7-430a-a8bd-070e18258bcb",
+          "name": "List all payment invoices",
+          "request": {
+            "name": "List all payment invoices",
+            "description": {
+              "content": "List all invoices attached to a given payment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "v1",
+                "payments",
+                ":paymentNumber",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "250",
+                  "description": "Number of results to fetch. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeFree",
+                  "value": "<boolean>",
+                  "description": "Exclude free invoices"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "From date"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "INVOICE_ID",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "First result index. Used for paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of the related invoice(s)"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "To date"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "paymentNumber",
+                  "description": "(Required) Payment number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85201405-311d-44d9-93d0-3f0bdbafb853",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments",
+                    ":paymentNumber",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "paymentNumber",
+                      "description": "(Required) Payment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"invoiceId\": 1,\n    \"referenceNumber\": null,\n    \"creationDate\": null,\n    \"dueDate\": null,\n    \"status\": \"PAID\",\n    \"total\": null,\n    \"currency\": \"USD\",\n    \"user\": {\n      \"id\": \"5e496e63-0ccd-42e1-a880-8c636619df7d\",\n      \"href\": \"http://appdirect/api/account/v1/users/5e496e63-0ccd-42e1-a880-8c636619df7d\"\n    },\n    \"company\": {\n      \"id\": \"6a8921e7-6f15-4f36-9ab3-5663d67ba88f\",\n      \"href\": \"http://appdirect/api/account/v1/companies/6a8921e7-6f15-4f36-9ab3-5663d67ba88f\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"user\",\n        \"href\": \"http://appdirect/api/account/v2/users/5e496e63-0ccd-42e1-a880-8c636619df7d\"\n      },\n      {\n        \"rel\": \"company\",\n        \"href\": \"http://appdirect/api/account/v2/companies/6a8921e7-6f15-4f36-9ab3-5663d67ba88f\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/billing/v1/invoices/1\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e963a36-7cdb-4c67-8165-2d61889ea0c8",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments",
+                    ":paymentNumber",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "paymentNumber",
+                      "description": "(Required) Payment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  },\n  {\n    \"links\": [\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      },\n      {\n        \"href\": \"...\",\n        \"rel\": \"...\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de804251-3971-48ad-9c1d-9f13bfa1db17",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "v1",
+                    "payments",
+                    ":paymentNumber",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "250"
+                    },
+                    {
+                      "key": "excludeFree",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "INVOICE_ID"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "paymentNumber",
+                      "description": "(Required) Payment number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d6ea26bc-5ca9-4ecb-af0b-1eb18bc74635",
+    "name": "Companies AI Embed Payment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

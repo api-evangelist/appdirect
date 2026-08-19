@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed AppResellerPaymentMethod API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppResellerPaymentMethod",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "User ID"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Company ID"
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Page number starting at 1. The default value is 1."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. The default value is 50."
+              },
+              {
+                "name": "paymentMethodType",
+                "value": "",
+                "type": "query",
+                "description": "Payment method type"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of the specified user's payment methods"
+        },
+        {
+          "info": {
+            "name": "Create payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a payment method on behalf of the specified user"
+        },
+        {
+          "info": {
+            "name": "Remove payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/:paymentMethodId",
+            "params": [
+              {
+                "name": "paymentMethodId",
+                "value": "",
+                "type": "path",
+                "description": "Payment method ID"
+              }
+            ]
+          },
+          "docs": "Deletes a user's payment methods"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1093 @@
+{
+  "item": [
+    {
+      "id": "701c3295-5ec3-48a4-aae7-637afd930847",
+      "name": "Integration",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7612ad9a-6ec8-4369-b3a7-5ee5607816d7",
+          "name": "Billing Usage V1",
+          "request": {
+            "name": "Billing Usage V1",
+            "description": {
+              "content": "Submit usage data to be billed for the given account identifier",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "v1",
+                "billing",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "async",
+                  "value": "false",
+                  "description": "True if asynchronous. Default value is false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"<string>\",\n    \"parentAccountIdentifier\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"addonInstance\": {\n    \"id\": \"<string>\"\n  },\n  \"item\": [\n    {\n      \"customUnit\": \"<string>\",\n      \"description\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"unit\": \"<string>\"\n    },\n    {\n      \"customUnit\": \"<string>\",\n      \"description\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"unit\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c18a2ed-3b47-45c7-9e9b-fb518fdf15b3",
+              "name": "Success (only returned when async=false)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"...\",\n    \"parentAccountIdentifier\": \"...\",\n    \"status\": \"CANCELLED\"\n  },\n  \"addonInstance\": {},\n  \"item\": [\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"TIER3_STANDARD_LINE\"\n    },\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"CONTACTS_1000\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Bill usage API call succeeded.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5901e1bb-1382-4893-9299-cfd3887363f4",
+              "name": "Accepted (only returned when async=true)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"...\",\n    \"parentAccountIdentifier\": \"...\",\n    \"status\": \"CANCELLED\"\n  },\n  \"addonInstance\": {},\n  \"item\": [\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"TIER3_STANDARD_LINE\"\n    },\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"CONTACTS_1000\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "049365a3-9f2f-4725-a8b9-22d1beb58ba0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"...\",\n    \"parentAccountIdentifier\": \"...\",\n    \"status\": \"CANCELLED\"\n  },\n  \"addonInstance\": {},\n  \"item\": [\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"TIER3_STANDARD_LINE\"\n    },\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"CONTACTS_1000\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36292ed3-c83e-43ec-9927-b409fa33ac01",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"...\",\n    \"parentAccountIdentifier\": \"...\",\n    \"status\": \"CANCELLED\"\n  },\n  \"addonInstance\": {},\n  \"item\": [\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"TIER3_STANDARD_LINE\"\n    },\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"CONTACTS_1000\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca5338f8-93a8-42fa-baeb-77dbbee332ac",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"accountIdentifier\": \"...\",\n    \"parentAccountIdentifier\": \"...\",\n    \"status\": \"CANCELLED\"\n  },\n  \"addonInstance\": {},\n  \"item\": [\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"TIER3_STANDARD_LINE\"\n    },\n    {\n      \"customUnit\": \"...\",\n      \"description\": \"...\",\n      \"price\": 12345,\n      \"quantity\": 12345,\n      \"unit\": \"CONTACTS_1000\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fd6f7b1-60d8-4a59-bfaf-7e2cfc61fc15",
+          "name": "Status verification",
+          "request": {
+            "name": "Status verification",
+            "description": {
+              "content": "Status verification",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "v1",
+                "customers",
+                ":customerIdentifier",
+                "domains",
+                ":domain",
+                "verificationStatus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerIdentifier",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verified\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ff3023b-508f-41c4-9ab0-62344026a24b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "customers",
+                    ":customerIdentifier",
+                    "domains",
+                    ":domain",
+                    "verificationStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerIdentifier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6f9f3ea-ad91-447e-8d44-403e3af84471",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "customers",
+                    ":customerIdentifier",
+                    "domains",
+                    ":domain",
+                    "verificationStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerIdentifier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96768f06-b320-4e99-898c-288ccc1af564",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "customers",
+                    ":customerIdentifier",
+                    "domains",
+                    ":domain",
+                    "verificationStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerIdentifier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "703f117e-cc84-4bf0-9d67-bb4f77a6d745",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v1",
+                    "customers",
+                    ":customerIdentifier",
+                    "domains",
+                    ":domain",
+                    "verificationStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerIdentifier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab8f68e8-1a40-4e34-b863-e0b5e33f967c",
+          "name": "Billing Usage V2",
+          "request": {
+            "name": "Billing Usage V2",
+            "description": {
+              "content": "Submit preconfigured, custom, or volume-priced metered usage data to be billed for a customer account. <br/> <br/> Volume pricing usage is always preconfigured, not custom. It is processed at 6:00 PM UTC, either on the last day of the billing period or, if delayed billing is configured (always recommended for volume pricing), on the last day of a defined number of days after the billing period ends. It must be submitted in requests that do not include other pricing models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "v2",
+                "billing",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"requestGroupId\": \"<string>\",\n  \"billable\": \"<boolean>\",\n  \"usages\": [\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81096212-b2ac-4e48-a85e-e0d2dab3eed7",
+              "name": "Metered usage report successfully received",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"requestGroupId\": \"<string>\",\n  \"billable\": \"<boolean>\",\n  \"usages\": [\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\",\n            \"key_2\": \"<string>\",\n            \"key_3\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"067464f3-be67-4dd3-b1a3-b2ac75180222\",\n  \"idempotencyKey\": \"20210429-b436h7j2\",\n  \"queryUsageStatus\": \"/api/integration/v2/billing/usage/requests/fade1f71-3f40-4f4e-81c1-e835cb459c30\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2a40fe2-7453-4fb0-af40-7122843a51e5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"requestGroupId\": \"<string>\",\n  \"billable\": \"<boolean>\",\n  \"usages\": [\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\",\n            \"key_2\": \"<string>\",\n            \"key_3\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "928818ea-75a6-414e-94fa-a0977d4364e7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"requestGroupId\": \"<string>\",\n  \"billable\": \"<boolean>\",\n  \"usages\": [\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\",\n            \"key_2\": \"<string>\",\n            \"key_3\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b8f689-3d36-4fda-9817-ca807a7081a4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"requestGroupId\": \"<string>\",\n  \"billable\": \"<boolean>\",\n  \"usages\": [\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"usageList\": [\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\"\n          }\n        },\n        {\n          \"eventId\": \"<string>\",\n          \"eventDate\": \"<dateTime>\",\n          \"pricingUnit\": \"<string>\",\n          \"customUnit\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"unitPrice\": \"<string>\",\n          \"description\": \"<string>\",\n          \"currency\": \"<string>\",\n          \"attributes\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\",\n            \"key_2\": \"<string>\",\n            \"key_3\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95312da0-027f-45c7-8d3d-dcedbb3f28b0",
+          "name": "Fetch usage processing status",
+          "request": {
+            "name": "Fetch usage processing status",
+            "description": {
+              "content": "Retrieve whether the metered usage events submitted with a Billing Usage V2 request were successfully processed. In the Billing Usage V2 response, locate the path that is unique to the request (queryUsageStatus). Use it to retrieve the processing status for the submitted usage events, and error details if applicable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "v2",
+                "billing",
+                "usage",
+                "requests",
+                ":requestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b72cabf-2b54-47eb-89e1-1be0639d073e",
+              "name": "Successfully returned usage event processing status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage",
+                    "requests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"067464f3-be67-4dd3-b1a3-b2ac75180222\",\n  \"idempotencyKey\": \"20210429-b436h7j2\",\n  \"status\": \"FAILED\",\n  \"totalUsagesCount\": 11,\n  \"processedUsagesCount\": 10,\n  \"failedUsagesCount\": 1,\n  \"failedUsages\": [\n    {\n      \"accountId\": \"58e8092c-f83c-44d7-bd9a-f7a20adaec63\",\n      \"eventId\": \"19eaa1cdab86766021e94b70a262d12543544ebdf4956bf14fce63d4da6e2b50\",\n      \"errorCode\": \"BAD_DATA\",\n      \"errorDescription\": \"Usage submitted after deadline (6 PM UTC on last day of billing period)\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f122122-c278-444c-a63f-e88f8ca88bdb",
+              "name": "Access Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage",
+                    "requests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb21f014-7cef-4d46-a642-09ddc5db12a1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage",
+                    "requests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c3fb5ca-b896-42cf-afb3-dcd4ec031184",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "v2",
+                    "billing",
+                    "usage",
+                    "requests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXTERNAL_ERROR\",\n  \"message\": \"Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "526efcc9-0965-45d5-822e-0447a05220b6",
+    "name": "Companies AI Embed Integration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

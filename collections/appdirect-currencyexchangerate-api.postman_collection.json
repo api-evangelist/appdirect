@@ -1,0 +1,651 @@
+{
+  "item": [
+    {
+      "id": "c016f487-92e6-43c6-8e09-af81130b6bcd",
+      "name": "CurrencyExchangeRate",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "669240d4-d544-4b96-bb38-2ceac0f34eb5",
+          "name": "Read all Currency Exchange Rates",
+          "request": {
+            "name": "Read all Currency Exchange Rates",
+            "description": {
+              "content": "Retrieve all of the current and historical exchange rates set on the marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "exchangeRates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "baseCurrency",
+                  "value": "<string>",
+                  "description": "The base currency filter. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterCurrency",
+                  "value": "<string>",
+                  "description": "The counter currency filter. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "The page number. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20",
+                  "description": "The number of application returned by page. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "VALID_FROM",
+                  "description": "The order field. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC",
+                  "description": "The sort direction. Optional."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a793e6e-08f9-4146-ac36-34641ef5c033",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseCurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counterCurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "VALID_FROM"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"baseCurrency\": \"USD\",\n      \"counterCurrency\": \"CAD\",\n      \"rate\": 1.25,\n      \"validFrom\": 1507077229000,\n      \"active\": true,\n      \"authenticationType\": \"CHANNEL_CONSUMER_LOGIN\",\n      \"oauthKey\": \"dNcCBthw82\",\n      \"userId\": 1111,\n      \"currencyExchangeRateUuid\": \"9ec1a010-2814-42c9-a9e0-44ed1f5895f0\"\n    }\n  ],\n  \"page\": {\n    \"size\": 20,\n    \"totalElements\": 50,\n    \"totalPages\": 3,\n    \"number\": 0\n  },\n  \"links\": [\n    {\n      \"rel\": \"next\",\n      \"href\": \"http://appdirect/api/channel/v1/exchangeRates?page=1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba8d17a9-9d86-4841-b014-4f9107cc3095",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseCurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counterCurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "VALID_FROM"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1239e598-1160-4d0d-b733-74f758245b52",
+          "name": "Create new Currency Exchange Rate",
+          "request": {
+            "name": "Create new Currency Exchange Rate",
+            "description": {
+              "content": "Define a new exchange rate to be used when custom metered usage is reported to your marketplace by a Developer in a currency that isn't supported by your marketplace. This enables you to invoice your customers in your marketplace currency, even though a Developer's external price list for metered usage charges (like Amazon Web Services) might be in a different currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "exchangeRates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"baseCurrency\": \"USD\",\n  \"counterCurrency\": \"USD\",\n  \"rate\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31667d3c-3786-4da7-8551-0f5a3f19c476",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"baseCurrency\": \"USD\",\n  \"counterCurrency\": \"CAD\",\n  \"rate\": 0.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"baseCurrency\": \"GTQ\",\n  \"counterCurrency\": \"INR\",\n  \"rate\": 0.3,\n  \"validFrom\": 1507077229000,\n  \"active\": true,\n  \"authenticationType\": \"USER_LOGIN\",\n  \"oauthKey\": \"\",\n  \"userId\": 3434556,\n  \"currencyExchangeRateUuid\": \"76b11329-e3a5-4944-93b0-0411c9f63369\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e19918f-87f2-4e6d-a4fe-1c13e4f9b325",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"baseCurrency\": \"USD\",\n  \"counterCurrency\": \"CAD\",\n  \"rate\": 0.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a8cda1e-c602-4ea5-9235-1f41ed03347e",
+          "name": "Read a Currency Exchange Rate",
+          "request": {
+            "name": "Read a Currency Exchange Rate",
+            "description": {
+              "content": "Retrieve the details of a specific Currency Exchange Rate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "exchangeRates",
+                ":currencyExchangeRateUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currencyExchangeRateUuid",
+                  "description": "(Required) The unique identifier of the currency exchange rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21fb362f-9571-466e-8b11-0226a84208c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates",
+                    ":currencyExchangeRateUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currencyExchangeRateUuid",
+                      "description": "(Required) The unique identifier of the currency exchange rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"baseCurrency\": \"GTQ\",\n  \"counterCurrency\": \"INR\",\n  \"rate\": 0.3,\n  \"validFrom\": 1507077229000,\n  \"active\": true,\n  \"authenticationType\": \"USER_LOGIN\",\n  \"oauthKey\": \"\",\n  \"userId\": 3434556,\n  \"currencyExchangeRateUuid\": \"76b11329-e3a5-4944-93b0-0411c9f63369\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5910e788-ec4d-4878-a363-d0f9d34b6262",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates",
+                    ":currencyExchangeRateUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currencyExchangeRateUuid",
+                      "description": "(Required) The unique identifier of the currency exchange rate."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "042052a3-7bf5-462b-b6b6-ad35cc68a3f6",
+          "name": "Deactivate a Currency Exchange Rate",
+          "request": {
+            "name": "Deactivate a Currency Exchange Rate",
+            "description": {
+              "content": "Deactivate a Currency Exchange Rate. To stop supporting currency exchange on your marketplace, deactivate a rate. This will prevent the exchange rate from being used to convert usage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel",
+                "v1",
+                "exchangeRates",
+                ":currencyExchangeRateUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currencyExchangeRateUuid",
+                  "description": "(Required) The unique identifier of the currency exchange rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb017a28-6be5-4a3f-8030-1af36c154fcc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates",
+                    ":currencyExchangeRateUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currencyExchangeRateUuid",
+                      "description": "(Required) The unique identifier of the currency exchange rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"baseCurrency\": \"GTQ\",\n  \"counterCurrency\": \"INR\",\n  \"rate\": 0.3,\n  \"validFrom\": 1507077229000,\n  \"active\": true,\n  \"authenticationType\": \"USER_LOGIN\",\n  \"oauthKey\": \"\",\n  \"userId\": 3434556,\n  \"currencyExchangeRateUuid\": \"76b11329-e3a5-4944-93b0-0411c9f63369\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1deb9ab-3e01-4723-b8ec-c825d573a04d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel",
+                    "v1",
+                    "exchangeRates",
+                    ":currencyExchangeRateUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currencyExchangeRateUuid",
+                      "description": "(Required) The unique identifier of the currency exchange rate."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "acf84025-8bfd-4700-ab63-a27fcb5812f7",
+    "name": "Companies AI Embed CurrencyExchangeRate API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

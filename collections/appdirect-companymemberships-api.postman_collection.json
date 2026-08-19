@@ -1,0 +1,3810 @@
+{
+  "item": [
+    {
+      "id": "b96a7d65-0b58-44dc-8fdb-f5860b6c56dd",
+      "name": "CompanyMemberships",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "efb96e8a-76f2-4ff6-8e33-419e4b7c2faf",
+          "name": "Read company membership",
+          "request": {
+            "name": "Read company membership",
+            "description": {
+              "content": "Retrieve a marketplace user's company membership information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeCompanies",
+                  "value": "<boolean>",
+                  "description": "Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeUserCustomAttributes",
+                  "value": "<boolean>",
+                  "description": "Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4eb75957-6bd8-4598-a566-6503ff9ec2c9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"6de203c1-a583-455a-ba95-3797edc262d0\",\n    \"email\": \"jude.simpson@company5833088198.com\",\n    \"userName\": \"jude.simpson\",\n    \"firstName\": \"Jude\",\n    \"lastName\": \"Simpson\",\n    \"picture\": \"http://appdirect/profilePics/img2147417701652580695.png?184b58e358f087154d94329f9000b28a\",\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": \"1\",\n    \"boostUser\": {\n      \"apsUid\": \"murnu8w\"\n    },\n    \"currency\": null,\n    \"customAttributes\": [\n      {\n        \"attributeType\": \"TEXT\",\n        \"hint\": \"commission_hint\",\n        \"label\": \"Commission_Payout_ID\",\n        \"name\": \"C5125859\",\n        \"value\": \"value\"\n      }\n    ],\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"metadata\": {\n      \"apsUid\": \"murnu8w\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"4be3ce24-a702-46b9-a789-f15ce822a9ef\",\n    \"name\": \"Company 5261852235\",\n    \"picture\": \"http://localhost:8080/profilePics/http://cdn/company.png\",\n    \"vendor\": true,\n    \"reseller\": true,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"DEVELOPER\",\n    \"enabled\": true,\n    \"customAttributes\": [\n      {\n        \"name\": \"Geographic Region\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"Geographic Region\",\n        \"hint\": \"US West, US Central, or US East\",\n        \"value\": \"US\"\n      },\n      {\n        \"name\": \"Company Details\",\n        \"attributeType\": \"MULTISELECT\",\n        \"label\": \"Label Names\",\n        \"hint\": \"\",\n        \"valueKeys\": [\n          \"great option\"\n        ]\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_BILLING_ADMIN\",\n    \"ROLE_SYS_ADMIN\"\n  ],\n  \"position\": \"Business Analyst\",\n  \"mosiUser\": {\n    \"username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"metadata\": {\n    \"mosi_username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/6de203c1-a583-455a-ba95-3797edc262d0\"\n    },\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "689a81e4-846c-4145-a404-016614904ee2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6fb93dda-dd68-44fa-935d-5520b15976f1",
+              "name": "Company/User/Membership not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd555fd8-fc5b-4141-a1aa-cfa947929a6d",
+          "name": "Update company membership",
+          "request": {
+            "name": "Update company membership",
+            "description": {
+              "content": "Update a marketplace user's company membership.\n\nUpdates the following roles based on the provided user company membership data: Product Support, Sales Support, Reseller Manager, Customer Support, Reseller, Billing Admin, Company Admin, Developer.\nThis also enables/disables the membership based on provided user company membership data.\n\n**Note: You cannot set the Marketplace Manager role through the API.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f13ccd2-a1be-49f7-bad0-5a8fbe98352d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"a38ef2d2-cdad-483c-ba86-fa6186d12263\",\n    \"email\": \"guy.smith24@yopmail.com\",\n    \"userName\": \"guy.smith24@yopmail.com\",\n    \"firstName\": \"Guy\",\n    \"lastName\": \"Smith\",\n    \"picture\": null,\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": null,\n    \"boostUser\": {\n      \"apsUid\": \"murnu8w\"\n    },\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"currency\": null,\n    \"customAttributes\": [],\n    \"metadata\": {\n      \"apsUid\": \"murnu8w\"\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n    \"name\": \"Appdirect\",\n    \"picture\": null,\n    \"vendor\": true,\n    \"reseller\": true,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"DEVELOPER\",\n    \"enabled\": true,\n    \"customAttributes\": [\n      {\n        \"name\": \"Geographic Region\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"email\",\n        \"hint\": \"US West, US Central, or US East\",\n        \"value\": \"US1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_BILLING_ADMIN\",\n    \"ROLE_DEVELOPER\",\n    \"ROLE_SYS_ADMIN\",\n    \"ROLE_CHANNEL_ADMIN\",\n    \"ROLE_CHANNEL_PRODUCT_SUPPORT\",\n    \"ROLE_CHANNEL_SUPPORT\",\n    \"ROLE_SALES_SUPPORT\",\n    \"ROLE_RESELLER\",\n    \"ROLE_RESELLER_MANAGER\"\n  ],\n  \"position\": null,\n  \"mosiUser\": null,\n  \"metadata\": {\n    \"mosi_username\": null\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/a38ef2d2-cdad-483c-ba86-fa6186d12263\"\n    },\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://localhost:8080/api/account/v2/users/a38ef2d2-cdad-483c-ba86-fa6186d12263\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58b41706-e6d4-47de-a346-1129263f3eb4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e6b5fd2-3134-47e9-97ab-cc135a2f8b38",
+              "name": "Company/User/Membership not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af78c391-0b68-40f6-99b5-1fd1f289097f",
+          "name": "Delete company membership",
+          "request": {
+            "name": "Delete company membership",
+            "description": {
+              "content": "Delete a marketplace user's company membership.\n\nIf this is the only company the user was member of, user is marked as deleted.\nA user that has active entitlements, owns products or is externally managed can't be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08baaa11-8935-45f0-b908-5cd13b68b0b3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "63774a5e-9918-4487-a98f-b2d24682f7c0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a8a2471-f457-4349-ace6-98fbd350d5f6",
+              "name": "Company/User/Membership not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2e0d72e2-c1af-46d8-9b4f-3a9a34a95626",
+              "name": "Active subscriptions found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f709155e-539c-4744-9cdf-85c2e437bfcb",
+          "name": "Enable/Disable company membership",
+          "request": {
+            "name": "Enable/Disable company membership",
+            "description": {
+              "content": "Enable or disable marketplace user's company membership.\n\nThis only changes the user company membership's enabled status; all other attributes are ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0f2366c-8ed0-44d1-badb-e732d48d946a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"9cc60e5e-5a46-4efb-9d53-afc6ee0586cd\",\n    \"email\": \"susan.gonsalez@company4486527851.com\",\n    \"userName\": \"susan.gonsalez\",\n    \"firstName\": \"Susan\",\n    \"lastName\": \"Gonsalez\",\n    \"picture\": null,\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": null,\n    \"boostUser\": null,\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"metadata\": {\n      \"apsUid\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"88542fbc-f801-4588-9525-e615146889f7\",\n    \"name\": \"Company 1079194187\",\n    \"picture\": \"http://localhost:8080/profilePics/http://cdn/company.png\",\n    \"vendor\": false,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"USER\",\n    \"enabled\": true,\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_BILLING_ADMIN\",\n    \"ROLE_SYS_ADMIN\"\n  ],\n  \"position\": null,\n  \"mosiUser\": null,\n  \"metadata\": {\n    \"mosi_username\": null\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7/memberships/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd\"\n    },\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://appdirect/api/account/v2/users/9cc60e5e-5a46-4efb-9d53-afc6ee0586cd\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/88542fbc-f801-4588-9525-e615146889f7\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca051f2a-52fe-4c93-8aff-2e4f78f54287",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f0ef6480-15aa-4d69-b1c5-fcfd6039acbc",
+              "name": "Company/User/Membership not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc6aa3f5-f104-4c3c-a0e2-0fd9de28fe55",
+              "name": "Active subscriptions found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83179fe6-6b4f-4e16-98cd-afe4a2cd34b2",
+          "name": "Create company membership (Add User)",
+          "request": {
+            "name": "Create company membership (Add User)",
+            "description": {
+              "content": "Create a marketplace user with membership in the given company.\n\nThe created user is active, and is associated with the specified company (membership).\nUser is set with a temporary password; the password is emailed to the recipients specified in the request body.\n\nThe domain part of the user's email address must match one of the verified domains associated with the company the user will be created in.\n\n**Note: You cannot set the Marketplace Manager role through the API.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipientEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"temporaryPassword\": \"<string>\",\n  \"user\": {\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce6cfb49-e871-4dd9-9923-52f9e767cd63",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"temporaryPassword\": \"<string>\",\n  \"user\": {\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"e16171eb-d89c-4842-9550-2f9cf3ef4cee\",\n    \"email\": \"guy.smith@company9411805586.com\",\n    \"userName\": \"guy.smith@company9411805586.com\",\n    \"firstName\": \"Guy\",\n    \"lastName\": \"Smith\",\n    \"picture\": null,\n    \"activated\": true,\n    \"allowLogin\": true,\n    \"ldapId\": null,\n    \"boostUser\": null,\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"currency\": null,\n    \"customAttributes\": [],\n    \"metadata\": {\n      \"apsUid\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"ece062bd-0c74-4d44-996c-743c3e71f8e1\",\n    \"name\": \"Company 4492834930\",\n    \"picture\": \"http://localhost:8080/profilePics/http://cdn/company.png\",\n    \"vendor\": false,\n    \"reseller\": true,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"USER\",\n    \"enabled\": true,\n    \"customAttributes\": [\n      {\n        \"name\": \"Geographic Region\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"Geographic Region\",\n        \"hint\": \"US West, US Central, or US East\",\n        \"value\": \"US\"\n      },\n      {\n        \"name\": \"Company Details\",\n        \"attributeType\": \"MULTISELECT\",\n        \"label\": \"Label Names\",\n        \"hint\": \"\",\n        \"valueKeys\": [\n          \"great option\"\n        ]\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_USER\"\n  ],\n  \"position\": null,\n  \"mosiUser\": null,\n  \"metadata\": {\n    \"mosi_username\": null\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1/memberships/e16171eb-d89c-4842-9550-2f9cf3ef4cee\"\n    },\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://appdirect/api/account/v2/users/e16171eb-d89c-4842-9550-2f9cf3ef4cee\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://appdirect/api/account/v2/companies/ece062bd-0c74-4d44-996c-743c3e71f8e1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4adab310-bc3e-459b-8adb-2e0e9ee70c05",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"temporaryPassword\": \"<string>\",\n  \"user\": {\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e53abb2e-0cdc-4ad3-a6eb-b00489b5bb4a",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"temporaryPassword\": \"<string>\",\n  \"user\": {\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47bb3199-e858-4ae7-9802-87a75a2c99fb",
+          "name": "List company memberships",
+          "request": {
+            "name": "List company memberships",
+            "description": {
+              "content": "List a marketplace company's user memberships.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>",
+                  "description": "If specified, returns only memberships associated with users having the specified active status"
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "<boolean>",
+                  "description": "If specified, returns only memberships with the specified enabled status"
+                },
+                {
+                  "disabled": false,
+                  "key": "roleName",
+                  "value": "<string>",
+                  "description": "If specified, returns only memberships with the specified role enabled"
+                },
+                {
+                  "disabled": false,
+                  "key": "groupUuid",
+                  "value": "<string>",
+                  "description": "If specified, returns only memberships that are a part of the specified group"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-based page index"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search term used to search on different fields of a membership"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "DATE",
+                  "description": "The property to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "ASC",
+                  "description": "Ordering type"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCompanies",
+                  "value": "<boolean>",
+                  "description": "Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeUserCustomAttributes",
+                  "value": "<boolean>",
+                  "description": "Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09a58f87-b811-40b4-b580-a2c23e7cfeb1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "roleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupUuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"user\": {\n        \"uuid\": \"d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0\",\n        \"email\": \"john.simpson@company58330881982.com\",\n        \"userName\": \"john.simpson\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Simpson\",\n        \"picture\": \"http://appdirect/profilePics/img2147417701652580695.png?184b58e358f087154d94329f9000b28a\",\n        \"activated\": true,\n        \"allowLogin\": true,\n        \"ldapId\": \"1\",\n        \"currency\": null,\n        \"customAttributes\": [\n          {\n            \"attributeType\": \"TEXT\",\n            \"hint\": \"commission_hint\",\n            \"label\": \"Commission_Payout_ID\",\n            \"name\": \"C5125859\",\n            \"value\": \"value\"\n          }\n        ],\n        \"boostUser\": {\n          \"apsUid\": \"murnu8w\"\n        },\n        \"roles\": [\n          \"ROLE_USER\"\n        ],\n        \"metadata\": {\n          \"apsUid\": \"murnu8w\"\n        },\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0/memberships\"\n          }\n        ]\n      },\n      \"company\": {\n        \"uuid\": \"4be3ce24-a702-46b9-a789-f15ce822a9ef\",\n        \"name\": \"Company 5261852235\",\n        \"picture\": \"http://localhost:8080/profilePics/http://cdn/company.png\",\n        \"vendor\": true,\n        \"reseller\": true,\n        \"phoneNumber\": \"9259221234\",\n        \"defaultRole\": \"DEVELOPER\",\n        \"enabled\": true,\n        \"customAttributes\": [\n          {\n            \"name\": \"Geographic Region\",\n            \"attributeType\": \"TEXT\",\n            \"label\": \"Geographic Region\",\n            \"hint\": \"US West, US Central, or US East\",\n            \"value\": \"US\"\n          },\n          {\n            \"name\": \"Company Details\",\n            \"attributeType\": \"MULTISELECT\",\n            \"label\": \"Label Names\",\n            \"hint\": \"\",\n            \"valueKeys\": [\n              \"great option\"\n            ]\n          }\n        ],\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships\"\n          }\n        ]\n      },\n      \"enabled\": true,\n      \"lastUsed\": false,\n      \"roles\": [\n        \"ROLE_BILLING_ADMIN\",\n        \"ROLE_SYS_ADMIN\"\n      ],\n      \"position\": \"Project Team Lead\",\n      \"mosiUser\": {\n        \"username\": \"agcompanybill1@testl3816.onmicrosoft.com\"\n      },\n      \"metadata\": {\n        \"mosi_username\": \"agcompanybill1@testl3816.onmicrosoft.com\"\n      },\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0\"\n        },\n        {\n          \"rel\": \"user\",\n          \"href\": \"http://appdirect/api/account/v2/users/d6e7c0d2-e86a-4ea2-a6c9-c1bbeb2410f0\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n        }\n      ]\n    },\n    {\n      \"user\": {\n        \"uuid\": \"6de203c1-a583-455a-ba95-3797edc262d0\",\n        \"email\": \"jude.simpson@company5833088198.com\",\n        \"userName\": \"jude.simpson\",\n        \"firstName\": \"Jude\",\n        \"lastName\": \"Simpson\",\n        \"picture\": null,\n        \"activated\": true,\n        \"allowLogin\": true,\n        \"ldapId\": null,\n        \"boostUser\": null,\n        \"currency\": null,\n        \"customAttributes\": [],\n        \"roles\": [\n          \"ROLE_USER\"\n        ],\n        \"metadata\": {\n          \"apsUid\": null\n        },\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0/memberships\"\n          }\n        ]\n      },\n      \"company\": {\n        \"uuid\": \"4be3ce24-a702-46b9-a789-f15ce822a9ef\",\n        \"name\": \"Company 5261852235\",\n        \"picture\": \"http://localhost:8080/profilePics/http://cdn/company.png\",\n        \"vendor\": true,\n        \"reseller\": true,\n        \"phoneNumber\": \"9259221234\",\n        \"defaultRole\": \"DEVELOPER\",\n        \"enabled\": true,\n        \"customAttributes\": [\n          {\n            \"name\": \"Geographic Region\",\n            \"attributeType\": \"TEXT\",\n            \"label\": \"Geographic Region\",\n            \"hint\": \"US West, US Central, or US East\",\n            \"value\": \"US\"\n          },\n          {\n            \"name\": \"Company Details\",\n            \"attributeType\": \"MULTISELECT\",\n            \"label\": \"Label Names\",\n            \"hint\": \"\",\n            \"valueKeys\": [\n              \"great option\"\n            ]\n          }\n        ],\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n          },\n          {\n            \"rel\": \"memberships\",\n            \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships\"\n          }\n        ]\n      },\n      \"enabled\": true,\n      \"lastUsed\": false,\n      \"roles\": [\n        \"ROLE_BILLING_ADMIN\",\n        \"ROLE_SYS_ADMIN\"\n      ],\n      \"position\": \"Business Analyst\",\n      \"mosiUser\": {\n        \"username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n      },\n      \"metadata\": {\n        \"mosi_username\": \"adazuretest@sdasd21321.onmicrosoft.com\"\n      },\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef/memberships/6de203c1-a583-455a-ba95-3797edc262d0\"\n        },\n        {\n          \"rel\": \"user\",\n          \"href\": \"http://appdirect/api/account/v2/users/6de203c1-a583-455a-ba95-3797edc262d0\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/4be3ce24-a702-46b9-a789-f15ce822a9ef\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dbbe2b9-b5c6-44cf-bcf4-e34721b290f6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "roleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupUuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e645d1c-8622-4896-a44e-09dfa19b6197",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "roleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupUuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "DATE"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "includeCompanies",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeUserCustomAttributes",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5dd9228d-a6e1-420d-9b01-98c0840d1cb1",
+          "name": "Create company membership",
+          "request": {
+            "name": "Create company membership",
+            "description": {
+              "content": "Add a new or existing user as a member of a marketplace company.\n\nIf no user exists with the given email address a new user account ([Users](#users)) will be created. Use the allowLogin body parameter to control if a new user account should be invited to the marketplace with login access or created as a managed user without login access. See [CreateUserAccountV2](#createuseraccountv2) for more information on the allowLogin parameter.\n\nDepending on channel configuration, an invited membership is either created immediately, or when the invited user accepts the invitation.\n\n**Note: You cannot set the Marketplace Manager role through the API.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "inviterUuid",
+                  "value": "<string>",
+                  "description": "Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allowLogin\": \"<boolean>\",\n    \"idpUuid\": \"<string>\",\n    \"userName\": \"<string>\",\n    \"externalId\": \"<string>\"\n  },\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53e19be2-78ac-40b1-8dd6-9beeefe04735",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"jude.doe@company8578572384.com\",\n    \"firstName\": \"Jude\",\n    \"lastName\": \"Doe\",\n    \"allowLogin\": true,\n    \"idpUuid\": \"135e3a9f-7f86-46a6-a0af-47a7b3a8936d\",\n    \"username\": \"john.simpson\",\n    \"externalId\": \"john.simpson\"\n  },\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"uuid\": \"29c370c8-960a-43a0-8dc5-c09aadbaa101\",\n    \"email\": \"mary.gonsalez@company3157614232.com\",\n    \"userName\": \"mary.gonsalez@company3157614232.com\",\n    \"firstName\": \"Mary\",\n    \"lastName\": \"Gonsalez\",\n    \"allowLogin\": true,\n    \"picture\": null,\n    \"activated\": false,\n    \"ldapId\": null,\n    \"boostUser\": null,\n    \"roles\": [\n      \"ROLE_USER\"\n    ],\n    \"currency\": null,\n    \"customAttributes\": [],\n    \"metadata\": {\n      \"apsUid\": null\n    },\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101/memberships\"\n      }\n    ]\n  },\n  \"company\": {\n    \"uuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n    \"name\": \"Appdirect\",\n    \"picture\": null,\n    \"vendor\": true,\n    \"reseller\": true,\n    \"phoneNumber\": \"9259221234\",\n    \"defaultRole\": \"DEVELOPER\",\n    \"enabled\": true,\n    \"customAttributes\": [\n      {\n        \"name\": \"Geographic Region\",\n        \"attributeType\": \"TEXT\",\n        \"label\": \"email\",\n        \"hint\": \"US West, US Central, or US East\",\n        \"value\": \"US\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n      },\n      {\n        \"rel\": \"memberships\",\n        \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships\"\n      }\n    ]\n  },\n  \"enabled\": true,\n  \"lastUsed\": false,\n  \"roles\": [\n    \"ROLE_DEVELOPER\"\n  ],\n  \"position\": null,\n  \"mosiUser\": null,\n  \"metadata\": {\n    \"mosi_username\": null\n  },\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/29c370c8-960a-43a0-8dc5-c09aadbaa101\"\n    },\n    {\n      \"rel\": \"user\",\n      \"href\": \"http://localhost:8080/api/account/v2/users/29c370c8-960a-43a0-8dc5-c09aadbaa101\"\n    },\n    {\n      \"rel\": \"company\",\n      \"href\": \"http://localhost:8080/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55907f4a-9220-461a-b586-5e4f4e484ee8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"jude.doe@company8578572384.com\",\n    \"firstName\": \"Jude\",\n    \"lastName\": \"Doe\",\n    \"allowLogin\": true,\n    \"idpUuid\": \"135e3a9f-7f86-46a6-a0af-47a7b3a8936d\",\n    \"username\": \"john.simpson\",\n    \"externalId\": \"john.simpson\"\n  },\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "50628fcb-d17d-465f-bfe7-faa21378d6c2",
+              "name": "Company/Inviter not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"jude.doe@company8578572384.com\",\n    \"firstName\": \"Jude\",\n    \"lastName\": \"Doe\",\n    \"allowLogin\": true,\n    \"idpUuid\": \"135e3a9f-7f86-46a6-a0af-47a7b3a8936d\",\n    \"username\": \"john.simpson\",\n    \"externalId\": \"john.simpson\"\n  },\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9c5641b-dcca-4b5b-84bd-a93c4804a729",
+          "name": "Update company membership roles (bulk)",
+          "request": {
+            "name": "Update company membership roles (bulk)",
+            "description": {
+              "content": "Update role assignments for one or more company memberships (users).\n\nAPI clients acting on behalf of an end user must first call [Read assignable roles for company membership](#read-assignable-roles-for-company-membership) to retrieve the list of roles they are allowed to update.\n\n**Note: You cannot set the Marketplace Manager role through the API.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d523231-d886-4225-b74c-557865f19334",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06a00fe8-6c22-4a09-bc9b-3746f0099778",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "09ef44ff-a431-4eb7-a6f8-e98122baa108",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19bf30cd-84e7-479a-ac87-d95c9bf19772",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"userUuid\": \"<string>\",\n    \"rolesToAdd\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rolesToRemove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39ebe253-b3d7-4c11-b1f7-986a01e6daae",
+          "name": "Read user checklist",
+          "request": {
+            "name": "Read user checklist",
+            "description": {
+              "content": "Retrieve a marketplace user's checklist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "checklist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "440d8e53-4c51-49da-a2d5-8784e2a5c006",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "checklist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"havePurchasedProduct\": false,\n  \"haveAssignedUsers\": false,\n  \"haveInvitedUsers\": false,\n  \"haveCompletedProfile\": false,\n  \"haveCompletedCompanyProfile\": false,\n  \"links\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7300d352-a6a4-422d-9b62-2588709f8c56",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "checklist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4bf13d6-4e48-406b-bdc4-aebd4386ea3d",
+              "name": "Company/User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "checklist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9769b01-37f4-412f-be09-c78009e65fd3",
+          "name": "Invite a managed user",
+          "request": {
+            "name": "Invite a managed user",
+            "description": {
+              "content": "Invite a managed user as a member of a marketplace company. If the user is a member of a managed company, the managed company identifier must be used in this request. The operation will then also convert the managed company to a regular company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "invite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "inviterUuid",
+                  "value": "<string>",
+                  "description": "Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "474c77cf-af6a-4fe9-b302-78038f339015",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "568f95de-195c-4338-8803-01ef7e454629",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "034c66ed-7179-466d-9d97-7734cc288303",
+              "name": "Company/ManagedUser/Inviter not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "inviterUuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00606244-066d-4e7c-a8d0-0d1f0502cdf1",
+          "name": "Request to purchase an application",
+          "request": {
+            "name": "Request to purchase an application",
+            "description": {
+              "content": "Request to purchase an application for the given marketplace company and user.\n\nThis causes an email notification to be sent to company administrators (system and billing admins).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "applications",
+                ":applicationId",
+                "purchaseRequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "applicationId",
+                  "description": "(Required) Unique identifier of application to purchase"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) User Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e77468c-7b58-492c-a3d3-ba8e56c565f9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "applications",
+                    ":applicationId",
+                    "purchaseRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of application to purchase"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) User Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86b42c06-aa04-4bd1-aa25-ac8e50719f89",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "applications",
+                    ":applicationId",
+                    "purchaseRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of application to purchase"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) User Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ccc64db-75e7-46c7-a59d-fe007aa17357",
+              "name": "Company/User/Membership/Application not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "applications",
+                    ":applicationId",
+                    "purchaseRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of application to purchase"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) User Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e82b596d-ac5b-42d6-9773-d5f5cbc15439",
+              "name": "Application already purchased",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "applications",
+                    ":applicationId",
+                    "purchaseRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of application to purchase"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) User Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75272826-1c59-41df-af54-7f491f4fa648",
+          "name": "List application assignments for company membership",
+          "request": {
+            "name": "List application assignments for company membership",
+            "description": {
+              "content": "Retrieve a marketplace user's application assignments.\n\nReturns assignments that are not FAILED or CANCELLED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "assignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd5e4507-26f8-4e46-8d11-9acf80a45109",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"uuid\": \"4d8ab391-33b9-472f-abce-6a6bd5e4c39b\",\n      \"createdOn\": 1480699562586,\n      \"status\": \"ACTIVE\",\n      \"companyEntitlementId\": 23,\n      \"companyEntitlementStatus\": \"ACTIVE\",\n      \"companyEntitlementLabel\": \"Mock App\",\n      \"ownerId\": 40,\n      \"ownerUuid\": \"4aad1f87-a653-4031-9b64-de42c7c5fa3f\",\n      \"ownerFirstName\": \"Susan\",\n      \"ownerLastName\": \"Simpson\",\n      \"assignmentCount\": 1,\n      \"productName\": \"MockApp208301774438095187\",\n      \"gridImageUrl\": \"http://appdirect/app_resources/9/myAppIcon/img1445094381431796823.png?466c707fefd0aba59d170d532e013f3d\",\n      \"listImageUrl\": \"http://appdirect/app_resources/9/thumbs_64/img1445094381431796823.png?466c707fefd0aba59d170d532e013f3d\",\n      \"links\": [\n        {\n          \"rel\": \"application\",\n          \"href\": \"http://appdirect/api/marketplace/v1/products/47\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"88ab5014-56fa-4e4e-9090-8ac6e4e2d189\",\n      \"createdOn\": 1481650330000,\n      \"status\": \"ACTIVE\",\n      \"companyEntitlementId\": 1323,\n      \"companyEntitlementStatus\": \"ACTIVE\",\n      \"companyEntitlementLabel\": \"Sample App\",\n      \"ownerId\": 1,\n      \"ownerUuid\": \"2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1\",\n      \"ownerFirstName\": \"super\",\n      \"ownerLastName\": \"user\",\n      \"assignmentCount\": 2,\n      \"productName\": \"Sample Application2\",\n      \"gridImageUrl\": \"http://appdirect/app_resources/2723/myAppIcon/img4627488903781521711.png?0e3706dc6af5012131ca53ed107d0675\",\n      \"listImageUrl\": \"http://appdirect/app_resources/2723/thumbs_64/img4627488903781521711.png?5eee537065a26ca7f488610144784c88\\n\",\n      \"links\": [\n        {\n          \"rel\": \"application\",\n          \"href\": \"http://appdirect/api/marketplace/v1/products/2723?country=&currency=\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "492a5862-55ae-4afc-a5d1-3cbe5ea303dc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94f78300-a5e4-4c4c-9c7a-64e25e67105f",
+              "name": "Company/User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76cc281c-2fa1-43b2-8b5d-1898c444b993",
+          "name": "Read assignable roles for company membership",
+          "request": {
+            "name": "Read assignable roles for company membership",
+            "description": {
+              "content": "Retrieve marketplace roles that can be assigned by this company membership.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "assignableRoles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33448fcd-ed04-4625-8e39-b5a2411d56cd",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"USER\"\n  },\n  {\n    \"name\": \"CHANNEL_PRODUCT_SUPPORT\"\n  },\n  {\n    \"name\": \"SALES_SUPPORT\"\n  },\n  {\n    \"name\": \"CHANNEL_SUPPORT\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44acf6d8-823c-489f-bdf5-a2eafdac5754",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36aaf236-ea08-49af-bedf-a4abc9538688",
+              "name": "Company/User/Membership not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e026d4f1-4be2-4c20-853d-653e694eaf7a",
+          "name": "Read company assignable roles",
+          "request": {
+            "name": "Read company assignable roles",
+            "description": {
+              "content": "Retrieves a list of marketplace roles that the current, logged-in user can assign to any user in any marketplace company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "assignableRoles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of the company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69d39c6f-ac59-46be-92fd-24ac09b5f1db",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of the company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"ROLE_SYS_ADMIN\"\n  },\n  {\n    \"name\": \"ROLE_RESELLER\"\n  },\n  {\n    \"name\": \"ROLE_BILLING_ADMIN\"\n  },\n  {\n    \"name\": \"ROLE_USER\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9929eeab-8dfa-4eb7-9eb4-c07d2a8f8141",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of the company"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0abc757-7cf6-473c-b33d-a6d9cbe5a853",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "assignableRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of the company"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe8abbed-9263-4d62-b4fc-2ce570342b2d",
+          "name": "List groups for company membership",
+          "request": {
+            "name": "List groups for company membership",
+            "description": {
+              "content": "Retrieve the list of groups the company membership is in.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "v2",
+                "companies",
+                ":companyUuid",
+                "memberships",
+                ":userUuid",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ldap",
+                  "value": "<boolean>",
+                  "description": "Set to true when company is externally managed"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Zero-based page index"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Search term used to search on group name and description"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "createdOn"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "DESC"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyUuid",
+                  "description": "(Required) Unique identifier of company in the API request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userUuid",
+                  "description": "(Required) Unique identifier of user in the API request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac7343cb-c5f8-4e75-873b-ca841a87e483",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ldap",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/memberships/2f93cb24-f7b9-433f-875e-bb0dd9b0f1c1/groups?page=0&size=50&sortField=createdOn&sortOrder=DESC\"\n    }\n  ],\n  \"content\": [\n    {\n      \"uuid\": \"56ac8abc-2b63-4b66-a648-dde419aa6c4a\",\n      \"name\": \"superuser-group\",\n      \"description\": \"superuser group\",\n      \"memberCount\": 2,\n      \"companyDefault\": false,\n      \"systemManaged\": false,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/56ac8abc-2b63-4b66-a648-dde419aa6c4a/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"5acdd82e-5cb7-4a23-b842-38d514aafcdf\",\n      \"name\": \"Everyone\",\n      \"description\": \"All company users\",\n      \"memberCount\": 88,\n      \"companyDefault\": true,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/5acdd82e-5cb7-4a23-b842-38d514aafcdf/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"74f7132f-8dd9-4b3a-8014-5aac81dc2c05\",\n      \"name\": \"Company Admins\",\n      \"description\": \"All Company Admin users\",\n      \"memberCount\": 14,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/74f7132f-8dd9-4b3a-8014-5aac81dc2c05/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"9a79c98d-8e36-49ed-837c-cc9473dee851\",\n      \"name\": \"Marketplace Managers\",\n      \"description\": \"All Marketplace Managers\",\n      \"memberCount\": 9,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/9a79c98d-8e36-49ed-837c-cc9473dee851/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"6d970a9e-a702-406f-808b-9483163efdd1\",\n      \"name\": \"Reseller Managers\",\n      \"description\": \"All Reseller Manager users\",\n      \"memberCount\": 2,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/6d970a9e-a702-406f-808b-9483163efdd1/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"70c65cb0-cbe5-447c-bdce-1d00e4d08f84\",\n      \"name\": \"Customer Support\",\n      \"description\": \"All Customer Support users\",\n      \"memberCount\": 12,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/70c65cb0-cbe5-447c-bdce-1d00e4d08f84/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"73f252d5-0dbe-4414-8384-edb7544b83b6\",\n      \"name\": \"Sales Support\",\n      \"description\": \"All Sales Support users\",\n      \"memberCount\": 13,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/73f252d5-0dbe-4414-8384-edb7544b83b6/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"b0cf07b9-9953-406f-ba64-b4ca239f30bf\",\n      \"name\": \"Product Support\",\n      \"description\": \"All Product Support users\",\n      \"memberCount\": 12,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/b0cf07b9-9953-406f-ba64-b4ca239f30bf/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"a7d34c49-a376-433b-af53-f51be1cf2038\",\n      \"name\": \"Developers\",\n      \"description\": \"All Developer users\",\n      \"memberCount\": 78,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/a7d34c49-a376-433b-af53-f51be1cf2038/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    },\n    {\n      \"uuid\": \"84d6c781-9290-461c-a18f-010791cb87ca\",\n      \"name\": \"Billing Admins\",\n      \"description\": \"All Billing Admin users\",\n      \"memberCount\": 20,\n      \"companyDefault\": false,\n      \"systemManaged\": true,\n      \"externallyManaged\": false,\n      \"companyUuid\": \"6b4bd452-895d-4098-aa56-e6046b238e0f\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca\"\n        },\n        {\n          \"rel\": \"company\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f\"\n        },\n        {\n          \"rel\": \"memberships\",\n          \"href\": \"http://appdirect/api/account/v2/companies/6b4bd452-895d-4098-aa56-e6046b238e0f/groups/84d6c781-9290-461c-a18f-010791cb87ca/memberships?member=true&page=0&size=50\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 10,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9738ab45-d0a4-4507-a0ad-9db735d2891a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ldap",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86a2acb7-0faa-416c-a80a-5678260cac89",
+              "name": "Company/User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "v2",
+                    "companies",
+                    ":companyUuid",
+                    "memberships",
+                    ":userUuid",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ldap",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "createdOn"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyUuid",
+                      "description": "(Required) Unique identifier of company in the API request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userUuid",
+                      "description": "(Required) Unique identifier of user in the API request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9b9278eb-983e-45ae-8049-bdbeed241360",
+    "name": "Companies AI Embed CompanyMemberships API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

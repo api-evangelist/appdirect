@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Integration API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Billing Usage V1",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/integration/v1/billing/usage",
+            "params": [
+              {
+                "name": "async",
+                "value": "",
+                "type": "query",
+                "description": "True if asynchronous. Default value is false."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit usage data to be billed for the given account identifier"
+        },
+        {
+          "info": {
+            "name": "Status verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/integration/v1/customers/:customerIdentifier/domains/:domain/verificationStatus",
+            "params": [
+              {
+                "name": "customerIdentifier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Status verification"
+        },
+        {
+          "info": {
+            "name": "Billing Usage V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/integration/v2/billing/usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit preconfigured, custom, or volume-priced metered usage data to be billed for a customer account. <br/> <br/> Volume pricing usage is always preconfigured, not custom. It is processed at 6:00 PM UTC, either on the last day of the billing period or, if delayed billing is configured (always recommended for volume pricing), on the last day of a defined number of days after the billing period ends. It must be submitted in requests that do not include other pricing models."
+        },
+        {
+          "info": {
+            "name": "Fetch usage processing status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/integration/v2/billing/usage/requests/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique system-assigned identifier for the API request used to submit the metered usage; returned with the Billing Usage V2 submission response."
+              }
+            ]
+          },
+          "docs": "Retrieve whether the metered usage events submitted with a Billing Usage V2 request were successfully processed. In the Billing Usage V2 response, locate the path that is unique to the request (queryUsageStatus). Use it to retrieve the processing status for the submitted usage events, and error details if applicable."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

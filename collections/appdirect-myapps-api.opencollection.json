@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed MyApps API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MyApps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/myapps",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company UUID"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "User UUID"
+              }
+            ]
+          },
+          "docs": "List all applications assigned to a marketplace company user."
+        },
+        {
+          "info": {
+            "name": "Update MyApps order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/myapps",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company UUID"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "User UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the order in which applications will should show up on the MyApps page."
+        },
+        {
+          "info": {
+            "name": "Read application with completed assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/myapps/assigned/:userEntitlementId",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company UUID"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "User UUID"
+              },
+              {
+                "name": "userEntitlementId",
+                "value": "",
+                "type": "path",
+                "description": "User entitlement ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's application when assignment is complete."
+        },
+        {
+          "info": {
+            "name": "Read application with pending assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/myapps/pending/:pendingAppId",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Company UUID"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "User UUID"
+              },
+              {
+                "name": "pendingAppId",
+                "value": "",
+                "type": "path",
+                "description": "Pending App ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's application when assignment is pending."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

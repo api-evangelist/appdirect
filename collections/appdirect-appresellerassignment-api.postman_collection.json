@@ -1,0 +1,617 @@
+{
+  "item": [
+    {
+      "id": "946a716b-349f-48ca-8da7-a27e33269d1c",
+      "name": "AppResellerAssignment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e39813f0-c266-448e-8b70-09085a7802fc",
+          "name": "Assign product",
+          "request": {
+            "name": "Assign product",
+            "description": {
+              "content": "Assign a seat of a purchased product to a user who is a member of a linked marketplace company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptionAssignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"subscriptionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52de52c6-06a7-4b75-9e28-7bd663e748e2",
+              "name": "Assignment created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n  \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"63bf81c2-8e01-48b7-a8b1-46a0efa0e823\",\n  \"status\": \"ACTIVE\",\n  \"createdOn\": 1529083173000,\n  \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n  \"user\": {\n    \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n    \"firstName\": \"Michael\",\n    \"lastName\": \"Jordan\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "720173f6-60d4-4072-a2a0-b4798909eabc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n  \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19199545-6e87-4b83-85e9-537bdcfb0496",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"2c061df6-4313-45e0-8709-a0ca19b0aaa3\",\n  \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"code\": \"ASSIGNMENT_ALREADY_EXISTS\",\n  \"message\": \"Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c77749a-ab59-47c8-8c07-347214ec51fe",
+          "name": "List subscription assignments",
+          "request": {
+            "name": "List subscription assignments",
+            "description": {
+              "content": "Retrieves a list of assignments for a given subscription. You can filter the list using optional query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptionAssignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number starting at 1. The default value is 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page. The default value is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and order. For ascending sort order, use the '+[FieldName]' format. For descending order, use '-[FieldName]' format. The default value is '-createdOn'."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdOn",
+                  "value": "<string>",
+                  "description": "Date filter, defined by upper or lower inclusive limits, in Unix timestamp format. Acceptable values are: gte([timestamp]) - 'greater than or equal to'; lte([timestamp]) - 'less than or equal to'."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Subscription status (valid values are PENDING_REQUIRED_DATA, PENDING_SEAT_AVAILABILITY, PENDING_USER_ACTIVATION, PENDING_REMOTE_CREATION, SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED, SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT, SUBSCRIPTION_SUSPENDED_PAY_INVOICE, SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION, FAILED, ACTIVE, PENDING_REMOTE_CANCELLATION, CANCELLED). The filter format is: in([status], ...)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subscriptionId",
+                  "value": "<string>",
+                  "description": "(Required) Subscription ID purchased by the Reseller company"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "User ID. Use the in([id], ...) format to filter by multiple IDs, or the userId=[id] format to filter by a single ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "830fda0d-208b-4025-9e1a-ddff83622580",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscriptionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"63bf81c2-8e01-48b7-a8b1-46a0efa0e823\",\n      \"status\": \"ACTIVE\",\n      \"createdOn\": 1529083173000,\n      \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"user\": {\n        \"id\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n        \"firstName\": \"Michael\",\n        \"lastName\": \"Jordan\"\n      }\n    },\n    {\n      \"id\": \"5cdf116b-0603-4d26-88d8-5e1afd625931\",\n      \"status\": \"CANCELLED\",\n      \"createdOn\": 1527863555000,\n      \"subscriptionId\": \"386626c0-53e2-4515-8450-4a720bb5d029\",\n      \"user\": {\n        \"id\": \"bb14ace3-4490-47e8-84f1-ab6a85da69e5\",\n        \"firstName\": \"Mary\",\n        \"lastName\": \"Gonzalez\"\n      }\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc8e4c73-3fab-4d32-9ef6-b66b99db95c5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdOn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscriptionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0020c968-836c-4473-b6eb-17098bae142f",
+          "name": "Unassign product",
+          "request": {
+            "name": "Unassign product",
+            "description": {
+              "content": "Unassign a product from a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "subscriptionAssignments",
+                ":subscriptionAssignmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionAssignmentId",
+                  "description": "(Required) Subscription Assignment ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ed22957-c7d1-4256-91ed-506682b3bd52",
+              "name": "Unassignment request accepted or assignment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments",
+                    ":subscriptionAssignmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionAssignmentId",
+                      "description": "(Required) Subscription Assignment ID."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8deb6abb-04ef-44b0-b9f8-02bf2bdf63e1",
+              "name": "Assignment application not enabled for usage",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments",
+                    ":subscriptionAssignmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionAssignmentId",
+                      "description": "(Required) Subscription Assignment ID."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1afbd1b-ae8b-4126-a69a-97587ceeb380",
+              "name": "User not authenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments",
+                    ":subscriptionAssignmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionAssignmentId",
+                      "description": "(Required) Subscription Assignment ID."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1f09374a-bbf9-4678-97d8-1ca58f152bff",
+              "name": "Assignment status not compatible",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "subscriptionAssignments",
+                    ":subscriptionAssignmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionAssignmentId",
+                      "description": "(Required) Subscription Assignment ID."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "85277c32-d12d-4a6f-a767-7606452aaeed",
+    "name": "Companies AI Embed AppResellerAssignment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

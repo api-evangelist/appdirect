@@ -1,0 +1,424 @@
+{
+  "item": [
+    {
+      "id": "5676ccee-8de4-453f-8b05-d57cb847c04e",
+      "name": "AppResellerPaymentMethod",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ffe417e7-bb3d-412b-bf02-842156a9f406",
+          "name": "Create payment method",
+          "request": {
+            "name": "Create payment method",
+            "description": {
+              "content": "Creates a payment method on behalf of the specified user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "paymentMethods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerId\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"paymentMethodType\": \"<string>\",\n  \"billingAddress\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"salutation\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"faxExtension\": \"<string>\",\n    \"poBox\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35ebb996-5b5a-4bb2-847c-79b3cefb400f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"833d4c99-1939-0000-0000-6fb7ae30000\",\n  \"companyId\": \"6b4bd452-895d-0000-0000-e6046b230000\",\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"cardHolderName\": \"John Jordan\",\n    \"number\": \"0000-0000-0000-0000\",\n    \"securityCode\": \"000\",\n    \"expirationMonth\": \"10\",\n    \"expirationYear\": \"2100\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"Alden\",\n    \"city\": \"Beverly Hills\",\n    \"country\": \"US\",\n    \"zip\": \"94203\",\n    \"state\": \"CA\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5d399e4a-cae3-0000-0000-85be1db90000\",\n  \"accountDisplay\": \"1111\",\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"expirationYear\": \"2100\",\n    \"cardHolderName\": \"John Jordan\",\n    \"expirationMonth\": \"10\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"Alden\",\n    \"city\": \"Beverly Hills\",\n    \"country\": \"US\",\n    \"zip\": \"94203\",\n    \"state\": \"CA\"\n  },\n  \"owner\": {\n    \"id\": \"833d4c99-1939-0000-0000-6fb7ae30000\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Jordan\"\n  },\n  \"default\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "154aa618-63df-4121-bb34-7a1a9ce651c5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ownerId\": \"833d4c99-1939-0000-0000-6fb7ae30000\",\n  \"companyId\": \"6b4bd452-895d-0000-0000-e6046b230000\",\n  \"paymentMethodType\": \"CARD\",\n  \"properties\": {\n    \"cardHolderName\": \"John Jordan\",\n    \"number\": \"0000-0000-0000-0000\",\n    \"securityCode\": \"000\",\n    \"expirationMonth\": \"10\",\n    \"expirationYear\": \"2100\",\n    \"brand\": \"VISA\"\n  },\n  \"billingAddress\": {\n    \"street1\": \"Alden\",\n    \"city\": \"Beverly Hills\",\n    \"country\": \"US\",\n    \"zip\": \"94203\",\n    \"state\": \"CA\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "358fd4fc-3964-4034-821c-d3233c56a3e0",
+          "name": "List payment methods",
+          "request": {
+            "name": "List payment methods",
+            "description": {
+              "content": "Retrieves a list of the specified user's payment methods",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "paymentMethods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ownerId",
+                  "value": "<string>",
+                  "description": "(Required) User ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "companyId",
+                  "value": "<string>",
+                  "description": "(Required) Company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<integer>",
+                  "description": "Page number starting at 1. The default value is 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results per page. The default value is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentMethodType",
+                  "value": "<string>",
+                  "description": "Payment method type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd196186-2900-4603-b5e9-7314215134a4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "paymentMethodType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"5d399e4a-cae3-0000-0000-85be1db90000\",\n      \"accountDisplay\": \"1111\",\n      \"paymentMethodType\": \"CARD\",\n      \"properties\": {\n        \"expirationYear\": \"2100\",\n        \"cardHolderName\": \"John Jordan\",\n        \"expirationMonth\": \"10\",\n        \"brand\": \"VISA\"\n      },\n      \"billingAddress\": {\n        \"street1\": \"Alden\",\n        \"city\": \"Beverly Hills\",\n        \"country\": \"US\",\n        \"zip\": \"94203\",\n        \"state\": \"CA\"\n      },\n      \"owner\": {\n        \"id\": \"833d4c99-1939-0000-0000-6fb7ae30000\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Jordan\"\n      },\n      \"default\": true\n    }\n  ],\n  \"page\": {\n    \"size\": 1,\n    \"totalElements\": 1,\n    \"totalPages\": 1,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24e3e7db-1ae4-49cd-ba61-d67c892ea6d0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "paymentMethods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "paymentMethodType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "813f3f21-7372-449b-86b6-2eb66326477c",
+          "name": "Remove payment methods",
+          "request": {
+            "name": "Remove payment methods",
+            "description": {
+              "content": "Deletes a user's payment methods",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appReseller",
+                "v1",
+                "paymentMethods",
+                ":paymentMethodId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentMethodId",
+                  "description": "(Required) Payment method ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc90d6f6-1559-497d-bf54-ac30a9a9ca39",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appReseller",
+                    "v1",
+                    "paymentMethods",
+                    ":paymentMethodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodId",
+                      "description": "(Required) Payment method ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0e56c19c-e15f-4d51-9142-604572389008",
+    "name": "Companies AI Embed AppResellerPaymentMethod API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

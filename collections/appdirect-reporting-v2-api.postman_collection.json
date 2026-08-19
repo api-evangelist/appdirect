@@ -1,0 +1,440 @@
+{
+  "item": [
+    {
+      "id": "8cf218a3-3541-489c-a364-0e6efaa0c84a",
+      "name": "Reporting V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21685bc0-5d68-4513-9780-a74cc7fae62c",
+          "name": "List all reports",
+          "request": {
+            "name": "List all reports",
+            "description": {
+              "content": "Lists all reports generated from your marketplace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "v2",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ownerType",
+                  "value": "<string>",
+                  "description": "The owner type that is allowed access to the reports"
+                },
+                {
+                  "disabled": false,
+                  "key": "reportName",
+                  "value": "<string>",
+                  "description": "Filter reports by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "Time bound for filtering reports based on the from_date and to_date fields. Use gte([Unix timestamp]) for a lower bound (inclusive) or lte([Unix timestamp]) for an upper bound (inclusive). The timestamp must be in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "1",
+                  "description": "The page number of the requested result. The first page has index 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The page size of the requested result"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Show only reports whose names contain this text"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baaf6584-6076-4d21-8fed-af2e1024c6a7",
+              "name": "A list of all all reports matching the search criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reportName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"uuid\": \"adb97bd6-6fc5-4540-939d-8b5b02bcd0a7\",\n      \"reportName\": \"channel-payment-details\",\n      \"jobName\": \"channel-payment-details-APPDIRECT\",\n      \"name\": \"A sample report run\",\n      \"ownerType\": \"ROLE_CHANNEL_ADMIN\",\n      \"ownerCompanyId\": null,\n      \"ownerPartner\": \"APPDIRECT\",\n      \"status\": \"IN_PROGRESS\",\n      \"runDate\": 1519249651000,\n      \"fromDate\": 1517443200000,\n      \"toDate\": null,\n      \"params\": {\n        \"paymentMethod\": \"NULL\",\n        \"lineType\": \"NULL\",\n        \"excludeFullyDiscounted\": \"NULL\",\n        \"partner\": \"APPDIRECT\",\n        \"type\": \"NULL\"\n      },\n      \"createdBy\": \"John Smith\",\n      \"formatType\": \"CSV\"\n    },\n    {\n      \"uuid\": \"dead040d-6ebf-41db-a554-cf6f7c8e1e25\",\n      \"reportName\": \"customer-cancelled-entitlements\",\n      \"jobName\": \"customer-cancelled-entitlements-APPDIRECT\",\n      \"name\": \"A second sample report run\",\n      \"ownerType\": \"ROLE_CHANNEL_ADMIN\",\n      \"ownerCompanyId\": null,\n      \"ownerPartner\": \"APPDIRECT\",\n      \"status\": \"IN_PROGRESS\",\n      \"runDate\": 1519249646000,\n      \"fromDate\": 1517443200000,\n      \"toDate\": null,\n      \"params\": {\n        \"partner\": \"APPDIRECT\",\n        \"defaultMarketplaceCurrency\": \"USD\"\n      },\n      \"createdBy\": \"John Smith\",\n      \"formatType\": \"CSV\"\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd188791-1c49-4c0e-91c9-7877d4502900",
+              "name": "Input is invalid or malformed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reportName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59b828d4-aea7-4c59-a979-6e8d3d2e00bd",
+              "name": "The user identified by the incoming credentials cannot be resolved, or does not have the authorization to view reports of the requested owner type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ownerType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reportName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a685b7c-66c7-412b-965b-7c346f7e2ca8",
+          "name": "Download a report file",
+          "request": {
+            "name": "Download a report file",
+            "description": {
+              "content": "Download an individual report",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "v2",
+                "reports",
+                ":reportUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUuid",
+                  "description": "(Required) Report UUID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af81d98e-fe42-41d2-842e-12cca1c2d6fb",
+              "name": "Redirect to the S3-signed URL for downloading the report file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports",
+                    ":reportUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUuid",
+                      "description": "(Required) Report UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13d7fe9c-658d-4b77-acd9-dd144977cf40",
+              "name": "The user identified by the incoming credentials cannot be resolved, or is not authorized to download the requested report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports",
+                    ":reportUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUuid",
+                      "description": "(Required) Report UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7052fed8-eeed-4aec-bf02-90053b2cb094",
+              "name": "No report exists for the UUID specified in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "v2",
+                    "reports",
+                    ":reportUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUuid",
+                      "description": "(Required) Report UUID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "63cd41dc-8766-41f1-8369-91167de7a5e3",
+    "name": "Companies AI Embed Reporting V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}

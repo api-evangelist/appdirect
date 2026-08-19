@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed Discount API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discount",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/discounts",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Discount code"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to fetch. Used for paging."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "Sort field. Default value is creation date."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order. Default value is ascending."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "First result index. Used for paging."
+              }
+            ]
+          },
+          "docs": "Lists all available discounts.\nThe parameters can be used to filter the results."
+        },
+        {
+          "info": {
+            "name": "Create discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/discounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a discount with the provided data. Note that percentage discounts cannot exceed two decimal places (for example, 10.15)."
+        },
+        {
+          "info": {
+            "name": "Retrieve discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/discounts/:discountId",
+            "params": [
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "path",
+                "description": "Discount ID or Discount UUID"
+              }
+            ]
+          },
+          "docs": "Retrieves the discount for the given discount ID or UUID."
+        },
+        {
+          "info": {
+            "name": "Update discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/discounts/:discountId",
+            "params": [
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "path",
+                "description": "Discount ID or Discount UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified discount with the provided data. Note that percentage discounts cannot exceed two decimal places (for example, 10.15)."
+        },
+        {
+          "info": {
+            "name": "Delete discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/channel/v1/discounts/:discountId",
+            "params": [
+              {
+                "name": "discountId",
+                "value": "",
+                "type": "path",
+                "description": "Discount ID or Discount UUID"
+              }
+            ]
+          },
+          "docs": "Deletes the discount with the specified discount ID or UUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

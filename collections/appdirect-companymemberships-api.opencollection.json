@@ -1,0 +1,513 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Companies AI Embed CompanyMemberships API",
+    "version": "v296.0-SNAPSHOT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CompanyMemberships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "includeCompanies",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included."
+              },
+              {
+                "name": "includeUserCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included."
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's company membership information."
+        },
+        {
+          "info": {
+            "name": "Update company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace user's company membership.\n\nUpdates the following roles based on the provided user company membership data: Product Support, Sales Support, Reseller Manager, Customer Support, Reseller, Billing Admin, Company Admin, Developer.\nThis also enables/disables the membership based on provided user company membership data.\n\n**Note: You cannot set the Marketplace Manager role through the API.**"
+        },
+        {
+          "info": {
+            "name": "Enable/Disable company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable marketplace user's company membership.\n\nThis only changes the user company membership's enabled status; all other attributes are ignored."
+        },
+        {
+          "info": {
+            "name": "Delete company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Delete a marketplace user's company membership.\n\nIf this is the only company the user was member of, user is marked as deleted.\nA user that has active entitlements, owns products or is externally managed can't be deleted."
+        },
+        {
+          "info": {
+            "name": "Create company membership (Add User)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/active",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a marketplace user with membership in the given company.\n\nThe created user is active, and is associated with the specified company (membership).\nUser is set with a temporary password; the password is emailed to the recipients specified in the request body.\n\nThe domain part of the user's email address must match one of the verified domains associated with the company the user will be created in.\n\n**Note: You cannot set the Marketplace Manager role through the API.**"
+        },
+        {
+          "info": {
+            "name": "List company memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "If specified, returns only memberships associated with users having the specified active status"
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "If specified, returns only memberships with the specified enabled status"
+              },
+              {
+                "name": "roleName",
+                "value": "",
+                "type": "query",
+                "description": "If specified, returns only memberships with the specified role enabled"
+              },
+              {
+                "name": "groupUuid",
+                "value": "",
+                "type": "query",
+                "description": "If specified, returns only memberships that are a part of the specified group"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search on different fields of a membership"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "The property to sort by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Ordering type"
+              },
+              {
+                "name": "includeCompanies",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, companies will be included in the API response. When set to false, companies will not be included."
+              },
+              {
+                "name": "includeUserCustomAttributes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Default is true. When set to true, user custom attributes will be included in the API response. When set to false, user custom attributes will not be included."
+              }
+            ]
+          },
+          "docs": "List a marketplace company's user memberships."
+        },
+        {
+          "info": {
+            "name": "Create company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new or existing user as a member of a marketplace company.\n\nIf no user exists with the given email address a new user account ([Users](#users)) will be created. Use the allowLogin body parameter to control if a new user account should be invited to the marketplace with login access or created as a managed user without login access. See [CreateUserAccountV2](#createuseraccountv2) for more information on the allowLogin parameter.\n\nDepending on channel configuration, an invited membership is "
+        },
+        {
+          "info": {
+            "name": "Update company membership roles (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/roles",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update role assignments for one or more company memberships (users).\n\nAPI clients acting on behalf of an end user must first call [Read assignable roles for company membership](#read-assignable-roles-for-company-membership) to retrieve the list of roles they are allowed to update.\n\n**Note: You cannot set the Marketplace Manager role through the API.**"
+        },
+        {
+          "info": {
+            "name": "Read user checklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/checklist",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's checklist."
+        },
+        {
+          "info": {
+            "name": "Invite a managed user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/invite",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "inviterUuid",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the inviter in the API request. Required only when ROLE_PARTNER authority/scope is used to make the API request."
+              }
+            ]
+          },
+          "docs": "Invite a managed user as a member of a marketplace company. If the user is a member of a managed company, the managed company identifier must be used in this request. The operation will then also convert the managed company to a regular company."
+        },
+        {
+          "info": {
+            "name": "Request to purchase an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/applications/:applicationId/purchaseRequests",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of application to purchase"
+              },
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "User Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Request to purchase an application for the given marketplace company and user.\n\nThis causes an email notification to be sent to company administrators (system and billing admins)."
+        },
+        {
+          "info": {
+            "name": "List application assignments for company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/assignments",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve a marketplace user's application assignments.\n\nReturns assignments that are not FAILED or CANCELLED."
+        },
+        {
+          "info": {
+            "name": "Read assignable roles for company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/assignableRoles",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              }
+            ]
+          },
+          "docs": "Retrieve marketplace roles that can be assigned by this company membership."
+        },
+        {
+          "info": {
+            "name": "Read company assignable roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/assignableRoles",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the company"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of marketplace roles that the current, logged-in user can assign to any user in any marketplace company."
+        },
+        {
+          "info": {
+            "name": "List groups for company membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://marketplace.appdirect.com/api/account/v2/companies/:companyUuid/memberships/:userUuid/groups",
+            "params": [
+              {
+                "name": "companyUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of company in the API request"
+              },
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of user in the API request"
+              },
+              {
+                "name": "ldap",
+                "value": "",
+                "type": "query",
+                "description": "Set to true when company is externally managed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search term used to search on group name and description"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of groups the company membership is in."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "9fed2f28-a67b-4c09-8bb0-4bbb261aea36",
+      "name": "Reconciliation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b458293e-e0ed-4e59-9452-0bf3e247a922",
+          "name": "Retrieve ledger lines",
+          "request": {
+            "name": "Retrieve ledger lines",
+            "description": {
+              "content": "Retrieve ledger lines generated for a specific role. Example, retrieve all ledger lines that a reseller manager has against all resellers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "reconciliation",
+                "ledgerLines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "(Required) Currently only supported value is 'RESELLER_MANAGER'"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to be returned in the result. Default value is 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Size of the page to be returned. Default value is 50, maximum allowed is 250"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sorting is done against 'reconciliationDate'. Defaults to sorting in ascending order"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<number>",
+                  "description": "Filters ledger lines from given date. Filtering is performed against the reconciliation date of the ledger line. The parameter represents milliseconds since epoch date, but only the date part is taken into account. The time component is ignored"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<number>",
+                  "description": "Filters ledger lines until given date. Filtering is performed against the reconciliation date of the ledger line. The parameter represents milliseconds since epoch date, but only the date part is taken into account. The time component is ignored"
+                },
+                {
+                  "disabled": false,
+                  "key": "reconciliationType",
+                  "value": "<string>",
+                  "description": "Filters by ledger line reconciliation type"
+                },
+                {
+                  "disabled": false,
+                  "key": "operationType",
+                  "value": "<string>",
+                  "description": "Filters by ledger line operation type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61f8b6fd-1651-4ce7-b1c7-1779b0823630",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reconciliation",
+                    "ledgerLines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "reconciliationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [],\n  \"content\": [\n    {\n      \"id\": 6,\n      \"currency\": \"JPY\",\n      \"amount\": 10,\n      \"customer\": {\n        \"id\": 4712,\n        \"username\": \"enduser003@appdirect.com\",\n        \"email\": \"enduser003@appdirect.com\",\n        \"uuid\": \"62c8b934-aca8-4ed2-bcd5-8f798fd19355\"\n      },\n      \"issuerParty\": {\n        \"id\": \"RESELLERSMARKETPLACE\",\n        \"uuid\": \"5d08ea40-c948-40e2-9335-1f3c513a6524\",\n        \"type\": \"CHANNEL\",\n        \"name\": \"RESELLER MARKETPLACE\"\n      },\n      \"recipientParty\": {\n        \"id\": \"4052\",\n        \"uuid\": \"d282c59d-129a-4281-b390-a7d61876d9ce\",\n        \"type\": \"RESELLER\",\n        \"name\": \"Reseller Company 02\"\n      },\n      \"type\": \"DEBIT\",\n      \"transferStatus\": \"OPEN\",\n      \"reconciliationType\": \"ITEM\",\n      \"reconciliationDate\": 1506083747000,\n      \"createdOn\": 1506083752000,\n      \"lastModified\": 1506083752000,\n      \"payments\": [\n        {\n          \"id\": 5881,\n          \"type\": \"MANUAL\"\n        }\n      ],\n      \"invoiceId\": 8568,\n      \"orderId\": 3598,\n      \"productId\": 3402,\n      \"productName\": \"TEST\",\n      \"editionId\": 7552,\n      \"editionName\": \"Recurring Edition\",\n      \"editionPricingItemId\": 14467,\n      \"lineItemDescription\": \"TEST - Recurring Edition - Monthly Fee Period from 09/22/17 to 10/22/17\",\n      \"lineItemType\": \"ITEM\"\n    },\n    {\n      \"id\": 5,\n      \"currency\": \"JPY\",\n      \"amount\": 10,\n      \"customer\": {\n        \"id\": 4712,\n        \"username\": \"enduser003@appdirect.com\",\n        \"email\": \"enduser003@appdirect.com\",\n        \"uuid\": \"62c8b934-aca8-4ed2-bcd5-8f798fd19355\"\n      },\n      \"issuerParty\": {\n        \"id\": \"4052\",\n        \"uuid\": \"d282c59d-129a-4281-b390-a7d61876d9ce\",\n        \"type\": \"RESELLER\",\n        \"name\": \"Reseller Company 02\"\n      },\n      \"recipientParty\": {\n        \"id\": \"RESELLERSMARKETPLACE\",\n        \"uuid\": \"5d08ea40-c948-40e2-9335-1f3c513a6524\",\n        \"type\": \"CHANNEL\",\n        \"name\": \"RESELLER MARKETPLACE\"\n      },\n      \"type\": \"CREDIT\",\n      \"transferStatus\": \"OPEN\",\n      \"reconciliationType\": \"ITEM\",\n      \"reconciliationDate\": 1506083747000,\n      \"createdOn\": 1506083752000,\n      \"lastModified\": 1506083752000,\n      \"payments\": [\n        {\n          \"id\": 5881,\n          \"type\": \"MANUAL\"\n        }\n      ],\n      \"invoiceId\": 8568,\n      \"invoiceLineId\": 8569,\n      \"orderId\": 3598,\n      \"productId\": 3402,\n      \"productName\": \"TEST\",\n      \"editionId\": 7552,\n      \"editionName\": \"Recurring Edition\",\n      \"editionPricingItemId\": 14467,\n      \"lineItemDescription\": \"TEST - Recurring Edition - Monthly Fee Period from 09/22/17 to 10/22/17\",\n      \"lineItemType\": \"ITEM\"\n    }\n  ],\n  \"page\": {\n    \"size\": 50,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"number\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a675b821-b062-4505-94b8-389b2da85301",
+              "name": "Bad Request, typically bad query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reconciliation",
+                    "ledgerLines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "reconciliationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88768d58-b38b-465e-bf32-54f9849b5316",
+              "name": "Invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reconciliation",
+                    "ledgerLines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "reconciliationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b6080754-20c6-433f-a1fe-8e60ab5b1b7a",
+              "name": "Invalid authorization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reconciliation",
+                    "ledgerLines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "reconciliationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.appdirect.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8f455f31-2480-4d1a-9ca3-8816c0ded2d4",
+    "name": "Companies AI Embed Reconciliation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Companies API allows developers to manage marketplace companies and their user memberships.",
+      "type": "text/plain"
+    }
+  }
+}
