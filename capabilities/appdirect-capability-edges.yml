@@ -1,0 +1,202 @@
+slug: appdirect
+provider: AppDirect
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 18
+edges:
+- tag: AppResellerLeads
+  spec_file: appdirect-appresellerleads-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.9
+  evidence: POST /lead/v2/leads "Create lead"; POST /lead/v2/assignment "Assign lead"; POST /lead/v2/conversion
+    "Convert lead"; schemas LeadPagedReadResponse, LeadActivityResource
+  reason: Full lead lifecycle — creation, assignment, activity tracking, conversion and conversion approval
+    — is squarely lead/opportunity pipeline management.
+- tag: Subscriptions
+  spec_file: appdirect-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.9
+  evidence: POST /billing/v1/companies/{companyId}/users/{userId}/subscriptions 'Create a subscription';
+    PUT '.../subscriptions/{subscriptionId}' 'Change subscription details'; 'Subscription reactivation
+    request'; 'Delete an add-on instance'
+  reason: Operations create, change, preview, reactivate and cancel subscriptions and add-on instances
+    for marketplace companies/users — squarely the SaaS subscription commercial lifecycle. Spans creation,
+    modification and termination sub-capabilities, so the L1 is the honest level.
+- tag: AppResellerSubscription
+  spec_file: appdirect-appresellersubscription-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.88
+  evidence: POST /appReseller/v1/subscriptions "Create subscription"; PUT ... "Update subscription"; DELETE
+    ... "Cancel subscription"; schema AppResellerBillingSubscriptionCreationRequestWS
+  reason: Create, read, modify and cancel subscriptions spans provisioning, modification and cancellation,
+    so the L1 subscription lifecycle capability is the honest level; no single L2 covers the whole surface.
+- tag: AppResellerOpportunities
+  spec_file: appdirect-appreselleropportunities-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.85
+  evidence: POST /assistedSales/v1/opportunities "Create opportunity"; POST .../finalize "Finalize opportunity";
+    POST .../requestReview "Request opportunity review"; schema Opportunity, OpportunityPage
+  reason: Operations create, update, itemise, review and finalise sales opportunities — deal/pipeline
+    lifecycle. Pricing schemas hint at CPQ overlap, but the primary object is the opportunity.
+- tag: Discount
+  spec_file: appdirect-discount-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.85
+  evidence: 'POST /channel/v1/discounts createDiscount ''Create discounts''; schemas: DiscountType, RedemptionRestriction,
+    Discount'
+  reason: CRUD over discount definitions with redemption restrictions and discount types is discount/promotion
+    management. Could also be read as subscription rating, but the surface is purely discount definition,
+    so BC-440.30 fits best.
+- tag: Integration
+  spec_file: appdirect-integration-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.85
+  evidence: POST /integration/v2/billing/usage 'Billing Usage V2'; schemas MeteredUsageRequest, MeteredUsageItem,
+    UsageItem
+  reason: Vendor-facing endpoints submitting metered usage records for billing and checking usage processing
+    status — usage metering feeding subscription billing.
+- tag: Invoice
+  spec_file: appdirect-invoice-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.85
+  evidence: GET /billing/v1/invoices/{invoiceNumber} 'Retrieve an Invoice'; POST /billing/v1/invoices/{invoiceNumber}/payments
+    'Pay an Invoice'; schemas InvoiceWS, InvoiceLineWS, PaymentMethod
+  reason: Subscription-commerce invoice retrieval, adjustment and payment against invoices — invoicing
+    and statement management within subscription billing (payment collection also present).
+- tag: Payment Methods
+  spec_file: appdirect-payment-methods-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.85
+  evidence: '"Tokenize payment methods", "Create payment methods using a token OR by providing all of
+    the payment method data", "Set default payment methods"'
+  reason: Explicit payment-method lifecycle and tokenisation for marketplace users, which is the payment-method
+    management element of Payment Collection & Dunning.
+- tag: PaymentInstrument
+  spec_file: appdirect-paymentinstrument-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.85
+  evidence: '"Create a payment instrument", "Retrieve the default payment instrument"; schemas PaymentInstrumentWS,
+    CreditCardWS, CreditCardType, BillingAddressWS'
+  reason: CRUD over stored credit-card payment instruments per user/company — payment-method management
+    inside subscription billing.
+- tag: Edition
+  spec_file: appdirect-edition-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.8
+  evidence: 'GET /marketplace/v1/products/{applicationId}/editions/{editionId} ''Retrieve an edition'';
+    schemas: EditionWS, PlanCostWS, PaymentPlanWS, ContractWS, IncludedItemWS'
+  reason: An 'edition' here is a product plan with payment plans, included items, contract terms and termination
+    fees — i.e. plan and entitlement definition for subscription offerings.
+- tag: Payment
+  spec_file: appdirect-payment-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.8
+  evidence: '"List all payments for a company", "Retrieve a payment", "List all payment invoices"; schemas
+    PaymentWS, PaymentResult, GatewayResponseWS'
+  reason: Read surface over payments captured against invoices via a payment gateway — payment collection
+    within the subscription billing lifecycle.
+- tag: AI Management
+  spec_file: appdirect-ai-management-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.78
+  evidence: '"Create New AI", "Import Agent", "Approve an AI", "Revoke AI approval", "Generate AI profile";
+    schemas AgentBundle, AIModelOptions'
+  reason: End-to-end lifecycle of AI agents — creation, import/export as bundles, approval and revocation,
+    sharing and visibility — which is AI/ML asset lifecycle plus responsible-AI approval governance. Note
+    the OpenAPI title mentions Companies, but the operations are entirely about AI agents.
+- tag: AppResellerPaymentMethod
+  spec_file: appdirect-appresellerpaymentmethod-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.78
+  evidence: POST /appReseller/v1/paymentMethods "Create payment method"; schemas AppResellerPaymentMethod,
+    BillingAddress
+  reason: Registration, listing and removal of payment methods with billing address is payment-method
+    management within subscription billing and collection. No dunning operations present, so slightly
+    below the top band.
+- tag: SegmentFolders
+  spec_file: appdirect-segmentfolders-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.78
+  evidence: POST /channel/v1/segments 'Create manual segment'; PUT /channel/v1/segments/dynamicSegments/{dynamicSegmentId}
+    'Update dynamic segments'; GET .../availableAndAssociatedCompanies 'Read segment companies'
+  reason: Manual and rule-based (filter-driven) grouping of customer companies into segments and folders
+    — this is customer segmentation over the marketplace's B2B customer base.
+- tag: Companies
+  spec_file: appdirect-companies-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.75
+  evidence: '"The Companies API allows developers to manage marketplace companies and their user memberships";
+    POST /account/v2/companies "Create new company"; schemas CompanyAddress, CompanySizeType, CustomAttributeAccountV2'
+  reason: CRUD over customer company accounts including address, size and custom attributes — maintenance
+    of the customer master record on the marketplace. Reading of company activities is ancillary.
+- tag: Tenant Marketplace Provisioning
+  spec_file: appdirect-tenant-marketplace-provisioning-api-openapi.yml
+  capability_id: BC-4230.10
+  capability_id_l1: BC-4230
+  capability_name: Tenant Provisioning & Lifecycle
+  confidence: 0.75
+  evidence: POST /api/v1/tenant/organizations/create 'Create tenant organization'; 'Create organization
+    subscription'; 'Cancel organization subscription'; 'List organization members'
+  reason: Operations create tenant organizations in the multi-tenant fleet and manage their subscription,
+    balances, invoices, allocation limits and members — tenant provisioning and lifecycle. Some overlap
+    with subscription lifecycle and billing, but the tenant-organization creation framing dominates.
+- tag: AppResellerAssignment
+  spec_file: appdirect-appresellerassignment-api-openapi.yml
+  capability_id: BC-4240.30
+  capability_id_l1: BC-4240
+  capability_name: Subscription Provisioning
+  confidence: 0.7
+  evidence: POST /appReseller/v1/subscriptionAssignments "Assign product"; DELETE ... "Unassign product";
+    schemas UserEntitlementStatus, AppResellerSubscriptionAssignmentRequestWS
+  reason: Assigning and unassigning subscribed products to individual users is seat-level entitlement/provisioning
+    within the subscription lifecycle. Some ambiguity between provisioning (seat assignment) and entitlement
+    enforcement, hence 0.7.
+- tag: Group
+  spec_file: appdirect-group-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /account/v2/companies/{companyUuid}/groups 'Create user group'; PUT .../memberships/{userUuid}
+    'Add user to group'
+  reason: Management of user groups and their memberships within a company account is access-group administration
+    (identity & access management). Moderate confidence since it could be viewed as generic account administration.
