@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed CurrencyExchangeRate API
+  title: Companies Currency Exchange Rate API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -333,23 +333,19 @@ components:
           oauthKey: '...'
           userId: 12345
           currencyExchangeRateUuid: '...'
-    PagedResource:
-      type: object
-      title: Page
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
       properties:
-        totalPages:
-          type: number
-        number:
-          type: number
-        size:
-          type: number
-        totalElements:
-          type: number
+        href:
+          type: string
+        rel:
+          type: string
       example:
-        totalPages: '50'
-        number: '0'
-        size: '20'
-        totalElements: '220'
+        href: '...'
+        rel: '...'
     CurrencyExchangeRateRequest:
       type: object
       title: CurrencyExchangeRateRequest
@@ -436,20 +432,10 @@ components:
         oauthKey: '...'
         userId: 12345
         currencyExchangeRateUuid: '...'
-    Link:
-      type: object
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-      nullable: true
     ResourceSupport:
-      type: object
+      type:
+      - object
+      - 'null'
       title: ResourceSupport
       description: Resource links
       properties:
@@ -464,7 +450,30 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-      nullable: true
+    PagedResource:
+      type: object
+      title: Page
+      properties:
+        totalPages:
+          type: number
+        number:
+          type: number
+        size:
+          type: number
+        totalElements:
+          type: number
+      example:
+        totalPages: '50'
+        number: '0'
+        size: '20'
+        totalElements: '220'
+    CurrencyExchangeRateActive:
+      properties:
+        active:
+          description: 'Currency Exchange Rates can be only deactivated. Allowed value: false.'
+          type: boolean
+      example:
+        active: true
     Currency:
       description: Supported currencies for the system
       type: string
@@ -497,10 +506,3 @@ components:
       - COP
       - PEN
       default: USD
-    CurrencyExchangeRateActive:
-      properties:
-        active:
-          description: 'Currency Exchange Rates can be only deactivated. Allowed value: false.'
-          type: boolean
-      example:
-        active: true

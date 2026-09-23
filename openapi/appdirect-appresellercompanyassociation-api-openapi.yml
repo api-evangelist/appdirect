@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed AppResellerCompanyAssociation API
+  title: Companies App Reseller Company Association API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -74,7 +74,7 @@ paths:
       - lang: Java + Okhttp
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerCompanyId\\\":\\\"string\\\",\\\"resellerCompanyId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
     get:
-      description: Retrieves all customer company associations. This request requires either the Reseller company ID or the Customer company ID, which you can retrieve with the [List companies](#list-companies) request.
+      description: Retrieves all customer company associations. This request requires either the Reseller company ID or the Customer company ID, which you can retrieve with the List companies request.
       tags:
       - AppResellerCompanyAssociation
       summary: List company associations
@@ -201,25 +201,48 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/%7BcompanyAssociationId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    CustomerCompanyAssociationConflictResponse:
+    CustomerCompanyAssociation:
       type: object
-      title: CustomerCompanyAssociationConflictResponse
+      title: CustomerCompanyAssociation
       required:
-      - status
-      - code
+      - id
+      - resellerCompany
+      - customerCompany
+      - createdOn
       properties:
-        status:
-          description: HTTP status
-          type: number
-        code:
-          $ref: '#/components/schemas/IllegalCompanyAssociationTypes'
-        message:
-          description: Code description
+        id:
+          description: Customer company ID
           type: string
-      example:
-        status: 409
-        code: RESELLER_REQUIRED
-        message: Acme is not a reseller company
+        resellerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        customerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        createdOn:
+          description: Date on which new customer company association was created, in UNIX Epoch milliseconds
+          type: number
+    CustomerCompanyAssociationCreationRequest:
+      type: object
+      title: CustomerCompanyAssociationCreationRequest
+      required:
+      - customerCompanyId
+      - resellerCompanyId
+      properties:
+        customerCompanyId:
+          description: Customer company ID
+          type: string
+        resellerCompanyId:
+          description: Reseller company ID
+          type: string
+    IllegalCompanyAssociationTypes:
+      description: Invalid company association types
+      type: string
+      title: IllegalCompanyAssociationTypes
+      enum:
+      - RESELLER_REQUIRED
+      - COMPANY_INACTIVE
+      - COMPANY_DISABLED
+      - CANT_LINK_RESELLER_TO_ITSELF
+      - ASSOCIATION_ALREADY_EXISTS
     CompanyAssociation:
       title: AppResellerCompanyAssociation
       type: object
@@ -237,42 +260,6 @@ components:
       example:
         id: 698555fc-bc65-4163-9fee-16308edec41b
         name: Company A
-    CustomerCompanyAssociationPagedReadResponse:
-      type: object
-      title: CustomerCompanyAssociationPagedReadResponse
-      required:
-      - page
-      - content
-      properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerCompanyAssociation'
-    IllegalCompanyAssociationTypes:
-      description: Invalid company association types
-      type: string
-      title: IllegalCompanyAssociationTypes
-      enum:
-      - RESELLER_REQUIRED
-      - COMPANY_INACTIVE
-      - COMPANY_DISABLED
-      - CANT_LINK_RESELLER_TO_ITSELF
-      - ASSOCIATION_ALREADY_EXISTS
-    CustomerCompanyAssociationCreationRequest:
-      type: object
-      title: CustomerCompanyAssociationCreationRequest
-      required:
-      - customerCompanyId
-      - resellerCompanyId
-      properties:
-        customerCompanyId:
-          description: Customer company ID
-          type: string
-        resellerCompanyId:
-          description: Reseller company ID
-          type: string
     PageMetadata:
       type: object
       title: PageMetadata
@@ -299,22 +286,35 @@ components:
         size: 12345
         totalElements: 12345
         totalPages: 12345
-    CustomerCompanyAssociation:
+    CustomerCompanyAssociationPagedReadResponse:
       type: object
-      title: CustomerCompanyAssociation
+      title: CustomerCompanyAssociationPagedReadResponse
       required:
-      - id
-      - resellerCompany
-      - customerCompany
-      - createdOn
+      - page
+      - content
       properties:
-        id:
-          description: Customer company ID
-          type: string
-        resellerCompany:
-          $ref: '#/components/schemas/CompanyAssociation'
-        customerCompany:
-          $ref: '#/components/schemas/CompanyAssociation'
-        createdOn:
-          description: Date on which new customer company association was created, in UNIX Epoch milliseconds
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerCompanyAssociation'
+    CustomerCompanyAssociationConflictResponse:
+      type: object
+      title: CustomerCompanyAssociationConflictResponse
+      required:
+      - status
+      - code
+      properties:
+        status:
+          description: HTTP status
           type: number
+        code:
+          $ref: '#/components/schemas/IllegalCompanyAssociationTypes'
+        message:
+          description: Code description
+          type: string
+      example:
+        status: 409
+        code: RESELLER_REQUIRED
+        message: Acme is not a reseller company

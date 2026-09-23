@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Chat Sessions API
-  license:
-    name: Apache License, Version 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0
-  version: v296.0-SNAPSHOT
-servers:
-- url: https://marketplace.appdirect.com/api
-- url: https://virtserver.swaggerhub.com
+  title: Devs.ai Chat Sessions API
+  version: '1.0'
+  description: Manage chat sessions and send messages to AI assistants
+security: []
 tags:
 - name: Chat Sessions
   description: Manage chat sessions and send messages to AI assistants
@@ -445,250 +440,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    UrlMessageContent:
-      type: object
-      required:
-      - type
-      - url
-      - mimeType
-      description: A file reference using a URL.
-      properties:
-        type:
-          $ref: '#/components/schemas/FileMessageContentType'
-        url:
-          type: string
-          description: The URL of the file.
-        mimeType:
-          type: string
-          description: The MIME type of the file.
-        invisible:
-          type: boolean
-          description: Whether this content is invisible to the user.
-        metadata:
-          type: object
-          description: Additional metadata for the file.
-    SubmitToolOutputRequest:
-      type: object
-      required:
-      - systemMessageId
-      - outputs
-      properties:
-        systemMessageId:
-          type: string
-          description: The ID of the system message that requested the tool outputs (the message containing the tool calls).
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ToolOutput'
-          description: Array of tool outputs, one for each tool call that needs a response.
-        options:
-          $ref: '#/components/schemas/ChatOptions'
-          description: Optional chat options for flow overrides.
-    MessageCompleteChatEvent:
-      allOf:
-      - $ref: '#/components/schemas/MessageChatEvent'
-      - type: object
-        required:
-        - estimatedInputTokens
-        properties:
-          type:
-            type: string
-            enum:
-            - message.complete
-          estimatedInputTokens:
-            type: number
-            description: Estimated number of input tokens used.
-          inputTokens:
-            type: number
-            description: Actual number of input tokens used (if available from the model).
-          estimatedOutputTokens:
-            type: number
-            description: Estimated number of output tokens generated.
-          outputTokens:
-            type: number
-            description: Actual number of output tokens generated (if available from the model).
-          modelId:
-            type: string
-            description: The model ID that generated the response.
-    ToolOutput:
-      type: object
-      required:
-      - toolCallId
-      - output
-      additionalProperties: false
-      properties:
-        toolCallId:
-          type: string
-          minLength: 1
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          default: success
-        output:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-    ErrorChatEvent:
-      allOf:
-      - $ref: '#/components/schemas/ChatEvent'
-      - type: object
-        required:
-        - error
-        properties:
-          type:
-            type: string
-            enum:
-            - error
-          error:
-            type: string
-    IdMessageContent:
-      type: object
-      required:
-      - type
-      - id
-      description: A file reference using the file ID.
-      properties:
-        type:
-          $ref: '#/components/schemas/FileMessageContentType'
-        id:
-          type: string
-          description: The ID of the file to include in the message.
-        invisible:
-          type: boolean
-          description: Whether this content is invisible to the user.
-        metadata:
-          type: object
-          description: Additional metadata for the file.
-    FileMessageContentType:
-      type: string
-      description: Content types for file references only (excludes text)
-      enum:
-      - image
-      - audio
-      - video
-      - document
-    TextMessageContent:
-      type: object
-      required:
-      - type
-      - text
-      properties:
-        type:
-          type: string
-          enum:
-          - text
-        text:
-          type: string
-          description: The text content.
-        invisible:
-          type: boolean
-          description: Whether this content is invisible to the user.
-        metadata:
-          type: object
-          description: Additional metadata.
-    ChatAI:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the AI.
-        name:
-          type: string
-          description: Name of the AI.
-        src:
-          type: string
-          description: URL for the AI's image.
-        description:
-          type: string
-          description: Description of the AI.
-        userId:
-          type: string
-          description: Identifier of the AI's owner.
-        userName:
-          type: string
-          description: The user name of the AI's owner.
-    ImageGenerationToolRequest:
-      type: object
-      required:
-      - type
-      - modelId
-      properties:
-        type:
-          type: string
-          enum:
-          - image_generation
-          description: Must be 'image_generation'.
-        modelId:
-          type: string
-          description: The image generation model to use (e.g. 'dall-e-3', 'stable-diffusion-xl').
-        samples:
-          type: integer
-          description: Number of images to generate.
-        size:
-          type: string
-          description: Image size (e.g. '1024x1024', '1792x1024').
-        aspectRatio:
-          type: string
-          description: Aspect ratio (e.g. '16:9', '1:1'). Alternative to size for models that support it.
-        quality:
-          type: string
-          description: Image quality (e.g. 'standard', 'hd').
-        style:
-          type: string
-          description: Image style (e.g. 'vivid', 'natural').
-      description: Enables the image generation tool with model-specific configuration.
-    ListChatsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatSummary'
-    ChatDetails:
-      allOf:
-      - $ref: '#/components/schemas/ChatSummary'
-      - type: object
-        properties:
-          messages:
-            type: array
-            items:
-              $ref: '#/components/schemas/ChatMessage'
-    McpServerToolRequest:
-      type: object
-      required:
-      - type
-      - toolId
-      properties:
-        type:
-          type: string
-          enum:
-          - mcp_server
-          description: Must be 'mcp_server'.
-        toolId:
-          type: string
-          description: The ID of the MCP server tool to enable. Must be a valid CUID referencing an existing MCP tool.
-      description: Enables a specific MCP (Model Context Protocol) server tool by its ID.
-    ComplexMessageContent:
-      type: array
-      description: An array of message content items, which can include text and file references. This allows sending multimodal messages with images, documents, audio, and video along with text. First upload files using /api/v1/chats/{chatId}/files, then reference them by ID in your message.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/TextMessageContent'
-        - $ref: '#/components/schemas/IdMessageContent'
-        - $ref: '#/components/schemas/UrlMessageContent'
-      example:
-      - type: text
-        text: What's in this image?
-      - type: image
-        id: file_abc123
-        metadata:
-          detail: high
-          width: 1024
-          height: 768
     ToolCallChatEvent:
       allOf:
       - $ref: '#/components/schemas/ChatEvent'
@@ -707,124 +458,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/ToolCall'
-    ChatEvent:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ChatEventType'
-    MessageErrorChatEvent:
-      allOf:
-      - $ref: '#/components/schemas/MessageChatEvent'
-      - type: object
-        required:
-        - error
-        - code
-        properties:
-          type:
-            type: string
-            enum:
-            - message.error
-          error:
-            type: string
-            description: Human-readable error message.
-          code:
-            type: string
-            enum:
-            - MODEL_REQUEST_RATE_LIMIT_EXCEEDED
-            - MODEL_MAXIMUM_CONTEXT_EXCEEDED
-            - MODEL_REQUEST_ERROR
-            - MODEL_UNKNOWN
-            - CONTENT_MODERATION_TRIGGERED
-            - TOKEN_RATE_LIMIT_EXCEEDED
-            - RECURSION_LIMIT_REACHED
-            - UNKNOWN
-            description: Machine-readable error code identifying the type of error.
-    ChatOptions:
-      type: object
-      properties:
-        flow:
-          type: object
-          properties:
-            override:
-              type: object
-              properties:
-                force:
-                  type: boolean
-                id:
-                  type: string
-                version:
-                  type: number
-            tracing:
-              type: object
-              properties:
-                enabled:
-                  type: boolean
-    MessageChatEvent:
-      allOf:
-      - $ref: '#/components/schemas/ChatEvent'
-      - type: object
-        required:
-        - messageId
-        properties:
-          messageId:
-            type: string
-          role:
-            type: string
-    ChatSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the chat session.
-        createdAt:
-          type: string
-          format: date-time
-          description: The date and time when the chat session was created.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The date and time when the chat session was last updated.
-        name:
-          type: string
-          description: Name of the chat session.
-        userId:
-          type: string
-          description: Identifier of the user associated with the chat session.
-        pinPosition:
-          type: integer
-          format: int32
-          description: The position of the chat in a pinned list or similar.
-          nullable: true
-        ai:
-          $ref: '#/components/schemas/ChatAI'
-    MessageDeltaChatEvent:
-      allOf:
-      - $ref: '#/components/schemas/MessageChatEvent'
-      - type: object
-        required:
-        - content
-        properties:
-          type:
-            type: string
-            enum:
-            - message.delta
-          content:
-            $ref: '#/components/schemas/TextMessageContent'
-    ChatEventType:
-      type: string
-      enum:
-      - message.created
-      - message.delta
-      - message.complete
-      - message.error
-      - tool.call
-      - tool.message
-      - error
-      - flow.trace.event
-      - history.compressed
-      description: The type of chat event in the SSE stream.
     PostToChatRequestTool:
       oneOf:
       - $ref: '#/components/schemas/BuiltInToolRequest'
@@ -868,24 +501,40 @@ components:
             type: object
           internal:
             type: boolean
-    ToolCall:
+    MessageDeltaChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        required:
+        - content
+        properties:
+          type:
+            type: string
+            enum:
+            - message.delta
+          content:
+            $ref: '#/components/schemas/TextMessageContent'
+    ChatAI:
       type: object
-      required:
-      - id
-      - toolId
-      - type
-      - arguments
       properties:
         id:
           type: string
-        toolId:
+          description: ID of the AI.
+        name:
           type: string
-        type:
+          description: Name of the AI.
+        src:
           type: string
-        arguments:
-          oneOf:
-          - type: string
-          - type: object
+          description: URL for the AI's image.
+        description:
+          type: string
+          description: Description of the AI.
+        userId:
+          type: string
+          description: Identifier of the AI's owner.
+        userName:
+          type: string
+          description: The user name of the AI's owner.
     BuiltInToolRequest:
       type: object
       required:
@@ -901,17 +550,165 @@ components:
           - sandbox
           description: The built-in tool type to enable.
       description: Enables a built-in server-side tool by type.
-    MessageCreatedChatEvent:
+    ListChatsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatSummary'
+    ChatOptions:
+      type: object
+      properties:
+        flow:
+          type: object
+          properties:
+            override:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                id:
+                  type: string
+                version:
+                  type: number
+            tracing:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+    ChatSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the chat session.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the chat session was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the chat session was last updated.
+        name:
+          type: string
+          description: Name of the chat session.
+        userId:
+          type: string
+          description: Identifier of the user associated with the chat session.
+        pinPosition:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The position of the chat in a pinned list or similar.
+        ai:
+          $ref: '#/components/schemas/ChatAI'
+    MessageChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - type: object
+        required:
+        - messageId
+        properties:
+          messageId:
+            type: string
+          role:
+            type: string
+    MessageErrorChatEvent:
       allOf:
       - $ref: '#/components/schemas/MessageChatEvent'
       - type: object
+        required:
+        - error
+        - code
         properties:
           type:
             type: string
             enum:
-            - message.created
-          internal:
-            type: boolean
+            - message.error
+          error:
+            type: string
+            description: Human-readable error message.
+          code:
+            type: string
+            enum:
+            - MODEL_REQUEST_RATE_LIMIT_EXCEEDED
+            - MODEL_MAXIMUM_CONTEXT_EXCEEDED
+            - MODEL_REQUEST_ERROR
+            - MODEL_UNKNOWN
+            - CONTENT_MODERATION_TRIGGERED
+            - TOKEN_RATE_LIMIT_EXCEEDED
+            - RECURSION_LIMIT_REACHED
+            - UNKNOWN
+            description: Machine-readable error code identifying the type of error.
+    FileMessageContentType:
+      type: string
+      description: Content types for file references only (excludes text)
+      enum:
+      - image
+      - audio
+      - video
+      - document
+    McpServerToolRequest:
+      type: object
+      required:
+      - type
+      - toolId
+      properties:
+        type:
+          type: string
+          enum:
+          - mcp_server
+          description: Must be 'mcp_server'.
+        toolId:
+          type: string
+          description: The ID of the MCP server tool to enable. Must be a valid CUID referencing an existing MCP tool.
+      description: Enables a specific MCP (Model Context Protocol) server tool by its ID.
+    ChatEventType:
+      type: string
+      enum:
+      - message.created
+      - message.delta
+      - message.complete
+      - message.error
+      - tool.call
+      - tool.message
+      - error
+      - flow.trace.event
+      - history.compressed
+      description: The type of chat event in the SSE stream.
+    ImageGenerationToolRequest:
+      type: object
+      required:
+      - type
+      - modelId
+      properties:
+        type:
+          type: string
+          enum:
+          - image_generation
+          description: Must be 'image_generation'.
+        modelId:
+          type: string
+          description: The image generation model to use (e.g. 'dall-e-3', 'stable-diffusion-xl').
+        samples:
+          type: integer
+          description: Number of images to generate.
+        size:
+          type: string
+          description: Image size (e.g. '1024x1024', '1792x1024').
+        aspectRatio:
+          type: string
+          description: Aspect ratio (e.g. '16:9', '1:1'). Alternative to size for models that support it.
+        quality:
+          type: string
+          description: Image quality (e.g. 'standard', 'hd').
+        style:
+          type: string
+          description: Image style (e.g. 'vivid', 'natural').
+      description: Enables the image generation tool with model-specific configuration.
     ChatMessage:
       type: object
       properties:
@@ -932,6 +729,28 @@ components:
         role:
           type: string
           description: The role of the message sender, either user or system
+    UrlMessageContent:
+      type: object
+      required:
+      - type
+      - url
+      - mimeType
+      description: A file reference using a URL.
+      properties:
+        type:
+          $ref: '#/components/schemas/FileMessageContentType'
+        url:
+          type: string
+          description: The URL of the file.
+        mimeType:
+          type: string
+          description: The MIME type of the file.
+        invisible:
+          type: boolean
+          description: Whether this content is invisible to the user.
+        metadata:
+          type: object
+          description: Additional metadata for the file.
     OpenAIFunctionToolRequest:
       type: object
       required:
@@ -959,3 +778,186 @@ components:
               additionalProperties: true
               description: The function's parameters described as a JSON Schema object. The AI uses this schema to generate the correct arguments when calling the function.
       description: Defines an OpenAI-compatible function tool. The AI may choose to call this function, but the server does not execute it. Instead, the tool call is returned to the client via a tool.call SSE event for client-side execution. Use the submit tool outputs endpoint to return the result.
+    ToolOutput:
+      type: object
+      required:
+      - toolCallId
+      - output
+      additionalProperties: false
+      properties:
+        toolCallId:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          default: success
+        output:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+    ToolCall:
+      type: object
+      required:
+      - id
+      - toolId
+      - type
+      - arguments
+      properties:
+        id:
+          type: string
+        toolId:
+          type: string
+        type:
+          type: string
+        arguments:
+          oneOf:
+          - type: string
+          - type: object
+    ChatEvent:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ChatEventType'
+    SubmitToolOutputRequest:
+      type: object
+      required:
+      - systemMessageId
+      - outputs
+      properties:
+        systemMessageId:
+          type: string
+          description: The ID of the system message that requested the tool outputs (the message containing the tool calls).
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolOutput'
+          description: Array of tool outputs, one for each tool call that needs a response.
+        options:
+          $ref: '#/components/schemas/ChatOptions'
+          description: Optional chat options for flow overrides.
+    ChatDetails:
+      allOf:
+      - $ref: '#/components/schemas/ChatSummary'
+      - type: object
+        properties:
+          messages:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChatMessage'
+    MessageCompleteChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        required:
+        - estimatedInputTokens
+        properties:
+          type:
+            type: string
+            enum:
+            - message.complete
+          estimatedInputTokens:
+            type: number
+            description: Estimated number of input tokens used.
+          inputTokens:
+            type: number
+            description: Actual number of input tokens used (if available from the model).
+          estimatedOutputTokens:
+            type: number
+            description: Estimated number of output tokens generated.
+          outputTokens:
+            type: number
+            description: Actual number of output tokens generated (if available from the model).
+          modelId:
+            type: string
+            description: The model ID that generated the response.
+    TextMessageContent:
+      type: object
+      required:
+      - type
+      - text
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+        text:
+          type: string
+          description: The text content.
+        invisible:
+          type: boolean
+          description: Whether this content is invisible to the user.
+        metadata:
+          type: object
+          description: Additional metadata.
+    ComplexMessageContent:
+      type: array
+      description: An array of message content items, which can include text and file references. This allows sending multimodal messages with images, documents, audio, and video along with text. First upload files using /api/v1/chats/{chatId}/files, then reference them by ID in your message.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/TextMessageContent'
+        - $ref: '#/components/schemas/IdMessageContent'
+        - $ref: '#/components/schemas/UrlMessageContent'
+      example:
+      - type: text
+        text: What's in this image?
+      - type: image
+        id: file_abc123
+        metadata:
+          detail: high
+          width: 1024
+          height: 768
+    ErrorChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/ChatEvent'
+      - type: object
+        required:
+        - error
+        properties:
+          type:
+            type: string
+            enum:
+            - error
+          error:
+            type: string
+    IdMessageContent:
+      type: object
+      required:
+      - type
+      - id
+      description: A file reference using the file ID.
+      properties:
+        type:
+          $ref: '#/components/schemas/FileMessageContentType'
+        id:
+          type: string
+          description: The ID of the file to include in the message.
+        invisible:
+          type: boolean
+          description: Whether this content is invisible to the user.
+        metadata:
+          type: object
+          description: Additional metadata for the file.
+    MessageCreatedChatEvent:
+      allOf:
+      - $ref: '#/components/schemas/MessageChatEvent'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - message.created
+          internal:
+            type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your bearer token in the format **Bearer {token}**. Legacy header X-Authorization is also supported for backwards compatibility.

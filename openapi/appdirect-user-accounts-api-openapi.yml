@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed UserAccounts API
+  title: Companies User Accounts API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,14 +10,14 @@ servers:
 - url: https://marketplace.appdirect.com/api
 - url: https://virtserver.swaggerhub.com
 tags:
-- name: UserAccounts
+- name: User Accounts
   x-displayName: User Accounts
 paths:
   /appwise/v2/accounts:
     post:
       x-appdirect-api-stage: Early Access
       tags:
-      - UserAccounts
+      - User Accounts
       summary: Create user connections
       description: 'Creates a new user connection for Search. A connection (accountName) associates the app (application UUID) and user information (userId, companyId, and handle). The connection is used to, for example, identify events related to the user''s app account. accountName Format: {user_handle}@{user_uuid}@{company_uuid}
 
@@ -87,7 +87,7 @@ paths:
     delete:
       x-appdirect-api-stage: Early Access
       tags:
-      - UserAccounts
+      - User Accounts
       summary: Disconnect user accounts
       description: Disconnects an existing user account from Search. To access this API, you must configure product-scoped OAuth2 authentication for the application.
       operationId: disconnecting
@@ -161,6 +161,30 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/accounts?appId=SOME_STRING_VALUE&accountName=SOME_STRING_VALUE&callbackUrl=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    DisconnectionDetails:
+      type: object
+      title: DisconnectionDetails
+      description: The user account (accountName) to be disconnected from Search, and the account status
+      required:
+      - status
+      properties:
+        accountName:
+          type: string
+          description: The user account name (accountName) to disconnect from Search
+        status:
+          type: string
+          description: Disconnection status
+      example:
+        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        status: PENDING_REMOVAL
+    UserConnectionResponse:
+      type: object
+      title: UserConnectionResponse
+      description: 'Sucessful user account connection response. It provides the details about the connection (accountName): the associated app (application UUID) and user information (userId, companyId, and handle). Format: {user_handle}@{user_uuid}@{company_uuid}
+
+        Note: Application UUID = Product UUID'
+      example:
+        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
     ApplicationToConnect:
       type: object
       title: ApplicationToConnect
@@ -209,25 +233,6 @@ components:
       example:
         userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
         companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
-    UserAccountDisonnectionResponse:
-      type: object
-      title: UserAccountDisonnectionResponse
-      description: Response after request is made to disconnect a user account from Search
-      properties:
-        app:
-          $ref: '#/components/schemas/ApplicationToDisconnect'
-        user:
-          $ref: '#/components/schemas/UserToDisconnect'
-        connection:
-          $ref: '#/components/schemas/DisconnectionDetails'
-      example:
-        app:
-          id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
-        user:
-          userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
-          companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
-        connection:
-          accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
     UserConnection:
       type: object
       title: UserConnection
@@ -249,6 +254,16 @@ components:
           userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
           companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
           handle: bob
+    ApplicationToDisconnect:
+      type: object
+      title: ApplicationToDisconnect
+      description: Identifies the application to be disconnected from Search
+      properties:
+        id:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID.'
+      example:
+        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
     UserConnectionError:
       type: object
       title: UserConnectionError
@@ -283,37 +298,22 @@ components:
         moreInfo: https://help.appdirect.com/api/appwise.html
         details:
         - Details of error
-    UserConnectionResponse:
+    UserAccountDisonnectionResponse:
       type: object
-      title: UserConnectionResponse
-      description: 'Sucessful user account connection response. It provides the details about the connection (accountName): the associated app (application UUID) and user information (userId, companyId, and handle). Format: {user_handle}@{user_uuid}@{company_uuid}
-
-        Note: Application UUID = Product UUID'
-      example:
-        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-    ApplicationToDisconnect:
-      type: object
-      title: ApplicationToDisconnect
-      description: Identifies the application to be disconnected from Search
+      title: UserAccountDisonnectionResponse
+      description: Response after request is made to disconnect a user account from Search
       properties:
-        id:
-          type: string
-          description: 'Application UUID. Note: Application UUID = Product UUID.'
+        app:
+          $ref: '#/components/schemas/ApplicationToDisconnect'
+        user:
+          $ref: '#/components/schemas/UserToDisconnect'
+        connection:
+          $ref: '#/components/schemas/DisconnectionDetails'
       example:
-        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
-    DisconnectionDetails:
-      type: object
-      title: DisconnectionDetails
-      description: The user account (accountName) to be disconnected from Search, and the account status
-      required:
-      - status
-      properties:
-        accountName:
-          type: string
-          description: The user account name (accountName) to disconnect from Search
-        status:
-          type: string
-          description: Disconnection status
-      example:
-        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-        status: PENDING_REMOVAL
+        app:
+          id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+        user:
+          userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+          companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+        connection:
+          accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4

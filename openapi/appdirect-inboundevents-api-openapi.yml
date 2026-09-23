@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed InboundEvents API
+  title: Companies Inbound Events API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -66,6 +66,116 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"eventMetadata\\\":{\\\"id\\\":\\\"6ed0279c-35ed-4c7e-928e-25e46c080431\\\",\\\"type\\\":\\\"ResourceUpdated\\\",\\\"timestamp\\\":\\\"2020-06-11T15:23:45Z\\\"},\\\"key\\\":{\\\"source\\\":\\\"b2fc6737-3d3f-4da2-afda-f80f25b89af9\\\",\\\"instance\\\":\\\"myclient.myapp.com\\\",\\\"resourceId\\\":\\\"order-12345\\\",\\\"timestamp\\\":1500558736123},\\\"actor\\\":{\\\"identifier\\\":\\\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\\\",\\\"name\\\":\\\"Bob Roberts\\\"},\\\"action\\\":{\\\"verb\\\":\\\"assigned\\\",\\\"text\\\":\\\"a task\\\"},\\\"changes\\\":{\\\"fields\\\":[{\\\"name\\\":\\\"projectStatus\\\",\\\"value\\\":\\\"In progress\\\",\\\"label\\\":\\\"Project Status\\\",\\\"op\\\":\\\"replace\\\",\\\"display\\\":\\\"expanded\\\"}],\\\"users\\\":[{\\\"identifier\\\":\\\"bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4\\\",\\\"name\\\":\\\"Bob Roberts\\\"}],\\\"groups\\\":[{\\\"identifier\\\":\\\"c390a4bf-4f54-418a-87ca-5970c332ba17\\\"}]},\\\"contents\\\":[{\\\"url\\\":\\\"https://myapp.com/orders/1234\\\",\\\"previewUrl\\\":\\\"https://myapp.com/orders/1234?preview\\\",\\\"title\\\":\\\"Order request\\\",\\\"searchText\\\":\\\"string\\\",\\\"mimeType\\\":\\\"application/pdf\\\",\\\"linkedToResource\\\":true}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/data\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    Changes:
+      type: object
+      title: Changes
+      description: Changes to a resource connected to Search
+      properties:
+        fields:
+          type: array
+          description: Field changes
+          items:
+            $ref: '#/components/schemas/ContentEventField'
+        users:
+          type: array
+          description: User access changes
+          items:
+            $ref: '#/components/schemas/ContentEventUser'
+        groups:
+          type: array
+          description: Group access changes
+          items:
+            $ref: '#/components/schemas/Group'
+      example:
+        fields:
+        - name: projectStatus
+          value: In progress
+          label: Project Status
+          op: replace
+          display: expanded
+        users:
+        - identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          name: Bob Roberts
+        groups:
+        - identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
+    Group:
+      type: object
+      title: Group
+      description: UUID of a user group configured in the marketplace. Gives resource visibility to a group of users.
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          example: c390a4bf-4f54-418a-87ca-5970c332ba17
+          description: UUID of a user group configured in the marketplace. Required.
+        delete:
+          type: boolean
+          description: Delete resource visibility for the group
+      example:
+        identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
+    Key:
+      type: object
+      title: Key
+      description: Identify a resource
+      required:
+      - instance
+      - resourceId
+      - source
+      properties:
+        source:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID. Required.'
+        instance:
+          type: string
+          description: Vendor account identifier within the application. Required.
+        resourceId:
+          type: string
+          description: Unique ID of the resource in the instance. Required.
+        timestamp:
+          type: integer
+          format: int64
+          description: UTC timestamp of when the event occurred in epoch format, with millisecond precision
+      example:
+        source: b2fc6737-3d3f-4da2-afda-f80f25b89af9
+        instance: myclient.myapp.com
+        resourceId: order-12345
+        timestamp: 1500558736123
+    ContentEventType:
+      type: string
+      title: ContentEventType
+      description: ResourceCreated, ResourceUpdated, ResourceDeleted are used when the Search resource is created, updated, and deleted respectively. ResourceContentUpdated is used when a content item is updated or deleted.
+      enum:
+      - ResourceCreated
+      - ResourceUpdated
+      - ResourceDeleted
+      - ResourceContentUpdated
+    ContentEventError:
+      type: object
+      title: ContentEventError
+      required:
+      - code
+      - message
+      - status
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+        code:
+          type: string
+          description: Canonical error code
+        message:
+          type: string
+          description: Error message
+        moreInfo:
+          type: string
+          description: URL with more information about the error
+      example:
+        status: 404
+        code: NOT_FOUND
+        message: User not found.
+        moreInfo: https://help.appdirect.com/api/appwise.html
     EventMetadata:
       type: object
       title: EventMetadata
@@ -87,29 +197,69 @@ components:
         id: 6ed0279c-35ed-4c7e-928e-25e46c080431
         type: ResourceUpdated
         timestamp: '2020-06-11T15:23:45Z'
-    Action:
+    ContentEventUser:
       type: object
-      title: Action
-      description: 'An action statement that can be used to describe changes that appear in feeds. The statement is constructed of a verb suffixed by text. For example: Verb (assigned) + text (a task) = action description (assigned a task). If delete boolean is true, the resource is deleted from Customer Search.
+      title: ContentEventUser
+      description: 'The application user by identifier (accountName) and name. If delete boolean is true, the user''s application account (accountName) for the Search resource is deleted from the ContentEventUser users array.
 
 
-        Required parameters: Only Text and Verb are required in requests to create action statements. Only delete is required to delete a resource.'
+        Required parameters: Only identifier is required to identify a user. Identifier and delete are required for deletion.'
       required:
-      - text
-      - verb
+      - identifier
       properties:
-        verb:
+        identifier:
           type: string
-          description: The verb that appears in the (verb+text) action statement
-        text:
+          example: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+          description: 'Identifier (accountName) for the application user. Format: {user_handle}@{user_uuid}@{company_uuid}. Required.'
+        name:
           type: string
-          description: The text that appears after the verb in the (verb+text) action statement
+          example: Bob Roberts
+          description: Full name of the user in the application
         delete:
           type: boolean
-          description: If true, the resource is deleted from Search
+          description: If true, delete the user's application account (accountName) for the Search and Search resource (only affects Change node/ContentEventUser users array)
       example:
-        verb: assigned
-        text: a task
+        identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        name: Bob Roberts
+    Content:
+      type: object
+      title: Content
+      description: Structured Search content. When delete parameter is true, the content is removed from the resource.
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          example: https://myapp.com/orders/1234
+          description: URL of the content. Required.
+        previewUrl:
+          type: string
+          example: https://myapp.com/orders/1234?preview
+          description: URL of the content preview
+        title:
+          type: string
+          example: Order request
+          description: Title of the content
+        searchText:
+          type: string
+          description: Full text of the content
+        mimeType:
+          type: string
+          example: application/pdf
+          description: MIME type of the content
+        linkedToResource:
+          type: boolean
+          description: 'Manage duplicate search results for content associated with other resources. If true, link content to associated resources and return it as a single object. If false, content and associated resources are returned as separate objects. Example: Search terms appear in a spreadsheet that is attached to an email. If true, search returns the spreadsheet. If false, search returns the email and the spreadsheet.'
+        delete:
+          type: boolean
+          description: If true, the content is removed from the resource
+      example:
+        url: https://myapp.com/orders/1234
+        previewUrl: https://myapp.com/orders/1234?preview
+        title: Order request
+        searchText: string
+        mimeType: application/pdf
+        linkedToResource: true
     ContentEvent:
       type: object
       title: ContentEvent
@@ -167,162 +317,13 @@ components:
           searchText: string
           mimeType: application/pdf
           linkedToResource: true
-    Group:
+    ContentEventActor:
       type: object
-      title: Group
-      description: UUID of a user group configured in the marketplace. Gives resource visibility to a group of users.
-      required:
-      - identifier
-      properties:
-        identifier:
-          type: string
-          example: c390a4bf-4f54-418a-87ca-5970c332ba17
-          description: UUID of a user group configured in the marketplace. Required.
-        delete:
-          type: boolean
-          description: Delete resource visibility for the group
-      example:
-        identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
-    Changes:
-      type: object
-      title: Changes
-      description: Changes to a resource connected to Search
-      properties:
-        fields:
-          type: array
-          description: Field changes
-          items:
-            $ref: '#/components/schemas/ContentEventField'
-        users:
-          type: array
-          description: User access changes
-          items:
-            $ref: '#/components/schemas/ContentEventUser'
-        groups:
-          type: array
-          description: Group access changes
-          items:
-            $ref: '#/components/schemas/Group'
-      example:
-        fields:
-        - name: projectStatus
-          value: In progress
-          label: Project Status
-          op: replace
-          display: expanded
-        users:
-        - identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-          name: Bob Roberts
-        groups:
-        - identifier: c390a4bf-4f54-418a-87ca-5970c332ba17
-    Content:
-      type: object
-      title: Content
-      description: Structured Search content. When delete parameter is true, the content is removed from the resource.
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          example: https://myapp.com/orders/1234
-          description: URL of the content. Required.
-        previewUrl:
-          type: string
-          example: https://myapp.com/orders/1234?preview
-          description: URL of the content preview
-        title:
-          type: string
-          example: Order request
-          description: Title of the content
-        searchText:
-          type: string
-          description: Full text of the content
-        mimeType:
-          type: string
-          example: application/pdf
-          description: MIME type of the content
-        linkedToResource:
-          type: boolean
-          description: 'Manage duplicate search results for content associated with other resources. If true, link content to associated resources and return it as a single object. If false, content and associated resources are returned as separate objects. Example: Search terms appear in a spreadsheet that is attached to an email. If true, search returns the spreadsheet. If false, search returns the email and the spreadsheet.'
-        delete:
-          type: boolean
-          description: If true, the content is removed from the resource
-      example:
-        url: https://myapp.com/orders/1234
-        previewUrl: https://myapp.com/orders/1234?preview
-        title: Order request
-        searchText: string
-        mimeType: application/pdf
-        linkedToResource: true
-    ContentEventError:
-      type: object
-      title: ContentEventError
-      required:
-      - code
-      - message
-      - status
-      properties:
-        status:
-          type: integer
-          format: int32
-          description: HTTP status code
-        code:
-          type: string
-          description: Canonical error code
-        message:
-          type: string
-          description: Error message
-        moreInfo:
-          type: string
-          description: URL with more information about the error
-      example:
-        status: 404
-        code: NOT_FOUND
-        message: User not found.
-        moreInfo: https://help.appdirect.com/api/appwise.html
-    ContentEventType:
-      type: string
-      title: ContentEventType
-      description: ResourceCreated, ResourceUpdated, ResourceDeleted are used when the Search resource is created, updated, and deleted respectively. ResourceContentUpdated is used when a content item is updated or deleted.
-      enum:
-      - ResourceCreated
-      - ResourceUpdated
-      - ResourceDeleted
-      - ResourceContentUpdated
-    Key:
-      type: object
-      title: Key
-      description: Identify a resource
-      required:
-      - instance
-      - resourceId
-      - source
-      properties:
-        source:
-          type: string
-          description: 'Application UUID. Note: Application UUID = Product UUID. Required.'
-        instance:
-          type: string
-          description: Vendor account identifier within the application. Required.
-        resourceId:
-          type: string
-          description: Unique ID of the resource in the instance. Required.
-        timestamp:
-          type: integer
-          format: int64
-          description: UTC timestamp of when the event occurred in epoch format, with millisecond precision
-      example:
-        source: b2fc6737-3d3f-4da2-afda-f80f25b89af9
-        instance: myclient.myapp.com
-        resourceId: order-12345
-        timestamp: 1500558736123
-    ContentEventUser:
-      type: object
-      title: ContentEventUser
-      description: 'The application user by identifier (accountName) and name. If delete boolean is true, the user''s application account (accountName) for the Search resource is deleted from the ContentEventUser users array.
+      title: ContentEventActor
+      description: 'Identify the application user by identifier (accountName) and name.
 
 
-        Required parameters: Only identifier is required to identify a user. Identifier and delete are required for deletion.'
+        Required parameters: Only identifier is required to identify a user.'
       required:
       - identifier
       properties:
@@ -334,12 +335,32 @@ components:
           type: string
           example: Bob Roberts
           description: Full name of the user in the application
-        delete:
-          type: boolean
-          description: If true, delete the user's application account (accountName) for the Search and Search resource (only affects Change node/ContentEventUser users array)
       example:
         identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
         name: Bob Roberts
+    Action:
+      type: object
+      title: Action
+      description: 'An action statement that can be used to describe changes that appear in feeds. The statement is constructed of a verb suffixed by text. For example: Verb (assigned) + text (a task) = action description (assigned a task). If delete boolean is true, the resource is deleted from Customer Search.
+
+
+        Required parameters: Only Text and Verb are required in requests to create action statements. Only delete is required to delete a resource.'
+      required:
+      - text
+      - verb
+      properties:
+        verb:
+          type: string
+          description: The verb that appears in the (verb+text) action statement
+        text:
+          type: string
+          description: The text that appears after the verb in the (verb+text) action statement
+        delete:
+          type: boolean
+          description: If true, the resource is deleted from Search
+      example:
+        verb: assigned
+        text: a task
     ContentEventField:
       type: object
       title: ContentEventField
@@ -371,27 +392,6 @@ components:
         label: Project Status
         op: replace
         display: expanded
-    ContentEventActor:
-      type: object
-      title: ContentEventActor
-      description: 'Identify the application user by identifier (accountName) and name.
-
-
-        Required parameters: Only identifier is required to identify a user.'
-      required:
-      - identifier
-      properties:
-        identifier:
-          type: string
-          example: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-          description: 'Identifier (accountName) for the application user. Format: {user_handle}@{user_uuid}@{company_uuid}. Required.'
-        name:
-          type: string
-          example: Bob Roberts
-          description: Full name of the user in the application
-      example:
-        identifier: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-        name: Bob Roberts
     Display:
       type: string
       title: Display

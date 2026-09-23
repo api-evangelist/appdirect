@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Reconciliation API
+  title: Companies Reconciliation API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -191,6 +191,24 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/reconciliation/ledgerLines?context=SOME_STRING_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sortOrder=SOME_STRING_VALUE&fromDate=SOME_NUMBER_VALUE&toDate=SOME_NUMBER_VALUE&reconciliationType=SOME_STRING_VALUE&operationType=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    LedgerLineOperationType:
+      type: string
+      title: LedgerLineOperationType
+      enum:
+      - CREDIT
+      - DEBIT
+    InvoiceLineTypeWS:
+      type:
+      - string
+      - 'null'
+      title: InvoiceLineType
+      enum:
+      - ITEM
+      - DISCOUNT
+      - TAX
+      - DELEGATED_INVOICE
+      - TERMINATION_FEE
+      - SUB_ACCOUNT
     PagedResources:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -199,44 +217,24 @@ components:
         properties:
           page:
             $ref: '#/components/schemas/PageMetadata'
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS
-    PaymentIdAndTypeWS:
-      type: object
-      title: PaymentIdAndType
-      properties:
-        id:
-          description: Payment ID
-          type: number
-          nullable: true
-        type:
-          $ref: '#/components/schemas/PaymentMethod'
-      example:
-        id: 123554
-        type: CREDIT_CARD
-      nullable: true
     LedgerLineDetailsWS:
-      type: object
+      type:
+      - object
+      - 'null'
       title: LedgerLineDetails
       properties:
         id:
           description: Ledger line ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         currency:
           $ref: '#/components/schemas/Currency'
         amount:
           description: Ledger line amount. Decimal value
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         customer:
           $ref: '#/components/schemas/CustomerWS'
         issuerParty:
@@ -247,24 +245,28 @@ components:
           $ref: '#/components/schemas/LedgerLineOperationType'
         transferId:
           description: Transfer ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         transferStatus:
           $ref: '#/components/schemas/TransferStatus'
         reconciliationType:
           $ref: '#/components/schemas/ReconciliationType'
         reconciliationDate:
           description: Reconciliation date
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         createdOn:
           description: Ledger line created on date
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         lastModified:
           description: Ledger line last modified
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         payments:
           description: Payments made against the invoice that generated this ledger line
           type: array
@@ -272,40 +274,49 @@ components:
             $ref: '#/components/schemas/PaymentIdAndTypeWS'
         invoiceId:
           description: Invoice ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         invoiceLineId:
           description: Invoice Line ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         orderId:
           description: The purchase order ID related to the invoice that triggered this ledger line
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         productId:
           description: The product ID that was sold and triggered the creation of the ledger line
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         productName:
           description: The product name that was sold and triggered the creation of the ledger line
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         editionId:
           description: Application edition ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         editionName:
           description: Application edition name
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         editionPricingItemId:
           description: Edition pricing item ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         lineItemDescription:
           description: Item line description
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         lineItemType:
           $ref: '#/components/schemas/InvoiceLineTypeWS'
       example:
@@ -346,7 +357,57 @@ components:
         editionPricingItemId: 14467
         lineItemDescription: TEST - Recurring Edition - Monthly Fee Period from 09/22/17 to 10/22/17
         lineItemType: ITEM
-      nullable: true
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+    TransferStatus:
+      type: string
+      title: TransferStatus
+      enum:
+      - OPEN
+      - PENDING
+      - RECONCILED
+    CustomerWS:
+      type:
+      - object
+      - 'null'
+      title: Customer
+      properties:
+        id:
+          description: Customer ID
+          type:
+          - number
+          - 'null'
+        uuid:
+          description: Customer UUID
+          type:
+          - string
+          - 'null'
+        username:
+          description: Customer username
+          type:
+          - string
+          - 'null'
+        email:
+          description: Customer email
+          type:
+          - string
+          - 'null'
+      example:
+        id: 12345
+        uuid: 4d6c8f8e-d05a-11e7-abc4-cec278b6b50a
+        username: customer@example.com
+        email: customer@example.com
     ReconciliationType:
       type: string
       title: ReconciliationType
@@ -359,55 +420,10 @@ components:
       - RESELLER_MARKUP
       - CHANNEL_MARKUP
       - APPDIRECT_FEE
-    TransferStatus:
-      type: string
-      title: TransferStatus
-      enum:
-      - OPEN
-      - PENDING
-      - RECONCILED
-    LedgerLineOperationType:
-      type: string
-      title: LedgerLineOperationType
-      enum:
-      - CREDIT
-      - DEBIT
-    InvoiceLineTypeWS:
-      type: string
-      title: InvoiceLineType
-      enum:
-      - ITEM
-      - DISCOUNT
-      - TAX
-      - DELEGATED_INVOICE
-      - TERMINATION_FEE
-      - SUB_ACCOUNT
-      nullable: true
-    Link:
-      type: object
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-      nullable: true
-    PagedLedgerLineDetailsWS:
-      allOf:
-      - $ref: '#/components/schemas/PagedResources'
-      - description: Represents a paged collection of LedgerLineDetailsWS
-        title: PagedLedgerLineDetailsWS
-        type: object
-        properties:
-          content:
-            type: array
-            items:
-              $ref: '#/components/schemas/LedgerLineDetailsWS'
     ResourceSupport:
-      type: object
+      type:
+      - object
+      - 'null'
       title: ResourceSupport
       description: Resource links
       properties:
@@ -422,33 +438,112 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-      nullable: true
-    CustomerWS:
-      type: object
-      title: Customer
+    PartyWS:
+      type:
+      - object
+      - 'null'
+      title: Party
       properties:
         id:
-          description: Customer ID
-          type: number
-          nullable: true
+          description: Party ID, if one is available for this party type
+          type:
+          - string
+          - 'null'
         uuid:
-          description: Customer UUID
-          type: string
-          nullable: true
-        username:
-          description: Customer username
-          type: string
-          nullable: true
+          description: Party UUID, if one is available for this party type
+          type:
+          - string
+          - 'null'
+        type:
+          enum:
+          - CUSTOMER
+          - RESELLER
+          - CHANNEL
+          - VENDOR
+          - APPDIRECT
+          description: Party type
+          type:
+          - string
+          - 'null'
+        name:
+          description: Party name
+          type:
+          - string
+          - 'null'
         email:
-          description: Customer email
-          type: string
-          nullable: true
+          description: Party email
+          type:
+          - string
+          - 'null'
       example:
-        id: 12345
-        uuid: 4d6c8f8e-d05a-11e7-abc4-cec278b6b50a
-        username: customer@example.com
-        email: customer@example.com
-      nullable: true
+        id: 12355
+        uuid: 7c840533-8e16-4f98-8c71-4e2544d59258
+        type: CUSTOMER
+        name: John Snow
+        email: john.snow@got.com
+    PaymentIdAndTypeWS:
+      type:
+      - object
+      - 'null'
+      title: PaymentIdAndType
+      properties:
+        id:
+          description: Payment ID
+          type:
+          - number
+          - 'null'
+        type:
+          $ref: '#/components/schemas/PaymentMethod'
+      example:
+        id: 123554
+        type: CREDIT_CARD
+    PaymentMethod:
+      type: string
+      description: The supported payment methods
+      title: PaymentMethod
+      enum:
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    PagedLedgerLineDetailsWS:
+      allOf:
+      - $ref: '#/components/schemas/PagedResources'
+      - description: Represents a paged collection of LedgerLineDetailsWS
+        title: PagedLedgerLineDetailsWS
+        type: object
+        properties:
+          content:
+            type: array
+            items:
+              $ref: '#/components/schemas/LedgerLineDetailsWS'
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
     Currency:
       description: Supported currencies for the system
       type: string
@@ -481,66 +576,3 @@ components:
       - COP
       - PEN
       default: USD
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    PartyWS:
-      type: object
-      title: Party
-      properties:
-        id:
-          description: Party ID, if one is available for this party type
-          type: string
-          nullable: true
-        uuid:
-          description: Party UUID, if one is available for this party type
-          type: string
-          nullable: true
-        type:
-          enum:
-          - CUSTOMER
-          - RESELLER
-          - CHANNEL
-          - VENDOR
-          - APPDIRECT
-          description: Party type
-          type: string
-          nullable: true
-        name:
-          description: Party name
-          type: string
-          nullable: true
-        email:
-          description: Party email
-          type: string
-          nullable: true
-      example:
-        id: 12355
-        uuid: 7c840533-8e16-4f98-8c71-4e2544d59258
-        type: CUSTOMER
-        name: John Snow
-        email: john.snow@got.com
-      nullable: true

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed DataUploader API
+  title: Companies Data Uploader API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -219,6 +219,42 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/v1/product-uploader-api/publishCatalog\")\n  .post(null)\n  .addHeader(\"content-type\", \"multipart/form-data\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    CatalogUploadResponse:
+      title: CatalogUploadResponse
+      description: Response returned after a successful catalog upload operation
+      type: object
+      properties:
+        message:
+          type: string
+          description: Success message describing the operation result
+        data:
+          type: object
+          description: Data containing file upload details and process information
+          properties:
+            file:
+              $ref: '#/components/schemas/UploadedFile'
+            processId:
+              type: string
+              description: Unique process identifier for tracking the upload operation
+          required:
+          - file
+          - processId
+      required:
+      - message
+      - data
+      example:
+        message: Uploaded the file successfully
+        data:
+          file:
+            fieldname: file
+            originalname: Single CSV Template (69).csv
+            encoding: 7bit
+            mimetype: text/csv
+            destination: /app/resources/static/uploads
+            filename: 1750151421696_Single CSV Template (69).csv
+            path: /app/resources/static/uploads/1750151421696_Single CSV Template (69).csv
+            size: 3420
+          processId: 4e4b146c-47dd-4b19-ac00-8214ff1e286d
     UploadedFile:
       title: UploadedFile
       description: Details of the uploaded file
@@ -257,39 +293,3 @@ components:
       - filename
       - path
       - size
-    CatalogUploadResponse:
-      title: CatalogUploadResponse
-      description: Response returned after a successful catalog upload operation
-      type: object
-      properties:
-        message:
-          type: string
-          description: Success message describing the operation result
-        data:
-          type: object
-          description: Data containing file upload details and process information
-          properties:
-            file:
-              $ref: '#/components/schemas/UploadedFile'
-            processId:
-              type: string
-              description: Unique process identifier for tracking the upload operation
-          required:
-          - file
-          - processId
-      required:
-      - message
-      - data
-      example:
-        message: Uploaded the file successfully
-        data:
-          file:
-            fieldname: file
-            originalname: Single CSV Template (69).csv
-            encoding: 7bit
-            mimetype: text/csv
-            destination: /app/resources/static/uploads
-            filename: 1750151421696_Single CSV Template (69).csv
-            path: /app/resources/static/uploads/1750151421696_Single CSV Template (69).csv
-            size: 3420
-          processId: 4e4b146c-47dd-4b19-ac00-8214ff1e286d

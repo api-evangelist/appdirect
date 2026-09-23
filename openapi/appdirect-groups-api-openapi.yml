@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Groups API
-  license:
-    name: Apache License, Version 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0
-  version: v296.0-SNAPSHOT
-servers:
-- url: https://marketplace.appdirect.com/api
-- url: https://virtserver.swaggerhub.com
+  title: Devs.ai Groups API
+  version: '1.0'
+  description: Manage user groups for AI access control
+security: []
 tags:
 - name: Groups
   description: Manage user groups for AI access control
@@ -174,21 +169,21 @@ paths:
           description: Internal Server Error.
 components:
   schemas:
-    GroupAvailability:
-      type: string
-      enum:
-      - EVERYONE
-      - RESTRICTED
-      description: Availability status of the group.
-    GroupDetail:
-      allOf:
-      - $ref: '#/components/schemas/GroupSummary'
-      - type: object
-        properties:
-          users:
-            type: array
-            items:
-              $ref: '#/components/schemas/GroupUser'
+    GroupUser:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userId:
+          type:
+          - string
+          - 'null'
+        email:
+          type: string
     GroupSummary:
       type: object
       properties:
@@ -208,17 +203,24 @@ components:
           type: string
         availability:
           $ref: '#/components/schemas/GroupAvailability'
-    GroupUser:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        userId:
-          type: string
-          nullable: true
-        email:
-          type: string
+    GroupDetail:
+      allOf:
+      - $ref: '#/components/schemas/GroupSummary'
+      - type: object
+        properties:
+          users:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupUser'
+    GroupAvailability:
+      type: string
+      enum:
+      - EVERYONE
+      - RESTRICTED
+      description: Availability status of the group.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your bearer token in the format **Bearer {token}**. Legacy header X-Authorization is also supported for backwards compatibility.

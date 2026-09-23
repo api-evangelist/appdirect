@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Tenant Rate Limits API
-  license:
-    name: Apache License, Version 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0
-  version: v296.0-SNAPSHOT
-servers:
-- url: https://marketplace.appdirect.com/api
-- url: https://virtserver.swaggerhub.com
+  title: Devs.ai Tenant Rate Limits API
+  version: '1.0'
+  description: Tenant owner APIs to configure default rate limits and per-organization overrides
+security: []
 tags:
 - name: Tenant Rate Limits
   description: Tenant owner APIs to configure default rate limits and per-organization overrides
@@ -278,6 +273,75 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    OrgRateLimitSimpleModeResponseDto:
+      type: object
+      required:
+      - orgId
+      - mode
+      properties:
+        orgId:
+          type: string
+        mode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
+          - NONE
+          description: 'Resulting override state: BLOCKED after block, UNLIMITED after unblock, NONE after clearing override.'
+    OrgRateLimitOverrideItemDto:
+      type: object
+      required:
+      - orgId
+      - mode
+      properties:
+        orgId:
+          type: string
+        mode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
+    SetTenantDefaultRateLimitRequestDto:
+      type: object
+      required:
+      - mode
+      properties:
+        mode:
+          type: string
+          enum:
+          - SUBSCRIPTION_LIMITS
+          - UNLIMITED
+          description: Default rate limit mode for child organizations. SUBSCRIPTION_LIMITS applies subscription-based limits; UNLIMITED removes subscription caps.
+    TenantDefaultRateLimitResponseDto:
+      type: object
+      required:
+      - mode
+      properties:
+        mode:
+          type: string
+          enum:
+          - SUBSCRIPTION_LIMITS
+          - UNLIMITED
+    ListTenantRateLimitOverridesResponseDto:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgRateLimitOverrideItemDto'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+          description: Present when additional pages can be fetched via the cursor query parameter.
     OrgRateLimitOverrideResponseDto:
       type: object
       required:
@@ -298,72 +362,9 @@ components:
         hasExplicitOverride:
           type: boolean
           description: True when a BLOCKED or UNLIMITED override is set for this organization.
-    SetTenantDefaultRateLimitRequestDto:
-      type: object
-      required:
-      - mode
-      properties:
-        mode:
-          type: string
-          enum:
-          - SUBSCRIPTION_LIMITS
-          - UNLIMITED
-          description: Default rate limit mode for child organizations. SUBSCRIPTION_LIMITS applies subscription-based limits; UNLIMITED removes subscription caps.
-    OrgRateLimitOverrideItemDto:
-      type: object
-      required:
-      - orgId
-      - mode
-      properties:
-        orgId:
-          type: string
-        mode:
-          type: string
-          enum:
-          - BLOCKED
-          - UNLIMITED
-    TenantDefaultRateLimitResponseDto:
-      type: object
-      required:
-      - mode
-      properties:
-        mode:
-          type: string
-          enum:
-          - SUBSCRIPTION_LIMITS
-          - UNLIMITED
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-    ListTenantRateLimitOverridesResponseDto:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgRateLimitOverrideItemDto'
-        pagination:
-          type: object
-          properties:
-            nextCursor:
-              type: string
-          description: Present when additional pages can be fetched via the cursor query parameter.
-    OrgRateLimitSimpleModeResponseDto:
-      type: object
-      required:
-      - orgId
-      - mode
-      properties:
-        orgId:
-          type: string
-        mode:
-          type: string
-          enum:
-          - BLOCKED
-          - UNLIMITED
-          - NONE
-          description: 'Resulting override state: BLOCKED after block, UNLIMITED after unblock, NONE after clearing override.'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your bearer token in the format **Bearer {token}**. Legacy header X-Authorization is also supported for backwards compatibility.

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Event API
+  title: Companies Event API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,7 @@ tags:
 paths:
   /channel/v1/events:
     get:
-      description: This call lists  all events on your marketplace.
+      description: This call lists all events on your marketplace.
       tags:
       - Event
       summary: List all events
@@ -179,86 +179,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/events/%7BeventId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    PagedResourcesOfEventWS:
-      allOf:
-      - $ref: '#/components/schemas/Resources'
-      - type: object
-        title: PagedResourcesOfEventWS
-        properties:
-          page:
-            $ref: '#/components/schemas/PageMetadata'
-        example:
-          content:
-          - {}
-          - {}
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          page:
-            number: 12345
-            size: 12345
-            totalElements: 12345
-            totalPages: 12345
-    Resources:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type: object
-        title: Resources
-        properties:
-          content:
-            type: array
-            items:
-              type: object
-        example:
-          content:
-          - {}
-          - {}
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-    EventType:
-      type: string
-      title: EventType
-      enum:
-      - SUBSCRIPTION_ORDER
-      - SUBSCRIPTION_CHANGE
-      - SUBSCRIPTION_CANCEL
-      - SUBSCRIPTION_NOTICE
-      - USER_ASSIGNMENT
-      - USER_UNASSIGNMENT
-      - USER_UPDATED
-      - ADDON_ORDER
-      - ADDON_CHANGE
-      - ADDON_CANCEL
-      - ADDON_BIND
-      - ADDON_UNBIND
-    EventProductWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - description: Production information being used in an event
-        type: object
-        title: EventProductWS
-        properties:
-          name:
-            description: Product name
-            type: string
-          productId:
-            description: Product id
-            type: number
-        example:
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          name: '...'
-          productId: 12345
     Link:
-      type: object
+      type:
+      - object
+      - 'null'
       title: Link
       properties:
         href:
@@ -268,7 +192,21 @@ components:
       example:
         href: '...'
         rel: '...'
-      nullable: true
+    ErrorWS:
+      type: object
+      title: ErrorWS
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      example:
+        code: '...'
+        message: '...'
     EventWS:
       description: A subscription related integration event
       type: object
@@ -335,6 +273,47 @@ components:
         successful: true
         type: SUBSCRIPTION_CHANGE
         uuid: '...'
+    PagedResourcesOfEventWS:
+      allOf:
+      - $ref: '#/components/schemas/Resources'
+      - type: object
+        title: PagedResourcesOfEventWS
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+        example:
+          content:
+          - {}
+          - {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          page:
+            number: 12345
+            size: 12345
+            totalElements: 12345
+            totalPages: 12345
+    Resources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: Resources
+        properties:
+          content:
+            type: array
+            items:
+              type: object
+        example:
+          content:
+          - {}
+          - {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
     CompanyWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -356,36 +335,27 @@ components:
           - href: '...'
             rel: '...'
           name: '...'
-    ResourceSupport:
-      type: object
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-      nullable: true
-    ErrorWS:
-      type: object
-      title: ErrorWS
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      example:
-        code: '...'
-        message: '...'
+    EventProductWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Production information being used in an event
+        type: object
+        title: EventProductWS
+        properties:
+          name:
+            description: Product name
+            type: string
+          productId:
+            description: Product id
+            type: number
+        example:
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+          productId: 12345
     PageMetadata:
       type: object
       title: PageMetadata
@@ -412,3 +382,37 @@ components:
         size: 12345
         totalElements: 12345
         totalPages: 12345
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    EventType:
+      type: string
+      title: EventType
+      enum:
+      - SUBSCRIPTION_ORDER
+      - SUBSCRIPTION_CHANGE
+      - SUBSCRIPTION_CANCEL
+      - SUBSCRIPTION_NOTICE
+      - USER_ASSIGNMENT
+      - USER_UNASSIGNMENT
+      - USER_UPDATED
+      - ADDON_ORDER
+      - ADDON_CHANGE
+      - ADDON_CANCEL
+      - ADDON_BIND
+      - ADDON_UNBIND

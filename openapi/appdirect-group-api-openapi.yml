@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Group API
+  title: Companies Group API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -718,7 +718,7 @@ paths:
       - lang: Java + Okhttp
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships?searchText=SOME_STRING_VALUE&member=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
     post:
-      summary: Create batch group memberships change requests.
+      summary: Create batch group memberships change requests
       description: Create batched group memberships change requests.
       tags:
       - Group
@@ -1142,37 +1142,23 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    UserGroupUnassignmentRequest:
+    AssignmentRequest:
       type: object
-      title: UserGroupUnassignmentRequest
+      title: AssignmentRequest
       properties:
-        userUuid:
-          description: User unique identifier
+        companyEntitlementUuid:
+          description: Company entitlement unique identifier
           type: string
-      example:
-        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
-    UpdateCompanyGroupAccountV2:
-      type: object
-      title: UpdateCompanyGroupAccountV2
-      properties:
-        description:
-          description: Company group description.
-          type: string
-        name:
-          description: Company group name.
-          type: string
-      example:
-        name: Engineer
-        description: Engineering
-    UserGroupAssignmentRequest:
-      type: object
-      title: UserGroupAssignmentRequest
-      properties:
+        parameters:
+          description: Parameters
+          type: object
         userUuid:
           description: User unique identifier
           type: string
       example:
         userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
+        companyEntitlementUuid: 90e74ec1-db36-474b-81ea-95a3b1fce48d
+        parameters: {}
     CreateCompanyGroupAccountV2:
       type: object
       title: CreateCompanyGroupAccountV2
@@ -1186,6 +1172,15 @@ components:
       example:
         name: HR
         description: Human Resources
+    UserGroupUnassignmentRequest:
+      type: object
+      title: UserGroupUnassignmentRequest
+      properties:
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
     UserGroupAssignmentChangeRequests:
       type: object
       title: UserGroupAssignmentChangeRequests
@@ -1217,23 +1212,15 @@ components:
           parameters: {}
         appUnassignmentRequests:
         - userEntitlementId: 1941
-    AssignmentRequest:
+    UserGroupAssignmentRequest:
       type: object
-      title: AssignmentRequest
+      title: UserGroupAssignmentRequest
       properties:
-        companyEntitlementUuid:
-          description: Company entitlement unique identifier
-          type: string
-        parameters:
-          description: Parameters
-          type: object
         userUuid:
           description: User unique identifier
           type: string
       example:
         userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
-        companyEntitlementUuid: 90e74ec1-db36-474b-81ea-95a3b1fce48d
-        parameters: {}
     UassignmentRequest:
       type: object
       title: UassignmentRequest
@@ -1243,3 +1230,16 @@ components:
           type: number
       example:
         userEntitlementId: 1926
+    UpdateCompanyGroupAccountV2:
+      type: object
+      title: UpdateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: Engineer
+        description: Engineering

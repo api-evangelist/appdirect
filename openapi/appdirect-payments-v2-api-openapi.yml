@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Payments v2 API
+  title: Companies Payments v2 API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,18 +10,16 @@ servers:
 - url: https://marketplace.appdirect.com/api
 - url: https://virtserver.swaggerhub.com
 tags:
-- name: Payments v2
+- name: Payments V2
   x-displayName: Payments v2
 paths:
   /api/appMarket/v2/transferPlatformConfigurations:
     get:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Retrieve all transfer platform configurations
-      description: 'Retrieves all transfer platform configurations for the marketplace of the current user
-
-        '
+      description: Retrieves all transfer platform configurations for the marketplace of the current user
       operationId: getTransferPlatformConfigurations
       responses:
         '200':
@@ -61,12 +59,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
     post:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Create transfer platform configurations
-      description: 'Create a transfer platform configuration in the marketplace of the current user
-
-        '
+      description: Create a transfer platform configuration in the marketplace of the current user
       operationId: createTransferPlatformConfiguration
       requestBody:
         content:
@@ -106,12 +102,10 @@ paths:
         type: string
     get:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Retrieve transfer platform configurations
-      description: 'Retrieves the transfer platform configuration by ID
-
-        '
+      description: Retrieves the transfer platform configuration by ID
       operationId: getTransferPlatformConfiguration
       responses:
         '200':
@@ -138,12 +132,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
     put:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Update transfer platform configurations
-      description: 'Updates the specified transfer platform configuration
-
-        '
+      description: Updates the specified transfer platform configuration
       operationId: updateTransferPlatformConfiguration
       requestBody:
         content:
@@ -175,12 +167,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"platformType\\\":\\\"stripe\\\",\\\"parameters\\\":{\\\"base_url\\\":\\\"https://api.stripe.com/testupdate\\\",\\\"username\\\":\\\"secret\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferPlatformConfigurations/%7BtransferPlatformConfigurationId%7D\")\n  .put(body)\n  .build();\n\nResponse response = client.newCall(request).execute();"
     delete:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Delete transfer platform configurations
-      description: 'Deletes the specified transfer platform configuration. It cannot be used anymore
-
-        '
+      description: Deletes the specified transfer platform configuration. It cannot be used anymore
       operationId: deleteTransferPlatformConfiguration
       responses:
         '204':
@@ -202,12 +192,10 @@ paths:
   /api/appMarket/v2/transferMethods:
     post:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Create transfer methods
-      description: 'Creates a new Transfer Method for the requesting (authenticated) user
-
-        '
+      description: Creates a new Transfer Method for the requesting (authenticated) user
       operationId: createTransferMethod
       requestBody:
         content:
@@ -253,12 +241,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"platformType\\\":\\\"stripe\\\",\\\"partyId\\\":\\\"1\\\",\\\"partyType\\\":\\\"USER\\\",\\\"properties\\\":{\\\"account_id\\\":\\\"123456\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
     get:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Retrieve transfer methods
-      description: 'Retrieves the transfer methods associated with the requesting (authenticated) user
-
-        '
+      description: Retrieves the transfer methods associated with the requesting (authenticated) user
       operationId: getTransferMethods
       parameters:
       - in: query
@@ -321,12 +307,10 @@ paths:
         type: string
     get:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Retrieves Transfer Method by ID
-      description: 'Retrieves the Transfer Method for the given ID
-
-        '
+      description: Retrieves the Transfer Method for the given ID
       operationId: getTransferMethod
       responses:
         '200':
@@ -363,12 +347,10 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
     delete:
       tags:
-      - Payments v2
+      - Payments V2
       x-appdirect-api-stage: Early Access
       summary: Delete transfer methods
-      description: 'Deletes the transfer method with the specified ID
-
-        '
+      description: Deletes the transfer method with the specified ID
       operationId: deleteTransferMethod
       responses:
         '204':
@@ -386,6 +368,88 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    AbstractTransferPlatformConfiguration:
+      title: AbstractTransferPlatformConfiguration
+      description: Transfer platform configuration base fields
+      properties:
+        platformType:
+          type: string
+          description: The transfer platform type
+          minLength: 1
+          maxLength: 255
+        parameters:
+          type: object
+          description: The transfer platform parameters.
+          minProperties: 1
+          additionalProperties:
+            type: string
+      required:
+      - platformType
+      - parameters
+      example:
+        platformType: stripe
+        parameters:
+          base_url: https://api.stripe.com/testupdate
+          username: secret
+    Balance:
+      type: object
+      title: Balance
+      description: The balance of a transfer method
+      properties:
+        amount:
+          type: string
+          format: amount
+          description: A monetary amount
+        currency:
+          type: string
+          pattern: ^[A-Z]{3}$
+          description: The currency of the amount, using the ISO-4217 currency code
+      example:
+        amount: '49.99'
+        currency: USD
+    TransferPlatformConfigurationRequest:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationRequest
+        description: A transfer platform configuration request
+        example:
+          platformType: stripe
+          parameters:
+            base_url: https://api.stripe.com/testupdate
+            username: secret
+    TransferMethodResponse:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferMethod'
+      - title: TransferMethodResponse
+        description: A transfer method response
+        type: object
+        properties:
+          id:
+            type: string
+            description: The transfer method ID
+            minLength: 36
+            maxLength: 36
+          balance:
+            $ref: '#/components/schemas/Balance'
+          displayName:
+            type: string
+            description: The transfer method display name
+            minLength: 1
+            maxLength: 255
+        required:
+        - id
+        - displayName
+        example:
+          id: 619da695-42d6-4189-9cc2-cdc885a3a4f7
+          properties:
+          - property1: property1 value
+          platformType: stripe
+          partyId: '1'
+          partyType: USER
+          balance:
+            amount: '10.00'
+            currency: USD
+          displayName: '****1234'
     AbstractTransferMethod:
       title: AbstractTransferMethod
       description: Transfer method base fields
@@ -422,16 +486,6 @@ components:
         platformType: stripe
         partyId: '1'
         partyType: USER
-    TransferPlatformConfigurationRequest:
-      allOf:
-      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
-      - title: TransferPlatformConfigurationRequest
-        description: A transfer platform configuration request
-        example:
-          platformType: stripe
-          parameters:
-            base_url: https://api.stripe.com/testupdate
-            username: secret
     ErrorResponse:
       type: object
       title: ErrorResponse
@@ -475,39 +529,24 @@ components:
           partyType: USER
           properties:
             account_id: '123456'
-    TransferMethodResponse:
+    TransferPlatformConfigurationResponse:
       allOf:
-      - $ref: '#/components/schemas/AbstractTransferMethod'
-      - title: TransferMethodResponse
-        description: A transfer method response
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationResponse
+        description: A transfer platform configuration response
         type: object
         properties:
           id:
             type: string
-            description: The transfer method ID
-            minLength: 36
-            maxLength: 36
-          balance:
-            $ref: '#/components/schemas/Balance'
-          displayName:
-            type: string
-            description: The transfer method display name
-            minLength: 1
-            maxLength: 255
+            description: Id of the transfer platform configuration
         required:
         - id
-        - displayName
         example:
-          id: 619da695-42d6-4189-9cc2-cdc885a3a4f7
-          properties:
-          - property1: property1 value
+          id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
           platformType: stripe
-          partyId: '1'
-          partyType: USER
-          balance:
-            amount: '10.00'
-            currency: USD
-          displayName: '****1234'
+          parameters:
+            base_url: https://api.stripe.com/testupdate
+            username: secret
     ErrorPaymentDetail:
       type: object
       title: ErrorPaymentDetail
@@ -532,100 +571,7 @@ components:
       example:
         code: INVALID_REQUEST
         message: Missing parameter
-    Balance:
-      type: object
-      title: Balance
-      description: The balance of a transfer method
-      properties:
-        amount:
-          type: string
-          format: amount
-          description: A monetary amount
-        currency:
-          type: string
-          pattern: ^[A-Z]{3}$
-          description: The currency of the amount, using the ISO-4217 currency code
-      example:
-        amount: '49.99'
-        currency: USD
-    TransferPlatformConfigurationResponse:
-      allOf:
-      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
-      - title: TransferPlatformConfigurationResponse
-        description: A transfer platform configuration response
-        type: object
-        properties:
-          id:
-            type: string
-            description: Id of the transfer platform configuration
-        required:
-        - id
-        example:
-          id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
-          platformType: stripe
-          parameters:
-            base_url: https://api.stripe.com/testupdate
-            username: secret
-    AbstractTransferPlatformConfiguration:
-      title: AbstractTransferPlatformConfiguration
-      description: Transfer platform configuration base fields
-      properties:
-        platformType:
-          type: string
-          description: The transfer platform type
-          minLength: 1
-          maxLength: 255
-        parameters:
-          type: object
-          description: The transfer platform parameters.
-          minProperties: 1
-          additionalProperties:
-            type: string
-      required:
-      - platformType
-      - parameters
-      example:
-        platformType: stripe
-        parameters:
-          base_url: https://api.stripe.com/testupdate
-          username: secret
   responses:
-    ServerError:
-      description: Indicates an unknown internal error that prevents the server from processing the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 500
-                code: UNKNOWN_ERROR
-                message: Internal server error.
-    NotFound:
-      description: Resource Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 404
-                code: NOT_FOUND
-                message: Not found
-    BadRequest:
-      description: Indicates a bad request, which can be due to violation(s) of HTTP or API rules
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 400
-                code: BAD_REQUEST
-                message: The locale is not recognized.
     TransferPlatformConfigurationRequestSuccessful:
       description: The transfer platform configuration request has been treated successfully
       content:
@@ -640,3 +586,39 @@ components:
                 parameters:
                   base_url: https://api.stripe.com/testupdate
                   username: secret
+    ServerError:
+      description: Indicates an unknown internal error that prevents the server from processing the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 500
+                code: UNKNOWN_ERROR
+                message: Internal server error.
+    BadRequest:
+      description: Indicates a bad request, which can be due to violation(s) of HTTP or API rules
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 400
+                code: BAD_REQUEST
+                message: The locale is not recognized.
+    NotFound:
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: Not found

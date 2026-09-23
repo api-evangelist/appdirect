@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Reporting V2 API
+  title: Companies Reporting V2 API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -150,43 +150,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v2/reports/%7BreportUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    PagedResources:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - title: PagedResources
-        type: object
-        properties:
-          page:
-            $ref: '#/components/schemas/PageMetadata'
-    ReportWS:
-      description: Single report information for Reporting API
-      type: object
-      title: Report
-      properties:
-        createdDate:
-          description: Report creation date
-          type: number
-        endDate:
-          description: Period end time of the report
-          type: number
-        filename:
-          description: Report file name
-          type: string
-        id:
-          description: Report ID
-          type: number
-        reportType:
-          $ref: '#/components/schemas/ReportType'
-        startDate:
-          description: Period start time of the report
-          type: number
-      example:
-        createdDate: 12345
-        endDate: 12345
-        filename: '...'
-        id: 12345
-        reportType: INVOICES_CSV
-        startDate: 12345
     ReportType:
       type: string
       title: ReportType
@@ -220,8 +183,18 @@ components:
       - TAXES
       - TRANSACTIONS
       - VOICE_CONN_CSV
+    PagedResources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - title: PagedResources
+        type: object
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
     Link:
-      type: object
+      type:
+      - object
+      - 'null'
       title: Link
       properties:
         href:
@@ -231,7 +204,79 @@ components:
       example:
         href: '...'
         rel: '...'
-      nullable: true
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    ReportWS:
+      description: Single report information for Reporting API
+      type: object
+      title: Report
+      properties:
+        createdDate:
+          description: Report creation date
+          type: number
+        endDate:
+          description: Period end time of the report
+          type: number
+        filename:
+          description: Report file name
+          type: string
+        id:
+          description: Report ID
+          type: number
+        reportType:
+          $ref: '#/components/schemas/ReportType'
+        startDate:
+          description: Period start time of the report
+          type: number
+      example:
+        createdDate: 12345
+        endDate: 12345
+        filename: '...'
+        id: 12345
+        reportType: INVOICES_CSV
+        startDate: 12345
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
     ReportListingWS:
       description: A list of reports
       type: object
@@ -270,46 +315,3 @@ components:
           totalElements: 1
           totalPages: 1
           number: 1
-    ResourceSupport:
-      type: object
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-      nullable: true
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345

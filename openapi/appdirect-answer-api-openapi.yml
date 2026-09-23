@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Answer API
+  title: Companies Answer API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -284,26 +284,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/questions/%7BquestionId%7D/answers/%7BanswerId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    AuthorWS:
-      description: Author of a question, an answer, a review or a review comment
-      type: object
-      title: Author
-      properties:
-        name:
-          description: Name
-          type: string
-        profilePicUrl:
-          description: Profile pic URL
-          type: string
-          nullable: true
-        uuid:
-          description: Unique identifier
-          type: string
-          nullable: true
-      example:
-        name: '...'
-        profilePicUrl: '...'
-        uuid: '...'
     QuestionAnswerWS:
       description: Answer to a question on a product
       type: object
@@ -316,12 +296,14 @@ components:
           type: string
         id:
           description: ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         lastModified:
           description: Last modified date
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         official:
           description: Is the official answer
           type: boolean
@@ -334,3 +316,25 @@ components:
         id: 12345
         lastModified: 12345
         official: true
+    AuthorWS:
+      description: Author of a question, an answer, a review or a review comment
+      type: object
+      title: Author
+      properties:
+        name:
+          description: Name
+          type: string
+        profilePicUrl:
+          description: Profile pic URL
+          type:
+          - string
+          - 'null'
+        uuid:
+          description: Unique identifier
+          type:
+          - string
+          - 'null'
+      example:
+        name: '...'
+        profilePicUrl: '...'
+        uuid: '...'

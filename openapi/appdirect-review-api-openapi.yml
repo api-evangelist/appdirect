@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Review API
+  title: Companies Review API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -182,9 +182,7 @@ paths:
         This call updates an existing product review on your marketplace.'
       tags:
       - Review
-      summary: 'Update a review
-
-        This call updates an existing product review on your marketplace.'
+      summary: Update a review This call updates an existing product review on your marketplace
       operationId: resource_Review_updateProductReview_PUT
       parameters:
       - description: Application id
@@ -247,9 +245,7 @@ paths:
         This call deletes a product review from your marketplace.'
       tags:
       - Review
-      summary: 'Delete a review
-
-        This call deletes a product review from your marketplace.'
+      summary: Delete a review This call deletes a product review from your marketplace
       operationId: resource_Review_deleteProductReview_DELETE
       parameters:
       - description: Application id
@@ -295,12 +291,14 @@ components:
           type: string
         profilePicUrl:
           description: Profile pic URL
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         uuid:
           description: Unique identifier
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       example:
         name: '...'
         profilePicUrl: '...'
@@ -317,24 +315,29 @@ components:
           type: string
         commentCount:
           description: Number of comment
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         id:
           description: ID
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         lastModified:
           description: Last modified date
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         rating:
           description: Rating
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         source:
           description: Source
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
           description: Title
           type: string

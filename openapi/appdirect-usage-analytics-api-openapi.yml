@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Usage & Analytics API
-  license:
-    name: Apache License, Version 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0
-  version: v296.0-SNAPSHOT
-servers:
-- url: https://marketplace.appdirect.com/api
-- url: https://virtserver.swaggerhub.com
+  title: Devs.ai Usage & Analytics API
+  version: '1.0'
+  description: Monitor organization and AI usage metrics
+security: []
 tags:
 - name: Usage & Analytics
   description: Monitor organization and AI usage metrics
@@ -53,26 +48,6 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    OrgUsage:
-      type: object
-      properties:
-        orgId:
-          type: string
-          description: Unique identifier for the organization.
-        dataTokensUsed:
-          type: number
-          description: Number of data tokens used by the organization.
-        dataUsageTokenLimit:
-          type: number
-          nullable: true
-          description: The data token usage limit for the organization, if any.
-        apiTokensUsed:
-          type: number
-          description: Number of API tokens used by the organization.
-        apiUsageTokenLimit:
-          type: number
-          nullable: true
-          description: The API token usage limit for the organization, if any.
     AIUsage:
       type: object
       properties:
@@ -80,12 +55,14 @@ components:
           type: string
           description: Unique identifier for the AI instance.
         aiDataTokensUsed:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           description: Number of data tokens used by this AI instance.
         aiApiTokensUsed:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           description: Number of API tokens used by this AI instance.
     OrgUsageByAI:
       type: object
@@ -96,3 +73,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AIUsage'
+    OrgUsage:
+      type: object
+      properties:
+        orgId:
+          type: string
+          description: Unique identifier for the organization.
+        dataTokensUsed:
+          type: number
+          description: Number of data tokens used by the organization.
+        dataUsageTokenLimit:
+          type:
+          - number
+          - 'null'
+          description: The data token usage limit for the organization, if any.
+        apiTokensUsed:
+          type: number
+          description: Number of API tokens used by the organization.
+        apiUsageTokenLimit:
+          type:
+          - number
+          - 'null'
+          description: The API token usage limit for the organization, if any.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your bearer token in the format **Bearer {token}**. Legacy header X-Authorization is also supported for backwards compatibility.

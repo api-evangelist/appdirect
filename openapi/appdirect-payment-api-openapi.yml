@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Payment API
+  title: Companies Payment API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,7 @@ tags:
 paths:
   /billing/v1/companies/{companyId}/payments:
     get:
-      description: List all of  the payments for the given company
+      description: List all of the payments for the given company
       tags:
       - Payment
       summary: List all payments for a company
@@ -671,39 +671,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/payments/%7BpaymentNumber%7D/invoices?count=SOME_STRING_VALUE&excludeFree=SOME_BOOLEAN_VALUE&fromDate=SOME_NUMBER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&start=SOME_STRING_VALUE&status=SOME_STRING_VALUE&toDate=SOME_NUMBER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    GatewayResponseWS:
-      type: object
-      title: GatewayResponse
-      properties:
-        avs:
-          description: True if address is validated.
-          type: boolean
-        code:
-          description: Code.
-          type: string
-          nullable: true
-        cvv:
-          description: True if credit card is validated.
-          type: boolean
-        message:
-          description: Message.
-          type: string
-          nullable: true
-      example:
-        avs: true
-        code: '...'
-        cvv: true
-        message: '...'
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS
     InvoiceStatus:
       type: string
       title: InvoiceStatus
@@ -712,78 +679,10 @@ components:
       - UNPAID
       - CARRIED
       - VOIDED
-    InvoiceListingWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type: object
-        title: InvoiceListing
-        properties:
-          company:
-            $ref: '#/components/schemas/LinkWS'
-          creationDate:
-            description: Creation date for the invoice.
-            type: number
-            nullable: true
-          orderIds:
-            type: array
-            description: Array of Order IDs
-            items:
-              type: string
-          currency:
-            $ref: '#/components/schemas/Currency'
-          dueDate:
-            description: Due date for the invoice.
-            type: number
-            nullable: true
-          invoiceId:
-            description: Invoice ID.
-            type: number
-            nullable: true
-          referenceNumber:
-            description: Reference number.
-            type: string
-            nullable: true
-          status:
-            $ref: '#/components/schemas/InvoiceStatus'
-          total:
-            description: Invoice total.
-            type: number
-            nullable: true
-          user:
-            $ref: '#/components/schemas/LinkWS'
-        example:
-          company:
-            href: '...'
-            id: '...'
-          creationDate: 12345
-          currency: DKK
-          dueDate: 12345
-          invoiceId: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          referenceNumber: '...'
-          status: PAID
-          total: 12345
-          user:
-            href: '...'
-            id: '...'
-    LinkWS:
-      type: object
-      title: LinkWS
-      properties:
-        href:
-          type: string
-        id:
-          type: string
-      example:
-        href: '...'
-        id: '...'
-      nullable: true
     Link:
-      type: object
+      type:
+      - object
+      - 'null'
       title: Link
       properties:
         href:
@@ -793,7 +692,14 @@ components:
       example:
         href: '...'
         rel: '...'
-      nullable: true
+    PaymentResult:
+      type: string
+      title: PaymentResult
+      enum:
+      - SUCCESSFUL
+      - FAILED
+      - GATEWAY_NOT_AVAILABLE
+      - MANUAL
     PaymentWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -802,30 +708,34 @@ components:
         properties:
           amount:
             description: Payment amount.
-            type: number
-            nullable: true
+            type:
+            - number
+            - 'null'
           company:
             $ref: '#/components/schemas/LinkWS'
           currency:
             $ref: '#/components/schemas/Currency'
           date:
             description: Payment date.
-            type: number
-            nullable: true
+            type:
+            - number
+            - 'null'
           gatewayResponse:
             $ref: '#/components/schemas/GatewayResponseWS'
           id:
             description: Payment number.
-            type: number
-            nullable: true
+            type:
+            - number
+            - 'null'
           method:
             $ref: '#/components/schemas/PaymentMethod'
           result:
             $ref: '#/components/schemas/PaymentResult'
           transactionId:
             description: Transaction ID.
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
           user:
             $ref: '#/components/schemas/LinkWS'
         example:
@@ -853,7 +763,9 @@ components:
             href: '...'
             id: '...'
     ResourceSupport:
-      type: object
+      type:
+      - object
+      - 'null'
       title: ResourceSupport
       description: Resource links
       properties:
@@ -868,7 +780,117 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-      nullable: true
+    GatewayResponseWS:
+      type: object
+      title: GatewayResponse
+      properties:
+        avs:
+          description: True if address is validated.
+          type: boolean
+        code:
+          description: Code.
+          type:
+          - string
+          - 'null'
+        cvv:
+          description: True if credit card is validated.
+          type: boolean
+        message:
+          description: Message.
+          type:
+          - string
+          - 'null'
+      example:
+        avs: true
+        code: '...'
+        cvv: true
+        message: '...'
+    PaymentMethod:
+      type: string
+      description: The supported payment methods
+      title: PaymentMethod
+      enum:
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    InvoiceListingWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: InvoiceListing
+        properties:
+          company:
+            $ref: '#/components/schemas/LinkWS'
+          creationDate:
+            description: Creation date for the invoice.
+            type:
+            - number
+            - 'null'
+          orderIds:
+            type: array
+            description: Array of Order IDs
+            items:
+              type: string
+          currency:
+            $ref: '#/components/schemas/Currency'
+          dueDate:
+            description: Due date for the invoice.
+            type:
+            - number
+            - 'null'
+          invoiceId:
+            description: Invoice ID.
+            type:
+            - number
+            - 'null'
+          referenceNumber:
+            description: Reference number.
+            type:
+            - string
+            - 'null'
+          status:
+            $ref: '#/components/schemas/InvoiceStatus'
+          total:
+            description: Invoice total.
+            type:
+            - number
+            - 'null'
+          user:
+            $ref: '#/components/schemas/LinkWS'
+        example:
+          company:
+            href: '...'
+            id: '...'
+          creationDate: 12345
+          currency: DKK
+          dueDate: 12345
+          invoiceId: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          referenceNumber: '...'
+          status: PAID
+          total: 12345
+          user:
+            href: '...'
+            id: '...'
+    LinkWS:
+      type:
+      - object
+      - 'null'
+      title: LinkWS
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+      example:
+        href: '...'
+        id: '...'
     Currency:
       description: Supported currencies for the system
       type: string
@@ -901,11 +923,3 @@ components:
       - COP
       - PEN
       default: USD
-    PaymentResult:
-      type: string
-      title: PaymentResult
-      enum:
-      - SUCCESSFUL
-      - FAILED
-      - GATEWAY_NOT_AVAILABLE
-      - MANUAL

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed User API
+  title: Companies User API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -1331,13 +1331,69 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"password\\\":\\\"temppassword123\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/temporaryPassword\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    BoostUser:
+    WorkExperienceAccountV2:
+      description: Represents a work experience
       type: object
-      title: BoostUser
+      title: WorkExperienceAccountV2
       properties:
-        apsUid:
+        current:
+          description: Currently working
+          type: boolean
+        description:
+          description: Description
           type: string
-      nullable: true
+        employer:
+          description: Employer
+          type: string
+        endYear:
+          description: Year ended
+          type: number
+        position:
+          description: Position
+          type: string
+        startYear:
+          description: Year started
+          type: number
+      example:
+        current: true
+        description: Developer @ Appdirect
+        employer: Appdirect
+        endYear: 2017
+        position: Manager
+        startYear: 2011
+    EmailAddressType:
+      type: string
+      title: EmailAddressType
+      description: Email address type
+      enum:
+      - PERSONAL
+      - WORK
+    IM:
+      description: Instant messenger
+      type: object
+      title: IM
+      properties:
+        account:
+          description: Account identifier
+          type: string
+        type:
+          $ref: '#/components/schemas/IMType'
+      example:
+        account: da853378-2e9a-4944-ad53-6257bf773ace
+        type: GOOGLE_TALK
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
     EmailAddressAccountV2:
       description: Email address information
       type: object
@@ -1355,32 +1411,6 @@ components:
         address: alternate@company.com
         type: WORK
         verified: false
-    InactiveUserAccountV2:
-      description: User activation information
-      type: object
-      title: InactiveUserAccountV2
-      properties:
-        activated:
-          description: Is user activated
-          type: boolean
-        email:
-          description: User email
-          type: string
-        password:
-          description: User password
-          type: string
-        termsOfService:
-          description: Indicates whether the user has accepted the terms of service
-          type: boolean
-        privacyPolicy:
-          description: Indicates whether the user has agreed to the privacy policy
-          type: boolean
-      example:
-        email: alex.gonsalez@company2438285395.com
-        password: some-password
-        activated: true
-        termsOfService: true
-        privacyPolicy: true
     TemporaryPasswordAccountV2:
       description: Temporary Password
       type: object
@@ -1391,6 +1421,38 @@ components:
           type: string
       example:
         password: temppassword123
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    IMType:
+      type: string
+      title: IMType
+      description: Instant messenger type
+      enum:
+      - YAHOO
+      - MSN
+      - GOOGLE_TALK
+      - JABBER
+      - AIM
+      - SKYPE
+      - ICQ
+      - COMUNICATOR
+      - OTHER
     CustomAttributeAccountV2:
       description: Custom attributes
       type: object
@@ -1422,49 +1484,46 @@ components:
         hint: ''
         valueKeys:
         - great option
-    EmailAddressType:
-      type: string
-      title: EmailAddressType
-      description: Email address type
-      enum:
-      - PERSONAL
-      - WORK
-    EducationAccountV2:
-      description: User profile's education information
-      type: object
-      title: EducationAccountV2
+    BoostUser:
+      type:
+      - object
+      - 'null'
+      title: BoostUser
       properties:
-        current:
-          description: If currently still at this school
-          type: boolean
-        degree:
-          description: Degree
+        apsUid:
           type: string
-        endYear:
-          description: End year
-          type: number
-        field:
-          description: Field of studies
-          type: string
-        school:
-          description: School
-          type: string
-        startYear:
-          description: Start year
-          type: number
-      example:
-        current: false
-        degree: bachelor's
-        endYear: 2010
-        field: Computer Science
-        school: MIT
-        startYear: 2007
     AttributeType:
       type: string
       title: AttributeType
       enum:
       - TEXT
       - MULTISELECT
+    InactiveUserAccountV2:
+      description: User activation information
+      type: object
+      title: InactiveUserAccountV2
+      properties:
+        activated:
+          description: Is user activated
+          type: boolean
+        email:
+          description: User email
+          type: string
+        password:
+          description: User password
+          type: string
+        termsOfService:
+          description: Indicates whether the user has accepted the terms of service
+          type: boolean
+        privacyPolicy:
+          description: Indicates whether the user has agreed to the privacy policy
+          type: boolean
+      example:
+        email: alex.gonsalez@company2438285395.com
+        password: some-password
+        activated: true
+        termsOfService: true
+        privacyPolicy: true
     UserProfileAccountV2:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -1559,48 +1618,6 @@ components:
             position: Manager
             startYear: 2011
           workPhone: +1 123 123 1234
-    IM:
-      description: Instant messenger
-      type: object
-      title: IM
-      properties:
-        account:
-          description: Account identifier
-          type: string
-        type:
-          $ref: '#/components/schemas/IMType'
-      example:
-        account: da853378-2e9a-4944-ad53-6257bf773ace
-        type: GOOGLE_TALK
-    Link:
-      type: object
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-      nullable: true
-    ResourceSupport:
-      type: object
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-      nullable: true
     PatchUserAccountV2:
       description: Update user information
       type: object
@@ -1613,26 +1630,31 @@ components:
           type: string
         firstName:
           description: First name of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         lastName:
           description: Last name of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         username:
           description: 'User name.
 
             If not provided, use the user''s email address'
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         ldapId:
           description: LDAP identifier of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         idpUuid:
           description: The external identity provider's ID for the user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         locale:
           description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
           type: string
@@ -1656,20 +1678,6 @@ components:
         roles:
         - ROLE_CORPORATE_ADMIN
         idpUuid: c412543-1233-6547-9809-0647dc42ee51
-    IMType:
-      type: string
-      title: IMType
-      description: Instant messenger type
-      enum:
-      - YAHOO
-      - MSN
-      - GOOGLE_TALK
-      - JABBER
-      - AIM
-      - SKYPE
-      - ICQ
-      - COMUNICATOR
-      - OTHER
     UpdateUserAccountV2:
       description: Update user information
       type: object
@@ -1682,20 +1690,24 @@ components:
           type: string
         firstName:
           description: First name of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         lastName:
           description: Last name of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         ldapId:
           description: LDAP identifier of user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         idpUuid:
           description: The external identity provider's ID for the user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         locale:
           description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
           type: string
@@ -1718,33 +1730,33 @@ components:
           apsUid: murnu8w
         roles:
         - ROLE_CORPORATE_ADMIN
-    WorkExperienceAccountV2:
-      description: Represents a work experience
+    EducationAccountV2:
+      description: User profile's education information
       type: object
-      title: WorkExperienceAccountV2
+      title: EducationAccountV2
       properties:
         current:
-          description: Currently working
+          description: If currently still at this school
           type: boolean
-        description:
-          description: Description
-          type: string
-        employer:
-          description: Employer
+        degree:
+          description: Degree
           type: string
         endYear:
-          description: Year ended
+          description: End year
           type: number
-        position:
-          description: Position
+        field:
+          description: Field of studies
+          type: string
+        school:
+          description: School
           type: string
         startYear:
-          description: Year started
+          description: Start year
           type: number
       example:
-        current: true
-        description: Developer @ Appdirect
-        employer: Appdirect
-        endYear: 2017
-        position: Manager
-        startYear: 2011
+        current: false
+        degree: bachelor's
+        endYear: 2010
+        field: Computer Science
+        school: MIT
+        startYear: 2007

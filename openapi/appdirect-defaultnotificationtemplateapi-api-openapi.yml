@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed DefaultNotificationTemplateApi API
+  title: Companies Default Notification Template API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -28,7 +28,7 @@ paths:
         Reserved for super support users.'
       tags:
       - DefaultNotificationTemplateApi
-      summary: Read default notification templates available for the current channel.
+      summary: Read default notification templates available for the current channel
       operationId: resource_DefaultNotificationTemplateApi_getDefaultTemplateDefinitions_GET
       responses:
         '200':
@@ -51,10 +51,9 @@ paths:
   /notification/v1/templates/default/common/email:
     post:
       x-appdirect-visible: false
-      description: Create or update a default common email template element
       tags:
       - DefaultNotificationTemplateApi
-      summary: Create or update a default common email template element.
+      summary: Create or update a default common email template element
       operationId: resource_DefaultNotificationTemplateApi_createOrUpdateDefaultCommonEmailTemplate_POST
       requestBody:
         content:
@@ -77,10 +76,9 @@ paths:
   /notification/v1/templates/default/common/email/{type}:
     get:
       x-appdirect-visible: false
-      description: Read default common email element by type
       tags:
       - DefaultNotificationTemplateApi
-      summary: Read default common email element by type.
+      summary: Read default common email element by type
       operationId: resource_DefaultNotificationTemplateApi_getDefaultCommonEmailTemplate_GET
       parameters:
       - description: Notification common element type
@@ -164,31 +162,60 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    NotificationAudienceType:
+    NotificationReminderType:
       type: string
-      title: NotificationAudienceType
+      title: NotificationReminderType
       enum:
-      - NEW_USER
-      - EXISTING_USER
-      - EXISTING_USER_WITHOUT_COMPANY_PARAM
-      - PRODUCT_OWNER
-      - CHANNEL_ADMIN
-      - CHANNEL_ADMIN_WITHOUT_PARAM
-      - CHANNEL_SUPPORT
-      - PRODUCT_USER
-      - COMPANY_ADMIN
-      - APP_DEVELOPER
-      - CUSTOM_INTEGRATION_APP_SUPPORT
-      - RESELLER
-      - RESELLER_WITHOUT_PARAM
-      - RESELLER_MANAGER
-      - RESELLER_MANAGER_WITHOUT_PARAM
-      - RESELLER_COMPANY_ADMIN
-      - SALES_SUPPORT
-      - SALES_SUPPORT_WITHOUT_PARAMS
-      - TICKET_SUPPORT
-      - DOMAIN_SUPPORT
-      - SUPER_SUPPORT
+      - NONE
+      - BEFORE
+      - AFTER
+    NotificationMethod:
+      type: string
+      title: NotificationMethod
+      enum:
+      - EMAIL
+      - SMS
+    NotificationEmailTemplateWS:
+      type: object
+      title: NotificationEmailTemplateWS
+      required:
+      - type
+      - locale
+      - subject
+      - content
+      properties:
+        content:
+          description: Email notification content
+          type: string
+        defaultTemplate:
+          description: If the template is a default template of it's kind
+          type: boolean
+        directSales:
+          description: If the template is used for a direct sale product
+          type: boolean
+        enabled:
+          description: If the email template is enabled
+          type: boolean
+        fallbackEmailTemplateId:
+          description: The ID of the template to fallback to if current one is disabled or not existing
+          type: number
+        id:
+          description: Email notification template ID
+          type: number
+        locale:
+          description: Email notification locale to determine the language
+          type: string
+        partner:
+          description: Partner being used to render the email
+          type: string
+        reminderPattern:
+          description: Notification reminder pattern
+          type: string
+        subject:
+          description: Email notification subject
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationTemplateType'
     NotificationCommonElementType:
       type: string
       title: NotificationCommonElementType
@@ -217,12 +244,6 @@ components:
           type: boolean
         type:
           $ref: '#/components/schemas/NotificationTemplateType'
-    NotificationMethod:
-      type: string
-      title: NotificationMethod
-      enum:
-      - EMAIL
-      - SMS
     NotificationTemplateType:
       type: string
       title: NotificationTemplateType
@@ -402,6 +423,18 @@ components:
       - API_ALERT
       - WELCOME_USER
       - CREDIT_CARD_REQUIRED
+    NotificationTemplateCategory:
+      type: string
+      title: NotificationTemplateCategory
+      enum:
+      - ACCOUNTS
+      - PRODUCTS
+      - VENDORS
+      - BILLING
+      - MARKETPLACE
+      - DOMAIN_REGISTRATION
+      - ASSISTED_SALES
+      - MISC
     NotificationCommonEmailElementWS:
       type: object
       title: NotificationCommonEmailElementWS
@@ -430,18 +463,6 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/NotificationCommonElementType'
-    NotificationTemplateCategory:
-      type: string
-      title: NotificationTemplateCategory
-      enum:
-      - ACCOUNTS
-      - PRODUCTS
-      - VENDORS
-      - BILLING
-      - MARKETPLACE
-      - DOMAIN_REGISTRATION
-      - ASSISTED_SALES
-      - MISC
     NotificationMethodTemplateWS:
       type: object
       title: NotificationMethodTemplate
@@ -451,51 +472,28 @@ components:
           type: boolean
         method:
           $ref: '#/components/schemas/NotificationMethod'
-    NotificationEmailTemplateWS:
-      type: object
-      title: NotificationEmailTemplateWS
-      required:
-      - type
-      - locale
-      - subject
-      - content
-      properties:
-        content:
-          description: Email notification content
-          type: string
-        defaultTemplate:
-          description: If the template is a default template of it's kind
-          type: boolean
-        directSales:
-          description: If the template is used for a direct sale product
-          type: boolean
-        enabled:
-          description: If the email template is enabled
-          type: boolean
-        fallbackEmailTemplateId:
-          description: The ID of the template to fallback to if current one is disabled or not existing
-          type: number
-        id:
-          description: Email notification template ID
-          type: number
-        locale:
-          description: Email notification locale to determine the language
-          type: string
-        partner:
-          description: Partner being used to render the email
-          type: string
-        reminderPattern:
-          description: Notification reminder pattern
-          type: string
-        subject:
-          description: Email notification subject
-          type: string
-        type:
-          $ref: '#/components/schemas/NotificationTemplateType'
-    NotificationReminderType:
+    NotificationAudienceType:
       type: string
-      title: NotificationReminderType
+      title: NotificationAudienceType
       enum:
-      - NONE
-      - BEFORE
-      - AFTER
+      - NEW_USER
+      - EXISTING_USER
+      - EXISTING_USER_WITHOUT_COMPANY_PARAM
+      - PRODUCT_OWNER
+      - CHANNEL_ADMIN
+      - CHANNEL_ADMIN_WITHOUT_PARAM
+      - CHANNEL_SUPPORT
+      - PRODUCT_USER
+      - COMPANY_ADMIN
+      - APP_DEVELOPER
+      - CUSTOM_INTEGRATION_APP_SUPPORT
+      - RESELLER
+      - RESELLER_WITHOUT_PARAM
+      - RESELLER_MANAGER
+      - RESELLER_MANAGER_WITHOUT_PARAM
+      - RESELLER_COMPANY_ADMIN
+      - SALES_SUPPORT
+      - SALES_SUPPORT_WITHOUT_PARAMS
+      - TICKET_SUPPORT
+      - DOMAIN_SUPPORT
+      - SUPER_SUPPORT

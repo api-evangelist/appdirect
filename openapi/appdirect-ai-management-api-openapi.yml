@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed AI Management API
-  license:
-    name: Apache License, Version 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0
-  version: v296.0-SNAPSHOT
-servers:
-- url: https://marketplace.appdirect.com/api
-- url: https://virtserver.swaggerhub.com
+  title: Devs.ai AI Management API
+  version: '1.0'
+  description: Create, retrieve, and manage AI assistants
+security: []
 tags:
 - name: AI Management
   description: Create, retrieve, and manage AI assistants
@@ -357,193 +352,30 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AIDetail'
+      operationId: getApiV1MeAi
+      x-operation-id-source: derived
 components:
   schemas:
-    AgentBundleDataSourceConfig:
-      type: object
-      properties:
-        originalId:
-          type: string
-          description: Original data source ID from the export environment, used for same-environment relink on import.
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/DataSourceType'
-        refreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-        data:
-          type: object
-          additionalProperties: true
-          nullable: true
-        knowledgeItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleKnowledgeItemConfig'
-      required:
-      - originalId
-      - name
-      - type
-      - refreshPeriod
-      - data
-      - knowledgeItems
-    AgentBundleToolConfig:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/ToolType'
-        data:
-          type: object
-          additionalProperties: true
-          nullable: true
-          description: Tool configuration with secrets stripped.
-      required:
-      - name
-      - type
-      - data
-    ImportAgentResponse:
-      type: object
-      properties:
-        aiId:
-          type: string
-          description: Identifier of the newly created agent.
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Non-fatal issues encountered during import, such as model substitution or skipped skills.
-      required:
-      - aiId
-      - warnings
-    AgentBundleKnowledgeItemConfig:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        uniqueId:
-          type: string
-          nullable: true
-        blobUrl:
-          type: string
-          nullable: true
-        filename:
-          type: string
-          nullable: true
-        mimeType:
-          type: string
-          nullable: true
-      required:
-      - name
-      - type
-      - uniqueId
-      - blobUrl
-      - filename
-      - mimeType
-    AgentBundleFlowConfig:
-      type: object
-      properties:
-        name:
-          type: string
-        enabled:
-          type: boolean
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleFlowVersionConfig'
-      required:
-      - name
-      - enabled
-      - versions
-    PublicCategoryType:
+    AIVisibility:
       type: string
-      enum:
-      - ACCOUNTING_FINANCE
-      - AI_MODELS
-      - ENGINEERING
-      - HUMAN_RESOURCES
-      - INFORMATION_TECHNOLOGY
-      - LEARNING_DEVELOPMENT
-      - MARKETING
-      - PRODUCTIVITY
-      - SALES
-      - ADVISOR
-      - FEATURED
-    ListAIsRequestScope:
-      type: string
+      description: 'Visibility level controlling who can access the AI. PRIVATE: Only the owner can access. GROUP: Only specified groups can access. ORGANIZATION: Anyone in the organization can access. ANYONE_WITH_LINK: Anyone with the link can access.'
       enum:
       - PRIVATE
-      - OWNED
       - GROUP
-      - SHARED
       - ORGANIZATION
-      - PUBLIC
-      - ALL
-    AIUserInputType:
-      type: string
-      enum:
-      - SHORT_TEXT
-      - LONG_TEXT
-      - TEXT_CHOICE
-      - IMAGE_CHOICE
-      - DATE
-      - NUMBER
-      - PHONE_NUMBER
-      - FILE_UPLOAD
-      - DISPLAY
-      - ADDRESS
-    AIProfile:
+      - ANYONE_WITH_LINK
+    AICreateRequest:
       type: object
-      properties:
-        headline:
-          type: string
-        description:
-          type: string
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIProfileFeature'
-        showCharacter:
-          type: boolean
-        showTraining:
-          type: boolean
-        showPersonality:
-          type: boolean
-        trainingDescription:
-          type: string
-        conversations:
-          type: array
-          items:
-            type: object
-        socialImage:
-          type: string
-        idleVideo:
-          type: string
-        idleVideoError:
-          type: string
-        showSpeaker:
-          type: boolean
-        showVideo:
-          type: boolean
-        voice:
-          type: string
-        voiceEngine:
-          type: string
-        videoModel:
-          type: string
-    AIUpdateRequest:
-      type: object
-      description: Request object for updating an AI configuration. Send only the fields you want to update.
+      description: Request object for creating an AI configuration.
       properties:
         src:
           type: string
         name:
           type: string
         introduction:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
           type: string
         instructions:
@@ -586,6 +418,66 @@ components:
           type: array
           items:
             type: string
+      required:
+      - src
+      - name
+      - description
+      - instructions
+    AgentBundleFlowConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleFlowVersionConfig'
+      required:
+      - name
+      - enabled
+      - versions
+    AgentBundleUserInputConfig:
+      type: object
+      properties:
+        variableName:
+          type: string
+        type:
+          $ref: '#/components/schemas/AIUserInputType'
+        label:
+          type: string
+        configuration:
+          type: object
+          additionalProperties: true
+        showOnChatCreate:
+          type: boolean
+        orderIndex:
+          type: integer
+      required:
+      - variableName
+      - type
+      - label
+      - configuration
+      - showOnChatCreate
+      - orderIndex
+    AgentBundleSkillConfig:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Skill slug: lowercase alphanumeric characters, hyphens, and underscores.'
+        description:
+          type: string
+        content:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - name
+      - description
+      - content
+      - enabled
     ToolType:
       type: string
       enum:
@@ -602,6 +494,69 @@ components:
       - BROWSER
       - SANDBOX
       - OPENAI_FUNCTION
+    AIUserInputType:
+      type: string
+      enum:
+      - SHORT_TEXT
+      - LONG_TEXT
+      - TEXT_CHOICE
+      - IMAGE_CHOICE
+      - DATE
+      - NUMBER
+      - PHONE_NUMBER
+      - FILE_UPLOAD
+      - DISPLAY
+      - ADDRESS
+    AgentBundleKnowledgeItemConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        uniqueId:
+          type:
+          - string
+          - 'null'
+        blobUrl:
+          type:
+          - string
+          - 'null'
+        filename:
+          type:
+          - string
+          - 'null'
+        mimeType:
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      - type
+      - uniqueId
+      - blobUrl
+      - filename
+      - mimeType
+    DataSourceRefreshPeriod:
+      type: string
+      description: How frequently the data source should be refreshed.
+      enum:
+      - NEVER
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+    DataSourceType:
+      type: string
+      description: The type of the data source.
+      enum:
+      - API
+      - FILE_UPLOAD
+      - GOOGLE_DRIVE
+      - ONEDRIVE
+      - WEB_URL
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
     AgentBundleAgentConfig:
       type: object
       description: Portable agent configuration included in an export bundle.
@@ -609,8 +564,9 @@ components:
         name:
           type: string
         introduction:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
           type: string
         instructions:
@@ -638,10 +594,8 @@ components:
           type: boolean
         options:
           $ref: '#/components/schemas/AIModelOptions'
-          nullable: true
         profile:
           $ref: '#/components/schemas/AIProfile'
-          nullable: true
       required:
       - name
       - introduction
@@ -673,36 +627,187 @@ components:
           description: Credential values keyed by requiredSecrets entries.
       required:
       - bundle
-    AIProfileFeature:
+    AgentBundleFlowVersionConfig:
       type: object
       properties:
-        title:
-          type: string
+        version:
+          type: integer
+        active:
+          type: boolean
         description:
           type: string
-    AgentBundleUserInputConfig:
-      type: object
-      properties:
-        variableName:
-          type: string
-        type:
-          $ref: '#/components/schemas/AIUserInputType'
-        label:
-          type: string
-        configuration:
+        data:
           type: object
           additionalProperties: true
-        showOnChatCreate:
-          type: boolean
-        orderIndex:
-          type: integer
       required:
-      - variableName
+      - version
+      - active
+      - description
+      - data
+    AgentBundleDataSourceConfig:
+      type: object
+      properties:
+        originalId:
+          type: string
+          description: Original data source ID from the export environment, used for same-environment relink on import.
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        refreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        knowledgeItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleKnowledgeItemConfig'
+      required:
+      - originalId
+      - name
       - type
-      - label
-      - configuration
-      - showOnChatCreate
-      - orderIndex
+      - refreshPeriod
+      - data
+      - knowledgeItems
+    AgentBundle:
+      type: object
+      description: Portable agent definition for export and import. Secrets are stripped from tool data and listed in requiredSecrets.
+      properties:
+        version:
+          type: string
+          enum:
+          - '1.0'
+        exportedAt:
+          type: string
+          format: date-time
+        source:
+          type: object
+          properties:
+            apiBaseUrl:
+              type: string
+            orgId:
+              type: string
+          required:
+          - apiBaseUrl
+          - orgId
+        agent:
+          $ref: '#/components/schemas/AgentBundleAgentConfig'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleToolConfig'
+        userInputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleUserInputConfig'
+        flows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleFlowConfig'
+        dataSources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleDataSourceConfig'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleSkillConfig'
+        requiredSecrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentBundleSecretDescriptor'
+      required:
+      - version
+      - exportedAt
+      - source
+      - agent
+      - tools
+      - userInputs
+      - flows
+      - dataSources
+      - skills
+      - requiredSecrets
+    AIModelOptions:
+      type: object
+      description: Configuration options for the AI model's behavior
+      properties:
+        temperature:
+          type: array
+          description: Controls randomness in the model's output
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        topP:
+          type: array
+          description: Controls diversity via nucleus sampling
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        topK:
+          type: array
+          description: Controls diversity by limiting to top K tokens
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        maxTokens:
+          type: array
+          description: Maximum number of tokens in the model's response
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        maxInputTokens:
+          type: array
+          description: Maximum number of input tokens allowed
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        frequencyPenalty:
+          type: array
+          description: Penalizes frequent token usage
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+        presencePenalty:
+          type: array
+          description: Penalizes new token usage
+          minItems: 1
+          maxItems: 1
+          items:
+            type: number
+    AIEditorUser:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type: string
+        email:
+          type: string
+    PublicCategoryType:
+      type: string
+      enum:
+      - ACCOUNTING_FINANCE
+      - AI_MODELS
+      - ENGINEERING
+      - HUMAN_RESOURCES
+      - INFORMATION_TECHNOLOGY
+      - LEARNING_DEVELOPMENT
+      - MARKETING
+      - PRODUCTIVITY
+      - SALES
+      - ADVISOR
+      - FEATURED
     ShareAIRequest:
       type: object
       properties:
@@ -710,48 +815,32 @@ components:
           type: string
       required:
       - emails
-    AgentBundleSecretDescriptor:
+    ImportAgentResponse:
       type: object
-      description: Describes a secret stripped during export. Keys map to credential fields in the import request.
       properties:
-        key:
+        aiId:
           type: string
-          description: Secret key in the format tool:<index>:<name>:<field>.
-        description:
-          type: string
-          description: Human-readable label for the credential field.
-        secretType:
-          type: string
-          enum:
-          - apiKey
-          - password
-          - clientId
-          - clientSecret
-          - header
-          - custom
+          description: Identifier of the newly created agent.
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Non-fatal issues encountered during import, such as model substitution or skipped skills.
       required:
-      - key
-      - description
-      - secretType
-    AIVisibility:
-      type: string
-      description: 'Visibility level controlling who can access the AI. PRIVATE: Only the owner can access. GROUP: Only specified groups can access. ORGANIZATION: Anyone in the organization can access. ANYONE_WITH_LINK: Anyone with the link can access.'
-      enum:
-      - PRIVATE
-      - GROUP
-      - ORGANIZATION
-      - ANYONE_WITH_LINK
-    AICreateRequest:
+      - aiId
+      - warnings
+    AIUpdateRequest:
       type: object
-      description: Request object for creating an AI configuration.
+      description: Request object for updating an AI configuration. Send only the fields you want to update.
       properties:
         src:
           type: string
         name:
           type: string
         introduction:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
           type: string
         instructions:
@@ -794,11 +883,53 @@ components:
           type: array
           items:
             type: string
+    AgentBundleSecretDescriptor:
+      type: object
+      description: Describes a secret stripped during export. Keys map to credential fields in the import request.
+      properties:
+        key:
+          type: string
+          description: Secret key in the format tool:<index>:<name>:<field>.
+        description:
+          type: string
+          description: Human-readable label for the credential field.
+        secretType:
+          type: string
+          enum:
+          - apiKey
+          - password
+          - clientId
+          - clientSecret
+          - header
+          - custom
       required:
-      - src
-      - name
+      - key
       - description
-      - instructions
+      - secretType
+    AgentBundleToolConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/ToolType'
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Tool configuration with secrets stripped.
+      required:
+      - name
+      - type
+      - data
+    AIProfileFeature:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
     AIDetail:
       type: object
       properties:
@@ -813,8 +944,9 @@ components:
         name:
           type: string
         introduction:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
           type: string
         instructions:
@@ -885,178 +1017,58 @@ components:
           type: boolean
         isDeleted:
           type: boolean
-    DataSourceRefreshPeriod:
+    ListAIsRequestScope:
       type: string
-      description: How frequently the data source should be refreshed.
       enum:
-      - NEVER
-      - DAILY
-      - WEEKLY
-      - MONTHLY
-    DataSourceType:
-      type: string
-      description: The type of the data source.
-      enum:
-      - API
-      - FILE_UPLOAD
-      - GOOGLE_DRIVE
-      - ONEDRIVE
-      - WEB_URL
-      - CONFLUENCE
-      - JIRA
-      - GITHUB
-    AgentBundleFlowVersionConfig:
+      - PRIVATE
+      - OWNED
+      - GROUP
+      - SHARED
+      - ORGANIZATION
+      - PUBLIC
+      - ALL
+    AIProfile:
       type: object
       properties:
-        version:
-          type: integer
-        active:
-          type: boolean
+        headline:
+          type: string
         description:
           type: string
-        data:
-          type: object
-          additionalProperties: true
-      required:
-      - version
-      - active
-      - description
-      - data
-    AgentBundleSkillConfig:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 'Skill slug: lowercase alphanumeric characters, hyphens, and underscores.'
-        description:
-          type: string
-        content:
-          type: string
-        enabled:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIProfileFeature'
+        showCharacter:
           type: boolean
-      required:
-      - name
-      - description
-      - content
-      - enabled
-    AIModelOptions:
-      type: object
-      description: Configuration options for the AI model's behavior
-      properties:
-        temperature:
-          type: array
-          description: Controls randomness in the model's output
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        topP:
-          type: array
-          description: Controls diversity via nucleus sampling
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        topK:
-          type: array
-          description: Controls diversity by limiting to top K tokens
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        maxTokens:
-          type: array
-          description: Maximum number of tokens in the model's response
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        maxInputTokens:
-          type: array
-          description: Maximum number of input tokens allowed
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        frequencyPenalty:
-          type: array
-          description: Penalizes frequent token usage
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-        presencePenalty:
-          type: array
-          description: Penalizes new token usage
-          minItems: 1
-          maxItems: 1
-          items:
-            type: number
-    AIEditorUser:
-      type: object
-      properties:
-        id:
+        showTraining:
+          type: boolean
+        showPersonality:
+          type: boolean
+        trainingDescription:
           type: string
-          nullable: true
-        name:
+        conversations:
+          type: array
+          items:
+            type: object
+        socialImage:
           type: string
-        email:
+        idleVideo:
           type: string
-    AgentBundle:
-      type: object
-      description: Portable agent definition for export and import. Secrets are stripped from tool data and listed in requiredSecrets.
-      properties:
-        version:
+        idleVideoError:
           type: string
-          enum:
-          - '1.0'
-        exportedAt:
+        showSpeaker:
+          type: boolean
+        showVideo:
+          type: boolean
+        voice:
           type: string
-          format: date-time
-        source:
-          type: object
-          properties:
-            apiBaseUrl:
-              type: string
-            orgId:
-              type: string
-          required:
-          - apiBaseUrl
-          - orgId
-        agent:
-          $ref: '#/components/schemas/AgentBundleAgentConfig'
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleToolConfig'
-        userInputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleUserInputConfig'
-        flows:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleFlowConfig'
-        dataSources:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleDataSourceConfig'
-        skills:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleSkillConfig'
-        requiredSecrets:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentBundleSecretDescriptor'
-      required:
-      - version
-      - exportedAt
-      - source
-      - agent
-      - tools
-      - userInputs
-      - flows
-      - dataSources
-      - skills
-      - requiredSecrets
+        voiceEngine:
+          type: string
+        videoModel:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your bearer token in the format **Bearer {token}**. Legacy header X-Authorization is also supported for backwards compatibility.

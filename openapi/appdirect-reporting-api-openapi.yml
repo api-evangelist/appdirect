@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed Reporting API
+  title: Companies Reporting API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -167,6 +167,39 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    ReportType:
+      type: string
+      title: ReportType
+      enum:
+      - ACTIVE_UNCONVERTED_USERS
+      - APPLICATION_USAGE
+      - CANCELLED_ENTITLEMENTS
+      - COMPANIES_CSV
+      - CONTRACT_TERM
+      - CUSTOMERS_CSV
+      - CUSTOMER_ACQUISITION_BONUS
+      - CUSTOMER_RETENTION_BONUS
+      - FAILED_ORDERS
+      - FAILURE_INTEGRATION_EVENT
+      - FREE_TRIALS
+      - GENERAL_PERFORMANCE_REPORT
+      - INVOICES
+      - INVOICES_CSV
+      - MICROSOFT_RECONCILIATION
+      - MIGRATION_PRODUCT_DATA
+      - MOSI_ACQUISITION_BONUS
+      - MOSI_RETENTION_BONUS
+      - NOT_USED_APP
+      - ORDER_EDITIONS_CSV
+      - ORDER_PRODUCTS_CSV
+      - PAYMENTS_DETAIL_CSV
+      - PAYMENTS_OVERVIEW_CSV
+      - RECONCILIATION
+      - RE_CALCULATE_SUBSCRIPTION_PRICES
+      - SUSPENDED_PURCHASED
+      - TAXES
+      - TRANSACTIONS
+      - VOICE_CONN_CSV
     ReportWS:
       description: Single report information for Reporting API
       type: object
@@ -224,36 +257,3 @@ components:
           reportType: CUSTOMERS_CSV
           startDate: 12345
         totalCount: 12345
-    ReportType:
-      type: string
-      title: ReportType
-      enum:
-      - ACTIVE_UNCONVERTED_USERS
-      - APPLICATION_USAGE
-      - CANCELLED_ENTITLEMENTS
-      - COMPANIES_CSV
-      - CONTRACT_TERM
-      - CUSTOMERS_CSV
-      - CUSTOMER_ACQUISITION_BONUS
-      - CUSTOMER_RETENTION_BONUS
-      - FAILED_ORDERS
-      - FAILURE_INTEGRATION_EVENT
-      - FREE_TRIALS
-      - GENERAL_PERFORMANCE_REPORT
-      - INVOICES
-      - INVOICES_CSV
-      - MICROSOFT_RECONCILIATION
-      - MIGRATION_PRODUCT_DATA
-      - MOSI_ACQUISITION_BONUS
-      - MOSI_RETENTION_BONUS
-      - NOT_USED_APP
-      - ORDER_EDITIONS_CSV
-      - ORDER_PRODUCTS_CSV
-      - PAYMENTS_DETAIL_CSV
-      - PAYMENTS_OVERVIEW_CSV
-      - RECONCILIATION
-      - RE_CALCULATE_SUBSCRIPTION_PRICES
-      - SUSPENDED_PURCHASED
-      - TAXES
-      - TRANSACTIONS
-      - VOICE_CONN_CSV

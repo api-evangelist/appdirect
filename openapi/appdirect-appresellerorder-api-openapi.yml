@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: The Companies API allows developers to manage marketplace companies and their user memberships.
-  title: Companies AI Embed AppResellerOrder API
+  title: Companies App Reseller Order API
   license:
     name: Apache License, Version 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0
@@ -152,49 +152,46 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/orders?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    OrderPagedReadItem:
-      allOf:
-      - $ref: '#/components/schemas/AppResellerOrderLightWS'
-      - title: OrderPagedReadItem
-        type: object
-        required:
-        - applicationName
-        - company
-        properties:
-          applicationName:
-            description: Application name
-            type: string
-          company:
-            $ref: '#/components/schemas/CompanyAssociation'
-        example:
-          id: '1234'
-          createdOn: 1529083173000
-          status: PENDING MANUAL RECOVERY
-          frequency: One Time
-          totalFee: USD350.00
-          applicationName: AUTO_DISCOUNTS_APP
-          editionName: Edition
-          orderCartId: '4567'
-          company:
-            id: 386626c0-53e2-4515-8450-4a720bb5d029
-            name: ACME
-    CompanyAssociation:
-      title: AppResellerCompanyAssociation
+    AppResellerOrderLightWS:
+      title: orderLightWS
       type: object
-      description: 'A minimum version of a company: includes only the company ID and name'
       required:
       - id
-      - name
+      - createdOn
+      - status
+      - frequency
+      - totalFee
+      - editionName
       properties:
         id:
-          description: Company ID
+          description: Order ID
           type: string
-        name:
-          description: Company name
+        createdOn:
+          description: Creation date of the order, in Unix timestamp format
+          type: number
+        status:
+          description: Order status (valid values are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)
+          type: string
+        frequency:
+          description: Frequency (valid values are MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY)
+          type: string
+        totalFee:
+          description: Total fee for the order
+          type: string
+        editionName:
+          description: Edition name
+          type: string
+        orderCartId:
+          description: Order cart ID
           type: string
       example:
-        id: 698555fc-bc65-4163-9fee-16308edec41b
-        name: Company A
+        id: '1234'
+        createdOn: 1529083173000
+        status: PENDING MANUAL RECOVERY
+        frequency: One Time
+        totalFee: USD350.00
+        editionName: Edition
+        orderCartId: '4567'
     OrderPagedReadResponse:
       type: object
       title: OrderPagedReadResponse
@@ -238,46 +235,23 @@ components:
           totalElements: 2
           totalPages: 1
           number: 1
-    AppResellerOrderLightWS:
-      title: orderLightWS
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
       type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
       required:
       - id
-      - createdOn
-      - status
-      - frequency
-      - totalFee
-      - editionName
+      - name
       properties:
         id:
-          description: Order ID
+          description: Company ID
           type: string
-        createdOn:
-          description: Creation date of the order, in Unix timestamp format
-          type: number
-        status:
-          description: Order status (valid values are INITIALIZED, PENDING_USER_APPROVAL, PENDING_REMOTE_CREATION, PENDING_MANUAL_RECOVERY, PENDING_ASYNCHRONOUS_CREATION, FREE_TRIAL, ACTIVE, FINISHED, ONE_TIME, CANCELLED, SUSPENDED, FREE_TRIAL_EXPIRED, FREE_TRIAL_CANCELLED, DELETED, FAILED, UPCOMING, PENDING_MIGRATION_ACTIVATION, PENDING_DELAYED_PROVISIONING)
-          type: string
-        frequency:
-          description: Frequency (valid values are MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY)
-          type: string
-        totalFee:
-          description: Total fee for the order
-          type: string
-        editionName:
-          description: Edition name
-          type: string
-        orderCartId:
-          description: Order cart ID
+        name:
+          description: Company name
           type: string
       example:
-        id: '1234'
-        createdOn: 1529083173000
-        status: PENDING MANUAL RECOVERY
-        frequency: One Time
-        totalFee: USD350.00
-        editionName: Edition
-        orderCartId: '4567'
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
     PageMetadata:
       type: object
       title: PageMetadata
@@ -304,3 +278,29 @@ components:
         size: 12345
         totalElements: 12345
         totalPages: 12345
+    OrderPagedReadItem:
+      allOf:
+      - $ref: '#/components/schemas/AppResellerOrderLightWS'
+      - title: OrderPagedReadItem
+        type: object
+        required:
+        - applicationName
+        - company
+        properties:
+          applicationName:
+            description: Application name
+            type: string
+          company:
+            $ref: '#/components/schemas/CompanyAssociation'
+        example:
+          id: '1234'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          applicationName: AUTO_DISCOUNTS_APP
+          editionName: Edition
+          orderCartId: '4567'
+          company:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            name: ACME
