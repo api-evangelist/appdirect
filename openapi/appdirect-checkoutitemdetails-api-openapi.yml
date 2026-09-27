@@ -92,52 +92,33 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"ownerUserId\\\":\\\"19d7343b-b8ab-464a-a893-8b107d77137d\\\",\\\"ownerCompanyId\\\":\\\"b0410709-8333-43e2-84d6-3228f6b9998b\\\",\\\"buyerUserId\\\":\\\"55144410-a14a-43a1-9e0a-062c6cf31770\\\",\\\"buyerCompanyId\\\":\\\"6e5a0af2-e6be-4a86-a1b0-ffabcc2c6324\\\",\\\"currency\\\":\\\"USD\\\",\\\"productIds\\\":[\\\"100\\\",\\\"200\\\"],\\\"pricingPlanIds\\\":[\\\"a12bcf2e-d27e-4808-aae0-6099cc828664\\\",\\\"3e0a22d3-dafb-4b3d-a487-7f4e7a94b32a\\\"],\\\"bundleIds\\\":[\\\"300\\\",\\\"400\\\"],\\\"subscriptionIds\\\":[\\\"915a6558-5a1b-446a-8ec6-334cc60e3d37\\\",\\\"8569269e-4c7f-4238-807c-513c718be135\\\"]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/v3/checkout/items\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    PricingSourceType:
-      type: string
-      title: PricingSourceType
-      enum:
-      - PURCHASE_CHANNEL
-      - PURCHASE_RESELLER_COMPANY
-      - RESELLER_COMPANY_CATALOG
-      - CHANNEL_CATALOG
-      - BASE_CATALOG
-    FreeTrialDurationPeriod:
-      type: string
-      title: FreeTrialDurationPeriod
-      description: Free trial duration period
-      enum:
-      - DAY
-      - MONTH
-    FreeTrialTerms:
+    PriceRange:
       type: object
-      title: FreeTrialTerms
-      description: Free Trial terms
+      title: PriceRange
+      description: Price definition for an explicit unit range.
+      required:
+      - min
+      - price
       properties:
-        freeTrialDuration:
-          type: integer
-          description: Duration of free trial, in days or months depending on the specified period
-        freeTrialDurationPeriod:
-          $ref: '#/components/schemas/FreeTrialDurationPeriod'
-        freeTrialGracePeriod:
-          type: integer
-          description: Length of grace period after free trial expiration, in days
+        min:
+          type: number
+        max:
+          type: number
+        price:
+          type: number
+        salePrice:
+          type: string
+          format: amount
+          description: Regular sale price
+        wholesalePrice:
+          type: string
+          format: amount
+          description: Wholesale sale price
       example:
-        freeTrialDuration: 1
-        freeTrialDurationPeriod: MONTH
-        freeTrialGracePeriod: 10
-    PricingStrategy:
-      description: Pricing strategy
-      type: string
-      title: PricingStrategy
-      enum:
-      - FREE
-      - FLAT
-      - UNIT
-      - TIERED
-      - VOLUME
-      - VARIABLE_PRICE_STRATEGIES
-      - UNLIMITED
-      - CUSTOM
+        min: 1
+        max: 5
+        salePrice: '4.0000000000'
+        wholeSalePrice: null
     CostType:
       type: string
       title: CostType
@@ -155,60 +136,47 @@ components:
       - DISCOUNT_FLAT
       - METERED_USAGE
       example: RECURRING_PER_UNIT
-    PricingDefinition:
+    Branding:
       type: object
-      title: PricingDefinition
-      description: Pricing definition
+      title: Branding
+      description: Branding
       properties:
-        costTypeCategory:
-          $ref: '#/components/schemas/CostTypeCategory'
-        costType:
-          $ref: '#/components/schemas/CostType'
-        pricingStrategy:
-          $ref: '#/components/schemas/PricingStrategy'
-        unit:
+        name:
           type: string
-          description: The unit type, USER, CARTRIDGE, and so on
-        priceRanges:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceRange'
-          description: Price ranges
-        unitAllowsDecimals:
-          type: boolean
-          description: Indicates whether decimals are allowed when purchasing units
-        increment:
-          type: number
-          format: amount
-          description: The minimum increment in number of units to purchase
-        allowsMeteredUsage:
-          type: boolean
-          description: Indicates whether metered usage is allowed
-        displaysPricePerIncrement:
-          type: boolean
-          description: Indicates whether to display the price per unit increment
+          description: Product name
+        vendor:
+          type: string
+          description: Product vendor
+        desc:
+          type: string
+          description: Product description
+        iconUrl:
+          type: string
+          format: uri
+          description: Product icon URL
+        href:
+          type: string
+          format: uri
+          description: URL of the API to use to retrieve detailed product information
+        storefrontUrl:
+          type: string
+          format: uri
+          description: URL of the product profile in the marketplace
       example:
-        costTypeCategory: RECURRING
-        costType: RECURRING_PER_UNIT
-        pricingStrategy: UNIT
-        unit: USER
-        priceRanges:
-        - min: 0
-          max: 5
-          salePrice: '4.0000000000'
-          wholeSalePrice: null
-        unitAllowsDecimals: false
-        increment: 5
-        allowsMeteredUsage: true
-        displaysPricePerIncrement: true
-    CheckoutItemType:
+        name: Sample Application
+        vendor: AppDirect
+        desc: Sample Application Description
+        iconUrl: https://appdirect.cloudfront.net/app_resources/1111/thumbs_64/img1111.png
+        href: https://marketplace.appdirect.com/api/marketplace/v1/products/1111
+        storefrontUrl: https://marketplace.appdirect.com/apps/1111
+    CostTypeCategory:
       type: string
-      title: CheckoutItemType
-      description: Checkout item type
+      title: CostTypeCategory
+      description: Category of cost
       enum:
-      - PRODUCT
-      - ADDON
-      - BUNDLE
+      - RECURRING
+      - ONE_TIME
+      example: ONE_TIME
     EditionPricingPlan:
       type: object
       title: EditionPricingPlan
@@ -247,102 +215,15 @@ components:
             increment: 5
             allowsMeteredUsage: true
             displaysPricePerIncrement: true
-    CostTypeCategory:
+    PricingSourceType:
       type: string
-      title: CostTypeCategory
-      description: Category of cost
+      title: PricingSourceType
       enum:
-      - RECURRING
-      - ONE_TIME
-      example: ONE_TIME
-    PriceRange:
-      type: object
-      title: PriceRange
-      description: Price definition for an explicit unit range.
-      required:
-      - min
-      - price
-      properties:
-        min:
-          type: number
-        max:
-          type: number
-        price:
-          type: number
-        salePrice:
-          type: string
-          format: amount
-          description: Regular sale price
-        wholesalePrice:
-          type: string
-          format: amount
-          description: Wholesale sale price
-      example:
-        min: 1
-        max: 5
-        salePrice: '4.0000000000'
-        wholeSalePrice: null
-    Branding:
-      type: object
-      title: Branding
-      description: Branding
-      properties:
-        name:
-          type: string
-          description: Product name
-        vendor:
-          type: string
-          description: Product vendor
-        desc:
-          type: string
-          description: Product description
-        iconUrl:
-          type: string
-          format: uri
-          description: Product icon URL
-        href:
-          type: string
-          format: uri
-          description: URL of the API to use to retrieve detailed product information
-        storefrontUrl:
-          type: string
-          format: uri
-          description: URL of the product profile in the marketplace
-      example:
-        name: Sample Application
-        vendor: AppDirect
-        desc: Sample Application Description
-        iconUrl: https://appdirect.cloudfront.net/app_resources/1111/thumbs_64/img1111.png
-        href: https://marketplace.appdirect.com/api/marketplace/v1/products/1111
-        storefrontUrl: https://marketplace.appdirect.com/apps/1111
-    PricingSource:
-      type: object
-      title: PricingSource
-      description: Pricing source
-      properties:
-        source:
-          $ref: '#/components/schemas/PricingSourceType'
-        pricingDefinitions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PricingDefinition'
-          description: The details of the pricing plan definition
-      example:
-        source: BASE_CATALOG
-        pricingDefinitions:
-        - costTypeCategory: RECURRING
-          costType: RECURRING_PER_UNIT
-          pricingStrategy: UNIT
-          unit: USER
-          priceRanges:
-          - min: 0
-            max: 5
-            salePrice: '4.0000000000'
-            wholeSalePrice: null
-          unitAllowsDecimals: false
-          increment: 5
-          allowsMeteredUsage: true
-          displaysPricePerIncrement: true
+      - PURCHASE_CHANNEL
+      - PURCHASE_RESELLER_COMPANY
+      - RESELLER_COMPANY_CATALOG
+      - CHANNEL_CATALOG
+      - BASE_CATALOG
     RevenueModel:
       type: string
       title: RevenueModel
@@ -352,61 +233,6 @@ components:
       - ONE_TIME
       - RECURRING
       - TIERED
-    Edition:
-      type: object
-      title: Edition
-      description: Edition
-      properties:
-        id:
-          type: string
-          description: Edition ID
-        name:
-          type: string
-          description: Edition name
-        revenueModel:
-          $ref: '#/components/schemas/RevenueModel'
-        freeTrialTerms:
-          $ref: '#/components/schemas/FreeTrialTerms'
-        pricingPlans:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditionPricingPlan'
-          description: List of edition pricing plans
-      example:
-      - id: 45b79e06-1ac6-11e5-90d8-ca7e16f380a7
-        freeTrialTerms:
-          freeTrialDuration: 1
-          freeTrialDurationPeriod: MONTH
-          freeTrialGracePeriod: 10
-        name: Sample Edition
-        revenueModel: RECURRING
-        pricingPlans:
-        - id: 3333
-          currency: USD
-          pricingPeriod: MONTHLY
-          pricingSources:
-          - source: BASE_CATALOG
-            pricingDefinitions:
-            - costTypeCategory: RECURRING
-              costType: RECURRING_PER_UNIT
-              pricingStrategy: UNIT
-              unit: USER
-              priceRanges:
-              - min: 0
-                max: 5
-                salePrice: '4.0000000000'
-                wholeSalePrice: null
-              unitAllowsDecimals: false
-              increment: 5
-              allowsMeteredUsage: true
-              displaysPricePerIncrement: true
-          - source: CHANNEL_CATALOG
-            pricingDefinitions:
-            - costTypeCategory: ONE_TIME
-              costType: ONE_TIME_FLAT
-              pricingStrategy: FLAT
-              salePrice: '3.0000000000'
-              wholeSalePrice: null
     CheckoutItemDetails:
       type: object
       title: CheckoutItemDetails
@@ -473,20 +299,74 @@ components:
                 pricingStrategy: FLAT
                 salePrice: '3.0000000000'
                 wholeSalePrice: null
-    PricingPeriod:
+    Edition:
+      type: object
+      title: Edition
+      description: Edition
+      properties:
+        id:
+          type: string
+          description: Edition ID
+        name:
+          type: string
+          description: Edition name
+        revenueModel:
+          $ref: '#/components/schemas/RevenueModel'
+        freeTrialTerms:
+          $ref: '#/components/schemas/FreeTrialTerms'
+        pricingPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditionPricingPlan'
+          description: List of edition pricing plans
+      example:
+      - id: 45b79e06-1ac6-11e5-90d8-ca7e16f380a7
+        freeTrialTerms:
+          freeTrialDuration: 1
+          freeTrialDurationPeriod: MONTH
+          freeTrialGracePeriod: 10
+        name: Sample Edition
+        revenueModel: RECURRING
+        pricingPlans:
+        - id: 3333
+          currency: USD
+          pricingPeriod: MONTHLY
+          pricingSources:
+          - source: BASE_CATALOG
+            pricingDefinitions:
+            - costTypeCategory: RECURRING
+              costType: RECURRING_PER_UNIT
+              pricingStrategy: UNIT
+              unit: USER
+              priceRanges:
+              - min: 0
+                max: 5
+                salePrice: '4.0000000000'
+                wholeSalePrice: null
+              unitAllowsDecimals: false
+              increment: 5
+              allowsMeteredUsage: true
+              displaysPricePerIncrement: true
+          - source: CHANNEL_CATALOG
+            pricingDefinitions:
+            - costTypeCategory: ONE_TIME
+              costType: ONE_TIME_FLAT
+              pricingStrategy: FLAT
+              salePrice: '3.0000000000'
+              wholeSalePrice: null
+    PricingStrategy:
+      description: Pricing strategy
       type: string
-      title: PricingPeriod
-      description: The pricing period. The billing frequency for the pricing plan.
+      title: PricingStrategy
       enum:
-      - ONE_TIME
-      - DAILY
-      - MONTHLY
-      - QUARTERLY
-      - SIX_MONTHS
-      - YEARLY
-      - TWO_YEARS
-      - THREE_YEARS
-      example: ONE_TIME
+      - FREE
+      - FLAT
+      - UNIT
+      - TIERED
+      - VOLUME
+      - VARIABLE_PRICE_STRATEGIES
+      - UNLIMITED
+      - CUSTOM
     CheckoutItemsDetailsRequest:
       type: object
       title: CheckoutItemsDetailsRequest
@@ -554,3 +434,123 @@ components:
         subscriptionIds:
         - 915a6558-5a1b-446a-8ec6-334cc60e3d37
         - 8569269e-4c7f-4238-807c-513c718be135
+    FreeTrialDurationPeriod:
+      type: string
+      title: FreeTrialDurationPeriod
+      description: Free trial duration period
+      enum:
+      - DAY
+      - MONTH
+    PricingDefinition:
+      type: object
+      title: PricingDefinition
+      description: Pricing definition
+      properties:
+        costTypeCategory:
+          $ref: '#/components/schemas/CostTypeCategory'
+        costType:
+          $ref: '#/components/schemas/CostType'
+        pricingStrategy:
+          $ref: '#/components/schemas/PricingStrategy'
+        unit:
+          type: string
+          description: The unit type, USER, CARTRIDGE, and so on
+        priceRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceRange'
+          description: Price ranges
+        unitAllowsDecimals:
+          type: boolean
+          description: Indicates whether decimals are allowed when purchasing units
+        increment:
+          type: number
+          format: amount
+          description: The minimum increment in number of units to purchase
+        allowsMeteredUsage:
+          type: boolean
+          description: Indicates whether metered usage is allowed
+        displaysPricePerIncrement:
+          type: boolean
+          description: Indicates whether to display the price per unit increment
+      example:
+        costTypeCategory: RECURRING
+        costType: RECURRING_PER_UNIT
+        pricingStrategy: UNIT
+        unit: USER
+        priceRanges:
+        - min: 0
+          max: 5
+          salePrice: '4.0000000000'
+          wholeSalePrice: null
+        unitAllowsDecimals: false
+        increment: 5
+        allowsMeteredUsage: true
+        displaysPricePerIncrement: true
+    PricingSource:
+      type: object
+      title: PricingSource
+      description: Pricing source
+      properties:
+        source:
+          $ref: '#/components/schemas/PricingSourceType'
+        pricingDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricingDefinition'
+          description: The details of the pricing plan definition
+      example:
+        source: BASE_CATALOG
+        pricingDefinitions:
+        - costTypeCategory: RECURRING
+          costType: RECURRING_PER_UNIT
+          pricingStrategy: UNIT
+          unit: USER
+          priceRanges:
+          - min: 0
+            max: 5
+            salePrice: '4.0000000000'
+            wholeSalePrice: null
+          unitAllowsDecimals: false
+          increment: 5
+          allowsMeteredUsage: true
+          displaysPricePerIncrement: true
+    CheckoutItemType:
+      type: string
+      title: CheckoutItemType
+      description: Checkout item type
+      enum:
+      - PRODUCT
+      - ADDON
+      - BUNDLE
+    FreeTrialTerms:
+      type: object
+      title: FreeTrialTerms
+      description: Free Trial terms
+      properties:
+        freeTrialDuration:
+          type: integer
+          description: Duration of free trial, in days or months depending on the specified period
+        freeTrialDurationPeriod:
+          $ref: '#/components/schemas/FreeTrialDurationPeriod'
+        freeTrialGracePeriod:
+          type: integer
+          description: Length of grace period after free trial expiration, in days
+      example:
+        freeTrialDuration: 1
+        freeTrialDurationPeriod: MONTH
+        freeTrialGracePeriod: 10
+    PricingPeriod:
+      type: string
+      title: PricingPeriod
+      description: The pricing period. The billing frequency for the pricing plan.
+      enum:
+      - ONE_TIME
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: ONE_TIME

@@ -276,6 +276,29 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"active\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    CurrencyExchangeRateListContent:
+      type: object
+      title: Content
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+      example:
+        content:
+        - baseCurrency:
+            href: '...'
+            id: '...'
+          counterCurrency:
+            href: '...'
+            id: '...'
+          rate: 0.5
+          validFrom: 1507077229000
+          active: true
+          authenticationType: USER_LOGIN
+          oauthKey: '...'
+          userId: 12345
+          currencyExchangeRateUuid: '...'
     CurrencyExchangeRateResponseList:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -310,42 +333,23 @@ components:
             rel: '...'
           - href: '...'
             rel: '...'
-    CurrencyExchangeRateListContent:
+    PagedResource:
       type: object
-      title: Content
+      title: Page
       properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+        totalPages:
+          type: number
+        number:
+          type: number
+        size:
+          type: number
+        totalElements:
+          type: number
       example:
-        content:
-        - baseCurrency:
-            href: '...'
-            id: '...'
-          counterCurrency:
-            href: '...'
-            id: '...'
-          rate: 0.5
-          validFrom: 1507077229000
-          active: true
-          authenticationType: USER_LOGIN
-          oauthKey: '...'
-          userId: 12345
-          currencyExchangeRateUuid: '...'
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
+        totalPages: '50'
+        number: '0'
+        size: '20'
+        totalElements: '220'
     CurrencyExchangeRateRequest:
       type: object
       title: CurrencyExchangeRateRequest
@@ -377,6 +381,63 @@ components:
         baseCurrency: USD
         counterCurrency: CAD
         rate: 0.5
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    CurrencyExchangeRateActive:
+      properties:
+        active:
+          description: 'Currency Exchange Rates can be only deactivated. Allowed value: false.'
+          type: boolean
+      example:
+        active: true
     CurrencyExchangeRateResponse:
       type: object
       title: CurrencyExchangeRate
@@ -432,77 +493,16 @@ components:
         oauthKey: '...'
         userId: 12345
         currencyExchangeRateUuid: '...'
-    ResourceSupport:
+    Link:
       type:
       - object
       - 'null'
-      title: ResourceSupport
-      description: Resource links
+      title: Link
       properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
+        href:
+          type: string
+        rel:
+          type: string
       example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-    PagedResource:
-      type: object
-      title: Page
-      properties:
-        totalPages:
-          type: number
-        number:
-          type: number
-        size:
-          type: number
-        totalElements:
-          type: number
-      example:
-        totalPages: '50'
-        number: '0'
-        size: '20'
-        totalElements: '220'
-    CurrencyExchangeRateActive:
-      properties:
-        active:
-          description: 'Currency Exchange Rates can be only deactivated. Allowed value: false.'
-          type: boolean
-      example:
-        active: true
-    Currency:
-      description: Supported currencies for the system
-      type: string
-      title: Currency
-      enum:
-      - USD
-      - CAD
-      - EUR
-      - JPY
-      - GBP
-      - KRW
-      - CHF
-      - SEK
-      - SGD
-      - MYR
-      - AUD
-      - MXN
-      - INR
-      - BRL
-      - DKK
-      - NZD
-      - NOK
-      - ZAR
-      - PHP
-      - CNY
-      - SAR
-      - GTQ
-      - IDR
-      - ARS
-      - COP
-      - PEN
-      default: USD
+        href: '...'
+        rel: '...'

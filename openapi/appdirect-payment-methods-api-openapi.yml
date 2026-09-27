@@ -671,6 +671,416 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appMarket/v2/paymentMethodTypes\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    PaymentMethodTokenResponse:
+      type: object
+      title: PaymentMethodTokenResponse
+      description: The tokenized Payment Method.
+      properties:
+        id:
+          type: string
+          maxLength: 255
+          description: The token for the payment method.
+        expiration:
+          type: string
+          format: date-time
+          description: The date and time when the token expires
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethodForTokenization'
+      required:
+      - id
+      - expiration
+      - paymentMethod
+      example:
+        id: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
+        expiration: 2018-04-112T19:15:00Z
+        paymentMethod:
+          accountDisplay: '1111'
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    BasePaymentMethod:
+      title: BasePaymentMethod
+      description: Payment method base fields.
+      properties:
+        paymentMethodType:
+          type: string
+          description: The type of payment method, such as CARD, BANKACCOUNT, and so on.
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      required:
+      - paymentMethodType
+      - properties
+      - billingAddress
+      example:
+        paymentMethodType: CARD
+        properties:
+          number: '4111111111111111'
+          cardHolderName: John Smith
+          expirationMonth: '5'
+          expirationYear: '2019'
+          brand: VISA
+        billingAddress:
+          street1: 279 Prince St
+          city: Montreal
+          state: Quebec
+          country: CA
+          zip: H3C 2N4
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      description: Error details
+      properties:
+        status:
+          type: integer
+          description: Original HTTP error code, which should be consistent with the response HTTP code
+          minimum: 100
+          maximum: 599
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorPaymentDetail'
+      required:
+      - status
+      - code
+      example:
+        status: 400
+        code: VALIDATION_ERROR
+        message: Missing required parameters
+    ErrorPaymentDetail:
+      type: object
+      title: ErrorPaymentDetail
+      description: A detail element of an ErrorResponse
+      properties:
+        field:
+          type: string
+          description: The element in the request payload that caused the error
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+      required:
+      - code
+      example:
+        code: INVALID_REQUEST
+        message: Missing parameter
+    DefaultPaymentMethodRequest:
+      type: object
+      title: DefaultPaymentMethodRequest
+      description: Information required to set a default payment method
+      properties:
+        ownerId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the user who owns the default payment method
+        companyId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the company of which the user is a member
+        paymentMethodId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: ID of the default payment method
+      required:
+      - ownerId
+      - companyId
+      - paymentMethodId
+      example:
+        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
+        companyId: 9c130291-cf29-4272-8005-a280b1e81388
+        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+    PaymentMethodForTokenization:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - title: PaymentMethodForTokenization
+        description: The payment method definition, as returned by tokenization.
+        type: object
+        properties:
+          accountDisplay:
+            type: string
+            description: Account display text, such as the last 4 digits of the credit card number.
+            maxLength: 255
+            minLength: 0
+          default:
+            type: boolean
+            description: Indicates whether this is the default payment method..
+        required:
+        - accountDisplay
+        example:
+          accountDisplay: '1111'
+          default: false
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    PaymentMethodAppMarket:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - title: PaymentMethodAppMarket
+        description: The payment method definition, as returned by creation.
+        discriminator:
+          propertyName: id
+        type: object
+        properties:
+          id:
+            type: string
+            description: Id of the payment method.
+          accountDisplay:
+            type: string
+            description: Account display text, such as the last 4 digits of the credit card number.
+            maxLength: 255
+            minLength: 0
+          default:
+            type: boolean
+            description: Indicates whether this is the default payment method.
+        required:
+        - id
+        - accountDisplay
+        example:
+          id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+          accountDisplay: '1111'
+          default: false
+          paymentMethodType: CARD
+          properties:
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    DefaultPaymentMethod:
+      type: object
+      title: DefaultPaymentMethod
+      description: Default payment method definition
+      properties:
+        paymentMethodId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the default payment method
+      required:
+      - paymentMethodId
+      example:
+        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
+    PaymentMethodTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BasePaymentMethod'
+      - type: object
+        title: PaymentMethodTokenRequest
+        description: The Payload used to tokenize a Payment Method.
+        example:
+          paymentMethodType: CARD
+          properties:
+            number: '4111111111111111'
+            securityCode: '123'
+            cardHolderName: John Smith
+            expirationMonth: '5'
+            expirationYear: '2019'
+            brand: VISA
+          billingAddress:
+            street1: 279 Prince St
+            city: Montreal
+            state: Quebec
+            country: CA
+            zip: H3C 2N4
+    PropertyDefinition:
+      type: object
+      title: PropertyDefinition
+      description: A field metadata definition
+      properties:
+        name:
+          type: string
+          description: The property's name.
+        type:
+          type: string
+          description: The property's type, for example string, number, boolean, address, and so on.
+        minLength:
+          type: number
+          description: Minimum length of the field's value. The default is 0.
+        maxLength:
+          type: number
+          description: Maximum length of the property's value.
+        possibleValues:
+          type: array
+          description: If the property represents an enum, this contains the supported enum values.
+          items:
+            type: string
+        readOnly:
+          type: boolean
+          description: Indicates whether this property is writable.
+        regex:
+          type: string
+          description: Describes the regular expression used for validation of the value of this property.
+        required:
+          type: boolean
+          description: Indicates whether this property is required. The default is false.
+        secret:
+          type: boolean
+          description: Indicates whether this property must be masked. The default is false.
+      required:
+      - name
+      - type
+      example:
+        name: cardHolderName
+        type: string
+        minLength: 0
+        maxLength: 255
+    PaymentMethodType:
+      type: object
+      title: PaymentMethodType
+      description: The Payment Method Type definition.
+      properties:
+        paymentMethodType:
+          type: string
+          description: The type of payment method (CARD, BANKACCOUNT, and so on).
+        addressNeeded:
+          type: boolean
+          description: Indicates whether an address is required for this payment method type.
+        propertyDefinitions:
+          type: array
+          description: Definition of the properties applicable to this payment method type.
+          items:
+            $ref: '#/components/schemas/PropertyDefinition'
+      required:
+      - paymentMethodType
+      - addressNeeded
+      - propertyDefinitions
+      example:
+        paymentMethodType: CARD
+        addressNeeded: true
+        propertyDefinitions:
+        - name: cardHolderName
+          type: string
+          minLength: 0
+          maxLength: 255
+        - name: number
+          type: string
+          minLength: 0
+          maxLength: 255
+        - name: securityCode
+          type: string
+          minLength: 0
+          maxLength: 4
+          secret: true
+        - name: expirationMonth
+          type: number
+          minLength: 1
+          maxLength: 2
+        - name: expirationYear
+          type: number
+          minLength: 2
+          maxLength: 4
+        - name: brand
+          type: string
+          readOnly: true
+          minLength: 0
+          maxLength: 255
+          possibleValues:
+          - VISA
+          - MASTERCARD
+          - AMEX
+          - DINERS_CLUB
+          - DISCOVER
+          - JCB
+          - UNKNOWN
+          - GATEWAY
+    PaymentMethodRequest:
+      type: object
+      title: PaymentMethodRequest
+      description: 'The Payload to create a payment method. There are two ways to create a payment method: with a token or with full payment method data. In the latter case, the request is similar to the one for createPaymentMethodToken, but with the addition of the ownerId and companyId parameters.
+
+        '
+      properties:
+        ownerId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the user who owns the payment method.
+        companyId:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: The ID of the company in which to create the payment method.
+        token:
+          type: string
+          maxLength: 255
+          minLength: 0
+          description: 'Token of the payment method, as returned by createPaymentMethodToken.
+
+            Required when creating a payment method from a token, not applicable when creating it from payment method data.
+
+            '
+        paymentMethodType:
+          type: string
+          description: 'The type of payment method, such as CARD, BANKACCOUNT, and so on.
+
+            Required when creating a payment method from payment method data, not applicable when creating it from token.
+
+            '
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
+
+            Required when creating a payment method from payment method data, not applicable when creating it from token.
+
+            '
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      required:
+      - ownerId
+      - companyId
+      example:
+        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
+        companyId: 9c130291-cf29-4272-8005-a280b1e81388
+        token: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
     BillingAddress:
       title: BillingAddress
       type: object
@@ -738,413 +1148,3 @@ components:
         country: US
         zip: '94203'
         state: CA
-    BasePaymentMethod:
-      title: BasePaymentMethod
-      description: Payment method base fields.
-      properties:
-        paymentMethodType:
-          type: string
-          description: The type of payment method, such as CARD, BANKACCOUNT, and so on.
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          description: The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
-        billingAddress:
-          $ref: '#/components/schemas/BillingAddress'
-      required:
-      - paymentMethodType
-      - properties
-      - billingAddress
-      example:
-        paymentMethodType: CARD
-        properties:
-          number: '4111111111111111'
-          cardHolderName: John Smith
-          expirationMonth: '5'
-          expirationYear: '2019'
-          brand: VISA
-        billingAddress:
-          street1: 279 Prince St
-          city: Montreal
-          state: Quebec
-          country: CA
-          zip: H3C 2N4
-    DefaultPaymentMethod:
-      type: object
-      title: DefaultPaymentMethod
-      description: Default payment method definition
-      properties:
-        paymentMethodId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: The ID of the default payment method
-      required:
-      - paymentMethodId
-      example:
-        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
-    PaymentMethodAppMarket:
-      allOf:
-      - $ref: '#/components/schemas/BasePaymentMethod'
-      - title: PaymentMethodAppMarket
-        description: The payment method definition, as returned by creation.
-        discriminator:
-          propertyName: id
-        type: object
-        properties:
-          id:
-            type: string
-            description: Id of the payment method.
-          accountDisplay:
-            type: string
-            description: Account display text, such as the last 4 digits of the credit card number.
-            maxLength: 255
-            minLength: 0
-          default:
-            type: boolean
-            description: Indicates whether this is the default payment method.
-        required:
-        - id
-        - accountDisplay
-        example:
-          id: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
-          accountDisplay: '1111'
-          default: false
-          paymentMethodType: CARD
-          properties:
-            cardHolderName: John Smith
-            expirationMonth: '5'
-            expirationYear: '2019'
-            brand: VISA
-          billingAddress:
-            street1: 279 Prince St
-            city: Montreal
-            state: Quebec
-            country: CA
-            zip: H3C 2N4
-    PaymentMethodTokenResponse:
-      type: object
-      title: PaymentMethodTokenResponse
-      description: The tokenized Payment Method.
-      properties:
-        id:
-          type: string
-          maxLength: 255
-          description: The token for the payment method.
-        expiration:
-          type: string
-          format: date-time
-          description: The date and time when the token expires
-        paymentMethod:
-          $ref: '#/components/schemas/PaymentMethodForTokenization'
-      required:
-      - id
-      - expiration
-      - paymentMethod
-      example:
-        id: pm_0838a859-dfa6-4863-aa38-042d50a9e69a
-        expiration: 2018-04-112T19:15:00Z
-        paymentMethod:
-          accountDisplay: '1111'
-          paymentMethodType: CARD
-          properties:
-            cardHolderName: John Smith
-            expirationMonth: '5'
-            expirationYear: '2019'
-            brand: VISA
-          billingAddress:
-            street1: 279 Prince St
-            city: Montreal
-            state: Quebec
-            country: CA
-            zip: H3C 2N4
-    DefaultPaymentMethodRequest:
-      type: object
-      title: DefaultPaymentMethodRequest
-      description: Information required to set a default payment method
-      properties:
-        ownerId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: ID of the user who owns the default payment method
-        companyId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: ID of the company of which the user is a member
-        paymentMethodId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: ID of the default payment method
-      required:
-      - ownerId
-      - companyId
-      - paymentMethodId
-      example:
-        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
-        companyId: 9c130291-cf29-4272-8005-a280b1e81388
-        paymentMethodId: e35c2f85-ef92-4a8f-89f0-45b62fb95fa7
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      description: Error details
-      properties:
-        status:
-          type: integer
-          description: Original HTTP error code, which should be consistent with the response HTTP code
-          minimum: 100
-          maximum: 599
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorPaymentDetail'
-      required:
-      - status
-      - code
-      example:
-        status: 400
-        code: VALIDATION_ERROR
-        message: Missing required parameters
-    PaymentMethodType:
-      type: object
-      title: PaymentMethodType
-      description: The Payment Method Type definition.
-      properties:
-        paymentMethodType:
-          type: string
-          description: The type of payment method (CARD, BANKACCOUNT, and so on).
-        addressNeeded:
-          type: boolean
-          description: Indicates whether an address is required for this payment method type.
-        propertyDefinitions:
-          type: array
-          description: Definition of the properties applicable to this payment method type.
-          items:
-            $ref: '#/components/schemas/PropertyDefinition'
-      required:
-      - paymentMethodType
-      - addressNeeded
-      - propertyDefinitions
-      example:
-        paymentMethodType: CARD
-        addressNeeded: true
-        propertyDefinitions:
-        - name: cardHolderName
-          type: string
-          minLength: 0
-          maxLength: 255
-        - name: number
-          type: string
-          minLength: 0
-          maxLength: 255
-        - name: securityCode
-          type: string
-          minLength: 0
-          maxLength: 4
-          secret: true
-        - name: expirationMonth
-          type: number
-          minLength: 1
-          maxLength: 2
-        - name: expirationYear
-          type: number
-          minLength: 2
-          maxLength: 4
-        - name: brand
-          type: string
-          readOnly: true
-          minLength: 0
-          maxLength: 255
-          possibleValues:
-          - VISA
-          - MASTERCARD
-          - AMEX
-          - DINERS_CLUB
-          - DISCOVER
-          - JCB
-          - UNKNOWN
-          - GATEWAY
-    PropertyDefinition:
-      type: object
-      title: PropertyDefinition
-      description: A field metadata definition
-      properties:
-        name:
-          type: string
-          description: The property's name.
-        type:
-          type: string
-          description: The property's type, for example string, number, boolean, address, and so on.
-        minLength:
-          type: number
-          description: Minimum length of the field's value. The default is 0.
-        maxLength:
-          type: number
-          description: Maximum length of the property's value.
-        possibleValues:
-          type: array
-          description: If the property represents an enum, this contains the supported enum values.
-          items:
-            type: string
-        readOnly:
-          type: boolean
-          description: Indicates whether this property is writable.
-        regex:
-          type: string
-          description: Describes the regular expression used for validation of the value of this property.
-        required:
-          type: boolean
-          description: Indicates whether this property is required. The default is false.
-        secret:
-          type: boolean
-          description: Indicates whether this property must be masked. The default is false.
-      required:
-      - name
-      - type
-      example:
-        name: cardHolderName
-        type: string
-        minLength: 0
-        maxLength: 255
-    ErrorPaymentDetail:
-      type: object
-      title: ErrorPaymentDetail
-      description: A detail element of an ErrorResponse
-      properties:
-        field:
-          type: string
-          description: The element in the request payload that caused the error
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-      required:
-      - code
-      example:
-        code: INVALID_REQUEST
-        message: Missing parameter
-    PaymentMethodForTokenization:
-      allOf:
-      - $ref: '#/components/schemas/BasePaymentMethod'
-      - title: PaymentMethodForTokenization
-        description: The payment method definition, as returned by tokenization.
-        type: object
-        properties:
-          accountDisplay:
-            type: string
-            description: Account display text, such as the last 4 digits of the credit card number.
-            maxLength: 255
-            minLength: 0
-          default:
-            type: boolean
-            description: Indicates whether this is the default payment method..
-        required:
-        - accountDisplay
-        example:
-          accountDisplay: '1111'
-          default: false
-          paymentMethodType: CARD
-          properties:
-            cardHolderName: John Smith
-            expirationMonth: '5'
-            expirationYear: '2019'
-            brand: VISA
-          billingAddress:
-            street1: 279 Prince St
-            city: Montreal
-            state: Quebec
-            country: CA
-            zip: H3C 2N4
-    PaymentMethodTokenRequest:
-      allOf:
-      - $ref: '#/components/schemas/BasePaymentMethod'
-      - type: object
-        title: PaymentMethodTokenRequest
-        description: The Payload used to tokenize a Payment Method.
-        example:
-          paymentMethodType: CARD
-          properties:
-            number: '4111111111111111'
-            securityCode: '123'
-            cardHolderName: John Smith
-            expirationMonth: '5'
-            expirationYear: '2019'
-            brand: VISA
-          billingAddress:
-            street1: 279 Prince St
-            city: Montreal
-            state: Quebec
-            country: CA
-            zip: H3C 2N4
-    PaymentMethodRequest:
-      type: object
-      title: PaymentMethodRequest
-      description: 'The Payload to create a payment method. There are two ways to create a payment method: with a token or with full payment method data. In the latter case, the request is similar to the one for createPaymentMethodToken, but with the addition of the ownerId and companyId parameters.
-
-        '
-      properties:
-        ownerId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: The ID of the user who owns the payment method.
-        companyId:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: The ID of the company in which to create the payment method.
-        token:
-          type: string
-          maxLength: 255
-          minLength: 0
-          description: 'Token of the payment method, as returned by createPaymentMethodToken.
-
-            Required when creating a payment method from a token, not applicable when creating it from payment method data.
-
-            '
-        paymentMethodType:
-          type: string
-          description: 'The type of payment method, such as CARD, BANKACCOUNT, and so on.
-
-            Required when creating a payment method from payment method data, not applicable when creating it from token.
-
-            '
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'The properties of the payment method, as listed in [getPaymentMethodTypes](#returns-all-supported-payment-method-types)
-
-            Required when creating a payment method from payment method data, not applicable when creating it from token.
-
-            '
-        billingAddress:
-          $ref: '#/components/schemas/BillingAddress'
-      required:
-      - ownerId
-      - companyId
-      example:
-        ownerId: 40e8af95-4caf-415a-96d9-7b023207b535
-        companyId: 9c130291-cf29-4272-8005-a280b1e81388
-        token: pm_0838a859-dfa6-4863-aa38-042d50a9e69a

@@ -419,70 +419,19 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    AddressWS:
-      type: object
-      title: Address
-      required:
-      - country
-      - city
-      - zip
-      - firstName
-      - phone
-      - lastName
-      - street1
+    LinkWS:
+      type:
+      - object
+      - 'null'
+      title: LinkWS
       properties:
-        city:
-          description: The name of the city or town
+        href:
           type: string
-          maxLength: 255
-          minLength: 0
-        country:
-          description: The country code, in ISO-3166 format
+        id:
           type: string
-          maxLength: 2
-          minLength: 0
-        state:
-          description: The state, province, or region
-          type: string
-          maxLength: 255
-          minLength: 0
-        firstName:
-          description: The first name
-          type: string
-          maxLength: 255
-          minLength: 0
-        lastName:
-          description: The last name
-          type: string
-          maxLength: 255
-          minLength: 0
-        phone:
-          description: The phone number
-          type: string
-          maxLength: 255
-          minLength: 0
-        street1:
-          description: The first line of a street address
-          type: string
-          maxLength: 255
-          minLength: 0
-        street2:
-          description: The second line of a street address, for example, an apartment or office number
-          type: string
-          maxLength: 255
-          minLength: 0
-        zip:
-          description: The ZIP or postal code of the address
-          type: string
-          maxLength: 255
-          minLength: 0
       example:
-        city: '...'
-        country: '...'
-        state: '...'
-        street1: '...'
-        street2: '...'
-        zip: '...'
+        href: '...'
+        id: '...'
     CreditCardType:
       type: string
       title: CreditCardType
@@ -601,6 +550,70 @@ components:
           street1: '...'
           street2: '...'
           zip: '...'
+    AddressWS:
+      type: object
+      title: Address
+      required:
+      - country
+      - city
+      - zip
+      - firstName
+      - phone
+      - lastName
+      - street1
+      properties:
+        city:
+          description: The name of the city or town
+          type: string
+          maxLength: 255
+          minLength: 0
+        country:
+          description: The country code, in ISO-3166 format
+          type: string
+          maxLength: 2
+          minLength: 0
+        state:
+          description: The state, province, or region
+          type: string
+          maxLength: 255
+          minLength: 0
+        firstName:
+          description: The first name
+          type: string
+          maxLength: 255
+          minLength: 0
+        lastName:
+          description: The last name
+          type: string
+          maxLength: 255
+          minLength: 0
+        phone:
+          description: The phone number
+          type: string
+          maxLength: 255
+          minLength: 0
+        street1:
+          description: The first line of a street address
+          type: string
+          maxLength: 255
+          minLength: 0
+        street2:
+          description: The second line of a street address, for example, an apartment or office number
+          type: string
+          maxLength: 255
+          minLength: 0
+        zip:
+          description: The ZIP or postal code of the address
+          type: string
+          maxLength: 255
+          minLength: 0
+      example:
+        city: '...'
+        country: '...'
+        state: '...'
+        street1: '...'
+        street2: '...'
+        zip: '...'
     CreditCardWS:
       type: object
       title: CreditCard
@@ -657,16 +670,3 @@ components:
       - MANUAL
       - EXTERNAL_INVOICE
       - MARKETPLACE_CREDITS
-    LinkWS:
-      type:
-      - object
-      - 'null'
-      title: LinkWS
-      properties:
-        href:
-          type: string
-        id:
-          type: string
-      example:
-        href: '...'
-        id: '...'

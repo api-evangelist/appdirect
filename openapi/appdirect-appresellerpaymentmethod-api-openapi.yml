@@ -189,6 +189,121 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/%7BpaymentMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    AppResellerPaymentMethod:
+      type: object
+      title: AppResellerPaymentMethod
+      description: Payment method information
+      required:
+      - id
+      - default
+      - paymentMethodType
+      - billingAddress
+      - owner
+      properties:
+        id:
+          description: Payment method ID
+          type: string
+        accountDisplay:
+          description: Account display text, such as the last 4 digits of the credit card number
+          type: string
+        default:
+          description: Indicates whether this is the user's default payment method
+          type: boolean
+        paymentMethodType:
+          description: Payment method types supported by AppReseller
+          type: string
+        properties:
+          description: List of payment method properties. Varies by payment method type
+          type: object
+          additionalProperties:
+            type: string
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+        owner:
+          $ref: '#/components/schemas/UserAssociation'
+    AppResellerPaymentMethodPagedReadResponse:
+      type: object
+      title: AppResellerPaymentMethodPagedReadResponse
+      description: List of payment methods
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerPaymentMethod'
+    AppResellerPaymentMethodRequest:
+      type: object
+      title: AppResellerPaymentMethodRequest
+      description: Creates a payment method for the specified user
+      required:
+      - ownerId
+      - companyId
+      - paymentMethodType
+      - billingAddress
+      properties:
+        ownerId:
+          description: ID of the user for whom to create the payment method
+          type: string
+        companyId:
+          description: ID of the user's company
+          type: string
+        paymentMethodType:
+          description: Payment method types supported by AppReseller
+          type: string
+        properties:
+          description: List of payment method properties. Varies by payment method type
+          type: object
+          additionalProperties:
+            type: string
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+      example:
+        ownerId: 833d4c99-1939-0000-0000-6fb7ae30000
+        companyId: 6b4bd452-895d-0000-0000-e6046b230000
+        paymentMethodType: CARD
+        properties:
+          cardHolderName: John Jordan
+          number: 0000-0000-0000-0000
+          securityCode: '000'
+          expirationMonth: '10'
+          expirationYear: '2100'
+          brand: VISA
+        billingAddress:
+          street1: Alden
+          city: Beverly Hills
+          country: US
+          zip: '94203'
+          state: CA
     BillingAddress:
       title: BillingAddress
       type: object
@@ -256,49 +371,6 @@ components:
         country: US
         zip: '94203'
         state: CA
-    AppResellerPaymentMethodRequest:
-      type: object
-      title: AppResellerPaymentMethodRequest
-      description: Creates a payment method for the specified user
-      required:
-      - ownerId
-      - companyId
-      - paymentMethodType
-      - billingAddress
-      properties:
-        ownerId:
-          description: ID of the user for whom to create the payment method
-          type: string
-        companyId:
-          description: ID of the user's company
-          type: string
-        paymentMethodType:
-          description: Payment method types supported by AppReseller
-          type: string
-        properties:
-          description: List of payment method properties. Varies by payment method type
-          type: object
-          additionalProperties:
-            type: string
-        billingAddress:
-          $ref: '#/components/schemas/BillingAddress'
-      example:
-        ownerId: 833d4c99-1939-0000-0000-6fb7ae30000
-        companyId: 6b4bd452-895d-0000-0000-e6046b230000
-        paymentMethodType: CARD
-        properties:
-          cardHolderName: John Jordan
-          number: 0000-0000-0000-0000
-          securityCode: '000'
-          expirationMonth: '10'
-          expirationYear: '2100'
-          brand: VISA
-        billingAddress:
-          street1: Alden
-          city: Beverly Hills
-          country: US
-          zip: '94203'
-          state: CA
     UserAssociation:
       title: AppResellerUserAssociation
       type: object
@@ -321,75 +393,3 @@ components:
         id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
         firstName: Michael
         lastName: Jordan
-    AppResellerPaymentMethod:
-      type: object
-      title: AppResellerPaymentMethod
-      description: Payment method information
-      required:
-      - id
-      - default
-      - paymentMethodType
-      - billingAddress
-      - owner
-      properties:
-        id:
-          description: Payment method ID
-          type: string
-        accountDisplay:
-          description: Account display text, such as the last 4 digits of the credit card number
-          type: string
-        default:
-          description: Indicates whether this is the user's default payment method
-          type: boolean
-        paymentMethodType:
-          description: Payment method types supported by AppReseller
-          type: string
-        properties:
-          description: List of payment method properties. Varies by payment method type
-          type: object
-          additionalProperties:
-            type: string
-        billingAddress:
-          $ref: '#/components/schemas/BillingAddress'
-        owner:
-          $ref: '#/components/schemas/UserAssociation'
-    AppResellerPaymentMethodPagedReadResponse:
-      type: object
-      title: AppResellerPaymentMethodPagedReadResponse
-      description: List of payment methods
-      required:
-      - page
-      - content
-      properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerPaymentMethod'
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345

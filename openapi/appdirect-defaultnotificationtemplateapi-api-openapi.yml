@@ -162,19 +162,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    NotificationReminderType:
-      type: string
-      title: NotificationReminderType
-      enum:
-      - NONE
-      - BEFORE
-      - AFTER
-    NotificationMethod:
-      type: string
-      title: NotificationMethod
-      enum:
-      - EMAIL
-      - SMS
     NotificationEmailTemplateWS:
       type: object
       title: NotificationEmailTemplateWS
@@ -216,11 +203,26 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationMethod:
+      type: string
+      title: NotificationMethod
+      enum:
+      - EMAIL
+      - SMS
     NotificationCommonElementType:
       type: string
       title: NotificationCommonElementType
       enum:
       - UNSUBSCRIBE
+    NotificationMethodTemplateWS:
+      type: object
+      title: NotificationMethodTemplate
+      properties:
+        enabled:
+          description: If notification method is enabled
+          type: boolean
+        method:
+          $ref: '#/components/schemas/NotificationMethod'
     NotificationTemplateDefinitionWS:
       type: object
       title: NotificationTemplateDefinition
@@ -423,18 +425,31 @@ components:
       - API_ALERT
       - WELCOME_USER
       - CREDIT_CARD_REQUIRED
-    NotificationTemplateCategory:
+    NotificationAudienceType:
       type: string
-      title: NotificationTemplateCategory
+      title: NotificationAudienceType
       enum:
-      - ACCOUNTS
-      - PRODUCTS
-      - VENDORS
-      - BILLING
-      - MARKETPLACE
-      - DOMAIN_REGISTRATION
-      - ASSISTED_SALES
-      - MISC
+      - NEW_USER
+      - EXISTING_USER
+      - EXISTING_USER_WITHOUT_COMPANY_PARAM
+      - PRODUCT_OWNER
+      - CHANNEL_ADMIN
+      - CHANNEL_ADMIN_WITHOUT_PARAM
+      - CHANNEL_SUPPORT
+      - PRODUCT_USER
+      - COMPANY_ADMIN
+      - APP_DEVELOPER
+      - CUSTOM_INTEGRATION_APP_SUPPORT
+      - RESELLER
+      - RESELLER_WITHOUT_PARAM
+      - RESELLER_MANAGER
+      - RESELLER_MANAGER_WITHOUT_PARAM
+      - RESELLER_COMPANY_ADMIN
+      - SALES_SUPPORT
+      - SALES_SUPPORT_WITHOUT_PARAMS
+      - TICKET_SUPPORT
+      - DOMAIN_SUPPORT
+      - SUPER_SUPPORT
     NotificationCommonEmailElementWS:
       type: object
       title: NotificationCommonEmailElementWS
@@ -463,37 +478,22 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/NotificationCommonElementType'
-    NotificationMethodTemplateWS:
-      type: object
-      title: NotificationMethodTemplate
-      properties:
-        enabled:
-          description: If notification method is enabled
-          type: boolean
-        method:
-          $ref: '#/components/schemas/NotificationMethod'
-    NotificationAudienceType:
+    NotificationTemplateCategory:
       type: string
-      title: NotificationAudienceType
+      title: NotificationTemplateCategory
       enum:
-      - NEW_USER
-      - EXISTING_USER
-      - EXISTING_USER_WITHOUT_COMPANY_PARAM
-      - PRODUCT_OWNER
-      - CHANNEL_ADMIN
-      - CHANNEL_ADMIN_WITHOUT_PARAM
-      - CHANNEL_SUPPORT
-      - PRODUCT_USER
-      - COMPANY_ADMIN
-      - APP_DEVELOPER
-      - CUSTOM_INTEGRATION_APP_SUPPORT
-      - RESELLER
-      - RESELLER_WITHOUT_PARAM
-      - RESELLER_MANAGER
-      - RESELLER_MANAGER_WITHOUT_PARAM
-      - RESELLER_COMPANY_ADMIN
-      - SALES_SUPPORT
-      - SALES_SUPPORT_WITHOUT_PARAMS
-      - TICKET_SUPPORT
-      - DOMAIN_SUPPORT
-      - SUPER_SUPPORT
+      - ACCOUNTS
+      - PRODUCTS
+      - VENDORS
+      - BILLING
+      - MARKETPLACE
+      - DOMAIN_REGISTRATION
+      - ASSISTED_SALES
+      - MISC
+    NotificationReminderType:
+      type: string
+      title: NotificationReminderType
+      enum:
+      - NONE
+      - BEFORE
+      - AFTER

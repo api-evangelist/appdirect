@@ -162,21 +162,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"[{\\\"setting\\\":\\\"companySyncEnabled\\\",\\\"value\\\":\\\"tru e\\\"}]\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/settings/%7Bpartner%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    ChannelSettingWS:
-      type: object
-      title: ChannelSetting
-      required:
-      - setting
-      properties:
-        setting:
-          description: Channel setting name
-          type: string
-        value:
-          description: Channel setting value
-          type: string
-      example:
-        setting: companySyncEnabled
-        value: tru e
     ChannelSettingListWS:
       type: object
       title: ChannelSettingList
@@ -578,3 +563,18 @@ components:
         developerTermsUpdatedOn: null
         showProfiles: true
         supportContactUrlMap: {}
+    ChannelSettingWS:
+      type: object
+      title: ChannelSetting
+      required:
+      - setting
+      properties:
+        setting:
+          description: Channel setting name
+          type: string
+        value:
+          description: Channel setting value
+          type: string
+      example:
+        setting: companySyncEnabled
+        value: tru e

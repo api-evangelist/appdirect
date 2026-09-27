@@ -129,19 +129,27 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    FileSource:
-      type: string
-      description: The source of the file.
-      enum:
-      - USER
-      - SYSTEM
-    FilesResponseDto:
+    CreateFileRequestDto:
       type: object
+      required:
+      - filename
+      - size
+      - mimeType
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileDto'
+        filename:
+          type: string
+          description: The name of the file.
+        size:
+          type: integer
+          description: The size of the file in bytes.
+        mimeType:
+          type: string
+          description: The MIME type of the file.
+        metadata:
+          type:
+          - object
+          - 'null'
+          description: Additional metadata associated with the file.
     FileDto:
       type: object
       properties:
@@ -181,27 +189,13 @@ components:
           description: The date and time when the file was deleted, if applicable.
         status:
           $ref: '#/components/schemas/FileStatus'
-    CreateFileRequestDto:
+    FilesResponseDto:
       type: object
-      required:
-      - filename
-      - size
-      - mimeType
       properties:
-        filename:
-          type: string
-          description: The name of the file.
-        size:
-          type: integer
-          description: The size of the file in bytes.
-        mimeType:
-          type: string
-          description: The MIME type of the file.
-        metadata:
-          type:
-          - object
-          - 'null'
-          description: Additional metadata associated with the file.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileDto'
     FileStatus:
       type: string
       description: The status of the file.
@@ -210,6 +204,12 @@ components:
       - UPLOADING
       - DELETING
       - DELETED
+    FileSource:
+      type: string
+      description: The source of the file.
+      enum:
+      - USER
+      - SYSTEM
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

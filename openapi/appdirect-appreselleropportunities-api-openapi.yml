@@ -3396,285 +3396,156 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"Opportunity name - COPY\\\",\\\"customerCompanyId\\\":\\\"498c62ea-ad14-48e6-96ce-5400c617444c\\\",\\\"customerId\\\":\\\"505f0a0c-57a7-4d9e-9fac-66bbf557ac4d\\\",\\\"ownerCompanyId\\\":\\\"6a62244e-aa2f-461b-8c7a-3a0e091be9d3\\\",\\\"ownerId\\\":\\\"d781ac09-b4fe-4d57-8ba2-4640fc5b7c49\\\",\\\"createdByCompanyId\\\":\\\"b7e0c48b-6d0d-45fc-9c8a-3fa3fd84d9f1\\\",\\\"createdById\\\":\\\"8f6b3d29-4169-4fb0-91ff-bad9b7a3d0d4\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/assistedSales/v1/opportunities/%7BopportunityId%7D/clone\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    Options:
+    GracePeriodUnit:
+      type: string
+      title: GracePeriodUnit
+      description: End-of-contract grace period unit. Time unit by which the endOfContractGracePeriod is measured.
+      enum:
+      - NONE
+      - INFINITY
+      - DAY
+      - MONTH
+      example: INFINITY
+    PriceRange:
       type: object
-      title: Options
-      description: Field options
-      properties:
-        suffix:
-          $ref: '#/components/schemas/Suffix'
-        placeholder:
-          type: string
-          description: 'Tip that appears in an unpopulated text field. For example: Enter your domain here. Optional.'
-      example:
-        suffix:
-          text: domainsuffix.com
-          inputCode: DOMAIN
-        placeholder: Enter your domain here
-    Unit:
-      type: object
-      description: Purchase item unit
-      title: Unit
-      properties:
-        quantity:
-          type: number
-          description: Quantity
-        unit:
-          type: string
-          description: Unit
-      example:
-        quantity: '8'
-        unit: USER
-    OpportunityItemUpdateRequest:
-      type: object
-      title: OpportunityItemUpdateRequest
+      title: PriceRange
+      description: Price definition for an explicit unit range.
       required:
-      - itemId
-      - pricingPlanId
+      - min
+      - price
       properties:
-        id:
+        min:
+          type: number
+        max:
+          type: number
+        price:
+          type: number
+        salePrice:
           type: string
-          description: Item ID
-        pricingPlanId:
+          format: amount
+          description: Regular sale price
+        wholesalePrice:
           type: string
-          description: Pricing plan ID
-        units:
-          type: array
-          description: List of units (quantity and type) associated with the item
-          items:
-            $ref: '#/components/schemas/Unit'
-        customPrices:
-          type: array
-          description: List of custom prices per cost
-          items:
-            $ref: '#/components/schemas/CustomPrice'
-        contractConfiguration:
-          $ref: '#/components/schemas/ContractConfiguration'
-        provisioningConfiguration:
-          $ref: '#/components/schemas/ProvisioningConfiguration'
-        billingConfiguration:
-          $ref: '#/components/schemas/BillingConfiguration'
-        subscriptionCustomAttributes:
-          $ref: '#/components/schemas/CustomAttribute'
-        vendorRequiredFields:
-          $ref: '#/components/schemas/CustomAttribute'
+          format: amount
+          description: Wholesale sale price
       example:
-        id: 37f56046-2cec-4bf4-a4e2-5a733dc849a9
-        pricingPlanId: a22c03e9-9e27-4e85-8433-78f246345685
-        units:
-        - quantity: '8'
-          unit: USER
-        customPrices:
-        - costId: e5f403a3-7ba0-45d4-8117-8dd8cbceb6c6
-          price: 100
-        - costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
-          price: 20
-        contractConfiguration:
-          minimumServiceLength: '3'
-          minimumServiceLengthUnit: MONTHLY
-          terminationFee:
-            feeType: FIXED
-            amount: '2'
-          renewalConfiguration: MONTH_TO_MONTH
-          terminationFeeGracePeriod: '7'
-          terminationFeeGracePeriodUnit: DAY
-          contractCancellationPeriodLimit: null
-          contractCancellationPeriodUnit: NONE
-          endOfContractGracePeriod: null
-          endOfContractGracePeriodUnit: INFINITY
-          unitTerms:
-            USER:
-              blockContractIncrease: false
-              blockOriginalContractDecrease: false
-              blockContractDecrease: true
-          blockContractUpgrades: false
-          blockContractDowngrades: true
-          blockSwitchToShorterContract: true
-          keepContractDateOnPlanChange: false
-        provisioningConfiguration:
-          date: '1546300800000'
-          strategy: CUSTOM
-        billingConfiguration:
-          date: '1546300800000'
-          strategy: CUSTOM
-        subscriptionCustomAttributes:
-          intended_os:
-          - other
-          - ios
-          - macos
-          sales_agent_id:
-          - R353113R
-        vendorRequiredFields:
-          name:
-          - John
-          lastname:
-          - Doe
-          email:
-          - john.doe@acme.com
-    OpportunityUpdateRequest:
+        min: 1
+        max: 5
+        salePrice: '4.0000000000'
+        wholeSalePrice: null
+    OpportunityPricingStrategy:
+      type: string
+      title: OpportunityPricingStrategy
+      description: Pricing strategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - VOLUME
+      - TIERED
+      - UNLIMITED
+      - CUSTOM
+      example: FREE
+    PageMetadata:
       type: object
-      title: OpportunityUpdateRequest
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    TotalRecurring:
+      type: object
+      title: TotalRecurring
+      description: Represent recurring fee of a specfic billing cycle
+      properties:
+        totalSalePrice:
+          type: string
+          description: The total sale price
+        totalWholeSalePrice:
+          type: string
+          description: The total wholesale price
+        nextInvoiceDate:
+          type: string
+          description: Date for the next invoice
+        billingCycle:
+          $ref: '#/components/schemas/BillingCycle'
+      example:
+        billingCycle:
+          period: YEARLY
+          dayOfMonth: 17
+        totalSalePrice: '240.0000000000'
+    Definition:
+      type: object
+      title: Definition
+      description: Definition for flat/unit range prices.
+      properties:
+        price:
+          description: Flat price.
+          type: number
+        priceRanges:
+          description: Unit range prices.
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceRange'
+    OpportunityCloneRequest:
+      type: object
+      title: OpportunityCloneRequest
+      description: The parameters to be used when cloning the opportunity
+      required:
+      - name
+      - customerCompanyId
+      - customerId
+      - ownerCompanyId
+      - ownerId
       properties:
         name:
           type: string
-          description: Opportunity name
-        purchaseEffectiveDate:
-          type: number
-          description: Opportunity purchase effective date, in UNIX Epoch milliseconds
-        purchaseCustomAttributes:
-          allOf:
-          - $ref: '#/components/schemas/CustomAttribute'
-          - description: Custom attributes related to the purchase
+          description: The name of the opportunity
+        customerCompanyId:
+          type: string
+          description: The company ID of the customer
+        customerId:
+          type: string
+          description: The user ID of the customer
+        ownerCompanyId:
+          type: string
+          description: The company ID of the sales agent
+        ownerId:
+          type: string
+          description: The user ID of the sales agent
+        createdByCompanyId:
+          type: string
+          description: The user's company ID that's creating the opportunity
+        createdById:
+          type: string
+          description: The user's ID that's creating the opportunity
       example:
-        name: New opportunity
-        purchaseEffectiveDate: 1577750400000
-        purchaseCustomAttributes:
-          paid_off_platform_contact:
-          - janet.doe@accounting.acme.com
-    Suffix:
-      type: object
-      title: Suffix
-      description: The suffix label that appears to the right of the form field. For example, for a domain field, the suffix might be .com. Optional. The suffix can be populated by text OR the value in another form field referenced by an input code.
-      properties:
-        text:
-          type: string
-          description: The suffix value
-        inputCode:
-          type: string
-          description: Unique identifier for the field. Possible values are DOMAIN, USERNAME, COUNTRY, STATE, etc.
-      example:
-        text: domainsuffix.com
-        inputCode: DOMAIN
-    TerminationFeeAS:
-      type: object
-      title: TerminationFee
-      description: Termination fee
-      properties:
-        feeType:
-          $ref: '#/components/schemas/FeeType'
-        amount:
-          type: number
-        description:
-          type: string
-      example:
-        feeType: FIXED
-        amount: '2'
-    ActionRestriction:
-      type: object
-      title: ActionRestriction
-      description: 'Only appear in opportunity call responses. Action restrictions occur when an opportunity does not meet a requirement for an available action to occur. After the requirement is met, the restriction is removed, the action appears in the Available actions list, and the action can occur. For example: An API client has permission to finalize opportunities when customers are active. When customers are inactive, an action restriction prevents them from finalizing the opportunity. After the customer becomes active, the restriction is removed, it appears in the Available actions list, and the API client can finalize the opportunity.'
-      properties:
-        entry:
-          type: array
-          description: Opportunity action restrictions
-          items:
-            $ref: '#/components/schemas/Restriction'
-      example:
-        actionRestrictions:
-          FINALIZE:
-          - CANNOT_FINALIZE_WITH_INACTIVE_CUSTOMER
-          SUBMIT_FOR_REVIEW:
-          - CANNOT_SUBMIT_WITH_INACTIVE_CUSTOMER
-    User:
-      type: object
-      title: User
-      properties:
-        id:
-          type: string
-          description: User ID
-        email:
-          type: string
-          description: User email address
-        firstName:
-          type: string
-          description: User first name
-        lastName:
-          type: string
-          description: User last name
-        company:
-          allOf:
-          - $ref: '#/components/schemas/Company'
-          - description: User company
-      example:
-        id: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
-        email: john.doe@acme.com
-        firstName: John
-        lastName: Doe
-        company:
-          id: '1'
-          name: Acme Corp.
-          isReseller: true
-    OpportunitySummary:
-      type: object
-      title: OpportunitySummary
-      description: Opportunity taxes, subtotals, totals and recurring totals
-      properties:
-        amountDueBeforeTax:
-          type: string
-          description: Amount due before taxes
-        taxSummary:
-          type: array
-          description: Details of a specific type of tax applied to a charged cost
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        amountDueAfterTax:
-          type: string
-          description: Amount due after taxes
-        items:
-          type: array
-          description: List of item details
-          items:
-            $ref: '#/components/schemas/OpportunityItemDetail'
-        recurringTotals:
-          type: array
-          description: Recurring charge totals
-          items:
-            $ref: '#/components/schemas/TotalRecurring'
-      example:
-        amountDueBeforeTax: '0.0000000000'
-        taxSummary: []
-        amountDueAfterTax: '0.0000000000'
-        items:
-        - id: c57331b7-0820-44ac-ad75-ee4ab2783b7c
-          product:
-            id: fa776d2e-cda5-4256-9a27-125a0fe3f448
-            name: Supported Product for Opportunity MVP
-            type: WEB_APP_STACKED
-            isAddon: false
-            hasAddons: false
-          pricingPlan:
-            id: 7e1fd1fa-de0e-49e9-9e6a-9c474c57f22d
-            name: Tiered monthly+yearly flat with included YEARLY
-            editionCode: Tiered monthly+yearly flat with included
-          pricing:
-          - costType: RECURRING_FLAT
-            description: Tiered monthly+yearly flat with included
-            quantity: '1.0000000000'
-            totalSalePrice: '240.0000000000'
-          - costType: INCLUDED
-            description: INCLUDED
-            quantity: '1.0000000000'
-            totalSalePrice: '0.0000000000'
-          contractConfiguration:
-            minimumServiceLength: 1
-            minimumServiceLengthUnit: YEARLY
-            unitTerms: {}
-            blockContractUpgrades: true
-            blockContractDowngrades: true
-            blockSwitchToShorterContract: true
-            keepContractDateOnPlanChange: true
-          unitDefinitions:
-          - unit: USER
-            minimum: '1.0000000000'
-            meteredUsage: false
-            allowDecimals: false
-            readOnly: true
-            pricePerIncrement: false
-        recurringTotals:
-        - billingCycle:
-            period: YEARLY
-            dayOfMonth: 17
-          totalSalePrice: '240.0000000000'
+        name: Opportunity name - COPY
+        customerCompanyId: 498c62ea-ad14-48e6-96ce-5400c617444c
+        customerId: 505f0a0c-57a7-4d9e-9fac-66bbf557ac4d
+        ownerCompanyId: 6a62244e-aa2f-461b-8c7a-3a0e091be9d3
+        ownerId: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
+        createdByCompanyId: b7e0c48b-6d0d-45fc-9c8a-3fa3fd84d9f1
+        createdById: 8f6b3d29-4169-4fb0-91ff-bad9b7a3d0d4
     RequiredFieldsUpdate:
       type: object
       title: RequiredFieldsUpdate
@@ -3733,6 +3604,19 @@ components:
           - '5417543010'
           DateConsentConfirmed:
           - '2021-06-02T00:00:00Z'
+    PricingStrategy:
+      description: Pricing strategy
+      type: string
+      title: PricingStrategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - TIERED
+      - VOLUME
+      - VARIABLE_PRICE_STRATEGIES
+      - UNLIMITED
+      - CUSTOM
     FeeType:
       type: string
       title: FeeType
@@ -3751,157 +3635,101 @@ components:
       - CLOSED
       - PENDING_REVIEW
       example: OPEN
-    CancellationPeriodUnit:
-      type: string
-      title: CancellationPeriodUnit
-      description: Cancellation period unit. Time unit by which the contractCancellationPeriodLimit is measured.
-      enum:
-      - NONE
-      - DAY
-      example: NONE
-    ProductIds:
+    Form:
       type: object
-      title: ProductIds
-      description: A product ID and edition code
-      required:
-      - productId
-      - editionId
+      title: Form
+      description: A group of required fields. Forms are used to organize required fields into meaningful groups.Required field definitions
       properties:
-        productId:
+        isvIdentifier:
           type: string
-          description: The product ID
-        editionId:
+          description: The vendor's (ISV's) unique identifier
+        context:
           type: string
-          description: The edition code
+          description: 'Response organization. ITEM_LEVEL: Required fields listed for each product. CART_LEVEL: Products grouped by vendor (ISV) with one list of required fields that apply to all the vendor''s products.'
+        title:
+          type: string
+          description: The form title
+        subTitle:
+          type: string
+          description: Descriptive subtitle for the form
+        fields:
+          type: array
+          description: All relevant information related to fields in the form
+          items:
+            $ref: '#/components/schemas/Field'
       example:
-        productId: dfc9cefb-610b-4e49-ade8-6ae51a4d35c9
-        editionId: EDITION_CODE
-    DeliveryAddress:
+        isvIdentifier: ISV
+        context: CART_LEVEL
+        title: Additional Information
+        subTitle: Additional Information Subtitle
+        fields:
+        - inputCode: FirstName
+          inputTitle: First name
+          subTitle: ''
+          tooltip: ''
+          value: John
+          fieldType: TEXT
+          validations:
+            required: true
+            readonly: false
+            minLength: '2'
+            maxLength: '255'
+            expression: ^[A-Za-z]+(((\'|\-|\.(\s)?|\,(\s)?|\s)?([A-Za-z])+))*$
+          options:
+            suffix:
+              text: ''
+              inputCode: ''
+        - inputCode: Address/ISO3Country
+          inputTitle: Country
+          subTitle: ''
+          tooltip: ''
+          value: USA
+          fieldType: COUNTRY
+          validations:
+            required: true
+            readonly: false
+            minLength: '2'
+            maxLength: '3'
+            expression: ^[A-Za-z]{2}$
+          options:
+            suffix:
+              text: ''
+            placeholder: ''
+        - inputCode: SubDomain
+          inputTitle: Your primary domain name
+          subTitle: ''
+          tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=entertainment.com, the subdomain value is: movies.entertainment.com'
+          value: ''
+          fieldType: TEXT
+          validations:
+            required: true
+            readonly: false
+            minLength: '1'
+            maxLength: '255'
+            expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
+          options:
+            suffix:
+              text: .thedomain.com
+              inputCode: ''
+            placeholder: movies.entertainment.com
+    UnitContractTerms:
       type: object
-      title: DeliveryAddress
-      description: The shipping address
+      title: UnitContractTerms
+      description: Contract terms that restrict mid-contract quantity changes on subscriptions. unitTerms maps UnitContractTerms to a unit type (for example, user); enabled terms prevent actions for the unit type.
       properties:
-        name:
-          type: string
-          description: The recipient's name
-        city:
-          type: string
-          description: The city
-        addressLine1:
-          type: string
-          description: The address
-        countryCode:
-          type: string
-          description: Country code, in ISO-3166 format.
-        subdivisionCode:
-          type: string
-          description: 'Subdivision code. For example: state code or province code.'
-        postalCode:
-          type: string
-          description: The postal code
+        blockContractIncrease:
+          type: boolean
+          default: false
+        blockContractDecrease:
+          type: boolean
+          default: false
+        blockOriginalContractDecrease:
+          type: boolean
+          default: false
       example:
-        name: John Smith
-        city: Greenbow
-        addressLine1: Main Street 446
-        countryCode: US
-        subdivisionCode: AL
-        postalCode: '50505'
-    CustomPrice:
-      type: object
-      title: CustomPrice
-      description: Custom price definition.
-      required:
-      - costId
-      - price
-      properties:
-        costId:
-          description: ID of the cost/pricing item for which to override prices.
-          type: string
-        priceType:
-          $ref: '#/components/schemas/CustomPriceType'
-        pricingStrategy:
-          $ref: '#/components/schemas/PricingStrategy'
-        definition:
-          $ref: '#/components/schemas/Definition'
-      example:
-        costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
-        price: 20
-    OpportunityOwnerType:
-      type: string
-      title: OpportunityOwnerType
-      description: Opportunity owner type code
-      enum:
-      - PARTNER
-      - PLATFORM_OWNER
-      example: PARTNER
-    CustomPriceType:
-      title: CustomPriceType
-      type: string
-      enum:
-      - RESELLER_PURCHASE_PRICE
-      - MARKETPLACE_RESELLER_PURCHASE_PRICE
-    OpportunityPricingStrategy:
-      type: string
-      title: OpportunityPricingStrategy
-      description: Pricing strategy
-      enum:
-      - FREE
-      - FLAT
-      - UNIT
-      - VOLUME
-      - TIERED
-      - UNLIMITED
-      - CUSTOM
-      example: FREE
-    ProvisioningStrategy:
-      type: string
-      title: ProvisioningStrategy
-      enum:
-      - CUSTOM
-      - IMMEDIATELY
-      default: IMMEDIATELY
-      example: CUSTOM
-    UnitDefinition:
-      type: object
-      title: UnitDefinition
-      description: Configuration details for a unit type that is part of a pricing plan
-      properties:
-        unit:
-          type: string
-          description: Unit type name
-        minimum:
-          type: string
-          description: The minimum number of units that users can buy
-        maximum:
-          type: string
-          description: The maximum number of units that users can buy
-        quantity:
-          type: string
-          description: Purchase quantity
-        meteredUsage:
-          type: boolean
-          description: If true, this unit must be configured for metered usage
-        allowDecimals:
-          type: boolean
-          description: If true, this unit can be purchased in decimal (fractional) quantities
-        readOnly:
-          type: boolean
-          description: If true, the user cannot set a quantity for this unit at the time of purchase
-        pricePerIncrement:
-          type: boolean
-          description: If true, the price per increment is displayed. For example, if the unit has a unit price is $1 and users must purchase in increments of 5, the price appears as $5 for 5 units.
-        increment:
-          type: number
-          description: Restrict users to purchasing the unit in this number of increments. For example, require users to purchase the unit type in increments of 5.
-      example:
-      - unit: USER
-        minimum: '1.0000000000'
-        meteredUsage: false
-        allowDecimals: false
-        readOnly: false
-        quantity: '1.0000000000'
-        increment: 1
-        pricePerIncrement: false
+        blockContractIncrease: false
+        blockOriginalContractDecrease: false
+        blockContractDecrease: true
     RequiredFieldValidationDefinitions:
       type: object
       title: RequiredFieldValidationDefinitions
@@ -3932,190 +3760,124 @@ components:
         minLength: '2'
         maxLength: '255'
         expression: string
-    Company:
+    Options:
       type: object
-      title: Company
+      title: Options
+      description: Field options
       properties:
-        id:
+        suffix:
+          $ref: '#/components/schemas/Suffix'
+        placeholder:
           type: string
-          description: Company ID
+          description: 'Tip that appears in an unpopulated text field. For example: Enter your domain here. Optional.'
+      example:
+        suffix:
+          text: domainsuffix.com
+          inputCode: DOMAIN
+        placeholder: Enter your domain here
+    DeliveryAddress:
+      type: object
+      title: DeliveryAddress
+      description: The shipping address
+      properties:
         name:
           type: string
-          description: Company name
-        isReseller:
-          type: boolean
-          description: Indicate if the company is reseller
-      example:
-        id: '1'
-        name: Acme Corp.
-        isReseller: false
-    OpportunityError:
-      type: object
-      title: OpportunityError
-      description: Opportunities API error description
-      required:
-      - status
-      - code
-      - message
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        code:
-          $ref: '#/components/schemas/OpportunityErrorCode'
-        message:
+          description: The recipient's name
+        city:
           type: string
-          description: Descriptive error message for debugging
-        details:
+          description: The city
+        addressLine1:
+          type: string
+          description: The address
+        countryCode:
+          type: string
+          description: Country code, in ISO-3166 format.
+        subdivisionCode:
+          type: string
+          description: 'Subdivision code. For example: state code or province code.'
+        postalCode:
+          type: string
+          description: The postal code
+      example:
+        name: John Smith
+        city: Greenbow
+        addressLine1: Main Street 446
+        countryCode: US
+        subdivisionCode: AL
+        postalCode: '50505'
+    ProvisioningStrategy:
+      type: string
+      title: ProvisioningStrategy
+      enum:
+      - CUSTOM
+      - IMMEDIATELY
+      default: IMMEDIATELY
+      example: CUSTOM
+    OpportunityValidation:
+      type: object
+      title: OpportunityValidation
+      description: Failed and in-progress (pending) opportunity validations
+      properties:
+        blockingErrors:
           type: array
-          description: Additional error details
+          description: Failed validation errors and the associated items, when applicable
           items:
-            $ref: '#/components/schemas/OpportunityErrorDetails'
+            $ref: '#/components/schemas/ValidationDetail'
+        pendingValidations:
+          type: array
+          description: List of validations which are still being processed and whose result should be retrieved later
+          items:
+            type: string
       example:
-        status: 503
-        code: SERVICE_UNAVAILABLE
-        message: Unable to reach the service, please contact support@appdirect.com
-    TaxDetail:
+        blockingErrors:
+        - itemId: eb690c8d-1c57-497c-82bf-a4194362d954
+          code: REQUIRED_FIELD_VALIDATION_ERROR
+          message: There are validation errors
+          messageParameters:
+          - key: REQUIRED_FIELD_KEY
+            value: USERNAME
+          - key: REQUIRED_FIELD_ERROR_MESSAGE
+            value: The username is not valid
+        pendingValidations:
+        - SUBSCRIPTION_VALIDATIONS
+    OpportunityPage:
       type: object
-      title: TaxDetail
-      description: Opportunity tax detail
+      title: OpportunityPage
       properties:
-        description:
-          type: string
-          description: Description of the tax
-        taxAmount:
-          type: string
-          description: The tax amount
-      example:
-        description: Flat Tax
-        taxAmount: '2.0000000000'
-    CustomAttribute:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          description: List of opportunities
+          type: array
+          items:
+            $ref: '#/components/schemas/OpportunityLight'
+    OpportunityLight:
       type: object
-      title: CustomAttribute
-      description: Custom attributes as key-value pairs. Values must be a string array
-      additionalProperties:
-        type: array
-        description: Custom attribute key
-        items:
-          type: string
-          description: Custom attribute values
-      example:
-        customAttributes:
-          multivalue_key:
-          - key_value_1
-          - key_value_2
-          single_key:
-          - key_value
-    PriceRange:
-      type: object
-      title: PriceRange
-      description: Price definition for an explicit unit range.
-      required:
-      - min
-      - price
-      properties:
-        min:
-          type: number
-        max:
-          type: number
-        price:
-          type: number
-        salePrice:
-          type: string
-          format: amount
-          description: Regular sale price
-        wholesalePrice:
-          type: string
-          format: amount
-          description: Wholesale sale price
-      example:
-        min: 1
-        max: 5
-        salePrice: '4.0000000000'
-        wholeSalePrice: null
-    OpportunityErrorDetails:
-      type: object
-      title: OpportunityErrorDetails
-      description: Additional error details returned after opportunity API call failure
-      required:
-      - field
-      - code
-      - message
-      properties:
-        field:
-          type: string
-          description: Field related to the error
-        code:
-          $ref: '#/components/schemas/OpportunityErrorCode'
-        message:
-          type: string
-          description: Error description
-    OpportunityUpdateOwnerRequest:
-      type: object
-      title: OpportunityUpdateOwnerRequest
-      required:
-      - ownerId
-      - ownerCompanyId
-      properties:
-        ownerId:
-          type: string
-          description: The unique user ID of the owner
-        ownerCompanyId:
-          type: string
-          description: The unique company ID of the owner
-      example:
-        ownerId: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
-        ownerCompanyId: 6a62244e-aa2f-461b-8c7a-3a0e091be9d3
-    Opportunity:
-      type: object
-      title: Opportunity
+      title: OpportunityLight
       properties:
         id:
           type: string
           description: Opportunity ID
+        name:
+          description: Opportunity name
+          type: string
         ownerUser:
           $ref: '#/components/schemas/User'
         customerUser:
           $ref: '#/components/schemas/User'
         createdOn:
-          type: number
           description: Opportunity creation date, in UNIX Epoch milliseconds
-        currency:
-          $ref: '#/components/schemas/OpportunityCurrency'
-        purchaseEffectiveDate:
           type: number
+        purchaseEffectiveDate:
           description: Opportunity purchase effective date, in UNIX Epoch milliseconds
-        name:
-          type: string
-          description: Opportunity name
+          type: number
         status:
           $ref: '#/components/schemas/OpportunityStatus'
-        items:
-          type: array
-          description: List of items in the opportunity
-          items:
-            $ref: '#/components/schemas/OpportunityItem'
-        purchaseId:
-          type: string
-          description: Purchase ID
-        purchaseNumber:
-          type: string
-          description: Purchase number
-        availableActions:
-          type: array
-          description: Available actions on the opportunity
-          items:
-            $ref: '#/components/schemas/AvailableAction'
-        actionRestrictions:
-          allOf:
-          - $ref: '#/components/schemas/ActionRestriction'
-          - description: Action restrictions on the opportunity
-        purchaseCustomAttributes:
-          allOf:
-          - $ref: '#/components/schemas/CustomAttribute'
-          - description: Custom attributes related to the purchase
+        ownerType:
+          $ref: '#/components/schemas/OpportunityOwnerType'
       example:
         id: ef6c414f-39da-401f-a4b8-81adc6190fda
+        name: Jarvis Iniative
         ownerUser:
           id: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
           email: john.doe@acme.com
@@ -4134,59 +3896,10 @@ components:
             id: '100'
             name: Customer Company
             isReseller: false
-        createdOn: '1546300800000'
-        currency: USD
-        purchaseEffectiveDate: '1577750400000'
-        name: Jarvis Iniative
-        status: OPEN
-        items:
-        - id: 4ccf689b-4339-4fc9-a8b3-b05c5a87c1be
-          pricingPlanId: 4bc864b5-f63f-4933-be19-3700aa9a8cc4
-          units:
-          - quantity: '20'
-            unit: USER
-          subscriptionCustomAttributes:
-            intended_os:
-            - other
-            - ios
-            - macos
-            sales_agent_id:
-            - R353113R
-          vendorRequiredFields:
-            name:
-            - jonh
-            lastname:
-            - doe
-            email:
-            - john.doe@acme.com
-        - id: dece524d-0466-4185-b3bb-1f8a300c37cd
-          pricingPlanId: 80b85538-ffc1-4c4b-acb1-1bf87c8c2fc4
-          units: []
-        availableActions:
-        - EDIT
-        - FINALIZE
-        - SUBMIT_FOR_REVIEW
-        - ADD_PRODUCT
-        - SET_CUSTOM_PRICE
-        - SET_CUSTOM_CONTRACT
-        - SET_PROVISIONING_DATE
-        - SET_BILLING_DATE
-        - SET_COMMISSION_RATE
-        - CHANGE_OPPORTUNITY_OWNER
-        actionRestrictions: {}
-    Definition:
-      type: object
-      title: Definition
-      description: Definition for flat/unit range prices.
-      properties:
-        price:
-          description: Flat price.
-          type: number
-        priceRanges:
-          description: Unit range prices.
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceRange'
+        createdOn: 1557861989000
+        purchaseEffectiveDate: 1577750400000
+        status: CLOSED
+        ownerType: PLATFORM_OWNER
     Restriction:
       type: string
       title: Restriction
@@ -4195,191 +3908,6 @@ components:
       - CANNOT_FINALIZE_WITH_INACTIVE_CUSTOMER
       - CANNOT_SUBMIT_WITH_INACTIVE_CUSTOMER
       example: CANNOT_SUBMIT_WITH_INACTIVE_CUSTOMER
-    RequiredFields:
-      type: object
-      title: RequiredFields
-      description: Required field definitions for a specific product and edition
-      properties:
-        productId:
-          type: string
-          description: The product ID
-        editionId:
-          type: string
-          description: The edition code
-        forms:
-          type: array
-          description: Groups of required fields. Forms are used to organize required fields into meaningful groups.
-          items:
-            $ref: '#/components/schemas/Form'
-      example:
-        productId: dfc9cefb-610b-4e49-ade8-6ae51a4d35c9
-        editionId: EDITION_CODE
-        forms:
-        - isvIdentifier: ISV
-          context: CART_LEVEL
-          title: Additional Information
-          subTitle: Additional Information Subtitle
-          fields:
-          - inputCode: FirstName
-            inputTitle: First name
-            subTitle: ''
-            tooltip: ''
-            value: John
-            fieldType: TEXT
-            validations:
-              required: true
-              readonly: false
-              minLength: '2'
-              maxLength: '255'
-              expression: ^[A-Za-z]+(((\'|\-|\.(\s)?|\,(\s)?|\s)?([A-Za-z])+))*$
-            options:
-              suffix:
-                text: ''
-                inputCode: ''
-          - inputCode: Address/ISO3Country
-            inputTitle: Country
-            subTitle: ''
-            tooltip: ''
-            value: USA
-            fieldType: COUNTRY
-            validations:
-              required: true
-              readonly: false
-              minLength: '2'
-              maxLength: '3'
-              expression: ^[A-Za-z]{2}$
-            options:
-              suffix:
-                text: ''
-              placeholder: ''
-          - inputCode: SubDomain
-            inputTitle: Your primary domain name
-            subTitle: ''
-            tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=.entertainment.com, the subdomain value is: movies.entertainment.com'
-            value: ''
-            fieldType: TEXT
-            validations:
-              required: true
-              readonly: false
-              minLength: '1'
-              maxLength: '255'
-              expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
-            options:
-              suffix:
-                text: .thedomain.com
-                inputCode: ''
-              placeholder: movies.entertainment.com
-    ContractConfiguration:
-      type: object
-      title: ContractConfiguration
-      description: 'Contract configuration options for subscriptions that customers purchase. For example: contract length and cancellation penalities.'
-      properties:
-        minimumServiceLength:
-          type: integer
-          description: Contract length. The number of minimumServiceLengthUnits that defines contract duration.
-        minimumServiceLengthUnit:
-          $ref: '#/components/schemas/MinimumServiceLengthUnit'
-        renewalConfiguration:
-          $ref: '#/components/schemas/RenewalConfiguration'
-        terminationFee:
-          $ref: '#/components/schemas/TerminationFeeAS'
-        terminationFeeGracePeriod:
-          type: integer
-          description: Termination fee grace period duration. Number of terminationFeeGracePeriodUnits that define the risk-free period after the contract starts, during which no termination fee is charged if the customer cancels the contract.
-        terminationFeeGracePeriodUnit:
-          $ref: '#/components/schemas/TerminationFeeGracePeriodUnit'
-        endOfContractGracePeriod:
-          type: integer
-          description: End of contract grace period duration. Number of endofContractGracePeriodUnits that define the period after the contract ends, during which customers can resubscribe before their account and data might be deleted.
-        endOfContractGracePeriodUnit:
-          $ref: '#/components/schemas/GracePeriodUnit'
-        contractCancellationPeriodLimit:
-          type: integer
-          description: Contract cancellation period limit duration. Number of contractCancellationPeriodUnits that define the period before the contract ends, during which customers can no longer cancel the contract and it is renewed.
-        contractCancellationPeriodUnit:
-          $ref: '#/components/schemas/CancellationPeriodUnit'
-        unitTerms:
-          description: Maps a unit type (for example, user) to UnitContractTerms (see object definition). Enabled terms restrict mid-contract quantity changes for the unit type on subscriptions. See example.
-          type: object
-          properties:
-            default:
-              type: string
-          additionalProperties:
-            $ref: '#/components/schemas/UnitContractTerms'
-        blockContractUpgrades:
-          description: Whether subscriptions can be upgraded mid-contract term
-          type: boolean
-          default: false
-        blockContractDowngrades:
-          description: Whether subscriptions can be downgraded mid-contract term
-          type: boolean
-          default: false
-        blockSwitchToShorterContract:
-          description: Whether subscriptions can be changed to plans with shorter or no contracts.
-          type: boolean
-          default: false
-        keepContractDateOnPlanChange:
-          description: Whether the remaining contract duration changes when a user changes a subscription pricing plan
-          type: boolean
-          default: false
-        isDefault:
-          description: Whether it is a default or custom contract
-          type: boolean
-          default: false
-      example:
-        minimumServiceLength: '24'
-        minimumServiceLengthUnit: MONTHLY
-        terminationFee:
-          feeType: FIXED
-          amount: '2'
-        renewalConfiguration: MONTH_TO_MONTH
-        terminationFeeGracePeriod: '7'
-        terminationFeeGracePeriodUnit: DAY
-        contractCancellationPeriodLimit: null
-        contractCancellationPeriodUnit: NONE
-        endOfContractGracePeriod: null
-        endOfContractGracePeriodUnit: INFINITY
-        unitTerms:
-          USER:
-            blockContractIncrease: false
-            blockOriginalContractDecrease: false
-            blockContractDecrease: true
-        blockContractUpgrades: false
-        blockContractDowngrades: true
-        blockSwitchToShorterContract: true
-        keepContractDateOnPlanChange: false
-    BillingConfiguration:
-      type: object
-      title: BillingConfiguration
-      description: Determines when the billing cycle starts. Set UPON_SERVICE_ACTIVATION to start the billing cycle according to the specified provisioning strategy (either immediately after the opportunity is finalized or on a custom provisioning date). Set NEXT_BILLING_CYCLE to start the billing cycle according to the marketplace billing configuration (for example, first of the month). Set CUSTOM to start the billing cycle on a specified date in the future.
-      properties:
-        date:
-          type: number
-          description: Custom billing activation date in UNIX Epoch milliseconds. This date is required when the billing strategy is CUSTOM. Do not set the date when the strategy is UPON_SERVICE_ACTIVATION or NEXT_BILLING_CYCLE.
-        strategy:
-          $ref: '#/components/schemas/BillingStrategy'
-      example:
-        date: '1546300800000'
-        strategy: CUSTOM
-    OpportunityShipping:
-      type: object
-      title: OpportunityShipping
-      description: Shipping information that applies to all physical goods on the opportunity
-      properties:
-        sameAsBillingAddress:
-          type: boolean
-          description: 'Whether customer requests to use billing address as shipping address. WARNING: Does not manage addresses; does not change shipping address to billing address, nor update shipping address if billing address changes.'
-        deliveryAddress:
-          $ref: '#/components/schemas/DeliveryAddress'
-      example:
-        sameAsBillingAddress: false
-        deliveryAddress:
-          name: John Smith
-          city: Greenbow
-          addressLine1: Main Street 446
-          countryCode: US
-          subdivisionCode: AL
-          postalCode: '50505'
     PricingPlanCosts:
       type: object
       title: PricingPlanCosts
@@ -4491,108 +4019,263 @@ components:
           quantity: '1.0000000000'
           increment: 1
           pricePerIncrement: false
-    ProvisioningConfiguration:
+    OpportunityItemUpdateRequest:
       type: object
-      title: ProvisioningConfiguration
-      description: Determines when to send the service activation request to the vendor, either immediately after the opportunity is finalized (set the provisioning strategy to IMMEDIATELY) or at a future date (set the provisioning strategy to CUSTOM and set the desired date).
-      properties:
-        date:
-          type: number
-          description: Custom service activation date in UNIX Epoch milliseconds. This date is required when the provisioning strategy is CUSTOM. Do not set the date when the strategy is IMMEDIATELY.
-        strategy:
-          $ref: '#/components/schemas/ProvisioningStrategy'
-      example:
-        date: '1546300800000'
-        strategy: CUSTOM
-    TotalRecurring:
-      type: object
-      title: TotalRecurring
-      description: Represent recurring fee of a specfic billing cycle
-      properties:
-        totalSalePrice:
-          type: string
-          description: The total sale price
-        totalWholeSalePrice:
-          type: string
-          description: The total wholesale price
-        nextInvoiceDate:
-          type: string
-          description: Date for the next invoice
-        billingCycle:
-          $ref: '#/components/schemas/BillingCycle'
-      example:
-        billingCycle:
-          period: YEARLY
-          dayOfMonth: 17
-        totalSalePrice: '240.0000000000'
-    OpportunityPricing:
-      type: object
-      title: OpportunityPricing
-      description: Pricing structure for an item
+      title: OpportunityItemUpdateRequest
       required:
-      - costTypeCategory
-      - costType
-      - pricingStrategy
-      - salePrice
-      - wholesalePrice
-      - totalSalePrice
+      - itemId
+      - pricingPlanId
       properties:
-        costId:
+        id:
           type: string
-          description: The cost ID
-        costTypeCategory:
-          $ref: '#/components/schemas/CostTypeCategory'
-        costType:
-          $ref: '#/components/schemas/CostType'
-        frequency:
-          $ref: '#/components/schemas/PricingPeriod'
-        pricingStrategy:
-          $ref: '#/components/schemas/OpportunityPricingStrategy'
-        priceRanges:
+          description: Item ID
+        pricingPlanId:
+          type: string
+          description: Pricing plan ID
+        units:
           type: array
-          description: Range of units for which the price is valid
+          description: List of units (quantity and type) associated with the item
           items:
-            $ref: '#/components/schemas/PriceRangeItem'
-        description:
-          type: string
-          description: Description of each pricing line
-        unit:
-          type: string
-          description: Unit
-        quantity:
-          type: string
-          description: Quantity
-        salePrice:
-          type: string
-          description: Sale price
-        wholesalePrice:
-          type: string
-          description: Wholesale price
-        totalSalePrice:
-          type: string
-          description: Total sale price
+            $ref: '#/components/schemas/Unit'
+        customPrices:
+          type: array
+          description: List of custom prices per cost
+          items:
+            $ref: '#/components/schemas/CustomPrice'
+        contractConfiguration:
+          $ref: '#/components/schemas/ContractConfiguration'
+        provisioningConfiguration:
+          $ref: '#/components/schemas/ProvisioningConfiguration'
+        billingConfiguration:
+          $ref: '#/components/schemas/BillingConfiguration'
+        subscriptionCustomAttributes:
+          $ref: '#/components/schemas/CustomAttribute'
+        vendorRequiredFields:
+          $ref: '#/components/schemas/CustomAttribute'
       example:
-        costTypeCategory: RECURRING
-        costType: RECURRING_FLAT
-        frequency: MONTHLY
-        pricingStrategy: FLAT
-        priceRanges:
-        - max: '100'
-          min: '1'
-        description: RECURRING_FLAT
-        quantity: '1.0000000000'
-        salePrice: '14.9500000000'
-        wholesalePrice: '12.0000000000'
-        totalSalePrice: '14.9500000000'
-    BillingStrategy:
+        id: 37f56046-2cec-4bf4-a4e2-5a733dc849a9
+        pricingPlanId: a22c03e9-9e27-4e85-8433-78f246345685
+        units:
+        - quantity: '8'
+          unit: USER
+        customPrices:
+        - costId: e5f403a3-7ba0-45d4-8117-8dd8cbceb6c6
+          price: 100
+        - costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
+          price: 20
+        contractConfiguration:
+          minimumServiceLength: '3'
+          minimumServiceLengthUnit: MONTHLY
+          terminationFee:
+            feeType: FIXED
+            amount: '2'
+          renewalConfiguration: MONTH_TO_MONTH
+          terminationFeeGracePeriod: '7'
+          terminationFeeGracePeriodUnit: DAY
+          contractCancellationPeriodLimit: null
+          contractCancellationPeriodUnit: NONE
+          endOfContractGracePeriod: null
+          endOfContractGracePeriodUnit: INFINITY
+          unitTerms:
+            USER:
+              blockContractIncrease: false
+              blockOriginalContractDecrease: false
+              blockContractDecrease: true
+          blockContractUpgrades: false
+          blockContractDowngrades: true
+          blockSwitchToShorterContract: true
+          keepContractDateOnPlanChange: false
+        provisioningConfiguration:
+          date: '1546300800000'
+          strategy: CUSTOM
+        billingConfiguration:
+          date: '1546300800000'
+          strategy: CUSTOM
+        subscriptionCustomAttributes:
+          intended_os:
+          - other
+          - ios
+          - macos
+          sales_agent_id:
+          - R353113R
+        vendorRequiredFields:
+          name:
+          - John
+          lastname:
+          - Doe
+          email:
+          - john.doe@acme.com
+    ValidationDetail:
+      type: object
+      title: ValidationDetail
+      description: Failed validation error codes and messages
+      properties:
+        itemId:
+          type: string
+          description: Related Item ID, when the validation error is related to an item
+        code:
+          type: string
+          description: The error code, in screaming snake case. For example, PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Validation detail message
+        messageParameters:
+          type: array
+          description: Validation detail parameters
+          items:
+            $ref: '#/components/schemas/ValidationDetailParameter'
+      example:
+        itemId: eb690c8d-1c57-497c-82bf-a4194362d954
+        code: REQUIRED_FIELD_VALIDATION_ERROR
+        message: There are validation errors
+        messageParameters:
+        - key: REQUIRED_FIELD_KEY
+          value: USERNAME
+        - key: REQUIRED_FIELD_ERROR_MESSAGE
+          value: The username is not valid
+    RenewalConfiguration:
       type: string
-      title: BillingStrategy
+      title: RenewalConfiguration
+      description: Contract renewal configuration. Whether the contract is renewed and, if so, with what terms.
       enum:
-      - CUSTOM
-      - NEXT_BILLING_CYCLE
-      - UPON_SERVICE_ACTIVATION
-      default: UPON_SERVICE_ACTIVATION
-      example: CUSTOM
+      - MONTH_TO_MONTH
+      - AUTO_RENEW
+      - CANCEL_SUBSCRIPTION
+      example: MONTH_TO_MONTH
+    ProductIds:
+      type: object
+      title: ProductIds
+      description: A product ID and edition code
+      required:
+      - productId
+      - editionId
+      properties:
+        productId:
+          type: string
+          description: The product ID
+        editionId:
+          type: string
+          description: The edition code
+      example:
+        productId: dfc9cefb-610b-4e49-ade8-6ae51a4d35c9
+        editionId: EDITION_CODE
+    OpportunityShipping:
+      type: object
+      title: OpportunityShipping
+      description: Shipping information that applies to all physical goods on the opportunity
+      properties:
+        sameAsBillingAddress:
+          type: boolean
+          description: 'Whether customer requests to use billing address as shipping address. WARNING: Does not manage addresses; does not change shipping address to billing address, nor update shipping address if billing address changes.'
+        deliveryAddress:
+          $ref: '#/components/schemas/DeliveryAddress'
+      example:
+        sameAsBillingAddress: false
+        deliveryAddress:
+          name: John Smith
+          city: Greenbow
+          addressLine1: Main Street 446
+          countryCode: US
+          subdivisionCode: AL
+          postalCode: '50505'
+    OpportunityCurrency:
+      type: string
+      title: OpportunityCurrency
+      description: The currency using the ISO-4217 currency code
+      pattern: ^[A-Z]{3}$
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
+      example: USD
+    OpportunityItem:
+      type: object
+      title: OpportunityItem
+      properties:
+        id:
+          type: string
+          description: Item ID
+        parentItemId:
+          type: string
+          description: The parent product's Product ID. Only relevant to and required for add-on products.
+        pricingPlanId:
+          type: string
+          description: Pricing plan ID
+        units:
+          type: array
+          description: List of units (quantity and type) associated with the item
+          items:
+            $ref: '#/components/schemas/BillingConfiguration'
+        productId:
+          type: string
+          description: Product ID
+        subscriptionCustomAttributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomAttribute'
+          - description: Custom attributes related to the subscription
+        vendorRequiredFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomAttribute'
+          - description: Custom attributes related to vendor required fields for the subscription
+        provisioningConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/ProvisioningConfiguration'
+          - description: Custom service activation dates
+        billingConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/BillingConfiguration'
+          - description: Custom billing dates
+      example:
+        id: 37f56046-2cec-4bf4-a4e2-5a733dc849a9
+        pricingPlanId: a22c03e9-9e27-4e85-8433-78f246345685
+        units:
+        - quantity: '8'
+          unit: USER
+        subscriptionCustomAttributes:
+          intended_os:
+          - other
+          - ios
+          - macos
+          sales_agent_id:
+          - R353113R
+        vendorRequiredFields:
+          name:
+          - john
+          lastname:
+          - doe
+          email:
+          - john.doe@acme.com
+        provisioningConfiguration:
+          date: '1546300800000'
+          strategy: CUSTOM
+        billingConfiguration:
+          date: '1546300800000'
+          strategy: CUSTOM
     OpportunityItemDetail:
       type: object
       title: OpportunityItemDetail
@@ -4712,357 +4395,59 @@ components:
         provisioningConfiguration:
           date: '1546300800000'
           strategy: CUSTOM
-    UnitContractTerms:
+    BillingConfiguration:
       type: object
-      title: UnitContractTerms
-      description: Contract terms that restrict mid-contract quantity changes on subscriptions. unitTerms maps UnitContractTerms to a unit type (for example, user); enabled terms prevent actions for the unit type.
+      title: BillingConfiguration
+      description: Determines when the billing cycle starts. Set UPON_SERVICE_ACTIVATION to start the billing cycle according to the specified provisioning strategy (either immediately after the opportunity is finalized or on a custom provisioning date). Set NEXT_BILLING_CYCLE to start the billing cycle according to the marketplace billing configuration (for example, first of the month). Set CUSTOM to start the billing cycle on a specified date in the future.
       properties:
-        blockContractIncrease:
-          type: boolean
-          default: false
-        blockContractDecrease:
-          type: boolean
-          default: false
-        blockOriginalContractDecrease:
-          type: boolean
-          default: false
-      example:
-        blockContractIncrease: false
-        blockOriginalContractDecrease: false
-        blockContractDecrease: true
-    CostTypeCategory:
-      type: string
-      title: CostTypeCategory
-      description: Category of cost
-      enum:
-      - RECURRING
-      - ONE_TIME
-      example: ONE_TIME
-    OpportunityClone:
-      type: object
-      title: OpportunityClone
-      description: The response text containing the cloned opportunity ID.
-      properties:
-        opportunityId:
-          type: string
-          description: The ID of the cloned opportunity
-      example:
-        opportunityId: 498c62ea-ad14-48e6-96ce-5400c617444c
-    GracePeriodUnit:
-      type: string
-      title: GracePeriodUnit
-      description: End-of-contract grace period unit. Time unit by which the endOfContractGracePeriod is measured.
-      enum:
-      - NONE
-      - INFINITY
-      - DAY
-      - MONTH
-      example: INFINITY
-    OpportunityCloneRequest:
-      type: object
-      title: OpportunityCloneRequest
-      description: The parameters to be used when cloning the opportunity
-      required:
-      - name
-      - customerCompanyId
-      - customerId
-      - ownerCompanyId
-      - ownerId
-      properties:
-        name:
-          type: string
-          description: The name of the opportunity
-        customerCompanyId:
-          type: string
-          description: The company ID of the customer
-        customerId:
-          type: string
-          description: The user ID of the customer
-        ownerCompanyId:
-          type: string
-          description: The company ID of the sales agent
-        ownerId:
-          type: string
-          description: The user ID of the sales agent
-        createdByCompanyId:
-          type: string
-          description: The user's company ID that's creating the opportunity
-        createdById:
-          type: string
-          description: The user's ID that's creating the opportunity
-      example:
-        name: Opportunity name - COPY
-        customerCompanyId: 498c62ea-ad14-48e6-96ce-5400c617444c
-        customerId: 505f0a0c-57a7-4d9e-9fac-66bbf557ac4d
-        ownerCompanyId: 6a62244e-aa2f-461b-8c7a-3a0e091be9d3
-        ownerId: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
-        createdByCompanyId: b7e0c48b-6d0d-45fc-9c8a-3fa3fd84d9f1
-        createdById: 8f6b3d29-4169-4fb0-91ff-bad9b7a3d0d4
-    OpportunityProduct:
-      type: object
-      title: OpportunityProduct
-      properties:
-        id:
-          type: string
-          description: Product ID
-        name:
-          type: string
-          description: Product name
-        type:
-          type: string
-          description: Product type
-        logo:
-          type: string
-          description: Product logo URL
-      example:
-        id: cc0c7c28-ea65-4bab-8a4a-5e84d90ab291
-        name: Appsome Webapp
-        type: WEB_APP
-        logo: https://logs.acme.com/400x400/ddd/000.png&text=Appsome+App
-    OpportunityValidation:
-      type: object
-      title: OpportunityValidation
-      description: Failed and in-progress (pending) opportunity validations
-      properties:
-        blockingErrors:
-          type: array
-          description: Failed validation errors and the associated items, when applicable
-          items:
-            $ref: '#/components/schemas/ValidationDetail'
-        pendingValidations:
-          type: array
-          description: List of validations which are still being processed and whose result should be retrieved later
-          items:
-            type: string
-      example:
-        blockingErrors:
-        - itemId: eb690c8d-1c57-497c-82bf-a4194362d954
-          code: REQUIRED_FIELD_VALIDATION_ERROR
-          message: There are validation errors
-          messageParameters:
-          - key: REQUIRED_FIELD_KEY
-            value: USERNAME
-          - key: REQUIRED_FIELD_ERROR_MESSAGE
-            value: The username is not valid
-        pendingValidations:
-        - SUBSCRIPTION_VALIDATIONS
-    DiscountRequest:
-      type: object
-      title: DiscountRequest
-      description: Details about the discount to be applied to the product
-      properties:
-        discountCode:
-          type: string
-          description: The discount code can be a combination of letters, numbers, and special characters
-        itemIds:
-          type: array
-          description: The opportunity's item IDs to which the discount is applied or removed
-          items:
-            type: string
-      example:
-        discountCode: 10%OFF
-        itemIds:
-        - 166e0ce6-4309-4a16-ac9b-61bea7ce1cbc
-        - fa776d2e-cda5-4256-9a27-125a0fe3f448
-    PriceRangeItem:
-      type: object
-      title: PriceRangeItem
-      properties:
-        min:
-          type: string
-          description: Minimum number of units for the price range
-        max:
-          type: string
-          description: Maximum number of units for the price range
-      example:
-        min: '1'
-        max: '100'
-    RenewalConfiguration:
-      type: string
-      title: RenewalConfiguration
-      description: Contract renewal configuration. Whether the contract is renewed and, if so, with what terms.
-      enum:
-      - MONTH_TO_MONTH
-      - AUTO_RENEW
-      - CANCEL_SUBSCRIPTION
-      example: MONTH_TO_MONTH
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
+        date:
           type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
+          description: Custom billing activation date in UNIX Epoch milliseconds. This date is required when the billing strategy is CUSTOM. Do not set the date when the strategy is UPON_SERVICE_ACTIVATION or NEXT_BILLING_CYCLE.
+        strategy:
+          $ref: '#/components/schemas/BillingStrategy'
       example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    ValidationDetail:
+        date: '1546300800000'
+        strategy: CUSTOM
+    CustomAttribute:
       type: object
-      title: ValidationDetail
-      description: Failed validation error codes and messages
-      properties:
-        itemId:
+      title: CustomAttribute
+      description: Custom attributes as key-value pairs. Values must be a string array
+      additionalProperties:
+        type: array
+        description: Custom attribute key
+        items:
           type: string
-          description: Related Item ID, when the validation error is related to an item
-        code:
-          type: string
-          description: The error code, in screaming snake case. For example, PAYLOAD_VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Validation detail message
-        messageParameters:
-          type: array
-          description: Validation detail parameters
-          items:
-            $ref: '#/components/schemas/ValidationDetailParameter'
+          description: Custom attribute values
       example:
-        itemId: eb690c8d-1c57-497c-82bf-a4194362d954
-        code: REQUIRED_FIELD_VALIDATION_ERROR
-        message: There are validation errors
-        messageParameters:
-        - key: REQUIRED_FIELD_KEY
-          value: USERNAME
-        - key: REQUIRED_FIELD_ERROR_MESSAGE
-          value: The username is not valid
-    OpportunityItem:
-      type: object
-      title: OpportunityItem
-      properties:
-        id:
-          type: string
-          description: Item ID
-        parentItemId:
-          type: string
-          description: The parent product's Product ID. Only relevant to and required for add-on products.
-        pricingPlanId:
-          type: string
-          description: Pricing plan ID
-        units:
-          type: array
-          description: List of units (quantity and type) associated with the item
-          items:
-            $ref: '#/components/schemas/BillingConfiguration'
-        productId:
-          type: string
-          description: Product ID
-        subscriptionCustomAttributes:
-          allOf:
-          - $ref: '#/components/schemas/CustomAttribute'
-          - description: Custom attributes related to the subscription
-        vendorRequiredFields:
-          allOf:
-          - $ref: '#/components/schemas/CustomAttribute'
-          - description: Custom attributes related to vendor required fields for the subscription
-        provisioningConfiguration:
-          allOf:
-          - $ref: '#/components/schemas/ProvisioningConfiguration'
-          - description: Custom service activation dates
-        billingConfiguration:
-          allOf:
-          - $ref: '#/components/schemas/BillingConfiguration'
-          - description: Custom billing dates
-      example:
-        id: 37f56046-2cec-4bf4-a4e2-5a733dc849a9
-        pricingPlanId: a22c03e9-9e27-4e85-8433-78f246345685
-        units:
-        - quantity: '8'
-          unit: USER
-        subscriptionCustomAttributes:
-          intended_os:
-          - other
-          - ios
-          - macos
-          sales_agent_id:
-          - R353113R
-        vendorRequiredFields:
-          name:
-          - john
-          lastname:
-          - doe
-          email:
-          - john.doe@acme.com
-        provisioningConfiguration:
-          date: '1546300800000'
-          strategy: CUSTOM
-        billingConfiguration:
-          date: '1546300800000'
-          strategy: CUSTOM
-    PricingPeriod:
+        customAttributes:
+          multivalue_key:
+          - key_value_1
+          - key_value_2
+          single_key:
+          - key_value
+    BillingStrategy:
       type: string
-      title: PricingPeriod
-      description: The pricing period. The billing frequency for the pricing plan.
+      title: BillingStrategy
       enum:
-      - ONE_TIME
-      - DAILY
-      - MONTHLY
-      - QUARTERLY
-      - SIX_MONTHS
-      - YEARLY
-      - TWO_YEARS
-      - THREE_YEARS
-      example: ONE_TIME
-    Field:
+      - CUSTOM
+      - NEXT_BILLING_CYCLE
+      - UPON_SERVICE_ACTIVATION
+      default: UPON_SERVICE_ACTIVATION
+      example: CUSTOM
+    TerminationFeeAS:
       type: object
-      title: Field
-      description: ''
+      title: TerminationFee
+      description: Termination fee
       properties:
-        inputCode:
+        feeType:
+          $ref: '#/components/schemas/FeeType'
+        amount:
+          type: number
+        description:
           type: string
-          description: 'An identifier for the field. For example: domain, username, country, state. Can be used to reference this field and the value in it (for example, see Suffix option).'
-        inputTitle:
-          type: string
-          description: Descriptive title for the field
-        subTitle:
-          type: string
-          description: Descriptive subtitle for the field
-        tooltip:
-          type: string
-          description: Descriptive tooltip for the field
-        value:
-          type: string
-          description: The field value
-        fieldType:
-          type: string
-          description: 'The type of input field associated with the form field. For example: DOMAIN (has ''http''), STRING, EMAIL (has ''@'').'
-        validations:
-          $ref: '#/components/schemas/RequiredFieldValidationDefinitions'
-        options:
-          $ref: '#/components/schemas/Options'
       example:
-        inputCode: SubDomain
-        inputTitle: Your primary domain name
-        subTitle: ''
-        tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=.entertainment.com, the subdomain value is: movies.entertainment.com'
-        value: ''
-        fieldType: TEXT
-        validations:
-          required: true
-          readonly: false
-          minLength: '1'
-          maxLength: '255'
-          expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
-        options:
-          suffix:
-            text: .thedomain.com
-            inputCode: ''
-          placeholder: movies.entertainment.com
+        feeType: FIXED
+        amount: '2'
     BillingCycle:
       type: object
       title: BillingCycle
@@ -5076,127 +4461,100 @@ components:
       example:
         period: YEARLY
         dayOfMonth: 17
-    OpportunityCurrency:
-      type: string
-      title: OpportunityCurrency
-      description: The currency using the ISO-4217 currency code
-      pattern: ^[A-Z]{3}$
-      enum:
-      - USD
-      - CAD
-      - EUR
-      - JPY
-      - GBP
-      - KRW
-      - CHF
-      - SEK
-      - SGD
-      - MYR
-      - AUD
-      - MXN
-      - INR
-      - BRL
-      - DKK
-      - NZD
-      - NOK
-      - ZAR
-      - PHP
-      - CNY
-      - SAR
-      - GTQ
-      - IDR
-      - ARS
-      - COP
-      - PEN
-      default: USD
-      example: USD
-    PricingStrategy:
-      description: Pricing strategy
-      type: string
-      title: PricingStrategy
-      enum:
-      - FREE
-      - FLAT
-      - UNIT
-      - TIERED
-      - VOLUME
-      - VARIABLE_PRICE_STRATEGIES
-      - UNLIMITED
-      - CUSTOM
-    ValidationDetailParameter:
+    OpportunitySummary:
       type: object
-      title: ValidationDetailParameter
-      description: Key value pairs for elements with failed validations and related error messages. For example, the name of a required field and the error message related to it
+      title: OpportunitySummary
+      description: Opportunity taxes, subtotals, totals and recurring totals
       properties:
-        key:
+        amountDueBeforeTax:
           type: string
-          description: Validation detail parameter key
-        value:
+          description: Amount due before taxes
+        taxSummary:
+          type: array
+          description: Details of a specific type of tax applied to a charged cost
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        amountDueAfterTax:
           type: string
-          description: Validation detail parameter value
+          description: Amount due after taxes
+        items:
+          type: array
+          description: List of item details
+          items:
+            $ref: '#/components/schemas/OpportunityItemDetail'
+        recurringTotals:
+          type: array
+          description: Recurring charge totals
+          items:
+            $ref: '#/components/schemas/TotalRecurring'
       example:
-        key: REQUIRED_FIELD_KEY
-        value: USERNAME
-    CostType:
-      type: string
-      title: CostType
-      description: Type of cost
-      enum:
-      - RECURRING_FLAT
-      - ONE_TIME_FLAT
-      - INCLUDED
-      - SETUP_PER_UNIT
-      - RECURRING_PER_UNIT
-      - ONE_TIME_PER_UNIT
-      - SETUP_FEE
-      - CONTRACT_FEE
-      - DISCOUNT_PER_UNIT
-      - DISCOUNT_FLAT
-      - METERED_USAGE
-      example: RECURRING_PER_UNIT
-    OpportunityErrorCode:
-      type: string
-      title: OpportunityErrorCode
-      description: The error code associated with the response
-      enum:
-      - SERVICE_UNAVAILABLE
-      - UNAUTHORIZED
-      - FORBIDDEN
-      - NOT_FOUND
-      - CONFLICT
-      - REQUIRED_VALIDATION
-      - INVALID_PAYLOAD_ERROR
-      - INTERNAL_SERVER_ERROR
-      - INTERNAL_TIMEOUT
-      - MALFORMED_PAYLOAD
-      - INVALID_PARAM
-      - BAD_REQUEST
-      - DUPLICATED_ITEMS
-      - PRODUCT_NOT_STACKABLE_ALREADY_OWNED
-      - OPPORTUNITY_ALREADY_CLOSED
-      - ROLE_NOT_FOUND
-      - REDEMPTION_LIMIT_REACHED
-      - DISCOUNT_APPLICABLE_COUNT
-      - DISCOUNT_APPLICABLE_ITEM
-      - OVERRIDING_EXISTING_DISCOUNT
-      - DISCOUNT_OVERRIDEN
-      - DISCOUNT_CODE_EXPIRED
-      - METHOD_NOT_ALLOWED
-      - ALREADY_PURCHASED
-      - INVALID_ITEM_ASSOCIATION
-      - EXTERNAL_SERVICE_CONFLICT
-      - DUPLICATE_ADDON_ON_PARENT
-      - MINIMUM_UNIT_VALUE
-      - PRICING_PLANS_NOT_FOUND
-      - NO_ITEMS_FOUND
-      - REQUIRED_FIELD_VALIDATION_ERROR
-      - PURCHASE_SPEND_LIMIT
-      - INVALID_MEMBERSHIP
-      - VALID_PAYMENT_METHOD_REQUIRED
-      - BILLING_ADDRESS_REQUIRED_FOR_OFFPLATFORM_PAYMENTS
-      - MICROSOFT_CONFLICT_EXCEPTION
-      - UNKNOWN
-      example: BAD_REQUEST
+        amountDueBeforeTax: '0.0000000000'
+        taxSummary: []
+        amountDueAfterTax: '0.0000000000'
+        items:
+        - id: c57331b7-0820-44ac-ad75-ee4ab2783b7c
+          product:
+            id: fa776d2e-cda5-4256-9a27-125a0fe3f448
+            name: Supported Product for Opportunity MVP
+            type: WEB_APP_STACKED
+            isAddon: false
+            hasAddons: false
+          pricingPlan:
+            id: 7e1fd1fa-de0e-49e9-9e6a-9c474c57f22d
+            name: Tiered monthly+yearly flat with included YEARLY
+            editionCode: Tiered monthly+yearly flat with included
+          pricing:
+          - costType: RECURRING_FLAT
+            description: Tiered monthly+yearly flat with included
+            quantity: '1.0000000000'
+            totalSalePrice: '240.0000000000'
+          - costType: INCLUDED
+            description: INCLUDED
+            quantity: '1.0000000000'
+            totalSalePrice: '0.0000000000'
+          contractConfiguration:
+            minimumServiceLength: 1
+            minimumServiceLengthUnit: YEARLY
+            unitTerms: {}
+            blockContractUpgrades: true
+            blockContractDowngrades: true
+            blockSwitchToShorterContract: true
+            keepContractDateOnPlanChange: true
+          unitDefinitions:
+          - unit: USER
+            minimum: '1.0000000000'
+            meteredUsage: false
+            allowDecimals: false
+            readOnly: true
+            pricePerIncrement: false
+        recurringTotals:
+        - billingCycle:
+            period: YEARLY
+            dayOfMonth: 17
+          totalSalePrice: '240.0000000000'
+    ProvisioningConfiguration:
+      type: object
+      title: ProvisioningConfiguration
+      description: Determines when to send the service activation request to the vendor, either immediately after the opportunity is finalized (set the provisioning strategy to IMMEDIATELY) or at a future date (set the provisioning strategy to CUSTOM and set the desired date).
+      properties:
+        date:
+          type: number
+          description: Custom service activation date in UNIX Epoch milliseconds. This date is required when the provisioning strategy is CUSTOM. Do not set the date when the strategy is IMMEDIATELY.
+        strategy:
+          $ref: '#/components/schemas/ProvisioningStrategy'
+      example:
+        date: '1546300800000'
+        strategy: CUSTOM
+    OpportunityClone:
+      type: object
+      title: OpportunityClone
+      description: The response text containing the cloned opportunity ID.
+      properties:
+        opportunityId:
+          type: string
+          description: The ID of the cloned opportunity
+      example:
+        opportunityId: 498c62ea-ad14-48e6-96ce-5400c617444c
     OpportunityCreationRequest:
       type: object
       title: OpportunityCreationRequest
@@ -5260,135 +4618,233 @@ components:
         purchaseCustomAttributes:
           paid_off_platform_contact:
           - janet.doe@accounting.acme.com
-    OpportunityPage:
+    Unit:
       type: object
-      title: OpportunityPage
+      description: Purchase item unit
+      title: Unit
       properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          description: List of opportunities
-          type: array
-          items:
-            $ref: '#/components/schemas/OpportunityLight'
-    PricingPlan:
+        quantity:
+          type: number
+          description: Quantity
+        unit:
+          type: string
+          description: Unit
+      example:
+        quantity: '8'
+        unit: USER
+    ContractConfiguration:
       type: object
-      title: PricingPlan
+      title: ContractConfiguration
+      description: 'Contract configuration options for subscriptions that customers purchase. For example: contract length and cancellation penalities.'
+      properties:
+        minimumServiceLength:
+          type: integer
+          description: Contract length. The number of minimumServiceLengthUnits that defines contract duration.
+        minimumServiceLengthUnit:
+          $ref: '#/components/schemas/MinimumServiceLengthUnit'
+        renewalConfiguration:
+          $ref: '#/components/schemas/RenewalConfiguration'
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFeeAS'
+        terminationFeeGracePeriod:
+          type: integer
+          description: Termination fee grace period duration. Number of terminationFeeGracePeriodUnits that define the risk-free period after the contract starts, during which no termination fee is charged if the customer cancels the contract.
+        terminationFeeGracePeriodUnit:
+          $ref: '#/components/schemas/TerminationFeeGracePeriodUnit'
+        endOfContractGracePeriod:
+          type: integer
+          description: End of contract grace period duration. Number of endofContractGracePeriodUnits that define the period after the contract ends, during which customers can resubscribe before their account and data might be deleted.
+        endOfContractGracePeriodUnit:
+          $ref: '#/components/schemas/GracePeriodUnit'
+        contractCancellationPeriodLimit:
+          type: integer
+          description: Contract cancellation period limit duration. Number of contractCancellationPeriodUnits that define the period before the contract ends, during which customers can no longer cancel the contract and it is renewed.
+        contractCancellationPeriodUnit:
+          $ref: '#/components/schemas/CancellationPeriodUnit'
+        unitTerms:
+          description: Maps a unit type (for example, user) to UnitContractTerms (see object definition). Enabled terms restrict mid-contract quantity changes for the unit type on subscriptions. See example.
+          type: object
+          properties:
+            default:
+              type: string
+          additionalProperties:
+            $ref: '#/components/schemas/UnitContractTerms'
+        blockContractUpgrades:
+          description: Whether subscriptions can be upgraded mid-contract term
+          type: boolean
+          default: false
+        blockContractDowngrades:
+          description: Whether subscriptions can be downgraded mid-contract term
+          type: boolean
+          default: false
+        blockSwitchToShorterContract:
+          description: Whether subscriptions can be changed to plans with shorter or no contracts.
+          type: boolean
+          default: false
+        keepContractDateOnPlanChange:
+          description: Whether the remaining contract duration changes when a user changes a subscription pricing plan
+          type: boolean
+          default: false
+        isDefault:
+          description: Whether it is a default or custom contract
+          type: boolean
+          default: false
+      example:
+        minimumServiceLength: '24'
+        minimumServiceLengthUnit: MONTHLY
+        terminationFee:
+          feeType: FIXED
+          amount: '2'
+        renewalConfiguration: MONTH_TO_MONTH
+        terminationFeeGracePeriod: '7'
+        terminationFeeGracePeriodUnit: DAY
+        contractCancellationPeriodLimit: null
+        contractCancellationPeriodUnit: NONE
+        endOfContractGracePeriod: null
+        endOfContractGracePeriodUnit: INFINITY
+        unitTerms:
+          USER:
+            blockContractIncrease: false
+            blockOriginalContractDecrease: false
+            blockContractDecrease: true
+        blockContractUpgrades: false
+        blockContractDowngrades: true
+        blockSwitchToShorterContract: true
+        keepContractDateOnPlanChange: false
+    CostTypeCategory:
+      type: string
+      title: CostTypeCategory
+      description: Category of cost
+      enum:
+      - RECURRING
+      - ONE_TIME
+      example: ONE_TIME
+    UnitDefinition:
+      type: object
+      title: UnitDefinition
+      description: Configuration details for a unit type that is part of a pricing plan
+      properties:
+        unit:
+          type: string
+          description: Unit type name
+        minimum:
+          type: string
+          description: The minimum number of units that users can buy
+        maximum:
+          type: string
+          description: The maximum number of units that users can buy
+        quantity:
+          type: string
+          description: Purchase quantity
+        meteredUsage:
+          type: boolean
+          description: If true, this unit must be configured for metered usage
+        allowDecimals:
+          type: boolean
+          description: If true, this unit can be purchased in decimal (fractional) quantities
+        readOnly:
+          type: boolean
+          description: If true, the user cannot set a quantity for this unit at the time of purchase
+        pricePerIncrement:
+          type: boolean
+          description: If true, the price per increment is displayed. For example, if the unit has a unit price is $1 and users must purchase in increments of 5, the price appears as $5 for 5 units.
+        increment:
+          type: number
+          description: Restrict users to purchasing the unit in this number of increments. For example, require users to purchase the unit type in increments of 5.
+      example:
+      - unit: USER
+        minimum: '1.0000000000'
+        meteredUsage: false
+        allowDecimals: false
+        readOnly: false
+        quantity: '1.0000000000'
+        increment: 1
+        pricePerIncrement: false
+    OpportunityError:
+      type: object
+      title: OpportunityError
+      description: Opportunities API error description
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        code:
+          $ref: '#/components/schemas/OpportunityErrorCode'
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        details:
+          type: array
+          description: Additional error details
+          items:
+            $ref: '#/components/schemas/OpportunityErrorDetails'
+      example:
+        status: 503
+        code: SERVICE_UNAVAILABLE
+        message: Unable to reach the service, please contact support@appdirect.com
+    OpportunityErrorDetails:
+      type: object
+      title: OpportunityErrorDetails
+      description: Additional error details returned after opportunity API call failure
+      required:
+      - field
+      - code
+      - message
+      properties:
+        field:
+          type: string
+          description: Field related to the error
+        code:
+          $ref: '#/components/schemas/OpportunityErrorCode'
+        message:
+          type: string
+          description: Error description
+    PriceRangeItem:
+      type: object
+      title: PriceRangeItem
+      properties:
+        min:
+          type: string
+          description: Minimum number of units for the price range
+        max:
+          type: string
+          description: Maximum number of units for the price range
+      example:
+        min: '1'
+        max: '100'
+    User:
+      type: object
+      title: User
       properties:
         id:
           type: string
-          description: Pricing plan ID
-        name:
+          description: User ID
+        email:
           type: string
-          description: Pricing plan name
+          description: User email address
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          - description: User company
       example:
-        id: 031d9ed2-3df1-44f5-876a-6b4318ba7bdb
-        name: Recurring Edition with Unlimited Included Users
-    Form:
-      type: object
-      title: Form
-      description: A group of required fields. Forms are used to organize required fields into meaningful groups.Required field definitions
-      properties:
-        isvIdentifier:
-          type: string
-          description: The vendor's (ISV's) unique identifier
-        context:
-          type: string
-          description: 'Response organization. ITEM_LEVEL: Required fields listed for each product. CART_LEVEL: Products grouped by vendor (ISV) with one list of required fields that apply to all the vendor''s products.'
-        title:
-          type: string
-          description: The form title
-        subTitle:
-          type: string
-          description: Descriptive subtitle for the form
-        fields:
-          type: array
-          description: All relevant information related to fields in the form
-          items:
-            $ref: '#/components/schemas/Field'
-      example:
-        isvIdentifier: ISV
-        context: CART_LEVEL
-        title: Additional Information
-        subTitle: Additional Information Subtitle
-        fields:
-        - inputCode: FirstName
-          inputTitle: First name
-          subTitle: ''
-          tooltip: ''
-          value: John
-          fieldType: TEXT
-          validations:
-            required: true
-            readonly: false
-            minLength: '2'
-            maxLength: '255'
-            expression: ^[A-Za-z]+(((\'|\-|\.(\s)?|\,(\s)?|\s)?([A-Za-z])+))*$
-          options:
-            suffix:
-              text: ''
-              inputCode: ''
-        - inputCode: Address/ISO3Country
-          inputTitle: Country
-          subTitle: ''
-          tooltip: ''
-          value: USA
-          fieldType: COUNTRY
-          validations:
-            required: true
-            readonly: false
-            minLength: '2'
-            maxLength: '3'
-            expression: ^[A-Za-z]{2}$
-          options:
-            suffix:
-              text: ''
-            placeholder: ''
-        - inputCode: SubDomain
-          inputTitle: Your primary domain name
-          subTitle: ''
-          tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=entertainment.com, the subdomain value is: movies.entertainment.com'
-          value: ''
-          fieldType: TEXT
-          validations:
-            required: true
-            readonly: false
-            minLength: '1'
-            maxLength: '255'
-            expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
-          options:
-            suffix:
-              text: .thedomain.com
-              inputCode: ''
-            placeholder: movies.entertainment.com
-    AvailableAction:
-      type: string
-      title: AvailableAction
-      description: Only appears in responses. Actions that the API client has permission to complete for this opportunity. If an expected action does not appear in this list, check for it in the list of actionRestrictions.
-      enum:
-      - EDIT
-      - FINALIZE
-      - SUBMIT_FOR_REVIEW
-      - ADD_PRODUCT
-      - SET_CUSTOM_PRICE
-      - SET_CUSTOM_CONTRACT
-      - SET_PROVISIONING_DATE
-      - SET_BILLING_DATE
-      - CHANGE_OPPORTUNITY_OWNER
-      example: EDIT
-    MinimumServiceLengthUnit:
-      type: string
-      title: MinimumServiceLengthUnit
-      description: Time unit for contract length. This property must have the same value as the contract length unit configured for the pricing plan.
-      enum:
-      - DAILY
-      - MONTHLY
-      - QUARTERLY
-      - SIX_MONTHS
-      - YEARLY
-      - TWO_YEARS
-      - THREE_YEARS
-      example: MONTHLY
+        id: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
+        email: john.doe@acme.com
+        firstName: John
+        lastName: Doe
+        company:
+          id: '1'
+          name: Acme Corp.
+          isReseller: true
     TerminationFeeGracePeriodUnit:
       type: string
       title: TerminationFeeGracePeriodUnit
@@ -5398,33 +4854,103 @@ components:
       - DAY
       - MONTH
       example: NONE
-    OpportunityLight:
+    OpportunityUpdateOwnerRequest:
       type: object
-      title: OpportunityLight
+      title: OpportunityUpdateOwnerRequest
+      required:
+      - ownerId
+      - ownerCompanyId
+      properties:
+        ownerId:
+          type: string
+          description: The unique user ID of the owner
+        ownerCompanyId:
+          type: string
+          description: The unique company ID of the owner
+      example:
+        ownerId: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
+        ownerCompanyId: 6a62244e-aa2f-461b-8c7a-3a0e091be9d3
+    Company:
+      type: object
+      title: Company
+      properties:
+        id:
+          type: string
+          description: Company ID
+        name:
+          type: string
+          description: Company name
+        isReseller:
+          type: boolean
+          description: Indicate if the company is reseller
+      example:
+        id: '1'
+        name: Acme Corp.
+        isReseller: false
+    Suffix:
+      type: object
+      title: Suffix
+      description: The suffix label that appears to the right of the form field. For example, for a domain field, the suffix might be .com. Optional. The suffix can be populated by text OR the value in another form field referenced by an input code.
+      properties:
+        text:
+          type: string
+          description: The suffix value
+        inputCode:
+          type: string
+          description: Unique identifier for the field. Possible values are DOMAIN, USERNAME, COUNTRY, STATE, etc.
+      example:
+        text: domainsuffix.com
+        inputCode: DOMAIN
+    Opportunity:
+      type: object
+      title: Opportunity
       properties:
         id:
           type: string
           description: Opportunity ID
-        name:
-          description: Opportunity name
-          type: string
         ownerUser:
           $ref: '#/components/schemas/User'
         customerUser:
           $ref: '#/components/schemas/User'
         createdOn:
+          type: number
           description: Opportunity creation date, in UNIX Epoch milliseconds
-          type: number
+        currency:
+          $ref: '#/components/schemas/OpportunityCurrency'
         purchaseEffectiveDate:
-          description: Opportunity purchase effective date, in UNIX Epoch milliseconds
           type: number
+          description: Opportunity purchase effective date, in UNIX Epoch milliseconds
+        name:
+          type: string
+          description: Opportunity name
         status:
           $ref: '#/components/schemas/OpportunityStatus'
-        ownerType:
-          $ref: '#/components/schemas/OpportunityOwnerType'
+        items:
+          type: array
+          description: List of items in the opportunity
+          items:
+            $ref: '#/components/schemas/OpportunityItem'
+        purchaseId:
+          type: string
+          description: Purchase ID
+        purchaseNumber:
+          type: string
+          description: Purchase number
+        availableActions:
+          type: array
+          description: Available actions on the opportunity
+          items:
+            $ref: '#/components/schemas/AvailableAction'
+        actionRestrictions:
+          allOf:
+          - $ref: '#/components/schemas/ActionRestriction'
+          - description: Action restrictions on the opportunity
+        purchaseCustomAttributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomAttribute'
+          - description: Custom attributes related to the purchase
       example:
         id: ef6c414f-39da-401f-a4b8-81adc6190fda
-        name: Jarvis Iniative
         ownerUser:
           id: d781ac09-b4fe-4d57-8ba2-4640fc5b7c49
           email: john.doe@acme.com
@@ -5443,10 +4969,484 @@ components:
             id: '100'
             name: Customer Company
             isReseller: false
-        createdOn: 1557861989000
+        createdOn: '1546300800000'
+        currency: USD
+        purchaseEffectiveDate: '1577750400000'
+        name: Jarvis Iniative
+        status: OPEN
+        items:
+        - id: 4ccf689b-4339-4fc9-a8b3-b05c5a87c1be
+          pricingPlanId: 4bc864b5-f63f-4933-be19-3700aa9a8cc4
+          units:
+          - quantity: '20'
+            unit: USER
+          subscriptionCustomAttributes:
+            intended_os:
+            - other
+            - ios
+            - macos
+            sales_agent_id:
+            - R353113R
+          vendorRequiredFields:
+            name:
+            - jonh
+            lastname:
+            - doe
+            email:
+            - john.doe@acme.com
+        - id: dece524d-0466-4185-b3bb-1f8a300c37cd
+          pricingPlanId: 80b85538-ffc1-4c4b-acb1-1bf87c8c2fc4
+          units: []
+        availableActions:
+        - EDIT
+        - FINALIZE
+        - SUBMIT_FOR_REVIEW
+        - ADD_PRODUCT
+        - SET_CUSTOM_PRICE
+        - SET_CUSTOM_CONTRACT
+        - SET_PROVISIONING_DATE
+        - SET_BILLING_DATE
+        - SET_COMMISSION_RATE
+        - CHANGE_OPPORTUNITY_OWNER
+        actionRestrictions: {}
+    ValidationDetailParameter:
+      type: object
+      title: ValidationDetailParameter
+      description: Key value pairs for elements with failed validations and related error messages. For example, the name of a required field and the error message related to it
+      properties:
+        key:
+          type: string
+          description: Validation detail parameter key
+        value:
+          type: string
+          description: Validation detail parameter value
+      example:
+        key: REQUIRED_FIELD_KEY
+        value: USERNAME
+    DiscountRequest:
+      type: object
+      title: DiscountRequest
+      description: Details about the discount to be applied to the product
+      properties:
+        discountCode:
+          type: string
+          description: The discount code can be a combination of letters, numbers, and special characters
+        itemIds:
+          type: array
+          description: The opportunity's item IDs to which the discount is applied or removed
+          items:
+            type: string
+      example:
+        discountCode: 10%OFF
+        itemIds:
+        - 166e0ce6-4309-4a16-ac9b-61bea7ce1cbc
+        - fa776d2e-cda5-4256-9a27-125a0fe3f448
+    Field:
+      type: object
+      title: Field
+      description: ''
+      properties:
+        inputCode:
+          type: string
+          description: 'An identifier for the field. For example: domain, username, country, state. Can be used to reference this field and the value in it (for example, see Suffix option).'
+        inputTitle:
+          type: string
+          description: Descriptive title for the field
+        subTitle:
+          type: string
+          description: Descriptive subtitle for the field
+        tooltip:
+          type: string
+          description: Descriptive tooltip for the field
+        value:
+          type: string
+          description: The field value
+        fieldType:
+          type: string
+          description: 'The type of input field associated with the form field. For example: DOMAIN (has ''http''), STRING, EMAIL (has ''@'').'
+        validations:
+          $ref: '#/components/schemas/RequiredFieldValidationDefinitions'
+        options:
+          $ref: '#/components/schemas/Options'
+      example:
+        inputCode: SubDomain
+        inputTitle: Your primary domain name
+        subTitle: ''
+        tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=.entertainment.com, the subdomain value is: movies.entertainment.com'
+        value: ''
+        fieldType: TEXT
+        validations:
+          required: true
+          readonly: false
+          minLength: '1'
+          maxLength: '255'
+          expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
+        options:
+          suffix:
+            text: .thedomain.com
+            inputCode: ''
+          placeholder: movies.entertainment.com
+    MinimumServiceLengthUnit:
+      type: string
+      title: MinimumServiceLengthUnit
+      description: Time unit for contract length. This property must have the same value as the contract length unit configured for the pricing plan.
+      enum:
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: MONTHLY
+    CostType:
+      type: string
+      title: CostType
+      description: Type of cost
+      enum:
+      - RECURRING_FLAT
+      - ONE_TIME_FLAT
+      - INCLUDED
+      - SETUP_PER_UNIT
+      - RECURRING_PER_UNIT
+      - ONE_TIME_PER_UNIT
+      - SETUP_FEE
+      - CONTRACT_FEE
+      - DISCOUNT_PER_UNIT
+      - DISCOUNT_FLAT
+      - METERED_USAGE
+      example: RECURRING_PER_UNIT
+    OpportunityProduct:
+      type: object
+      title: OpportunityProduct
+      properties:
+        id:
+          type: string
+          description: Product ID
+        name:
+          type: string
+          description: Product name
+        type:
+          type: string
+          description: Product type
+        logo:
+          type: string
+          description: Product logo URL
+      example:
+        id: cc0c7c28-ea65-4bab-8a4a-5e84d90ab291
+        name: Appsome Webapp
+        type: WEB_APP
+        logo: https://logs.acme.com/400x400/ddd/000.png&text=Appsome+App
+    OpportunityErrorCode:
+      type: string
+      title: OpportunityErrorCode
+      description: The error code associated with the response
+      enum:
+      - SERVICE_UNAVAILABLE
+      - UNAUTHORIZED
+      - FORBIDDEN
+      - NOT_FOUND
+      - CONFLICT
+      - REQUIRED_VALIDATION
+      - INVALID_PAYLOAD_ERROR
+      - INTERNAL_SERVER_ERROR
+      - INTERNAL_TIMEOUT
+      - MALFORMED_PAYLOAD
+      - INVALID_PARAM
+      - BAD_REQUEST
+      - DUPLICATED_ITEMS
+      - PRODUCT_NOT_STACKABLE_ALREADY_OWNED
+      - OPPORTUNITY_ALREADY_CLOSED
+      - ROLE_NOT_FOUND
+      - REDEMPTION_LIMIT_REACHED
+      - DISCOUNT_APPLICABLE_COUNT
+      - DISCOUNT_APPLICABLE_ITEM
+      - OVERRIDING_EXISTING_DISCOUNT
+      - DISCOUNT_OVERRIDEN
+      - DISCOUNT_CODE_EXPIRED
+      - METHOD_NOT_ALLOWED
+      - ALREADY_PURCHASED
+      - INVALID_ITEM_ASSOCIATION
+      - EXTERNAL_SERVICE_CONFLICT
+      - DUPLICATE_ADDON_ON_PARENT
+      - MINIMUM_UNIT_VALUE
+      - PRICING_PLANS_NOT_FOUND
+      - NO_ITEMS_FOUND
+      - REQUIRED_FIELD_VALIDATION_ERROR
+      - PURCHASE_SPEND_LIMIT
+      - INVALID_MEMBERSHIP
+      - VALID_PAYMENT_METHOD_REQUIRED
+      - BILLING_ADDRESS_REQUIRED_FOR_OFFPLATFORM_PAYMENTS
+      - MICROSOFT_CONFLICT_EXCEPTION
+      - UNKNOWN
+      example: BAD_REQUEST
+    CustomPrice:
+      type: object
+      title: CustomPrice
+      description: Custom price definition.
+      required:
+      - costId
+      - price
+      properties:
+        costId:
+          description: ID of the cost/pricing item for which to override prices.
+          type: string
+        priceType:
+          $ref: '#/components/schemas/CustomPriceType'
+        pricingStrategy:
+          $ref: '#/components/schemas/PricingStrategy'
+        definition:
+          $ref: '#/components/schemas/Definition'
+      example:
+        costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
+        price: 20
+    CustomPriceType:
+      title: CustomPriceType
+      type: string
+      enum:
+      - RESELLER_PURCHASE_PRICE
+      - MARKETPLACE_RESELLER_PURCHASE_PRICE
+    TaxDetail:
+      type: object
+      title: TaxDetail
+      description: Opportunity tax detail
+      properties:
+        description:
+          type: string
+          description: Description of the tax
+        taxAmount:
+          type: string
+          description: The tax amount
+      example:
+        description: Flat Tax
+        taxAmount: '2.0000000000'
+    OpportunityPricing:
+      type: object
+      title: OpportunityPricing
+      description: Pricing structure for an item
+      required:
+      - costTypeCategory
+      - costType
+      - pricingStrategy
+      - salePrice
+      - wholesalePrice
+      - totalSalePrice
+      properties:
+        costId:
+          type: string
+          description: The cost ID
+        costTypeCategory:
+          $ref: '#/components/schemas/CostTypeCategory'
+        costType:
+          $ref: '#/components/schemas/CostType'
+        frequency:
+          $ref: '#/components/schemas/PricingPeriod'
+        pricingStrategy:
+          $ref: '#/components/schemas/OpportunityPricingStrategy'
+        priceRanges:
+          type: array
+          description: Range of units for which the price is valid
+          items:
+            $ref: '#/components/schemas/PriceRangeItem'
+        description:
+          type: string
+          description: Description of each pricing line
+        unit:
+          type: string
+          description: Unit
+        quantity:
+          type: string
+          description: Quantity
+        salePrice:
+          type: string
+          description: Sale price
+        wholesalePrice:
+          type: string
+          description: Wholesale price
+        totalSalePrice:
+          type: string
+          description: Total sale price
+      example:
+        costTypeCategory: RECURRING
+        costType: RECURRING_FLAT
+        frequency: MONTHLY
+        pricingStrategy: FLAT
+        priceRanges:
+        - max: '100'
+          min: '1'
+        description: RECURRING_FLAT
+        quantity: '1.0000000000'
+        salePrice: '14.9500000000'
+        wholesalePrice: '12.0000000000'
+        totalSalePrice: '14.9500000000'
+    ActionRestriction:
+      type: object
+      title: ActionRestriction
+      description: 'Only appear in opportunity call responses. Action restrictions occur when an opportunity does not meet a requirement for an available action to occur. After the requirement is met, the restriction is removed, the action appears in the Available actions list, and the action can occur. For example: An API client has permission to finalize opportunities when customers are active. When customers are inactive, an action restriction prevents them from finalizing the opportunity. After the customer becomes active, the restriction is removed, it appears in the Available actions list, and the API client can finalize the opportunity.'
+      properties:
+        entry:
+          type: array
+          description: Opportunity action restrictions
+          items:
+            $ref: '#/components/schemas/Restriction'
+      example:
+        actionRestrictions:
+          FINALIZE:
+          - CANNOT_FINALIZE_WITH_INACTIVE_CUSTOMER
+          SUBMIT_FOR_REVIEW:
+          - CANNOT_SUBMIT_WITH_INACTIVE_CUSTOMER
+    RequiredFields:
+      type: object
+      title: RequiredFields
+      description: Required field definitions for a specific product and edition
+      properties:
+        productId:
+          type: string
+          description: The product ID
+        editionId:
+          type: string
+          description: The edition code
+        forms:
+          type: array
+          description: Groups of required fields. Forms are used to organize required fields into meaningful groups.
+          items:
+            $ref: '#/components/schemas/Form'
+      example:
+        productId: dfc9cefb-610b-4e49-ade8-6ae51a4d35c9
+        editionId: EDITION_CODE
+        forms:
+        - isvIdentifier: ISV
+          context: CART_LEVEL
+          title: Additional Information
+          subTitle: Additional Information Subtitle
+          fields:
+          - inputCode: FirstName
+            inputTitle: First name
+            subTitle: ''
+            tooltip: ''
+            value: John
+            fieldType: TEXT
+            validations:
+              required: true
+              readonly: false
+              minLength: '2'
+              maxLength: '255'
+              expression: ^[A-Za-z]+(((\'|\-|\.(\s)?|\,(\s)?|\s)?([A-Za-z])+))*$
+            options:
+              suffix:
+                text: ''
+                inputCode: ''
+          - inputCode: Address/ISO3Country
+            inputTitle: Country
+            subTitle: ''
+            tooltip: ''
+            value: USA
+            fieldType: COUNTRY
+            validations:
+              required: true
+              readonly: false
+              minLength: '2'
+              maxLength: '3'
+              expression: ^[A-Za-z]{2}$
+            options:
+              suffix:
+                text: ''
+              placeholder: ''
+          - inputCode: SubDomain
+            inputTitle: Your primary domain name
+            subTitle: ''
+            tooltip: 'Your subdomain and domain names. For example: When subdomain=movies, and domain=.entertainment.com, the subdomain value is: movies.entertainment.com'
+            value: ''
+            fieldType: TEXT
+            validations:
+              required: true
+              readonly: false
+              minLength: '1'
+              maxLength: '255'
+              expression: ^([^\W|http(s?)://][a-zA-Z]+)(\.[a-zA-Z]+)*
+            options:
+              suffix:
+                text: .thedomain.com
+                inputCode: ''
+              placeholder: movies.entertainment.com
+    OpportunityUpdateRequest:
+      type: object
+      title: OpportunityUpdateRequest
+      properties:
+        name:
+          type: string
+          description: Opportunity name
+        purchaseEffectiveDate:
+          type: number
+          description: Opportunity purchase effective date, in UNIX Epoch milliseconds
+        purchaseCustomAttributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomAttribute'
+          - description: Custom attributes related to the purchase
+      example:
+        name: New opportunity
         purchaseEffectiveDate: 1577750400000
-        status: CLOSED
-        ownerType: PLATFORM_OWNER
+        purchaseCustomAttributes:
+          paid_off_platform_contact:
+          - janet.doe@accounting.acme.com
+    OpportunityOwnerType:
+      type: string
+      title: OpportunityOwnerType
+      description: Opportunity owner type code
+      enum:
+      - PARTNER
+      - PLATFORM_OWNER
+      example: PARTNER
+    AvailableAction:
+      type: string
+      title: AvailableAction
+      description: Only appears in responses. Actions that the API client has permission to complete for this opportunity. If an expected action does not appear in this list, check for it in the list of actionRestrictions.
+      enum:
+      - EDIT
+      - FINALIZE
+      - SUBMIT_FOR_REVIEW
+      - ADD_PRODUCT
+      - SET_CUSTOM_PRICE
+      - SET_CUSTOM_CONTRACT
+      - SET_PROVISIONING_DATE
+      - SET_BILLING_DATE
+      - CHANGE_OPPORTUNITY_OWNER
+      example: EDIT
+    CancellationPeriodUnit:
+      type: string
+      title: CancellationPeriodUnit
+      description: Cancellation period unit. Time unit by which the contractCancellationPeriodLimit is measured.
+      enum:
+      - NONE
+      - DAY
+      example: NONE
+    PricingPlan:
+      type: object
+      title: PricingPlan
+      properties:
+        id:
+          type: string
+          description: Pricing plan ID
+        name:
+          type: string
+          description: Pricing plan name
+      example:
+        id: 031d9ed2-3df1-44f5-876a-6b4318ba7bdb
+        name: Recurring Edition with Unlimited Included Users
+    PricingPeriod:
+      type: string
+      title: PricingPeriod
+      description: The pricing period. The billing frequency for the pricing plan.
+      enum:
+      - ONE_TIME
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: ONE_TIME
   parameters:
     OpportunityStatus:
       in: query

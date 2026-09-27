@@ -179,34 +179,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/events/%7BeventId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-    ErrorWS:
-      type: object
-      title: ErrorWS
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      example:
-        code: '...'
-        message: '...'
     EventWS:
       description: A subscription related integration event
       type: object
@@ -273,28 +245,6 @@ components:
         successful: true
         type: SUBSCRIPTION_CHANGE
         uuid: '...'
-    PagedResourcesOfEventWS:
-      allOf:
-      - $ref: '#/components/schemas/Resources'
-      - type: object
-        title: PagedResourcesOfEventWS
-        properties:
-          page:
-            $ref: '#/components/schemas/PageMetadata'
-        example:
-          content:
-          - {}
-          - {}
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          page:
-            number: 12345
-            size: 12345
-            totalElements: 12345
-            totalPages: 12345
     Resources:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -314,48 +264,6 @@ components:
             rel: '...'
           - href: '...'
             rel: '...'
-    CompanyWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - description: Company information being used in an event
-        type: object
-        title: CompanyWS
-        properties:
-          companyId:
-            description: Company id
-            type: string
-          name:
-            description: Company name
-            type: string
-        example:
-          companyId: '...'
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          name: '...'
-    EventProductWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - description: Production information being used in an event
-        type: object
-        title: EventProductWS
-        properties:
-          name:
-            description: Product name
-            type: string
-          productId:
-            description: Product id
-            type: number
-        example:
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          name: '...'
-          productId: 12345
     PageMetadata:
       type: object
       title: PageMetadata
@@ -382,6 +290,49 @@ components:
         size: 12345
         totalElements: 12345
         totalPages: 12345
+    PagedResourcesOfEventWS:
+      allOf:
+      - $ref: '#/components/schemas/Resources'
+      - type: object
+        title: PagedResourcesOfEventWS
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+        example:
+          content:
+          - {}
+          - {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          page:
+            number: 12345
+            size: 12345
+            totalElements: 12345
+            totalPages: 12345
+    CompanyWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Company information being used in an event
+        type: object
+        title: CompanyWS
+        properties:
+          companyId:
+            description: Company id
+            type: string
+          name:
+            description: Company name
+            type: string
+        example:
+          companyId: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
     ResourceSupport:
       type:
       - object
@@ -416,3 +367,52 @@ components:
       - ADDON_CANCEL
       - ADDON_BIND
       - ADDON_UNBIND
+    EventProductWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - description: Production information being used in an event
+        type: object
+        title: EventProductWS
+        properties:
+          name:
+            description: Product name
+            type: string
+          productId:
+            description: Product id
+            type: number
+        example:
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          name: '...'
+          productId: 12345
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+    ErrorWS:
+      type: object
+      title: ErrorWS
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      example:
+        code: '...'
+        message: '...'

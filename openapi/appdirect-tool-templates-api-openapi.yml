@@ -62,6 +62,15 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    OrgToolTemplateSearchResponse:
+      type: object
+      properties:
+        orgToolTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgToolTemplate'
+        total:
+          type: integer
     OrgToolTemplate:
       type: object
       properties:
@@ -96,15 +105,6 @@ components:
               type: string
             instructions:
               type: string
-    OrgToolTemplateSearchResponse:
-      type: object
-      properties:
-        orgToolTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgToolTemplate'
-        total:
-          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

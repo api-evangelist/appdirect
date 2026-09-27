@@ -129,6 +129,91 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/userProductContext/%7BapplicationId%7D/companies/%7BcompanyId%7D/users/%7BuserId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    AppEditionWS:
+      description: Edition associated with a product
+      type: object
+      title: AppEdition
+      properties:
+        appId:
+          description: Application ID
+          type: number
+        appName:
+          description: Application name
+          type: string
+        editionId:
+          description: Edition ID
+          type: number
+        editionName:
+          description: Edition name
+          type: string
+      example:
+        appId: 12345
+        appName: '...'
+        editionId: 12345
+        editionName: '...'
+    PurchaseRestrictionWS:
+      description: Product that a user cannot buy due to restrictions of a currently/previously owned product or because other products are required
+      type: object
+      title: PurchaseRestriction
+      properties:
+        appId:
+          description: Non-purchasable application ID
+          type: number
+        appName:
+          description: Non-purchasable application name
+          type: string
+        browsedEditionId:
+          description: 'Browsed edition ID
+
+            If browsedEdition is null, then restrict the entire app.'
+          type: number
+        ownedEditionId:
+          description: Owned edition ID
+          type: number
+        ownedEditionName:
+          description: Owned edition name
+          type: string
+        requiredAppEdition:
+          description: Editions required to purchase the browsed edition
+          type: array
+          items:
+            $ref: '#/components/schemas/AppEditionWS'
+        restrictionType:
+          description: The type of restriction applied. Null if the type is unknown. For example, if the account is in transition.
+          type: string
+        upcomingSubscription:
+          description: Is upcoming subscription
+          type: boolean
+      example:
+        appId: 12345
+        appName: '...'
+        browsedEditionId: 12345
+        ownedEditionId: 12345
+        ownedEditionName: '...'
+        requiredAppEdition:
+        - appId: 12345
+          appName: '...'
+          editionId: 12345
+          editionName: '...'
+        - appId: 12345
+          appName: '...'
+          editionId: 12345
+          editionName: '...'
+        restrictionType: '...'
+        upcomingSubscription: true
+    LinkWS:
+      type:
+      - object
+      - 'null'
+      title: LinkWS
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+      example:
+        href: '...'
+        id: '...'
     UserProductContextWS:
       type:
       - object
@@ -282,88 +367,3 @@ components:
         subscription:
           href: '...'
           id: '...'
-    AppEditionWS:
-      description: Edition associated with a product
-      type: object
-      title: AppEdition
-      properties:
-        appId:
-          description: Application ID
-          type: number
-        appName:
-          description: Application name
-          type: string
-        editionId:
-          description: Edition ID
-          type: number
-        editionName:
-          description: Edition name
-          type: string
-      example:
-        appId: 12345
-        appName: '...'
-        editionId: 12345
-        editionName: '...'
-    PurchaseRestrictionWS:
-      description: Product that a user cannot buy due to restrictions of a currently/previously owned product or because other products are required
-      type: object
-      title: PurchaseRestriction
-      properties:
-        appId:
-          description: Non-purchasable application ID
-          type: number
-        appName:
-          description: Non-purchasable application name
-          type: string
-        browsedEditionId:
-          description: 'Browsed edition ID
-
-            If browsedEdition is null, then restrict the entire app.'
-          type: number
-        ownedEditionId:
-          description: Owned edition ID
-          type: number
-        ownedEditionName:
-          description: Owned edition name
-          type: string
-        requiredAppEdition:
-          description: Editions required to purchase the browsed edition
-          type: array
-          items:
-            $ref: '#/components/schemas/AppEditionWS'
-        restrictionType:
-          description: The type of restriction applied. Null if the type is unknown. For example, if the account is in transition.
-          type: string
-        upcomingSubscription:
-          description: Is upcoming subscription
-          type: boolean
-      example:
-        appId: 12345
-        appName: '...'
-        browsedEditionId: 12345
-        ownedEditionId: 12345
-        ownedEditionName: '...'
-        requiredAppEdition:
-        - appId: 12345
-          appName: '...'
-          editionId: 12345
-          editionName: '...'
-        - appId: 12345
-          appName: '...'
-          editionId: 12345
-          editionName: '...'
-        restrictionType: '...'
-        upcomingSubscription: true
-    LinkWS:
-      type:
-      - object
-      - 'null'
-      title: LinkWS
-      properties:
-        href:
-          type: string
-        id:
-          type: string
-      example:
-        href: '...'
-        id: '...'

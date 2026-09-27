@@ -1242,31 +1242,86 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/lead/v2/conversionApproval?context=SOME_STRING_VALUE&leadId=SOME_STRING_VALUE\")\n  .post(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    LeadUser:
-      description: Information about the marketplace user related to the lead
+    LeadPagedReadResponse:
+      description: Paged response as an array of lead objects
       type: object
-      title: LeadUser
+      title: LeadPagedReadResponse
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadResponse'
+    LeadStatus:
+      description: The lead status. PENDING_FOR_MANAGERS requires SUBMITTED and PENDING_CONVERSION_APPROVAL; ACCEPTED_FOR_MANAGERS requires ASSIGNED, CONVERSION_APPROVED, CONVERTED, DELETED, DISQUALIFIED and LEGACY.
+      type: string
+      enum:
+      - CONVERTED
+      - DISQUALIFIED
+      - DELETED
+      - PENDING_CONVERSION_APPROVAL
+      - CONVERSION_APPROVED
+      - PENDING_SUBMISSION
+      - SUBMITTED
+      - ASSIGNED
+      - LEGACY
+      - PENDING_FOR_MANAGERS
+      - ACCEPTED_FOR_MANAGERS
+    LeadCompany:
+      description: Information about the marketplace company related to the lead
+      type: object
+      title: LeadCompany
       required:
       - id
-      - companyId
       properties:
         id:
-          description: User ID
-          type: string
-        companyId:
           description: Company ID
           type: string
-        companyName:
+        name:
           description: Company name
           type: string
-        role:
-          description: User role (if applicable)
-          type: string
       example:
-        companyId: 386626c0-53e2-4515-ffff-4a720bb5d029
-        companyName: Reseller Company
-        id: 01d75b7c-ea78-ffff-9e58-6ad217bddcbd
-        role: RESELLER
+        id: 386626c0-53e2-4515-ffff-4a720bb5d029
+        name: Reseller Company
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    LeadActivityResource:
+      description: The lead's activity resource (the type of object that the activity refers to)
+      type: string
+      title: LeadActivityResource
+      enum:
+      - ACTOR_COMPANY
+      - CONTEXT_COMPANY
+      - CONTEXT_APPLICATION
+      - CONTEXT_QUOTE
     LeadAssignmentRequest:
       description: Information about the person to whom the lead is being assigned
       type: object
@@ -1285,76 +1340,64 @@ components:
         recipient:
           participantType: COMPANY
           companyId: 386626c0-1234-4515-8450-4a720bb5d029
-    LeadActivity:
-      description: Information about the lead activity
+    LeadCustomerContact:
+      description: Customer contact information
       type: object
-      title: LeadActivity
-      required:
-      - id
-      - partner
-      - createdOn
-      - verb
-      - allowedResourcesAccess
+      title: LeadCustomerContact
       properties:
-        id:
-          description: Lead activity ID
+        firstName:
+          description: First name
           type: string
-        partner:
-          description: Marketplace partner code
+        lastName:
+          description: Last name
           type: string
-        createdOn:
-          description: Date on which the activity was created, in UNIX Epoch milliseconds
-          type: number
-        verb:
-          $ref: '#/components/schemas/LeadActivityVerb'
-        verbContext:
-          $ref: '#/components/schemas/LeadActivityVerbContext'
-        allowedResourcesAccess:
-          description: The lead's activity resource (the type of object that the activity refers to)
+        email:
+          description: Email address
+          type: string
+        phone:
+          description: Phone number
+          type: string
+        phoneExtension:
+          description: Phone number extension
+          type: string
+      example:
+        contact:
+          firstName: John
+          lastName: Doe
+          email: john.doe@acme.com
+          phone: '+14455555555'
+          phoneExtension: '123'
+    LeadConversionResponse:
+      description: Information about the lead conversion
+      type: object
+      title: LeadConversionResponse
+      required:
+      - lead
+      properties:
+        lead:
+          $ref: '#/components/schemas/LeadResponse'
+    LeadType:
+      description: The type of lead. Leads created manually by users have the MANUAL type. Leads created by anonymous users through profiles have the PRODUCT or COMPANY types, depending on whether they were created from product profiles or reseller company profiles respectively.
+      type: string
+      title: LeadType
+      enum:
+      - MANUAL
+      - PRODUCT
+      - COMPANY
+    LeadActivityPagedReadResponse:
+      description: Paged response as an array of lead activity objects
+      type: object
+      title: LeadActivityPagedReadResponse
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
           type: array
           items:
-            $ref: '#/components/schemas/LeadActivityResource'
-        actorCompany:
-          $ref: '#/components/schemas/LeadCompany'
-        contextCompany:
-          $ref: '#/components/schemas/LeadCompany'
-        contextApplication:
-          $ref: '#/components/schemas/LeadProduct'
-        contextPurchaseOrder:
-          $ref: '#/components/schemas/LeadPurchaseOrder'
-        contextQuote:
-          $ref: '#/components/schemas/LeadQuote'
-      example:
-        id: 633d1fa9-16ce-4448-8741-85960ecee365
-        createdOn: 1533222783000
-        verb: LEAD_QUOTE_LINKED
-        verbContext: COMPANY
-        partner: APPDIRECT
-        actorCompany:
-          id: 386626c0-1234-4515-8450-4a720bb5d029
-          name: Reseller Company
-        contextQuote:
-          id: df4e34c4-4f82-458d-ba4a-db68c27878a6
-          friendlyId: ZVVZNQ
-          applicationName: Appsome Product
-        allowedResourcesAccess:
-        - CONTEXT_QUOTE
-        - ACTOR_COMPANY
-    LeadStatus:
-      description: The lead status. PENDING_FOR_MANAGERS requires SUBMITTED and PENDING_CONVERSION_APPROVAL; ACCEPTED_FOR_MANAGERS requires ASSIGNED, CONVERSION_APPROVED, CONVERTED, DELETED, DISQUALIFIED and LEGACY.
-      type: string
-      enum:
-      - CONVERTED
-      - DISQUALIFIED
-      - DELETED
-      - PENDING_CONVERSION_APPROVAL
-      - CONVERSION_APPROVED
-      - PENDING_SUBMISSION
-      - SUBMITTED
-      - ASSIGNED
-      - LEGACY
-      - PENDING_FOR_MANAGERS
-      - ACCEPTED_FOR_MANAGERS
+            $ref: '#/components/schemas/LeadActivity'
     LeadProductEdition:
       description: Information about the product edition related to a lead
       type: object
@@ -1372,15 +1415,6 @@ components:
       example:
         id: d4610cd4-09d5-abcd-a769-a47666a1c311
         name: Enterprise Edition
-    LeadAssignmentResponse:
-      description: Information about the assigned lead
-      type: object
-      title: LeadAssignmentResponse
-      required:
-      - lead
-      properties:
-        lead:
-          $ref: '#/components/schemas/LeadResponse'
     LeadResponse:
       description: The lead response. Depending on the action and status, some information might not be available.
       type: object
@@ -1440,6 +1474,61 @@ components:
           $ref: '#/components/schemas/LeadProduct'
         profileProductEdition:
           $ref: '#/components/schemas/LeadProductEdition'
+    LeadActivity:
+      description: Information about the lead activity
+      type: object
+      title: LeadActivity
+      required:
+      - id
+      - partner
+      - createdOn
+      - verb
+      - allowedResourcesAccess
+      properties:
+        id:
+          description: Lead activity ID
+          type: string
+        partner:
+          description: Marketplace partner code
+          type: string
+        createdOn:
+          description: Date on which the activity was created, in UNIX Epoch milliseconds
+          type: number
+        verb:
+          $ref: '#/components/schemas/LeadActivityVerb'
+        verbContext:
+          $ref: '#/components/schemas/LeadActivityVerbContext'
+        allowedResourcesAccess:
+          description: The lead's activity resource (the type of object that the activity refers to)
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadActivityResource'
+        actorCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        contextCompany:
+          $ref: '#/components/schemas/LeadCompany'
+        contextApplication:
+          $ref: '#/components/schemas/LeadProduct'
+        contextPurchaseOrder:
+          $ref: '#/components/schemas/LeadPurchaseOrder'
+        contextQuote:
+          $ref: '#/components/schemas/LeadQuote'
+      example:
+        id: 633d1fa9-16ce-4448-8741-85960ecee365
+        createdOn: 1533222783000
+        verb: LEAD_QUOTE_LINKED
+        verbContext: COMPANY
+        partner: APPDIRECT
+        actorCompany:
+          id: 386626c0-1234-4515-8450-4a720bb5d029
+          name: Reseller Company
+        contextQuote:
+          id: df4e34c4-4f82-458d-ba4a-db68c27878a6
+          friendlyId: ZVVZNQ
+          applicationName: Appsome Product
+        allowedResourcesAccess:
+        - CONTEXT_QUOTE
+        - ACTOR_COMPANY
     LeadCreationRequest:
       description: The lead creation request object. Some fields are mandatory depending on the type of the lead.
       type: object
@@ -1489,14 +1578,15 @@ components:
             email: john.doe@acme.com
         leadType: MANUAL
         partner: APPDIRECT
-    LeadType:
-      description: The type of lead. Leads created manually by users have the MANUAL type. Leads created by anonymous users through profiles have the PRODUCT or COMPANY types, depending on whether they were created from product profiles or reseller company profiles respectively.
-      type: string
-      title: LeadType
-      enum:
-      - MANUAL
-      - PRODUCT
-      - COMPANY
+    LeadAssignmentResponse:
+      description: Information about the assigned lead
+      type: object
+      title: LeadAssignmentResponse
+      required:
+      - lead
+      properties:
+        lead:
+          $ref: '#/components/schemas/LeadResponse'
     LeadQuote:
       description: Information about a quote linked to the lead
       type: object
@@ -1519,103 +1609,6 @@ components:
         id: df4e34c4-4f82-458d-ba4a-db68c27878a6
         friendlyId: ZVVZNQ
         applicationName: AUTO_WEBAPP_NEW
-    LeadPagedReadResponse:
-      description: Paged response as an array of lead objects
-      type: object
-      title: LeadPagedReadResponse
-      required:
-      - page
-      - content
-      properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeadResponse'
-    LeadActivityResource:
-      description: The lead's activity resource (the type of object that the activity refers to)
-      type: string
-      title: LeadActivityResource
-      enum:
-      - ACTOR_COMPANY
-      - CONTEXT_COMPANY
-      - CONTEXT_APPLICATION
-      - CONTEXT_QUOTE
-    LeadCustomerContact:
-      description: Customer contact information
-      type: object
-      title: LeadCustomerContact
-      properties:
-        firstName:
-          description: First name
-          type: string
-        lastName:
-          description: Last name
-          type: string
-        email:
-          description: Email address
-          type: string
-        phone:
-          description: Phone number
-          type: string
-        phoneExtension:
-          description: Phone number extension
-          type: string
-      example:
-        contact:
-          firstName: John
-          lastName: Doe
-          email: john.doe@acme.com
-          phone: '+14455555555'
-          phoneExtension: '123'
-    LeadProduct:
-      description: Information about the product related to a lead
-      type: object
-      title: LeadProduct
-      required:
-      - id
-      - name
-      properties:
-        id:
-          description: Product ID
-          type: string
-        name:
-          description: Product name
-          type: string
-        provider:
-          description: Marketplace partner code
-          type: string
-      example:
-        id: 009fd909-aaaa-4e37-bbad-701f87724bca
-        name: Appsome Product
-        provider: APPDIRECT
-    LeadActivityVerb:
-      description: Lead activity action (or verb)
-      type: string
-      title: LeadActivityVerb
-      enum:
-      - LEAD_CREATED
-      - LEAD_UPDATED
-      - LEAD_SUBMITTED
-      - LEAD_ASSIGNED
-      - LEAD_CONVERTED
-      - LEAD_DELETED
-      - LEAD_DISQUALIFIED
-      - LEAD_CONVERSION_REQUESTED
-      - LEAD_CONVERSION_APPROVED
-      - LEAD_MARKED_OPEN
-      - LEAD_MARKED_WON
-      - LEAD_MARKED_LOST
-      - LEAD_ORDER_LINKED
-      - LEAD_ORDER_UNLINKED
-      - LEAD_QUOTE_LINKED
-      - LEAD_QUOTE_UNLINKED
-      - LEAD_PRODUCT_LINKED
-      - LEAD_PRODUCT_UNLINKED
-      - LEAD_COMPANY_ASSOCIATED
-      - LEAD_COMPANY_ASSOCIATION_LOST
-      - LEAD_PRODUCT_DELETED
     LeadCompanyAssociationRequest:
       description: Contains information about user and company to associate with the lead
       type: object
@@ -1634,74 +1627,6 @@ components:
         user:
           companyId: 62377315-61ba-4b50-9891-02799bef4257
           id: 1661c8d8-357b-4e8d-a0b9-a571ff00924b
-    LeadPurchaseOrder:
-      description: Information about the purchase order linked to the lead
-      type: object
-      title: LeadPurchaseOrder
-      required:
-      - id
-      properties:
-        id:
-          description: Purchase order ID
-          type: number
-      example:
-        id: 1234
-    LeadUpdateRequest:
-      description: The lead information to update
-      type: object
-      title: LeadUpdateRequest
-      properties:
-        customer:
-          $ref: '#/components/schemas/LeadCustomer'
-        notes:
-          description: Notes attached to the lead
-          type: string
-      example:
-        customer:
-          company:
-            name: Globex
-            street2: 5th floor
-          contact:
-            firstName: Jane
-            lastName: Doe
-            email: jane.doe@globex.com
-        notes: Updated company name, added floor and changed person to be contacted
-    LeadCustomer:
-      description: Information about the customer and customer company
-      type: object
-      title: LeadCustomer
-      required:
-      - company
-      - contact
-      properties:
-        company:
-          $ref: '#/components/schemas/LeadCustomerCompany'
-        contact:
-          $ref: '#/components/schemas/LeadCustomerContact'
-      example:
-        customer:
-          company:
-            name: Acme
-            street1: 1234 Main St
-            street2: Suite 100
-            city: Beverly Hills
-            state: CA
-            zip: '90210'
-            country: US
-            size: RANGE_1_9
-          contact:
-            firstName: John
-            lastName: Doe
-            email: john.doe@acme.com
-            phone: '+14455555555'
-    LeadResult:
-      description: Additional status information about CONVERTED leads
-      type: string
-      title: LeadResult
-      enum:
-      - OPEN
-      - LOST
-      - WON
     LeadCustomerCompany:
       description: Information about the customer's company, including address and company size
       type: object
@@ -1751,25 +1676,6 @@ components:
           zip: '90210'
           country: US
           size: RANGE_1_9
-    LeadConversionResponse:
-      description: Information about the lead conversion
-      type: object
-      title: LeadConversionResponse
-      required:
-      - lead
-      properties:
-        lead:
-          $ref: '#/components/schemas/LeadResponse'
-    LeadActivityVerbContext:
-      description: Lead activity action's context (or verb context)
-      type: string
-      title: LeadActivityVerbContext
-      enum:
-      - PRODUCT_PROFILE
-      - RESELLER_PROFILE
-      - COMPANY
-      - MARKETPLACE
-      - SALES_SUPPORT
     LeadParticipant:
       description: Information about the person who is receiving or referring the lead
       type: object
@@ -1792,59 +1698,153 @@ components:
       example:
         participantType: CHANNEL
         partner: APPDIRECT
-    PageMetadata:
+    LeadProduct:
+      description: Information about the product related to a lead
       type: object
-      title: PageMetadata
+      title: LeadProduct
       required:
-      - number
-      - size
-      - totalElements
-      - totalPages
+      - id
+      - name
       properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
+        id:
+          description: Product ID
+          type: string
+        name:
+          description: Product name
+          type: string
+        provider:
+          description: Marketplace partner code
+          type: string
       example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    LeadActivityPagedReadResponse:
-      description: Paged response as an array of lead activity objects
+        id: 009fd909-aaaa-4e37-bbad-701f87724bca
+        name: Appsome Product
+        provider: APPDIRECT
+    LeadActivityVerb:
+      description: Lead activity action (or verb)
+      type: string
+      title: LeadActivityVerb
+      enum:
+      - LEAD_CREATED
+      - LEAD_UPDATED
+      - LEAD_SUBMITTED
+      - LEAD_ASSIGNED
+      - LEAD_CONVERTED
+      - LEAD_DELETED
+      - LEAD_DISQUALIFIED
+      - LEAD_CONVERSION_REQUESTED
+      - LEAD_CONVERSION_APPROVED
+      - LEAD_MARKED_OPEN
+      - LEAD_MARKED_WON
+      - LEAD_MARKED_LOST
+      - LEAD_ORDER_LINKED
+      - LEAD_ORDER_UNLINKED
+      - LEAD_QUOTE_LINKED
+      - LEAD_QUOTE_UNLINKED
+      - LEAD_PRODUCT_LINKED
+      - LEAD_PRODUCT_UNLINKED
+      - LEAD_COMPANY_ASSOCIATED
+      - LEAD_COMPANY_ASSOCIATION_LOST
+      - LEAD_PRODUCT_DELETED
+    LeadResult:
+      description: Additional status information about CONVERTED leads
+      type: string
+      title: LeadResult
+      enum:
+      - OPEN
+      - LOST
+      - WON
+    LeadUser:
+      description: Information about the marketplace user related to the lead
       type: object
-      title: LeadActivityPagedReadResponse
+      title: LeadUser
       required:
-      - page
-      - content
+      - id
+      - companyId
       properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeadActivity'
-    LeadCompany:
-      description: Information about the marketplace company related to the lead
+        id:
+          description: User ID
+          type: string
+        companyId:
+          description: Company ID
+          type: string
+        companyName:
+          description: Company name
+          type: string
+        role:
+          description: User role (if applicable)
+          type: string
+      example:
+        companyId: 386626c0-53e2-4515-ffff-4a720bb5d029
+        companyName: Reseller Company
+        id: 01d75b7c-ea78-ffff-9e58-6ad217bddcbd
+        role: RESELLER
+    LeadUpdateRequest:
+      description: The lead information to update
       type: object
-      title: LeadCompany
+      title: LeadUpdateRequest
+      properties:
+        customer:
+          $ref: '#/components/schemas/LeadCustomer'
+        notes:
+          description: Notes attached to the lead
+          type: string
+      example:
+        customer:
+          company:
+            name: Globex
+            street2: 5th floor
+          contact:
+            firstName: Jane
+            lastName: Doe
+            email: jane.doe@globex.com
+        notes: Updated company name, added floor and changed person to be contacted
+    LeadCustomer:
+      description: Information about the customer and customer company
+      type: object
+      title: LeadCustomer
+      required:
+      - company
+      - contact
+      properties:
+        company:
+          $ref: '#/components/schemas/LeadCustomerCompany'
+        contact:
+          $ref: '#/components/schemas/LeadCustomerContact'
+      example:
+        customer:
+          company:
+            name: Acme
+            street1: 1234 Main St
+            street2: Suite 100
+            city: Beverly Hills
+            state: CA
+            zip: '90210'
+            country: US
+            size: RANGE_1_9
+          contact:
+            firstName: John
+            lastName: Doe
+            email: john.doe@acme.com
+            phone: '+14455555555'
+    LeadActivityVerbContext:
+      description: Lead activity action's context (or verb context)
+      type: string
+      title: LeadActivityVerbContext
+      enum:
+      - PRODUCT_PROFILE
+      - RESELLER_PROFILE
+      - COMPANY
+      - MARKETPLACE
+      - SALES_SUPPORT
+    LeadPurchaseOrder:
+      description: Information about the purchase order linked to the lead
+      type: object
+      title: LeadPurchaseOrder
       required:
       - id
       properties:
         id:
-          description: Company ID
-          type: string
-        name:
-          description: Company name
-          type: string
+          description: Purchase order ID
+          type: number
       example:
-        id: 386626c0-53e2-4515-ffff-4a720bb5d029
-        name: Reseller Company
+        id: 1234

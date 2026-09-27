@@ -147,14 +147,14 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    UpdateAIUserInputRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateAIUserInputRequest'
     UpdateAIUserInputsOrderResponse:
       type: object
       properties:
         success:
           type: boolean
+    UpdateAIUserInputRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateAIUserInputRequest'
     CreateAIUserInputRequest:
       type: object
       properties:
@@ -175,6 +175,45 @@ components:
       - type
       - label
       - configuration
+    UpdateAIUserInputsOrderRequest:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUserInputOrderItem'
+      required:
+      - inputs
+    AIUserInputType:
+      type: string
+      enum:
+      - SHORT_TEXT
+      - LONG_TEXT
+      - TEXT_CHOICE
+      - IMAGE_CHOICE
+      - DATE
+      - NUMBER
+      - PHONE_NUMBER
+      - FILE_UPLOAD
+      - DISPLAY
+      - ADDRESS
+    ListAIUserInputsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUserInput'
+    AIUserInputOrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        orderIndex:
+          type: integer
+      required:
+      - id
+      - orderIndex
     AIUserInput:
       type: object
       properties:
@@ -200,45 +239,6 @@ components:
           type: boolean
         orderIndex:
           type: integer
-    UpdateAIUserInputsOrderRequest:
-      type: object
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIUserInputOrderItem'
-      required:
-      - inputs
-    AIUserInputType:
-      type: string
-      enum:
-      - SHORT_TEXT
-      - LONG_TEXT
-      - TEXT_CHOICE
-      - IMAGE_CHOICE
-      - DATE
-      - NUMBER
-      - PHONE_NUMBER
-      - FILE_UPLOAD
-      - DISPLAY
-      - ADDRESS
-    AIUserInputOrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        orderIndex:
-          type: integer
-      required:
-      - id
-      - orderIndex
-    ListAIUserInputsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIUserInput'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -344,6 +344,25 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/discounts/%7BdiscountId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    DiscountType:
+      type: string
+      title: DiscountType
+      properties:
+        DiscountType:
+          type: string
+          enum:
+          - PERCENTAGE
+          - FIXED_PRICE
+    RedemptionRestriction:
+      type: string
+      title: RedemptionRestriction
+      properties:
+        RedemptionRestriction:
+          type: string
+          enum:
+          - NONE
+          - ONCE_PER_USER
+          - ONCE_PER_COMPANY
     Discount:
       description: Discount details
       type: object
@@ -479,25 +498,6 @@ components:
           type:
           - number
           - 'null'
-    RedemptionRestriction:
-      type: string
-      title: RedemptionRestriction
-      properties:
-        RedemptionRestriction:
-          type: string
-          enum:
-          - NONE
-          - ONCE_PER_USER
-          - ONCE_PER_COMPANY
-    DiscountType:
-      type: string
-      title: DiscountType
-      properties:
-        DiscountType:
-          type: string
-          enum:
-          - PERCENTAGE
-          - FIXED_PRICE
     PricingUnit:
       type: string
       title: PricingUnit

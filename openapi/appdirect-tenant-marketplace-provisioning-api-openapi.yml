@@ -812,139 +812,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-    CreateTenantOrganizationResponseDto:
-      type: object
-      required:
-      - orgId
-      - adminUserId
-      - name
-      - tenantPublicId
-      - tenantName
-      - seededOrgName
-      properties:
-        orgId:
-          type: string
-        adminUserId:
-          type: string
-          description: Resolved admin user ID (supplied admin or API caller).
-        name:
-          type: string
-        tenantPublicId:
-          type: string
-        tenantName:
-          type: string
-        seededOrgName:
-          type: boolean
-          description: False when seedOrgName was requested but the brand-name write failed (org still created).
-    OrgBalanceDto:
-      type: object
-      required:
-      - balanceType
-      - includedBalance
-      - extraBalance
-      properties:
-        balanceType:
-          $ref: '#/components/schemas/BalanceTypeDto'
-        includedBalance:
-          type: string
-          description: Per-cycle included balance (decimal string).
-        extraBalance:
-          type: string
-          description: Top-up / extra balance (decimal string).
-    TenantAdjustBalanceRequestDto:
-      type: object
-      required:
-      - balanceType
-      - targetColumn
-      - amount
-      - reason
-      properties:
-        balanceType:
-          $ref: '#/components/schemas/BalanceTypeDto'
-        targetColumn:
-          $ref: '#/components/schemas/BalanceColumnDto'
-        amount:
-          type: string
-          pattern: ^\d{1,8}(\.\d{1,12})?$
-          description: Positive non-zero dollar amount as a decimal string (up to 8 integer and 12 fractional digits). Must be greater than zero; floats are not accepted.
-        reason:
-          type: string
-          minLength: 10
-          maxLength: 500
-          description: Audit reason (trimmed; must be at least 10 characters after trim).
-      additionalProperties: false
-    BalanceTypeDto:
-      type: string
-      enum:
-      - CHAT
-      - CLI
-      - APP_BUILDER
-      - FREE_TIER
-    AdjustBalanceResponseDto:
-      type: object
-      required:
-      - ledgerEntry
-      - alreadyRecorded
-      properties:
-        ledgerEntry:
-          $ref: '#/components/schemas/BalanceLedgerEntryDto'
-        alreadyRecorded:
-          type: boolean
-          description: True when an idempotent replay returned the previously recorded ledger row.
-    OrgSubscriptionStatusDto:
-      type: string
-      enum:
-      - ACTIVE
-      - CANCELLED
-      - SUSPENDED
-      - FREE_TRIAL
-    TenantSubscriptionMetadataRequestDto:
-      type: object
-      additionalProperties: false
-      properties:
-        trialEndDate:
-          type: string
-          format: date-time
-        promo:
-          type: string
-      description: Typed subscription metadata accepted on tenant marketplace create/patch. Unknown keys are rejected.
-    BalanceColumnDto:
-      type: string
-      enum:
-      - INCLUDED
-      - EXTRA
-      description: Balance column to credit. Partners typically send EXTRA for purchased top-ups.
-    CreateTenantOrganizationInvitationRequestDto:
-      type: object
-      required:
-      - emailAddress
-      - role
-      properties:
-        emailAddress:
-          type: string
-          format: email
-        role:
-          type: string
-          enum:
-          - ADMIN
-          - MEMBER
-        membershipType:
-          $ref: '#/components/schemas/OrgMembershipTypeDto'
-          description: Defaults to FULL.
-      additionalProperties: false
-    OrgSubscriptionPricingPlanDto:
-      type: string
-      enum:
-      - FREE
-      - FREE_MULTI_USER
-      - PERSONAL
-      - BUSINESS
-      - ENTERPRISE
     InvoicePageDto:
       type: object
       required:
@@ -957,44 +824,12 @@ components:
             $ref: '#/components/schemas/InvoiceDto'
         pagination:
           $ref: '#/components/schemas/BillingPaginationDto'
-    CreateTenantOrgSubscriptionRequestDto:
-      type: object
-      required:
-      - pricingPlan
-      - maxUsers
-      properties:
-        pricingPlan:
-          type: string
-          enum:
-          - FREE
-          - FREE_MULTI_USER
-          - PERSONAL
-          - BUSINESS
-          description: Pricing plan allowed on tenant marketplace subscription create/patch.
-        maxUsers:
-          type: integer
-          minimum: 1
-          description: Paid seat cap.
-        externalSubscriptionId:
-          type:
-          - string
-          - 'null'
-        externalCustomerId:
-          type:
-          - string
-          - 'null'
-        allowsFreeUsers:
-          type: boolean
-          description: When true, permits RESTRICTED members up to maxFreeUsers.
-        maxFreeUsers:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-        metadata:
-          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
-      additionalProperties: false
-      description: Creates a subscription via async workflow. processorType is set server-side to TENANT. Plan-derived fields (balanceAllocationPerUser, usageLimits, etc.) are not accepted on the wire.
+    BalanceColumnDto:
+      type: string
+      enum:
+      - INCLUDED
+      - EXTRA
+      description: Balance column to credit. Partners typically send EXTRA for purchased top-ups.
     CreateTenantOrganizationAdminDto:
       type: object
       required:
@@ -1021,54 +856,6 @@ components:
           $ref: '#/components/schemas/OrgMembershipTypeDto'
           description: Admin seat type. Defaults to FULL.
       additionalProperties: false
-    AllocationLimitDto:
-      oneOf:
-      - type: string
-        enum:
-        - unlimited
-      - type: string
-        pattern: ^\d+(\.\d+)?$
-      - type: 'null'
-      description: Dollar cap, explicit unlimited, or null (inherit from next layer).
-    TenantOrganizationInvitationDto:
-      type: object
-      required:
-      - id
-      - emailAddress
-      - role
-      - status
-      - membershipType
-      - createdAt
-      properties:
-        id:
-          type: string
-        emailAddress:
-          type: string
-          format: email
-        role:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - accepted
-          - revoked
-        membershipType:
-          $ref: '#/components/schemas/OrgMembershipTypeDto'
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-    SubscriptionMetadataDto:
-      type: object
-      additionalProperties: true
-      properties:
-        trialEndDate:
-          type: string
-          format: date-time
-        promo:
-          type: string
     UsageLimitsDto:
       type: object
       required:
@@ -1089,16 +876,6 @@ components:
         dataUsageLimitInGb:
           type: number
         mediaUsageTokenLimit:
-          type: integer
-    TokenLimitsDto:
-      type: object
-      required:
-      - input
-      - output
-      properties:
-        input:
-          type: integer
-        output:
           type: integer
     InvoiceDto:
       type: object
@@ -1157,11 +934,6 @@ components:
           - string
           - 'null'
           format: date-time
-    OrgSubscriptionTypeDto:
-      type: string
-      enum:
-      - FREE
-      - PAID
     BalanceLedgerPageDto:
       type: object
       required:
@@ -1174,40 +946,189 @@ components:
             $ref: '#/components/schemas/BalanceLedgerEntryDto'
         pagination:
           $ref: '#/components/schemas/BillingPaginationDto'
-    CreateTenantOrganizationRequestDto:
+    BalanceTypeDto:
+      type: string
+      enum:
+      - CHAT
+      - CLI
+      - APP_BUILDER
+      - FREE_TIER
+    TenantOrganizationInvitationSuccessDto:
       type: object
       required:
-      - name
+      - success
       properties:
+        success:
+          type: boolean
+          enum:
+          - true
+    BillingPaginationDto:
+      type: object
+      required:
+      - nextCursor
+      - limit
+      properties:
+        nextCursor:
+          type:
+          - string
+          - 'null'
+        limit:
+          type: integer
+    CreateTenantOrganizationResponseDto:
+      type: object
+      required:
+      - orgId
+      - adminUserId
+      - name
+      - tenantPublicId
+      - tenantName
+      - seededOrgName
+      properties:
+        orgId:
+          type: string
+        adminUserId:
+          type: string
+          description: Resolved admin user ID (supplied admin or API caller).
         name:
           type: string
-          minLength: 1
-          maxLength: 255
-          description: Organization display name.
-        seedOrgName:
-          type: boolean
-          default: true
-          description: When true (default), seeds the org brand name from name. When false, inherits tenant branding for the name.
-        admin:
-          $ref: '#/components/schemas/CreateTenantOrganizationAdminDto'
-        externalId:
+        tenantPublicId:
           type: string
-          minLength: 1
-          maxLength: 255
-          description: Partner external organization identifier for reconciliation.
-      additionalProperties: false
-    UpdateTenantOrganizationMemberRequestDto:
+        tenantName:
+          type: string
+        seededOrgName:
+          type: boolean
+          description: False when seedOrgName was requested but the brand-name write failed (org still created).
+    AdjustBalanceResponseDto:
       type: object
+      required:
+      - ledgerEntry
+      - alreadyRecorded
       properties:
+        ledgerEntry:
+          $ref: '#/components/schemas/BalanceLedgerEntryDto'
+        alreadyRecorded:
+          type: boolean
+          description: True when an idempotent replay returned the previously recorded ledger row.
+    OrgAllocationDto:
+      type: object
+      required:
+      - balanceType
+      - monthlyLimit
+      - dailyLimit
+      properties:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        monthlyLimit:
+          $ref: '#/components/schemas/AllocationLimitDto'
+        dailyLimit:
+          $ref: '#/components/schemas/AllocationLimitDto'
+    OrgMembershipTypeDto:
+      type: string
+      enum:
+      - FULL
+      - RESTRICTED
+    OrgSubscriptionStatusDto:
+      type: string
+      enum:
+      - ACTIVE
+      - CANCELLED
+      - SUSPENDED
+      - FREE_TRIAL
+    TenantOrganizationInvitationDto:
+      type: object
+      required:
+      - id
+      - emailAddress
+      - role
+      - status
+      - membershipType
+      - createdAt
+      properties:
+        id:
+          type: string
+        emailAddress:
+          type: string
+          format: email
         role:
           type: string
+        status:
+          type: string
           enum:
-          - ADMIN
-          - MEMBER
+          - pending
+          - accepted
+          - revoked
         membershipType:
           $ref: '#/components/schemas/OrgMembershipTypeDto'
-      additionalProperties: false
-      description: At least one of role or membershipType must be provided.
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    TenantOrganizationInvitationsPageDto:
+      type: object
+      required:
+      - invitations
+      - totalCount
+      properties:
+        invitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantOrganizationInvitationDto'
+        totalCount:
+          type: integer
+    BalanceLedgerEntryDto:
+      type: object
+      required:
+      - id
+      - userId
+      - balanceType
+      - entryType
+      - amount
+      - initiatorType
+      - initiatedBy
+      - reason
+      - referenceType
+      - referenceId
+      - consumptionDetail
+      - createdAt
+      properties:
+        id:
+          type: integer
+        userId:
+          type:
+          - string
+          - 'null'
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        entryType:
+          $ref: '#/components/schemas/LedgerEntryTypeDto'
+        amount:
+          type: string
+          description: Signed decimal string.
+        initiatorType:
+          $ref: '#/components/schemas/InitiatorTypeDto'
+        initiatedBy:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+        referenceType:
+          type:
+          - string
+          - 'null'
+        referenceId:
+          type:
+          - string
+          - 'null'
+        consumptionDetail:
+          type:
+          - object
+          - 'null'
+          description: Null for manual adjustments and top-ups.
+        createdAt:
+          type: string
+          format: date-time
     SubscriptionProcessorTypeDto:
       type: string
       enum:
@@ -1215,120 +1136,40 @@ components:
       - APPDIRECT
       - APPLE
       - TENANT
-    TenantOrganizationMembersPageDto:
+    TokenLimitsDto:
       type: object
       required:
-      - members
-      - totalCount
+      - input
+      - output
       properties:
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TenantOrganizationMemberDto'
-        totalCount:
+        input:
           type: integer
-    LedgerEntryTypeDto:
-      type: string
-      enum:
-      - CONSUMPTION
-      - WEB_SEARCH_CONSUMPTION
-      - IMAGE_GENERATION_CONSUMPTION
-      - PROVISIONING
-      - TOP_UP
-      - RESET
-      - ADJUSTMENT
-      - FREE_TIER_CREDIT
-      - ADJUSTMENT_CREDIT_INCLUDED
-      - ADJUSTMENT_CREDIT_EXTRA
-      - ADJUSTMENT_DEBIT_INCLUDED
-      - ADJUSTMENT_DEBIT_EXTRA
-    PatchTenantOrgSubscriptionRequestDto:
-      type: object
-      properties:
-        pricingPlan:
-          type: string
-          enum:
-          - FREE
-          - FREE_MULTI_USER
-          - PERSONAL
-          - BUSINESS
-          description: Pricing plan allowed on tenant marketplace subscription create/patch.
-        maxUsers:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-        allowsFreeUsers:
-          type: boolean
-        maxFreeUsers:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-        externalSubscriptionId:
-          type:
-          - string
-          - 'null'
-        externalCustomerId:
-          type:
-          - string
-          - 'null'
-        metadata:
-          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
-      additionalProperties: false
-      description: Partial update. Status/lifecycle fields are not settable — use DELETE to cancel.
-    InitiatorTypeDto:
-      type: string
-      enum:
-      - SYSTEM
-      - USER
-      - ORG_ADMIN
-      - TENANT_ADMIN
-      - SUPERUSER
-    TenantOrganizationMemberDto:
+        output:
+          type: integer
+    AllocationLimitDto:
+      oneOf:
+      - type: string
+        enum:
+        - unlimited
+      - type: string
+        pattern: ^\d+(\.\d+)?$
+      - type: 'null'
+      description: Dollar cap, explicit unlimited, or null (inherit from next layer).
+    OrgBalanceDto:
       type: object
       required:
-      - userId
-      - email
-      - firstName
-      - lastName
-      - role
-      - status
-      - membershipType
-      - createdAt
-      - externalUserId
+      - balanceType
+      - includedBalance
+      - extraBalance
       properties:
-        userId:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        includedBalance:
           type: string
-        email:
+          description: Per-cycle included balance (decimal string).
+        extraBalance:
           type: string
-          format: email
-        firstName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-        role:
-          type: string
-          enum:
-          - ADMIN
-          - MEMBER
-        status:
-          type: string
-          enum:
-          - member
-        membershipType:
-          $ref: '#/components/schemas/OrgMembershipTypeDto'
-        createdAt:
-          type: string
-          format: date-time
-        externalUserId:
-          type:
-          - string
-          - 'null'
+          description: Top-up / extra balance (decimal string).
     OrgSubscriptionDto:
       type: object
       required:
@@ -1450,109 +1291,79 @@ components:
           - 'null'
           format: date-time
           description: Cycle start when dollar-balance enforcement began, or null when deferred.
-    CancelTenantOrgSubscriptionRequestDto:
+    Error:
       type: object
       properties:
-        eventMetadata:
-          type: object
-          additionalProperties: true
-          description: Optional provenance metadata for the cancel workflow.
-      additionalProperties: false
-    BillingPaginationDto:
+        error:
+          type: string
+    TenantOrganizationMembersPageDto:
       type: object
       required:
-      - nextCursor
-      - limit
-      properties:
-        nextCursor:
-          type:
-          - string
-          - 'null'
-        limit:
-          type: integer
-    BalanceLedgerEntryDto:
-      type: object
-      required:
-      - id
-      - userId
-      - balanceType
-      - entryType
-      - amount
-      - initiatorType
-      - initiatedBy
-      - reason
-      - referenceType
-      - referenceId
-      - consumptionDetail
-      - createdAt
-      properties:
-        id:
-          type: integer
-        userId:
-          type:
-          - string
-          - 'null'
-        balanceType:
-          $ref: '#/components/schemas/BalanceTypeDto'
-        entryType:
-          $ref: '#/components/schemas/LedgerEntryTypeDto'
-        amount:
-          type: string
-          description: Signed decimal string.
-        initiatorType:
-          $ref: '#/components/schemas/InitiatorTypeDto'
-        initiatedBy:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
-        referenceType:
-          type:
-          - string
-          - 'null'
-        referenceId:
-          type:
-          - string
-          - 'null'
-        consumptionDetail:
-          type:
-          - object
-          - 'null'
-          description: Null for manual adjustments and top-ups.
-        createdAt:
-          type: string
-          format: date-time
-    TenantOrganizationInvitationsPageDto:
-      type: object
-      required:
-      - invitations
+      - members
       - totalCount
       properties:
-        invitations:
+        members:
           type: array
           items:
-            $ref: '#/components/schemas/TenantOrganizationInvitationDto'
+            $ref: '#/components/schemas/TenantOrganizationMemberDto'
         totalCount:
           type: integer
-    OrgMembershipTypeDto:
-      type: string
-      enum:
-      - FULL
-      - RESTRICTED
-    OrgAllocationDto:
+    TenantSubscriptionMetadataRequestDto:
+      type: object
+      additionalProperties: false
+      properties:
+        trialEndDate:
+          type: string
+          format: date-time
+        promo:
+          type: string
+      description: Typed subscription metadata accepted on tenant marketplace create/patch. Unknown keys are rejected.
+    CreateTenantOrgSubscriptionRequestDto:
       type: object
       required:
-      - balanceType
-      - monthlyLimit
-      - dailyLimit
+      - pricingPlan
+      - maxUsers
       properties:
-        balanceType:
-          $ref: '#/components/schemas/BalanceTypeDto'
-        monthlyLimit:
-          $ref: '#/components/schemas/AllocationLimitDto'
-        dailyLimit:
-          $ref: '#/components/schemas/AllocationLimitDto'
+        pricingPlan:
+          type: string
+          enum:
+          - FREE
+          - FREE_MULTI_USER
+          - PERSONAL
+          - BUSINESS
+          description: Pricing plan allowed on tenant marketplace subscription create/patch.
+        maxUsers:
+          type: integer
+          minimum: 1
+          description: Paid seat cap.
+        externalSubscriptionId:
+          type:
+          - string
+          - 'null'
+        externalCustomerId:
+          type:
+          - string
+          - 'null'
+        allowsFreeUsers:
+          type: boolean
+          description: When true, permits RESTRICTED members up to maxFreeUsers.
+        maxFreeUsers:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+        metadata:
+          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
+      additionalProperties: false
+      description: Creates a subscription via async workflow. processorType is set server-side to TENANT. Plan-derived fields (balanceAllocationPerUser, usageLimits, etc.) are not accepted on the wire.
+    OrgSubscriptionPricingPlanDto:
+      type: string
+      enum:
+      - FREE
+      - FREE_MULTI_USER
+      - PERSONAL
+      - BUSINESS
+      - ENTERPRISE
     TenantMemberUpdateSuccessDto:
       type: object
       required:
@@ -1562,15 +1373,204 @@ components:
           type: boolean
           enum:
           - true
-    TenantOrganizationInvitationSuccessDto:
+    CancelTenantOrgSubscriptionRequestDto:
+      type: object
+      properties:
+        eventMetadata:
+          type: object
+          additionalProperties: true
+          description: Optional provenance metadata for the cancel workflow.
+      additionalProperties: false
+    PatchTenantOrgSubscriptionRequestDto:
+      type: object
+      properties:
+        pricingPlan:
+          type: string
+          enum:
+          - FREE
+          - FREE_MULTI_USER
+          - PERSONAL
+          - BUSINESS
+          description: Pricing plan allowed on tenant marketplace subscription create/patch.
+        maxUsers:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+        allowsFreeUsers:
+          type: boolean
+        maxFreeUsers:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+        externalSubscriptionId:
+          type:
+          - string
+          - 'null'
+        externalCustomerId:
+          type:
+          - string
+          - 'null'
+        metadata:
+          $ref: '#/components/schemas/TenantSubscriptionMetadataRequestDto'
+      additionalProperties: false
+      description: Partial update. Status/lifecycle fields are not settable — use DELETE to cancel.
+    UpdateTenantOrganizationMemberRequestDto:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+      additionalProperties: false
+      description: At least one of role or membershipType must be provided.
+    SubscriptionMetadataDto:
+      type: object
+      additionalProperties: true
+      properties:
+        trialEndDate:
+          type: string
+          format: date-time
+        promo:
+          type: string
+    CreateTenantOrganizationInvitationRequestDto:
       type: object
       required:
-      - success
+      - emailAddress
+      - role
       properties:
-        success:
-          type: boolean
+        emailAddress:
+          type: string
+          format: email
+        role:
+          type: string
           enum:
-          - true
+          - ADMIN
+          - MEMBER
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+          description: Defaults to FULL.
+      additionalProperties: false
+    InitiatorTypeDto:
+      type: string
+      enum:
+      - SYSTEM
+      - USER
+      - ORG_ADMIN
+      - TENANT_ADMIN
+      - SUPERUSER
+    TenantAdjustBalanceRequestDto:
+      type: object
+      required:
+      - balanceType
+      - targetColumn
+      - amount
+      - reason
+      properties:
+        balanceType:
+          $ref: '#/components/schemas/BalanceTypeDto'
+        targetColumn:
+          $ref: '#/components/schemas/BalanceColumnDto'
+        amount:
+          type: string
+          pattern: ^\d{1,8}(\.\d{1,12})?$
+          description: Positive non-zero dollar amount as a decimal string (up to 8 integer and 12 fractional digits). Must be greater than zero; floats are not accepted.
+        reason:
+          type: string
+          minLength: 10
+          maxLength: 500
+          description: Audit reason (trimmed; must be at least 10 characters after trim).
+      additionalProperties: false
+    TenantOrganizationMemberDto:
+      type: object
+      required:
+      - userId
+      - email
+      - firstName
+      - lastName
+      - role
+      - status
+      - membershipType
+      - createdAt
+      - externalUserId
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+          format: email
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - MEMBER
+        status:
+          type: string
+          enum:
+          - member
+        membershipType:
+          $ref: '#/components/schemas/OrgMembershipTypeDto'
+        createdAt:
+          type: string
+          format: date-time
+        externalUserId:
+          type:
+          - string
+          - 'null'
+    CreateTenantOrganizationRequestDto:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Organization display name.
+        seedOrgName:
+          type: boolean
+          default: true
+          description: When true (default), seeds the org brand name from name. When false, inherits tenant branding for the name.
+        admin:
+          $ref: '#/components/schemas/CreateTenantOrganizationAdminDto'
+        externalId:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Partner external organization identifier for reconciliation.
+      additionalProperties: false
+    OrgSubscriptionTypeDto:
+      type: string
+      enum:
+      - FREE
+      - PAID
+    LedgerEntryTypeDto:
+      type: string
+      enum:
+      - CONSUMPTION
+      - WEB_SEARCH_CONSUMPTION
+      - IMAGE_GENERATION_CONSUMPTION
+      - PROVISIONING
+      - TOP_UP
+      - RESET
+      - ADJUSTMENT
+      - FREE_TIER_CREDIT
+      - ADJUSTMENT_CREDIT_INCLUDED
+      - ADJUSTMENT_CREDIT_EXTRA
+      - ADJUSTMENT_DEBIT_INCLUDED
+      - ADJUSTMENT_DEBIT_EXTRA
   parameters:
     XIdempotencyKey:
       name: X-Idempotency-Key

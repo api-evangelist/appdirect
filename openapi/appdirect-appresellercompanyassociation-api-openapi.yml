@@ -201,65 +201,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/companyAssociations/%7BcompanyAssociationId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    CustomerCompanyAssociation:
-      type: object
-      title: CustomerCompanyAssociation
-      required:
-      - id
-      - resellerCompany
-      - customerCompany
-      - createdOn
-      properties:
-        id:
-          description: Customer company ID
-          type: string
-        resellerCompany:
-          $ref: '#/components/schemas/CompanyAssociation'
-        customerCompany:
-          $ref: '#/components/schemas/CompanyAssociation'
-        createdOn:
-          description: Date on which new customer company association was created, in UNIX Epoch milliseconds
-          type: number
-    CustomerCompanyAssociationCreationRequest:
-      type: object
-      title: CustomerCompanyAssociationCreationRequest
-      required:
-      - customerCompanyId
-      - resellerCompanyId
-      properties:
-        customerCompanyId:
-          description: Customer company ID
-          type: string
-        resellerCompanyId:
-          description: Reseller company ID
-          type: string
-    IllegalCompanyAssociationTypes:
-      description: Invalid company association types
-      type: string
-      title: IllegalCompanyAssociationTypes
-      enum:
-      - RESELLER_REQUIRED
-      - COMPANY_INACTIVE
-      - COMPANY_DISABLED
-      - CANT_LINK_RESELLER_TO_ITSELF
-      - ASSOCIATION_ALREADY_EXISTS
-    CompanyAssociation:
-      title: AppResellerCompanyAssociation
-      type: object
-      description: 'A minimum version of a company: includes only the company ID and name'
-      required:
-      - id
-      - name
-      properties:
-        id:
-          description: Company ID
-          type: string
-        name:
-          description: Company name
-          type: string
-      example:
-        id: 698555fc-bc65-4163-9fee-16308edec41b
-        name: Company A
     PageMetadata:
       type: object
       title: PageMetadata
@@ -286,6 +227,25 @@ components:
         size: 12345
         totalElements: 12345
         totalPages: 12345
+    CustomerCompanyAssociation:
+      type: object
+      title: CustomerCompanyAssociation
+      required:
+      - id
+      - resellerCompany
+      - customerCompany
+      - createdOn
+      properties:
+        id:
+          description: Customer company ID
+          type: string
+        resellerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        customerCompany:
+          $ref: '#/components/schemas/CompanyAssociation'
+        createdOn:
+          description: Date on which new customer company association was created, in UNIX Epoch milliseconds
+          type: number
     CustomerCompanyAssociationPagedReadResponse:
       type: object
       title: CustomerCompanyAssociationPagedReadResponse
@@ -318,3 +278,43 @@ components:
         status: 409
         code: RESELLER_REQUIRED
         message: Acme is not a reseller company
+    IllegalCompanyAssociationTypes:
+      description: Invalid company association types
+      type: string
+      title: IllegalCompanyAssociationTypes
+      enum:
+      - RESELLER_REQUIRED
+      - COMPANY_INACTIVE
+      - COMPANY_DISABLED
+      - CANT_LINK_RESELLER_TO_ITSELF
+      - ASSOCIATION_ALREADY_EXISTS
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
+    CustomerCompanyAssociationCreationRequest:
+      type: object
+      title: CustomerCompanyAssociationCreationRequest
+      required:
+      - customerCompanyId
+      - resellerCompanyId
+      properties:
+        customerCompanyId:
+          description: Customer company ID
+          type: string
+        resellerCompanyId:
+          description: Reseller company ID
+          type: string

@@ -578,17 +578,55 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/users/%7BuserId%7D?context=SOME_STRING_VALUE&companyId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    UserPagedReadResponse:
+    AppResellerAccountCompanyWS:
       type: object
-      title: UserPagedReadResponse
+      title: AppResellerAccountCompany
       properties:
-        content:
-          description: List of users
-          type: array
-          items:
-            $ref: '#/components/schemas/UserCreationResponse'
-        page:
-          $ref: '#/components/schemas/PageMetadata'
+        id:
+          description: Company ID
+          type: string
+        externalId:
+          description: Company's external ID
+          type:
+          - string
+          - 'null'
+        name:
+          description: Company name
+          type: string
+        createdOn:
+          description: Company creation date, in timestamp format
+          type: number
+      example:
+        id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+        externalId: external11
+        name: Company3
+        createdOn: 1522950634000
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
     ApplicationSummaryStat:
       description: Company application summary statistic
       type: object
@@ -600,18 +638,287 @@ components:
         children:
           description: Summary statistic value
           type: string
-    AppResellerAccountCompanySetting:
-      description: Company setting
+    AppResellerAccountCompanyAction:
+      description: Type of company action
+      type: string
+      title: AppResellerAccountCompanyAction
+      enum:
+      - ENABLE_ON_DEVICES_SALES_AUTOMATION
+      - DISABLE_ON_DEVICES_SALES_AUTOMATION
+      - VERIFY_EMAIL_DOMAIN
+      - UNVERIFY_EMAIL_DOMAIN
+      - ENABLE_COMPANY
+      - DISABLE_COMPANY
+      - LINK_RESELLER_TO_CUSTOMER
+      - LINK_CUSTOMER_TO_RESELLER
+      - INVITE_USERS
+      - MANAGE_PRODUCT_CATALOG
+      - LEAVE_COMPANY
+      - JOIN_COMPANY
+      - MANAGE_CUSTOM_ATTRIBUTES
+      - MOSI_DOMAINS_MANAGEMENT
+    AppResellerAccountCompanySize:
+      description: Size of the new company
+      type: string
+      title: AppResellerAccountCompanySize
+      enum:
+      - SMALL
+      - MEDIUM
+      - ENTERPRISE
+    ReadWritePermission:
+      description: Type of company write permissions
+      type: string
+      title: ReadWritePermission
+      enum:
+      - READ
+      - WRITE
+    AppResellerAccountCompanyAccessCode:
+      description: Type of company access
+      type: string
+      title: AppResellerAccountCompanyAccessCode
+      enum:
+      - RESELLER
+      - REFERRAL
+      - CUSTOMER
+      - DEVELOPER
+      - MARKETPLACE
+      - SALES_SUPPORT_REPRESENTATIVE
+      - ENTERPRISE_CUSTOMER
+    UserCreationResponse:
       type: object
-      title: AppResellerAccountCompanySetting
+      title: UserCreationResponse
       properties:
-        setting:
-          $ref: '#/components/schemas/AppResellerAccountCompanySettingCode'
-        permission:
-          $ref: '#/components/schemas/ReadWritePermission'
-        value:
-          description: Company setting value
+        id:
+          description: User ID
           type: string
+        companyId:
+          description: Current company ID
+          type: string
+        email:
+          description: Email address
+          type: string
+        firstName:
+          description: First name
+          type: string
+        lastName:
+          description: Last name
+          type: string
+        createdOn:
+          description: User creation date, in timestamp format
+          type: number
+        activated:
+          description: Indicates whether user is activated
+          type: boolean
+        invitationRequired:
+          description: Indicates whether the user requires an invitation
+          type: boolean
+        enabled:
+          description: Indicates whether the user is enabled
+          type: boolean
+        memberships:
+          description: User company memberships
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerAccountUserCompanyMembershipWS'
+      example:
+        id: 6d375008-3b19-4cb8-bbb9-dcd9fce99432
+        companyId: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+        email: test4@yopmail.com
+        firstName: user4
+        lastName: user4
+        createdOn: 1461321550000
+        activated: false
+        invitationRequired: false
+        memberships:
+        - company:
+            id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
+            externalId: external11
+            name: Company3
+            createdOn: 10242018
+            phone: '50505054'
+          enabled: true
+    UserCreationRequest:
+      type: object
+      title: UserCreationRequest
+      properties:
+        createdByCompanyId:
+          description: Reseller's company ID
+          type: string
+        companyId:
+          description: New user's company ID
+          type: string
+        externalId:
+          description: New user's external ID (must be unique)
+          type: string
+        email:
+          description: New user's email (must be unique)
+          type: string
+        firstName:
+          description: New user's First Name
+          type: string
+        lastName:
+          description: New user's Last Name
+          type: string
+      example:
+        createdByCompanyId: 386626c0-53e2-0000-0000-4a720bb5d000
+        companyId: 4c00cad1-f741-0zf6-bb00-0000e73cec00
+        externalId: '01'
+        email: user@appdirect.com
+        firstName: James
+        lastName: Smith
+    UserPagedReadResponse:
+      type: object
+      title: UserPagedReadResponse
+      properties:
+        content:
+          description: List of users
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCreationResponse'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    AppResellerAccountUserSettingCode:
+      description: User role setting code
+      type: string
+      title: AppResellerAccountUserSettingCode
+      enum:
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - TESTER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - SALES_SUPPORT
+      - CHANNEL_ADMIN
+      - RESELLER_MANAGER
+      - RESELLER
+      - REFERRAL
+      - ODSA_SUPPORT
+    Role:
+      type: string
+      title: Role
+      enum:
+      - USER
+      - APPLICATION
+      - PARTNER
+      - PARTNER_READ
+      - COMPANY
+      - CLIENT
+      - CHECKOUT_USER
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - CHANNEL_ADMIN
+      - CORPORATE_ADMIN
+      - SUPERUSER
+      - SUPER_SUPPORT
+      - ANALYTICS_ADMIN
+      - LAYOUT_DESIGNER
+      - SALES_SUPPORT
+      - RESTRICTED_SALES_SUPPORT
+      - RESELLER
+      - RESELLER_MANAGER
+      - TESTER
+      - MONITORING
+      - SYSTEM
+    AppResellerAccountCompanySettingCode:
+      description: Company Setting Code
+      type: string
+      title: AppResellerAccountCompanySettingCode
+      enum:
+      - ON_DEVICES_SALES_AUTOMATION
+      - TAX_RATE
+      - TAX_EXEMPTION_CODE
+      - CREATE_LEADS
+      - CREATE_COMPANIES
+      - CREATE_OPPORTUNITIES
+      - CLOUD_MANAGEMENT
+      - TWO_FACTOR_AUTHENTICATION
+      - IDENTITY_DATA_PROVIDER
+      - EXTERNAL_ID
+      - THIRTY_DAYS_PURCHASE_LIMIT_EXEMPT
+      - DEFAULT_USER_ROLE
+    CustomAttributeLocalizedValueOptionWS:
+      type: object
+      title: CustomAttributeLocalizedValueOption
+      properties:
+        optionKey:
+          type: string
+        optionLabel:
+          type: string
+      example:
+        optionKey: '...'
+        optionLabel: '...'
+    AppResellerAccountIdentityProvider:
+      description: Configured Identity provider
+      type: object
+      title: AppResellerAccountIdentityProvider
+      properties:
+        id:
+          description: Identity provider identifier
+          type: string
+        name:
+          description: Identity provider name
+          type: string
+        partner:
+          description: Identity provider partner
+          type: string
+    AppResellerUserActionsWS:
+      description: User actions
+      type: string
+      title: AppResellerUserActions
+      enum:
+      - RESET_PASSWORD
+      - SEND_RESET_PASSWORD_EMAIL
+      - SEND_ACTIVATION_EMAIL
+      - ACCEPT_SIGNUP_REQUEST
+      - REMOVE_USER_FROM_COMPANY
+      - REMOVE_LAST_USER_FROM_COMPANY
+      - LEAVE_COMPANY
+      - JOIN_COMPANY
+      - IMPERSONATE
+      - REQUEST_ACCOUNT_ACCESS
+      - CANCEL_REQUEST_ACCOUNT_ACCESS
+      - ENABLE_USER
+      - RESET_TWO_FACTOR_AUTHENTICATION
+      - CHANGE_ACCOUNT_EMAIL
+      - DISABLE_USER
+      - MAKE_PURCHASE
+    CustomAttributeLightV2WS:
+      type: object
+      title: CustomAttributeLightV2
+      properties:
+        attributeKey:
+          type: string
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        label:
+          type: string
+        value:
+          type: string
+        valueKeys:
+          type: array
+          items:
+            type: string
+        valueOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeLocalizedValueOptionWS'
+      example:
+        attributeKey: '...'
+        attributeType: MULTISELECT
+        label: '...'
+        value: '...'
+        valueKeys:
+        - '...'
+        - '...'
+        valueOptions:
+        - optionKey: '...'
+          optionLabel: '...'
+        - optionKey: '...'
+          optionLabel: '...'
     AppResellerUserRoleWS:
       type: object
       title: AppResellerUserRoleWS
@@ -621,6 +928,71 @@ components:
           type: string
         permission:
           $ref: '#/components/schemas/ReadWritePermission'
+    AppResellerCompanyWS:
+      type: object
+      title: Company
+      properties:
+        id:
+          description: Company's ID
+          type: string
+        externalId:
+          description: External ID used to identify the company (must be unique)
+          type: string
+        name:
+          description: New company's name
+          type: string
+        createdOn:
+          description: Date when new company was created, in UNIX Epoch milliseconds
+          type: number
+        phone:
+          description: Company's phone number
+          type: string
+        activated:
+          description: Indicates whether company is activated
+          type: boolean
+        numOfUsers:
+          description: Number of users in the company
+          type: number
+        grantedAccesses:
+          description: Company granted accesses
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerAccountCompanyAccess'
+    AppResellerUserSettingWS:
+      description: User setting
+      type: object
+      title: AppResellerUserSetting
+      properties:
+        setting:
+          $ref: '#/components/schemas/AppResellerAccountUserSettingCode'
+        permission:
+          $ref: '#/components/schemas/ReadWritePermission'
+        value:
+          description: User setting value
+          type: string
+    AppResellerAccountTaxExemptionCode:
+      description: Company tax exemption codes
+      type: string
+      title: AppResellerAccountTaxExemptionCode
+      enum:
+      - FEDERAL_GOVERNMENT_US
+      - STATE_GOVERNMENT_US
+      - TRIBE_INDIAN
+      - FOREIGN_DIPLOMAT
+      - CHARITABLE_ORG
+      - RELIGIOUS_ORG
+      - RESALE
+      - COMMERCIAL_AGRICULTURAL
+      - INDUSTRIAL_PRODUCTION
+      - DIRECT_MAIL_US
+      - DIRECT_PAY_PERMIT_US
+      - OTHER
+      - LOCAL_GOVERNMENT_US
+      - COMMERCIAL_AQUACULTURE
+      - COMMERCIAL_FISHERY
+      - NON_RESIDENT_CAN
+      - MEDICAL_DEVICE_WITH_EXEMPT_SALES_TAX_US
+      - MEDICAL_DEVICE_WITH_TAXABLE_SALES_TAX_US
     AppResellerAccountCompanyCreationRequestWS:
       type: object
       title: AppResellerAccountCompanyCreationRequest
@@ -652,18 +1024,22 @@ components:
         companySize: SMALL
         website: www.new_company.com
         companyAccess: RESELLER
-    AppResellerUserSettingWS:
-      description: User setting
+    AppResellerAccountUserCompanyMembershipWS:
       type: object
-      title: AppResellerUserSetting
+      title: AppResellerAccountUserCompanyMembership
       properties:
-        setting:
-          $ref: '#/components/schemas/AppResellerAccountUserSettingCode'
-        permission:
-          $ref: '#/components/schemas/ReadWritePermission'
-        value:
-          description: User setting value
-          type: string
+        company:
+          $ref: '#/components/schemas/AppResellerAccountCompanyWS'
+        enabled:
+          description: Indicates whether user's company membership is enabled
+          type: boolean
+        mosiUser:
+          $ref: '#/components/schemas/MosiUser'
+        roles:
+          description: User roles in the Company
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
     CompanyDetailsWS:
       allOf:
       - $ref: '#/components/schemas/AccountCompanyWS'
@@ -736,18 +1112,14 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/AppResellerAccountIdentityProvider'
-    AppResellerAccountCompanyAccessCode:
-      description: Type of company access
+    AppResellerAccountCompanyAccess:
+      description: Supported AppReseller contexts
       type: string
-      title: AppResellerAccountCompanyAccessCode
+      title: AppResellerAccountCompanyApiContext
       enum:
       - RESELLER
       - REFERRAL
       - CUSTOMER
-      - DEVELOPER
-      - MARKETPLACE
-      - SALES_SUPPORT_REPRESENTATIVE
-      - ENTERPRISE_CUSTOMER
     AccountCompanyWS:
       type: object
       title: AccountCompany
@@ -764,27 +1136,18 @@ components:
         createdOn:
           description: Company's creation date, in UNIX Epoch milliseconds
           type: number
-    AppResellerUserActionsWS:
-      description: User actions
-      type: string
-      title: AppResellerUserActions
-      enum:
-      - RESET_PASSWORD
-      - SEND_RESET_PASSWORD_EMAIL
-      - SEND_ACTIVATION_EMAIL
-      - ACCEPT_SIGNUP_REQUEST
-      - REMOVE_USER_FROM_COMPANY
-      - REMOVE_LAST_USER_FROM_COMPANY
-      - LEAVE_COMPANY
-      - JOIN_COMPANY
-      - IMPERSONATE
-      - REQUEST_ACCOUNT_ACCESS
-      - CANCEL_REQUEST_ACCOUNT_ACCESS
-      - ENABLE_USER
-      - RESET_TWO_FACTOR_AUTHENTICATION
-      - CHANGE_ACCOUNT_EMAIL
-      - DISABLE_USER
-      - MAKE_PURCHASE
+    MosiUser:
+      type:
+      - object
+      - 'null'
+      title: MosiUser
+      properties:
+        username:
+          type:
+          - string
+          - 'null'
+      example:
+        username: adazuretest@sdasd21321.onmicrosoft.com
     UserReadResponse:
       allOf:
       - $ref: '#/components/schemas/UserCreationResponse'
@@ -825,384 +1188,21 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/ApplicationSummaryStat'
-    AppResellerAccountCompanySettingCode:
-      description: Company Setting Code
-      type: string
-      title: AppResellerAccountCompanySettingCode
-      enum:
-      - ON_DEVICES_SALES_AUTOMATION
-      - TAX_RATE
-      - TAX_EXEMPTION_CODE
-      - CREATE_LEADS
-      - CREATE_COMPANIES
-      - CREATE_OPPORTUNITIES
-      - CLOUD_MANAGEMENT
-      - TWO_FACTOR_AUTHENTICATION
-      - IDENTITY_DATA_PROVIDER
-      - EXTERNAL_ID
-      - THIRTY_DAYS_PURCHASE_LIMIT_EXEMPT
-      - DEFAULT_USER_ROLE
-    AppResellerAccountCompanyWS:
-      type: object
-      title: AppResellerAccountCompany
-      properties:
-        id:
-          description: Company ID
-          type: string
-        externalId:
-          description: Company's external ID
-          type:
-          - string
-          - 'null'
-        name:
-          description: Company name
-          type: string
-        createdOn:
-          description: Company creation date, in timestamp format
-          type: number
-      example:
-        id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
-        externalId: external11
-        name: Company3
-        createdOn: 1522950634000
-    AppResellerAccountCompanySize:
-      description: Size of the new company
-      type: string
-      title: AppResellerAccountCompanySize
-      enum:
-      - SMALL
-      - MEDIUM
-      - ENTERPRISE
-    CustomAttributeLightV2WS:
-      type: object
-      title: CustomAttributeLightV2
-      properties:
-        attributeKey:
-          type: string
-        attributeType:
-          $ref: '#/components/schemas/AttributeType'
-        label:
-          type: string
-        value:
-          type: string
-        valueKeys:
-          type: array
-          items:
-            type: string
-        valueOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomAttributeLocalizedValueOptionWS'
-      example:
-        attributeKey: '...'
-        attributeType: MULTISELECT
-        label: '...'
-        value: '...'
-        valueKeys:
-        - '...'
-        - '...'
-        valueOptions:
-        - optionKey: '...'
-          optionLabel: '...'
-        - optionKey: '...'
-          optionLabel: '...'
-    AppResellerCompanyWS:
-      type: object
-      title: Company
-      properties:
-        id:
-          description: Company's ID
-          type: string
-        externalId:
-          description: External ID used to identify the company (must be unique)
-          type: string
-        name:
-          description: New company's name
-          type: string
-        createdOn:
-          description: Date when new company was created, in UNIX Epoch milliseconds
-          type: number
-        phone:
-          description: Company's phone number
-          type: string
-        activated:
-          description: Indicates whether company is activated
-          type: boolean
-        numOfUsers:
-          description: Number of users in the company
-          type: number
-        grantedAccesses:
-          description: Company granted accesses
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerAccountCompanyAccess'
-    AppResellerAccountCompanyAction:
-      description: Type of company action
-      type: string
-      title: AppResellerAccountCompanyAction
-      enum:
-      - ENABLE_ON_DEVICES_SALES_AUTOMATION
-      - DISABLE_ON_DEVICES_SALES_AUTOMATION
-      - VERIFY_EMAIL_DOMAIN
-      - UNVERIFY_EMAIL_DOMAIN
-      - ENABLE_COMPANY
-      - DISABLE_COMPANY
-      - LINK_RESELLER_TO_CUSTOMER
-      - LINK_CUSTOMER_TO_RESELLER
-      - INVITE_USERS
-      - MANAGE_PRODUCT_CATALOG
-      - LEAVE_COMPANY
-      - JOIN_COMPANY
-      - MANAGE_CUSTOM_ATTRIBUTES
-      - MOSI_DOMAINS_MANAGEMENT
-    AppResellerAccountCompanyAccess:
-      description: Supported AppReseller contexts
-      type: string
-      title: AppResellerAccountCompanyApiContext
-      enum:
-      - RESELLER
-      - REFERRAL
-      - CUSTOMER
-    Role:
-      type: string
-      title: Role
-      enum:
-      - USER
-      - APPLICATION
-      - PARTNER
-      - PARTNER_READ
-      - COMPANY
-      - CLIENT
-      - CHECKOUT_USER
-      - BILLING_ADMIN
-      - SYS_ADMIN
-      - DEVELOPER
-      - CHANNEL_PRODUCT_SUPPORT
-      - CHANNEL_SUPPORT
-      - CHANNEL_ADMIN
-      - CORPORATE_ADMIN
-      - SUPERUSER
-      - SUPER_SUPPORT
-      - ANALYTICS_ADMIN
-      - LAYOUT_DESIGNER
-      - SALES_SUPPORT
-      - RESTRICTED_SALES_SUPPORT
-      - RESELLER
-      - RESELLER_MANAGER
-      - TESTER
-      - MONITORING
-      - SYSTEM
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    CustomAttributeLocalizedValueOptionWS:
-      type: object
-      title: CustomAttributeLocalizedValueOption
-      properties:
-        optionKey:
-          type: string
-        optionLabel:
-          type: string
-      example:
-        optionKey: '...'
-        optionLabel: '...'
-    ReadWritePermission:
-      description: Type of company write permissions
-      type: string
-      title: ReadWritePermission
-      enum:
-      - READ
-      - WRITE
-    AppResellerAccountUserCompanyMembershipWS:
-      type: object
-      title: AppResellerAccountUserCompanyMembership
-      properties:
-        company:
-          $ref: '#/components/schemas/AppResellerAccountCompanyWS'
-        enabled:
-          description: Indicates whether user's company membership is enabled
-          type: boolean
-        mosiUser:
-          $ref: '#/components/schemas/MosiUser'
-        roles:
-          description: User roles in the Company
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-    AppResellerAccountTaxExemptionCode:
-      description: Company tax exemption codes
-      type: string
-      title: AppResellerAccountTaxExemptionCode
-      enum:
-      - FEDERAL_GOVERNMENT_US
-      - STATE_GOVERNMENT_US
-      - TRIBE_INDIAN
-      - FOREIGN_DIPLOMAT
-      - CHARITABLE_ORG
-      - RELIGIOUS_ORG
-      - RESALE
-      - COMMERCIAL_AGRICULTURAL
-      - INDUSTRIAL_PRODUCTION
-      - DIRECT_MAIL_US
-      - DIRECT_PAY_PERMIT_US
-      - OTHER
-      - LOCAL_GOVERNMENT_US
-      - COMMERCIAL_AQUACULTURE
-      - COMMERCIAL_FISHERY
-      - NON_RESIDENT_CAN
-      - MEDICAL_DEVICE_WITH_EXEMPT_SALES_TAX_US
-      - MEDICAL_DEVICE_WITH_TAXABLE_SALES_TAX_US
-    AppResellerAccountIdentityProvider:
-      description: Configured Identity provider
-      type: object
-      title: AppResellerAccountIdentityProvider
-      properties:
-        id:
-          description: Identity provider identifier
-          type: string
-        name:
-          description: Identity provider name
-          type: string
-        partner:
-          description: Identity provider partner
-          type: string
-    AppResellerAccountUserSettingCode:
-      description: User role setting code
-      type: string
-      title: AppResellerAccountUserSettingCode
-      enum:
-      - BILLING_ADMIN
-      - SYS_ADMIN
-      - DEVELOPER
-      - TESTER
-      - CHANNEL_PRODUCT_SUPPORT
-      - CHANNEL_SUPPORT
-      - SALES_SUPPORT
-      - CHANNEL_ADMIN
-      - RESELLER_MANAGER
-      - RESELLER
-      - REFERRAL
-      - ODSA_SUPPORT
-    MosiUser:
-      type:
-      - object
-      - 'null'
-      title: MosiUser
-      properties:
-        username:
-          type:
-          - string
-          - 'null'
-      example:
-        username: adazuretest@sdasd21321.onmicrosoft.com
-    UserCreationRequest:
-      type: object
-      title: UserCreationRequest
-      properties:
-        createdByCompanyId:
-          description: Reseller's company ID
-          type: string
-        companyId:
-          description: New user's company ID
-          type: string
-        externalId:
-          description: New user's external ID (must be unique)
-          type: string
-        email:
-          description: New user's email (must be unique)
-          type: string
-        firstName:
-          description: New user's First Name
-          type: string
-        lastName:
-          description: New user's Last Name
-          type: string
-      example:
-        createdByCompanyId: 386626c0-53e2-0000-0000-4a720bb5d000
-        companyId: 4c00cad1-f741-0zf6-bb00-0000e73cec00
-        externalId: '01'
-        email: user@appdirect.com
-        firstName: James
-        lastName: Smith
     AttributeType:
       type: string
       title: AttributeType
       enum:
       - TEXT
       - MULTISELECT
-    UserCreationResponse:
+    AppResellerAccountCompanySetting:
+      description: Company setting
       type: object
-      title: UserCreationResponse
+      title: AppResellerAccountCompanySetting
       properties:
-        id:
-          description: User ID
+        setting:
+          $ref: '#/components/schemas/AppResellerAccountCompanySettingCode'
+        permission:
+          $ref: '#/components/schemas/ReadWritePermission'
+        value:
+          description: Company setting value
           type: string
-        companyId:
-          description: Current company ID
-          type: string
-        email:
-          description: Email address
-          type: string
-        firstName:
-          description: First name
-          type: string
-        lastName:
-          description: Last name
-          type: string
-        createdOn:
-          description: User creation date, in timestamp format
-          type: number
-        activated:
-          description: Indicates whether user is activated
-          type: boolean
-        invitationRequired:
-          description: Indicates whether the user requires an invitation
-          type: boolean
-        enabled:
-          description: Indicates whether the user is enabled
-          type: boolean
-        memberships:
-          description: User company memberships
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerAccountUserCompanyMembershipWS'
-      example:
-        id: 6d375008-3b19-4cb8-bbb9-dcd9fce99432
-        companyId: 460fad0d-19e2-4eec-a756-59c15dc7a56a
-        email: test4@yopmail.com
-        firstName: user4
-        lastName: user4
-        createdOn: 1461321550000
-        activated: false
-        invitationRequired: false
-        memberships:
-        - company:
-            id: 460fad0d-19e2-4eec-a756-59c15dc7a56a
-            externalId: external11
-            name: Company3
-            createdOn: 10242018
-            phone: '50505054'
-          enabled: true

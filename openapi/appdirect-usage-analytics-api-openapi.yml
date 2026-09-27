@@ -48,31 +48,6 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    AIUsage:
-      type: object
-      properties:
-        aiId:
-          type: string
-          description: Unique identifier for the AI instance.
-        aiDataTokensUsed:
-          type:
-          - number
-          - 'null'
-          description: Number of data tokens used by this AI instance.
-        aiApiTokensUsed:
-          type:
-          - number
-          - 'null'
-          description: Number of API tokens used by this AI instance.
-    OrgUsageByAI:
-      type: object
-      properties:
-        orgUsage:
-          $ref: '#/components/schemas/OrgUsage'
-        aiUsages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIUsage'
     OrgUsage:
       type: object
       properties:
@@ -95,6 +70,31 @@ components:
           - number
           - 'null'
           description: The API token usage limit for the organization, if any.
+    OrgUsageByAI:
+      type: object
+      properties:
+        orgUsage:
+          $ref: '#/components/schemas/OrgUsage'
+        aiUsages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUsage'
+    AIUsage:
+      type: object
+      properties:
+        aiId:
+          type: string
+          description: Unique identifier for the AI instance.
+        aiDataTokensUsed:
+          type:
+          - number
+          - 'null'
+          description: Number of data tokens used by this AI instance.
+        aiApiTokensUsed:
+          type:
+          - number
+          - 'null'
+          description: Number of API tokens used by this AI instance.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

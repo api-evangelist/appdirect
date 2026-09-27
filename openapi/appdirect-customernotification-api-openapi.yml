@@ -476,19 +476,42 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/common\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    NotificationReminderType:
-      type: string
-      title: NotificationReminderType
-      enum:
-      - NONE
-      - BEFORE
-      - AFTER
-    NotificationMethod:
-      type: string
-      title: NotificationMethod
-      enum:
-      - EMAIL
-      - SMS
+    NotificationTemplateParameterWS:
+      type: object
+      title: NotificationTemplateParameter
+      properties:
+        parameterName:
+          description: Notification template parameter name
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationParameterType'
+        valueType:
+          $ref: '#/components/schemas/NotificationParameterValueType'
+    NotificationSmsTemplateWS:
+      type: object
+      title: NotificationSmsTemplateWS
+      required:
+      - type
+      - locale
+      - content
+      properties:
+        content:
+          description: SMS notification content
+          type: string
+        directSales:
+          description: If the template is used for a direct sale product
+          type: boolean
+        enabled:
+          description: If the SMS template is enabled
+          type: boolean
+        id:
+          description: SMS notification template ID
+          type: number
+        locale:
+          description: SMS notification locale to determine the language
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationTemplateType'
     NotificationEmailTemplateWS:
       type: object
       title: NotificationEmailTemplateWS
@@ -530,34 +553,78 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationCommonEmailElementWS:
+      type: object
+      title: NotificationCommonEmailElementWS
+      required:
+      - type
+      - content
+      - locale
+      properties:
+        content:
+          description: Email notification content
+          type: string
+        defaultCommonElement:
+          description: If the elements are default common elements
+          type: boolean
+        enabled:
+          description: If the email template is enabled
+          type: boolean
+        id:
+          description: Email notification template ID
+          type: number
+        locale:
+          description: Email notification locale to determine the language
+          type: string
+        partner:
+          description: Partner being used to render the email
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationCommonElementType'
+    Position:
+      type: string
+      title: Position
+      enum:
+      - TOP
+      - BOTTOM
+    NotificationMethod:
+      type: string
+      title: NotificationMethod
+      enum:
+      - EMAIL
+      - SMS
+    NotificationTemplateCategory:
+      type: string
+      title: NotificationTemplateCategory
+      enum:
+      - ACCOUNTS
+      - PRODUCTS
+      - VENDORS
+      - BILLING
+      - MARKETPLACE
+      - DOMAIN_REGISTRATION
+      - ASSISTED_SALES
+      - MISC
     NotificationCommonElementType:
       type: string
       title: NotificationCommonElementType
       enum:
       - UNSUBSCRIBE
-    NotificationTemplateDefinitionWS:
+    NotificationParameterValueType:
+      type: string
+      title: NotificationParameterValueType
+      enum:
+      - SINGLE
+      - LIST
+    NotificationMethodTemplateWS:
       type: object
-      title: NotificationTemplateDefinition
+      title: NotificationMethodTemplate
       properties:
-        audience:
-          $ref: '#/components/schemas/NotificationAudienceType'
-        category:
-          $ref: '#/components/schemas/NotificationTemplateCategory'
-        generated:
-          description: If the template body is generated
+        enabled:
+          description: If notification method is enabled
           type: boolean
-        methods:
-          description: Notification methods(Email, sms)
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationMethodTemplateWS'
-        reminder:
-          $ref: '#/components/schemas/NotificationReminderType'
-        required:
-          description: If the template can be disabled or not
-          type: boolean
-        type:
-          $ref: '#/components/schemas/NotificationTemplateType'
+        method:
+          $ref: '#/components/schemas/NotificationMethod'
     NotificationTemplateType:
       type: string
       title: NotificationTemplateType
@@ -737,116 +804,31 @@ components:
       - API_ALERT
       - WELCOME_USER
       - CREDIT_CARD_REQUIRED
-    NotificationCommonElementDefinitionWS:
-      type: object
-      title: NotificationCommonElementDefinition
-      properties:
-        methods:
-          description: Notification methods(Email, sms)
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationMethod'
-        position:
-          $ref: '#/components/schemas/Position'
-        type:
-          $ref: '#/components/schemas/NotificationCommonElementType'
-    NotificationSmsTemplateWS:
-      type: object
-      title: NotificationSmsTemplateWS
-      required:
-      - type
-      - locale
-      - content
-      properties:
-        content:
-          description: SMS notification content
-          type: string
-        directSales:
-          description: If the template is used for a direct sale product
-          type: boolean
-        enabled:
-          description: If the SMS template is enabled
-          type: boolean
-        id:
-          description: SMS notification template ID
-          type: number
-        locale:
-          description: SMS notification locale to determine the language
-          type: string
-        type:
-          $ref: '#/components/schemas/NotificationTemplateType'
-    NotificationParameterValueType:
+    NotificationAudienceType:
       type: string
-      title: NotificationParameterValueType
+      title: NotificationAudienceType
       enum:
-      - SINGLE
-      - LIST
-    NotificationTemplateParameterWS:
-      type: object
-      title: NotificationTemplateParameter
-      properties:
-        parameterName:
-          description: Notification template parameter name
-          type: string
-        type:
-          $ref: '#/components/schemas/NotificationParameterType'
-        valueType:
-          $ref: '#/components/schemas/NotificationParameterValueType'
-    NotificationCommonEmailElementWS:
-      type: object
-      title: NotificationCommonEmailElementWS
-      required:
-      - type
-      - content
-      - locale
-      properties:
-        content:
-          description: Email notification content
-          type: string
-        defaultCommonElement:
-          description: If the elements are default common elements
-          type: boolean
-        enabled:
-          description: If the email template is enabled
-          type: boolean
-        id:
-          description: Email notification template ID
-          type: number
-        locale:
-          description: Email notification locale to determine the language
-          type: string
-        partner:
-          description: Partner being used to render the email
-          type: string
-        type:
-          $ref: '#/components/schemas/NotificationCommonElementType'
-    Position:
-      type: string
-      title: Position
-      enum:
-      - TOP
-      - BOTTOM
-    NotificationMethodTemplateWS:
-      type: object
-      title: NotificationMethodTemplate
-      properties:
-        enabled:
-          description: If notification method is enabled
-          type: boolean
-        method:
-          $ref: '#/components/schemas/NotificationMethod'
-    NotificationTemplateCategory:
-      type: string
-      title: NotificationTemplateCategory
-      enum:
-      - ACCOUNTS
-      - PRODUCTS
-      - VENDORS
-      - BILLING
-      - MARKETPLACE
-      - DOMAIN_REGISTRATION
-      - ASSISTED_SALES
-      - MISC
+      - NEW_USER
+      - EXISTING_USER
+      - EXISTING_USER_WITHOUT_COMPANY_PARAM
+      - PRODUCT_OWNER
+      - CHANNEL_ADMIN
+      - CHANNEL_ADMIN_WITHOUT_PARAM
+      - CHANNEL_SUPPORT
+      - PRODUCT_USER
+      - COMPANY_ADMIN
+      - APP_DEVELOPER
+      - CUSTOM_INTEGRATION_APP_SUPPORT
+      - RESELLER
+      - RESELLER_WITHOUT_PARAM
+      - RESELLER_MANAGER
+      - RESELLER_MANAGER_WITHOUT_PARAM
+      - RESELLER_COMPANY_ADMIN
+      - SALES_SUPPORT
+      - SALES_SUPPORT_WITHOUT_PARAMS
+      - TICKET_SUPPORT
+      - DOMAIN_SUPPORT
+      - SUPER_SUPPORT
     NotificationParameterType:
       type: string
       title: NotificationParameterType
@@ -1049,28 +1031,46 @@ components:
       - REPORT_PROCESS_RUN_DETAILS
       - REPORT_FILES_COLLECTION
       - QUOTE_URL
-    NotificationAudienceType:
+    NotificationTemplateDefinitionWS:
+      type: object
+      title: NotificationTemplateDefinition
+      properties:
+        audience:
+          $ref: '#/components/schemas/NotificationAudienceType'
+        category:
+          $ref: '#/components/schemas/NotificationTemplateCategory'
+        generated:
+          description: If the template body is generated
+          type: boolean
+        methods:
+          description: Notification methods(Email, sms)
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationMethodTemplateWS'
+        reminder:
+          $ref: '#/components/schemas/NotificationReminderType'
+        required:
+          description: If the template can be disabled or not
+          type: boolean
+        type:
+          $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationCommonElementDefinitionWS:
+      type: object
+      title: NotificationCommonElementDefinition
+      properties:
+        methods:
+          description: Notification methods(Email, sms)
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationMethod'
+        position:
+          $ref: '#/components/schemas/Position'
+        type:
+          $ref: '#/components/schemas/NotificationCommonElementType'
+    NotificationReminderType:
       type: string
-      title: NotificationAudienceType
+      title: NotificationReminderType
       enum:
-      - NEW_USER
-      - EXISTING_USER
-      - EXISTING_USER_WITHOUT_COMPANY_PARAM
-      - PRODUCT_OWNER
-      - CHANNEL_ADMIN
-      - CHANNEL_ADMIN_WITHOUT_PARAM
-      - CHANNEL_SUPPORT
-      - PRODUCT_USER
-      - COMPANY_ADMIN
-      - APP_DEVELOPER
-      - CUSTOM_INTEGRATION_APP_SUPPORT
-      - RESELLER
-      - RESELLER_WITHOUT_PARAM
-      - RESELLER_MANAGER
-      - RESELLER_MANAGER_WITHOUT_PARAM
-      - RESELLER_COMPANY_ADMIN
-      - SALES_SUPPORT
-      - SALES_SUPPORT_WITHOUT_PARAMS
-      - TICKET_SUPPORT
-      - DOMAIN_SUPPORT
-      - SUPER_SUPPORT
+      - NONE
+      - BEFORE
+      - AFTER

@@ -1142,45 +1142,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    AssignmentRequest:
-      type: object
-      title: AssignmentRequest
-      properties:
-        companyEntitlementUuid:
-          description: Company entitlement unique identifier
-          type: string
-        parameters:
-          description: Parameters
-          type: object
-        userUuid:
-          description: User unique identifier
-          type: string
-      example:
-        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
-        companyEntitlementUuid: 90e74ec1-db36-474b-81ea-95a3b1fce48d
-        parameters: {}
-    CreateCompanyGroupAccountV2:
-      type: object
-      title: CreateCompanyGroupAccountV2
-      properties:
-        description:
-          description: Company group description.
-          type: string
-        name:
-          description: Company group name.
-          type: string
-      example:
-        name: HR
-        description: Human Resources
-    UserGroupUnassignmentRequest:
-      type: object
-      title: UserGroupUnassignmentRequest
-      properties:
-        userUuid:
-          description: User unique identifier
-          type: string
-      example:
-        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
     UserGroupAssignmentChangeRequests:
       type: object
       title: UserGroupAssignmentChangeRequests
@@ -1212,6 +1173,32 @@ components:
           parameters: {}
         appUnassignmentRequests:
         - userEntitlementId: 1941
+    AssignmentRequest:
+      type: object
+      title: AssignmentRequest
+      properties:
+        companyEntitlementUuid:
+          description: Company entitlement unique identifier
+          type: string
+        parameters:
+          description: Parameters
+          type: object
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
+        companyEntitlementUuid: 90e74ec1-db36-474b-81ea-95a3b1fce48d
+        parameters: {}
+    UserGroupUnassignmentRequest:
+      type: object
+      title: UserGroupUnassignmentRequest
+      properties:
+        userUuid:
+          description: User unique identifier
+          type: string
+      example:
+        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
     UserGroupAssignmentRequest:
       type: object
       title: UserGroupAssignmentRequest
@@ -1221,15 +1208,6 @@ components:
           type: string
       example:
         userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
-    UassignmentRequest:
-      type: object
-      title: UassignmentRequest
-      properties:
-        userEntitlementId:
-          description: User entitlement ID
-          type: number
-      example:
-        userEntitlementId: 1926
     UpdateCompanyGroupAccountV2:
       type: object
       title: UpdateCompanyGroupAccountV2
@@ -1243,3 +1221,25 @@ components:
       example:
         name: Engineer
         description: Engineering
+    CreateCompanyGroupAccountV2:
+      type: object
+      title: CreateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: HR
+        description: Human Resources
+    UassignmentRequest:
+      type: object
+      title: UassignmentRequest
+      properties:
+        userEntitlementId:
+          description: User entitlement ID
+          type: number
+      example:
+        userEntitlementId: 1926

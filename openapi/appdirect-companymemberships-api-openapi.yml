@@ -1649,132 +1649,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/memberships/%7BuserUuid%7D/groups?ldap=SOME_BOOLEAN_VALUE&page=SOME_INTEGER_VALUE&searchText=SOME_STRING_VALUE&size=SOME_INTEGER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    PatchUserCompanyMembershipAccountV2:
-      description: Represents partially updating a user membership to company
-      type: object
-      title: PatchUserCompanyMembershipAccountV2
-      properties:
-        enabled:
-          description: Indicates whether membership is enabled
-          type: boolean
-      example:
-        enabled: true
-    CreateUserCompanyMembershipAccountV2:
-      description: Represents a user membership to a company since a user can be a member of multiple companies ([Companies](#companies))
-      type: object
-      title: CreateUserCompanyMembershipAccountV2
-      properties:
-        user:
-          $ref: '#/components/schemas/CreateUserAccountV2'
-        roles:
-          description: 'Optional.  When not included the company default role will be used.
-
-
-            Roles for this membership. One or more of the following: ROLE_USER (User), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
-          type: array
-          items:
-            type: string
-      example:
-        user:
-          email: jane.lee@company1151609035.com
-          firstName: Jane
-          lastName: Lee
-          allowLogin: true
-        roles:
-        - ROLE_USER
-    CreateUserAccountV2:
-      description: User information data
-      type: object
-      title: CreateUserAccountV2
-      properties:
-        email:
-          description: Email address of the user being added to this company.  Used to determine if user already exists in the marketplace and invite the user to the company when allowLogin=true.
-          type: string
-        firstName:
-          description: First name of the user being added to this company.
-          type: string
-        lastName:
-          description: Last name of the user being added to this company.
-          type:
-          - string
-          - 'null'
-        allowLogin:
-          description: 'Optional. Default is "true".
-
-
-            When set to "true", the user is invited to this marketplace company with login access. The user can purchase and assign products within the company. Products can also be purchased on their behalf, and assigned to them.
-
-
-            When set to "false", the user is added to this marketplace company without login access. Products are purchased and assigned on their behalf, and they access those products directly through the product interface.
-
-
-            Note: If a user already exists in the marketplace and is being added to an additional company, they must be added with the same login access as their other companies.  For example, if a user is currently a member of company A with login access then it''s not allowed to add them to company B without login access.'
-          type: boolean
-        idpUuid:
-          description: UUID of the identity provider that the user will always use to log in. Contact your AppDirect technical consultant or business consultant to obtain the UUID.
-          type: string
-        userName:
-          description: 'User name.
-
-            If not provided, use the user''s email address'
-          type:
-          - string
-          - 'null'
-        externalId:
-          description: External identifier of the user
-          type: string
-      example:
-        email: jude.doe@company8578572384.com
-        firstName: Jude
-        lastName: Doe
-        allowLogin: true
-        idpUuid: 135e3a9f-7f86-46a6-a0af-47a7b3a8936d
-        username: john.simpson
-        externalId: john.simpson
-    UpdateUserCompanyMembershipAccountV2:
-      description: Represents updating a user membership to company
-      type: object
-      title: UpdateUserCompanyMembershipAccountV2
-      properties:
-        enabled:
-          description: Indicates whether the membership is enabled
-          type: boolean
-        roles:
-          description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
-          type: array
-          items:
-            type: string
-      example:
-        enabled: true
-        roles:
-        - ROLE_BILLING_ADMIN
-        - ROLE_DEVELOPER
-        - ROLE_SYS_ADMIN
-    PatchUserCompanyMembershipsAccountV2:
-      description: User company membership role data.
-      type: object
-      title: PatchUserCompanyMembershipsAccountV2
-      properties:
-        userUuid:
-          description: UUID of the user whose membership roles need to be modified
-          type: string
-        rolesToAdd:
-          description: 'Roles to add to this membership. One or more of the following: ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
-          type: array
-          items:
-            type: string
-        rolesToRemove:
-          description: 'Roles to remove from this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
-          type: array
-          items:
-            type: string
-      example:
-        userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
-        rolesToAdd:
-        - ROLE_DEVELOPER
-        - ROLE_RESELLER
-        rolesToRemove:
-        - ROLE_CHANNEL_SUPPORT
     ActiveUserCreationAccountV2:
       description: Minimal data required to create a active user membership
       type: object
@@ -1826,3 +1700,129 @@ components:
         lastName: Doe
         roles:
         - ROLE_USER
+    UpdateUserCompanyMembershipAccountV2:
+      description: Represents updating a user membership to company
+      type: object
+      title: UpdateUserCompanyMembershipAccountV2
+      properties:
+        enabled:
+          description: Indicates whether the membership is enabled
+          type: boolean
+        roles:
+          description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+      example:
+        enabled: true
+        roles:
+        - ROLE_BILLING_ADMIN
+        - ROLE_DEVELOPER
+        - ROLE_SYS_ADMIN
+    PatchUserCompanyMembershipAccountV2:
+      description: Represents partially updating a user membership to company
+      type: object
+      title: PatchUserCompanyMembershipAccountV2
+      properties:
+        enabled:
+          description: Indicates whether membership is enabled
+          type: boolean
+      example:
+        enabled: true
+    CreateUserCompanyMembershipAccountV2:
+      description: Represents a user membership to a company since a user can be a member of multiple companies ([Companies](#companies))
+      type: object
+      title: CreateUserCompanyMembershipAccountV2
+      properties:
+        user:
+          $ref: '#/components/schemas/CreateUserAccountV2'
+        roles:
+          description: 'Optional.  When not included the company default role will be used.
+
+
+            Roles for this membership. One or more of the following: ROLE_USER (User), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+          type: array
+          items:
+            type: string
+      example:
+        user:
+          email: jane.lee@company1151609035.com
+          firstName: Jane
+          lastName: Lee
+          allowLogin: true
+        roles:
+        - ROLE_USER
+    PatchUserCompanyMembershipsAccountV2:
+      description: User company membership role data.
+      type: object
+      title: PatchUserCompanyMembershipsAccountV2
+      properties:
+        userUuid:
+          description: UUID of the user whose membership roles need to be modified
+          type: string
+        rolesToAdd:
+          description: 'Roles to add to this membership. One or more of the following: ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+        rolesToRemove:
+          description: 'Roles to remove from this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+      example:
+        userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
+        rolesToAdd:
+        - ROLE_DEVELOPER
+        - ROLE_RESELLER
+        rolesToRemove:
+        - ROLE_CHANNEL_SUPPORT
+    CreateUserAccountV2:
+      description: User information data
+      type: object
+      title: CreateUserAccountV2
+      properties:
+        email:
+          description: Email address of the user being added to this company.  Used to determine if user already exists in the marketplace and invite the user to the company when allowLogin=true.
+          type: string
+        firstName:
+          description: First name of the user being added to this company.
+          type: string
+        lastName:
+          description: Last name of the user being added to this company.
+          type:
+          - string
+          - 'null'
+        allowLogin:
+          description: 'Optional. Default is "true".
+
+
+            When set to "true", the user is invited to this marketplace company with login access. The user can purchase and assign products within the company. Products can also be purchased on their behalf, and assigned to them.
+
+
+            When set to "false", the user is added to this marketplace company without login access. Products are purchased and assigned on their behalf, and they access those products directly through the product interface.
+
+
+            Note: If a user already exists in the marketplace and is being added to an additional company, they must be added with the same login access as their other companies.  For example, if a user is currently a member of company A with login access then it''s not allowed to add them to company B without login access.'
+          type: boolean
+        idpUuid:
+          description: UUID of the identity provider that the user will always use to log in. Contact your AppDirect technical consultant or business consultant to obtain the UUID.
+          type: string
+        userName:
+          description: 'User name.
+
+            If not provided, use the user''s email address'
+          type:
+          - string
+          - 'null'
+        externalId:
+          description: External identifier of the user
+          type: string
+      example:
+        email: jude.doe@company8578572384.com
+        firstName: Jude
+        lastName: Doe
+        allowLogin: true
+        idpUuid: 135e3a9f-7f86-46a6-a0af-47a7b3a8936d
+        username: john.simpson
+        externalId: john.simpson

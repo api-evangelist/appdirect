@@ -64,62 +64,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/navigator?pl=SOME_ARRAY_VALUE&locale=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    PlatformAttributeDefinitionWS:
-      type: object
-      title: PlatformAttributeDefinition
-      required:
-      - type
-      - label
-      - isRequired
-      - key
-      - order
-      - hint
-      properties:
-        createdOn:
-          type: number
-        hint:
-          type: string
-        isRequired:
-          type: boolean
-        key:
-          type: string
-        label:
-          type: string
-        lastModified:
-          type: number
-        option:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlatformAttributeOptionWS'
-        order:
-          type: number
-        type:
-          type: string
-        uuid:
-          type: string
-      example:
-        createdOn: 12345
-        hint: '...'
-        isRequired: true
-        key: '...'
-        label: '...'
-        lastModified: 12345
-        option:
-        - createdOn: 12345
-          label: '...'
-          lastModified: 12345
-          order: 12345
-          uuid: '...'
-          value: '...'
-        - createdOn: 12345
-          label: '...'
-          lastModified: 12345
-          order: 12345
-          uuid: '...'
-          value: '...'
-        order: 12345
-        type: '...'
-        uuid: '...'
     NavigatorWS:
       description: Defines possible product tags that can be used to filter applications during a search
       type: object
@@ -291,6 +235,24 @@ components:
           uuid: '...'
         - name: '...'
           uuid: '...'
+    CustomerTagWS:
+      description: Customer tag
+      type: object
+      title: CustomerTag
+      properties:
+        id:
+          description: ID
+          type: number
+        name:
+          description: Name
+          type: string
+        numTaggedProducts:
+          description: Number of product tagged by this customer tag
+          type: number
+      example:
+        id: 12345
+        name: '...'
+        numTaggedProducts: 12345
     VendorCompany:
       type: object
       title: VendorCompany
@@ -394,13 +356,6 @@ components:
         name: '...'
         numTaggedProducts: 12345
         uuid: '...'
-    CategorySortOrderType:
-      description: Category sort order types
-      type: string
-      title: CategorySortOrderType
-      enum:
-      - MANUAL
-      - NONE
     SubCategoryWS:
       description: Subcategory linked to a parent category
       type: object
@@ -419,6 +374,29 @@ components:
         id: 12345
         name: '...'
         numTaggedProducts: 12345
+    PlatformAttributeOptionWS:
+      type: object
+      title: PlatformAttributeOption
+      properties:
+        createdOn:
+          type: number
+        label:
+          type: string
+        lastModified:
+          type: number
+        order:
+          type: number
+        uuid:
+          type: string
+        value:
+          type: string
+      example:
+        createdOn: 12345
+        label: '...'
+        lastModified: 12345
+        order: 12345
+        uuid: '...'
+        value: '...'
     CategoryWS:
       description: Product tag that collect products together according to their general purpose
       type: object
@@ -449,24 +427,87 @@ components:
         - id: 12345
           name: '...'
           numTaggedProducts: 12345
-    CustomerTagWS:
-      description: Customer tag
+    AttributeWS:
+      description: Traits that the products share in common, such as the product type, the supported operating system or how your marketplace promotes them.
       type: object
-      title: CustomerTag
+      title: Attribute
       properties:
         id:
-          description: ID
+          description: Id
           type: number
         name:
-          description: Name
+          description: The name
           type: string
         numTaggedProducts:
-          description: Number of product tagged by this customer tag
+          description: The number of products that use this attribute
           type: number
       example:
         id: 12345
         name: '...'
         numTaggedProducts: 12345
+    PlatformAttributeDefinitionWS:
+      type: object
+      title: PlatformAttributeDefinition
+      required:
+      - type
+      - label
+      - isRequired
+      - key
+      - order
+      - hint
+      properties:
+        createdOn:
+          type: number
+        hint:
+          type: string
+        isRequired:
+          type: boolean
+        key:
+          type: string
+        label:
+          type: string
+        lastModified:
+          type: number
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeOptionWS'
+        order:
+          type: number
+        type:
+          type: string
+        uuid:
+          type: string
+      example:
+        createdOn: 12345
+        hint: '...'
+        isRequired: true
+        key: '...'
+        label: '...'
+        lastModified: 12345
+        option:
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
+        order: 12345
+        type: '...'
+        uuid: '...'
+    CategorySortOrderType:
+      description: Category sort order types
+      type: string
+      title: CategorySortOrderType
+      enum:
+      - MANUAL
+      - NONE
     CustomerTagGroupWS:
       description: Customer tag group
       type: object
@@ -531,44 +572,3 @@ components:
         name: '...'
         showOnNavigation: true
         vendorTaggable: true
-    PlatformAttributeOptionWS:
-      type: object
-      title: PlatformAttributeOption
-      properties:
-        createdOn:
-          type: number
-        label:
-          type: string
-        lastModified:
-          type: number
-        order:
-          type: number
-        uuid:
-          type: string
-        value:
-          type: string
-      example:
-        createdOn: 12345
-        label: '...'
-        lastModified: 12345
-        order: 12345
-        uuid: '...'
-        value: '...'
-    AttributeWS:
-      description: Traits that the products share in common, such as the product type, the supported operating system or how your marketplace promotes them.
-      type: object
-      title: Attribute
-      properties:
-        id:
-          description: Id
-          type: number
-        name:
-          description: The name
-          type: string
-        numTaggedProducts:
-          description: The number of products that use this attribute
-          type: number
-      example:
-        id: 12345
-        name: '...'
-        numTaggedProducts: 12345

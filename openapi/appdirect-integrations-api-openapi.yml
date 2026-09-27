@@ -291,17 +291,14 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ExternalGitHubRepository:
-      type: object
-      properties:
-        id:
-          type: integer
-        node_id:
-          type: string
-        name:
-          type: string
-        private:
-          type: boolean
+    OAuthTokenProvider:
+      type: string
+      enum:
+      - GOOGLE
+      - MSFT
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
     IntegrationSearchRequest:
       type: object
       properties:
@@ -312,31 +309,6 @@ components:
       required:
       - searchTerm
       - oauthTokenId
-    IntegrationItemRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        oauthTokenId:
-          type: string
-      required:
-      - id
-      - oauthTokenId
-    OAuthTokenProvider:
-      type: string
-      enum:
-      - GOOGLE
-      - MSFT
-      - CONFLUENCE
-      - JIRA
-      - GITHUB
-    GitHubPreviewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GithubFile'
     PaginatedExternalGitHubRepositoryResponse:
       type: object
       properties:
@@ -349,13 +321,6 @@ components:
           properties:
             nextCursor:
               type: string
-    OAuthTokenStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACTIVE
-      - EXPIRED
-      - REVOKED
     GitHubRepositorySearchRequest:
       type: object
       properties:
@@ -368,6 +333,16 @@ components:
         cursor:
           type: string
       required:
+      - gitHubAppInstallationId
+    GitHubPreviewRequest:
+      type: object
+      properties:
+        repo:
+          type: string
+        gitHubAppInstallationId:
+          type: string
+      required:
+      - repo
       - gitHubAppInstallationId
     GitHubAppInstallationsResponse:
       type: object
@@ -395,35 +370,30 @@ components:
         updatedAt:
           type: string
           format: date-time
-    GithubFile:
+    OAuthTokenStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACTIVE
+      - EXPIRED
+      - REVOKED
+    GitHubPreviewResponse:
       type: object
       properties:
-        name:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GithubFile'
+    IntegrationItemRequest:
+      type: object
+      properties:
+        id:
           type: string
-        path:
+        oauthTokenId:
           type: string
-        sha:
-          type: string
-        size:
-          type: integer
-        url:
-          type: string
-        html_url:
-          type: string
-        git_url:
-          type: string
-        download_url:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-        owner:
-          type: string
-        repo:
-          type: string
-        content:
-          type: string
+      required:
+      - id
+      - oauthTokenId
     UserOAuthToken:
       type: object
       properties:
@@ -460,16 +430,46 @@ components:
         refreshExpiresAt:
           type: string
           format: date-time
-    GitHubPreviewRequest:
+    GithubFile:
       type: object
       properties:
+        name:
+          type: string
+        path:
+          type: string
+        sha:
+          type: string
+        size:
+          type: integer
+        url:
+          type: string
+        html_url:
+          type: string
+        git_url:
+          type: string
+        download_url:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        owner:
+          type: string
         repo:
           type: string
-        gitHubAppInstallationId:
+        content:
           type: string
-      required:
-      - repo
-      - gitHubAppInstallationId
+    ExternalGitHubRepository:
+      type: object
+      properties:
+        id:
+          type: integer
+        node_id:
+          type: string
+        name:
+          type: string
+        private:
+          type: boolean
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
