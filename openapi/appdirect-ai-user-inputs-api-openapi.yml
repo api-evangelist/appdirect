@@ -147,11 +147,16 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    UpdateAIUserInputsOrderResponse:
+    AIUserInputOrderItem:
       type: object
       properties:
-        success:
-          type: boolean
+        id:
+          type: string
+        orderIndex:
+          type: integer
+      required:
+      - id
+      - orderIndex
     UpdateAIUserInputRequest:
       allOf:
       - $ref: '#/components/schemas/CreateAIUserInputRequest'
@@ -175,15 +180,13 @@ components:
       - type
       - label
       - configuration
-    UpdateAIUserInputsOrderRequest:
+    ListAIUserInputsResponse:
       type: object
       properties:
-        inputs:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/AIUserInputOrderItem'
-      required:
-      - inputs
+            $ref: '#/components/schemas/AIUserInput'
     AIUserInputType:
       type: string
       enum:
@@ -197,23 +200,6 @@ components:
       - FILE_UPLOAD
       - DISPLAY
       - ADDRESS
-    ListAIUserInputsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIUserInput'
-    AIUserInputOrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        orderIndex:
-          type: integer
-      required:
-      - id
-      - orderIndex
     AIUserInput:
       type: object
       properties:
@@ -239,6 +225,20 @@ components:
           type: boolean
         orderIndex:
           type: integer
+    UpdateAIUserInputsOrderRequest:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIUserInputOrderItem'
+      required:
+      - inputs
+    UpdateAIUserInputsOrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

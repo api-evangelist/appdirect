@@ -375,19 +375,35 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"links\\\":[{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"},{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"}],\\\"externalIdentifier\\\":\\\"123456456\\\",\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"locale\\\":\\\"en_US\\\",\\\"password\\\":\\\"Admin123\\\",\\\"title\\\":\\\"MS\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/invitations/%7BinvitationToken%7D/registration?api.usesExternalIds=SOME_BOOLEAN_VALUE\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    InvitationRequestAccountV2:
-      description: Structure representing an invitation
-      type: object
-      title: InvitationRequestAccountV2
-      properties:
-        email:
-          description: Email the invitation was sent to.
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-      example:
-        email: invite-1@appdirect.local
-        role: SYS_ADMIN
+    Role:
+      type: string
+      title: Role
+      enum:
+      - USER
+      - APPLICATION
+      - PARTNER
+      - PARTNER_READ
+      - COMPANY
+      - CLIENT
+      - CHECKOUT_USER
+      - BILLING_ADMIN
+      - SYS_ADMIN
+      - DEVELOPER
+      - CHANNEL_PRODUCT_SUPPORT
+      - CHANNEL_SUPPORT
+      - CHANNEL_ADMIN
+      - CORPORATE_ADMIN
+      - SUPERUSER
+      - SUPER_SUPPORT
+      - ANALYTICS_ADMIN
+      - LAYOUT_DESIGNER
+      - SALES_SUPPORT
+      - RESTRICTED_SALES_SUPPORT
+      - RESELLER
+      - RESELLER_MANAGER
+      - TESTER
+      - MONITORING
+      - SYSTEM
     UserRegistration:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -440,35 +456,19 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-    Role:
-      type: string
-      title: Role
-      enum:
-      - USER
-      - APPLICATION
-      - PARTNER
-      - PARTNER_READ
-      - COMPANY
-      - CLIENT
-      - CHECKOUT_USER
-      - BILLING_ADMIN
-      - SYS_ADMIN
-      - DEVELOPER
-      - CHANNEL_PRODUCT_SUPPORT
-      - CHANNEL_SUPPORT
-      - CHANNEL_ADMIN
-      - CORPORATE_ADMIN
-      - SUPERUSER
-      - SUPER_SUPPORT
-      - ANALYTICS_ADMIN
-      - LAYOUT_DESIGNER
-      - SALES_SUPPORT
-      - RESTRICTED_SALES_SUPPORT
-      - RESELLER
-      - RESELLER_MANAGER
-      - TESTER
-      - MONITORING
-      - SYSTEM
+    InvitationRequestAccountV2:
+      description: Structure representing an invitation
+      type: object
+      title: InvitationRequestAccountV2
+      properties:
+        email:
+          description: Email the invitation was sent to.
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+      example:
+        email: invite-1@appdirect.local
+        role: SYS_ADMIN
     Link:
       type:
       - object

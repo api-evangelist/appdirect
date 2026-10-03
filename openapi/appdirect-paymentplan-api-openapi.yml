@@ -285,180 +285,24 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/paymentPlans/%7BpaymentPlanId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    ContractWS:
-      description: Contract associated to a payment plan
-      type: object
-      title: Contract
+    DurationWS:
+      description: Contract duration
+      type:
+      - object
+      - 'null'
+      title: Duration
       properties:
-        alignWithParentCycleStartDate:
-          description: Is addon cycle start date contract aligned with parent cycle start date
-          type: boolean
-        autoExtensionPricingId:
-          description: Auto extension pricing ID
+        length:
+          description: Length
+          type: number
+        unit:
+          description: Duration unit
           type:
-          - number
+          - string
           - 'null'
-        blockContractDowngrades:
-          description: Is contract downgrade allowed
-          type: boolean
-        blockContractUpgrades:
-          description: Is contract upgrade allowed
-          type: boolean
-        blockSwitchToShorterContract:
-          description: Is switch to shorter contract allowed
-          type: boolean
-        cancellationPeriodLimit:
-          description: Cancellation period limit
-          type:
-          - number
-          - 'null'
-        endOfContractGracePeriod:
-          description: End of contract grace period
-          type:
-          - number
-          - 'null'
-        gracePeriod:
-          $ref: '#/components/schemas/DurationWS'
-        minimumServiceLength:
-          description: Minimum service length
-          type:
-          - number
-          - 'null'
-        terminationFee:
-          $ref: '#/components/schemas/TerminationFeeWS'
       example:
-        alignWithParentCycleStartDate: true
-        autoExtensionPricingId: 12345
-        blockContractDowngrades: true
-        blockContractUpgrades: true
-        blockSwitchToShorterContract: true
-        cancellationPeriodLimit: 12345
-        endOfContractGracePeriod: 12345
-        gracePeriod:
-          length: 12345
-          unit: '...'
-        minimumServiceLength: 12345
-        terminationFee:
-          description: '...'
-          flatFee:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          percentageFee: 12345
-          type: '...'
-    ResourceOfPaymentPlanWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type: object
-        title: PaymentPlanResource
-        properties:
-          cost:
-            description: List of plan costs
-            type: array
-            items:
-              $ref: '#/components/schemas/PlanCostWS'
-          href:
-            description: URL to payment plan details
-            type: string
-        example:
-          cost:
-          - amount:
-              AUD: 12345
-              BRL: 12345
-              CAD: 12345
-              CHF: 12345
-              CNY: 12345
-              DKK: 12345
-              EUR: 12345
-              GBP: 12345
-              GTQ: 12345
-              INR: 12345
-              JPY: 12345
-              KRW: 12345
-              MXN: 12345
-              MYR: 12345
-              NOK: 12345
-              NZD: 12345
-              PHP: 12345
-              SAR: 12345
-              SEK: 12345
-              SGD: 12345
-              USD: 12345
-              ZAR: 12345
-            blockContractDecrease: true
-            blockContractIncrease: true
-            blockOriginalContractDecrease: true
-            editionPricingItemId: 12345
-            id: 12345
-            increment: 12345
-            maxUnits: 12345
-            meteredUsage: true
-            minUnits: 12345
-            pricePerIncrement: true
-            pricingStrategy: '...'
-            unit: '...'
-            unitDependency: '...'
-          - amount:
-              AUD: 12345
-              BRL: 12345
-              CAD: 12345
-              CHF: 12345
-              CNY: 12345
-              DKK: 12345
-              EUR: 12345
-              GBP: 12345
-              GTQ: 12345
-              INR: 12345
-              JPY: 12345
-              KRW: 12345
-              MXN: 12345
-              MYR: 12345
-              NOK: 12345
-              NZD: 12345
-              PHP: 12345
-              SAR: 12345
-              SEK: 12345
-              SGD: 12345
-              USD: 12345
-              ZAR: 12345
-            blockContractDecrease: true
-            blockContractIncrease: true
-            blockOriginalContractDecrease: true
-            editionPricingItemId: 12345
-            id: 12345
-            increment: 12345
-            maxUnits: 12345
-            meteredUsage: true
-            minUnits: 12345
-            pricePerIncrement: true
-            pricingStrategy: '...'
-            unit: '...'
-            unitDependency: '...'
-          href: '...'
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
+        length: 12345
+        unit: '...'
     ProductDiscountDetailsWS:
       description: Discount detail on a product pricing
       type:
@@ -539,6 +383,90 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
+    PlanCostWS:
+      description: Plan cost
+      type: object
+      title: PlanCost
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        blockContractDecrease:
+          description: Block contract decrease
+          type: boolean
+        blockContractIncrease:
+          description: Block contract increase
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Block original contract decrease
+          type: boolean
+        editionPricingItemId:
+          type: number
+        id:
+          description: ID
+          type: number
+        increment:
+          description: Increment amount
+          type: number
+        maxUnits:
+          description: Max unit to buy
+          type: number
+        meteredUsage:
+          description: Is metered usage
+          type: boolean
+        minUnits:
+          description: Minimum unit to buy
+          type: number
+        pricePerIncrement:
+          description: Price per increment
+          type: boolean
+        pricingStrategy:
+          description: Pricing strategy
+          type: string
+        unit:
+          description: Unit
+          type:
+          - string
+          - 'null'
+        unitDependency:
+          description: Unit dependency
+          type: string
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        blockContractDecrease: true
+        blockContractIncrease: true
+        blockOriginalContractDecrease: true
+        editionPricingItemId: 12345
+        id: 12345
+        increment: 12345
+        maxUnits: 12345
+        meteredUsage: true
+        minUnits: 12345
+        pricePerIncrement: true
+        pricingStrategy: '...'
+        unit: '...'
+        unitDependency: '...'
     PaymentPlanWS:
       description: Payment plan for a product edition
       type: object
@@ -713,6 +641,301 @@ components:
         separatePrepaid: true
         tld: '...'
         uuid: '...'
+    ContractWS:
+      description: Contract associated to a payment plan
+      type: object
+      title: Contract
+      properties:
+        alignWithParentCycleStartDate:
+          description: Is addon cycle start date contract aligned with parent cycle start date
+          type: boolean
+        autoExtensionPricingId:
+          description: Auto extension pricing ID
+          type:
+          - number
+          - 'null'
+        blockContractDowngrades:
+          description: Is contract downgrade allowed
+          type: boolean
+        blockContractUpgrades:
+          description: Is contract upgrade allowed
+          type: boolean
+        blockSwitchToShorterContract:
+          description: Is switch to shorter contract allowed
+          type: boolean
+        cancellationPeriodLimit:
+          description: Cancellation period limit
+          type:
+          - number
+          - 'null'
+        endOfContractGracePeriod:
+          description: End of contract grace period
+          type:
+          - number
+          - 'null'
+        gracePeriod:
+          $ref: '#/components/schemas/DurationWS'
+        minimumServiceLength:
+          description: Minimum service length
+          type:
+          - number
+          - 'null'
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFeeWS'
+      example:
+        alignWithParentCycleStartDate: true
+        autoExtensionPricingId: 12345
+        blockContractDowngrades: true
+        blockContractUpgrades: true
+        blockSwitchToShorterContract: true
+        cancellationPeriodLimit: 12345
+        endOfContractGracePeriod: 12345
+        gracePeriod:
+          length: 12345
+          unit: '...'
+        minimumServiceLength: 12345
+        terminationFee:
+          description: '...'
+          flatFee:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          percentageFee: 12345
+          type: '...'
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
+      type:
+      - object
+      - 'null'
+      title: TerminationFee
+      properties:
+        description:
+          description: Description
+          type:
+          - string
+          - 'null'
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
+          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
+      example:
+        description: '...'
+        flatFee:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        percentageFee: 12345
+        type: '...'
+    ResourceOfPaymentPlanWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: PaymentPlanResource
+        properties:
+          cost:
+            description: List of plan costs
+            type: array
+            items:
+              $ref: '#/components/schemas/PlanCostWS'
+          href:
+            description: URL to payment plan details
+            type: string
+        example:
+          cost:
+          - amount:
+              AUD: 12345
+              BRL: 12345
+              CAD: 12345
+              CHF: 12345
+              CNY: 12345
+              DKK: 12345
+              EUR: 12345
+              GBP: 12345
+              GTQ: 12345
+              INR: 12345
+              JPY: 12345
+              KRW: 12345
+              MXN: 12345
+              MYR: 12345
+              NOK: 12345
+              NZD: 12345
+              PHP: 12345
+              SAR: 12345
+              SEK: 12345
+              SGD: 12345
+              USD: 12345
+              ZAR: 12345
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          - amount:
+              AUD: 12345
+              BRL: 12345
+              CAD: 12345
+              CHF: 12345
+              CNY: 12345
+              DKK: 12345
+              EUR: 12345
+              GBP: 12345
+              GTQ: 12345
+              INR: 12345
+              JPY: 12345
+              KRW: 12345
+              MXN: 12345
+              MYR: 12345
+              NOK: 12345
+              NZD: 12345
+              PHP: 12345
+              SAR: 12345
+              SEK: 12345
+              SGD: 12345
+              USD: 12345
+              ZAR: 12345
+            blockContractDecrease: true
+            blockContractIncrease: true
+            blockOriginalContractDecrease: true
+            editionPricingItemId: 12345
+            id: 12345
+            increment: 12345
+            maxUnits: 12345
+            meteredUsage: true
+            minUnits: 12345
+            pricePerIncrement: true
+            pricingStrategy: '...'
+            unit: '...'
+            unitDependency: '...'
+          href: '...'
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+    PriceWS:
+      description: Price information in different currencies
+      type:
+      - object
+      - 'null'
+      title: Price
+      properties:
+        AUD:
+          type: number
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
+      example:
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
     PricingUnit:
       type: string
       title: PricingUnit
@@ -1487,211 +1710,6 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
-    PriceWS:
-      description: Price information in different currencies
-      type:
-      - object
-      - 'null'
-      title: Price
-      properties:
-        AUD:
-          type: number
-        BRL:
-          type: number
-        CAD:
-          type: number
-        CHF:
-          type: number
-        CNY:
-          type: number
-        DKK:
-          type: number
-        EUR:
-          type: number
-        GBP:
-          type: number
-        GTQ:
-          type: number
-        INR:
-          type: number
-        JPY:
-          type: number
-        KRW:
-          type: number
-        MXN:
-          type: number
-        MYR:
-          type: number
-        NOK:
-          type: number
-        NZD:
-          type: number
-        PHP:
-          type: number
-        SAR:
-          type: number
-        SEK:
-          type: number
-        SGD:
-          type: number
-        USD:
-          type: number
-        ZAR:
-          type: number
-      example:
-        AUD: 12345
-        BRL: 12345
-        CAD: 12345
-        CHF: 12345
-        CNY: 12345
-        DKK: 12345
-        EUR: 12345
-        GBP: 12345
-        GTQ: 12345
-        INR: 12345
-        JPY: 12345
-        KRW: 12345
-        MXN: 12345
-        MYR: 12345
-        NOK: 12345
-        NZD: 12345
-        PHP: 12345
-        SAR: 12345
-        SEK: 12345
-        SGD: 12345
-        USD: 12345
-        ZAR: 12345
-    PlanCostWS:
-      description: Plan cost
-      type: object
-      title: PlanCost
-      properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        blockContractDecrease:
-          description: Block contract decrease
-          type: boolean
-        blockContractIncrease:
-          description: Block contract increase
-          type: boolean
-        blockOriginalContractDecrease:
-          description: Block original contract decrease
-          type: boolean
-        editionPricingItemId:
-          type: number
-        id:
-          description: ID
-          type: number
-        increment:
-          description: Increment amount
-          type: number
-        maxUnits:
-          description: Max unit to buy
-          type: number
-        meteredUsage:
-          description: Is metered usage
-          type: boolean
-        minUnits:
-          description: Minimum unit to buy
-          type: number
-        pricePerIncrement:
-          description: Price per increment
-          type: boolean
-        pricingStrategy:
-          description: Pricing strategy
-          type: string
-        unit:
-          description: Unit
-          type:
-          - string
-          - 'null'
-        unitDependency:
-          description: Unit dependency
-          type: string
-      example:
-        amount:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        blockContractDecrease: true
-        blockContractIncrease: true
-        blockOriginalContractDecrease: true
-        editionPricingItemId: 12345
-        id: 12345
-        increment: 12345
-        maxUnits: 12345
-        meteredUsage: true
-        minUnits: 12345
-        pricePerIncrement: true
-        pricingStrategy: '...'
-        unit: '...'
-        unitDependency: '...'
-    TerminationFeeWS:
-      description: Fee incurred during a termination of a product subscription
-      type:
-      - object
-      - 'null'
-      title: TerminationFee
-      properties:
-        description:
-          description: Description
-          type:
-          - string
-          - 'null'
-        flatFee:
-          $ref: '#/components/schemas/PriceWS'
-        percentageFee:
-          description: Percentage fee
-          type: number
-        type:
-          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
-          type: string
-      example:
-        description: '...'
-        flatFee:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        percentageFee: 12345
-        type: '...'
     Link:
       type:
       - object
@@ -1705,21 +1723,3 @@ components:
       example:
         href: '...'
         rel: '...'
-    DurationWS:
-      description: Contract duration
-      type:
-      - object
-      - 'null'
-      title: Duration
-      properties:
-        length:
-          description: Length
-          type: number
-        unit:
-          description: Duration unit
-          type:
-          - string
-          - 'null'
-      example:
-        length: 12345
-        unit: '...'

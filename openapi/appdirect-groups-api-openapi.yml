@@ -169,21 +169,6 @@ paths:
           description: Internal Server Error.
 components:
   schemas:
-    GroupDetail:
-      allOf:
-      - $ref: '#/components/schemas/GroupSummary'
-      - type: object
-        properties:
-          users:
-            type: array
-            items:
-              $ref: '#/components/schemas/GroupUser'
-    GroupAvailability:
-      type: string
-      enum:
-      - EVERYONE
-      - RESTRICTED
-      description: Availability status of the group.
     GroupUser:
       type: object
       properties:
@@ -199,6 +184,15 @@ components:
           - 'null'
         email:
           type: string
+    GroupDetail:
+      allOf:
+      - $ref: '#/components/schemas/GroupSummary'
+      - type: object
+        properties:
+          users:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupUser'
     GroupSummary:
       type: object
       properties:
@@ -218,6 +212,12 @@ components:
           type: string
         availability:
           $ref: '#/components/schemas/GroupAvailability'
+    GroupAvailability:
+      type: string
+      enum:
+      - EVERYONE
+      - RESTRICTED
+      description: Availability status of the group.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

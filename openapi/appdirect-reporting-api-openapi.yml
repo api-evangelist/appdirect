@@ -167,34 +167,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    ReportsWS:
-      description: Reports information for reporting API
-      type: object
-      title: Reports
-      properties:
-        reports:
-          description: List of reports
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportWS'
-        totalCount:
-          description: Total count of reports returned by API
-          type: number
-      example:
-        reports:
-        - createdDate: 12345
-          endDate: 12345
-          filename: '...'
-          id: 12345
-          reportType: COMPANIES_CSV
-          startDate: 12345
-        - createdDate: 12345
-          endDate: 12345
-          filename: '...'
-          id: 12345
-          reportType: CUSTOMERS_CSV
-          startDate: 12345
-        totalCount: 12345
     ReportType:
       type: string
       title: ReportType
@@ -228,6 +200,34 @@ components:
       - TAXES
       - TRANSACTIONS
       - VOICE_CONN_CSV
+    ReportsWS:
+      description: Reports information for reporting API
+      type: object
+      title: Reports
+      properties:
+        reports:
+          description: List of reports
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportWS'
+        totalCount:
+          description: Total count of reports returned by API
+          type: number
+      example:
+        reports:
+        - createdDate: 12345
+          endDate: 12345
+          filename: '...'
+          id: 12345
+          reportType: COMPANIES_CSV
+          startDate: 12345
+        - createdDate: 12345
+          endDate: 12345
+          filename: '...'
+          id: 12345
+          reportType: CUSTOMERS_CSV
+          startDate: 12345
+        totalCount: 12345
     ReportWS:
       description: Single report information for Reporting API
       type: object

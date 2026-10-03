@@ -291,36 +291,13 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    OAuthTokenProvider:
-      type: string
-      enum:
-      - GOOGLE
-      - MSFT
-      - CONFLUENCE
-      - JIRA
-      - GITHUB
-    IntegrationSearchRequest:
-      type: object
-      properties:
-        searchTerm:
-          type: string
-        oauthTokenId:
-          type: string
-      required:
-      - searchTerm
-      - oauthTokenId
-    PaginatedExternalGitHubRepositoryResponse:
+    GitHubPreviewResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ExternalGitHubRepository'
-        pagination:
-          type: object
-          properties:
-            nextCursor:
-              type: string
+            $ref: '#/components/schemas/GithubFile'
     GitHubRepositorySearchRequest:
       type: object
       properties:
@@ -334,16 +311,64 @@ components:
           type: string
       required:
       - gitHubAppInstallationId
-    GitHubPreviewRequest:
+    OAuthTokenProvider:
+      type: string
+      enum:
+      - GOOGLE
+      - MSFT
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
+    GithubFile:
       type: object
       properties:
+        name:
+          type: string
+        path:
+          type: string
+        sha:
+          type: string
+        size:
+          type: integer
+        url:
+          type: string
+        html_url:
+          type: string
+        git_url:
+          type: string
+        download_url:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        owner:
+          type: string
         repo:
           type: string
-        gitHubAppInstallationId:
+        content:
+          type: string
+    ExternalGitHubRepository:
+      type: object
+      properties:
+        id:
+          type: integer
+        node_id:
+          type: string
+        name:
+          type: string
+        private:
+          type: boolean
+    IntegrationSearchRequest:
+      type: object
+      properties:
+        searchTerm:
+          type: string
+        oauthTokenId:
           type: string
       required:
-      - repo
-      - gitHubAppInstallationId
+      - searchTerm
+      - oauthTokenId
     GitHubAppInstallationsResponse:
       type: object
       properties:
@@ -351,6 +376,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GitHubAppInstallation'
+    PaginatedExternalGitHubRepositoryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalGitHubRepository'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
     GitHubAppInstallation:
       type: object
       properties:
@@ -370,20 +407,16 @@ components:
         updatedAt:
           type: string
           format: date-time
-    OAuthTokenStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACTIVE
-      - EXPIRED
-      - REVOKED
-    GitHubPreviewResponse:
+    GitHubPreviewRequest:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GithubFile'
+        repo:
+          type: string
+        gitHubAppInstallationId:
+          type: string
+      required:
+      - repo
+      - gitHubAppInstallationId
     IntegrationItemRequest:
       type: object
       properties:
@@ -430,46 +463,13 @@ components:
         refreshExpiresAt:
           type: string
           format: date-time
-    GithubFile:
-      type: object
-      properties:
-        name:
-          type: string
-        path:
-          type: string
-        sha:
-          type: string
-        size:
-          type: integer
-        url:
-          type: string
-        html_url:
-          type: string
-        git_url:
-          type: string
-        download_url:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-        owner:
-          type: string
-        repo:
-          type: string
-        content:
-          type: string
-    ExternalGitHubRepository:
-      type: object
-      properties:
-        id:
-          type: integer
-        node_id:
-          type: string
-        name:
-          type: string
-        private:
-          type: boolean
+    OAuthTokenStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACTIVE
+      - EXPIRED
+      - REVOKED
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -1331,58 +1331,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"password\\\":\\\"temppassword123\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/users/%7BuserUuid%7D/temporaryPassword\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    UpdateUserAccountV2:
-      description: Update user information
-      type: object
-      title: UpdateUserAccountV2
-      properties:
-        boostUser:
-          $ref: '#/components/schemas/BoostUser'
-        externalId:
-          description: External identifier of user
-          type: string
-        firstName:
-          description: First name of user
-          type:
-          - string
-          - 'null'
-        lastName:
-          description: Last name of user
-          type:
-          - string
-          - 'null'
-        ldapId:
-          description: LDAP identifier of user
-          type:
-          - string
-          - 'null'
-        idpUuid:
-          description: The external identity provider's ID for the user
-          type:
-          - string
-          - 'null'
-        locale:
-          description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
-          type: string
-        currency:
-          description: Currency
-          type: string
-        roles:
-          description: All users have ROLE_USER (end-user access). To assign the Network Manager, role use ROLE_CORPORATE_ADMIN. For company membership roles, see [UserCompanyMembershipAccountV2](#usercompanymembershipaccountv2).
-          type: array
-          items:
-            type: string
-      example:
-        firstName: Jane
-        lastName: Lee
-        currency: USD
-        externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
-        locale: en_US
-        ldapId: '1'
-        boostUser:
-          apsUid: murnu8w
-        roles:
-        - ROLE_CORPORATE_ADMIN
     EducationAccountV2:
       description: User profile's education information
       type: object
@@ -1413,6 +1361,16 @@ components:
         field: Computer Science
         school: MIT
         startYear: 2007
+    TemporaryPasswordAccountV2:
+      description: Temporary Password
+      type: object
+      title: TemporaryPasswordAccountV2
+      properties:
+        password:
+          description: Password
+          type: string
+      example:
+        password: temppassword123
     ResourceSupport:
       type:
       - object
@@ -1431,6 +1389,40 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
+    BoostUser:
+      type:
+      - object
+      - 'null'
+      title: BoostUser
+      properties:
+        apsUid:
+          type: string
+    InactiveUserAccountV2:
+      description: User activation information
+      type: object
+      title: InactiveUserAccountV2
+      properties:
+        activated:
+          description: Is user activated
+          type: boolean
+        email:
+          description: User email
+          type: string
+        password:
+          description: User password
+          type: string
+        termsOfService:
+          description: Indicates whether the user has accepted the terms of service
+          type: boolean
+        privacyPolicy:
+          description: Indicates whether the user has agreed to the privacy policy
+          type: boolean
+      example:
+        email: alex.gonsalez@company2438285395.com
+        password: some-password
+        activated: true
+        termsOfService: true
+        privacyPolicy: true
     CustomAttributeAccountV2:
       description: Custom attributes
       type: object
@@ -1462,32 +1454,6 @@ components:
         hint: ''
         valueKeys:
         - great option
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-    IM:
-      description: Instant messenger
-      type: object
-      title: IM
-      properties:
-        account:
-          description: Account identifier
-          type: string
-        type:
-          $ref: '#/components/schemas/IMType'
-      example:
-        account: da853378-2e9a-4944-ad53-6257bf773ace
-        type: GOOGLE_TALK
     UserProfileAccountV2:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -1582,14 +1548,6 @@ components:
             position: Manager
             startYear: 2011
           workPhone: +1 123 123 1234
-    BoostUser:
-      type:
-      - object
-      - 'null'
-      title: BoostUser
-      properties:
-        apsUid:
-          type: string
     EmailAddressAccountV2:
       description: Email address information
       type: object
@@ -1607,6 +1565,98 @@ components:
         address: alternate@company.com
         type: WORK
         verified: false
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    UpdateUserAccountV2:
+      description: Update user information
+      type: object
+      title: UpdateUserAccountV2
+      properties:
+        boostUser:
+          $ref: '#/components/schemas/BoostUser'
+        externalId:
+          description: External identifier of user
+          type: string
+        firstName:
+          description: First name of user
+          type:
+          - string
+          - 'null'
+        lastName:
+          description: Last name of user
+          type:
+          - string
+          - 'null'
+        ldapId:
+          description: LDAP identifier of user
+          type:
+          - string
+          - 'null'
+        idpUuid:
+          description: The external identity provider's ID for the user
+          type:
+          - string
+          - 'null'
+        locale:
+          description: 'User locale in the standard ISO 639-1 language code + ISO 3166-1 country code format. For example: ''en_US'''
+          type: string
+        currency:
+          description: Currency
+          type: string
+        roles:
+          description: All users have ROLE_USER (end-user access). To assign the Network Manager, role use ROLE_CORPORATE_ADMIN. For company membership roles, see [UserCompanyMembershipAccountV2](#usercompanymembershipaccountv2).
+          type: array
+          items:
+            type: string
+      example:
+        firstName: Jane
+        lastName: Lee
+        currency: USD
+        externalId: b34974b2-f5d6-4326-9859-5247dc42ee60
+        locale: en_US
+        ldapId: '1'
+        boostUser:
+          apsUid: murnu8w
+        roles:
+        - ROLE_CORPORATE_ADMIN
+    EmailAddressType:
+      type: string
+      title: EmailAddressType
+      description: Email address type
+      enum:
+      - PERSONAL
+      - WORK
+    IM:
+      description: Instant messenger
+      type: object
+      title: IM
+      properties:
+        account:
+          description: Account identifier
+          type: string
+        type:
+          $ref: '#/components/schemas/IMType'
+      example:
+        account: da853378-2e9a-4944-ad53-6257bf773ace
+        type: GOOGLE_TALK
+    IMType:
+      type: string
+      title: IMType
+      description: Instant messenger type
+      enum:
+      - YAHOO
+      - MSN
+      - GOOGLE_TALK
+      - JABBER
+      - AIM
+      - SKYPE
+      - ICQ
+      - COMUNICATOR
+      - OTHER
     PatchUserAccountV2:
       description: Update user information
       type: object
@@ -1667,6 +1717,19 @@ components:
         roles:
         - ROLE_CORPORATE_ADMIN
         idpUuid: c412543-1233-6547-9809-0647dc42ee51
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
     WorkExperienceAccountV2:
       description: Represents a work experience
       type: object
@@ -1697,66 +1760,3 @@ components:
         endYear: 2017
         position: Manager
         startYear: 2011
-    EmailAddressType:
-      type: string
-      title: EmailAddressType
-      description: Email address type
-      enum:
-      - PERSONAL
-      - WORK
-    TemporaryPasswordAccountV2:
-      description: Temporary Password
-      type: object
-      title: TemporaryPasswordAccountV2
-      properties:
-        password:
-          description: Password
-          type: string
-      example:
-        password: temppassword123
-    AttributeType:
-      type: string
-      title: AttributeType
-      enum:
-      - TEXT
-      - MULTISELECT
-    InactiveUserAccountV2:
-      description: User activation information
-      type: object
-      title: InactiveUserAccountV2
-      properties:
-        activated:
-          description: Is user activated
-          type: boolean
-        email:
-          description: User email
-          type: string
-        password:
-          description: User password
-          type: string
-        termsOfService:
-          description: Indicates whether the user has accepted the terms of service
-          type: boolean
-        privacyPolicy:
-          description: Indicates whether the user has agreed to the privacy policy
-          type: boolean
-      example:
-        email: alex.gonsalez@company2438285395.com
-        password: some-password
-        activated: true
-        termsOfService: true
-        privacyPolicy: true
-    IMType:
-      type: string
-      title: IMType
-      description: Instant messenger type
-      enum:
-      - YAHOO
-      - MSN
-      - GOOGLE_TALK
-      - JABBER
-      - AIM
-      - SKYPE
-      - ICQ
-      - COMUNICATOR
-      - OTHER

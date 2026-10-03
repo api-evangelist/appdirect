@@ -208,47 +208,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/assignments?developerIdentifier=SOME_STRING_VALUE&accountIdentifier=SOME_STRING_VALUE&userIdentifier=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    DeveloperAccountWS:
-      type: object
-      title: DeveloperAccountSyncWS
-      required:
-      - type
-      - operation
-      properties:
-        type:
-          type: string
-          description: Required. It must have the value 'DEVELOPER_ACCOUNT'
-        operation:
-          type: string
-          description: 'Required. The operation. Options: ''CREATE'' and ''EXPIRE'''
-        developerAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeveloperAccount'
-      example:
-        type: DEVELOPER_ACCOUNT
-        operation: CREATE
-        developerAccounts:
-        - developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
-          developerDeveloperIdentifier: bcde7116-5d20-4628-83a6-59b032a7cd2e
-          name: ABC Company
-          contactFirstName: Alex
-          contactLastName: Ferguson
-          addressLine: 50 Grove St.
-          addressLine2: address line 2
-          addressLine3: address line 3
-          postalCode: '12340'
-          city: Somerville
-          state: MA
-          country: postalCode
-          phoneNumber: 415-555-5555
-          email: abcinc@abc.com
-          primaryDomain: abc.com
-          additionalDomains:
-          - abc1.com
-          - abc2.com
-          customAttributes:
-            customAtrribute1: '1234567890'
     DeveloperAccount:
       type: object
       title: DeveloperAccount
@@ -390,3 +349,44 @@ components:
         firstName: Test_FirstName
         lastName: Test_LastName
         email: test_email@yopmail.com
+    DeveloperAccountWS:
+      type: object
+      title: DeveloperAccountSyncWS
+      required:
+      - type
+      - operation
+      properties:
+        type:
+          type: string
+          description: Required. It must have the value 'DEVELOPER_ACCOUNT'
+        operation:
+          type: string
+          description: 'Required. The operation. Options: ''CREATE'' and ''EXPIRE'''
+        developerAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeveloperAccount'
+      example:
+        type: DEVELOPER_ACCOUNT
+        operation: CREATE
+        developerAccounts:
+        - developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
+          developerDeveloperIdentifier: bcde7116-5d20-4628-83a6-59b032a7cd2e
+          name: ABC Company
+          contactFirstName: Alex
+          contactLastName: Ferguson
+          addressLine: 50 Grove St.
+          addressLine2: address line 2
+          addressLine3: address line 3
+          postalCode: '12340'
+          city: Somerville
+          state: MA
+          country: postalCode
+          phoneNumber: 415-555-5555
+          email: abcinc@abc.com
+          primaryDomain: abc.com
+          additionalDomains:
+          - abc1.com
+          - abc2.com
+          customAttributes:
+            customAtrribute1: '1234567890'

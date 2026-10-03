@@ -129,27 +129,14 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    CreateFileRequestDto:
-      type: object
-      required:
-      - filename
-      - size
-      - mimeType
-      properties:
-        filename:
-          type: string
-          description: The name of the file.
-        size:
-          type: integer
-          description: The size of the file in bytes.
-        mimeType:
-          type: string
-          description: The MIME type of the file.
-        metadata:
-          type:
-          - object
-          - 'null'
-          description: Additional metadata associated with the file.
+    FileStatus:
+      type: string
+      description: The status of the file.
+      enum:
+      - UPLOADED
+      - UPLOADING
+      - DELETING
+      - DELETED
     FileDto:
       type: object
       properties:
@@ -196,14 +183,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FileDto'
-    FileStatus:
-      type: string
-      description: The status of the file.
-      enum:
-      - UPLOADED
-      - UPLOADING
-      - DELETING
-      - DELETED
+    CreateFileRequestDto:
+      type: object
+      required:
+      - filename
+      - size
+      - mimeType
+      properties:
+        filename:
+          type: string
+          description: The name of the file.
+        size:
+          type: integer
+          description: The size of the file in bytes.
+        mimeType:
+          type: string
+          description: The MIME type of the file.
+        metadata:
+          type:
+          - object
+          - 'null'
+          description: Additional metadata associated with the file.
     FileSource:
       type: string
       description: The source of the file.

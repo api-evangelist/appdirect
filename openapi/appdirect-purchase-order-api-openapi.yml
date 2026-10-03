@@ -1228,133 +1228,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/orders/%7BorderId%7D/invoices?count=SOME_STRING_VALUE&excludeFree=SOME_BOOLEAN_VALUE&fromDate=SOME_NUMBER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&start=SOME_STRING_VALUE&status=SOME_STRING_VALUE&toDate=SOME_NUMBER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    GatewayResponseWS:
-      type: object
-      title: GatewayResponse
-      properties:
-        avs:
-          description: True if address is validated.
-          type: boolean
-        code:
-          description: Code.
-          type:
-          - string
-          - 'null'
-        cvv:
-          description: True if credit card is validated.
-          type: boolean
-        message:
-          description: Message.
-          type:
-          - string
-          - 'null'
-      example:
-        avs: true
-        code: '...'
-        cvv: true
-        message: '...'
-    OrderListingWS:
-      allOf:
-      - $ref: '#/components/schemas/BaseOrderWS'
-      - type: object
-        title: OrderListing
-        properties:
-          paymentPlan:
-            $ref: '#/components/schemas/LinkWS'
-        example:
-          _embedded:
-            property1: {}
-            property2: {}
-          company:
-            href: '...'
-            id: '...'
-          currency: '...'
-          endDate: 12345
-          endOfDiscountDate: 12345
-          frequency: '...'
-          id: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          nextBillingDate: 12345
-          paymentPlan:
-            href: '...'
-            id: '...'
-          referenceCode: '...'
-          salesSupportUser:
-            href: '...'
-            id: '...'
-          startDate: 12345
-          status: '...'
-          totalPrice: 12345
-          type: '...'
-          user:
-            href: '...'
-            id: '...'
-    ProductDiscountDetailsWS:
-      description: Discount detail on a product pricing
-      type:
-      - object
-      - 'null'
-      title: ProductDiscountDetails
-      properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        availableRedemptions:
-          description: Number of time the discount can be used
-          type: number
-        description:
-          description: Description
-          type:
-          - string
-          - 'null'
-        expirationDate:
-          description: Expiration date of the discount
-          type: number
-        numOfBillingCycles:
-          description: Number of billing cycle the discount is applicable
-          type: number
-        percentage:
-          description: Discount in percentage
-          type: number
-        pricingUnit:
-          $ref: '#/components/schemas/PricingUnit'
-        startDate:
-          description: Start date of the discount
-          type: number
-      example:
-        amount:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        availableRedemptions: 12345
-        description: '...'
-        expirationDate: 12345
-        numOfBillingCycles: 12345
-        percentage: 12345
-        pricingUnit: TIER3_STANDARD_LINE
-        startDate: 12345
     InvoiceListingWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -1418,83 +1291,330 @@ components:
           user:
             href: '...'
             id: '...'
-    OrderContractRenewalWS:
-      type:
-      - object
-      - 'null'
-      title: OrderContractRenewalWS
+    PaymentPlanWS:
+      description: Payment plan for a product edition
+      type: object
+      title: PaymentPlan
       properties:
-        order:
-          $ref: '#/components/schemas/LinkWS'
-        paymentPlan:
-          $ref: '#/components/schemas/PaymentPlanWS'
-      example:
-        order:
-          href: '...'
-          id: '...'
-        paymentPlan:
-          allowCustomUsage: true
-          contract: {}
-          cost:
-          - {}
-          - {}
-          discount: {}
-          frequency: '...'
-          href: '...'
-          id: 12345
-          isPrimaryPrice: true
-          keepBillDateOnUsageChange: true
-          primaryPrice: true
-          separatsePrepaid: true
-          tld: '...'
-          uuid: '...'
-    TerminationFeeWS:
-      description: Fee incurred during a termination of a product subscription
-      type:
-      - object
-      - 'null'
-      title: TerminationFee
-      properties:
-        description:
-          description: Description
+        allowCustomUsage:
+          description: Custom usage allowed
+          type: boolean
+        contract:
+          $ref: '#/components/schemas/ContractWS'
+        cost:
+          description: List of plan costs
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanCostWS'
+        discount:
+          $ref: '#/components/schemas/ProductDiscountDetailsWS'
+        frequency:
+          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
+          type: string
+        href:
+          description: URL to payment plan details
+          type: string
+        id:
+          description: ID
+          type: number
+        isPrimaryPrice:
+          description: Is primary price
+          type: boolean
+        keepBillDateOnUsageChange:
+          description: Keep bill date on usage change
+          type: boolean
+        separatePrepaid:
+          description: Separate prepaid
+          type: boolean
+        tld:
+          description: If plan is part of a domain reseller product, this is the tld this plan offers
+          type: string
+        uuid:
+          description: Unique identifier
           type:
           - string
           - 'null'
-        flatFee:
-          $ref: '#/components/schemas/PriceWS'
-        percentageFee:
-          description: Percentage fee
-          type: number
-        type:
-          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
-          type: string
       example:
-        description: '...'
-        flatFee:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        percentageFee: 12345
-        type: '...'
+        allowCustomUsage: true
+        contract:
+          alignWithParentCycleStartDate: true
+          autoExtensionPricingId: 12345
+          blockContractDowngrades: true
+          blockContractUpgrades: true
+          blockSwitchToShorterContract: true
+          cancellationPeriodLimit: 12345
+          endOfContractGracePeriod: 12345
+          gracePeriod:
+            length: 12345
+            unit: '...'
+          minimumServiceLength: 12345
+          terminationFee:
+            description: '...'
+            flatFee: {}
+            percentageFee: 12345
+            type: '...'
+        cost:
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        discount:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          availableRedemptions: 12345
+          description: '...'
+          expirationDate: 12345
+          numOfBillingCycles: 12345
+          percentage: 12345
+          pricingUnit: INTERNATIONAL_MINUTE
+          startDate: 12345
+        frequency: '...'
+        href: '...'
+        id: 12345
+        isPrimaryPrice: true
+        keepBillDateOnUsageChange: true
+        separatePrepaid: true
+        tld: '...'
+        uuid: '...'
+    ContractWS:
+      description: Contract associated to a payment plan
+      type: object
+      title: Contract
+      properties:
+        alignWithParentCycleStartDate:
+          description: Is addon cycle start date contract aligned with parent cycle start date
+          type: boolean
+        autoExtensionPricingId:
+          description: Auto extension pricing ID
+          type:
+          - number
+          - 'null'
+        blockContractDowngrades:
+          description: Is contract downgrade allowed
+          type: boolean
+        blockContractUpgrades:
+          description: Is contract upgrade allowed
+          type: boolean
+        blockSwitchToShorterContract:
+          description: Is switch to shorter contract allowed
+          type: boolean
+        cancellationPeriodLimit:
+          description: Cancellation period limit
+          type:
+          - number
+          - 'null'
+        endOfContractGracePeriod:
+          description: End of contract grace period
+          type:
+          - number
+          - 'null'
+        gracePeriod:
+          $ref: '#/components/schemas/DurationWS'
+        minimumServiceLength:
+          description: Minimum service length
+          type:
+          - number
+          - 'null'
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFeeWS'
+      example:
+        alignWithParentCycleStartDate: true
+        autoExtensionPricingId: 12345
+        blockContractDowngrades: true
+        blockContractUpgrades: true
+        blockSwitchToShorterContract: true
+        cancellationPeriodLimit: 12345
+        endOfContractGracePeriod: 12345
+        gracePeriod:
+          length: 12345
+          unit: '...'
+        minimumServiceLength: 12345
+        terminationFee:
+          description: '...'
+          flatFee:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          percentageFee: 12345
+          type: '...'
+    PaymentResult:
+      type: string
+      title: PaymentResult
+      enum:
+      - SUCCESSFUL
+      - FAILED
+      - GATEWAY_NOT_AVAILABLE
+      - MANUAL
+    PaymentWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: Payment
+        properties:
+          amount:
+            description: Payment amount.
+            type:
+            - number
+            - 'null'
+          company:
+            $ref: '#/components/schemas/LinkWS'
+          currency:
+            $ref: '#/components/schemas/Currency'
+          date:
+            description: Payment date.
+            type:
+            - number
+            - 'null'
+          gatewayResponse:
+            $ref: '#/components/schemas/GatewayResponseWS'
+          id:
+            description: Payment number.
+            type:
+            - number
+            - 'null'
+          method:
+            $ref: '#/components/schemas/PaymentMethod'
+          result:
+            $ref: '#/components/schemas/PaymentResult'
+          transactionId:
+            description: Transaction ID.
+            type:
+            - string
+            - 'null'
+          user:
+            $ref: '#/components/schemas/LinkWS'
+        example:
+          amount: 12345
+          company:
+            href: '...'
+            id: '...'
+          currency: INR
+          date: 12345
+          gatewayResponse:
+            avs: true
+            code: '...'
+            cvv: true
+            message: '...'
+          id: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          method: PAYPAL
+          result: GATEWAY_NOT_AVAILABLE
+          transactionId: '...'
+          user:
+            href: '...'
+            id: '...'
     Link:
       type:
       - object
@@ -1508,6 +1628,90 @@ components:
       example:
         href: '...'
         rel: '...'
+    OrderContractWS:
+      type:
+      - object
+      - 'null'
+      title: OrderContract
+      properties:
+        minimumServiceLength:
+          description: Minimum service length of contract
+          type: number
+        endOfContractDate:
+          description: End date for contract
+          type: number
+        gracePeriodEndDate:
+          description: End date for grace period
+          type:
+          - number
+          - 'null'
+        cancellationPeriodLimit:
+          description: Cancellation period limit
+          type:
+          - number
+          - 'null'
+        endOfContractGracePeriod:
+          description: Grace period for end of contract
+          type:
+          - number
+          - 'null'
+        terminationFee:
+          $ref: '#/components/schemas/OrderTerminationFeeWS'
+        renewal:
+          $ref: '#/components/schemas/OrderContractRenewalWS'
+        autoExtensionPricingUuid:
+          description: The edition pricing ID to which to bind the contract when it is automatically renewed. To retrieve the value, use the "uuid" value from the "Read payment plan" https://help.appdirect.com/api/appdirect.html#read-payment-plan request.
+          type:
+          - string
+          - 'null'
+        continueWithoutContract:
+          description: Determines whether to continue the subscription without a contract
+          type: boolean
+        blockContractUpgrades:
+          description: Determines whether to block upgrades to the contract terms
+          type: boolean
+        blockContractDowngrades:
+          description: Determines whether to block downgrades to the contract terms
+          type: boolean
+        blockSwitchToShorterContract:
+          description: Determines whether to block the ability to switch to a shorter contract
+          type: boolean
+        keepContractDateOnPlanChange:
+          description: Determines whether to keep the contract date if the plan changes
+          type: boolean
+        alignWithParentCycleStartDate:
+          description: For add-on products, determines whether to align the contract start date with the parent subscription start date. This is an internal setting.
+          type: boolean
+        unitTerms:
+          description: List of contract unit terms
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderUnitContractWS'
+      example:
+        cancellationPeriodLimit: null
+        endOfContractDate: 1588789800000
+        endOfContractGracePeriod: null
+        gracePeriodEndDate: null
+        minimumServiceLength: 24
+        renewal: null
+        terminationFee:
+          description: Fee
+          estimatedCost: 254.6628
+          percentage: 100
+          price: null
+          type: PERCENTAGE
+        autoExtensionPricingUuid: 0a12c84d-984f-4f64-943b-8e6f47a28d55
+        continueWithoutContract: true
+        blockContractUpgrades: false
+        blockContractDowngrades: true
+        blockSwitchToShorterContract: true
+        keepContractDateOnPlanChange: false
+        alignWithParentCycleStartDate: true
+        unitTerms:
+        - unit: USER
+          blockContractIncrease: true
+          blockOriginalContractDecrease: false
+          blockContractDecrease: false
     LinkWS:
       type:
       - object
@@ -1521,6 +1725,116 @@ components:
       example:
         href: '...'
         id: '...'
+    OrderLineWS:
+      type: object
+      title: OrderLine
+      properties:
+        id:
+          description: Order line ID
+          type:
+          - number
+          - 'null'
+        editionPricingItemId:
+          description: Edition pricing item ID
+          type:
+          - number
+          - 'null'
+        type:
+          description: Order line type, which can be ITEM, TAX, PENALTY, or DISCOUNT
+          type:
+          - string
+          - 'null'
+        unit:
+          description: Pricing unit for the order line item, such as USER, GIGABYTE, HOUR, and so on depending on product configuration
+          type:
+          - string
+          - 'null'
+        quantity:
+          description: Quantity for the order line item
+          type:
+          - number
+          - 'null'
+        basePrice:
+          description: Base price for the order line item
+          type:
+          - number
+          - 'null'
+        price:
+          description: The price for the order line item
+          type:
+          - number
+          - 'null'
+        listingPrice:
+          description: The listing price for the order line item
+          type:
+          - number
+          - 'null'
+        percentage:
+          description: The percentage associated with the order line item price. It can be a positive value (for example, for tax) or negative (for discounts).
+          type:
+          - number
+          - 'null'
+        totalPrice:
+          description: The total price for the order line item
+          type:
+          - number
+          - 'null'
+        channelMarkupPrice:
+          description: The marketplace sale price for the order line item
+          type:
+          - number
+          - 'null'
+        resellerMarkupPrice:
+          description: The reseller markup price for the order line item
+          type:
+          - number
+          - 'null'
+        wholesalePrice:
+          description: The wholesale price for the order line item
+          type:
+          - number
+          - 'null'
+        applicationName:
+          description: The order line application name
+          type:
+          - number
+          - 'null'
+        editionName:
+          description: The order line edition name
+          type:
+          - string
+          - 'null'
+        editionDescription:
+          description: The order line description
+          type:
+          - string
+          - 'null'
+      example:
+        description: Test App 1 - null - Per User Fee
+        id: 3
+        editionPricingId: 1
+        editionName: Edition 1
+        listingPrice: 10
+        price: 10
+        quantity: 1
+        totalPrice: 10
+        type: ITEM
+        unit: USER
+    ParameterWS:
+      type: object
+      title: Parameter
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      example:
+        name: '...'
+        value: '...'
     OrderWS:
       allOf:
       - $ref: '#/components/schemas/BaseOrderWS'
@@ -1758,180 +2072,56 @@ components:
           user:
             href: '...'
             id: '...'
-    PaymentPlanWS:
-      description: Payment plan for a product edition
+    GatewayResponseWS:
       type: object
-      title: PaymentPlan
+      title: GatewayResponse
       properties:
-        allowCustomUsage:
-          description: Custom usage allowed
+        avs:
+          description: True if address is validated.
           type: boolean
-        contract:
-          $ref: '#/components/schemas/ContractWS'
-        cost:
-          description: List of plan costs
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanCostWS'
-        discount:
-          $ref: '#/components/schemas/ProductDiscountDetailsWS'
-        frequency:
-          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
-          type: string
-        href:
-          description: URL to payment plan details
-          type: string
-        id:
-          description: ID
-          type: number
-        isPrimaryPrice:
-          description: Is primary price
+        code:
+          description: Code.
+          type:
+          - string
+          - 'null'
+        cvv:
+          description: True if credit card is validated.
           type: boolean
-        keepBillDateOnUsageChange:
-          description: Keep bill date on usage change
-          type: boolean
-        separatePrepaid:
-          description: Separate prepaid
-          type: boolean
-        tld:
-          description: If plan is part of a domain reseller product, this is the tld this plan offers
-          type: string
-        uuid:
-          description: Unique identifier
+        message:
+          description: Message.
           type:
           - string
           - 'null'
       example:
-        allowCustomUsage: true
-        contract:
-          alignWithParentCycleStartDate: true
-          autoExtensionPricingId: 12345
-          blockContractDowngrades: true
-          blockContractUpgrades: true
-          blockSwitchToShorterContract: true
-          cancellationPeriodLimit: 12345
-          endOfContractGracePeriod: 12345
-          gracePeriod:
-            length: 12345
-            unit: '...'
-          minimumServiceLength: 12345
-          terminationFee:
-            description: '...'
-            flatFee: {}
-            percentageFee: 12345
-            type: '...'
-        cost:
-        - amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          blockContractDecrease: true
-          blockContractIncrease: true
-          blockOriginalContractDecrease: true
-          editionPricingItemId: 12345
-          id: 12345
-          increment: 12345
-          maxUnits: 12345
-          meteredUsage: true
-          minUnits: 12345
-          pricePerIncrement: true
-          pricingStrategy: '...'
-          unit: '...'
-          unitDependency: '...'
-        - amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          blockContractDecrease: true
-          blockContractIncrease: true
-          blockOriginalContractDecrease: true
-          editionPricingItemId: 12345
-          id: 12345
-          increment: 12345
-          maxUnits: 12345
-          meteredUsage: true
-          minUnits: 12345
-          pricePerIncrement: true
-          pricingStrategy: '...'
-          unit: '...'
-          unitDependency: '...'
-        discount:
-          amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          availableRedemptions: 12345
-          description: '...'
-          expirationDate: 12345
-          numOfBillingCycles: 12345
-          percentage: 12345
-          pricingUnit: INTERNATIONAL_MINUTE
-          startDate: 12345
-        frequency: '...'
-        href: '...'
-        id: 12345
-        isPrimaryPrice: true
-        keepBillDateOnUsageChange: true
-        separatePrepaid: true
-        tld: '...'
-        uuid: '...'
+        avs: true
+        code: '...'
+        cvv: true
+        message: '...'
+    OrderUnitContractWS:
+      type:
+      - object
+      - 'null'
+      title: OrderUnitContractWS
+      properties:
+        unit:
+          description: The unit type
+          type:
+          - string
+          - 'null'
+        blockContractIncrease:
+          description: Determines whether to block quantity increases for this unit
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Determines whether to block quantity decreases for this unit if the new quantity would be smaller than the quantity specified in the original contract
+          type: boolean
+        blockContractDecrease:
+          description: Determines whether to block quantity decreases for this unit
+          type: boolean
+      example:
+        unit: USER
+        blockContractIncrease: true
+        blockOriginalContractDecrease: false
+        blockContractDecrease: false
     BaseOrderWS:
       allOf:
       - $ref: '#/components/schemas/HalResourceSupport'
@@ -2045,16 +2235,6 @@ components:
           user:
             href: '...'
             id: '...'
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS
     ChannelCustomAttributeWS:
       type: object
       title: CustomAttribute
@@ -2098,415 +2278,6 @@ components:
       example:
         length: 12345
         unit: '...'
-    ContractWS:
-      description: Contract associated to a payment plan
-      type: object
-      title: Contract
-      properties:
-        alignWithParentCycleStartDate:
-          description: Is addon cycle start date contract aligned with parent cycle start date
-          type: boolean
-        autoExtensionPricingId:
-          description: Auto extension pricing ID
-          type:
-          - number
-          - 'null'
-        blockContractDowngrades:
-          description: Is contract downgrade allowed
-          type: boolean
-        blockContractUpgrades:
-          description: Is contract upgrade allowed
-          type: boolean
-        blockSwitchToShorterContract:
-          description: Is switch to shorter contract allowed
-          type: boolean
-        cancellationPeriodLimit:
-          description: Cancellation period limit
-          type:
-          - number
-          - 'null'
-        endOfContractGracePeriod:
-          description: End of contract grace period
-          type:
-          - number
-          - 'null'
-        gracePeriod:
-          $ref: '#/components/schemas/DurationWS'
-        minimumServiceLength:
-          description: Minimum service length
-          type:
-          - number
-          - 'null'
-        terminationFee:
-          $ref: '#/components/schemas/TerminationFeeWS'
-      example:
-        alignWithParentCycleStartDate: true
-        autoExtensionPricingId: 12345
-        blockContractDowngrades: true
-        blockContractUpgrades: true
-        blockSwitchToShorterContract: true
-        cancellationPeriodLimit: 12345
-        endOfContractGracePeriod: 12345
-        gracePeriod:
-          length: 12345
-          unit: '...'
-        minimumServiceLength: 12345
-        terminationFee:
-          description: '...'
-          flatFee:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          percentageFee: 12345
-          type: '...'
-    InvoiceStatus:
-      type: string
-      title: InvoiceStatus
-      enum:
-      - PAID
-      - UNPAID
-      - CARRIED
-      - VOIDED
-    OrderUnitContractWS:
-      type:
-      - object
-      - 'null'
-      title: OrderUnitContractWS
-      properties:
-        unit:
-          description: The unit type
-          type:
-          - string
-          - 'null'
-        blockContractIncrease:
-          description: Determines whether to block quantity increases for this unit
-          type: boolean
-        blockOriginalContractDecrease:
-          description: Determines whether to block quantity decreases for this unit if the new quantity would be smaller than the quantity specified in the original contract
-          type: boolean
-        blockContractDecrease:
-          description: Determines whether to block quantity decreases for this unit
-          type: boolean
-      example:
-        unit: USER
-        blockContractIncrease: true
-        blockOriginalContractDecrease: false
-        blockContractDecrease: false
-    PaymentWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type: object
-        title: Payment
-        properties:
-          amount:
-            description: Payment amount.
-            type:
-            - number
-            - 'null'
-          company:
-            $ref: '#/components/schemas/LinkWS'
-          currency:
-            $ref: '#/components/schemas/Currency'
-          date:
-            description: Payment date.
-            type:
-            - number
-            - 'null'
-          gatewayResponse:
-            $ref: '#/components/schemas/GatewayResponseWS'
-          id:
-            description: Payment number.
-            type:
-            - number
-            - 'null'
-          method:
-            $ref: '#/components/schemas/PaymentMethod'
-          result:
-            $ref: '#/components/schemas/PaymentResult'
-          transactionId:
-            description: Transaction ID.
-            type:
-            - string
-            - 'null'
-          user:
-            $ref: '#/components/schemas/LinkWS'
-        example:
-          amount: 12345
-          company:
-            href: '...'
-            id: '...'
-          currency: INR
-          date: 12345
-          gatewayResponse:
-            avs: true
-            code: '...'
-            cvv: true
-            message: '...'
-          id: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          method: PAYPAL
-          result: GATEWAY_NOT_AVAILABLE
-          transactionId: '...'
-          user:
-            href: '...'
-            id: '...'
-    HalResourceSupport:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type:
-        - object
-        - 'null'
-        title: HalResourceSupport
-        properties:
-          _embedded:
-            type:
-            - object
-            - 'null'
-            additionalProperties:
-              type:
-              - object
-              - 'null'
-        example:
-          _embedded:
-            property1: {}
-            property2: {}
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-    ParameterWS:
-      type: object
-      title: Parameter
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      example:
-        name: '...'
-        value: '...'
-    PlanCostWS:
-      description: Plan cost
-      type: object
-      title: PlanCost
-      properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        blockContractDecrease:
-          description: Block contract decrease
-          type: boolean
-        blockContractIncrease:
-          description: Block contract increase
-          type: boolean
-        blockOriginalContractDecrease:
-          description: Block original contract decrease
-          type: boolean
-        editionPricingItemId:
-          type: number
-        id:
-          description: ID
-          type: number
-        increment:
-          description: Increment amount
-          type: number
-        maxUnits:
-          description: Max unit to buy
-          type: number
-        meteredUsage:
-          description: Is metered usage
-          type: boolean
-        minUnits:
-          description: Minimum unit to buy
-          type: number
-        pricePerIncrement:
-          description: Price per increment
-          type: boolean
-        pricingStrategy:
-          description: Pricing strategy
-          type: string
-        unit:
-          description: Unit
-          type:
-          - string
-          - 'null'
-        unitDependency:
-          description: Unit dependency
-          type: string
-      example:
-        amount:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        blockContractDecrease: true
-        blockContractIncrease: true
-        blockOriginalContractDecrease: true
-        editionPricingItemId: 12345
-        id: 12345
-        increment: 12345
-        maxUnits: 12345
-        meteredUsage: true
-        minUnits: 12345
-        pricePerIncrement: true
-        pricingStrategy: '...'
-        unit: '...'
-        unitDependency: '...'
-    OrderContractWS:
-      type:
-      - object
-      - 'null'
-      title: OrderContract
-      properties:
-        minimumServiceLength:
-          description: Minimum service length of contract
-          type: number
-        endOfContractDate:
-          description: End date for contract
-          type: number
-        gracePeriodEndDate:
-          description: End date for grace period
-          type:
-          - number
-          - 'null'
-        cancellationPeriodLimit:
-          description: Cancellation period limit
-          type:
-          - number
-          - 'null'
-        endOfContractGracePeriod:
-          description: Grace period for end of contract
-          type:
-          - number
-          - 'null'
-        terminationFee:
-          $ref: '#/components/schemas/OrderTerminationFeeWS'
-        renewal:
-          $ref: '#/components/schemas/OrderContractRenewalWS'
-        autoExtensionPricingUuid:
-          description: The edition pricing ID to which to bind the contract when it is automatically renewed. To retrieve the value, use the "uuid" value from the "Read payment plan" https://help.appdirect.com/api/appdirect.html#read-payment-plan request.
-          type:
-          - string
-          - 'null'
-        continueWithoutContract:
-          description: Determines whether to continue the subscription without a contract
-          type: boolean
-        blockContractUpgrades:
-          description: Determines whether to block upgrades to the contract terms
-          type: boolean
-        blockContractDowngrades:
-          description: Determines whether to block downgrades to the contract terms
-          type: boolean
-        blockSwitchToShorterContract:
-          description: Determines whether to block the ability to switch to a shorter contract
-          type: boolean
-        keepContractDateOnPlanChange:
-          description: Determines whether to keep the contract date if the plan changes
-          type: boolean
-        alignWithParentCycleStartDate:
-          description: For add-on products, determines whether to align the contract start date with the parent subscription start date. This is an internal setting.
-          type: boolean
-        unitTerms:
-          description: List of contract unit terms
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderUnitContractWS'
-      example:
-        cancellationPeriodLimit: null
-        endOfContractDate: 1588789800000
-        endOfContractGracePeriod: null
-        gracePeriodEndDate: null
-        minimumServiceLength: 24
-        renewal: null
-        terminationFee:
-          description: Fee
-          estimatedCost: 254.6628
-          percentage: 100
-          price: null
-          type: PERCENTAGE
-        autoExtensionPricingUuid: 0a12c84d-984f-4f64-943b-8e6f47a28d55
-        continueWithoutContract: true
-        blockContractUpgrades: false
-        blockContractDowngrades: true
-        blockSwitchToShorterContract: true
-        keepContractDateOnPlanChange: false
-        alignWithParentCycleStartDate: true
-        unitTerms:
-        - unit: USER
-          blockContractIncrease: true
-          blockOriginalContractDecrease: false
-          blockContractDecrease: false
-    PaymentResult:
-      type: string
-      title: PaymentResult
-      enum:
-      - SUCCESSFUL
-      - FAILED
-      - GATEWAY_NOT_AVAILABLE
-      - MANUAL
-    ResourceSupport:
-      type:
-      - object
-      - 'null'
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
     Currency:
       description: Supported currencies for the system
       type: string
@@ -2539,6 +2310,417 @@ components:
       - COP
       - PEN
       default: USD
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
+      type:
+      - object
+      - 'null'
+      title: TerminationFee
+      properties:
+        description:
+          description: Description
+          type:
+          - string
+          - 'null'
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
+          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
+      example:
+        description: '...'
+        flatFee:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        percentageFee: 12345
+        type: '...'
+    OrderDetailedListingWS:
+      type:
+      - object
+      - 'null'
+      title: OrderDetailedListing
+      properties:
+        order:
+          description: List of orders.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderWS'
+        total:
+          type:
+          - number
+          - 'null'
+      example:
+        orders:
+        - _embedded:
+            property1: {}
+            property2: {}
+          activated: true
+          company:
+            href: '...'
+            id: '...'
+          contract: {}
+          currency: '...'
+          customAttribute:
+          - attributeType: MULTISELECT
+            name: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+          - attributeType: MULTISELECT
+            name: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+          discount:
+            href: '...'
+            id: '...'
+          discountId: 12345
+          endDate: 12345
+          endOfDiscountDate: 12345
+          frequency: '...'
+          id: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          nextBillingDate: 12345
+          nextOrder:
+            href: '...'
+            id: '...'
+          oneTimeOrder:
+          - _embedded:
+              property1: {}
+              property2: {}
+            company: {}
+            currency: '...'
+            endDate: 12345
+            endOfDiscountDate: 12345
+            frequency: '...'
+            id: 12345
+            links:
+            - {}
+            - {}
+            nextBillingDate: 12345
+            paymentPlan: {}
+            referenceCode: '...'
+            salesSupportUser: {}
+            startDate: 12345
+            status: '...'
+            totalPrice: 12345
+            type: '...'
+            user: {}
+          - _embedded:
+              property1: {}
+              property2: {}
+            company: {}
+            currency: '...'
+            endDate: 12345
+            endOfDiscountDate: 12345
+            frequency: '...'
+            id: 12345
+            links:
+            - {}
+            - {}
+            nextBillingDate: 12345
+            paymentPlan: {}
+            referenceCode: '...'
+            salesSupportUser: {}
+            startDate: 12345
+            status: '...'
+            totalPrice: 12345
+            type: '...'
+            user: {}
+          orderLine:
+          - {}
+          - {}
+          parameter:
+          - name: '...'
+            value: '...'
+          - name: '...'
+            value: '...'
+          paymentPlan:
+            allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            primaryPrice: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          paymentPlanId: 12345
+          previousOrder:
+            href: '...'
+            id: '...'
+          referenceCode: '...'
+          salesSupportUser:
+            href: '...'
+            id: '...'
+          startDate: 12345
+          status: '...'
+          totalPrice: 12345
+          type: '...'
+          user:
+            href: '...'
+            id: '...'
+        - _embedded:
+            property1: {}
+            property2: {}
+          activated: true
+          company:
+            href: '...'
+            id: '...'
+          contract: {}
+          currency: '...'
+          customAttribute:
+          - attributeType: MULTISELECT
+            name: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+          - attributeType: TEXT
+            name: '...'
+            value: '...'
+            valueKeys:
+            - '...'
+            - '...'
+          discount:
+            href: '...'
+            id: '...'
+          discountId: 12345
+          endDate: 12345
+          endOfDiscountDate: 12345
+          frequency: '...'
+          id: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          nextBillingDate: 12345
+          nextOrder:
+            href: '...'
+            id: '...'
+          oneTimeOrder:
+          - _embedded:
+              property1: {}
+              property2: {}
+            company: {}
+            currency: '...'
+            endDate: 12345
+            endOfDiscountDate: 12345
+            frequency: '...'
+            id: 12345
+            links:
+            - {}
+            - {}
+            nextBillingDate: 12345
+            paymentPlan: {}
+            referenceCode: '...'
+            salesSupportUser: {}
+            startDate: 12345
+            status: '...'
+            totalPrice: 12345
+            type: '...'
+            user: {}
+          - _embedded:
+              property1: {}
+              property2: {}
+            company: {}
+            currency: '...'
+            endDate: 12345
+            endOfDiscountDate: 12345
+            frequency: '...'
+            id: 12345
+            links:
+            - {}
+            - {}
+            nextBillingDate: 12345
+            paymentPlan: {}
+            referenceCode: '...'
+            salesSupportUser: {}
+            startDate: 12345
+            status: '...'
+            totalPrice: 12345
+            type: '...'
+            user: {}
+          orderLine:
+          - {}
+          - {}
+          parameter:
+          - name: '...'
+            value: '...'
+          - name: '...'
+            value: '...'
+          paymentPlan:
+            allowCustomUsage: true
+            contract: {}
+            cost:
+            - {}
+            - {}
+            discount: {}
+            frequency: '...'
+            href: '...'
+            id: 12345
+            isPrimaryPrice: true
+            keepBillDateOnUsageChange: true
+            primaryPrice: true
+            separatePrepaid: true
+            tld: '...'
+            uuid: '...'
+          paymentPlanId: 12345
+          previousOrder:
+            href: '...'
+            id: '...'
+          referenceCode: '...'
+          salesSupportUser:
+            href: '...'
+            id: '...'
+          startDate: 12345
+          status: '...'
+          totalPrice: 12345
+          type: '...'
+          user:
+            href: '...'
+            id: '...'
+        total: 12345
+    OrderContractRenewalWS:
+      type:
+      - object
+      - 'null'
+      title: OrderContractRenewalWS
+      properties:
+        order:
+          $ref: '#/components/schemas/LinkWS'
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlanWS'
+      example:
+        order:
+          href: '...'
+          id: '...'
+        paymentPlan:
+          allowCustomUsage: true
+          contract: {}
+          cost:
+          - {}
+          - {}
+          discount: {}
+          frequency: '...'
+          href: '...'
+          id: 12345
+          isPrimaryPrice: true
+          keepBillDateOnUsageChange: true
+          primaryPrice: true
+          separatsePrepaid: true
+          tld: '...'
+          uuid: '...'
+    PriceWS:
+      description: Price information in different currencies
+      type:
+      - object
+      - 'null'
+      title: Price
+      properties:
+        AUD:
+          type: number
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
+      example:
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
     PricingUnit:
       type: string
       title: PricingUnit
@@ -3313,340 +3495,186 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
-    PriceWS:
-      description: Price information in different currencies
+    ProductDiscountDetailsWS:
+      description: Discount detail on a product pricing
       type:
       - object
       - 'null'
-      title: Price
+      title: ProductDiscountDetails
       properties:
-        AUD:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        availableRedemptions:
+          description: Number of time the discount can be used
           type: number
-        BRL:
-          type: number
-        CAD:
-          type: number
-        CHF:
-          type: number
-        CNY:
-          type: number
-        DKK:
-          type: number
-        EUR:
-          type: number
-        GBP:
-          type: number
-        GTQ:
-          type: number
-        INR:
-          type: number
-        JPY:
-          type: number
-        KRW:
-          type: number
-        MXN:
-          type: number
-        MYR:
-          type: number
-        NOK:
-          type: number
-        NZD:
-          type: number
-        PHP:
-          type: number
-        SAR:
-          type: number
-        SEK:
-          type: number
-        SGD:
-          type: number
-        USD:
-          type: number
-        ZAR:
-          type: number
-      example:
-        AUD: 12345
-        BRL: 12345
-        CAD: 12345
-        CHF: 12345
-        CNY: 12345
-        DKK: 12345
-        EUR: 12345
-        GBP: 12345
-        GTQ: 12345
-        INR: 12345
-        JPY: 12345
-        KRW: 12345
-        MXN: 12345
-        MYR: 12345
-        NOK: 12345
-        NZD: 12345
-        PHP: 12345
-        SAR: 12345
-        SEK: 12345
-        SGD: 12345
-        USD: 12345
-        ZAR: 12345
-    OrderDetailedListingWS:
-      type:
-      - object
-      - 'null'
-      title: OrderDetailedListing
-      properties:
-        order:
-          description: List of orders.
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderWS'
-        total:
+        description:
+          description: Description
           type:
-          - number
+          - string
           - 'null'
+        expirationDate:
+          description: Expiration date of the discount
+          type: number
+        numOfBillingCycles:
+          description: Number of billing cycle the discount is applicable
+          type: number
+        percentage:
+          description: Discount in percentage
+          type: number
+        pricingUnit:
+          $ref: '#/components/schemas/PricingUnit'
+        startDate:
+          description: Start date of the discount
+          type: number
       example:
-        orders:
-        - _embedded:
-            property1: {}
-            property2: {}
-          activated: true
-          company:
-            href: '...'
-            id: '...'
-          contract: {}
-          currency: '...'
-          customAttribute:
-          - attributeType: MULTISELECT
-            name: '...'
-            value: '...'
-            valueKeys:
-            - '...'
-            - '...'
-          - attributeType: MULTISELECT
-            name: '...'
-            value: '...'
-            valueKeys:
-            - '...'
-            - '...'
-          discount:
-            href: '...'
-            id: '...'
-          discountId: 12345
-          endDate: 12345
-          endOfDiscountDate: 12345
-          frequency: '...'
-          id: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          nextBillingDate: 12345
-          nextOrder:
-            href: '...'
-            id: '...'
-          oneTimeOrder:
-          - _embedded:
-              property1: {}
-              property2: {}
-            company: {}
-            currency: '...'
-            endDate: 12345
-            endOfDiscountDate: 12345
-            frequency: '...'
-            id: 12345
-            links:
-            - {}
-            - {}
-            nextBillingDate: 12345
-            paymentPlan: {}
-            referenceCode: '...'
-            salesSupportUser: {}
-            startDate: 12345
-            status: '...'
-            totalPrice: 12345
-            type: '...'
-            user: {}
-          - _embedded:
-              property1: {}
-              property2: {}
-            company: {}
-            currency: '...'
-            endDate: 12345
-            endOfDiscountDate: 12345
-            frequency: '...'
-            id: 12345
-            links:
-            - {}
-            - {}
-            nextBillingDate: 12345
-            paymentPlan: {}
-            referenceCode: '...'
-            salesSupportUser: {}
-            startDate: 12345
-            status: '...'
-            totalPrice: 12345
-            type: '...'
-            user: {}
-          orderLine:
-          - {}
-          - {}
-          parameter:
-          - name: '...'
-            value: '...'
-          - name: '...'
-            value: '...'
-          paymentPlan:
-            allowCustomUsage: true
-            contract: {}
-            cost:
-            - {}
-            - {}
-            discount: {}
-            frequency: '...'
-            href: '...'
-            id: 12345
-            isPrimaryPrice: true
-            keepBillDateOnUsageChange: true
-            primaryPrice: true
-            separatePrepaid: true
-            tld: '...'
-            uuid: '...'
-          paymentPlanId: 12345
-          previousOrder:
-            href: '...'
-            id: '...'
-          referenceCode: '...'
-          salesSupportUser:
-            href: '...'
-            id: '...'
-          startDate: 12345
-          status: '...'
-          totalPrice: 12345
-          type: '...'
-          user:
-            href: '...'
-            id: '...'
-        - _embedded:
-            property1: {}
-            property2: {}
-          activated: true
-          company:
-            href: '...'
-            id: '...'
-          contract: {}
-          currency: '...'
-          customAttribute:
-          - attributeType: MULTISELECT
-            name: '...'
-            value: '...'
-            valueKeys:
-            - '...'
-            - '...'
-          - attributeType: TEXT
-            name: '...'
-            value: '...'
-            valueKeys:
-            - '...'
-            - '...'
-          discount:
-            href: '...'
-            id: '...'
-          discountId: 12345
-          endDate: 12345
-          endOfDiscountDate: 12345
-          frequency: '...'
-          id: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          nextBillingDate: 12345
-          nextOrder:
-            href: '...'
-            id: '...'
-          oneTimeOrder:
-          - _embedded:
-              property1: {}
-              property2: {}
-            company: {}
-            currency: '...'
-            endDate: 12345
-            endOfDiscountDate: 12345
-            frequency: '...'
-            id: 12345
-            links:
-            - {}
-            - {}
-            nextBillingDate: 12345
-            paymentPlan: {}
-            referenceCode: '...'
-            salesSupportUser: {}
-            startDate: 12345
-            status: '...'
-            totalPrice: 12345
-            type: '...'
-            user: {}
-          - _embedded:
-              property1: {}
-              property2: {}
-            company: {}
-            currency: '...'
-            endDate: 12345
-            endOfDiscountDate: 12345
-            frequency: '...'
-            id: 12345
-            links:
-            - {}
-            - {}
-            nextBillingDate: 12345
-            paymentPlan: {}
-            referenceCode: '...'
-            salesSupportUser: {}
-            startDate: 12345
-            status: '...'
-            totalPrice: 12345
-            type: '...'
-            user: {}
-          orderLine:
-          - {}
-          - {}
-          parameter:
-          - name: '...'
-            value: '...'
-          - name: '...'
-            value: '...'
-          paymentPlan:
-            allowCustomUsage: true
-            contract: {}
-            cost:
-            - {}
-            - {}
-            discount: {}
-            frequency: '...'
-            href: '...'
-            id: 12345
-            isPrimaryPrice: true
-            keepBillDateOnUsageChange: true
-            primaryPrice: true
-            separatePrepaid: true
-            tld: '...'
-            uuid: '...'
-          paymentPlanId: 12345
-          previousOrder:
-            href: '...'
-            id: '...'
-          referenceCode: '...'
-          salesSupportUser:
-            href: '...'
-            id: '...'
-          startDate: 12345
-          status: '...'
-          totalPrice: 12345
-          type: '...'
-          user:
-            href: '...'
-            id: '...'
-        total: 12345
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        availableRedemptions: 12345
+        description: '...'
+        expirationDate: 12345
+        numOfBillingCycles: 12345
+        percentage: 12345
+        pricingUnit: TIER3_STANDARD_LINE
+        startDate: 12345
+    PaymentMethod:
+      type: string
+      description: The supported payment methods
+      title: PaymentMethod
+      enum:
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    PlanCostWS:
+      description: Plan cost
+      type: object
+      title: PlanCost
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        blockContractDecrease:
+          description: Block contract decrease
+          type: boolean
+        blockContractIncrease:
+          description: Block contract increase
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Block original contract decrease
+          type: boolean
+        editionPricingItemId:
+          type: number
+        id:
+          description: ID
+          type: number
+        increment:
+          description: Increment amount
+          type: number
+        maxUnits:
+          description: Max unit to buy
+          type: number
+        meteredUsage:
+          description: Is metered usage
+          type: boolean
+        minUnits:
+          description: Minimum unit to buy
+          type: number
+        pricePerIncrement:
+          description: Price per increment
+          type: boolean
+        pricingStrategy:
+          description: Pricing strategy
+          type: string
+        unit:
+          description: Unit
+          type:
+          - string
+          - 'null'
+        unitDependency:
+          description: Unit dependency
+          type: string
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        blockContractDecrease: true
+        blockContractIncrease: true
+        blockOriginalContractDecrease: true
+        editionPricingItemId: 12345
+        id: 12345
+        increment: 12345
+        maxUnits: 12345
+        meteredUsage: true
+        minUnits: 12345
+        pricePerIncrement: true
+        pricingStrategy: '...'
+        unit: '...'
+        unitDependency: '...'
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
     OrderTerminationFeeWS:
       type:
       - object
@@ -3692,104 +3720,76 @@ components:
         estimatedCost: null
         gracePeriod: 5
         gracePeriodUnit: DAYS
-    AttributeType:
+    HalResourceSupport:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type:
+        - object
+        - 'null'
+        title: HalResourceSupport
+        properties:
+          _embedded:
+            type:
+            - object
+            - 'null'
+            additionalProperties:
+              type:
+              - object
+              - 'null'
+        example:
+          _embedded:
+            property1: {}
+            property2: {}
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+    InvoiceStatus:
       type: string
-      title: AttributeType
+      title: InvoiceStatus
       enum:
-      - TEXT
-      - MULTISELECT
-    OrderLineWS:
-      type: object
-      title: OrderLine
-      properties:
-        id:
-          description: Order line ID
-          type:
-          - number
-          - 'null'
-        editionPricingItemId:
-          description: Edition pricing item ID
-          type:
-          - number
-          - 'null'
-        type:
-          description: Order line type, which can be ITEM, TAX, PENALTY, or DISCOUNT
-          type:
-          - string
-          - 'null'
-        unit:
-          description: Pricing unit for the order line item, such as USER, GIGABYTE, HOUR, and so on depending on product configuration
-          type:
-          - string
-          - 'null'
-        quantity:
-          description: Quantity for the order line item
-          type:
-          - number
-          - 'null'
-        basePrice:
-          description: Base price for the order line item
-          type:
-          - number
-          - 'null'
-        price:
-          description: The price for the order line item
-          type:
-          - number
-          - 'null'
-        listingPrice:
-          description: The listing price for the order line item
-          type:
-          - number
-          - 'null'
-        percentage:
-          description: The percentage associated with the order line item price. It can be a positive value (for example, for tax) or negative (for discounts).
-          type:
-          - number
-          - 'null'
-        totalPrice:
-          description: The total price for the order line item
-          type:
-          - number
-          - 'null'
-        channelMarkupPrice:
-          description: The marketplace sale price for the order line item
-          type:
-          - number
-          - 'null'
-        resellerMarkupPrice:
-          description: The reseller markup price for the order line item
-          type:
-          - number
-          - 'null'
-        wholesalePrice:
-          description: The wholesale price for the order line item
-          type:
-          - number
-          - 'null'
-        applicationName:
-          description: The order line application name
-          type:
-          - number
-          - 'null'
-        editionName:
-          description: The order line edition name
-          type:
-          - string
-          - 'null'
-        editionDescription:
-          description: The order line description
-          type:
-          - string
-          - 'null'
-      example:
-        description: Test App 1 - null - Per User Fee
-        id: 3
-        editionPricingId: 1
-        editionName: Edition 1
-        listingPrice: 10
-        price: 10
-        quantity: 1
-        totalPrice: 10
-        type: ITEM
-        unit: USER
+      - PAID
+      - UNPAID
+      - CARRIED
+      - VOIDED
+    OrderListingWS:
+      allOf:
+      - $ref: '#/components/schemas/BaseOrderWS'
+      - type: object
+        title: OrderListing
+        properties:
+          paymentPlan:
+            $ref: '#/components/schemas/LinkWS'
+        example:
+          _embedded:
+            property1: {}
+            property2: {}
+          company:
+            href: '...'
+            id: '...'
+          currency: '...'
+          endDate: 12345
+          endOfDiscountDate: 12345
+          frequency: '...'
+          id: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          nextBillingDate: 12345
+          paymentPlan:
+            href: '...'
+            id: '...'
+          referenceCode: '...'
+          salesSupportUser:
+            href: '...'
+            id: '...'
+          startDate: 12345
+          status: '...'
+          totalPrice: 12345
+          type: '...'
+          user:
+            href: '...'
+            id: '...'

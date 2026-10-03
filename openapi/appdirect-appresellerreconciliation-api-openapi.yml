@@ -247,70 +247,38 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reseller/v1/reconciliation/transfers/%7BtransferId%7D/details?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    TransferDetailsList:
+    ErrorResponse:
       type: object
-      title: TransferDetailsList
-      required:
-      - content
-      - page
+      title: ErrorResponse
+      description: Error details
       properties:
-        content:
+        status:
+          type: integer
+          description: Original HTTP error code, which should be consistent with the response HTTP code
+          minimum: 100
+          maximum: 599
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+        details:
           type: array
           items:
-            $ref: '#/components/schemas/TransferDetails'
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-      example:
-        content:
-        - id: 13
-          currency: USD
-          credit: 0
-          debit: 10
-          customer: Telko Co.
-          product: Cablevision
-        - id: 14
-          currency: USD
-          credit: 100
-          debit: 0
-          customer: Telko Co.
-          product: airtel
-        - id: 15
-          currency: USD
-          credit: 300
-          debit: 0
-          customer: Telko Co.
-          product: Office 365 for Business
-        page:
-          size: 3
-          number: 1
-          totalElements: 3
-          totalPages: 1
-    PageMetadata:
-      type: object
-      title: PageMetadata
+            $ref: '#/components/schemas/ErrorPaymentDetail'
       required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
+      - status
+      - code
       example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
+        status: 400
+        code: VALIDATION_ERROR
+        message: Missing required parameters
     TransferList:
       type: object
       title: TransferList
@@ -358,92 +326,6 @@ components:
           number: 1
           totalElements: 3
           totalPages: 1
-    TransferDetails:
-      type: object
-      title: TransferDetails
-      properties:
-        id:
-          description: The detail ID
-          type: integer
-          format: int64
-        currency:
-          description: The currency of the detail line
-          type: string
-        credit:
-          description: The amount the reseller receives for the sale
-          type: number
-        debit:
-          description: The amount the reseller owes for the sale
-          type: number
-        customer:
-          description: The customer company for whom the product was purchased
-          type: string
-        product:
-          description: The name of the product
-          type: string
-      example:
-        id: 1
-        currency: USD
-        credit: 100
-        debit: 0
-        customer: Telko Co.
-        product: Cablevision
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      description: Error details
-      properties:
-        status:
-          type: integer
-          description: Original HTTP error code, which should be consistent with the response HTTP code
-          minimum: 100
-          maximum: 599
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorPaymentDetail'
-      required:
-      - status
-      - code
-      example:
-        status: 400
-        code: VALIDATION_ERROR
-        message: Missing required parameters
-    ErrorPaymentDetail:
-      type: object
-      title: ErrorPaymentDetail
-      description: A detail element of an ErrorResponse
-      properties:
-        field:
-          type: string
-          description: The element in the request payload that caused the error
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-      required:
-      - code
-      example:
-        code: INVALID_REQUEST
-        message: Missing parameter
     Transfer:
       type: object
       title: Transfer
@@ -522,3 +404,121 @@ components:
         netReceivable: 95.99
         netPayable: 0
         transferDate: 145234540
+    ErrorPaymentDetail:
+      type: object
+      title: ErrorPaymentDetail
+      description: A detail element of an ErrorResponse
+      properties:
+        field:
+          type: string
+          description: The element in the request payload that caused the error
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+      required:
+      - code
+      example:
+        code: INVALID_REQUEST
+        message: Missing parameter
+    TransferDetails:
+      type: object
+      title: TransferDetails
+      properties:
+        id:
+          description: The detail ID
+          type: integer
+          format: int64
+        currency:
+          description: The currency of the detail line
+          type: string
+        credit:
+          description: The amount the reseller receives for the sale
+          type: number
+        debit:
+          description: The amount the reseller owes for the sale
+          type: number
+        customer:
+          description: The customer company for whom the product was purchased
+          type: string
+        product:
+          description: The name of the product
+          type: string
+      example:
+        id: 1
+        currency: USD
+        credit: 100
+        debit: 0
+        customer: Telko Co.
+        product: Cablevision
+    TransferDetailsList:
+      type: object
+      title: TransferDetailsList
+      required:
+      - content
+      - page
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferDetails'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+      example:
+        content:
+        - id: 13
+          currency: USD
+          credit: 0
+          debit: 10
+          customer: Telko Co.
+          product: Cablevision
+        - id: 14
+          currency: USD
+          credit: 100
+          debit: 0
+          customer: Telko Co.
+          product: airtel
+        - id: 15
+          currency: USD
+          credit: 300
+          debit: 0
+          customer: Telko Co.
+          product: Office 365 for Business
+        page:
+          size: 3
+          number: 1
+          totalElements: 3
+          totalPages: 1
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

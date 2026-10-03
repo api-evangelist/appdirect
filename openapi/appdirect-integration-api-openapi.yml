@@ -221,70 +221,20 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/integration/v2/billing/usage/requests/%7BrequestId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    MeteredUsageItem:
-      title: MeteredUsageItem
+    MeteredUsageRequestAccepted:
+      title: MeteredUsageRequestAccepted
       type: object
-      description: List of metered usage events associated with a customer's subscription.
+      description: Reported metered usage received and accepted
       properties:
-        accountId:
+        requestId:
           type: string
-          description: Unique identifier that associates a vendor (ISV), customer company, and subscription. Represents company entitlement. Provided by vendor (ISV) when subscription purchased. Marketplace Managers can locate it in the user interface Integration Event event logs.
-        usageList:
-          type: array
-          description: List of metered usage event details.
-          items:
-            $ref: '#/components/schemas/UsageItem'
-    UsageBean:
-      type: object
-      title: UsageBean
-      properties:
-        account:
-          $ref: '#/components/schemas/AccountInfo'
-        addonInstance:
-          $ref: '#/components/schemas/AddonInstanceInfo'
-        item:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageItemBean'
-      example:
-        account:
-          accountIdentifier: '...'
-          parentAccountIdentifier: '...'
-          status: CANCELLED
-        addonInstance:
-          id: '...'
-        item:
-        - customUnit: '...'
-          description: '...'
-          price: 12345
-          quantity: 12345
-          unit: TIER3_STANDARD_LINE
-        - customUnit: '...'
-          description: '...'
-          price: 12345
-          quantity: 12345
-          unit: CONTACTS_1000
-    DomainVerificationStatusWS:
-      type: object
-      title: DomainVerificationStatusWS
-      properties:
-        verified:
-          type: boolean
-      example:
-        verified: true
-    CompanyEntitlementStatus:
-      type:
-      - string
-      - 'null'
-      title: CompanyEntitlementStatus
-      enum:
-      - INITIALIZED
-      - FAILED
-      - FREE_TRIAL
-      - FREE_TRIAL_EXPIRED
-      - ACTIVE
-      - SUSPENDED
-      - CANCELLED
+          description: Unique system-assigned identifier for the metered usage request. Returned with the response.
+        idempotencyKey:
+          type: string
+          description: Unique caller-generated identifier sent with the metered usage submission.
+        queryUsageStatus:
+          type: string
+          description: API endpoint to fetch the processing status of all metered usage events submitted with the request.
     AccountInfo:
       type:
       - object
@@ -307,20 +257,109 @@ components:
         accountIdentifier: '...'
         parentAccountIdentifier: '...'
         status: INITIALIZED
-    MeteredUsageRequestAccepted:
-      title: MeteredUsageRequestAccepted
+    MeteredUsageRequest:
       type: object
-      description: Reported metered usage received and accepted
+      title: MeteredUsageRequest
+      description: Metered usage event submission
       properties:
-        requestId:
-          type: string
-          description: Unique system-assigned identifier for the metered usage request. Returned with the response.
         idempotencyKey:
           type: string
-          description: Unique caller-generated identifier sent with the metered usage submission.
-        queryUsageStatus:
+          description: Unique caller-generated identifier for the metered usage that is sent. Ensures duplicate submissions can be identified and an error returned. Required.
+        requestGroupId:
+          type:
+          - string
+          - 'null'
+          description: A caller-generated identifier to group related metered usage requests. For example, 'January 2022' to group all requests that include January billing period events.
+        billable:
+          type: boolean
+          description: Indicates usage is billable (true) or estimated (false). Required.
+        usages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeteredUsageItem'
+          description: List of metered usage events.
+    MeteredUsageItem:
+      title: MeteredUsageItem
+      type: object
+      description: List of metered usage events associated with a customer's subscription.
+      properties:
+        accountId:
           type: string
-          description: API endpoint to fetch the processing status of all metered usage events submitted with the request.
+          description: Unique identifier that associates a vendor (ISV), customer company, and subscription. Represents company entitlement. Provided by vendor (ISV) when subscription purchased. Marketplace Managers can locate it in the user interface Integration Event event logs.
+        usageList:
+          type: array
+          description: List of metered usage event details.
+          items:
+            $ref: '#/components/schemas/UsageItem'
+    AddonInstanceInfo:
+      type: object
+      title: AddonInstanceInfo
+      properties:
+        id:
+          description: ID
+          type:
+          - string
+          - 'null'
+      example:
+        id: '...'
+    UsageItem:
+      title: UsageItem
+      type: object
+      description: Details for a preconfigured or custom metered usage event.
+      properties:
+        eventId:
+          type: string
+          description: 'ID for each metered usage event. When not assigned: null. Required.'
+        eventDate:
+          type: string
+          format: date-time
+          description: 'Date and time the usage event was recorded by the metering system. Format: YYYY-MM-DDTHH:mm:ss.SSSZ. Required.'
+        pricingUnit:
+          type: string
+          description: Unit of measure for reported usage. Associated with a price that will be charged for the usage. Required for preconfigured metered usage.
+        customUnit:
+          type: string
+          description: Unit of measure for reported custom metered usage. The unit is associated with a price (unitPrice). Required for custom metered usage.
+        quantity:
+          type: string
+          description: Total usage in the stated unit of measure (pricingUnit or customUnit). Maximum 10 decimal digits. Required.
+        unitPrice:
+          type: string
+          x-minimum: 0
+          description: Price for each unit (customUnit) of reported custom usage. x-mimum is the minimum price allowed. Required for custom metered usage.
+        description:
+          type: string
+          description: Additional description about usage items.
+        currency:
+          type: string
+          description: 'Currency in which the custom metered usage price (unitPrice) is reported. Required only for custom metered usage. Empty string is valid for preconfigured metered usage. Format: ISO 4217. For example: USD, EUR'
+        attributes:
+          type: object
+          description: Additional attributes for usage.
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      title: Error
+      description: Returned error after failed API call.
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Error message
+      example:
+        code: EXTERNAL_ERROR
+        message: 'Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.'
+    DomainVerificationStatusWS:
+      type: object
+      title: DomainVerificationStatusWS
+      properties:
+        verified:
+          type: boolean
+      example:
+        verified: true
     PricingUnit:
       type: string
       title: PricingUnit
@@ -1095,67 +1134,64 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
-    Error:
+    BillingAPIResult:
       type: object
-      title: Error
-      description: Returned error after failed API call.
+      title: BillingAPIResult
       properties:
-        code:
-          type: string
-          description: Error code
+        success:
+          description: If the Billing API call was successful.
+          type: boolean
         message:
-          type: string
-          description: Error message
-      example:
-        code: EXTERNAL_ERROR
-        message: 'Execution of an external dependency failed with message: User with email random@appdirect.com was not found in the linked account.'
-    AddonInstanceInfo:
-      type: object
-      title: AddonInstanceInfo
-      properties:
-        id:
-          description: ID
+          description: Billing API response.
           type:
           - string
           - 'null'
       example:
-        id: '...'
-    UsageItem:
-      title: UsageItem
+        success: false
+        message: Metered usage report is not allowed on this entitlement.
+    CompanyEntitlementStatus:
+      type:
+      - string
+      - 'null'
+      title: CompanyEntitlementStatus
+      enum:
+      - INITIALIZED
+      - FAILED
+      - FREE_TRIAL
+      - FREE_TRIAL_EXPIRED
+      - ACTIVE
+      - SUSPENDED
+      - CANCELLED
+    UsageBean:
       type: object
-      description: Details for a preconfigured or custom metered usage event.
+      title: UsageBean
       properties:
-        eventId:
-          type: string
-          description: 'ID for each metered usage event. When not assigned: null. Required.'
-        eventDate:
-          type: string
-          format: date-time
-          description: 'Date and time the usage event was recorded by the metering system. Format: YYYY-MM-DDTHH:mm:ss.SSSZ. Required.'
-        pricingUnit:
-          type: string
-          description: Unit of measure for reported usage. Associated with a price that will be charged for the usage. Required for preconfigured metered usage.
-        customUnit:
-          type: string
-          description: Unit of measure for reported custom metered usage. The unit is associated with a price (unitPrice). Required for custom metered usage.
-        quantity:
-          type: string
-          description: Total usage in the stated unit of measure (pricingUnit or customUnit). Maximum 10 decimal digits. Required.
-        unitPrice:
-          type: string
-          x-minimum: 0
-          description: Price for each unit (customUnit) of reported custom usage. x-mimum is the minimum price allowed. Required for custom metered usage.
-        description:
-          type: string
-          description: Additional description about usage items.
-        currency:
-          type: string
-          description: 'Currency in which the custom metered usage price (unitPrice) is reported. Required only for custom metered usage. Empty string is valid for preconfigured metered usage. Format: ISO 4217. For example: USD, EUR'
-        attributes:
-          type: object
-          description: Additional attributes for usage.
-          additionalProperties:
-            type: string
+        account:
+          $ref: '#/components/schemas/AccountInfo'
+        addonInstance:
+          $ref: '#/components/schemas/AddonInstanceInfo'
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageItemBean'
+      example:
+        account:
+          accountIdentifier: '...'
+          parentAccountIdentifier: '...'
+          status: CANCELLED
+        addonInstance:
+          id: '...'
+        item:
+        - customUnit: '...'
+          description: '...'
+          price: 12345
+          quantity: 12345
+          unit: TIER3_STANDARD_LINE
+        - customUnit: '...'
+          description: '...'
+          price: 12345
+          quantity: 12345
+          unit: CONTACTS_1000
     UsageItemBean:
       type: object
       title: UsageItemBean
@@ -1184,39 +1220,3 @@ components:
         price: 12345
         quantity: 12345
         unit: OPERATOR
-    BillingAPIResult:
-      type: object
-      title: BillingAPIResult
-      properties:
-        success:
-          description: If the Billing API call was successful.
-          type: boolean
-        message:
-          description: Billing API response.
-          type:
-          - string
-          - 'null'
-      example:
-        success: false
-        message: Metered usage report is not allowed on this entitlement.
-    MeteredUsageRequest:
-      type: object
-      title: MeteredUsageRequest
-      description: Metered usage event submission
-      properties:
-        idempotencyKey:
-          type: string
-          description: Unique caller-generated identifier for the metered usage that is sent. Ensures duplicate submissions can be identified and an error returned. Required.
-        requestGroupId:
-          type:
-          - string
-          - 'null'
-          description: A caller-generated identifier to group related metered usage requests. For example, 'January 2022' to group all requests that include January billing period events.
-        billable:
-          type: boolean
-          description: Indicates usage is billable (true) or estimated (false). Required.
-        usages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MeteredUsageItem'
-          description: List of metered usage events.

@@ -419,6 +419,16 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    CreditCardType:
+      type: string
+      title: CreditCardType
+      enum:
+      - VISA
+      - MASTERCARD
+      - AMEX
+      - DISCOVER
+      - JCB
+      - GATEWAY
     LinkWS:
       type:
       - object
@@ -432,16 +442,167 @@ components:
       example:
         href: '...'
         id: '...'
-    CreditCardType:
+    BillingAddressWS:
+      allOf:
+      - $ref: '#/components/schemas/AddressWS'
+      - type: object
+        title: BillingAddress
+        required: []
+        properties:
+          companyName:
+            description: The name of the company
+            type: string
+          fax:
+            description: The fax number
+            type: string
+          faxExtension:
+            description: The fax extension number
+            type: string
+          phoneExtension:
+            description: The phone extension number
+            type: string
+          poBox:
+            description: The post office box number
+            type: string
+          salutation:
+            description: The title in a person's name, for example, Mr or Ms
+            type: string
+        example:
+          city: '...'
+          companyName: '...'
+          country: '...'
+          fax: '...'
+          faxExtension: '...'
+          firstName: '...'
+          lastName: '...'
+          phone: '...'
+          phoneExtension: '...'
+          poBox: '...'
+          salutation: '...'
+          state: '...'
+          street1: '...'
+          street2: '...'
+          zip: '...'
+    PaymentMethod:
       type: string
-      title: CreditCardType
+      description: The supported payment methods
+      title: PaymentMethod
       enum:
-      - VISA
-      - MASTERCARD
-      - AMEX
-      - DISCOVER
-      - JCB
-      - GATEWAY
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    CreditCardWS:
+      type: object
+      title: CreditCard
+      required:
+      - name
+      - number
+      - securityCode
+      - expirationMonth
+      - expirationYear
+      properties:
+        expirationMonth:
+          description: Expiration month. Required field.
+          type: number
+          maxLength: 12
+          minLength: 1
+        expirationYear:
+          description: Expiration year. Required field.
+          type: number
+        name:
+          description: Name as it appears on credit card. Required field.
+          type: string
+          maxLength: 255
+          minLength: 0
+        number:
+          description: Credit card number. Required field.
+          type:
+          - string
+          - 'null'
+          maxLength: 19
+          minLength: 0
+        securityCode:
+          description: Credit card security code. Required field.
+          type:
+          - string
+          - 'null'
+          maxLength: 4
+          minLength: 3
+        type:
+          $ref: '#/components/schemas/CreditCardType'
+      example:
+        expirationMonth: 12345
+        expirationYear: 12345
+        name: '...'
+        number: '...'
+        securityCode: '...'
+        type: JCB
+    AddressWS:
+      type: object
+      title: Address
+      required:
+      - country
+      - city
+      - zip
+      - firstName
+      - phone
+      - lastName
+      - street1
+      properties:
+        city:
+          description: The name of the city or town
+          type: string
+          maxLength: 255
+          minLength: 0
+        country:
+          description: The country code, in ISO-3166 format
+          type: string
+          maxLength: 2
+          minLength: 0
+        state:
+          description: The state, province, or region
+          type: string
+          maxLength: 255
+          minLength: 0
+        firstName:
+          description: The first name
+          type: string
+          maxLength: 255
+          minLength: 0
+        lastName:
+          description: The last name
+          type: string
+          maxLength: 255
+          minLength: 0
+        phone:
+          description: The phone number
+          type: string
+          maxLength: 255
+          minLength: 0
+        street1:
+          description: The first line of a street address
+          type: string
+          maxLength: 255
+          minLength: 0
+        street2:
+          description: The second line of a street address, for example, an apartment or office number
+          type: string
+          maxLength: 255
+          minLength: 0
+        zip:
+          description: The ZIP or postal code of the address
+          type: string
+          maxLength: 255
+          minLength: 0
+      example:
+        city: '...'
+        country: '...'
+        state: '...'
+        street1: '...'
+        street2: '...'
+        zip: '...'
     PaymentInstrumentWS:
       type: object
       title: PaymentInstrument
@@ -509,164 +670,3 @@ components:
           href: '...'
           id: '...'
         vatId: '...'
-    BillingAddressWS:
-      allOf:
-      - $ref: '#/components/schemas/AddressWS'
-      - type: object
-        title: BillingAddress
-        required: []
-        properties:
-          companyName:
-            description: The name of the company
-            type: string
-          fax:
-            description: The fax number
-            type: string
-          faxExtension:
-            description: The fax extension number
-            type: string
-          phoneExtension:
-            description: The phone extension number
-            type: string
-          poBox:
-            description: The post office box number
-            type: string
-          salutation:
-            description: The title in a person's name, for example, Mr or Ms
-            type: string
-        example:
-          city: '...'
-          companyName: '...'
-          country: '...'
-          fax: '...'
-          faxExtension: '...'
-          firstName: '...'
-          lastName: '...'
-          phone: '...'
-          phoneExtension: '...'
-          poBox: '...'
-          salutation: '...'
-          state: '...'
-          street1: '...'
-          street2: '...'
-          zip: '...'
-    AddressWS:
-      type: object
-      title: Address
-      required:
-      - country
-      - city
-      - zip
-      - firstName
-      - phone
-      - lastName
-      - street1
-      properties:
-        city:
-          description: The name of the city or town
-          type: string
-          maxLength: 255
-          minLength: 0
-        country:
-          description: The country code, in ISO-3166 format
-          type: string
-          maxLength: 2
-          minLength: 0
-        state:
-          description: The state, province, or region
-          type: string
-          maxLength: 255
-          minLength: 0
-        firstName:
-          description: The first name
-          type: string
-          maxLength: 255
-          minLength: 0
-        lastName:
-          description: The last name
-          type: string
-          maxLength: 255
-          minLength: 0
-        phone:
-          description: The phone number
-          type: string
-          maxLength: 255
-          minLength: 0
-        street1:
-          description: The first line of a street address
-          type: string
-          maxLength: 255
-          minLength: 0
-        street2:
-          description: The second line of a street address, for example, an apartment or office number
-          type: string
-          maxLength: 255
-          minLength: 0
-        zip:
-          description: The ZIP or postal code of the address
-          type: string
-          maxLength: 255
-          minLength: 0
-      example:
-        city: '...'
-        country: '...'
-        state: '...'
-        street1: '...'
-        street2: '...'
-        zip: '...'
-    CreditCardWS:
-      type: object
-      title: CreditCard
-      required:
-      - name
-      - number
-      - securityCode
-      - expirationMonth
-      - expirationYear
-      properties:
-        expirationMonth:
-          description: Expiration month. Required field.
-          type: number
-          maxLength: 12
-          minLength: 1
-        expirationYear:
-          description: Expiration year. Required field.
-          type: number
-        name:
-          description: Name as it appears on credit card. Required field.
-          type: string
-          maxLength: 255
-          minLength: 0
-        number:
-          description: Credit card number. Required field.
-          type:
-          - string
-          - 'null'
-          maxLength: 19
-          minLength: 0
-        securityCode:
-          description: Credit card security code. Required field.
-          type:
-          - string
-          - 'null'
-          maxLength: 4
-          minLength: 3
-        type:
-          $ref: '#/components/schemas/CreditCardType'
-      example:
-        expirationMonth: 12345
-        expirationYear: 12345
-        name: '...'
-        number: '...'
-        securityCode: '...'
-        type: JCB
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS

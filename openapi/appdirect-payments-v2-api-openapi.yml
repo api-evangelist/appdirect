@@ -367,120 +367,21 @@ paths:
       - lang: Java + Okhttp
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/api/appMarket/v2/transferMethods/%7BtransferMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
-  responses:
-    TransferPlatformConfigurationRequestSuccessful:
-      description: The transfer platform configuration request has been treated successfully
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TransferPlatformConfigurationResponse'
-          examples:
-            response:
-              value:
-                id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
-                platformType: stripe
-                parameters:
-                  base_url: https://api.stripe.com/testupdate
-                  username: secret
-    BadRequest:
-      description: Indicates a bad request, which can be due to violation(s) of HTTP or API rules
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 400
-                code: BAD_REQUEST
-                message: The locale is not recognized.
-    NotFound:
-      description: Resource Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 404
-                code: NOT_FOUND
-                message: Not found
-    ServerError:
-      description: Indicates an unknown internal error that prevents the server from processing the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            response:
-              value:
-                status: 500
-                code: UNKNOWN_ERROR
-                message: Internal server error.
   schemas:
-    TransferMethodResponse:
+    TransferPlatformConfigurationResponse:
       allOf:
-      - $ref: '#/components/schemas/AbstractTransferMethod'
-      - title: TransferMethodResponse
-        description: A transfer method response
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationResponse
+        description: A transfer platform configuration response
         type: object
         properties:
           id:
             type: string
-            description: The transfer method ID
-            minLength: 36
-            maxLength: 36
-          balance:
-            $ref: '#/components/schemas/Balance'
-          displayName:
-            type: string
-            description: The transfer method display name
-            minLength: 1
-            maxLength: 255
+            description: Id of the transfer platform configuration
         required:
         - id
-        - displayName
         example:
-          id: 619da695-42d6-4189-9cc2-cdc885a3a4f7
-          properties:
-          - property1: property1 value
-          platformType: stripe
-          partyId: '1'
-          partyType: USER
-          balance:
-            amount: '10.00'
-            currency: USD
-          displayName: '****1234'
-    AbstractTransferPlatformConfiguration:
-      title: AbstractTransferPlatformConfiguration
-      description: Transfer platform configuration base fields
-      properties:
-        platformType:
-          type: string
-          description: The transfer platform type
-          minLength: 1
-          maxLength: 255
-        parameters:
-          type: object
-          description: The transfer platform parameters.
-          minProperties: 1
-          additionalProperties:
-            type: string
-      required:
-      - platformType
-      - parameters
-      example:
-        platformType: stripe
-        parameters:
-          base_url: https://api.stripe.com/testupdate
-          username: secret
-    TransferPlatformConfigurationRequest:
-      allOf:
-      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
-      - title: TransferPlatformConfigurationRequest
-        description: A transfer platform configuration request
-        example:
+          id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
           platformType: stripe
           parameters:
             base_url: https://api.stripe.com/testupdate
@@ -517,48 +418,17 @@ components:
         status: 400
         code: VALIDATION_ERROR
         message: Missing required parameters
-    ErrorPaymentDetail:
-      type: object
-      title: ErrorPaymentDetail
-      description: A detail element of an ErrorResponse
-      properties:
-        field:
-          type: string
-          description: The element in the request payload that caused the error
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-      required:
-      - code
-      example:
-        code: INVALID_REQUEST
-        message: Missing parameter
-    TransferPlatformConfigurationResponse:
+    TransferMethodRequest:
       allOf:
-      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
-      - title: TransferPlatformConfigurationResponse
-        description: A transfer platform configuration response
-        type: object
-        properties:
-          id:
-            type: string
-            description: Id of the transfer platform configuration
-        required:
-        - id
+      - $ref: '#/components/schemas/AbstractTransferMethod'
+      - title: TransferMethodRequest
+        description: The transfer method creation payload
         example:
-          id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
           platformType: stripe
-          parameters:
-            base_url: https://api.stripe.com/testupdate
-            username: secret
+          partyId: '1'
+          partyType: USER
+          properties:
+            account_id: '123456'
     Balance:
       type: object
       title: Balance
@@ -575,17 +445,6 @@ components:
       example:
         amount: '49.99'
         currency: USD
-    TransferMethodRequest:
-      allOf:
-      - $ref: '#/components/schemas/AbstractTransferMethod'
-      - title: TransferMethodRequest
-        description: The transfer method creation payload
-        example:
-          platformType: stripe
-          partyId: '1'
-          partyType: USER
-          properties:
-            account_id: '123456'
     AbstractTransferMethod:
       title: AbstractTransferMethod
       description: Transfer method base fields
@@ -622,3 +481,144 @@ components:
         platformType: stripe
         partyId: '1'
         partyType: USER
+    AbstractTransferPlatformConfiguration:
+      title: AbstractTransferPlatformConfiguration
+      description: Transfer platform configuration base fields
+      properties:
+        platformType:
+          type: string
+          description: The transfer platform type
+          minLength: 1
+          maxLength: 255
+        parameters:
+          type: object
+          description: The transfer platform parameters.
+          minProperties: 1
+          additionalProperties:
+            type: string
+      required:
+      - platformType
+      - parameters
+      example:
+        platformType: stripe
+        parameters:
+          base_url: https://api.stripe.com/testupdate
+          username: secret
+    ErrorPaymentDetail:
+      type: object
+      title: ErrorPaymentDetail
+      description: A detail element of an ErrorResponse
+      properties:
+        field:
+          type: string
+          description: The element in the request payload that caused the error
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example PAYLOAD_VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+      required:
+      - code
+      example:
+        code: INVALID_REQUEST
+        message: Missing parameter
+    TransferMethodResponse:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferMethod'
+      - title: TransferMethodResponse
+        description: A transfer method response
+        type: object
+        properties:
+          id:
+            type: string
+            description: The transfer method ID
+            minLength: 36
+            maxLength: 36
+          balance:
+            $ref: '#/components/schemas/Balance'
+          displayName:
+            type: string
+            description: The transfer method display name
+            minLength: 1
+            maxLength: 255
+        required:
+        - id
+        - displayName
+        example:
+          id: 619da695-42d6-4189-9cc2-cdc885a3a4f7
+          properties:
+          - property1: property1 value
+          platformType: stripe
+          partyId: '1'
+          partyType: USER
+          balance:
+            amount: '10.00'
+            currency: USD
+          displayName: '****1234'
+    TransferPlatformConfigurationRequest:
+      allOf:
+      - $ref: '#/components/schemas/AbstractTransferPlatformConfiguration'
+      - title: TransferPlatformConfigurationRequest
+        description: A transfer platform configuration request
+        example:
+          platformType: stripe
+          parameters:
+            base_url: https://api.stripe.com/testupdate
+            username: secret
+  responses:
+    ServerError:
+      description: Indicates an unknown internal error that prevents the server from processing the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 500
+                code: UNKNOWN_ERROR
+                message: Internal server error.
+    NotFound:
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: Not found
+    TransferPlatformConfigurationRequestSuccessful:
+      description: The transfer platform configuration request has been treated successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransferPlatformConfigurationResponse'
+          examples:
+            response:
+              value:
+                id: 9dfabd43-a34b-46e1-bc40-7ddd92cc228a
+                platformType: stripe
+                parameters:
+                  base_url: https://api.stripe.com/testupdate
+                  username: secret
+    BadRequest:
+      description: Indicates a bad request, which can be due to violation(s) of HTTP or API rules
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            response:
+              value:
+                status: 400
+                code: BAD_REQUEST
+                message: The locale is not recognized.

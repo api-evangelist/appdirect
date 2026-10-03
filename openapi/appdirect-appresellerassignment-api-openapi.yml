@@ -193,109 +193,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/%7BsubscriptionAssignmentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    AppResellerSubscriptionAssignmentWS:
-      type: object
-      title: AppResellerSubscriptionAssignment
-      description: Assignment of a product to a user
-      required:
-      - id
-      - status
-      - createdOn
-      - user
-      - subscriptionId
-      properties:
-        id:
-          description: Assignment ID
-          type: string
-        status:
-          $ref: '#/components/schemas/UserEntitlementStatus'
-        createdOn:
-          description: Assignment creation date, in timestamp format
-          type: number
-        user:
-          $ref: '#/components/schemas/UserAssociation'
-        subscriptionId:
-          description: ID of the subscription assigned to the user
-          type: string
-      example:
-        id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
-        status: ACTIVE
-        createdOn: 1529083173000
-        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
-        user:
-          id: 386626c0-53e2-4515-8450-4a720bb5d029
-          firstName: Michael
-          lastName: Jordan
-    IllegalSubscriptionAssociationTypes:
-      type: string
-      description: Invalid subscription association types
-      title: IllegalSubscriptionAssociationTypes
-      enum:
-      - STATUS_CONFLICT
-      - ASSIGNMENT_ALREADY_EXISTS
-      - ASSIGNMENT_PENDING
-    AppResellerSubscriptionAssignmentRequestWS:
-      type: object
-      title: AppResellerSubscriptionAssignmentRequestWS
-      description: Request to assign a product to a user
-      required:
-      - userId
-      - subscriptionId
-      properties:
-        userId:
-          description: ID of the user to whom the product will be assigned
-          type: string
-        subscriptionId:
-          description: ID of the product subscription to assign to the user
-          type: string
-      example:
-        userId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    SubscriptionAssociationConflictResponse:
-      type: object
-      title: SubscriptionAssociationConflictResponse
-      required:
-      - status
-      - code
-      properties:
-        status:
-          description: HTTP status
-          type: number
-        code:
-          $ref: '#/components/schemas/IllegalSubscriptionAssociationTypes'
-        message:
-          description: Code description
-          type: string
-      example:
-        status: 409
-        code: ASSIGNMENT_ALREADY_EXISTS
-        message: Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa
     AppResellerSubscriptionAssignmentList:
       type: object
       title: AppResellerSubscriptionAssignmentList
@@ -356,6 +253,83 @@ components:
         id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
         firstName: Michael
         lastName: Jordan
+    AppResellerSubscriptionAssignmentRequestWS:
+      type: object
+      title: AppResellerSubscriptionAssignmentRequestWS
+      description: Request to assign a product to a user
+      required:
+      - userId
+      - subscriptionId
+      properties:
+        userId:
+          description: ID of the user to whom the product will be assigned
+          type: string
+        subscriptionId:
+          description: ID of the product subscription to assign to the user
+          type: string
+      example:
+        userId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+    AppResellerSubscriptionAssignmentWS:
+      type: object
+      title: AppResellerSubscriptionAssignment
+      description: Assignment of a product to a user
+      required:
+      - id
+      - status
+      - createdOn
+      - user
+      - subscriptionId
+      properties:
+        id:
+          description: Assignment ID
+          type: string
+        status:
+          $ref: '#/components/schemas/UserEntitlementStatus'
+        createdOn:
+          description: Assignment creation date, in timestamp format
+          type: number
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        subscriptionId:
+          description: ID of the subscription assigned to the user
+          type: string
+      example:
+        id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+        status: ACTIVE
+        createdOn: 1529083173000
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+        user:
+          id: 386626c0-53e2-4515-8450-4a720bb5d029
+          firstName: Michael
+          lastName: Jordan
+    IllegalSubscriptionAssociationTypes:
+      type: string
+      description: Invalid subscription association types
+      title: IllegalSubscriptionAssociationTypes
+      enum:
+      - STATUS_CONFLICT
+      - ASSIGNMENT_ALREADY_EXISTS
+      - ASSIGNMENT_PENDING
+    SubscriptionAssociationConflictResponse:
+      type: object
+      title: SubscriptionAssociationConflictResponse
+      required:
+      - status
+      - code
+      properties:
+        status:
+          description: HTTP status
+          type: number
+        code:
+          $ref: '#/components/schemas/IllegalSubscriptionAssociationTypes'
+        message:
+          description: Code description
+          type: string
+      example:
+        status: 409
+        code: ASSIGNMENT_ALREADY_EXISTS
+        message: Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa
     UserEntitlementStatus:
       type: string
       title: UserEntitlementStatus
@@ -372,3 +346,29 @@ components:
       - ACTIVE
       - PENDING_REMOTE_CANCELLATION
       - CANCELLED
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

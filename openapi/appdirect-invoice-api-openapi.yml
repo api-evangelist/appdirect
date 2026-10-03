@@ -740,14 +740,29 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"links\\\":[{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"},{\\\"href\\\":\\\"...\\\",\\\"rel\\\":\\\"...\\\"}],\\\"company\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"creationDate\\\":12345,\\\"currency\\\":\\\"KRW\\\",\\\"dueDate\\\":12345,\\\"invoiceId\\\":12345,\\\"referenceNumber\\\":\\\"...\\\",\\\"status\\\":\\\"VOIDED\\\",\\\"total\\\":12345,\\\"user\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"orderIds\\\":[\\\"1234\\\"],\\\"delegatedToInvoice\\\":{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},\\\"includedInvoices\\\":[{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"},{\\\"href\\\":\\\"...\\\",\\\"id\\\":\\\"...\\\"}],\\\"invoiceLines\\\":[{\\\"description\\\":\\\"...\\\",\\\"id\\\":12345,\\\"itemId\\\":12345,\\\"percentage\\\":12345,\\\"periodEnd\\\":12345,\\\"periodStart\\\":12345,\\\"price\\\":12345,\\\"quantity\\\":12345,\\\"total\\\":12345,\\\"type\\\":\\\"ITEM\\\"},{\\\"description\\\":\\\"...\\\",\\\"id\\\":12345,\\\"itemId\\\":12345,\\\"percentage\\\":12345,\\\"periodEnd\\\":12345,\\\"periodStart\\\":12345,\\\"price\\\":12345,\\\"quantity\\\":12345,\\\"total\\\":12345,\\\"type\\\":\\\"TAX\\\"}]}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/invoices/%7BinvoiceNumber%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    InvoiceStatus:
-      type: string
-      title: InvoiceStatus
-      enum:
-      - PAID
-      - UNPAID
-      - CARRIED
-      - VOIDED
+    SaleRepUserWS:
+      type:
+      - object
+      - 'null'
+      title: SaleRepUser
+      properties:
+        uuid:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        isReseller:
+          type: boolean
+        isSalesSupport:
+          type: boolean
+      example:
+        uuid: fd94512f-7fd6-4063-bb8c-bec18ba6f509
+        name: Sample Reseller User
+        isReseller: true
+        isSalesSupport: false
     LinkWS:
       type:
       - object
@@ -761,118 +776,6 @@ components:
       example:
         href: '...'
         id: '...'
-    InvoiceWS:
-      allOf:
-      - $ref: '#/components/schemas/InvoiceListingWS'
-      - type: object
-        title: Invoice
-        properties:
-          delegatedToInvoice:
-            $ref: '#/components/schemas/LinkWS'
-          includedInvoices:
-            description: List of links to the included invoices
-            type:
-            - array
-            - 'null'
-            items:
-              $ref: '#/components/schemas/LinkWS'
-          invoiceLines:
-            description: List of Invoice lines
-            type: array
-            items:
-              $ref: '#/components/schemas/InvoiceLineWS'
-        example:
-          company:
-            href: '...'
-            id: '...'
-          orderIds:
-          - '1234'
-          creationDate: 12345
-          currency: KRW
-          delegatedToInvoice:
-            href: '...'
-            id: '...'
-          dueDate: 12345
-          includedInvoices:
-          - href: '...'
-            id: '...'
-          - href: '...'
-            id: '...'
-          invoiceId: 12345
-          invoiceLines:
-          - description: '...'
-            id: 12345
-            itemId: 12345
-            percentage: 12345
-            periodEnd: 12345
-            periodStart: 12345
-            price: 12345
-            quantity: 12345
-            total: 12345
-            type: ITEM
-          - description: '...'
-            id: 12345
-            itemId: 12345
-            percentage: 12345
-            periodEnd: 12345
-            periodStart: 12345
-            price: 12345
-            quantity: 12345
-            total: 12345
-            type: TAX
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          referenceNumber: '...'
-          status: VOIDED
-          total: 12345
-          user:
-            href: '...'
-            id: '...'
-    VendorWS:
-      type:
-      - object
-      - 'null'
-      title: Vendor
-      properties:
-        uuid:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      example:
-        uuid: 3ea46469-36a7-4216-966b-5f0c61c72faa
-        name: Sample Vendor
-    GatewayResponseWS:
-      type: object
-      title: GatewayResponse
-      properties:
-        avs:
-          description: True if address is validated.
-          type: boolean
-        code:
-          description: Code.
-          type:
-          - string
-          - 'null'
-        cvv:
-          description: True if credit card is validated.
-          type: boolean
-        message:
-          description: Message.
-          type:
-          - string
-          - 'null'
-      example:
-        avs: true
-        code: '...'
-        cvv: true
-        message: '...'
     InvoiceLineWS:
       type: object
       title: InvoiceLine
@@ -974,6 +877,101 @@ components:
           name: Sample Reseller User
           isReseller: true
           isSalesSupport: true
+    InvoiceLineTypeWS:
+      type:
+      - string
+      - 'null'
+      title: InvoiceLineType
+      enum:
+      - ITEM
+      - DISCOUNT
+      - TAX
+      - DELEGATED_INVOICE
+      - TERMINATION_FEE
+      - SUB_ACCOUNT
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    PaymentMethod:
+      type: string
+      description: The supported payment methods
+      title: PaymentMethod
+      enum:
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    SaleRepCompanyWS:
+      type:
+      - object
+      - 'null'
+      title: SaleRepCompany
+      properties:
+        uuid:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        isReseller:
+          type: boolean
+        isSalesSupport:
+          type: boolean
+      example:
+        uuid: 36f631b9-caef-4f19-be41-e70173f17f0d
+        name: Sample Reseller
+        isReseller: true
+        isSalesSupport: false
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
     InvoiceListingWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -1037,73 +1035,44 @@ components:
           user:
             href: '...'
             id: '...'
-    InvoiceLineTypeWS:
-      type:
-      - string
-      - 'null'
-      title: InvoiceLineType
-      enum:
-      - ITEM
-      - DISCOUNT
-      - TAX
-      - DELEGATED_INVOICE
-      - TERMINATION_FEE
-      - SUB_ACCOUNT
-    Currency:
-      description: Supported currencies for the system
-      type: string
-      title: Currency
-      enum:
-      - USD
-      - CAD
-      - EUR
-      - JPY
-      - GBP
-      - KRW
-      - CHF
-      - SEK
-      - SGD
-      - MYR
-      - AUD
-      - MXN
-      - INR
-      - BRL
-      - DKK
-      - NZD
-      - NOK
-      - ZAR
-      - PHP
-      - CNY
-      - SAR
-      - GTQ
-      - IDR
-      - ARS
-      - COP
-      - PEN
-      default: USD
-    ResourceSupport:
-      type:
-      - object
-      - 'null'
-      title: ResourceSupport
-      description: Resource links
+    GatewayResponseWS:
+      type: object
+      title: GatewayResponse
       properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
+        avs:
+          description: True if address is validated.
+          type: boolean
+        code:
+          description: Code.
+          type:
+          - string
+          - 'null'
+        cvv:
+          description: True if credit card is validated.
+          type: boolean
+        message:
+          description: Message.
+          type:
+          - string
+          - 'null'
       example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-    SaleRepUserWS:
+        avs: true
+        code: '...'
+        cvv: true
+        message: '...'
+    PaymentResult:
+      type: string
+      title: PaymentResult
+      enum:
+      - SUCCESSFUL
+      - FAILED
+      - GATEWAY_NOT_AVAILABLE
+      - MANUAL
+    VendorWS:
       type:
       - object
       - 'null'
-      title: SaleRepUser
+      title: Vendor
       properties:
         uuid:
           type:
@@ -1113,15 +1082,79 @@ components:
           type:
           - string
           - 'null'
-        isReseller:
-          type: boolean
-        isSalesSupport:
-          type: boolean
       example:
-        uuid: fd94512f-7fd6-4063-bb8c-bec18ba6f509
-        name: Sample Reseller User
-        isReseller: true
-        isSalesSupport: false
+        uuid: 3ea46469-36a7-4216-966b-5f0c61c72faa
+        name: Sample Vendor
+    InvoiceWS:
+      allOf:
+      - $ref: '#/components/schemas/InvoiceListingWS'
+      - type: object
+        title: Invoice
+        properties:
+          delegatedToInvoice:
+            $ref: '#/components/schemas/LinkWS'
+          includedInvoices:
+            description: List of links to the included invoices
+            type:
+            - array
+            - 'null'
+            items:
+              $ref: '#/components/schemas/LinkWS'
+          invoiceLines:
+            description: List of Invoice lines
+            type: array
+            items:
+              $ref: '#/components/schemas/InvoiceLineWS'
+        example:
+          company:
+            href: '...'
+            id: '...'
+          orderIds:
+          - '1234'
+          creationDate: 12345
+          currency: KRW
+          delegatedToInvoice:
+            href: '...'
+            id: '...'
+          dueDate: 12345
+          includedInvoices:
+          - href: '...'
+            id: '...'
+          - href: '...'
+            id: '...'
+          invoiceId: 12345
+          invoiceLines:
+          - description: '...'
+            id: 12345
+            itemId: 12345
+            percentage: 12345
+            periodEnd: 12345
+            periodStart: 12345
+            price: 12345
+            quantity: 12345
+            total: 12345
+            type: ITEM
+          - description: '...'
+            id: 12345
+            itemId: 12345
+            percentage: 12345
+            periodEnd: 12345
+            periodStart: 12345
+            price: 12345
+            quantity: 12345
+            total: 12345
+            type: TAX
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          referenceNumber: '...'
+          status: VOIDED
+          total: 12345
+          user:
+            href: '...'
+            id: '...'
     PaymentWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -1184,47 +1217,6 @@ components:
           user:
             href: '...'
             id: '...'
-    PaymentResult:
-      type: string
-      title: PaymentResult
-      enum:
-      - SUCCESSFUL
-      - FAILED
-      - GATEWAY_NOT_AVAILABLE
-      - MANUAL
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS
-    SaleRepCompanyWS:
-      type:
-      - object
-      - 'null'
-      title: SaleRepCompany
-      properties:
-        uuid:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        isReseller:
-          type: boolean
-        isSalesSupport:
-          type: boolean
-      example:
-        uuid: 36f631b9-caef-4f19-be41-e70173f17f0d
-        name: Sample Reseller
-        isReseller: true
-        isSalesSupport: false
     Link:
       type:
       - object
@@ -1238,3 +1230,11 @@ components:
       example:
         href: '...'
         rel: '...'
+    InvoiceStatus:
+      type: string
+      title: InvoiceStatus
+      enum:
+      - PAID
+      - UNPAID
+      - CARRIED
+      - VOIDED

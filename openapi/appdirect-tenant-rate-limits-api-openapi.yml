@@ -273,34 +273,11 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    OrgRateLimitOverrideItemDto:
+    Error:
       type: object
-      required:
-      - orgId
-      - mode
       properties:
-        orgId:
+        error:
           type: string
-        mode:
-          type: string
-          enum:
-          - BLOCKED
-          - UNLIMITED
-    ListTenantRateLimitOverridesResponseDto:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgRateLimitOverrideItemDto'
-        pagination:
-          type: object
-          properties:
-            nextCursor:
-              type: string
-          description: Present when additional pages can be fetched via the cursor query parameter.
     OrgRateLimitSimpleModeResponseDto:
       type: object
       required:
@@ -316,17 +293,6 @@ components:
           - UNLIMITED
           - NONE
           description: 'Resulting override state: BLOCKED after block, UNLIMITED after unblock, NONE after clearing override.'
-    SetTenantDefaultRateLimitRequestDto:
-      type: object
-      required:
-      - mode
-      properties:
-        mode:
-          type: string
-          enum:
-          - SUBSCRIPTION_LIMITS
-          - UNLIMITED
-          description: Default rate limit mode for child organizations. SUBSCRIPTION_LIMITS applies subscription-based limits; UNLIMITED removes subscription caps.
     OrgRateLimitOverrideResponseDto:
       type: object
       required:
@@ -347,11 +313,19 @@ components:
         hasExplicitOverride:
           type: boolean
           description: True when a BLOCKED or UNLIMITED override is set for this organization.
-    Error:
+    OrgRateLimitOverrideItemDto:
       type: object
+      required:
+      - orgId
+      - mode
       properties:
-        error:
+        orgId:
           type: string
+        mode:
+          type: string
+          enum:
+          - BLOCKED
+          - UNLIMITED
     TenantDefaultRateLimitResponseDto:
       type: object
       required:
@@ -362,6 +336,32 @@ components:
           enum:
           - SUBSCRIPTION_LIMITS
           - UNLIMITED
+    ListTenantRateLimitOverridesResponseDto:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgRateLimitOverrideItemDto'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+          description: Present when additional pages can be fetched via the cursor query parameter.
+    SetTenantDefaultRateLimitRequestDto:
+      type: object
+      required:
+      - mode
+      properties:
+        mode:
+          type: string
+          enum:
+          - SUBSCRIPTION_LIMITS
+          - UNLIMITED
+          description: Default rate limit mode for child organizations. SUBSCRIPTION_LIMITS applies subscription-based limits; UNLIMITED removes subscription caps.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

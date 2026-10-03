@@ -152,58 +152,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/orders?context=SOME_STRING_VALUE&number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&sort=SOME_STRING_VALUE&userId=SOME_STRING_VALUE&resellerCompanyId=SOME_STRING_VALUE&customerCompanyId=SOME_STRING_VALUE&createdOn=SOME_STRING_VALUE&status=SOME_STRING_VALUE&paidStatus=SOME_STRING_VALUE&pending=SOME_BOOLEAN_VALUE&searchText=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    OrderPagedReadItem:
-      allOf:
-      - $ref: '#/components/schemas/AppResellerOrderLightWS'
-      - title: OrderPagedReadItem
-        type: object
-        required:
-        - applicationName
-        - company
-        properties:
-          applicationName:
-            description: Application name
-            type: string
-          company:
-            $ref: '#/components/schemas/CompanyAssociation'
-        example:
-          id: '1234'
-          createdOn: 1529083173000
-          status: PENDING MANUAL RECOVERY
-          frequency: One Time
-          totalFee: USD350.00
-          applicationName: AUTO_DISCOUNTS_APP
-          editionName: Edition
-          orderCartId: '4567'
-          company:
-            id: 386626c0-53e2-4515-8450-4a720bb5d029
-            name: ACME
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
     AppResellerOrderLightWS:
       title: orderLightWS
       type: object
@@ -244,6 +192,49 @@ components:
         totalFee: USD350.00
         editionName: Edition
         orderCartId: '4567'
+    OrderPagedReadItem:
+      allOf:
+      - $ref: '#/components/schemas/AppResellerOrderLightWS'
+      - title: OrderPagedReadItem
+        type: object
+        required:
+        - applicationName
+        - company
+        properties:
+          applicationName:
+            description: Application name
+            type: string
+          company:
+            $ref: '#/components/schemas/CompanyAssociation'
+        example:
+          id: '1234'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          applicationName: AUTO_DISCOUNTS_APP
+          editionName: Edition
+          orderCartId: '4567'
+          company:
+            id: 386626c0-53e2-4515-8450-4a720bb5d029
+            name: ACME
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
     OrderPagedReadResponse:
       type: object
       title: OrderPagedReadResponse
@@ -287,20 +278,29 @@ components:
           totalElements: 2
           totalPages: 1
           number: 1
-    CompanyAssociation:
-      title: AppResellerCompanyAssociation
+    PageMetadata:
       type: object
-      description: 'A minimum version of a company: includes only the company ID and name'
+      title: PageMetadata
       required:
-      - id
-      - name
+      - number
+      - size
+      - totalElements
+      - totalPages
       properties:
-        id:
-          description: Company ID
-          type: string
-        name:
-          description: Company name
-          type: string
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
       example:
-        id: 698555fc-bc65-4163-9fee-16308edec41b
-        name: Company A
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

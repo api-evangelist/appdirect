@@ -148,6 +148,378 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/editions/%7BeditionId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    DurationWS:
+      description: Contract duration
+      type:
+      - object
+      - 'null'
+      title: Duration
+      properties:
+        length:
+          description: Length
+          type: number
+        unit:
+          description: Duration unit
+          type:
+          - string
+          - 'null'
+      example:
+        length: 12345
+        unit: '...'
+    ProductDiscountDetailsWS:
+      description: Discount detail on a product pricing
+      type:
+      - object
+      - 'null'
+      title: ProductDiscountDetails
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        availableRedemptions:
+          description: Number of time the discount can be used
+          type: number
+        description:
+          description: Description
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          description: Expiration date of the discount
+          type: number
+        numOfBillingCycles:
+          description: Number of billing cycle the discount is applicable
+          type: number
+        percentage:
+          description: Discount in percentage
+          type: number
+        pricingUnit:
+          $ref: '#/components/schemas/PricingUnit'
+        startDate:
+          description: Start date of the discount
+          type: number
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        availableRedemptions: 12345
+        description: '...'
+        expirationDate: 12345
+        numOfBillingCycles: 12345
+        percentage: 12345
+        pricingUnit: TIER3_STANDARD_LINE
+        startDate: 12345
+    EditionCustomizationWS:
+      description: Edition customization
+      type: object
+      title: EditionCustomization
+      properties:
+        type:
+          description: Type
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        type: '...'
+        value: '...'
+    IncludedItemWS:
+      description: Included item in an edition
+      type: object
+      title: IncludedItem
+      properties:
+        amount:
+          description: Amount
+          type: number
+        unit:
+          description: Item unit
+          type:
+          - string
+          - 'null'
+        unlimited:
+          description: Is unlimited
+          type: boolean
+      example:
+        amount: 12345
+        unit: '...'
+        unlimited: true
+    PlanCostWS:
+      description: Plan cost
+      type: object
+      title: PlanCost
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        blockContractDecrease:
+          description: Block contract decrease
+          type: boolean
+        blockContractIncrease:
+          description: Block contract increase
+          type: boolean
+        blockOriginalContractDecrease:
+          description: Block original contract decrease
+          type: boolean
+        editionPricingItemId:
+          type: number
+        id:
+          description: ID
+          type: number
+        increment:
+          description: Increment amount
+          type: number
+        maxUnits:
+          description: Max unit to buy
+          type: number
+        meteredUsage:
+          description: Is metered usage
+          type: boolean
+        minUnits:
+          description: Minimum unit to buy
+          type: number
+        pricePerIncrement:
+          description: Price per increment
+          type: boolean
+        pricingStrategy:
+          description: Pricing strategy
+          type: string
+        unit:
+          description: Unit
+          type:
+          - string
+          - 'null'
+        unitDependency:
+          description: Unit dependency
+          type: string
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        blockContractDecrease: true
+        blockContractIncrease: true
+        blockOriginalContractDecrease: true
+        editionPricingItemId: 12345
+        id: 12345
+        increment: 12345
+        maxUnits: 12345
+        meteredUsage: true
+        minUnits: 12345
+        pricePerIncrement: true
+        pricingStrategy: '...'
+        unit: '...'
+        unitDependency: '...'
+    PaymentPlanWS:
+      description: Payment plan for a product edition
+      type: object
+      title: PaymentPlan
+      properties:
+        allowCustomUsage:
+          description: Custom usage allowed
+          type: boolean
+        contract:
+          $ref: '#/components/schemas/ContractWS'
+        cost:
+          description: List of plan costs
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanCostWS'
+        discount:
+          $ref: '#/components/schemas/ProductDiscountDetailsWS'
+        frequency:
+          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
+          type: string
+        href:
+          description: URL to payment plan details
+          type: string
+        id:
+          description: ID
+          type: number
+        isPrimaryPrice:
+          description: Is primary price
+          type: boolean
+        keepBillDateOnUsageChange:
+          description: Keep bill date on usage change
+          type: boolean
+        separatePrepaid:
+          description: Separate prepaid
+          type: boolean
+        tld:
+          description: If plan is part of a domain reseller product, this is the tld this plan offers
+          type: string
+        uuid:
+          description: Unique identifier
+          type:
+          - string
+          - 'null'
+      example:
+        allowCustomUsage: true
+        contract:
+          alignWithParentCycleStartDate: true
+          autoExtensionPricingId: 12345
+          blockContractDowngrades: true
+          blockContractUpgrades: true
+          blockSwitchToShorterContract: true
+          cancellationPeriodLimit: 12345
+          endOfContractGracePeriod: 12345
+          gracePeriod:
+            length: 12345
+            unit: '...'
+          minimumServiceLength: 12345
+          terminationFee:
+            description: '...'
+            flatFee: {}
+            percentageFee: 12345
+            type: '...'
+        cost:
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        - amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          blockContractDecrease: true
+          blockContractIncrease: true
+          blockOriginalContractDecrease: true
+          editionPricingItemId: 12345
+          id: 12345
+          increment: 12345
+          maxUnits: 12345
+          meteredUsage: true
+          minUnits: 12345
+          pricePerIncrement: true
+          pricingStrategy: '...'
+          unit: '...'
+          unitDependency: '...'
+        discount:
+          amount:
+            AUD: 12345
+            BRL: 12345
+            CAD: 12345
+            CHF: 12345
+            CNY: 12345
+            DKK: 12345
+            EUR: 12345
+            GBP: 12345
+            GTQ: 12345
+            INR: 12345
+            JPY: 12345
+            KRW: 12345
+            MXN: 12345
+            MYR: 12345
+            NOK: 12345
+            NZD: 12345
+            PHP: 12345
+            SAR: 12345
+            SEK: 12345
+            SGD: 12345
+            USD: 12345
+            ZAR: 12345
+          availableRedemptions: 12345
+          description: '...'
+          expirationDate: 12345
+          numOfBillingCycles: 12345
+          percentage: 12345
+          pricingUnit: INTERNATIONAL_MINUTE
+          startDate: 12345
+        frequency: '...'
+        href: '...'
+        id: 12345
+        isPrimaryPrice: true
+        keepBillDateOnUsageChange: true
+        separatePrepaid: true
+        tld: '...'
+        uuid: '...'
     ContractWS:
       description: Contract associated to a payment plan
       type: object
@@ -228,53 +600,29 @@ components:
             ZAR: 12345
           percentageFee: 12345
           type: '...'
-    EditionBulletWS:
-      description: Bullet point to display for an edition
-      type: object
-      title: EditionBullet
-      properties:
-        content:
-          description: Content
-          type: string
-        tooltip:
-          description: Tooltip
-          type: string
-      example:
-        content: '...'
-        tooltip: '...'
-    ProductDiscountDetailsWS:
-      description: Discount detail on a product pricing
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
       type:
       - object
       - 'null'
-      title: ProductDiscountDetails
+      title: TerminationFee
       properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        availableRedemptions:
-          description: Number of time the discount can be used
-          type: number
         description:
           description: Description
           type:
           - string
           - 'null'
-        expirationDate:
-          description: Expiration date of the discount
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
           type: number
-        numOfBillingCycles:
-          description: Number of billing cycle the discount is applicable
-          type: number
-        percentage:
-          description: Discount in percentage
-          type: number
-        pricingUnit:
-          $ref: '#/components/schemas/PricingUnit'
-        startDate:
-          description: Start date of the discount
-          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
       example:
-        amount:
+        description: '...'
+        flatFee:
           AUD: 12345
           BRL: 12345
           CAD: 12345
@@ -297,13 +645,8 @@ components:
           SGD: 12345
           USD: 12345
           ZAR: 12345
-        availableRedemptions: 12345
-        description: '...'
-        expirationDate: 12345
-        numOfBillingCycles: 12345
-        percentage: 12345
-        pricingUnit: TIER3_STANDARD_LINE
-        startDate: 12345
+        percentageFee: 12345
+        type: '...'
     EditionWS:
       description: Product edition
       type: object
@@ -544,180 +887,80 @@ components:
           length: 12345
           unit: '...'
         uuid: '...'
-    PaymentPlanWS:
-      description: Payment plan for a product edition
-      type: object
-      title: PaymentPlan
+    PriceWS:
+      description: Price information in different currencies
+      type:
+      - object
+      - 'null'
+      title: Price
       properties:
-        allowCustomUsage:
-          description: Custom usage allowed
-          type: boolean
-        contract:
-          $ref: '#/components/schemas/ContractWS'
-        cost:
-          description: List of plan costs
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanCostWS'
-        discount:
-          $ref: '#/components/schemas/ProductDiscountDetailsWS'
-        frequency:
-          description: 'Billing frequency: MONTHLY, QUARTERLY, SIX_MONTHS, YEARLY, TWO_YEARS, THREE_YEARS, DAILY'
-          type: string
-        href:
-          description: URL to payment plan details
-          type: string
-        id:
-          description: ID
+        AUD:
           type: number
-        isPrimaryPrice:
-          description: Is primary price
-          type: boolean
-        keepBillDateOnUsageChange:
-          description: Keep bill date on usage change
-          type: boolean
-        separatePrepaid:
-          description: Separate prepaid
-          type: boolean
-        tld:
-          description: If plan is part of a domain reseller product, this is the tld this plan offers
-          type: string
-        uuid:
-          description: Unique identifier
-          type:
-          - string
-          - 'null'
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
       example:
-        allowCustomUsage: true
-        contract:
-          alignWithParentCycleStartDate: true
-          autoExtensionPricingId: 12345
-          blockContractDowngrades: true
-          blockContractUpgrades: true
-          blockSwitchToShorterContract: true
-          cancellationPeriodLimit: 12345
-          endOfContractGracePeriod: 12345
-          gracePeriod:
-            length: 12345
-            unit: '...'
-          minimumServiceLength: 12345
-          terminationFee:
-            description: '...'
-            flatFee: {}
-            percentageFee: 12345
-            type: '...'
-        cost:
-        - amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          blockContractDecrease: true
-          blockContractIncrease: true
-          blockOriginalContractDecrease: true
-          editionPricingItemId: 12345
-          id: 12345
-          increment: 12345
-          maxUnits: 12345
-          meteredUsage: true
-          minUnits: 12345
-          pricePerIncrement: true
-          pricingStrategy: '...'
-          unit: '...'
-          unitDependency: '...'
-        - amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          blockContractDecrease: true
-          blockContractIncrease: true
-          blockOriginalContractDecrease: true
-          editionPricingItemId: 12345
-          id: 12345
-          increment: 12345
-          maxUnits: 12345
-          meteredUsage: true
-          minUnits: 12345
-          pricePerIncrement: true
-          pricingStrategy: '...'
-          unit: '...'
-          unitDependency: '...'
-        discount:
-          amount:
-            AUD: 12345
-            BRL: 12345
-            CAD: 12345
-            CHF: 12345
-            CNY: 12345
-            DKK: 12345
-            EUR: 12345
-            GBP: 12345
-            GTQ: 12345
-            INR: 12345
-            JPY: 12345
-            KRW: 12345
-            MXN: 12345
-            MYR: 12345
-            NOK: 12345
-            NZD: 12345
-            PHP: 12345
-            SAR: 12345
-            SEK: 12345
-            SGD: 12345
-            USD: 12345
-            ZAR: 12345
-          availableRedemptions: 12345
-          description: '...'
-          expirationDate: 12345
-          numOfBillingCycles: 12345
-          percentage: 12345
-          pricingUnit: INTERNATIONAL_MINUTE
-          startDate: 12345
-        frequency: '...'
-        href: '...'
-        id: 12345
-        isPrimaryPrice: true
-        keepBillDateOnUsageChange: true
-        separatePrepaid: true
-        tld: '...'
-        uuid: '...'
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
     PricingUnit:
       type: string
       title: PricingUnit
@@ -1492,260 +1735,17 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
-    PriceWS:
-      description: Price information in different currencies
-      type:
-      - object
-      - 'null'
-      title: Price
-      properties:
-        AUD:
-          type: number
-        BRL:
-          type: number
-        CAD:
-          type: number
-        CHF:
-          type: number
-        CNY:
-          type: number
-        DKK:
-          type: number
-        EUR:
-          type: number
-        GBP:
-          type: number
-        GTQ:
-          type: number
-        INR:
-          type: number
-        JPY:
-          type: number
-        KRW:
-          type: number
-        MXN:
-          type: number
-        MYR:
-          type: number
-        NOK:
-          type: number
-        NZD:
-          type: number
-        PHP:
-          type: number
-        SAR:
-          type: number
-        SEK:
-          type: number
-        SGD:
-          type: number
-        USD:
-          type: number
-        ZAR:
-          type: number
-      example:
-        AUD: 12345
-        BRL: 12345
-        CAD: 12345
-        CHF: 12345
-        CNY: 12345
-        DKK: 12345
-        EUR: 12345
-        GBP: 12345
-        GTQ: 12345
-        INR: 12345
-        JPY: 12345
-        KRW: 12345
-        MXN: 12345
-        MYR: 12345
-        NOK: 12345
-        NZD: 12345
-        PHP: 12345
-        SAR: 12345
-        SEK: 12345
-        SGD: 12345
-        USD: 12345
-        ZAR: 12345
-    PlanCostWS:
-      description: Plan cost
+    EditionBulletWS:
+      description: Bullet point to display for an edition
       type: object
-      title: PlanCost
+      title: EditionBullet
       properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        blockContractDecrease:
-          description: Block contract decrease
-          type: boolean
-        blockContractIncrease:
-          description: Block contract increase
-          type: boolean
-        blockOriginalContractDecrease:
-          description: Block original contract decrease
-          type: boolean
-        editionPricingItemId:
-          type: number
-        id:
-          description: ID
-          type: number
-        increment:
-          description: Increment amount
-          type: number
-        maxUnits:
-          description: Max unit to buy
-          type: number
-        meteredUsage:
-          description: Is metered usage
-          type: boolean
-        minUnits:
-          description: Minimum unit to buy
-          type: number
-        pricePerIncrement:
-          description: Price per increment
-          type: boolean
-        pricingStrategy:
-          description: Pricing strategy
+        content:
+          description: Content
           type: string
-        unit:
-          description: Unit
-          type:
-          - string
-          - 'null'
-        unitDependency:
-          description: Unit dependency
+        tooltip:
+          description: Tooltip
           type: string
       example:
-        amount:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        blockContractDecrease: true
-        blockContractIncrease: true
-        blockOriginalContractDecrease: true
-        editionPricingItemId: 12345
-        id: 12345
-        increment: 12345
-        maxUnits: 12345
-        meteredUsage: true
-        minUnits: 12345
-        pricePerIncrement: true
-        pricingStrategy: '...'
-        unit: '...'
-        unitDependency: '...'
-    EditionCustomizationWS:
-      description: Edition customization
-      type: object
-      title: EditionCustomization
-      properties:
-        type:
-          description: Type
-          type: string
-        value:
-          description: Value
-          type: string
-      example:
-        type: '...'
-        value: '...'
-    TerminationFeeWS:
-      description: Fee incurred during a termination of a product subscription
-      type:
-      - object
-      - 'null'
-      title: TerminationFee
-      properties:
-        description:
-          description: Description
-          type:
-          - string
-          - 'null'
-        flatFee:
-          $ref: '#/components/schemas/PriceWS'
-        percentageFee:
-          description: Percentage fee
-          type: number
-        type:
-          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
-          type: string
-      example:
-        description: '...'
-        flatFee:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        percentageFee: 12345
-        type: '...'
-    DurationWS:
-      description: Contract duration
-      type:
-      - object
-      - 'null'
-      title: Duration
-      properties:
-        length:
-          description: Length
-          type: number
-        unit:
-          description: Duration unit
-          type:
-          - string
-          - 'null'
-      example:
-        length: 12345
-        unit: '...'
-    IncludedItemWS:
-      description: Included item in an edition
-      type: object
-      title: IncludedItem
-      properties:
-        amount:
-          description: Amount
-          type: number
-        unit:
-          description: Item unit
-          type:
-          - string
-          - 'null'
-        unlimited:
-          description: Is unlimited
-          type: boolean
-      example:
-        amount: 12345
-        unit: '...'
-        unlimited: true
+        content: '...'
+        tooltip: '...'
