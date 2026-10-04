@@ -184,15 +184,12 @@ components:
           - 'null'
         email:
           type: string
-    GroupDetail:
-      allOf:
-      - $ref: '#/components/schemas/GroupSummary'
-      - type: object
-        properties:
-          users:
-            type: array
-            items:
-              $ref: '#/components/schemas/GroupUser'
+    GroupAvailability:
+      type: string
+      enum:
+      - EVERYONE
+      - RESTRICTED
+      description: Availability status of the group.
     GroupSummary:
       type: object
       properties:
@@ -212,12 +209,15 @@ components:
           type: string
         availability:
           $ref: '#/components/schemas/GroupAvailability'
-    GroupAvailability:
-      type: string
-      enum:
-      - EVERYONE
-      - RESTRICTED
-      description: Availability status of the group.
+    GroupDetail:
+      allOf:
+      - $ref: '#/components/schemas/GroupSummary'
+      - type: object
+        properties:
+          users:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupUser'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

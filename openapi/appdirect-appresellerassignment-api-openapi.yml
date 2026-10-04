@@ -193,6 +193,121 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptionAssignments/%7BsubscriptionAssignmentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
+    SubscriptionAssociationConflictResponse:
+      type: object
+      title: SubscriptionAssociationConflictResponse
+      required:
+      - status
+      - code
+      properties:
+        status:
+          description: HTTP status
+          type: number
+        code:
+          $ref: '#/components/schemas/IllegalSubscriptionAssociationTypes'
+        message:
+          description: Code description
+          type: string
+      example:
+        status: 409
+        code: ASSIGNMENT_ALREADY_EXISTS
+        message: Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa
+    UserEntitlementStatus:
+      type: string
+      title: UserEntitlementStatus
+      enum:
+      - PENDING_REQUIRED_DATA
+      - PENDING_SEAT_AVAILABILITY
+      - PENDING_USER_ACTIVATION
+      - PENDING_REMOTE_CREATION
+      - SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED
+      - SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT
+      - SUBSCRIPTION_SUSPENDED_PAY_INVOICE
+      - SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION
+      - FAILED
+      - ACTIVE
+      - PENDING_REMOTE_CANCELLATION
+      - CANCELLED
+    AppResellerSubscriptionAssignmentRequestWS:
+      type: object
+      title: AppResellerSubscriptionAssignmentRequestWS
+      description: Request to assign a product to a user
+      required:
+      - userId
+      - subscriptionId
+      properties:
+        userId:
+          description: ID of the user to whom the product will be assigned
+          type: string
+        subscriptionId:
+          description: ID of the product subscription to assign to the user
+          type: string
+      example:
+        userId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+    IllegalSubscriptionAssociationTypes:
+      type: string
+      description: Invalid subscription association types
+      title: IllegalSubscriptionAssociationTypes
+      enum:
+      - STATUS_CONFLICT
+      - ASSIGNMENT_ALREADY_EXISTS
+      - ASSIGNMENT_PENDING
+    AppResellerSubscriptionAssignmentWS:
+      type: object
+      title: AppResellerSubscriptionAssignment
+      description: Assignment of a product to a user
+      required:
+      - id
+      - status
+      - createdOn
+      - user
+      - subscriptionId
+      properties:
+        id:
+          description: Assignment ID
+          type: string
+        status:
+          $ref: '#/components/schemas/UserEntitlementStatus'
+        createdOn:
+          description: Assignment creation date, in timestamp format
+          type: number
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        subscriptionId:
+          description: ID of the subscription assigned to the user
+          type: string
+      example:
+        id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
+        status: ACTIVE
+        createdOn: 1529083173000
+        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
+        user:
+          id: 386626c0-53e2-4515-8450-4a720bb5d029
+          firstName: Michael
+          lastName: Jordan
     AppResellerSubscriptionAssignmentList:
       type: object
       title: AppResellerSubscriptionAssignmentList
@@ -231,121 +346,6 @@ components:
           totalElements: 2
           totalPages: 1
           number: 1
-    UserAssociation:
-      title: AppResellerUserAssociation
-      type: object
-      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
-      required:
-      - id
-      - firstName
-      - lastName
-      properties:
-        id:
-          description: User ID
-          type: string
-        firstName:
-          description: User first name
-          type: string
-        lastName:
-          description: User last name
-          type: string
-      example:
-        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-        firstName: Michael
-        lastName: Jordan
-    AppResellerSubscriptionAssignmentRequestWS:
-      type: object
-      title: AppResellerSubscriptionAssignmentRequestWS
-      description: Request to assign a product to a user
-      required:
-      - userId
-      - subscriptionId
-      properties:
-        userId:
-          description: ID of the user to whom the product will be assigned
-          type: string
-        subscriptionId:
-          description: ID of the product subscription to assign to the user
-          type: string
-      example:
-        userId: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
-    AppResellerSubscriptionAssignmentWS:
-      type: object
-      title: AppResellerSubscriptionAssignment
-      description: Assignment of a product to a user
-      required:
-      - id
-      - status
-      - createdOn
-      - user
-      - subscriptionId
-      properties:
-        id:
-          description: Assignment ID
-          type: string
-        status:
-          $ref: '#/components/schemas/UserEntitlementStatus'
-        createdOn:
-          description: Assignment creation date, in timestamp format
-          type: number
-        user:
-          $ref: '#/components/schemas/UserAssociation'
-        subscriptionId:
-          description: ID of the subscription assigned to the user
-          type: string
-      example:
-        id: 63bf81c2-8e01-48b7-a8b1-46a0efa0e823
-        status: ACTIVE
-        createdOn: 1529083173000
-        subscriptionId: 386626c0-53e2-4515-8450-4a720bb5d029
-        user:
-          id: 386626c0-53e2-4515-8450-4a720bb5d029
-          firstName: Michael
-          lastName: Jordan
-    IllegalSubscriptionAssociationTypes:
-      type: string
-      description: Invalid subscription association types
-      title: IllegalSubscriptionAssociationTypes
-      enum:
-      - STATUS_CONFLICT
-      - ASSIGNMENT_ALREADY_EXISTS
-      - ASSIGNMENT_PENDING
-    SubscriptionAssociationConflictResponse:
-      type: object
-      title: SubscriptionAssociationConflictResponse
-      required:
-      - status
-      - code
-      properties:
-        status:
-          description: HTTP status
-          type: number
-        code:
-          $ref: '#/components/schemas/IllegalSubscriptionAssociationTypes'
-        message:
-          description: Code description
-          type: string
-      example:
-        status: 409
-        code: ASSIGNMENT_ALREADY_EXISTS
-        message: Seat already assigned with status ACTIVE and ID = 00aaa0a0-0000-00aa-0a00-000a000aa0aa
-    UserEntitlementStatus:
-      type: string
-      title: UserEntitlementStatus
-      enum:
-      - PENDING_REQUIRED_DATA
-      - PENDING_SEAT_AVAILABILITY
-      - PENDING_USER_ACTIVATION
-      - PENDING_REMOTE_CREATION
-      - SUBSCRIPTION_SUSPENDED_FREE_TRIAL_EXPIRED
-      - SUBSCRIPTION_SUSPENDED_RENEW_CONTRACT
-      - SUBSCRIPTION_SUSPENDED_PAY_INVOICE
-      - SUBSCRIPTION_SUSPENDED_MANUAL_SUSPENSION
-      - FAILED
-      - ACTIVE
-      - PENDING_REMOTE_CANCELLATION
-      - CANCELLED
     PageMetadata:
       type: object
       title: PageMetadata

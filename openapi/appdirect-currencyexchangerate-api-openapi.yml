@@ -276,78 +276,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"active\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/exchangeRates/%7BcurrencyExchangeRateUuid%7D\")\n  .patch(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    CurrencyExchangeRateRequest:
-      type: object
-      title: CurrencyExchangeRateRequest
-      required:
-      - baseCurrency
-      - counterCurrency
-      - rate
-      properties:
-        baseCurrency:
-          $ref: '#/components/schemas/Currency'
-        counterCurrency:
-          $ref: '#/components/schemas/Currency'
-        rate:
-          description: 'A currency pair is the quotation and pricing structure of the currencies traded in a forex market. A Currency Pair is represented as XXX/YYY where XXX is the Base currency and YYY is the Counter currency.
-
-
-            In AppDirect the Base currency is an external currency and the Counter currency is a supported currency in your marketplace.
-
-
-            When an exchange rate is provided with a Currency Pair, it represents how much of the Counter currency is required to purchase 1 unit of the Base currency.
-
-            EUR/USD=1.18; EUR is the Base currency and USD is the counter currency.
-
-            1 EUR is equal to 1.18 USD.
-
-            In order to buy 1 EUR, the buyer must pay 1.18 USD.'
-          type: number
-      example:
-        baseCurrency: USD
-        counterCurrency: CAD
-        rate: 0.5
-    CurrencyExchangeRateListContent:
-      type: object
-      title: Content
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/CurrencyExchangeRateResponse'
-      example:
-        content:
-        - baseCurrency:
-            href: '...'
-            id: '...'
-          counterCurrency:
-            href: '...'
-            id: '...'
-          rate: 0.5
-          validFrom: 1507077229000
-          active: true
-          authenticationType: USER_LOGIN
-          oauthKey: '...'
-          userId: 12345
-          currencyExchangeRateUuid: '...'
-    ResourceSupport:
-      type:
-      - object
-      - 'null'
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
     CurrencyExchangeRateResponseList:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -382,6 +310,108 @@ components:
             rel: '...'
           - href: '...'
             rel: '...'
+    CurrencyExchangeRateListContent:
+      type: object
+      title: Content
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyExchangeRateResponse'
+      example:
+        content:
+        - baseCurrency:
+            href: '...'
+            id: '...'
+          counterCurrency:
+            href: '...'
+            id: '...'
+          rate: 0.5
+          validFrom: 1507077229000
+          active: true
+          authenticationType: USER_LOGIN
+          oauthKey: '...'
+          userId: 12345
+          currencyExchangeRateUuid: '...'
+    PagedResource:
+      type: object
+      title: Page
+      properties:
+        totalPages:
+          type: number
+        number:
+          type: number
+        size:
+          type: number
+        totalElements:
+          type: number
+      example:
+        totalPages: '50'
+        number: '0'
+        size: '20'
+        totalElements: '220'
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+    CurrencyExchangeRateRequest:
+      type: object
+      title: CurrencyExchangeRateRequest
+      required:
+      - baseCurrency
+      - counterCurrency
+      - rate
+      properties:
+        baseCurrency:
+          $ref: '#/components/schemas/Currency'
+        counterCurrency:
+          $ref: '#/components/schemas/Currency'
+        rate:
+          description: 'A currency pair is the quotation and pricing structure of the currencies traded in a forex market. A Currency Pair is represented as XXX/YYY where XXX is the Base currency and YYY is the Counter currency.
+
+
+            In AppDirect the Base currency is an external currency and the Counter currency is a supported currency in your marketplace.
+
+
+            When an exchange rate is provided with a Currency Pair, it represents how much of the Counter currency is required to purchase 1 unit of the Base currency.
+
+            EUR/USD=1.18; EUR is the Base currency and USD is the counter currency.
+
+            1 EUR is equal to 1.18 USD.
+
+            In order to buy 1 EUR, the buyer must pay 1.18 USD.'
+          type: number
+      example:
+        baseCurrency: USD
+        counterCurrency: CAD
+        rate: 0.5
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
     Currency:
       description: Supported currencies for the system
       type: string
@@ -469,36 +499,6 @@ components:
         oauthKey: '...'
         userId: 12345
         currencyExchangeRateUuid: '...'
-    PagedResource:
-      type: object
-      title: Page
-      properties:
-        totalPages:
-          type: number
-        number:
-          type: number
-        size:
-          type: number
-        totalElements:
-          type: number
-      example:
-        totalPages: '50'
-        number: '0'
-        size: '20'
-        totalElements: '220'
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
     CurrencyExchangeRateActive:
       properties:
         active:

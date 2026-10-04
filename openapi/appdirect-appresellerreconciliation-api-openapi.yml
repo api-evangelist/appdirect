@@ -247,85 +247,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reseller/v1/reconciliation/transfers/%7BtransferId%7D/details?number=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      description: Error details
-      properties:
-        status:
-          type: integer
-          description: Original HTTP error code, which should be consistent with the response HTTP code
-          minimum: 100
-          maximum: 599
-        code:
-          type: string
-          description: The error code, in screaming snake case, for example VALIDATION_ERROR
-          pattern: ^[A-Z]+(_[A-Z]+)*$
-        message:
-          type: string
-          description: Descriptive error message for debugging
-        moreInfo:
-          type: string
-          format: uri
-          description: Link to documentation for more information
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorPaymentDetail'
-      required:
-      - status
-      - code
-      example:
-        status: 400
-        code: VALIDATION_ERROR
-        message: Missing required parameters
-    TransferList:
-      type: object
-      title: TransferList
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transfer'
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-      example:
-        content:
-        - id: 7b55beda-4878-4ac9-8e65-2b84d889b705
-          transferRequestId: 4
-          transferId: 4
-          status: COMPLETE
-          currency: USD
-          accountReceivable: 95.99
-          accountPayable: 0
-          netReceivable: 95.99
-          netPayable: 0
-          transferDate: 145234540
-        - id: bee32a9b-048c-402d-9b87-f27ff1ffaa52
-          transferRequestId: 4
-          transferId: 4
-          status: COMPLETE
-          currency: USD
-          accountReceivable: 95.99
-          accountPayable: 0
-          netReceivable: 95.99
-          netPayable: 0
-          transferDate: 145234540
-        - id: cc7c58f8-343a-4f3c-8ade-d1b6342190ca
-          transferRequestId: 3
-          transferId: 3
-          status: RECONCILED
-          currency: USD
-          accountReceivable: 95.99
-          accountPayable: 0
-          netReceivable: 95.99
-          netPayable: 0
-          transferDate: 145234540
-        page:
-          size: 3
-          number: 1
-          totalElements: 3
-          totalPages: 1
     Transfer:
       type: object
       title: Transfer
@@ -428,6 +349,85 @@ components:
       example:
         code: INVALID_REQUEST
         message: Missing parameter
+    TransferList:
+      type: object
+      title: TransferList
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transfer'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+      example:
+        content:
+        - id: 7b55beda-4878-4ac9-8e65-2b84d889b705
+          transferRequestId: 4
+          transferId: 4
+          status: COMPLETE
+          currency: USD
+          accountReceivable: 95.99
+          accountPayable: 0
+          netReceivable: 95.99
+          netPayable: 0
+          transferDate: 145234540
+        - id: bee32a9b-048c-402d-9b87-f27ff1ffaa52
+          transferRequestId: 4
+          transferId: 4
+          status: COMPLETE
+          currency: USD
+          accountReceivable: 95.99
+          accountPayable: 0
+          netReceivable: 95.99
+          netPayable: 0
+          transferDate: 145234540
+        - id: cc7c58f8-343a-4f3c-8ade-d1b6342190ca
+          transferRequestId: 3
+          transferId: 3
+          status: RECONCILED
+          currency: USD
+          accountReceivable: 95.99
+          accountPayable: 0
+          netReceivable: 95.99
+          netPayable: 0
+          transferDate: 145234540
+        page:
+          size: 3
+          number: 1
+          totalElements: 3
+          totalPages: 1
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      description: Error details
+      properties:
+        status:
+          type: integer
+          description: Original HTTP error code, which should be consistent with the response HTTP code
+          minimum: 100
+          maximum: 599
+        code:
+          type: string
+          description: The error code, in screaming snake case, for example VALIDATION_ERROR
+          pattern: ^[A-Z]+(_[A-Z]+)*$
+        message:
+          type: string
+          description: Descriptive error message for debugging
+        moreInfo:
+          type: string
+          format: uri
+          description: Link to documentation for more information
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorPaymentDetail'
+      required:
+      - status
+      - code
+      example:
+        status: 400
+        code: VALIDATION_ERROR
+        message: Missing required parameters
     TransferDetails:
       type: object
       title: TransferDetails

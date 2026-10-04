@@ -64,6 +64,24 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/navigator?pl=SOME_ARRAY_VALUE&locale=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    AttributeWS:
+      description: Traits that the products share in common, such as the product type, the supported operating system or how your marketplace promotes them.
+      type: object
+      title: Attribute
+      properties:
+        id:
+          description: Id
+          type: number
+        name:
+          description: The name
+          type: string
+        numTaggedProducts:
+          description: The number of products that use this attribute
+          type: number
+      example:
+        id: 12345
+        name: '...'
+        numTaggedProducts: 12345
     AttributeGroupWS:
       description: Group of product attributes
       type: object
@@ -98,6 +116,141 @@ components:
         name: '...'
         showOnNavigation: true
         vendorTaggable: true
+    PlatformAttributeOptionWS:
+      type: object
+      title: PlatformAttributeOption
+      properties:
+        createdOn:
+          type: number
+        label:
+          type: string
+        lastModified:
+          type: number
+        order:
+          type: number
+        uuid:
+          type: string
+        value:
+          type: string
+      example:
+        createdOn: 12345
+        label: '...'
+        lastModified: 12345
+        order: 12345
+        uuid: '...'
+        value: '...'
+    PlatformWS:
+      type: object
+      title: Platform
+      required:
+      - iconUrl
+      - description
+      - name
+      - isVersionSupported
+      properties:
+        attributeDefinition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeDefinitionWS'
+        createdOn:
+          type: number
+        description:
+          type:
+          - string
+          - 'null'
+        iconUrl:
+          type:
+          - string
+          - 'null'
+        isVersionSupported:
+          type: boolean
+        lastModified:
+          type: number
+        name:
+          type: string
+        numTaggedProducts:
+          type: number
+        uuid:
+          type: string
+      example:
+        attributeDefinition:
+        - createdOn: 12345
+          hint: '...'
+          isRequired: true
+          key: '...'
+          label: '...'
+          lastModified: 12345
+          option:
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          order: 12345
+          type: '...'
+          uuid: '...'
+        - createdOn: 12345
+          hint: '...'
+          isRequired: true
+          key: '...'
+          label: '...'
+          lastModified: 12345
+          option:
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          - createdOn: 12345
+            label: '...'
+            lastModified: 12345
+            order: 12345
+            uuid: '...'
+            value: '...'
+          order: 12345
+          type: '...'
+          uuid: '...'
+        createdOn: 12345
+        description: '...'
+        iconUrl: '...'
+        isVersionSupported: true
+        lastModified: 12345
+        name: '...'
+        numTaggedProducts: 12345
+        uuid: '...'
+    CustomerTagWS:
+      description: Customer tag
+      type: object
+      title: CustomerTag
+      properties:
+        id:
+          description: ID
+          type: number
+        name:
+          description: Name
+          type: string
+        numTaggedProducts:
+          description: Number of product tagged by this customer tag
+          type: number
+      example:
+        id: 12345
+        name: '...'
+        numTaggedProducts: 12345
+    CategorySortOrderType:
+      description: Category sort order types
+      type: string
+      title: CategorySortOrderType
+      enum:
+      - MANUAL
+      - NONE
     CategoryWS:
       description: Product tag that collect products together according to their general purpose
       type: object
@@ -128,29 +281,126 @@ components:
         - id: 12345
           name: '...'
           numTaggedProducts: 12345
-    PlatformAttributeOptionWS:
+    SubCategoryWS:
+      description: Subcategory linked to a parent category
       type: object
-      title: PlatformAttributeOption
+      title: SubCategory
+      properties:
+        id:
+          description: The id
+          type: number
+        name:
+          description: The name
+          type: string
+        numTaggedProducts:
+          description: The number of products that belong to this sub category
+          type: number
+      example:
+        id: 12345
+        name: '...'
+        numTaggedProducts: 12345
+    PlatformAttributeDefinitionWS:
+      type: object
+      title: PlatformAttributeDefinition
+      required:
+      - type
+      - label
+      - isRequired
+      - key
+      - order
+      - hint
       properties:
         createdOn:
           type: number
+        hint:
+          type: string
+        isRequired:
+          type: boolean
+        key:
+          type: string
         label:
           type: string
         lastModified:
           type: number
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformAttributeOptionWS'
         order:
           type: number
-        uuid:
+        type:
           type: string
-        value:
+        uuid:
           type: string
       example:
         createdOn: 12345
+        hint: '...'
+        isRequired: true
+        key: '...'
         label: '...'
         lastModified: 12345
+        option:
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
+        - createdOn: 12345
+          label: '...'
+          lastModified: 12345
+          order: 12345
+          uuid: '...'
+          value: '...'
         order: 12345
+        type: '...'
         uuid: '...'
-        value: '...'
+    VendorCompany:
+      type: object
+      title: VendorCompany
+      required:
+      - name
+      - uuid
+      properties:
+        name:
+          type: string
+          description: The name of the vendor company
+        uuid:
+          type: string
+          description: The unique identifier of the vendor company
+      example:
+        name: Sample Vendor
+        uuid: 3ea46469-36a7-4216-966b-5f0c61c72faa
+    CustomerTagGroupWS:
+      description: Customer tag group
+      type: object
+      title: CustomerTagGroup
+      properties:
+        customerTags:
+          description: List of customer tags
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTagWS'
+        hideOnNavigation:
+          description: Flag to indicate if this customer tag group should be visible in the navigation
+          type: boolean
+        id:
+          description: ID
+          type: number
+        name:
+          description: The customer tag group name
+          type: string
+      example:
+        customerTags:
+        - id: 12345
+          name: '...'
+          numTaggedProducts: 12345
+        - id: 12345
+          name: '...'
+          numTaggedProducts: 12345
+        hideOnNavigation: true
+        id: 12345
+        name: '...'
     NavigatorWS:
       description: Defines possible product tags that can be used to filter applications during a search
       type: object
@@ -322,253 +572,3 @@ components:
           uuid: '...'
         - name: '...'
           uuid: '...'
-    SubCategoryWS:
-      description: Subcategory linked to a parent category
-      type: object
-      title: SubCategory
-      properties:
-        id:
-          description: The id
-          type: number
-        name:
-          description: The name
-          type: string
-        numTaggedProducts:
-          description: The number of products that belong to this sub category
-          type: number
-      example:
-        id: 12345
-        name: '...'
-        numTaggedProducts: 12345
-    AttributeWS:
-      description: Traits that the products share in common, such as the product type, the supported operating system or how your marketplace promotes them.
-      type: object
-      title: Attribute
-      properties:
-        id:
-          description: Id
-          type: number
-        name:
-          description: The name
-          type: string
-        numTaggedProducts:
-          description: The number of products that use this attribute
-          type: number
-      example:
-        id: 12345
-        name: '...'
-        numTaggedProducts: 12345
-    CategorySortOrderType:
-      description: Category sort order types
-      type: string
-      title: CategorySortOrderType
-      enum:
-      - MANUAL
-      - NONE
-    PlatformAttributeDefinitionWS:
-      type: object
-      title: PlatformAttributeDefinition
-      required:
-      - type
-      - label
-      - isRequired
-      - key
-      - order
-      - hint
-      properties:
-        createdOn:
-          type: number
-        hint:
-          type: string
-        isRequired:
-          type: boolean
-        key:
-          type: string
-        label:
-          type: string
-        lastModified:
-          type: number
-        option:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlatformAttributeOptionWS'
-        order:
-          type: number
-        type:
-          type: string
-        uuid:
-          type: string
-      example:
-        createdOn: 12345
-        hint: '...'
-        isRequired: true
-        key: '...'
-        label: '...'
-        lastModified: 12345
-        option:
-        - createdOn: 12345
-          label: '...'
-          lastModified: 12345
-          order: 12345
-          uuid: '...'
-          value: '...'
-        - createdOn: 12345
-          label: '...'
-          lastModified: 12345
-          order: 12345
-          uuid: '...'
-          value: '...'
-        order: 12345
-        type: '...'
-        uuid: '...'
-    VendorCompany:
-      type: object
-      title: VendorCompany
-      required:
-      - name
-      - uuid
-      properties:
-        name:
-          type: string
-          description: The name of the vendor company
-        uuid:
-          type: string
-          description: The unique identifier of the vendor company
-      example:
-        name: Sample Vendor
-        uuid: 3ea46469-36a7-4216-966b-5f0c61c72faa
-    PlatformWS:
-      type: object
-      title: Platform
-      required:
-      - iconUrl
-      - description
-      - name
-      - isVersionSupported
-      properties:
-        attributeDefinition:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlatformAttributeDefinitionWS'
-        createdOn:
-          type: number
-        description:
-          type:
-          - string
-          - 'null'
-        iconUrl:
-          type:
-          - string
-          - 'null'
-        isVersionSupported:
-          type: boolean
-        lastModified:
-          type: number
-        name:
-          type: string
-        numTaggedProducts:
-          type: number
-        uuid:
-          type: string
-      example:
-        attributeDefinition:
-        - createdOn: 12345
-          hint: '...'
-          isRequired: true
-          key: '...'
-          label: '...'
-          lastModified: 12345
-          option:
-          - createdOn: 12345
-            label: '...'
-            lastModified: 12345
-            order: 12345
-            uuid: '...'
-            value: '...'
-          - createdOn: 12345
-            label: '...'
-            lastModified: 12345
-            order: 12345
-            uuid: '...'
-            value: '...'
-          order: 12345
-          type: '...'
-          uuid: '...'
-        - createdOn: 12345
-          hint: '...'
-          isRequired: true
-          key: '...'
-          label: '...'
-          lastModified: 12345
-          option:
-          - createdOn: 12345
-            label: '...'
-            lastModified: 12345
-            order: 12345
-            uuid: '...'
-            value: '...'
-          - createdOn: 12345
-            label: '...'
-            lastModified: 12345
-            order: 12345
-            uuid: '...'
-            value: '...'
-          order: 12345
-          type: '...'
-          uuid: '...'
-        createdOn: 12345
-        description: '...'
-        iconUrl: '...'
-        isVersionSupported: true
-        lastModified: 12345
-        name: '...'
-        numTaggedProducts: 12345
-        uuid: '...'
-    CustomerTagGroupWS:
-      description: Customer tag group
-      type: object
-      title: CustomerTagGroup
-      properties:
-        customerTags:
-          description: List of customer tags
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerTagWS'
-        hideOnNavigation:
-          description: Flag to indicate if this customer tag group should be visible in the navigation
-          type: boolean
-        id:
-          description: ID
-          type: number
-        name:
-          description: The customer tag group name
-          type: string
-      example:
-        customerTags:
-        - id: 12345
-          name: '...'
-          numTaggedProducts: 12345
-        - id: 12345
-          name: '...'
-          numTaggedProducts: 12345
-        hideOnNavigation: true
-        id: 12345
-        name: '...'
-    CustomerTagWS:
-      description: Customer tag
-      type: object
-      title: CustomerTag
-      properties:
-        id:
-          description: ID
-          type: number
-        name:
-          description: Name
-          type: string
-        numTaggedProducts:
-          description: Number of product tagged by this customer tag
-          type: number
-      example:
-        id: 12345
-        name: '...'
-        numTaggedProducts: 12345

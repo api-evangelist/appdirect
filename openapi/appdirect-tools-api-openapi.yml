@@ -943,25 +943,101 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    UpdateMcpServerToolRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        orgToolTemplateId:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+        allTools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPTool'
+        selectedTools:
+          type: array
+          items:
+            type: string
+      required:
+      - name
+    CreateSQLToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - SQL
+        databaseType:
+          $ref: '#/components/schemas/SQLToolDatabaseType'
+        username:
+          type: string
+        password:
+          type: string
+        host:
+          type: string
+        database:
+          type: string
+        port:
+          type: integer
+      required:
+      - type
+      - databaseType
+      - username
+      - password
+      - host
+      - database
+      - port
+    ToolAuthInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        scope:
+          type: string
+        expiresIn:
+          type: integer
+        issuedAt:
+          type: string
+          format: date-time
+    UpdateSpreadsheetToolRequest:
+      type: object
+      properties:
+        model:
+          type: string
+      required:
+      - model
+    CreateWebSearchToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - WEB_SEARCH
+        modelId:
+          type: string
+      required:
+      - type
     ApiKeyAuthType:
       type: string
       enum:
       - BASIC
       - BEARER
       - CUSTOM
-    OAuthInitiateResponse:
+    CreateUserInputToolRequest:
       type: object
       properties:
-        authUrl:
+        type:
           type: string
-      required:
-      - authUrl
-    UpdateImageGenerationToolRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateImageGenerationToolRequest'
-    UpdateUserInputToolRequest:
-      type: object
-      properties:
+          enum:
+          - USER_INPUT
         textInput:
           type: boolean
         selectInput:
@@ -973,11 +1049,69 @@ components:
         addressInput:
           type: boolean
       required:
+      - type
       - textInput
       - selectInput
       - multiSelectInput
       - confirmInput
       - addressInput
+    UpdateApiToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateApiToolRequest'
+    SQLToolDatabaseType:
+      type: string
+      enum:
+      - MYSQL
+    ToolType:
+      type: string
+      enum:
+      - API_FUNCTION
+      - SQL
+      - PYTHON
+      - USER_INPUT
+      - KNOWLEDGE_RETRIEVAL
+      - WEB_SEARCH
+      - MCP_SERVER
+      - IMAGE_GENERATION
+      - USER_CONTEXT
+      - SPREADSHEET
+      - BROWSER
+      - SANDBOX
+      - OPENAI_FUNCTION
+    PreviewMcpServerToolRequest:
+      type: object
+      properties:
+        url:
+          type: string
+        orgToolTemplateId:
+          type: string
+        toolTemplateId:
+          type: string
+        toolId:
+          type: string
+        authenticationType:
+          $ref: '#/components/schemas/AuthenticationType'
+        authenticationData:
+          oneOf:
+          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
+          - $ref: '#/components/schemas/OAuthAuthenticationData'
+    OAuthInitiateResponse:
+      type: object
+      properties:
+        authUrl:
+          type: string
+      required:
+      - authUrl
+    CustomHeader:
+      type: object
+      properties:
+        header:
+          type: string
+        value:
+          type: string
+      required:
+      - header
+      - value
     CreateMcpServerToolRequest:
       type: object
       properties:
@@ -1008,9 +1142,65 @@ components:
       required:
       - type
       - name
-    UpdateApiToolRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateApiToolRequest'
+    CreateSpreadsheetToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - SPREADSHEET
+        model:
+          type: string
+      required:
+      - type
+      - model
+    ToolOAuthStatus:
+      type: object
+      properties:
+        hasToken:
+          type: boolean
+        scopes:
+          type: string
+    UpdateWebSearchToolRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - WEB_SEARCH
+        modelId:
+          type: string
+      required:
+      - type
+    ApiCompressionConfiguration:
+      type: object
+      properties:
+        compressionModel:
+          type: string
+        compressionThreshold:
+          type: integer
+        compressionChunkSize:
+          type: integer
+    ApiKeyAuthenticationData:
+      type: object
+      properties:
+        apiKey:
+          type: string
+        apiKeyAuthType:
+          $ref: '#/components/schemas/ApiKeyAuthType'
+        customHeader:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomHeader'
+    MCPTool:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
     CreateApiToolRequest:
       type: object
       properties:
@@ -1033,13 +1223,39 @@ components:
       - schema
       - authenticationType
       - compressionEnabled
-    CreateUserInputToolRequest:
+    ToolListResponse:
       type: object
       properties:
-        type:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+    CreateImageGenerationToolRequest:
+      type: object
+      properties:
+        modelId:
           type: string
-          enum:
-          - USER_INPUT
+        samples:
+          type: integer
+        size:
+          type: string
+        aspectRatio:
+          type: string
+        quality:
+          type: string
+        style:
+          type: string
+      required:
+      - modelId
+    AuthenticationType:
+      type: string
+      enum:
+      - NONE
+      - API_KEY
+      - OAUTH
+    UpdateUserInputToolRequest:
+      type: object
+      properties:
         textInput:
           type: boolean
         selectInput:
@@ -1051,64 +1267,11 @@ components:
         addressInput:
           type: boolean
       required:
-      - type
       - textInput
       - selectInput
       - multiSelectInput
       - confirmInput
       - addressInput
-    ApiKeyAuthenticationData:
-      type: object
-      properties:
-        apiKey:
-          type: string
-        apiKeyAuthType:
-          $ref: '#/components/schemas/ApiKeyAuthType'
-        customHeader:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomHeader'
-    PreviewMcpServerToolRequest:
-      type: object
-      properties:
-        url:
-          type: string
-        orgToolTemplateId:
-          type: string
-        toolTemplateId:
-          type: string
-        toolId:
-          type: string
-        authenticationType:
-          $ref: '#/components/schemas/AuthenticationType'
-        authenticationData:
-          oneOf:
-          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
-          - $ref: '#/components/schemas/OAuthAuthenticationData'
-    ToolAuthInfo:
-      type: object
-      properties:
-        name:
-          type: string
-        scope:
-          type: string
-        expiresIn:
-          type: integer
-        issuedAt:
-          type: string
-          format: date-time
-    UpdateKnowledgeRetrievalToolRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateKnowledgeRetrievalToolRequest'
-    ApiCompressionConfiguration:
-      type: object
-      properties:
-        compressionModel:
-          type: string
-        compressionThreshold:
-          type: integer
-        compressionChunkSize:
-          type: integer
     OAuthAuthenticationData:
       type: object
       properties:
@@ -1130,131 +1293,14 @@ components:
       - tokenUrl
       - scopes
       - tokenExchangeMethod
-    SQLToolDatabaseType:
-      type: string
-      enum:
-      - MYSQL
-    CreateSQLToolRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - SQL
-        databaseType:
-          $ref: '#/components/schemas/SQLToolDatabaseType'
-        username:
-          type: string
-        password:
-          type: string
-        host:
-          type: string
-        database:
-          type: string
-        port:
-          type: integer
-      required:
-      - type
-      - databaseType
-      - username
-      - password
-      - host
-      - database
-      - port
-    CustomHeader:
-      type: object
-      properties:
-        header:
-          type: string
-        value:
-          type: string
-      required:
-      - header
-      - value
-    UpdateSQLToolRequest:
-      type: object
-      properties:
-        databaseType:
-          $ref: '#/components/schemas/SQLToolDatabaseType'
-        username:
-          type: string
-        password:
-          type: string
-        host:
-          type: string
-        database:
-          type: string
-        port:
-          type: integer
-      required:
-      - databaseType
-      - username
-      - password
-      - host
-      - database
-      - port
-    MCPTool:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        schema:
-          type: string
-    ToolType:
-      type: string
-      enum:
-      - API_FUNCTION
-      - SQL
-      - PYTHON
-      - USER_INPUT
-      - KNOWLEDGE_RETRIEVAL
-      - WEB_SEARCH
-      - MCP_SERVER
-      - IMAGE_GENERATION
-      - USER_CONTEXT
-      - SPREADSHEET
-      - BROWSER
-      - SANDBOX
-      - OPENAI_FUNCTION
-    ToolOAuthStatus:
-      type: object
-      properties:
-        hasToken:
-          type: boolean
-        scopes:
-          type: string
-    UpdateSpreadsheetToolRequest:
-      type: object
-      properties:
-        model:
-          type: string
-      required:
-      - model
-    UpdateWebSearchToolRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - WEB_SEARCH
-        modelId:
-          type: string
-      required:
-      - type
-    ToolListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tool'
     OAuthTokenExchangeMethod:
       type: string
       enum:
       - POST
       - AUTHORIZATION_HEADER
+    UpdateImageGenerationToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateImageGenerationToolRequest'
     CreateKnowledgeRetrievalToolRequest:
       type: object
       properties:
@@ -1289,29 +1335,31 @@ components:
       - grade
       - compress
       - minRelevanceScore
-    CreateSpreadsheetToolRequest:
+    UpdateSQLToolRequest:
       type: object
       properties:
-        type:
+        databaseType:
+          $ref: '#/components/schemas/SQLToolDatabaseType'
+        username:
           type: string
-          enum:
-          - SPREADSHEET
-        model:
+        password:
           type: string
+        host:
+          type: string
+        database:
+          type: string
+        port:
+          type: integer
       required:
-      - type
-      - model
-    CreateWebSearchToolRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - WEB_SEARCH
-        modelId:
-          type: string
-      required:
-      - type
+      - databaseType
+      - username
+      - password
+      - host
+      - database
+      - port
+    UpdateKnowledgeRetrievalToolRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateKnowledgeRetrievalToolRequest'
     PreviewMcpServerToolResponse:
       type: object
       properties:
@@ -1325,29 +1373,6 @@ components:
           type: object
         requiresToolSave:
           type: boolean
-    CreateImageGenerationToolRequest:
-      type: object
-      properties:
-        modelId:
-          type: string
-        samples:
-          type: integer
-        size:
-          type: string
-        aspectRatio:
-          type: string
-        quality:
-          type: string
-        style:
-          type: string
-      required:
-      - modelId
-    AuthenticationType:
-      type: string
-      enum:
-      - NONE
-      - API_KEY
-      - OAUTH
     Tool:
       type: object
       properties:
@@ -1375,31 +1400,6 @@ components:
           type: object
         templateConfig:
           type: object
-    UpdateMcpServerToolRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-        orgToolTemplateId:
-          type: string
-        authenticationType:
-          $ref: '#/components/schemas/AuthenticationType'
-        authenticationData:
-          oneOf:
-          - $ref: '#/components/schemas/ApiKeyAuthenticationData'
-          - $ref: '#/components/schemas/OAuthAuthenticationData'
-        allTools:
-          type: array
-          items:
-            $ref: '#/components/schemas/MCPTool'
-        selectedTools:
-          type: array
-          items:
-            type: string
-      required:
-      - name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

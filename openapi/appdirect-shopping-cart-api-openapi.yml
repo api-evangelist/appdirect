@@ -1397,113 +1397,41 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/v3/checkout/shoppingCarts/notifyLockedCarts\")\n  .post(null)\n  .addHeader(\"AD-ShoppingCart-Partner\", \"SOME_STRING_VALUE\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    BillingStrategy:
-      type: string
-      title: BillingStrategy
-      enum:
-      - CUSTOM
-      - NEXT_BILLING_CYCLE
-      - UPON_SERVICE_ACTIVATION
-      default: UPON_SERVICE_ACTIVATION
-      example: CUSTOM
-    DeleteItemIds:
-      title: DeleteItemIds
+    Definition:
       type: object
+      title: Definition
+      description: Definition for flat/unit range prices.
       properties:
-        ids:
+        price:
+          description: Flat price.
+          type: number
+        priceRanges:
+          description: Unit range prices.
           type: array
-          description: Item IDs
           items:
-            type: string
-          example: '[]'
-        cascade:
-          type: array
-          description: Cascade deletion of associated items
-          items:
-            $ref: '#/components/schemas/AssociationType'
-          example: '["ADDON"]'
-        itemPath:
-          type: string
-          description: Selection of items to delete, in JsonPath syntax
-          example: .items[?(@.pricingPlanId=='planid')]
-    Fee:
+            $ref: '#/components/schemas/PriceRange'
+    TerminationFee:
       type: object
-      title: Fee
-      description: The fee associated with a shopping cart
+      title: TerminationFee
+      description: Termination Fee object
       properties:
-        id:
-          type: string
-          description: Fee ID
-          example: ce402858-4fe8-4254-8b69-73c41142f4ba
-        externalId:
-          type: string
-          description: External ID assigned by the fee provider service
-          example: a8bf31a8-fe75-4ab9-9559-dcd41eca9d12
-        createdOn:
-          type: string
-          description: Fee creation date and time
-          example: '2020-10-12 07:20:50.52Z'
-        key:
-          type: string
-          description: Key used to identify fee type
-          example: SHIPPING_FEE_100
-        currency:
-          type: string
-          description: Currency code (ISO 4217) of the fee
-          example: USD
+        feeType:
+          $ref: '#/components/schemas/TerminationFeeType'
         amount:
           type: number
-          description: Fee amount
-          example: '9.81'
         description:
-          $ref: '#/components/schemas/Description'
-        revenueShare:
-          $ref: '#/components/schemas/RevenueShare'
-        itemIds:
-          type: array
-          description: List of item IDs
-          items:
-            type: string
-          example: '["b126e204-05f9-444a-af43-7629069eed03", "20de5578-a903-43da-95b8-65a3b584bc29", "a104ae19-d5cd-4de1-802b-5b2ec60e7fbf"]'
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Metadata
-          example: 'key1: "value1"'
-    UnitContractTerms:
+          type: string
+    CustomAttributes:
       type: object
-      title: UnitContractTerms
-      description: Contract terms that restrict mid-contract quantity changes on subscriptions. unitTerms maps UnitContractTerms to a unit type (for example, user); enabled terms prevent actions for the unit type.
-      properties:
-        blockContractIncrease:
-          type: boolean
-          default: false
-        blockContractDecrease:
-          type: boolean
-          default: false
-        blockOriginalContractDecrease:
-          type: boolean
-          default: false
+      title: CustomAttributes
+      additionalProperties: true
+      description: Specify custom attributes as key-value pairs for the purchase. Values can be strings (for text) or string arrays (for checkboxes). Marketplace managers must create the custom attributes in the user interface before they can be used in API calls.
       example:
-        blockContractIncrease: false
-        blockOriginalContractDecrease: false
-        blockContractDecrease: true
-    AccreditedAgent:
-      title: AccreditedAgent
-      type: object
-      description: Details about an accredited agent associated with a shopping cart
-      properties:
-        userId:
-          type: string
-          default: ''
-          example: 83407ce8-373f-11e6-ac61-9e71128cae77
-          description: Accredited agent to whom the purchase is attributed.
-        companyId:
-          type: string
-          default: ''
-          example: a411dc54-d46f-4002-ab00-3ea52e4eb118
-          description: Company of the accredited agent to whom the purchase is attributed.
+        customAttributes:
+          preferredColours:
+          - key_red
+          - key_white
+          preferredTime: '12:00'
     PricingStrategy:
       description: Pricing strategy
       type: string
@@ -1517,6 +1445,92 @@ components:
       - VARIABLE_PRICE_STRATEGIES
       - UNLIMITED
       - CUSTOM
+    PreAuth:
+      title: PreAuth
+      type: object
+      required:
+      - strategy
+      properties:
+        preAuthId:
+          description: Pre-authorization ID from the payment service
+          type: string
+        status:
+          $ref: '#/components/schemas/PreAuthStatus'
+        message:
+          description: Message returned from the payment gateway.
+          type: string
+        code:
+          description: Code returned from the payment gateway.
+          type: string
+    CustomContractConfiguration:
+      title: CustomContractConfiguration
+      type: object
+      description: Configuration to use for custom contract
+      required:
+      - minimumServiceLength
+      - minimumServiceLengthUnit
+      properties:
+        minimumServiceLength:
+          description: Minimum pricing duration of the pricing plan
+          type: integer
+          minimum: 1
+        minimumServiceLengthUnit:
+          $ref: '#/components/schemas/MinimumServiceLengthUnit'
+        endOfContractGracePeriod:
+          description: Grace period after the end of the contract
+          type: integer
+        endOfContractGracePeriodUnit:
+          $ref: '#/components/schemas/GracePeriodUnit'
+        contractCancellationPeriodLimit:
+          description: Contract cancellation period limit
+          type: integer
+        contractCancellationPeriodUnit:
+          $ref: '#/components/schemas/CancellationPeriodUnit'
+        continueWithoutContract:
+          description: Determines whether to continue the subscription without a contract
+          type: boolean
+          default: false
+        autoExtensionPricingId:
+          description: The edition pricing ID to which to bind the contract when it is automatically renewed. To retrieve the value, use the "uuid" value from the "Read payment plan" https://help.appdirect.com/api/appdirect.html#read-payment-plan request.
+          type: string
+        terminationFeeGracePeriod:
+          description: The termination fee grace period
+          type: integer
+        terminationFeeGracePeriodUnit:
+          $ref: '#/components/schemas/GracePeriodUnit'
+        blockContractUpgrades:
+          description: Determines whether to block upgrades to the contract terms
+          type: boolean
+          default: false
+        blockContractDowngrades:
+          description: Determines whether to block downgrades to the contract terms
+          type: boolean
+          default: false
+        blockSwitchToShorterContract:
+          description: Determines whether to block the ability to switch to a shorter contract
+          type: boolean
+          default: false
+        keepContractDateOnPlanChange:
+          description: Determines whether to keep the contract date if the plan changes
+          type: boolean
+          default: false
+        alignWithParentCycleStartDate:
+          description: For add-on products, determines whether to align the contract start date with the parent subscription start date. This is an internal setting.
+          type: boolean
+          default: false
+        unitTerms:
+          type: object
+          description: List of contract unit terms
+          additionalProperties:
+            $ref: '#/components/schemas/UnitContractTerms'
+        sourceId:
+          description: The UUID of the custom contract creator
+          type: string
+        terminationFee:
+          $ref: '#/components/schemas/TerminationFee'
+        contractFee:
+          type: number
+          description: Contract Fee
     Description:
       title: Description
       type: object
@@ -1538,6 +1552,118 @@ components:
             type: string
           description: Dynamic parameters to populate within descriptions. Reserved for values whose formats need to be localized, such as dates.
           example: '{"fromDate": "2019-10-12 07:20:50.52Z", "toDate": "2020-10-12 07:20:50.52Z"}'
+    PagedResources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - title: PagedResources
+        type: object
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+      example:
+        href: '...'
+        rel: '...'
+    PreAuthStatus:
+      title: PreAuthStatus
+      type: string
+      enum:
+      - SUCCESS
+      - FAILURE
+      - NOT_SUPPORTED
+      - ERROR
+      - PROCESSING
+    UnitContractTerms:
+      type: object
+      title: UnitContractTerms
+      description: Contract terms that restrict mid-contract quantity changes on subscriptions. unitTerms maps UnitContractTerms to a unit type (for example, user); enabled terms prevent actions for the unit type.
+      properties:
+        blockContractIncrease:
+          type: boolean
+          default: false
+        blockContractDecrease:
+          type: boolean
+          default: false
+        blockOriginalContractDecrease:
+          type: boolean
+          default: false
+      example:
+        blockContractIncrease: false
+        blockOriginalContractDecrease: false
+        blockContractDecrease: true
+    ShoppingCartCustomAttributes:
+      type: object
+      title: ShoppingCartCustomAttributes
+      description: Collection of custom attributes linked to cart entities
+      properties:
+        purchase:
+          $ref: '#/components/schemas/CustomAttributes'
+        buyerUser:
+          $ref: '#/components/schemas/CustomAttributes'
+        buyerCompany:
+          $ref: '#/components/schemas/CustomAttributes'
+        ownerUser:
+          $ref: '#/components/schemas/CustomAttributes'
+        ownerCompany:
+          $ref: '#/components/schemas/CustomAttributes'
+    Association:
+      type: object
+      title: Association
+      description: MISSING
+      properties:
+        parentItemId:
+          type: string
+          description: Parent product UUID or $item[referenceId] to reference the item in the cart.
+        childItemIds:
+          type: array
+          description: Child products UUID or $item[referenceId] to reference the item in the cart.
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/AssociationType'
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
+    CancellationPeriodUnit:
+      type: string
+      title: CancellationPeriodUnit
+      description: Cancellation period unit. Time unit by which the contractCancellationPeriodLimit is measured.
+      enum:
+      - NONE
+      - DAY
+      example: NONE
     Unit:
       type: object
       description: Purchase item unit
@@ -1552,19 +1678,26 @@ components:
       example:
         quantity: '8'
         unit: USER
-    Definition:
+    DeleteItemIds:
+      title: DeleteItemIds
       type: object
-      title: Definition
-      description: Definition for flat/unit range prices.
       properties:
-        price:
-          description: Flat price.
-          type: number
-        priceRanges:
-          description: Unit range prices.
+        ids:
           type: array
+          description: Item IDs
           items:
-            $ref: '#/components/schemas/PriceRange'
+            type: string
+          example: '[]'
+        cascade:
+          type: array
+          description: Cascade deletion of associated items
+          items:
+            $ref: '#/components/schemas/AssociationType'
+          example: '["ADDON"]'
+        itemPath:
+          type: string
+          description: Selection of items to delete, in JsonPath syntax
+          example: .items[?(@.pricingPlanId=='planid')]
     PriceRange:
       type: object
       title: PriceRange
@@ -1592,36 +1725,82 @@ components:
         max: 5
         salePrice: '4.0000000000'
         wholeSalePrice: null
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
-    CancellationPeriodUnit:
+    AssociationType:
+      title: AssociationType
       type: string
-      title: CancellationPeriodUnit
-      description: Cancellation period unit. Time unit by which the contractCancellationPeriodLimit is measured.
+      enum:
+      - ADDON
+    AccreditedAgent:
+      title: AccreditedAgent
+      type: object
+      description: Details about an accredited agent associated with a shopping cart
+      properties:
+        userId:
+          type: string
+          default: ''
+          example: 83407ce8-373f-11e6-ac61-9e71128cae77
+          description: Accredited agent to whom the purchase is attributed.
+        companyId:
+          type: string
+          default: ''
+          example: a411dc54-d46f-4002-ab00-3ea52e4eb118
+          description: Company of the accredited agent to whom the purchase is attributed.
+    BuyerType:
+      type: string
+      title: BuyerType
+      description: Describes the buyer's relationship with the platform, either CUSTOMER (end user), PLATFORM_OWNER (sales representative) or PARTNER (reseller)
+      enum:
+      - CUSTOMER
+      - PLATFORM_OWNER
+      - PARTNER
+      default: CUSTOMER
+    GracePeriodUnit:
+      type: string
+      title: GracePeriodUnit
+      description: End-of-contract grace period unit. Time unit by which the endOfContractGracePeriod is measured.
       enum:
       - NONE
+      - INFINITY
       - DAY
-      example: NONE
-    ItemCustomAttributes:
+      - MONTH
+      example: INFINITY
+    RevenueShare:
+      title: RevenueShare
       type: object
-      title: ItemCustomAttributes
-      description: Collection of custom attributes
+      description: Revenue shares of the fee sent to AppDirect, the marketplace owner, and the product vendor. The total of all three revenue shares must be 1.00.
       properties:
-        vendorRequiredFields:
-          $ref: '#/components/schemas/CustomAttributes'
-        subscription:
-          $ref: '#/components/schemas/CustomAttributes'
+        appdirect:
+          type: number
+          description: Revenue share sent to AppDirect, as a fraction of 1.00
+          example: '0.00'
+        channel:
+          type: number
+          description: Revenue share sent to the marketplace owner, as a fraction of 1.00
+          example: '1.00'
+        vendor:
+          type: number
+          description: Revenue share sent to the product vendor, as a fraction of 1.00
+          example: '0.00'
+    BillingConfiguration:
+      type: object
+      title: BillingConfiguration
+      description: Determines when the billing cycle starts. Set UPON_SERVICE_ACTIVATION to start the billing cycle according to the specified provisioning strategy (either immediately after the opportunity is finalized or on a custom provisioning date). Set NEXT_BILLING_CYCLE to start the billing cycle according to the marketplace billing configuration (for example, first of the month). Set CUSTOM to start the billing cycle on a specified date in the future.
+      properties:
+        date:
+          type: number
+          description: Custom billing activation date in UNIX Epoch milliseconds. This date is required when the billing strategy is CUSTOM. Do not set the date when the strategy is UPON_SERVICE_ACTIVATION or NEXT_BILLING_CYCLE.
+        strategy:
+          $ref: '#/components/schemas/BillingStrategy'
+      example:
+        date: '1546300800000'
+        strategy: CUSTOM
+    ServiceStrategy:
+      title: ServiceStrategy
+      description: Service strategy. By default, the service is activated immediately. To set a custom activation date, specify CUSTOM.
+      type: string
+      enum:
+      - CUSTOM
+      - IMMEDIATELY
     ShoppingCart:
       type: object
       title: ShoppingCart
@@ -1703,112 +1882,12 @@ components:
             items:
               $ref: '#/components/schemas/Fee'
       - $ref: '#/components/schemas/AccreditedAgents'
-    ShoppingCartCustomAttributes:
-      type: object
-      title: ShoppingCartCustomAttributes
-      description: Collection of custom attributes linked to cart entities
-      properties:
-        purchase:
-          $ref: '#/components/schemas/CustomAttributes'
-        buyerUser:
-          $ref: '#/components/schemas/CustomAttributes'
-        buyerCompany:
-          $ref: '#/components/schemas/CustomAttributes'
-        ownerUser:
-          $ref: '#/components/schemas/CustomAttributes'
-        ownerCompany:
-          $ref: '#/components/schemas/CustomAttributes'
-    BillingConfiguration:
-      type: object
-      title: BillingConfiguration
-      description: Determines when the billing cycle starts. Set UPON_SERVICE_ACTIVATION to start the billing cycle according to the specified provisioning strategy (either immediately after the opportunity is finalized or on a custom provisioning date). Set NEXT_BILLING_CYCLE to start the billing cycle according to the marketplace billing configuration (for example, first of the month). Set CUSTOM to start the billing cycle on a specified date in the future.
-      properties:
-        date:
-          type: number
-          description: Custom billing activation date in UNIX Epoch milliseconds. This date is required when the billing strategy is CUSTOM. Do not set the date when the strategy is UPON_SERVICE_ACTIVATION or NEXT_BILLING_CYCLE.
-        strategy:
-          $ref: '#/components/schemas/BillingStrategy'
-      example:
-        date: '1546300800000'
-        strategy: CUSTOM
-    Association:
-      type: object
-      title: Association
-      description: MISSING
-      properties:
-        parentItemId:
-          type: string
-          description: Parent product UUID or $item[referenceId] to reference the item in the cart.
-        childItemIds:
-          type: array
-          description: Child products UUID or $item[referenceId] to reference the item in the cart.
-          items:
-            type: string
-        type:
-          $ref: '#/components/schemas/AssociationType'
-    ServiceStrategy:
-      title: ServiceStrategy
-      description: Service strategy. By default, the service is activated immediately. To set a custom activation date, specify CUSTOM.
+    TerminationFeeType:
+      title: TerminationFeeType
       type: string
       enum:
-      - CUSTOM
-      - IMMEDIATELY
-    TerminationFee:
-      type: object
-      title: TerminationFee
-      description: Termination Fee object
-      properties:
-        feeType:
-          $ref: '#/components/schemas/TerminationFeeType'
-        amount:
-          type: number
-        description:
-          type: string
-    Currency:
-      description: Supported currencies for the system
-      type: string
-      title: Currency
-      enum:
-      - USD
-      - CAD
-      - EUR
-      - JPY
-      - GBP
-      - KRW
-      - CHF
-      - SEK
-      - SGD
-      - MYR
-      - AUD
-      - MXN
-      - INR
-      - BRL
-      - DKK
-      - NZD
-      - NOK
-      - ZAR
-      - PHP
-      - CNY
-      - SAR
-      - GTQ
-      - IDR
-      - ARS
-      - COP
-      - PEN
-      default: USD
-    MinimumServiceLengthUnit:
-      type: string
-      title: MinimumServiceLengthUnit
-      description: Time unit for contract length. This property must have the same value as the contract length unit configured for the pricing plan.
-      enum:
-      - DAILY
-      - MONTHLY
-      - QUARTERLY
-      - SIX_MONTHS
-      - YEARLY
-      - TWO_YEARS
-      - THREE_YEARS
-      example: MONTHLY
+      - FIXED
+      - PERCENTAGE
     CustomPrice:
       type: object
       title: CustomPrice
@@ -1829,6 +1908,79 @@ components:
       example:
         costId: 9742e09a-e1b4-4b9e-b1a7-66df3e41cebe
         price: 20
+    Fee:
+      type: object
+      title: Fee
+      description: The fee associated with a shopping cart
+      properties:
+        id:
+          type: string
+          description: Fee ID
+          example: ce402858-4fe8-4254-8b69-73c41142f4ba
+        externalId:
+          type: string
+          description: External ID assigned by the fee provider service
+          example: a8bf31a8-fe75-4ab9-9559-dcd41eca9d12
+        createdOn:
+          type: string
+          description: Fee creation date and time
+          example: '2020-10-12 07:20:50.52Z'
+        key:
+          type: string
+          description: Key used to identify fee type
+          example: SHIPPING_FEE_100
+        currency:
+          type: string
+          description: Currency code (ISO 4217) of the fee
+          example: USD
+        amount:
+          type: number
+          description: Fee amount
+          example: '9.81'
+        description:
+          $ref: '#/components/schemas/Description'
+        revenueShare:
+          $ref: '#/components/schemas/RevenueShare'
+        itemIds:
+          type: array
+          description: List of item IDs
+          items:
+            type: string
+          example: '["b126e204-05f9-444a-af43-7629069eed03", "20de5578-a903-43da-95b8-65a3b584bc29", "a104ae19-d5cd-4de1-802b-5b2ec60e7fbf"]'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata
+          example: 'key1: "value1"'
+    CustomPriceType:
+      title: CustomPriceType
+      type: string
+      enum:
+      - RESELLER_PURCHASE_PRICE
+      - MARKETPLACE_RESELLER_PURCHASE_PRICE
+    BillingStrategy:
+      type: string
+      title: BillingStrategy
+      enum:
+      - CUSTOM
+      - NEXT_BILLING_CYCLE
+      - UPON_SERVICE_ACTIVATION
+      default: UPON_SERVICE_ACTIVATION
+      example: CUSTOM
+    MinimumServiceLengthUnit:
+      type: string
+      title: MinimumServiceLengthUnit
+      description: Time unit for contract length. This property must have the same value as the contract length unit configured for the pricing plan.
+      enum:
+      - DAILY
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      example: MONTHLY
     ShoppingCartItem:
       type: object
       title: ShoppingCartItem
@@ -1877,150 +2029,15 @@ components:
           $ref: '#/components/schemas/ItemCustomAttributes'
         customContractConfiguration:
           $ref: '#/components/schemas/CustomContractConfiguration'
-    PreAuthStatus:
-      title: PreAuthStatus
-      type: string
-      enum:
-      - SUCCESS
-      - FAILURE
-      - NOT_SUPPORTED
-      - ERROR
-      - PROCESSING
-    CustomAttributes:
+    AccreditedAgents:
+      title: AccreditedAgents
       type: object
-      title: CustomAttributes
-      additionalProperties: true
-      description: Specify custom attributes as key-value pairs for the purchase. Values can be strings (for text) or string arrays (for checkboxes). Marketplace managers must create the custom attributes in the user interface before they can be used in API calls.
-      example:
-        customAttributes:
-          preferredColours:
-          - key_red
-          - key_white
-          preferredTime: '12:00'
-    RevenueShare:
-      title: RevenueShare
-      type: object
-      description: Revenue shares of the fee sent to AppDirect, the marketplace owner, and the product vendor. The total of all three revenue shares must be 1.00.
+      description: Information about the accredited agents associated with shopping carts
       properties:
-        appdirect:
-          type: number
-          description: Revenue share sent to AppDirect, as a fraction of 1.00
-          example: '0.00'
-        channel:
-          type: number
-          description: Revenue share sent to the marketplace owner, as a fraction of 1.00
-          example: '1.00'
-        vendor:
-          type: number
-          description: Revenue share sent to the product vendor, as a fraction of 1.00
-          example: '0.00'
-    CustomPriceType:
-      title: CustomPriceType
-      type: string
-      enum:
-      - RESELLER_PURCHASE_PRICE
-      - MARKETPLACE_RESELLER_PURCHASE_PRICE
-    CustomContractConfiguration:
-      title: CustomContractConfiguration
-      type: object
-      description: Configuration to use for custom contract
-      required:
-      - minimumServiceLength
-      - minimumServiceLengthUnit
-      properties:
-        minimumServiceLength:
-          description: Minimum pricing duration of the pricing plan
-          type: integer
-          minimum: 1
-        minimumServiceLengthUnit:
-          $ref: '#/components/schemas/MinimumServiceLengthUnit'
-        endOfContractGracePeriod:
-          description: Grace period after the end of the contract
-          type: integer
-        endOfContractGracePeriodUnit:
-          $ref: '#/components/schemas/GracePeriodUnit'
-        contractCancellationPeriodLimit:
-          description: Contract cancellation period limit
-          type: integer
-        contractCancellationPeriodUnit:
-          $ref: '#/components/schemas/CancellationPeriodUnit'
-        continueWithoutContract:
-          description: Determines whether to continue the subscription without a contract
-          type: boolean
-          default: false
-        autoExtensionPricingId:
-          description: The edition pricing ID to which to bind the contract when it is automatically renewed. To retrieve the value, use the "uuid" value from the "Read payment plan" https://help.appdirect.com/api/appdirect.html#read-payment-plan request.
-          type: string
-        terminationFeeGracePeriod:
-          description: The termination fee grace period
-          type: integer
-        terminationFeeGracePeriodUnit:
-          $ref: '#/components/schemas/GracePeriodUnit'
-        blockContractUpgrades:
-          description: Determines whether to block upgrades to the contract terms
-          type: boolean
-          default: false
-        blockContractDowngrades:
-          description: Determines whether to block downgrades to the contract terms
-          type: boolean
-          default: false
-        blockSwitchToShorterContract:
-          description: Determines whether to block the ability to switch to a shorter contract
-          type: boolean
-          default: false
-        keepContractDateOnPlanChange:
-          description: Determines whether to keep the contract date if the plan changes
-          type: boolean
-          default: false
-        alignWithParentCycleStartDate:
-          description: For add-on products, determines whether to align the contract start date with the parent subscription start date. This is an internal setting.
-          type: boolean
-          default: false
-        unitTerms:
-          type: object
-          description: List of contract unit terms
-          additionalProperties:
-            $ref: '#/components/schemas/UnitContractTerms'
-        sourceId:
-          description: The UUID of the custom contract creator
-          type: string
-        terminationFee:
-          $ref: '#/components/schemas/TerminationFee'
-        contractFee:
-          type: number
-          description: Contract Fee
-    TerminationFeeType:
-      title: TerminationFeeType
-      type: string
-      enum:
-      - FIXED
-      - PERCENTAGE
-    BuyerType:
-      type: string
-      title: BuyerType
-      description: Describes the buyer's relationship with the platform, either CUSTOMER (end user), PLATFORM_OWNER (sales representative) or PARTNER (reseller)
-      enum:
-      - CUSTOMER
-      - PLATFORM_OWNER
-      - PARTNER
-      default: CUSTOMER
-    PreAuth:
-      title: PreAuth
-      type: object
-      required:
-      - strategy
-      properties:
-        preAuthId:
-          description: Pre-authorization ID from the payment service
-          type: string
-        status:
-          $ref: '#/components/schemas/PreAuthStatus'
-        message:
-          description: Message returned from the payment gateway.
-          type: string
-        code:
-          description: Code returned from the payment gateway.
-          type: string
+        accreditedAgents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccreditedAgent'
     ResourceSupport:
       type:
       - object
@@ -2039,38 +2056,38 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-    GracePeriodUnit:
+    Currency:
+      description: Supported currencies for the system
       type: string
-      title: GracePeriodUnit
-      description: End-of-contract grace period unit. Time unit by which the endOfContractGracePeriod is measured.
+      title: Currency
       enum:
-      - NONE
-      - INFINITY
-      - DAY
-      - MONTH
-      example: INFINITY
-    PagedResources:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - title: PagedResources
-        type: object
-        properties:
-          page:
-            $ref: '#/components/schemas/PageMetadata'
-    AssociationType:
-      title: AssociationType
-      type: string
-      enum:
-      - ADDON
-    AccreditedAgents:
-      title: AccreditedAgents
-      type: object
-      description: Information about the accredited agents associated with shopping carts
-      properties:
-        accreditedAgents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccreditedAgent'
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD
     ServiceConfiguration:
       title: ServiceConfiguration
       type: object
@@ -2083,45 +2100,28 @@ components:
           format: date
         strategy:
           $ref: '#/components/schemas/ServiceStrategy'
-    PageMetadata:
+    ItemCustomAttributes:
       type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
+      title: ItemCustomAttributes
+      description: Collection of custom attributes
       properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
+        vendorRequiredFields:
+          $ref: '#/components/schemas/CustomAttributes'
+        subscription:
+          $ref: '#/components/schemas/CustomAttributes'
   parameters:
-    shoppingCartId:
-      name: shoppingCartId
-      in: path
-      required: true
-      description: Shopping cart ID
-      schema:
-        type: string
     discountCode:
       name: discountCode
       in: path
       required: true
       description: Discount code
+      schema:
+        type: string
+    shoppingCartId:
+      name: shoppingCartId
+      in: path
+      required: true
+      description: Shopping cart ID
       schema:
         type: string
     feeId:
@@ -2132,6 +2132,12 @@ components:
       schema:
         type: string
   responses:
+    PreAuthResponse:
+      description: Payment pre-authorization response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreAuth'
     '400':
       description: Bad request
       content:
@@ -2154,9 +2160,3 @@ components:
                 message: Internal server error
     ShoppingCartRequestAcceptedResponse:
       description: ACCEPTED
-    PreAuthResponse:
-      description: Payment pre-authorization response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PreAuth'

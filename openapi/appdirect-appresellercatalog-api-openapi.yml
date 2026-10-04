@@ -159,6 +159,90 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/catalog/sellableProducts/%7BproductId%7D/editions?targetUserId=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    PricingDuration:
+      description: Pricing duration types
+      type: string
+      title: PricingDuration
+      enum:
+      - ONE_TIME
+      - MONTHLY
+      - QUARTERLY
+      - SIX_MONTHS
+      - YEARLY
+      - TWO_YEARS
+      - THREE_YEARS
+      - DAILY
+    AppResellerCatalogEditionWS:
+      type: object
+      title: CatalogEdition
+      properties:
+        id:
+          description: Edition ID
+          type: string
+        name:
+          description: Edition name
+          type: string
+        RevenueModelType:
+          $ref: '#/components/schemas/RevenueModelType'
+        PaymentPlanWS:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogPaymentPlanWS'
+    AppResellerCatalogMarkupPriceWS:
+      type: object
+      title: MarkupPrices
+      properties:
+        markupType:
+          $ref: '#/components/schemas/MarkupPricingType'
+        markupPrices:
+          description: Markup Prices
+          additionalProperties:
+            type: string
+            properties:
+              currency:
+                type: string
+              value:
+                type: number
+    AppResellerCatalogProductPageWS:
+      type: object
+      title: ProductCatalogPage
+      properties:
+        links:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerCatalogProductWS'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    PricingStrategy:
+      description: Pricing strategy
+      type: string
+      title: PricingStrategy
+      enum:
+      - FREE
+      - FLAT
+      - UNIT
+      - TIERED
+      - VOLUME
+      - VARIABLE_PRICE_STRATEGIES
+      - UNLIMITED
+      - CUSTOM
+    MarkupPricingType:
+      description: Markup pricing types
+      type: string
+      title: MarkupPricingType
+      enum:
+      - RESELLER
+      - WHOLESALE
+      - CHANNEL_RESELLER_COMPANY
+      - CHANNEL_RESELLER
+      - CHANNEL
+      - CHANNEL_ONLY
+      - NONE
+      - ALL
     AppResellerCatalogPlanCostWS:
       type: object
       title: CatalogPlanCosts
@@ -191,19 +275,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppResellerCatalogMarkupPriceWS'
-    PricingDuration:
-      description: Pricing duration types
-      type: string
-      title: PricingDuration
-      enum:
-      - ONE_TIME
-      - MONTHLY
-      - QUARTERLY
-      - SIX_MONTHS
-      - YEARLY
-      - TWO_YEARS
-      - THREE_YEARS
-      - DAILY
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345
     AppResellerCatalogPaymentPlanWS:
       type: object
       title: PaymentPlans
@@ -227,48 +324,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppResellerCatalogPlanCostWS'
-    MarkupPricingType:
-      description: Markup pricing types
-      type: string
-      title: MarkupPricingType
-      enum:
-      - RESELLER
-      - WHOLESALE
-      - CHANNEL_RESELLER_COMPANY
-      - CHANNEL_RESELLER
-      - CHANNEL
-      - CHANNEL_ONLY
-      - NONE
-      - ALL
-    AppResellerCatalogEditionWS:
-      type: object
-      title: CatalogEdition
-      properties:
-        id:
-          description: Edition ID
-          type: string
-        name:
-          description: Edition name
-          type: string
-        RevenueModelType:
-          $ref: '#/components/schemas/RevenueModelType'
-        PaymentPlanWS:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerCatalogPaymentPlanWS'
-    PricingStrategy:
-      description: Pricing strategy
-      type: string
-      title: PricingStrategy
-      enum:
-      - FREE
-      - FLAT
-      - UNIT
-      - TIERED
-      - VOLUME
-      - VARIABLE_PRICE_STRATEGIES
-      - UNLIMITED
-      - CUSTOM
     AppResellerCatalogProductWS:
       type: object
       title: ProductCatalog
@@ -1074,58 +1129,3 @@ components:
       - ONE_TIME
       - RECURRING
       - TIERED
-    AppResellerCatalogMarkupPriceWS:
-      type: object
-      title: MarkupPrices
-      properties:
-        markupType:
-          $ref: '#/components/schemas/MarkupPricingType'
-        markupPrices:
-          description: Markup Prices
-          additionalProperties:
-            type: string
-            properties:
-              currency:
-                type: string
-              value:
-                type: number
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
-      properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
-      example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
-    AppResellerCatalogProductPageWS:
-      type: object
-      title: ProductCatalogPage
-      properties:
-        links:
-          type: array
-          items:
-            type: string
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerCatalogProductWS'
-        page:
-          $ref: '#/components/schemas/PageMetadata'

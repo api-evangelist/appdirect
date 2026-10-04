@@ -161,40 +161,28 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appwise/v2/accounts?appId=SOME_STRING_VALUE&accountName=SOME_STRING_VALUE&callbackUrl=SOME_STRING_VALUE\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    UserConnectionError:
+    UserToDisconnect:
       type: object
-      title: UserConnectionError
-      description: Error responses when user connection changes fail
-      required:
-      - code
-      - message
-      - status
+      title: UserToDisconnect
+      description: The user to be disconnected from Search
       properties:
-        status:
-          type: integer
-          format: int32
-          description: HTTP status code
-        code:
+        userId:
           type: string
-          description: Canonical error code
-        message:
+          description: The user's UUID
+        companyId:
           type: string
-          description: Error message
-        moreInfo:
-          type: string
-          description: URL with more information about the error
-        details:
-          type: array
-          description: Details of the error
-          items:
-            type: string
+          description: The user's company's UUID
       example:
-        status: 404
-        code: NOT_FOUND
-        message: User not found.
-        moreInfo: https://help.appdirect.com/api/appwise.html
-        details:
-        - Details of error
+        userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
+        companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
+    UserConnectionResponse:
+      type: object
+      title: UserConnectionResponse
+      description: 'Sucessful user account connection response. It provides the details about the connection (accountName): the associated app (application UUID) and user information (userId, companyId, and handle). Format: {user_handle}@{user_uuid}@{company_uuid}
+
+        Note: Application UUID = Product UUID'
+      example:
+        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
     DisconnectionDetails:
       type: object
       title: DisconnectionDetails
@@ -232,6 +220,18 @@ components:
           userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
           companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
           handle: bob
+    ApplicationToConnect:
+      type: object
+      title: ApplicationToConnect
+      description: Identify an application that can be connected to users for Search
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: 'Application UUID. Note: Application UUID = Product UUID.'
+      example:
+        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
     ApplicationToDisconnect:
       type: object
       title: ApplicationToDisconnect
@@ -261,14 +261,40 @@ components:
           companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
         connection:
           accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
-    UserConnectionResponse:
+    UserConnectionError:
       type: object
-      title: UserConnectionResponse
-      description: 'Sucessful user account connection response. It provides the details about the connection (accountName): the associated app (application UUID) and user information (userId, companyId, and handle). Format: {user_handle}@{user_uuid}@{company_uuid}
-
-        Note: Application UUID = Product UUID'
+      title: UserConnectionError
+      description: Error responses when user connection changes fail
+      required:
+      - code
+      - message
+      - status
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+        code:
+          type: string
+          description: Canonical error code
+        message:
+          type: string
+          description: Error message
+        moreInfo:
+          type: string
+          description: URL with more information about the error
+        details:
+          type: array
+          description: Details of the error
+          items:
+            type: string
       example:
-        accountName: bob@a13a9998-e025-4751-8fee-72afdc0fe6d5@2cc88871-e942-4910-96e3-0521d7ae52f4
+        status: 404
+        code: NOT_FOUND
+        message: User not found.
+        moreInfo: https://help.appdirect.com/api/appwise.html
+        details:
+        - Details of error
     UserToConnect:
       type: object
       title: UserToConnect
@@ -291,29 +317,3 @@ components:
         userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
         companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4
         handle: bob
-    ApplicationToConnect:
-      type: object
-      title: ApplicationToConnect
-      description: Identify an application that can be connected to users for Search
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: 'Application UUID. Note: Application UUID = Product UUID.'
-      example:
-        id: b2fc6737-3d3f-4da2-afda-f80f25b89af9
-    UserToDisconnect:
-      type: object
-      title: UserToDisconnect
-      description: The user to be disconnected from Search
-      properties:
-        userId:
-          type: string
-          description: The user's UUID
-        companyId:
-          type: string
-          description: The user's company's UUID
-      example:
-        userId: a13a9998-e025-4751-8fee-72afdc0fe6d5
-        companyId: 2cc88871-e942-4910-96e3-0521d7ae52f4

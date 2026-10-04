@@ -344,160 +344,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/channel/v1/discounts/%7BdiscountId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    DiscountType:
-      type: string
-      title: DiscountType
-      properties:
-        DiscountType:
-          type: string
-          enum:
-          - PERCENTAGE
-          - FIXED_PRICE
-    Discount:
-      description: Discount details
-      type: object
-      title: Discount
-      required:
-      - type
-      - description
-      properties:
-        applicationId:
-          description: Application ID.
-          type:
-          - number
-          - 'null'
-        applicationUuid:
-          description: Application UUID.
-          type:
-          - string
-          - 'null'
-        applicationName:
-          description: Name of the application to which the discount applies.
-          type:
-          - string
-          - 'null'
-        autoApply:
-          description: True if the discount is automatically applied. Default value is true.
-          type: boolean
-        basePartnerSharePercentage:
-          description: Base partner's percentage share of the discount.
-          type:
-          - number
-          - 'null'
-        billingCycles:
-          description: Number of billing cycles for which the discount should be applied.
-          type:
-          - number
-          - 'null'
-        code:
-          description: Discount code. Must be at least 4 characters, but no longer than 103 characters.
-          type:
-          - string
-          - 'null'
-        createdOn:
-          description: Creation date of the discount.
-          type:
-          - number
-          - 'null'
-        description:
-          description: Description of discount. Required field. Must be at least 4 characters, but no longer than 255 characters.
-          type: string
-        editionId:
-          description: Edition ID.
-          type:
-          - number
-          - 'null'
-        editionUuid:
-          description: Edition UUID.
-          type:
-          - string
-          - 'null'
-        expirationDate:
-          description: Expiration date for the discount. This date must be in the future.
-          type:
-          - number
-          - 'null'
-        id:
-          description: Discount ID.
-          type:
-          - number
-          - 'null'
-        uuid:
-          description: Discount UUID.
-          type:
-          - string
-          - 'null'
-        industryId:
-          description: Industry ID.
-          type:
-          - number
-          - 'null'
-        maxRedemptions:
-          description: Maximum number of redemptions available.
-          type:
-          - number
-          - 'null'
-        maxUnits:
-          description: Maximum number of units for which to apply the discount.
-          type: number
-        minUnits:
-          description: Minimum number of units for which to apply the discount.
-          type: number
-        partnerSharePercentage:
-          description: Partner's percentage share of the discount.
-          type:
-          - number
-          - 'null'
-        paymentPlanId:
-          description: Payment plan ID.
-          type:
-          - number
-          - 'null'
-        paymentPlanUuid:
-          description: Payment plan UUID.
-          type:
-          - string
-          - 'null'
-        percentage:
-          description: Percentage discount if discount is of PERCENTAGE type. The percentage value cannot exceed two decimal places (for example, 10.15).
-          type: number
-        price:
-          description: Amount to discount if discount is of FIXED_PRICE type.
-          type:
-          - number
-          - 'null'
-        redemptionRestriction:
-          $ref: '#/components/schemas/RedemptionRestriction'
-        redemptions:
-          description: Number of times the discount has been redeemed.
-          type: number
-        retainable:
-          description: True if the discount is retainable. Retainable discounts can be redeemed on orders that are updated after the discount expires. For example, if an order includes a discount that expires on 01 January 2019, and the order is then updated on 02 January 2019, the discount would still be redeemable. The default value is false (discounts are not retained).
-          type: boolean
-        startDate:
-          description: Start date for the discount.
-          type:
-          - number
-          - 'null'
-        type:
-          $ref: '#/components/schemas/DiscountType'
-        unit:
-          $ref: '#/components/schemas/PricingUnit'
-        vendorSharePercentage:
-          description: Vendor's percentage share of the discount.
-          type:
-          - number
-          - 'null'
-    RedemptionRestriction:
-      type: string
-      title: RedemptionRestriction
-      properties:
-        RedemptionRestriction:
-          type: string
-          enum:
-          - NONE
-          - ONCE_PER_USER
-          - ONCE_PER_COMPANY
     PricingUnit:
       type: string
       title: PricingUnit
@@ -1272,3 +1118,157 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
+    RedemptionRestriction:
+      type: string
+      title: RedemptionRestriction
+      properties:
+        RedemptionRestriction:
+          type: string
+          enum:
+          - NONE
+          - ONCE_PER_USER
+          - ONCE_PER_COMPANY
+    Discount:
+      description: Discount details
+      type: object
+      title: Discount
+      required:
+      - type
+      - description
+      properties:
+        applicationId:
+          description: Application ID.
+          type:
+          - number
+          - 'null'
+        applicationUuid:
+          description: Application UUID.
+          type:
+          - string
+          - 'null'
+        applicationName:
+          description: Name of the application to which the discount applies.
+          type:
+          - string
+          - 'null'
+        autoApply:
+          description: True if the discount is automatically applied. Default value is true.
+          type: boolean
+        basePartnerSharePercentage:
+          description: Base partner's percentage share of the discount.
+          type:
+          - number
+          - 'null'
+        billingCycles:
+          description: Number of billing cycles for which the discount should be applied.
+          type:
+          - number
+          - 'null'
+        code:
+          description: Discount code. Must be at least 4 characters, but no longer than 103 characters.
+          type:
+          - string
+          - 'null'
+        createdOn:
+          description: Creation date of the discount.
+          type:
+          - number
+          - 'null'
+        description:
+          description: Description of discount. Required field. Must be at least 4 characters, but no longer than 255 characters.
+          type: string
+        editionId:
+          description: Edition ID.
+          type:
+          - number
+          - 'null'
+        editionUuid:
+          description: Edition UUID.
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          description: Expiration date for the discount. This date must be in the future.
+          type:
+          - number
+          - 'null'
+        id:
+          description: Discount ID.
+          type:
+          - number
+          - 'null'
+        uuid:
+          description: Discount UUID.
+          type:
+          - string
+          - 'null'
+        industryId:
+          description: Industry ID.
+          type:
+          - number
+          - 'null'
+        maxRedemptions:
+          description: Maximum number of redemptions available.
+          type:
+          - number
+          - 'null'
+        maxUnits:
+          description: Maximum number of units for which to apply the discount.
+          type: number
+        minUnits:
+          description: Minimum number of units for which to apply the discount.
+          type: number
+        partnerSharePercentage:
+          description: Partner's percentage share of the discount.
+          type:
+          - number
+          - 'null'
+        paymentPlanId:
+          description: Payment plan ID.
+          type:
+          - number
+          - 'null'
+        paymentPlanUuid:
+          description: Payment plan UUID.
+          type:
+          - string
+          - 'null'
+        percentage:
+          description: Percentage discount if discount is of PERCENTAGE type. The percentage value cannot exceed two decimal places (for example, 10.15).
+          type: number
+        price:
+          description: Amount to discount if discount is of FIXED_PRICE type.
+          type:
+          - number
+          - 'null'
+        redemptionRestriction:
+          $ref: '#/components/schemas/RedemptionRestriction'
+        redemptions:
+          description: Number of times the discount has been redeemed.
+          type: number
+        retainable:
+          description: True if the discount is retainable. Retainable discounts can be redeemed on orders that are updated after the discount expires. For example, if an order includes a discount that expires on 01 January 2019, and the order is then updated on 02 January 2019, the discount would still be redeemable. The default value is false (discounts are not retained).
+          type: boolean
+        startDate:
+          description: Start date for the discount.
+          type:
+          - number
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DiscountType'
+        unit:
+          $ref: '#/components/schemas/PricingUnit'
+        vendorSharePercentage:
+          description: Vendor's percentage share of the discount.
+          type:
+          - number
+          - 'null'
+    DiscountType:
+      type: string
+      title: DiscountType
+      properties:
+        DiscountType:
+          type: string
+          enum:
+          - PERCENTAGE
+          - FIXED_PRICE

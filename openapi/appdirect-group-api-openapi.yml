@@ -1142,50 +1142,15 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/groups/%7BgroupUuid%7D/memberships/%7BuserUuid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    UserGroupAssignmentRequest:
+    UserGroupUnassignmentRequest:
       type: object
-      title: UserGroupAssignmentRequest
+      title: UserGroupUnassignmentRequest
       properties:
         userUuid:
           description: User unique identifier
           type: string
       example:
-        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
-    UassignmentRequest:
-      type: object
-      title: UassignmentRequest
-      properties:
-        userEntitlementId:
-          description: User entitlement ID
-          type: number
-      example:
-        userEntitlementId: 1926
-    CreateCompanyGroupAccountV2:
-      type: object
-      title: CreateCompanyGroupAccountV2
-      properties:
-        description:
-          description: Company group description.
-          type: string
-        name:
-          description: Company group name.
-          type: string
-      example:
-        name: HR
-        description: Human Resources
-    UpdateCompanyGroupAccountV2:
-      type: object
-      title: UpdateCompanyGroupAccountV2
-      properties:
-        description:
-          description: Company group description.
-          type: string
-        name:
-          description: Company group name.
-          type: string
-      example:
-        name: Engineer
-        description: Engineering
+        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
     AssignmentRequest:
       type: object
       title: AssignmentRequest
@@ -1234,12 +1199,47 @@ components:
           parameters: {}
         appUnassignmentRequests:
         - userEntitlementId: 1941
-    UserGroupUnassignmentRequest:
+    CreateCompanyGroupAccountV2:
       type: object
-      title: UserGroupUnassignmentRequest
+      title: CreateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: HR
+        description: Human Resources
+    UpdateCompanyGroupAccountV2:
+      type: object
+      title: UpdateCompanyGroupAccountV2
+      properties:
+        description:
+          description: Company group description.
+          type: string
+        name:
+          description: Company group name.
+          type: string
+      example:
+        name: Engineer
+        description: Engineering
+    UserGroupAssignmentRequest:
+      type: object
+      title: UserGroupAssignmentRequest
       properties:
         userUuid:
           description: User unique identifier
           type: string
       example:
-        userUuid: 85c8ccee-8207-45bb-9b3d-ac4e20f14234
+        userUuid: b7a2b92c-26cd-4e5b-8488-82dc0821bc1b
+    UassignmentRequest:
+      type: object
+      title: UassignmentRequest
+      properties:
+        userEntitlementId:
+          description: User entitlement ID
+          type: number
+      example:
+        userEntitlementId: 1926

@@ -401,6 +401,151 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/subscriptions/%7BsubscriptionId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
+    EventType:
+      type: string
+      title: EventType
+      enum:
+      - SUBSCRIPTION_ORDER
+      - SUBSCRIPTION_CHANGE
+      - SUBSCRIPTION_CANCEL
+      - SUBSCRIPTION_NOTICE
+      - USER_ASSIGNMENT
+      - USER_UNASSIGNMENT
+      - USER_UPDATED
+      - ADDON_ORDER
+      - ADDON_CHANGE
+      - ADDON_CANCEL
+      - ADDON_BIND
+      - ADDON_UNBIND
+    OrderLineDetailsWS:
+      title: OrderLineDetailsWS
+      type: object
+      description: Unit type and quantity
+      required:
+      - unit
+      - quantity
+      properties:
+        unit:
+          description: Pricing Unit
+          type:
+          - string
+          - 'null'
+        quantity:
+          description: Quantity
+          type:
+          - string
+          - 'null'
+      example:
+        unit: USER
+        quantity: '1'
+    AppResellerSubscriptionWS:
+      type: object
+      title: AppResellerSubscriptionWS
+      required:
+      - id
+      - createdOn
+      - activeOrder
+      - company
+      - user
+      - applicationName
+      - status
+      properties:
+        id:
+          description: Subscription ID
+          type: string
+        createdOn:
+          description: Creation date of the subscription, in Unix timestamp format
+          type: number
+        activeOrder:
+          $ref: '#/components/schemas/AppResellerSubscriptionActiveOrderWS'
+        company:
+          $ref: '#/components/schemas/CompanyAssociation'
+        user:
+          $ref: '#/components/schemas/UserAssociation'
+        applicationName:
+          description: Name of the application related to the subscription
+          type: string
+        pendingEventType:
+          $ref: '#/components/schemas/EventType'
+        status:
+          description: Subscription status (valid values are INITIALIZED, FAILED, FREE_TRIAL, FREE_TRIAL_EXPIRED, ACTIVE, SUSPENDED, or CANCELLED)
+          type: string
+        referenceCode:
+          description: Code provided by Resellers and Sales Agents while purchasing a subscription
+          type: string
+      example:
+        id: 386626c0-53e2-4515-8450-4a720bb5d029
+        createdOn: 1529083173000
+        activeOrder:
+          id: '1553'
+          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+          orderLines:
+          - unit: USER
+            quantity: '1'
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          editionName: Edition
+          createdOn: 1529083173000
+        company:
+          id: 698555fc-bc65-4163-9fee-16308edec41b
+          name: Company A
+        user:
+          id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+          firstName: Michael
+          lastName: Jordan
+        applicationName: AUTO_DISCOUNTS_APP
+        pendingEvent: SUBSCRIPTION_CHANGE
+        status: ACTIVE
+        referenceCode: bundle09
+    AppResellerSubscriptionActiveOrderWS:
+      allOf:
+      - $ref: '#/components/schemas/AppResellerOrderLightWS'
+      - title: AppResellerSubscriptionActiveOrderWS
+        type: object
+        properties:
+          orderLines:
+            description: Unit type and quantity
+            type: array
+            items:
+              $ref: '#/components/schemas/OrderLineDetailsWS'
+          paymentPlanId:
+            description: Edition Payment Plan ID
+            type: string
+        example:
+          id: '1234'
+          createdOn: 1529083173000
+          status: PENDING MANUAL RECOVERY
+          frequency: One Time
+          totalFee: USD350.00
+          editionName: Edition
+          orderCartId: '4567'
+          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+          orderLines:
+          - unit: USER
+            quantity: '1'
     SubscriptionList:
       type: object
       title: SubscriptionList
@@ -498,125 +643,23 @@ components:
         totalFee: USD350.00
         editionName: Edition
         orderCartId: '4567'
-    EventType:
-      type: string
-      title: EventType
-      enum:
-      - SUBSCRIPTION_ORDER
-      - SUBSCRIPTION_CHANGE
-      - SUBSCRIPTION_CANCEL
-      - SUBSCRIPTION_NOTICE
-      - USER_ASSIGNMENT
-      - USER_UNASSIGNMENT
-      - USER_UPDATED
-      - ADDON_ORDER
-      - ADDON_CHANGE
-      - ADDON_CANCEL
-      - ADDON_BIND
-      - ADDON_UNBIND
-    OrderLineDetailsWS:
-      title: OrderLineDetailsWS
+    AppResellerBillingSubscriptionUpdateRequestWS:
       type: object
-      description: Unit type and quantity
-      required:
-      - unit
-      - quantity
+      title: AppResellerSubscriptionUpdateRequest
       properties:
-        unit:
-          description: Pricing Unit
-          type:
-          - string
-          - 'null'
-        quantity:
-          description: Quantity
-          type:
-          - string
-          - 'null'
+        paymentPlanId:
+          description: Edition Payment Plan ID
+          type: string
+        orderLines:
+          description: Unit type and quantity
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineDetailsWS'
       example:
-        unit: USER
-        quantity: '1'
-    UserAssociation:
-      title: AppResellerUserAssociation
-      type: object
-      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
-      required:
-      - id
-      - firstName
-      - lastName
-      properties:
-        id:
-          description: User ID
-          type: string
-        firstName:
-          description: User first name
-          type: string
-        lastName:
-          description: User last name
-          type: string
-      example:
-        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-        firstName: Michael
-        lastName: Jordan
-    AppResellerSubscriptionWS:
-      type: object
-      title: AppResellerSubscriptionWS
-      required:
-      - id
-      - createdOn
-      - activeOrder
-      - company
-      - user
-      - applicationName
-      - status
-      properties:
-        id:
-          description: Subscription ID
-          type: string
-        createdOn:
-          description: Creation date of the subscription, in Unix timestamp format
-          type: number
-        activeOrder:
-          $ref: '#/components/schemas/AppResellerSubscriptionActiveOrderWS'
-        company:
-          $ref: '#/components/schemas/CompanyAssociation'
-        user:
-          $ref: '#/components/schemas/UserAssociation'
-        applicationName:
-          description: Name of the application related to the subscription
-          type: string
-        pendingEventType:
-          $ref: '#/components/schemas/EventType'
-        status:
-          description: Subscription status (valid values are INITIALIZED, FAILED, FREE_TRIAL, FREE_TRIAL_EXPIRED, ACTIVE, SUSPENDED, or CANCELLED)
-          type: string
-        referenceCode:
-          description: Code provided by Resellers and Sales Agents while purchasing a subscription
-          type: string
-      example:
-        id: 386626c0-53e2-4515-8450-4a720bb5d029
-        createdOn: 1529083173000
-        activeOrder:
-          id: '1553'
-          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
-          orderLines:
-          - unit: USER
-            quantity: '1'
-          status: PENDING MANUAL RECOVERY
-          frequency: One Time
-          totalFee: USD350.00
-          editionName: Edition
-          createdOn: 1529083173000
-        company:
-          id: 698555fc-bc65-4163-9fee-16308edec41b
-          name: Company A
-        user:
-          id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-          firstName: Michael
-          lastName: Jordan
-        applicationName: AUTO_DISCOUNTS_APP
-        pendingEvent: SUBSCRIPTION_CHANGE
-        status: ACTIVE
-        referenceCode: bundle09
+        paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
+        orderLines:
+        - unit: USER
+          quantity: '15'
     AppResellerBillingSubscriptionCreationRequestWS:
       type: object
       title: AppResellerSubscriptionCreationRequest
@@ -651,40 +694,6 @@ components:
         orderLines:
         - unit: USER
           quantity: '1'
-    AppResellerBillingSubscriptionUpdateRequestWS:
-      type: object
-      title: AppResellerSubscriptionUpdateRequest
-      properties:
-        paymentPlanId:
-          description: Edition Payment Plan ID
-          type: string
-        orderLines:
-          description: Unit type and quantity
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLineDetailsWS'
-      example:
-        paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
-        orderLines:
-        - unit: USER
-          quantity: '15'
-    CompanyAssociation:
-      title: AppResellerCompanyAssociation
-      type: object
-      description: 'A minimum version of a company: includes only the company ID and name'
-      required:
-      - id
-      - name
-      properties:
-        id:
-          description: Company ID
-          type: string
-        name:
-          description: Company name
-          type: string
-      example:
-        id: 698555fc-bc65-4163-9fee-16308edec41b
-        name: Company A
     AppResellerSubscriptionLightWS:
       type: object
       title: AppResellerSubscriptionLightWS
@@ -732,32 +741,23 @@ components:
         applicationName: AUTO_DISCOUNTS_APP
         pendingEvent: SUBSCRIPTION_CHANGE
         status: ACTIVE
-    AppResellerSubscriptionActiveOrderWS:
-      allOf:
-      - $ref: '#/components/schemas/AppResellerOrderLightWS'
-      - title: AppResellerSubscriptionActiveOrderWS
-        type: object
-        properties:
-          orderLines:
-            description: Unit type and quantity
-            type: array
-            items:
-              $ref: '#/components/schemas/OrderLineDetailsWS'
-          paymentPlanId:
-            description: Edition Payment Plan ID
-            type: string
-        example:
-          id: '1234'
-          createdOn: 1529083173000
-          status: PENDING MANUAL RECOVERY
-          frequency: One Time
-          totalFee: USD350.00
-          editionName: Edition
-          orderCartId: '4567'
-          paymentPlanId: 30ccf1e7-1937-40cb-8e73-851a226fd4ea
-          orderLines:
-          - unit: USER
-            quantity: '1'
+    CompanyAssociation:
+      title: AppResellerCompanyAssociation
+      type: object
+      description: 'A minimum version of a company: includes only the company ID and name'
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: Company ID
+          type: string
+        name:
+          description: Company name
+          type: string
+      example:
+        id: 698555fc-bc65-4163-9fee-16308edec41b
+        name: Company A
     PageMetadata:
       type: object
       title: PageMetadata

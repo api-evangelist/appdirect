@@ -208,6 +208,74 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/sync/v1/assignments?developerIdentifier=SOME_STRING_VALUE&accountIdentifier=SOME_STRING_VALUE&userIdentifier=SOME_STRING_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    UserSyncWS:
+      type: object
+      title: UserSyncWS
+      required:
+      - accountIdentifier
+      - developerIdentifier
+      - userIdentifier
+      - type
+      - operation
+      properties:
+        type:
+          type: string
+          description: Required. It must have the value 'ASSIGNMENT'
+        operation:
+          type: string
+          description: 'Required. The operation. Options: ''ASSIGN'' and ''UNASSIGN'''
+        accountIdentifier:
+          type: string
+          description: Required. The Account Identifier provided when the subscription was created
+        developerIdentifier:
+          type: string
+          description: Required. The company UUID of the Developer's company
+          format: uuid
+        userIdentifier:
+          type: string
+          description: Required. The user identifier in the Developer's system
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      example:
+        type: ASSIGNMENT
+        operation: ASSIGN
+        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
+        developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
+        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
+        userName: Test_UserName
+        firstName: Test_FirstName
+        lastName: Test_LastName
+        email: test_email@yopmail.com
+    UserAssignmentWS:
+      type: object
+      title: UserAssignmentWS
+      properties:
+        userIdentifier:
+          type: string
+        accountIdentifier:
+          type: string
+        userName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        assigned:
+          type: boolean
+      example:
+        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
+        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
+        userName: Test_UserName
+        firstName: Test_FirstName
+        lastName: Test_LastName
+        email: test_email@yopmail.com
+        assigned: true
     DeveloperAccount:
       type: object
       title: DeveloperAccount
@@ -281,74 +349,6 @@ components:
         - abc2.com
         customAttributes:
           customAtrribute1: '1234567890'
-    UserAssignmentWS:
-      type: object
-      title: UserAssignmentWS
-      properties:
-        userIdentifier:
-          type: string
-        accountIdentifier:
-          type: string
-        userName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        assigned:
-          type: boolean
-      example:
-        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
-        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
-        userName: Test_UserName
-        firstName: Test_FirstName
-        lastName: Test_LastName
-        email: test_email@yopmail.com
-        assigned: true
-    UserSyncWS:
-      type: object
-      title: UserSyncWS
-      required:
-      - accountIdentifier
-      - developerIdentifier
-      - userIdentifier
-      - type
-      - operation
-      properties:
-        type:
-          type: string
-          description: Required. It must have the value 'ASSIGNMENT'
-        operation:
-          type: string
-          description: 'Required. The operation. Options: ''ASSIGN'' and ''UNASSIGN'''
-        accountIdentifier:
-          type: string
-          description: Required. The Account Identifier provided when the subscription was created
-        developerIdentifier:
-          type: string
-          description: Required. The company UUID of the Developer's company
-          format: uuid
-        userIdentifier:
-          type: string
-          description: Required. The user identifier in the Developer's system
-        userName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-      example:
-        type: ASSIGNMENT
-        operation: ASSIGN
-        accountIdentifier: 200ae1d9-c5b9-4c0b-843c-45d8e74d741a
-        developerIdentifier: f0b5c422-0400-459f-879c-ac369d924bb9
-        userIdentifier: 45bbf36e-5902-4eb3-9072-87d267d302d4
-        userName: Test_UserName
-        firstName: Test_FirstName
-        lastName: Test_LastName
-        email: test_email@yopmail.com
     DeveloperAccountWS:
       type: object
       title: DeveloperAccountSyncWS

@@ -419,16 +419,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/paymentInstruments/%7BpaymentInstrumentId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    CreditCardType:
-      type: string
-      title: CreditCardType
-      enum:
-      - VISA
-      - MASTERCARD
-      - AMEX
-      - DISCOVER
-      - JCB
-      - GATEWAY
     LinkWS:
       type:
       - object
@@ -442,6 +432,62 @@ components:
       example:
         href: '...'
         id: '...'
+    CreditCardWS:
+      type: object
+      title: CreditCard
+      required:
+      - name
+      - number
+      - securityCode
+      - expirationMonth
+      - expirationYear
+      properties:
+        expirationMonth:
+          description: Expiration month. Required field.
+          type: number
+          maxLength: 12
+          minLength: 1
+        expirationYear:
+          description: Expiration year. Required field.
+          type: number
+        name:
+          description: Name as it appears on credit card. Required field.
+          type: string
+          maxLength: 255
+          minLength: 0
+        number:
+          description: Credit card number. Required field.
+          type:
+          - string
+          - 'null'
+          maxLength: 19
+          minLength: 0
+        securityCode:
+          description: Credit card security code. Required field.
+          type:
+          - string
+          - 'null'
+          maxLength: 4
+          minLength: 3
+        type:
+          $ref: '#/components/schemas/CreditCardType'
+      example:
+        expirationMonth: 12345
+        expirationYear: 12345
+        name: '...'
+        number: '...'
+        securityCode: '...'
+        type: JCB
+    CreditCardType:
+      type: string
+      title: CreditCardType
+      enum:
+      - VISA
+      - MASTERCARD
+      - AMEX
+      - DISCOVER
+      - JCB
+      - GATEWAY
     BillingAddressWS:
       allOf:
       - $ref: '#/components/schemas/AddressWS'
@@ -493,52 +539,6 @@ components:
       - MANUAL
       - EXTERNAL_INVOICE
       - MARKETPLACE_CREDITS
-    CreditCardWS:
-      type: object
-      title: CreditCard
-      required:
-      - name
-      - number
-      - securityCode
-      - expirationMonth
-      - expirationYear
-      properties:
-        expirationMonth:
-          description: Expiration month. Required field.
-          type: number
-          maxLength: 12
-          minLength: 1
-        expirationYear:
-          description: Expiration year. Required field.
-          type: number
-        name:
-          description: Name as it appears on credit card. Required field.
-          type: string
-          maxLength: 255
-          minLength: 0
-        number:
-          description: Credit card number. Required field.
-          type:
-          - string
-          - 'null'
-          maxLength: 19
-          minLength: 0
-        securityCode:
-          description: Credit card security code. Required field.
-          type:
-          - string
-          - 'null'
-          maxLength: 4
-          minLength: 3
-        type:
-          $ref: '#/components/schemas/CreditCardType'
-      example:
-        expirationMonth: 12345
-        expirationYear: 12345
-        name: '...'
-        number: '...'
-        securityCode: '...'
-        type: JCB
     AddressWS:
       type: object
       title: Address

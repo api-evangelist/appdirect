@@ -861,6 +861,175 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{}\");\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/account/v2/companies/%7BcompanyUuid%7D/picture\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    UpdateCompanyAccountV2Request:
+      description: Payload for "update company" request
+      type: object
+      title: UpdateCompanyAccountV2Request
+      properties:
+        name:
+          description: Company name
+          type:
+          - string
+          - 'null'
+        enabled:
+          description: Indicates whether company is enabled
+          type: boolean
+        allowLogin:
+          description: Indicates whether a company's users are managed users (false) or not (true). Do not change the value with this request
+          type: boolean
+        address:
+          $ref: '#/components/schemas/CompanyAddress'
+        companySize:
+          $ref: '#/components/schemas/CompanySizeType'
+        customAttributes:
+          description: Custom attributes
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomAttributeAccountV2'
+        industry:
+          description: Company industry sector
+          type: string
+        emailAddress:
+          description: Company email address
+          type: string
+        website:
+          description: Company website URL
+          type: string
+        vendor:
+          description: Indicates whether the company has Vendor access
+          type: boolean
+        reseller:
+          description: Indicates whether the company has Reseller access
+          type: boolean
+        channelAdmin:
+          description: Indicates whether the company has Channel Admin access
+          type: boolean
+        referral:
+          description: Indicates whether the company has Referral access
+          type: boolean
+        externalId:
+          description: Company external ID
+          type: string
+        phoneNumber:
+          description: Company phone number
+          type:
+          - string
+          - 'null'
+        defaultRole:
+          description: The default role newly created users receive
+          type: string
+        countryCode:
+          description: Company country code defined by ISO ALPHA-2 standard
+          type: string
+        billingDayOfMonth:
+          description: (Optional) Use this property in company creation requests to set the billing cycle start date. The date applies to all purchases made through the specified company, and overrides the marketplace-level billing cycle date.
+          type: integer
+        thirtyDaysPurchaseLimit:
+          description: Monthly spend limit used as the default limit for all companies in the marketplace
+          type: number
+        thirtyDaysPurchaseRemainingAmt:
+          description: Remaining monthly spending amount
+          type: number
+        thirtyDaysPurchaseLimitExempt:
+          description: Whether company is exempt from the marketplace default thirty-day spend limit
+          type: boolean
+        thirtyDaysPurchaseLimitOverrideAmt:
+          description: Thirty-day spend limit for this company (overrides marketplace default for thirty-day company spend limit)
+          type: number
+      example:
+        name: Company 7078259907
+        enabled: true
+        address:
+          city: San Francisco
+          country: United Stated of America
+          state: California
+          street1: 5th Ave
+          street2: '#400'
+          zip: '32455'
+        companySize: SMALL
+        customAttributes:
+        - name: Geographic Region
+          attributeType: TEXT
+          label: Geographic Region
+          hint: US West, US Central, or US East
+          value: US
+        - name: Company Details
+          attributeType: MULTISELECT
+          label: Label Names
+          hint: ''
+          valueKeys:
+          - Option 1
+        industry: IT
+        emailAddress: info@company.com
+        website: http://www.company.com
+        vendor: false
+        reseller: false
+        channelAdmin: false
+        externalId: d689b970-f3f9-42a6-a974-90e2bdadf860
+        phoneNumber: '9259221234'
+        defaultRole: USER
+        countryCode: US
+        thirtyDaysPurchaseLimit: 0
+        thirtyDaysPurchaseLimitExempt: false
+        thirtyDaysPurchaseLimitOverrideAmt: null
+        thirtyDaysPurchaseRemainingAmt: null
+    CreateCompanyV2RequestFirstUser:
+      allOf:
+      - description: Represents the membership of the first user in a company, who also receives the Company Administrator role by default
+        type: object
+        title: CreateCompanyV2RequestFirstUser
+        properties:
+          email:
+            description: Primary email addressed of the user being created
+            type: string
+          firstName:
+            description: First name of the user being created
+            type:
+            - string
+            - 'null'
+          lastName:
+            description: Last name of the user being created
+            type:
+            - string
+            - 'null'
+          position:
+            description: User's job title, also referred to as "Title" on the "My Settings" page in the user interface
+            type:
+            - string
+            - 'null'
+          roles:
+            description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+            type: array
+            items:
+              type: string
+        example:
+          email: jude.doe@company8578572384.com
+          firstName: Jude
+          lastName: Doe
+          position: Business Analyst
+          roles:
+          - ROLE_BILLING_ADMIN
+          - ROLE_SYS_ADMIN
+    CustomAttributeAccountV2Request:
+      description: Custom attributes
+      type: object
+      title: CustomAttributeAccountV2Request
+      properties:
+        name:
+          description: Name
+          type: string
+        value:
+          description: Value
+          type: string
+        valueKeys:
+          description: Value keys
+          type: array
+          items:
+            type: string
+      example:
+        name: Company Details
+        valueKeys:
+        - great option
     CreateCompanyV2Request:
       allOf:
       - description: Payload for "create company" requests
@@ -984,43 +1153,6 @@ components:
             email: john.smith@company12345.com
             roles:
             - ROLE_SYS_ADMIN
-    CreateCompanyV2RequestFirstUser:
-      allOf:
-      - description: Represents the membership of the first user in a company, who also receives the Company Administrator role by default
-        type: object
-        title: CreateCompanyV2RequestFirstUser
-        properties:
-          email:
-            description: Primary email addressed of the user being created
-            type: string
-          firstName:
-            description: First name of the user being created
-            type:
-            - string
-            - 'null'
-          lastName:
-            description: Last name of the user being created
-            type:
-            - string
-            - 'null'
-          position:
-            description: User's job title, also referred to as "Title" on the "My Settings" page in the user interface
-            type:
-            - string
-            - 'null'
-          roles:
-            description: 'Roles for this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
-            type: array
-            items:
-              type: string
-        example:
-          email: jude.doe@company8578572384.com
-          firstName: Jude
-          lastName: Doe
-          position: Business Analyst
-          roles:
-          - ROLE_BILLING_ADMIN
-          - ROLE_SYS_ADMIN
     CompanySizeType:
       description: Company size types
       type: string
@@ -1069,175 +1201,6 @@ components:
         street1: '...'
         street2: '...'
         zip: '...'
-    AttributeType:
-      type: string
-      title: AttributeType
-      enum:
-      - TEXT
-      - MULTISELECT
-    UpdateCompanyAccountV2Request:
-      description: Payload for "update company" request
-      type: object
-      title: UpdateCompanyAccountV2Request
-      properties:
-        name:
-          description: Company name
-          type:
-          - string
-          - 'null'
-        enabled:
-          description: Indicates whether company is enabled
-          type: boolean
-        allowLogin:
-          description: Indicates whether a company's users are managed users (false) or not (true). Do not change the value with this request
-          type: boolean
-        address:
-          $ref: '#/components/schemas/CompanyAddress'
-        companySize:
-          $ref: '#/components/schemas/CompanySizeType'
-        customAttributes:
-          description: Custom attributes
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomAttributeAccountV2'
-        industry:
-          description: Company industry sector
-          type: string
-        emailAddress:
-          description: Company email address
-          type: string
-        website:
-          description: Company website URL
-          type: string
-        vendor:
-          description: Indicates whether the company has Vendor access
-          type: boolean
-        reseller:
-          description: Indicates whether the company has Reseller access
-          type: boolean
-        channelAdmin:
-          description: Indicates whether the company has Channel Admin access
-          type: boolean
-        referral:
-          description: Indicates whether the company has Referral access
-          type: boolean
-        externalId:
-          description: Company external ID
-          type: string
-        phoneNumber:
-          description: Company phone number
-          type:
-          - string
-          - 'null'
-        defaultRole:
-          description: The default role newly created users receive
-          type: string
-        countryCode:
-          description: Company country code defined by ISO ALPHA-2 standard
-          type: string
-        billingDayOfMonth:
-          description: (Optional) Use this property in company creation requests to set the billing cycle start date. The date applies to all purchases made through the specified company, and overrides the marketplace-level billing cycle date.
-          type: integer
-        thirtyDaysPurchaseLimit:
-          description: Monthly spend limit used as the default limit for all companies in the marketplace
-          type: number
-        thirtyDaysPurchaseRemainingAmt:
-          description: Remaining monthly spending amount
-          type: number
-        thirtyDaysPurchaseLimitExempt:
-          description: Whether company is exempt from the marketplace default thirty-day spend limit
-          type: boolean
-        thirtyDaysPurchaseLimitOverrideAmt:
-          description: Thirty-day spend limit for this company (overrides marketplace default for thirty-day company spend limit)
-          type: number
-      example:
-        name: Company 7078259907
-        enabled: true
-        address:
-          city: San Francisco
-          country: United Stated of America
-          state: California
-          street1: 5th Ave
-          street2: '#400'
-          zip: '32455'
-        companySize: SMALL
-        customAttributes:
-        - name: Geographic Region
-          attributeType: TEXT
-          label: Geographic Region
-          hint: US West, US Central, or US East
-          value: US
-        - name: Company Details
-          attributeType: MULTISELECT
-          label: Label Names
-          hint: ''
-          valueKeys:
-          - Option 1
-        industry: IT
-        emailAddress: info@company.com
-        website: http://www.company.com
-        vendor: false
-        reseller: false
-        channelAdmin: false
-        externalId: d689b970-f3f9-42a6-a974-90e2bdadf860
-        phoneNumber: '9259221234'
-        defaultRole: USER
-        countryCode: US
-        thirtyDaysPurchaseLimit: 0
-        thirtyDaysPurchaseLimitExempt: false
-        thirtyDaysPurchaseLimitOverrideAmt: null
-        thirtyDaysPurchaseRemainingAmt: null
-    CustomAttributeAccountV2:
-      description: Custom attributes
-      type: object
-      title: CustomAttributeAccountV2
-      properties:
-        attributeType:
-          $ref: '#/components/schemas/AttributeType'
-        hint:
-          description: Localized hint
-          type: string
-        label:
-          description: Localized label
-          type: string
-        name:
-          description: Name
-          type: string
-        value:
-          description: Value
-          type: string
-        valueKeys:
-          description: Value keys
-          type: array
-          items:
-            type: string
-      example:
-        name: Company Details
-        attributeType: MULTISELECT
-        label: Label Names
-        hint: ''
-        valueKeys:
-        - great option
-    CustomAttributeAccountV2Request:
-      description: Custom attributes
-      type: object
-      title: CustomAttributeAccountV2Request
-      properties:
-        name:
-          description: Name
-          type: string
-        value:
-          description: Value
-          type: string
-        valueKeys:
-          description: Value keys
-          type: array
-          items:
-            type: string
-      example:
-        name: Company Details
-        valueKeys:
-        - great option
     CompanyAccountV2Request:
       description: Payload for "patch company" request
       type: object
@@ -1350,3 +1313,40 @@ components:
         thirtyDaysPurchaseLimitOverrideAmt: null
         dailyPurchaseLimitExempt: false
         dailyPurchaseLimitOverrideAmt: 10
+    AttributeType:
+      type: string
+      title: AttributeType
+      enum:
+      - TEXT
+      - MULTISELECT
+    CustomAttributeAccountV2:
+      description: Custom attributes
+      type: object
+      title: CustomAttributeAccountV2
+      properties:
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        hint:
+          description: Localized hint
+          type: string
+        label:
+          description: Localized label
+          type: string
+        name:
+          description: Name
+          type: string
+        value:
+          description: Value
+          type: string
+        valueKeys:
+          description: Value keys
+          type: array
+          items:
+            type: string
+      example:
+        name: Company Details
+        attributeType: MULTISELECT
+        label: Label Names
+        hint: ''
+        valueKeys:
+        - great option

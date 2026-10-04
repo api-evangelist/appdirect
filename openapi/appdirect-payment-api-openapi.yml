@@ -671,6 +671,76 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/billing/v1/payments/%7BpaymentNumber%7D/invoices?count=SOME_STRING_VALUE&excludeFree=SOME_BOOLEAN_VALUE&fromDate=SOME_NUMBER_VALUE&sortField=SOME_STRING_VALUE&sortOrder=SOME_STRING_VALUE&start=SOME_STRING_VALUE&status=SOME_STRING_VALUE&toDate=SOME_NUMBER_VALUE\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    InvoiceStatus:
+      type: string
+      title: InvoiceStatus
+      enum:
+      - PAID
+      - UNPAID
+      - CARRIED
+      - VOIDED
+    PaymentWS:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - type: object
+        title: Payment
+        properties:
+          amount:
+            description: Payment amount.
+            type:
+            - number
+            - 'null'
+          company:
+            $ref: '#/components/schemas/LinkWS'
+          currency:
+            $ref: '#/components/schemas/Currency'
+          date:
+            description: Payment date.
+            type:
+            - number
+            - 'null'
+          gatewayResponse:
+            $ref: '#/components/schemas/GatewayResponseWS'
+          id:
+            description: Payment number.
+            type:
+            - number
+            - 'null'
+          method:
+            $ref: '#/components/schemas/PaymentMethod'
+          result:
+            $ref: '#/components/schemas/PaymentResult'
+          transactionId:
+            description: Transaction ID.
+            type:
+            - string
+            - 'null'
+          user:
+            $ref: '#/components/schemas/LinkWS'
+        example:
+          amount: 12345
+          company:
+            href: '...'
+            id: '...'
+          currency: INR
+          date: 12345
+          gatewayResponse:
+            avs: true
+            code: '...'
+            cvv: true
+            message: '...'
+          id: 12345
+          links:
+          - href: '...'
+            rel: '...'
+          - href: '...'
+            rel: '...'
+          method: PAYPAL
+          result: GATEWAY_NOT_AVAILABLE
+          transactionId: '...'
+          user:
+            href: '...'
+            id: '...'
     LinkWS:
       type:
       - object
@@ -684,66 +754,6 @@ components:
       example:
         href: '...'
         id: '...'
-    PaymentMethod:
-      type: string
-      description: The supported payment methods
-      title: PaymentMethod
-      enum:
-      - CREDIT_CARD
-      - PAYPAL
-      - MANUAL
-      - EXTERNAL_INVOICE
-      - MARKETPLACE_CREDITS
-    ResourceSupport:
-      type:
-      - object
-      - 'null'
-      title: ResourceSupport
-      description: Resource links
-      properties:
-        links:
-          type: array
-          description: Resource links
-          items:
-            $ref: '#/components/schemas/Link'
-      example:
-        links:
-        - href: '...'
-          rel: '...'
-        - href: '...'
-          rel: '...'
-    Currency:
-      description: Supported currencies for the system
-      type: string
-      title: Currency
-      enum:
-      - USD
-      - CAD
-      - EUR
-      - JPY
-      - GBP
-      - KRW
-      - CHF
-      - SEK
-      - SGD
-      - MYR
-      - AUD
-      - MXN
-      - INR
-      - BRL
-      - DKK
-      - NZD
-      - NOK
-      - ZAR
-      - PHP
-      - CNY
-      - SAR
-      - GTQ
-      - IDR
-      - ARS
-      - COP
-      - PEN
-      default: USD
     InvoiceListingWS:
       allOf:
       - $ref: '#/components/schemas/ResourceSupport'
@@ -832,76 +842,6 @@ components:
         code: '...'
         cvv: true
         message: '...'
-    PaymentResult:
-      type: string
-      title: PaymentResult
-      enum:
-      - SUCCESSFUL
-      - FAILED
-      - GATEWAY_NOT_AVAILABLE
-      - MANUAL
-    PaymentWS:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - type: object
-        title: Payment
-        properties:
-          amount:
-            description: Payment amount.
-            type:
-            - number
-            - 'null'
-          company:
-            $ref: '#/components/schemas/LinkWS'
-          currency:
-            $ref: '#/components/schemas/Currency'
-          date:
-            description: Payment date.
-            type:
-            - number
-            - 'null'
-          gatewayResponse:
-            $ref: '#/components/schemas/GatewayResponseWS'
-          id:
-            description: Payment number.
-            type:
-            - number
-            - 'null'
-          method:
-            $ref: '#/components/schemas/PaymentMethod'
-          result:
-            $ref: '#/components/schemas/PaymentResult'
-          transactionId:
-            description: Transaction ID.
-            type:
-            - string
-            - 'null'
-          user:
-            $ref: '#/components/schemas/LinkWS'
-        example:
-          amount: 12345
-          company:
-            href: '...'
-            id: '...'
-          currency: INR
-          date: 12345
-          gatewayResponse:
-            avs: true
-            code: '...'
-            cvv: true
-            message: '...'
-          id: 12345
-          links:
-          - href: '...'
-            rel: '...'
-          - href: '...'
-            rel: '...'
-          method: PAYPAL
-          result: GATEWAY_NOT_AVAILABLE
-          transactionId: '...'
-          user:
-            href: '...'
-            id: '...'
     Link:
       type:
       - object
@@ -915,11 +855,71 @@ components:
       example:
         href: '...'
         rel: '...'
-    InvoiceStatus:
+    PaymentMethod:
       type: string
-      title: InvoiceStatus
+      description: The supported payment methods
+      title: PaymentMethod
       enum:
-      - PAID
-      - UNPAID
-      - CARRIED
-      - VOIDED
+      - CREDIT_CARD
+      - PAYPAL
+      - MANUAL
+      - EXTERNAL_INVOICE
+      - MARKETPLACE_CREDITS
+    ResourceSupport:
+      type:
+      - object
+      - 'null'
+      title: ResourceSupport
+      description: Resource links
+      properties:
+        links:
+          type: array
+          description: Resource links
+          items:
+            $ref: '#/components/schemas/Link'
+      example:
+        links:
+        - href: '...'
+          rel: '...'
+        - href: '...'
+          rel: '...'
+    PaymentResult:
+      type: string
+      title: PaymentResult
+      enum:
+      - SUCCESSFUL
+      - FAILED
+      - GATEWAY_NOT_AVAILABLE
+      - MANUAL
+    Currency:
+      description: Supported currencies for the system
+      type: string
+      title: Currency
+      enum:
+      - USD
+      - CAD
+      - EUR
+      - JPY
+      - GBP
+      - KRW
+      - CHF
+      - SEK
+      - SGD
+      - MYR
+      - AUD
+      - MXN
+      - INR
+      - BRL
+      - DKK
+      - NZD
+      - NOK
+      - ZAR
+      - PHP
+      - CNY
+      - SAR
+      - GTQ
+      - IDR
+      - ARS
+      - COP
+      - PEN
+      default: USD

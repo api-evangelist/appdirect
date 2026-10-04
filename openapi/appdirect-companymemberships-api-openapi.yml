@@ -1668,6 +1668,29 @@ components:
         - ROLE_BILLING_ADMIN
         - ROLE_DEVELOPER
         - ROLE_SYS_ADMIN
+    CreateUserCompanyMembershipAccountV2:
+      description: Represents a user membership to a company since a user can be a member of multiple companies ([Companies](#companies))
+      type: object
+      title: CreateUserCompanyMembershipAccountV2
+      properties:
+        user:
+          $ref: '#/components/schemas/CreateUserAccountV2'
+        roles:
+          description: 'Optional.  When not included the company default role will be used.
+
+
+            Roles for this membership. One or more of the following: ROLE_USER (User), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+          type: array
+          items:
+            type: string
+      example:
+        user:
+          email: jane.lee@company1151609035.com
+          firstName: Jane
+          lastName: Lee
+          allowLogin: true
+        roles:
+        - ROLE_USER
     ActiveUserCreationAccountV2:
       description: Minimal data required to create a active user membership
       type: object
@@ -1694,29 +1717,31 @@ components:
         recipientEmails:
         - manager@company9411805586.com
         - itteam@company9411805586.com
-    CreateUserCompanyMembershipAccountV2:
-      description: Represents a user membership to a company since a user can be a member of multiple companies ([Companies](#companies))
+    PatchUserCompanyMembershipsAccountV2:
+      description: User company membership role data.
       type: object
-      title: CreateUserCompanyMembershipAccountV2
+      title: PatchUserCompanyMembershipsAccountV2
       properties:
-        user:
-          $ref: '#/components/schemas/CreateUserAccountV2'
-        roles:
-          description: 'Optional.  When not included the company default role will be used.
-
-
-            Roles for this membership. One or more of the following: ROLE_USER (User), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer). For user roles (not associated with membership), see [UserAccountV2](#useraccountv2).'
+        userUuid:
+          description: UUID of the user whose membership roles need to be modified
+          type: string
+        rolesToAdd:
+          description: 'Roles to add to this membership. One or more of the following: ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
+          type: array
+          items:
+            type: string
+        rolesToRemove:
+          description: 'Roles to remove from this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
           type: array
           items:
             type: string
       example:
-        user:
-          email: jane.lee@company1151609035.com
-          firstName: Jane
-          lastName: Lee
-          allowLogin: true
-        roles:
-        - ROLE_USER
+        userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
+        rolesToAdd:
+        - ROLE_DEVELOPER
+        - ROLE_RESELLER
+        rolesToRemove:
+        - ROLE_CHANNEL_SUPPORT
     CreateUserAccountV2:
       description: User information data
       type: object
@@ -1766,41 +1791,6 @@ components:
         idpUuid: 135e3a9f-7f86-46a6-a0af-47a7b3a8936d
         username: john.simpson
         externalId: john.simpson
-    PatchUserCompanyMembershipAccountV2:
-      description: Represents partially updating a user membership to company
-      type: object
-      title: PatchUserCompanyMembershipAccountV2
-      properties:
-        enabled:
-          description: Indicates whether membership is enabled
-          type: boolean
-      example:
-        enabled: true
-    PatchUserCompanyMembershipsAccountV2:
-      description: User company membership role data.
-      type: object
-      title: PatchUserCompanyMembershipsAccountV2
-      properties:
-        userUuid:
-          description: UUID of the user whose membership roles need to be modified
-          type: string
-        rolesToAdd:
-          description: 'Roles to add to this membership. One or more of the following: ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
-          type: array
-          items:
-            type: string
-        rolesToRemove:
-          description: 'Roles to remove from this membership. One or more of the following: ROLE_CHANNEL_ADMIN (Marketplace Manager), ROLE_CHANNEL_PRODUCT_SUPPORT (Product Support), ROLE_SALES_SUPPORT (Sales Support), ROLE_RESELLER_MANAGER (Reseller Manager), ROLE_RESELLER (Reseller), ROLE_CHANNEL_SUPPORT (Customer Support), ROLE_SYS_ADMIN (Company Admin), ROLE_BILLING_ADMIN (Billing Admin), ROLE_DEVELOPER (Developer).'
-          type: array
-          items:
-            type: string
-      example:
-        userUuid: 92a8d9f6-223d-11e8-a232-d879d2b204fc
-        rolesToAdd:
-        - ROLE_DEVELOPER
-        - ROLE_RESELLER
-        rolesToRemove:
-        - ROLE_CHANNEL_SUPPORT
     ActiveUserAccountV2:
       description: User information (company)
       type: object
@@ -1826,3 +1816,13 @@ components:
         lastName: Doe
         roles:
         - ROLE_USER
+    PatchUserCompanyMembershipAccountV2:
+      description: Represents partially updating a user membership to company
+      type: object
+      title: PatchUserCompanyMembershipAccountV2
+      properties:
+        enabled:
+          description: Indicates whether membership is enabled
+          type: boolean
+      example:
+        enabled: true

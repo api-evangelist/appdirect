@@ -162,60 +162,6 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/notification/v1/templates/default/email/%7Btype%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
-    NotificationMethodTemplateWS:
-      type: object
-      title: NotificationMethodTemplate
-      properties:
-        enabled:
-          description: If notification method is enabled
-          type: boolean
-        method:
-          $ref: '#/components/schemas/NotificationMethod'
-    NotificationCommonElementType:
-      type: string
-      title: NotificationCommonElementType
-      enum:
-      - UNSUBSCRIBE
-    NotificationCommonEmailElementWS:
-      type: object
-      title: NotificationCommonEmailElementWS
-      required:
-      - type
-      - content
-      - locale
-      properties:
-        content:
-          description: Email notification content
-          type: string
-        defaultCommonElement:
-          description: If the elements are default common elements
-          type: boolean
-        enabled:
-          description: If the email template is enabled
-          type: boolean
-        id:
-          description: Email notification template ID
-          type: number
-        locale:
-          description: Email notification locale to determine the language
-          type: string
-        partner:
-          description: Partner being used to render the email
-          type: string
-        type:
-          $ref: '#/components/schemas/NotificationCommonElementType'
-    NotificationTemplateCategory:
-      type: string
-      title: NotificationTemplateCategory
-      enum:
-      - ACCOUNTS
-      - PRODUCTS
-      - VENDORS
-      - BILLING
-      - MARKETPLACE
-      - DOMAIN_REGISTRATION
-      - ASSISTED_SALES
-      - MISC
     NotificationAudienceType:
       type: string
       title: NotificationAudienceType
@@ -282,6 +228,20 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/NotificationTemplateType'
+    NotificationMethodTemplateWS:
+      type: object
+      title: NotificationMethodTemplate
+      properties:
+        enabled:
+          description: If notification method is enabled
+          type: boolean
+        method:
+          $ref: '#/components/schemas/NotificationMethod'
+    NotificationCommonElementType:
+      type: string
+      title: NotificationCommonElementType
+      enum:
+      - UNSUBSCRIBE
     NotificationTemplateType:
       type: string
       title: NotificationTemplateType
@@ -461,12 +421,6 @@ components:
       - API_ALERT
       - WELCOME_USER
       - CREDIT_CARD_REQUIRED
-    NotificationMethod:
-      type: string
-      title: NotificationMethod
-      enum:
-      - EMAIL
-      - SMS
     NotificationReminderType:
       type: string
       title: NotificationReminderType
@@ -474,6 +428,52 @@ components:
       - NONE
       - BEFORE
       - AFTER
+    NotificationCommonEmailElementWS:
+      type: object
+      title: NotificationCommonEmailElementWS
+      required:
+      - type
+      - content
+      - locale
+      properties:
+        content:
+          description: Email notification content
+          type: string
+        defaultCommonElement:
+          description: If the elements are default common elements
+          type: boolean
+        enabled:
+          description: If the email template is enabled
+          type: boolean
+        id:
+          description: Email notification template ID
+          type: number
+        locale:
+          description: Email notification locale to determine the language
+          type: string
+        partner:
+          description: Partner being used to render the email
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationCommonElementType'
+    NotificationMethod:
+      type: string
+      title: NotificationMethod
+      enum:
+      - EMAIL
+      - SMS
+    NotificationTemplateCategory:
+      type: string
+      title: NotificationTemplateCategory
+      enum:
+      - ACCOUNTS
+      - PRODUCTS
+      - VENDORS
+      - BILLING
+      - MARKETPLACE
+      - DOMAIN_REGISTRATION
+      - ASSISTED_SALES
+      - MISC
     NotificationTemplateDefinitionWS:
       type: object
       title: NotificationTemplateDefinition

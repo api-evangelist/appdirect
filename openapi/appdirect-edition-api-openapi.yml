@@ -148,6 +148,94 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/marketplace/v1/products/%7BapplicationId%7D/editions/%7BeditionId%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    EditionCustomizationWS:
+      description: Edition customization
+      type: object
+      title: EditionCustomization
+      properties:
+        type:
+          description: Type
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        type: '...'
+        value: '...'
+    PriceWS:
+      description: Price information in different currencies
+      type:
+      - object
+      - 'null'
+      title: Price
+      properties:
+        AUD:
+          type: number
+        BRL:
+          type: number
+        CAD:
+          type: number
+        CHF:
+          type: number
+        CNY:
+          type: number
+        DKK:
+          type: number
+        EUR:
+          type: number
+        GBP:
+          type: number
+        GTQ:
+          type: number
+        INR:
+          type: number
+        JPY:
+          type: number
+        KRW:
+          type: number
+        MXN:
+          type: number
+        MYR:
+          type: number
+        NOK:
+          type: number
+        NZD:
+          type: number
+        PHP:
+          type: number
+        SAR:
+          type: number
+        SEK:
+          type: number
+        SGD:
+          type: number
+        USD:
+          type: number
+        ZAR:
+          type: number
+      example:
+        AUD: 12345
+        BRL: 12345
+        CAD: 12345
+        CHF: 12345
+        CNY: 12345
+        DKK: 12345
+        EUR: 12345
+        GBP: 12345
+        GTQ: 12345
+        INR: 12345
+        JPY: 12345
+        KRW: 12345
+        MXN: 12345
+        MYR: 12345
+        NOK: 12345
+        NZD: 12345
+        PHP: 12345
+        SAR: 12345
+        SEK: 12345
+        SGD: 12345
+        USD: 12345
+        ZAR: 12345
     DurationWS:
       description: Contract duration
       type:
@@ -166,82 +254,6 @@ components:
       example:
         length: 12345
         unit: '...'
-    ProductDiscountDetailsWS:
-      description: Discount detail on a product pricing
-      type:
-      - object
-      - 'null'
-      title: ProductDiscountDetails
-      properties:
-        amount:
-          $ref: '#/components/schemas/PriceWS'
-        availableRedemptions:
-          description: Number of time the discount can be used
-          type: number
-        description:
-          description: Description
-          type:
-          - string
-          - 'null'
-        expirationDate:
-          description: Expiration date of the discount
-          type: number
-        numOfBillingCycles:
-          description: Number of billing cycle the discount is applicable
-          type: number
-        percentage:
-          description: Discount in percentage
-          type: number
-        pricingUnit:
-          $ref: '#/components/schemas/PricingUnit'
-        startDate:
-          description: Start date of the discount
-          type: number
-      example:
-        amount:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        availableRedemptions: 12345
-        description: '...'
-        expirationDate: 12345
-        numOfBillingCycles: 12345
-        percentage: 12345
-        pricingUnit: TIER3_STANDARD_LINE
-        startDate: 12345
-    EditionCustomizationWS:
-      description: Edition customization
-      type: object
-      title: EditionCustomization
-      properties:
-        type:
-          description: Type
-          type: string
-        value:
-          description: Value
-          type: string
-      example:
-        type: '...'
-        value: '...'
     IncludedItemWS:
       description: Included item in an edition
       type: object
@@ -600,53 +612,6 @@ components:
             ZAR: 12345
           percentageFee: 12345
           type: '...'
-    TerminationFeeWS:
-      description: Fee incurred during a termination of a product subscription
-      type:
-      - object
-      - 'null'
-      title: TerminationFee
-      properties:
-        description:
-          description: Description
-          type:
-          - string
-          - 'null'
-        flatFee:
-          $ref: '#/components/schemas/PriceWS'
-        percentageFee:
-          description: Percentage fee
-          type: number
-        type:
-          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
-          type: string
-      example:
-        description: '...'
-        flatFee:
-          AUD: 12345
-          BRL: 12345
-          CAD: 12345
-          CHF: 12345
-          CNY: 12345
-          DKK: 12345
-          EUR: 12345
-          GBP: 12345
-          GTQ: 12345
-          INR: 12345
-          JPY: 12345
-          KRW: 12345
-          MXN: 12345
-          MYR: 12345
-          NOK: 12345
-          NZD: 12345
-          PHP: 12345
-          SAR: 12345
-          SEK: 12345
-          SGD: 12345
-          USD: 12345
-          ZAR: 12345
-        percentageFee: 12345
-        type: '...'
     EditionWS:
       description: Product edition
       type: object
@@ -887,80 +852,6 @@ components:
           length: 12345
           unit: '...'
         uuid: '...'
-    PriceWS:
-      description: Price information in different currencies
-      type:
-      - object
-      - 'null'
-      title: Price
-      properties:
-        AUD:
-          type: number
-        BRL:
-          type: number
-        CAD:
-          type: number
-        CHF:
-          type: number
-        CNY:
-          type: number
-        DKK:
-          type: number
-        EUR:
-          type: number
-        GBP:
-          type: number
-        GTQ:
-          type: number
-        INR:
-          type: number
-        JPY:
-          type: number
-        KRW:
-          type: number
-        MXN:
-          type: number
-        MYR:
-          type: number
-        NOK:
-          type: number
-        NZD:
-          type: number
-        PHP:
-          type: number
-        SAR:
-          type: number
-        SEK:
-          type: number
-        SGD:
-          type: number
-        USD:
-          type: number
-        ZAR:
-          type: number
-      example:
-        AUD: 12345
-        BRL: 12345
-        CAD: 12345
-        CHF: 12345
-        CNY: 12345
-        DKK: 12345
-        EUR: 12345
-        GBP: 12345
-        GTQ: 12345
-        INR: 12345
-        JPY: 12345
-        KRW: 12345
-        MXN: 12345
-        MYR: 12345
-        NOK: 12345
-        NZD: 12345
-        PHP: 12345
-        SAR: 12345
-        SEK: 12345
-        SGD: 12345
-        USD: 12345
-        ZAR: 12345
     PricingUnit:
       type: string
       title: PricingUnit
@@ -1735,6 +1626,115 @@ components:
       - VSBU
       - PAID_USER
       - REMOTE_SEAL_SIGNATURE
+    TerminationFeeWS:
+      description: Fee incurred during a termination of a product subscription
+      type:
+      - object
+      - 'null'
+      title: TerminationFee
+      properties:
+        description:
+          description: Description
+          type:
+          - string
+          - 'null'
+        flatFee:
+          $ref: '#/components/schemas/PriceWS'
+        percentageFee:
+          description: Percentage fee
+          type: number
+        type:
+          description: 'Type of termination fee: NONE, PERCENTAGE, FLAT_RATE'
+          type: string
+      example:
+        description: '...'
+        flatFee:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        percentageFee: 12345
+        type: '...'
+    ProductDiscountDetailsWS:
+      description: Discount detail on a product pricing
+      type:
+      - object
+      - 'null'
+      title: ProductDiscountDetails
+      properties:
+        amount:
+          $ref: '#/components/schemas/PriceWS'
+        availableRedemptions:
+          description: Number of time the discount can be used
+          type: number
+        description:
+          description: Description
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          description: Expiration date of the discount
+          type: number
+        numOfBillingCycles:
+          description: Number of billing cycle the discount is applicable
+          type: number
+        percentage:
+          description: Discount in percentage
+          type: number
+        pricingUnit:
+          $ref: '#/components/schemas/PricingUnit'
+        startDate:
+          description: Start date of the discount
+          type: number
+      example:
+        amount:
+          AUD: 12345
+          BRL: 12345
+          CAD: 12345
+          CHF: 12345
+          CNY: 12345
+          DKK: 12345
+          EUR: 12345
+          GBP: 12345
+          GTQ: 12345
+          INR: 12345
+          JPY: 12345
+          KRW: 12345
+          MXN: 12345
+          MYR: 12345
+          NOK: 12345
+          NZD: 12345
+          PHP: 12345
+          SAR: 12345
+          SEK: 12345
+          SGD: 12345
+          USD: 12345
+          ZAR: 12345
+        availableRedemptions: 12345
+        description: '...'
+        expirationDate: 12345
+        numOfBillingCycles: 12345
+        percentage: 12345
+        pricingUnit: TIER3_STANDARD_LINE
+        startDate: 12345
     EditionBulletWS:
       description: Bullet point to display for an edition
       type: object

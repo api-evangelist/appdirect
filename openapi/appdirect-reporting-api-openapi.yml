@@ -167,6 +167,35 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v1/report/%7Bid%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    ReportWS:
+      description: Single report information for Reporting API
+      type: object
+      title: Report
+      properties:
+        createdDate:
+          description: Report creation date
+          type: number
+        endDate:
+          description: Period end time of the report
+          type: number
+        filename:
+          description: Report file name
+          type: string
+        id:
+          description: Report ID
+          type: number
+        reportType:
+          $ref: '#/components/schemas/ReportType'
+        startDate:
+          description: Period start time of the report
+          type: number
+      example:
+        createdDate: 12345
+        endDate: 12345
+        filename: '...'
+        id: 12345
+        reportType: INVOICES_CSV
+        startDate: 12345
     ReportType:
       type: string
       title: ReportType
@@ -228,32 +257,3 @@ components:
           reportType: CUSTOMERS_CSV
           startDate: 12345
         totalCount: 12345
-    ReportWS:
-      description: Single report information for Reporting API
-      type: object
-      title: Report
-      properties:
-        createdDate:
-          description: Report creation date
-          type: number
-        endDate:
-          description: Period end time of the report
-          type: number
-        filename:
-          description: Report file name
-          type: string
-        id:
-          description: Report ID
-          type: number
-        reportType:
-          $ref: '#/components/schemas/ReportType'
-        startDate:
-          description: Period start time of the report
-          type: number
-      example:
-        createdDate: 12345
-        endDate: 12345
-        filename: '...'
-        id: 12345
-        reportType: INVOICES_CSV
-        startDate: 12345

@@ -189,6 +189,28 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/appReseller/v1/paymentMethods/%7BpaymentMethodId%7D\")\n  .delete(null)\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    UserAssociation:
+      title: AppResellerUserAssociation
+      type: object
+      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          description: User ID
+          type: string
+        firstName:
+          description: User first name
+          type: string
+        lastName:
+          description: User last name
+          type: string
+      example:
+        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
+        firstName: Michael
+        lastName: Jordan
     AppResellerPaymentMethodRequest:
       type: object
       title: AppResellerPaymentMethodRequest
@@ -232,6 +254,20 @@ components:
           country: US
           zip: '94203'
           state: CA
+    AppResellerPaymentMethodPagedReadResponse:
+      type: object
+      title: AppResellerPaymentMethodPagedReadResponse
+      description: List of payment methods
+      required:
+      - page
+      - content
+      properties:
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppResellerPaymentMethod'
     AppResellerPaymentMethod:
       type: object
       title: AppResellerPaymentMethod
@@ -264,42 +300,6 @@ components:
           $ref: '#/components/schemas/BillingAddress'
         owner:
           $ref: '#/components/schemas/UserAssociation'
-    AppResellerPaymentMethodPagedReadResponse:
-      type: object
-      title: AppResellerPaymentMethodPagedReadResponse
-      description: List of payment methods
-      required:
-      - page
-      - content
-      properties:
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppResellerPaymentMethod'
-    UserAssociation:
-      title: AppResellerUserAssociation
-      type: object
-      description: 'A minimum version of a user: includes only the user ID, first name, and last name'
-      required:
-      - id
-      - firstName
-      - lastName
-      properties:
-        id:
-          description: User ID
-          type: string
-        firstName:
-          description: User first name
-          type: string
-        lastName:
-          description: User last name
-          type: string
-      example:
-        id: 2c061df6-4313-45e0-8709-a0ca19b0aaa3
-        firstName: Michael
-        lastName: Jordan
     BillingAddress:
       title: BillingAddress
       type: object

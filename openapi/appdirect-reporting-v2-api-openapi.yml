@@ -150,6 +150,14 @@ paths:
         source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://marketplace.appdirect.com/api/reporting/v2/reports/%7BreportUuid%7D\")\n  .get()\n  .build();\n\nResponse response = client.newCall(request).execute();"
 components:
   schemas:
+    PagedResources:
+      allOf:
+      - $ref: '#/components/schemas/ResourceSupport'
+      - title: PagedResources
+        type: object
+        properties:
+          page:
+            $ref: '#/components/schemas/PageMetadata'
     ReportType:
       type: string
       title: ReportType
@@ -183,32 +191,19 @@ components:
       - TAXES
       - TRANSACTIONS
       - VOICE_CONN_CSV
-    PageMetadata:
-      type: object
-      title: PageMetadata
-      required:
-      - number
-      - size
-      - totalElements
-      - totalPages
+    Link:
+      type:
+      - object
+      - 'null'
+      title: Link
       properties:
-        number:
-          description: Page number
-          type: number
-        size:
-          description: Size of the page to be returned
-          type: number
-        totalElements:
-          description: Total number of elements
-          type: number
-        totalPages:
-          description: Total number of pages
-          type: number
+        href:
+          type: string
+        rel:
+          type: string
       example:
-        number: 12345
-        size: 12345
-        totalElements: 12345
-        totalPages: 12345
+        href: '...'
+        rel: '...'
     ResourceSupport:
       type:
       - object
@@ -227,14 +222,6 @@ components:
           rel: '...'
         - href: '...'
           rel: '...'
-    PagedResources:
-      allOf:
-      - $ref: '#/components/schemas/ResourceSupport'
-      - title: PagedResources
-        type: object
-        properties:
-          page:
-            $ref: '#/components/schemas/PageMetadata'
     ReportWS:
       description: Single report information for Reporting API
       type: object
@@ -264,19 +251,6 @@ components:
         id: 12345
         reportType: INVOICES_CSV
         startDate: 12345
-    Link:
-      type:
-      - object
-      - 'null'
-      title: Link
-      properties:
-        href:
-          type: string
-        rel:
-          type: string
-      example:
-        href: '...'
-        rel: '...'
     ReportListingWS:
       description: A list of reports
       type: object
@@ -315,3 +289,29 @@ components:
           totalElements: 1
           totalPages: 1
           number: 1
+    PageMetadata:
+      type: object
+      title: PageMetadata
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
+      properties:
+        number:
+          description: Page number
+          type: number
+        size:
+          description: Size of the page to be returned
+          type: number
+        totalElements:
+          description: Total number of elements
+          type: number
+        totalPages:
+          description: Total number of pages
+          type: number
+      example:
+        number: 12345
+        size: 12345
+        totalElements: 12345
+        totalPages: 12345

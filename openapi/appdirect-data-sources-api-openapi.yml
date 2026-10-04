@@ -718,379 +718,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    DataSourceRefreshPeriod:
-      type: string
-      description: How frequently the data source should be refreshed.
-      enum:
-      - NEVER
-      - DAILY
-      - WEEKLY
-      - MONTHLY
-    DataSourceKnowledgeStats:
-      type: object
-      properties:
-        doneCount:
-          type: integer
-        failedCount:
-          type: integer
-        pendingCount:
-          type: integer
-        indexingCount:
-          type: integer
-        totalCount:
-          type: integer
-    WebUrlDataSourceInput:
-      type: object
-      properties:
-        url:
-          type: string
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-        includeFiles:
-          type: boolean
-        includedFileTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebUrlFileType'
-        includeUrlGlobs:
-          type: array
-          items:
-            type: string
-        excludeUrlGlobs:
-          type: array
-          items:
-            type: string
-        maxPages:
-          type: integer
-        maxMemory:
-          type: integer
-        timeout:
-          type: integer
-      required:
-      - url
-      - dataRefreshPeriod
-      - includeFiles
-      - includedFileTypes
-    DeleteAIDataSourcesRequest:
-      type: object
-      properties:
-        dataSourceIds:
-          type: array
-          items:
-            type: string
-      required:
-      - dataSourceIds
-    CreateGithubKnowledgeRequest:
-      type: object
-      properties:
-        mode:
-          type: string
-          enum:
-          - repos
-          - all
-        gitHubAppInstallationId:
-          type: integer
-        repos:
-          type: array
-          items:
-            type: string
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-      required:
-      - mode
-      - gitHubAppInstallationId
-    WebUrlFileType:
-      type: string
-      enum:
-      - TEXT
-      - CSV
-      - PDF
-      - MARKDOWN
-      - DOC
-      - XLS
-    GetKnowledgeResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Knowledge'
-        pagination:
-          type: object
-          properties:
-            nextCursor:
-              type: string
-    VercelBlobUploadResponse:
-      type: object
-      properties:
-        url:
-          type: string
-        pathname:
-          type: string
-        contentType:
-          type: string
-        size:
-          type: integer
-      additionalProperties: true
-    UserSummary:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        name:
-          type:
-          - string
-          - 'null'
-    UpdateDataSourceRequest:
-      type: object
-      properties:
-        refreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-        cite:
-          type:
-          - boolean
-          - 'null'
-        ais:
-          type: array
-          items:
-            type: string
-        orgVisible:
-          type:
-          - boolean
-          - 'null'
-    UpdateKnowledgeRequest:
-      type: object
-      properties:
-        cite:
-          type: boolean
-      required:
-      - cite
-    AIReference:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        src:
-          type: string
-    CreateGoogleDriveKnowledgeRequest:
-      type: object
-      properties:
-        oauthTokenId:
-          type: string
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/GoogleDriveFile'
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-      required:
-      - files
-    CreateJiraKnowledgeRequest:
-      type: object
-      properties:
-        oauthTokenId:
-          type: string
-        projectName:
-          type: string
-        projectKey:
-          type: string
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-      required:
-      - oauthTokenId
-      - projectName
-      - projectKey
-    CreateAIDataSourceResponse:
-      type: object
-      properties:
-        aiId:
-          type: string
-        dataSourceId:
-          type: string
-      required:
-      - aiId
-      - dataSourceId
-    CreateOneDriveKnowledgeRequest:
-      type: object
-      properties:
-        oauthTokenId:
-          type: string
-        fileId:
-          type: string
-        filename:
-          type: string
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-      required:
-      - oauthTokenId
-      - fileId
-      - filename
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-    DataSourceIndexStatus:
-      type: string
-      description: The indexing status of the data source.
-      enum:
-      - INITIALIZED
-      - INDEXING
-      - REFRESHING
-      - PARTIALLY_COMPLETED
-      - COMPLETED
-      - FAILED
-      - DELETION_REQUESTED
-      - DELETED
-      - MISSING
-    PaginatedDataSourceWithAiDetailsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSourceWithAiDetails'
-        total:
-          type: integer
-    ListDataSourcesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSource'
-    GoogleDriveFile:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    KnowledgeIndexStatus:
-      type: string
-      enum:
-      - INITIALIZED
-      - RETRIEVING_CONTENT
-      - CONTENT_RETRIEVED
-      - DOCUMENTS_CREATED
-      - INDEXING
-      - PARTIALLY_COMPLETED
-      - COMPLETED
-      - FAILED
-      - DELETED
-    Knowledge:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/DataSourceType'
-        uniqueId:
-          type:
-          - string
-          - 'null'
-        parentUniqueId:
-          type:
-          - string
-          - 'null'
-        indexStatus:
-          $ref: '#/components/schemas/KnowledgeIndexStatus'
-        documentCount:
-          type:
-          - integer
-          - 'null'
-        tokenCount:
-          type:
-          - integer
-          - 'null'
-        originalContent:
-          $ref: '#/components/schemas/KnowledgeOriginalContent'
-        documentsBlobUrl:
-          type:
-          - string
-          - 'null'
-        indexPercentage:
-          type: string
-        metadata:
-          type:
-          - object
-          - 'null'
-        isBlobStorageDeleted:
-          type: boolean
-        cite:
-          type: boolean
-    KnowledgeOriginalContent:
-      type: object
-      properties:
-        contentBlobUrl:
-          type: string
-        filename:
-          type: string
-        mimeType:
-          type: string
-        isContentStoredExternally:
-          type: boolean
-        contentUrl:
-          type: string
-    CreateConfluenceKnowledgeRequest:
-      type: object
-      properties:
-        oauthTokenId:
-          type: string
-        pageId:
-          type: string
-        pageName:
-          type: string
-        contentType:
-          type: string
-        spaceId:
-          type: string
-        dataRefreshPeriod:
-          $ref: '#/components/schemas/DataSourceRefreshPeriod'
-        indexChildPages:
-          type: boolean
-        indexDriveFiles:
-          type: boolean
-        indexAttachments:
-          type: boolean
-        selectedDriveAccount:
-          type: string
-        archive:
-          type: boolean
-        allSpaces:
-          type: boolean
-      required:
-      - oauthTokenId
-      - pageName
-    DataSourceWithAiDetails:
-      allOf:
-      - $ref: '#/components/schemas/DataSource'
-      - type: object
-        properties:
-          ais:
-            type: array
-            items:
-              $ref: '#/components/schemas/AIReference'
-          ownerUser:
-            $ref: '#/components/schemas/UserSummary'
-    DataSourceType:
-      type: string
-      description: The type of the data source.
-      enum:
-      - API
-      - FILE_UPLOAD
-      - GOOGLE_DRIVE
-      - ONEDRIVE
-      - WEB_URL
-      - CONFLUENCE
-      - JIRA
-      - GITHUB
     DataSource:
       type: object
       properties:
@@ -1140,6 +767,379 @@ components:
         orgVisible:
           type: boolean
           description: Whether this data source is visible to the organization.
+    WebUrlFileType:
+      type: string
+      enum:
+      - TEXT
+      - CSV
+      - PDF
+      - MARKDOWN
+      - DOC
+      - XLS
+    GetKnowledgeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Knowledge'
+        pagination:
+          type: object
+          properties:
+            nextCursor:
+              type: string
+    UpdateKnowledgeRequest:
+      type: object
+      properties:
+        cite:
+          type: boolean
+      required:
+      - cite
+    AIReference:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        src:
+          type: string
+    CreateGoogleDriveKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleDriveFile'
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - files
+    CreateOneDriveKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        fileId:
+          type: string
+        filename:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - oauthTokenId
+      - fileId
+      - filename
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    KnowledgeOriginalContent:
+      type: object
+      properties:
+        contentBlobUrl:
+          type: string
+        filename:
+          type: string
+        mimeType:
+          type: string
+        isContentStoredExternally:
+          type: boolean
+        contentUrl:
+          type: string
+    ListDataSourcesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+    WebUrlDataSourceInput:
+      type: object
+      properties:
+        url:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        includeFiles:
+          type: boolean
+        includedFileTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebUrlFileType'
+        includeUrlGlobs:
+          type: array
+          items:
+            type: string
+        excludeUrlGlobs:
+          type: array
+          items:
+            type: string
+        maxPages:
+          type: integer
+        maxMemory:
+          type: integer
+        timeout:
+          type: integer
+      required:
+      - url
+      - dataRefreshPeriod
+      - includeFiles
+      - includedFileTypes
+    GoogleDriveFile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    DataSourceKnowledgeStats:
+      type: object
+      properties:
+        doneCount:
+          type: integer
+        failedCount:
+          type: integer
+        pendingCount:
+          type: integer
+        indexingCount:
+          type: integer
+        totalCount:
+          type: integer
+    CreateJiraKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        projectName:
+          type: string
+        projectKey:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - oauthTokenId
+      - projectName
+      - projectKey
+    CreateGithubKnowledgeRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+          - repos
+          - all
+        gitHubAppInstallationId:
+          type: integer
+        repos:
+          type: array
+          items:
+            type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+      required:
+      - mode
+      - gitHubAppInstallationId
+    CreateConfluenceKnowledgeRequest:
+      type: object
+      properties:
+        oauthTokenId:
+          type: string
+        pageId:
+          type: string
+        pageName:
+          type: string
+        contentType:
+          type: string
+        spaceId:
+          type: string
+        dataRefreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        indexChildPages:
+          type: boolean
+        indexDriveFiles:
+          type: boolean
+        indexAttachments:
+          type: boolean
+        selectedDriveAccount:
+          type: string
+        archive:
+          type: boolean
+        allSpaces:
+          type: boolean
+      required:
+      - oauthTokenId
+      - pageName
+    DeleteAIDataSourcesRequest:
+      type: object
+      properties:
+        dataSourceIds:
+          type: array
+          items:
+            type: string
+      required:
+      - dataSourceIds
+    DataSourceWithAiDetails:
+      allOf:
+      - $ref: '#/components/schemas/DataSource'
+      - type: object
+        properties:
+          ais:
+            type: array
+            items:
+              $ref: '#/components/schemas/AIReference'
+          ownerUser:
+            $ref: '#/components/schemas/UserSummary'
+    PaginatedDataSourceWithAiDetailsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSourceWithAiDetails'
+        total:
+          type: integer
+    VercelBlobUploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        pathname:
+          type: string
+        contentType:
+          type: string
+        size:
+          type: integer
+      additionalProperties: true
+    Knowledge:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        uniqueId:
+          type:
+          - string
+          - 'null'
+        parentUniqueId:
+          type:
+          - string
+          - 'null'
+        indexStatus:
+          $ref: '#/components/schemas/KnowledgeIndexStatus'
+        documentCount:
+          type:
+          - integer
+          - 'null'
+        tokenCount:
+          type:
+          - integer
+          - 'null'
+        originalContent:
+          $ref: '#/components/schemas/KnowledgeOriginalContent'
+        documentsBlobUrl:
+          type:
+          - string
+          - 'null'
+        indexPercentage:
+          type: string
+        metadata:
+          type:
+          - object
+          - 'null'
+        isBlobStorageDeleted:
+          type: boolean
+        cite:
+          type: boolean
+    CreateAIDataSourceResponse:
+      type: object
+      properties:
+        aiId:
+          type: string
+        dataSourceId:
+          type: string
+      required:
+      - aiId
+      - dataSourceId
+    KnowledgeIndexStatus:
+      type: string
+      enum:
+      - INITIALIZED
+      - RETRIEVING_CONTENT
+      - CONTENT_RETRIEVED
+      - DOCUMENTS_CREATED
+      - INDEXING
+      - PARTIALLY_COMPLETED
+      - COMPLETED
+      - FAILED
+      - DELETED
+    UpdateDataSourceRequest:
+      type: object
+      properties:
+        refreshPeriod:
+          $ref: '#/components/schemas/DataSourceRefreshPeriod'
+        cite:
+          type:
+          - boolean
+          - 'null'
+        ais:
+          type: array
+          items:
+            type: string
+        orgVisible:
+          type:
+          - boolean
+          - 'null'
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+    DataSourceRefreshPeriod:
+      type: string
+      description: How frequently the data source should be refreshed.
+      enum:
+      - NEVER
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+    DataSourceType:
+      type: string
+      description: The type of the data source.
+      enum:
+      - API
+      - FILE_UPLOAD
+      - GOOGLE_DRIVE
+      - ONEDRIVE
+      - WEB_URL
+      - CONFLUENCE
+      - JIRA
+      - GITHUB
+    DataSourceIndexStatus:
+      type: string
+      description: The indexing status of the data source.
+      enum:
+      - INITIALIZED
+      - INDEXING
+      - REFRESHING
+      - PARTIALLY_COMPLETED
+      - COMPLETED
+      - FAILED
+      - DELETION_REQUESTED
+      - DELETED
+      - MISSING
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
